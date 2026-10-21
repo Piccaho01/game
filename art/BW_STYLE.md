@@ -85,3 +85,25 @@ Measurements come from `pixel-art-studio/scripts/study.py` and direct pixel coun
 6. Check every stage against the references at the same scale (comparison sheet) and
    show it to the owner before moving on.
 7. Animation (BW2-style idle loop) only after the still is approved.
+
+## Lessons from the first approved creature (Kilnlotl)
+What worked, in order of how much it mattered. Start the next creature from
+`creatures/kilnlotl.px.js` and keep these:
+1. **Concept with a hook and a story** tied to Verrow (glassblower axolotl from Emberwick),
+   and a battle pose that *acts* (blowing a bubble like a blowgun shot), not a pose that
+   holds a prop.
+2. **Silhouette as one traced contour** for the body; every other part overlaps deep into
+   what it attaches to. Stacking separate primitives makes parts look like they float.
+3. **Starter size**: ~50 px tall on the 96x96 canvas (about 2/3 of a final stage).
+4. **Limbs at true scale**: legs are a round thigh, a short shin and a flat foot; both legs
+   as thick as each other. Small limbs (arms, hands) are hand-placed pixel grids at least
+   5 px thick. Scaling polygons down turns them into stalks.
+5. **Weight reads from the legs**: the loaded leg bends at the knee over a flat foot, the
+   other stretches out on its toes.
+6. **Eyes look at the target**, never at the viewer: pupils against the front of the eye.
+7. **Light sources are emissive**: glows (belly furnace, molten glass) skip shading and
+   bloom onto the skin around them, otherwise they read as stones stuck on.
+8. **Soft joins** where same-material parts meet (dark-red line, lit top edge), black only
+   for real overlaps and the shadow-side outline.
+9. **Idle animation** is generated from the same pose: a 1 px breath on the head side,
+   flame flicker that is zero at frame 0, glow pulses. Frame 0 is the approved still.

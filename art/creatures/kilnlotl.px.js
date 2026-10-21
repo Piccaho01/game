@@ -4,9 +4,9 @@
 // molten glass bubble from its pursed lips and cradling it in its far hand, tail raised as
 // a counterweight.
 //
-// Stage 1: silhouette (kilnlotl_sil). Stage 2: flat colours (kilnlotl_flats). Stage 3:
-// shading (kilnlotl). Process and rules:
-// art/BW_STYLE.md. Every part is a hand-placed polygon in design space, overlapping the part
+// Stages: silhouette (kilnlotl_sil), flat colours (kilnlotl_flats), shading
+// (kilnlotl_shaded), final still (kilnlotl), BW2-style idle loop (kilnlotl_idle). Process and
+// rules: art/BW_STYLE.md. Every part is a hand-placed polygon in design space, overlapping the part
 // it attaches to so nothing floats; T scales design space down to starter size.
 
 pal({
@@ -26,7 +26,12 @@ const T = (pts) => pts.map((v, i) => Math.round((i % 2 ? 91 - (91 - v) * K : 48 
 // blowgun shot. H moves head-side shapes, B rotates torso-side shapes about the hips.
 const HEAD_DX = -3.5, HEAD_DY = 1.75           // = (-2, +1) output pixels
 const LEAN = 7 * Math.PI / 180, HIP = [50, 77]
-const H = (pts) => pts.map((v, i) => v + (i % 2 ? HEAD_DY : HEAD_DX))
+// bob: breathing, in output pixels (the head side dips while the hips stay planted)
+const Hb = (bob) => (pts) => pts.map((v, i) => v + (i % 2 ? HEAD_DY + bob / K : HEAD_DX))
+const H = Hb(0)
+// flame flicker: vertical wobble per vertex, zero at phase 0 so frame 0 is the still
+const flick = (pts, ph, amp, seed = 0) => pts.map((v, i) =>
+  i % 2 ? v + amp * (Math.sin(2 * Math.PI * ph + seed + i * 0.9) - Math.sin(seed + i * 0.9)) : v)
 const B = (pts) => pts.flatMap((v, i) => {
   if (i % 2) return []
   const dx = v - HIP[0], dy = pts[i + 1] - HIP[1]
@@ -49,12 +54,14 @@ const TORSO_TAIL = [
 ]
 const THROAT = [15, 44, 21, 47, 26, 49, 32, 50, 37, 52, 46, 52, 50, 50, 40, 47, 28, 45, 17, 42]
 const BELLY = [38, 50, 48, 50, 52, 56, 54, 66, 50, 77, 40, 74, 36, 67, 37, 56]
-const FAR_GILLS = [[26, 30, 18, 18, 22, 22, 20, 12, 27, 20, 30, 26], [24, 33, 12, 26, 18, 25, 26, 29]]
 const NEAR_GILLS = [
   [48, 26, 52, 18, 54, 10, 58, 14, 60, 3, 64, 12, 69, 6, 67, 19, 60, 30, 52, 30],
   [56, 30, 64, 25, 70, 19, 73, 23, 81, 14, 80, 24, 89, 22, 80, 32, 68, 37, 58, 38],
   [58, 36, 68, 37, 78, 35, 77, 39, 87, 41, 78, 45, 82, 50, 70, 46, 60, 44],
 ]
+// far gills: the near cluster mirrored to the other side of the head and scaled down
+// (turned away), so both sides carry the same three flame fronds
+const FAR_GILLS = NEAR_GILLS.map((p) => p.map((v, i) => (i % 2 ? 24 + (v - 27) * 0.72 : 33 + (78 - v - 33) * 0.72)))
 // legs, starter-style: round thigh at the hip, short shin, flat foot with the toes forward.
 // The near leg plants forward-left and takes the weight (knee bent over the foot); the far
 // leg stretches out behind, up on its toes.
@@ -70,7 +77,6 @@ const NEAR_LEG = [
 ]
 // far arm from the shoulder, forward and down to a hand cupped under the bubble
 const ARM = [38, 61, 30, 63, 22, 64, 14, 66, 8, 66, 3, 63, 1, 58, 4, 58, 7, 62, 12, 62, 18, 59, 26, 56, 33, 54, 38, 54]
-  .flatMap((v, i, a) => (i % 2 ? [] : a[i] <= 26 ? H([a[i], a[i + 1]]) : B([a[i], a[i + 1]])))
 
 // a leg piece is a polygon {p} or an ellipse {e: [cx, cy, rx, ry]} in design space
 const shape = (q, f = (p) => p) => (q.p ? { s: T(f(q.p)) } : { ell: [...T(f(q.e.slice(0, 2))), q.e[2] * K, q.e[3] * K] })
@@ -83,8 +89,11 @@ const shape = (q, f = (p) => p) => (q.p ? { s: T(f(q.p)) } : { ell: [...T(f(q.e.
 //   top: n        lit top edge, n px deep (flame tips, top of the far arm)
 //   core: shape   hot core (glass), glint: [x, y] white specular pixels (design space)
 //   cast: true    the part casts a shadow down-right onto the parts behind it
-const parts = [
-  ...FAR_GILLS.map((p) => ({ g: "farGill", s: T(H(p)), c: "R" })),
+function makeParts({ bob = 0, ph = 0 } = {}) {
+  const H = Hb(bob), arm = ARM.flatMap((v, i, a) => (i % 2 ? [] : a[i] <= 26 ? H([a[i], a[i + 1]]) : B([a[i], a[i + 1]])))
+  const pulse = Math.sin(2 * Math.PI * ph)
+  return [
+  ...FAR_GILLS.map((p, i) => ({ g: "farGill" + i, s: T(H(flick(p, ph, 1.2, i + 3))), c: "R", top: 1 })),
   ...FAR_LEG.map((q) => ({ g: "farLeg", ...shape(q), c: "S", sh: [1, 1] })),
   // belly furnace: the ember core glows through thin skin (emissive tones: never shaded),
   // a pale bloom on the cream, an uneven orange glow, a flame-shaped hot centre
@@ -93,22 +102,24 @@ const parts = [
            [{ ell: [...T(B([46, 62])), 8.5 * K, 9.5 * K] }, "Y", true],
            [T(B([40, 61, 42, 56, 46, 54, 50, 55, 52, 60, 52, 66, 49, 70, 44, 70, 41, 66])), "o", true],
            [T(B([42, 68, 43, 63, 45, 65, 46, 57, 48, 63, 50, 61, 50, 68, 46, 70])), "y", true],
-           [T(B([44, 68, 45, 64, 46, 62, 47, 64, 48, 68])), "Y", true]],
+           [T(B(flick([44, 68, 45, 64, 46, 62, 47, 64, 48, 68], ph, 1.2, 1))), "Y", true]],
     hl: { s: T(B([66, 60, 76, 54, 84, 46, 87, 41, 84, 51, 76, 59, 68, 64])) } },
   // fire on the tail tip, leaning back with the tail
-  { g: "tailFire", s: T(B([86, 42, 84, 35, 87, 37, 87, 29, 90, 33, 92, 24, 94, 31, 97, 28, 96, 36, 98, 40, 95, 44])),
+  { g: "tailFire", s: T(B(flick([86, 42, 84, 35, 87, 37, 87, 29, 90, 33, 92, 24, 94, 31, 97, 28, 96, 36, 98, 40, 95, 44], ph, 1.6, 2))),
     c: "o", sh: [1, 1],
-    tone: [[T(B([88, 42, 87, 37, 89, 38, 90, 32, 92, 36, 94, 31, 94, 38, 95, 42])), "y"],
+    tone: [[T(B(flick([88, 42, 87, 37, 89, 38, 90, 32, 92, 36, 94, 31, 94, 38, 95, 42], ph, 1.6, 2))), "y"],
            [T(B([89, 43, 90, 39, 92, 37, 93, 40, 93, 43])), "Y"]] },
   ...NEAR_LEG.map((q) => ({ g: "nearLeg", ...shape(q), c: "s", sh: [2, 1], cast: true, soft: true, top: q.e ? 1 : 0 })),
   { g: "head", s: T(H(HEAD)), c: "s", tone: [[T(H(THROAT)), "c"]], sh: [2, 2], cast: true,
     hl: { s: T(H([22, 27, 27, 23, 34, 21, 40, 21, 35, 23, 29, 26, 25, 30])) } },
-  ...NEAR_GILLS.map((p, i) => ({ g: "gill" + i, s: T(H(p)), c: "o", sh: [1, 1], top: 2, cast: true })),
-  { g: "arm", s: T(ARM), c: "S", sh: [1, 1], top: 1, cast: true },
+  ...NEAR_GILLS.map((p, i) => ({ g: "gill" + i, s: T(H(flick(p, ph, 1.6, i))), c: "o", sh: [1, 1], top: 2, cast: true })),
+  { g: "arm", s: T(arm), c: "S", sh: [1, 1], top: 1, cast: true },
   { g: "glass", s: T(H([17, 40, 16, 45, 12, 46, 12, 41])), c: "y" },
-  { g: "glass", circle: [T(H([7, 49.5])), 11 * K], c: "y", sh: [3, 3], rim: [1, 1],
-    core: { circle: [T(H([4, 46.5])), 5 * K] }, glint: [H([1, 43.5]), H([2, 42.5])] },
-]
+  { g: "glass", circle: [T(H([7, 49.5])), (11 + 0.6 * pulse) * K], c: "y", sh: [3, 3], rim: [1, 1],
+    core: { circle: [T(H([4, 46.5])), (5 + 0.8 * pulse) * K] }, glint: [H([1, 43.5]), H([2, 42.5])] },
+  ]
+}
+const parts = makeParts()
 const SHADOW = { s: "S", c: "C", S: "D", o: "R", y: "o", R: "D", L: "s", Y: "y" }
 const SELOUT = { s: "D", L: "D", S: "D", c: "D", C: "D", o: "R", y: "R", Y: "o", R: "D" }
 const LIGHT = { s: "L", S: "s", o: "y", y: "Y", c: "c", R: "o" }
@@ -127,7 +138,7 @@ const inPart = (p, x, y) => p.circle
   : p.ell ? ((x + 0.5 - p.ell[0]) / p.ell[2]) ** 2 + ((y + 0.5 - p.ell[1]) / p.ell[3]) ** 2 <= 1
   : inPoly(p.s, x, y)
 
-function render(c, { lines, shading }) {
+function render(c, { lines, shading }, parts = makeParts()) {
   const N = 96, own = new Int16Array(N * N).fill(-1), col = new Array(N * N).fill(null)
   parts.forEach((p, i) => {
     const inP = (x, y) => inPart(p, x, y)
@@ -185,29 +196,30 @@ sprite("kilnlotl_flats", { w: 96, h: 96 }, (c) => render(c, { lines: true }))
 // Stage 3: shading
 sprite("kilnlotl_shaded", { w: 96, h: 96 }, (c) => render(c, { lines: true, shading: true }))
 
-// Stages 4-5: selective outline, then hand-placed details in output pixels
-sprite("kilnlotl", { w: 96, h: 96 }, (c) => render(c, { lines: "sel", shading: true }),
+// Stages 4-5: selective outline, then hand-placed details in output pixels. Head-side
+// details ride the breathing bob; the near arm, legs and toes stay planted.
+function details(c, bob = 0) {
   // near eye, Fire style: thick lid lowered into a focused squint, flicking up at the outer
   // corner; pupil hard against the front of the eye, locked on the target
-  grid(38, 56, `
+  c.grid(38, 56 + bob, `
     ......k
     .kkkkkk
     kkkwyyk
     kkkyyyk
     kkoooo.
-    .kkkkk.`.replace(/\.$/m, "k")),
+    .kkkkk.`.replace(/\.$/m, "k"))
   // far eye: the same eye turned away (narrower, same height), looking the same way
-  grid(32, 57, `
+  c.grid(32, 57 + bob, `
     k...
     kkkk
     kkwk
     kkyk
     kook
-    .kk.`),
+    .kk.`)
   // near arm, hand-placed (at this size an arm needs a clean 5 px-wide shape): hanging
   // straight down the side from under the jaw, elbow slightly bent, full fist clenched at
   // the hip, clear of the belly glow
-  grid(53, 65, `
+  c.grid(53, 65, `
     ..kkkkk..
     .kLsssSk.
     .kLsssSk.
@@ -222,26 +234,39 @@ sprite("kilnlotl", { w: 96, h: 96 }, (c) => render(c, { lines: "sel", shading: t
     kLsssSSSk
     kLkskSSk.
     ksSsSSk..
-    .kkkkk...`),
+    .kkkkk...`)
   // near cheek puffed out with the breath
-  grid(36, 62, `
+  c.grid(36, 62 + bob, `
     .LLL.
     LLLLs
-    .sss.`),
+    .sss.`)
   // pursed lips wrapped around the glass neck
-  grid(28, 62, `
+  c.grid(28, 62 + bob, `
     kD
     Ls
     Ls
-    kD`),
+    kD`)
   // far hand cupped under the bubble, three fingertips curled over its front
-  grid(19, 72, `
+  c.grid(19, 72 + bob, `
     ..kk.kk.kk..
     .kSskSskSsk.
     .kSSkSSkSSkk
     ..kkSSSSSSSS
-    ....kkkkkkkk`),
+    ....kkkkkkkk`)
   // toes split by short lines
-  vline(38, 89, 2, "k"), vline(41, 89, 2, "k"),
-  vline(63, 89, 2, "k"), vline(66, 88, 2, "k"),
-)
+  c.vline(38, 89, 2, "k"); c.vline(41, 89, 2, "k")
+  c.vline(63, 89, 2, "k"); c.vline(66, 88, 2, "k")
+}
+
+function frame(c, { bob = 0, ph = 0 } = {}) {
+  render(c, { lines: "sel", shading: true }, makeParts({ bob, ph }))
+  details(c, bob)
+}
+
+// Final still
+sprite("kilnlotl", { w: 96, h: 96 }, (c) => frame(c))
+
+// BW2-style idle loop: slow breath (head side dips 1 px), gills and tail fire flicker,
+// bubble and belly furnace pulse. 12 frames at 10 fps; frame 0 is the still.
+const BREATH = [0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0]
+anim("kilnlotl_idle", { w: 96, h: 96, frames: 12, fps: 10 }, (c) => frame(c, { bob: BREATH[c.frame], ph: c.phase }))
