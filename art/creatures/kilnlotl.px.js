@@ -22,6 +22,17 @@ pal({
 const K = 0.58
 const T = (pts) => pts.map((v, i) => Math.round((i % 2 ? 91 - (91 - v) * K : 48 + (v - 46) * K) * 2) / 2)
 
+// ---- pose: the torso leans back from the hips while the head thrusts forward, like a
+// blowgun shot. H moves head-side shapes, B rotates torso-side shapes about the hips.
+const HEAD_DX = -3.5, HEAD_DY = 1.75           // = (-2, +1) output pixels
+const LEAN = 7 * Math.PI / 180, HIP = [50, 77]
+const H = (pts) => pts.map((v, i) => v + (i % 2 ? HEAD_DY : HEAD_DX))
+const B = (pts) => pts.flatMap((v, i) => {
+  if (i % 2) return []
+  const dx = v - HIP[0], dy = pts[i + 1] - HIP[1]
+  return [HIP[0] + dx * Math.cos(LEAN) - dy * Math.sin(LEAN), HIP[1] + dx * Math.sin(LEAN) + dy * Math.cos(LEAN)]
+})
+
 // ---- design-space shapes
 const HEAD = [
   // top, back of head, jaw line, chin, lips pursed forward to blow, snout, forehead
@@ -44,21 +55,22 @@ const NEAR_GILLS = [
   [56, 30, 64, 25, 70, 19, 73, 23, 81, 14, 80, 24, 89, 22, 80, 32, 68, 37, 58, 38],
   [58, 36, 68, 37, 78, 35, 77, 39, 87, 41, 78, 45, 82, 50, 70, 46, 60, 44],
 ]
-// legs, starter-style in a wide stance: round thigh at the hip, short straight shin, flat
-// foot with the toes forward. The far leg steps forward-left under the bubble; the near leg
-// braces back-right, in front of the hip.
+// legs, starter-style: round thigh at the hip, short shin, flat foot with the toes forward.
+// The near leg plants forward-left and takes the weight (knee bent over the foot); the far
+// leg stretches out behind, up on its toes.
 const FAR_LEG = [
-  { e: [42, 74, 7, 6.5] },                                    // thigh (mostly behind the belly)
-  { p: [32, 78, 42, 78, 41, 86, 31, 86] },                    // shin
-  { p: [23, 91, 24, 88, 29, 86, 41, 86, 43, 89, 43, 91] },    // foot
+  { e: [61, 72, 7, 6.5] },                                    // thigh (mostly behind the hip)
+  { p: [60, 74, 67, 72, 78, 84, 72, 87] },                    // shin, stretched back
+  { p: [68, 91, 69, 88, 74, 86, 78, 83, 81, 85, 78, 91] },    // foot, heel lifted
 ]
 const NEAR_LEG = [
-  { p: [56, 79, 65, 79, 69, 87, 59, 87] },                    // shin, angled back
-  { e: [58, 75, 8.5, 7] },                                    // thigh, over the top of the shin
-  { p: [55, 91, 56, 88, 61, 86, 70, 86, 73, 89, 73, 91] },    // foot
+  { p: [31, 77, 40, 77, 43, 86, 34, 86] },                    // shin, knee forward
+  { e: [43, 76, 8.5, 6.5] },                                  // thigh, loaded with the weight
+  { p: [25, 91, 26, 88, 31, 86, 44, 86, 46, 89, 46, 91] },    // foot, planted flat
 ]
 // far arm from the shoulder, forward and down to a hand cupped under the bubble
 const ARM = [38, 61, 30, 63, 22, 64, 14, 66, 8, 66, 3, 63, 1, 58, 4, 58, 7, 62, 12, 62, 18, 59, 26, 56, 33, 54, 38, 54]
+  .flatMap((v, i, a) => (i % 2 ? [] : a[i] <= 26 ? H([a[i], a[i + 1]]) : B([a[i], a[i + 1]])))
 
 // a leg piece is a polygon {p} or an ellipse {e: [cx, cy, rx, ry]} in design space
 const shape = (q) => (q.p ? { s: T(q.p) } : { ell: [...T(q.e.slice(0, 2)), q.e[2] * K, q.e[3] * K] })
@@ -72,24 +84,24 @@ const shape = (q) => (q.p ? { s: T(q.p) } : { ell: [...T(q.e.slice(0, 2)), q.e[2
 //   core: shape   hot core (glass), glint: [x, y] white specular pixels (design space)
 //   cast: true    the part casts a shadow down-right onto the parts behind it
 const parts = [
-  ...FAR_GILLS.map((p) => ({ g: "farGill", s: T(p), c: "R" })),
+  ...FAR_GILLS.map((p) => ({ g: "farGill", s: T(H(p)), c: "R" })),
   ...FAR_LEG.map((q) => ({ g: "farLeg", ...shape(q), c: "S", sh: [1, 1] })),
-  { g: "torso", s: T(TORSO_TAIL), c: "s", tone: [[T(BELLY), "c"]], sh: [2, 2],
-    hl: { s: T([66, 60, 76, 54, 84, 46, 87, 41, 84, 51, 76, 59, 68, 64]) } },
+  { g: "torso", s: T(B(TORSO_TAIL)), c: "s", tone: [[T(B(BELLY)), "c"]], sh: [2, 2],
+    hl: { s: T(B([66, 60, 76, 54, 84, 46, 87, 41, 84, 51, 76, 59, 68, 64])) } },
   // belly window: fired-clay rim, dark kiln interior, a flame burning inside, glint on the glass
-  { g: "window", circle: [T([45, 64]), 8 * K], c: "C", sh: [1, 1],
-    tone: [[{ circle: [T([45, 64]), 5.6 * K] }, "m"],
-           [{ s: T([41, 70, 42, 65, 44, 67, 45, 61, 47, 66, 49, 64, 49, 70]) }, "o"],
-           [{ s: T([43, 70, 44, 67, 45, 65, 46, 67, 47, 70]) }, "y"]],
-    glint: [[42, 61], [43, 60]] },
+  { g: "window", circle: [T(B([46, 61])), 8 * K], c: "C", sh: [1, 1],
+    tone: [[{ circle: [T(B([46, 61])), 5.6 * K] }, "m"],
+           [{ s: T(B([42, 67, 43, 62, 45, 64, 46, 58, 48, 63, 50, 61, 50, 67])) }, "o"],
+           [{ s: T(B([44, 67, 45, 64, 46, 62, 47, 64, 48, 67])) }, "y"]],
+    glint: [B([43, 58]), B([44, 57])] },
   ...NEAR_LEG.map((q) => ({ g: "nearLeg", ...shape(q), c: "s", sh: [2, 1], cast: true })),
-  { g: "head", s: T(HEAD), c: "s", tone: [[T(THROAT), "c"]], sh: [2, 2], cast: true,
-    hl: { s: T([22, 27, 27, 23, 34, 21, 40, 21, 35, 23, 29, 26, 25, 30]) } },
-  ...NEAR_GILLS.map((p, i) => ({ g: "gill" + i, s: T(p), c: "o", sh: [1, 1], top: 2, cast: true })),
+  { g: "head", s: T(H(HEAD)), c: "s", tone: [[T(H(THROAT)), "c"]], sh: [2, 2], cast: true,
+    hl: { s: T(H([22, 27, 27, 23, 34, 21, 40, 21, 35, 23, 29, 26, 25, 30])) } },
+  ...NEAR_GILLS.map((p, i) => ({ g: "gill" + i, s: T(H(p)), c: "o", sh: [1, 1], top: 2, cast: true })),
   { g: "arm", s: T(ARM), c: "S", sh: [1, 1], top: 1, cast: true },
-  { g: "glass", s: T([17, 41, 15, 47, 11, 48, 12, 42]), c: "y" },
-  { g: "glass", circle: [T([7, 53]), 11 * K], c: "y", sh: [3, 3], rim: [1, 1],
-    core: { circle: [T([4, 50]), 5 * K] }, glint: [[1, 47], [2, 46]] },
+  { g: "glass", s: T(H([17, 41, 15, 47, 11, 48, 12, 42])), c: "y" },
+  { g: "glass", circle: [T(H([7, 53])), 11 * K], c: "y", sh: [3, 3], rim: [1, 1],
+    core: { circle: [T(H([4, 50])), 5 * K] }, glint: [H([1, 47]), H([2, 46])] },
 ]
 const SHADOW = { s: "S", c: "C", S: "D", o: "R", y: "o", R: "D", L: "s", Y: "y" }
 const SELOUT = { s: "D", L: "D", S: "D", c: "D", C: "D", o: "R", y: "R", Y: "o", R: "D" }
@@ -169,7 +181,7 @@ sprite("kilnlotl_shaded", { w: 96, h: 96 }, (c) => render(c, { lines: true, shad
 sprite("kilnlotl", { w: 96, h: 96 }, (c) => render(c, { lines: "sel", shading: true }),
   // near eye, Fire style: thick top lid flicking up at the outer corner, amber iris
   // fading to orange, slit pupil, glint
-  grid(41, 55, `
+  grid(39, 56, `
     ....kk
     .kkkk.
     kwykyk
@@ -177,7 +189,7 @@ sprite("kilnlotl", { w: 96, h: 96 }, (c) => render(c, { lines: "sel", shading: t
     koooak
     .kkkk.`.replace("a", "o")),
   // far eye: the same eye turned away (narrower, same height)
-  grid(34, 56, `
+  grid(32, 57, `
     kk..
     .kkk
     kwkk
@@ -185,24 +197,24 @@ sprite("kilnlotl", { w: 96, h: 96 }, (c) => render(c, { lines: "sel", shading: t
     kook
     .kk.`),
   // near cheek puffed out with the breath
-  grid(38, 61, `
+  grid(36, 62, `
     .LLL.
     LLLLs
     .sss.`),
   // pursed lips wrapped around the glass neck
-  grid(30, 61, `
+  grid(28, 62, `
     kD
     Ls
     Ls
     kD`),
   // far hand cupped under the bubble, three fingertips curled over its front
-  grid(21, 71, `
+  grid(19, 72, `
     ..kk.kk.kk..
     .kSskSskSsk.
     .kSSkSSkSSkk
     ..kkSSSSSSSS
     ....kkkkkkkk`),
   // toes split by short lines
-  vline(36, 88, 2, "k"), vline(39, 88, 2, "k"),
-  vline(56, 88, 2, "k"), vline(59, 88, 2, "k"),
+  vline(38, 89, 2, "k"), vline(41, 89, 2, "k"),
+  vline(63, 89, 2, "k"), vline(65, 88, 2, "k"),
 )
