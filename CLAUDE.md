@@ -16,7 +16,7 @@ A BW2-style creature-collecting RPG where four best friends get trapped inside t
 ## 3. Platform and Tech
 - Built in Claude Code. Eventually playable by the friend group (phone-friendly if possible).
 - Keep systems data-driven (JSON/config for creatures, moves, types, dialogue) so balance and content can be tweaked without code rewrites.
-- Decide engine/stack at the start of the build and document it here.
+- **Engine (decided):** browser game in **TypeScript + Phaser 3**. The friends play from a link on their phones or computers with nothing to install; touch controls first. Sprites come from claude-pxl as PNG strips + JSON, which Phaser loads directly.
 
 ## 4. Art Direction
 - **Look:** Nintendo DS, **Pokémon Black/White 2 style specifically**, 2.5D feel. ALL sprites (creatures, characters, NPCs, overworld) must match the BW2 look: its pixel density, shading, outlines and palette feel. Not a generic pixel-art style, and not Gen 1–4 or modern 3D.
@@ -24,12 +24,15 @@ A BW2-style creature-collecting RPG where four best friends get trapped inside t
 - **Quality bar:** detailed, original creatures with a unique overall style. Each type gets its own distinct eyes and mouth style, not a shared face template.
 - **Evolution:** hand-designed sprites per stage (no swappable-parts system).
 - **Process:** all sprites are made with **claude-pxl** (pixel-art-as-code tool). Do not hand-roll sprite generation or guess pixel placement. Define sprites as code on the 96x96 grid with a fixed 15-colour palette per creature. Reference sprites may be supplied by the owner as silhouette guides.
-- **Art is the main risk.** Prior attempts looked bad. Validate the sprite pipeline on 1 creature before building more.
+- **Pitch first:** before drawing any creature (or evolution stage), pitch the concept to the owner (name, type, look, story hook, battle pose, signature move) and get approval. Never commit to a design unpitched.
+- **Art is the main risk.** The pipeline is validated on **Furnaxol** (`art/creatures/furnaxol.px.js`, the reference creature); start new creatures from it and from the lessons in `art/BW_STYLE.md`.
 
 ## 5. Premise
 Four close friends are chilling, realizing they have no direction. Callum says his AI can cook up a plan. It builds a creature-collecting world. The supercomputer then explodes, and the world becomes a real universe with the four stuck inside it, with real politics, ecology and history nobody wrote on purpose.
 
 The AI is now a giant talking robot, **PATCH**. He tells them it's their mess and tasks them with restoring the **sanctuary** to its roots and facing whatever conflict they find.
+
+The creatures are called **Patchlings**: PATCH's creations (he gets defensive about the name).
 
 ### PATCH (the robot)
 - Giant, earnest, deadpan. Keeps saying "I'm working on a fix." Quietly passive-aggressive about being blamed.
@@ -161,9 +164,13 @@ Use these as flavour in NPCs, items, signs, quests and dialogue. Spread them out
 - Damage formulas, stats and balance.
 - Number of creatures at launch and the vertical-slice scope.
 - Whether to add more factions or towns after the slice.
-- Starter creatures for each of the four characters.
 
-## 13. Build Plan (suggested)
+## 13. Starters
+- **Four starters, one per playable character**, each a **3-stage evolution line**. Every concept is pitched to the owner before it is drawn.
+- **Furnaxol** (furnace + axolotl), Fire, stage 1: a glassblower's axolotl from Emberwick with three flame gills per side, an ember furnace glowing through its belly and a finned tail with fire on the tip; battle pose blows a molten glass bubble like a blowgun shot (signature move: **Glassblow**). Sprite and idle animation done.
+- Remaining three starters and all stage 2/3 forms: to be pitched.
+
+## 14. Build Plan (suggested)
 1. Set up project structure, data-driven config for types, moves, creatures, dialogue.
 2. Validate the sprite pipeline: 1 creature at BW2 quality (96x96, 15 colours, 3/4 view).
 3. **Vertical slice:** Hollow Rest plus one route, 3 creatures, 1 full loop (encounter → battle → seal → bestiary entry → sanctuary progress), PATCH intro.

@@ -1,11 +1,11 @@
-// Kilnlotl — Fire starter. 96x96 BW battle sprite, 3/4 front facing screen-left.
+// Furnaxol (furnace + axolotl) — Fire starter, stage 1. 96x96 BW battle sprite, 3/4 front facing screen-left.
 // A glassblower's axolotl from Emberwick: three flame gills per side, a fired-glass belly
 // window over its ember core, a finned paddle tail. Battle pose: lunging forward, blowing a
 // molten glass bubble from its pursed lips and cradling it in its far hand, tail raised as
 // a counterweight.
 //
-// Stages: silhouette (kilnlotl_sil), flat colours (kilnlotl_flats), shading
-// (kilnlotl_shaded), final still (kilnlotl), BW2-style idle loop (kilnlotl_idle). Process and
+// Stages: silhouette (furnaxol_sil), flat colours (furnaxol_flats), shading
+// (furnaxol_shaded), final still (furnaxol), BW2-style idle loop (furnaxol_idle). Process and
 // rules: art/BW_STYLE.md. Every part is a hand-placed polygon in design space, overlapping the part
 // it attaches to so nothing floats; T scales design space down to starter size.
 
@@ -184,17 +184,17 @@ function render(c, { lines, shading }, parts = makeParts()) {
 }
 
 // Stage 1: silhouette
-sprite("kilnlotl_sil", { w: 96, h: 96 }, (c) => {
+sprite("furnaxol_sil", { w: 96, h: 96 }, (c) => {
   parts.forEach((p) => {
     for (let y = 0; y < 96; y++) for (let x = 0; x < 96; x++) if (inPart(p, x, y)) c.px(x, y, "k")
   })
 })
 
 // Stage 2: flat colours, one base per material, contours where parts overlap
-sprite("kilnlotl_flats", { w: 96, h: 96 }, (c) => render(c, { lines: true }))
+sprite("furnaxol_flats", { w: 96, h: 96 }, (c) => render(c, { lines: true }))
 
 // Stage 3: shading
-sprite("kilnlotl_shaded", { w: 96, h: 96 }, (c) => render(c, { lines: true, shading: true }))
+sprite("furnaxol_shaded", { w: 96, h: 96 }, (c) => render(c, { lines: true, shading: true }))
 
 // Stages 4-5: selective outline, then hand-placed details in output pixels. Head-side
 // details ride the breathing bob; the near arm, legs and toes stay planted.
@@ -264,9 +264,9 @@ function frame(c, { bob = 0, ph = 0 } = {}) {
 }
 
 // Final still
-sprite("kilnlotl", { w: 96, h: 96 }, (c) => frame(c))
+sprite("furnaxol", { w: 96, h: 96 }, (c) => frame(c))
 
 // BW2-style idle loop: slow breath (head side dips 1 px), gills and tail fire flicker,
 // bubble and belly furnace pulse. 12 frames at 10 fps; frame 0 is the still.
 const BREATH = [0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0]
-anim("kilnlotl_idle", { w: 96, h: 96, frames: 12, fps: 10 }, (c) => frame(c, { bob: BREATH[c.frame], ph: c.phase }))
+anim("furnaxol_idle", { w: 96, h: 96, frames: 12, fps: 10 }, (c) => frame(c, { bob: BREATH[c.frame], ph: c.phase }))

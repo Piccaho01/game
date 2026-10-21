@@ -86,9 +86,9 @@ Measurements come from `pixel-art-studio/scripts/study.py` and direct pixel coun
    show it to the owner before moving on.
 7. Animation (BW2-style idle loop) only after the still is approved.
 
-## Lessons from the first approved creature (Kilnlotl)
+## Lessons from the first approved creature (Furnaxol)
 What worked, in order of how much it mattered. Start the next creature from
-`creatures/kilnlotl.px.js` and keep these:
+`creatures/furnaxol.px.js` and keep these:
 1. **Concept with a hook and a story** tied to Verrow (glassblower axolotl from Emberwick),
    and a battle pose that *acts* (blowing a bubble like a blowgun shot), not a pose that
    holds a prop.
