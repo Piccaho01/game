@@ -48,13 +48,13 @@ One active leader at a time. The other three wait at the sanctuary. **Squad mode
 Each has a field role and one battle command (leader assist):
 
 ### Callum: the Collector
-- Blonde, blue eyes. Scottish, lives in Canada now. Big comic nerd, fixates on niche hobbies and collections, loves emulating old games. Witty and protective.
+- Light-brown curly hair (from his photo), blue eyes. Scottish, lives in Canada now. Big comic nerd, fixates on niche hobbies and collections, loves emulating old games. Witty and protective.
 - Field role: reads creature lore, fills bestiary entries, spots rares.
 - Battle command: **Scan** (reveals weaknesses).
 - Likes Pokémon.
 
 ### Nolan: the Reliable One
-- Brown hair, brown eyes. Reserved on the surface, hilarious once you know him. Most reliable, very relatable.
+- Brown hair (now longer and straighter, sometimes slicked back), brown eyes. Reserved on the surface, hilarious once you know him. Most reliable, very relatable.
 - Field role: steady support, recovery and cleanup.
 - Battle command: **Patch Up** (heal).
 - Likes Pokémon.
@@ -71,6 +71,14 @@ Each has a field role and one battle command (leader assist):
 - Field role: befriends anything, tanks for the group.
 - Battle command: **Shield**.
 - Does NOT care about Pokémon (keep this as a gag; he'll still play).
+
+### Looks for sprites (from the owner's photos)
+Photos are reference only and are **never committed**; only the finished pixel sprites go in the repo. No real brand logos on clothes: use original designs.
+- **Callum:** curly light-brown hair worn longish over the ears, small stud earrings, silver chain, black tee with a bold white chest logo and a small Canadian flag, light-grey sweatpants. Easy half-smile.
+- **Nolan:** dark-brown hair, longer and straight, often slicked back; big squinting grin; plain grey tee. Signature hand gesture (fingers up, rock-on style).
+- **Haydon:** shaggy brown hair with a heavy fringe, heavy-lidded unbothered look, sand/khaki anorak hoodie with drawstrings. Peak "nah that's cap" face.
+- **Dani:** dark textured crop with a fade and a short fringe, goatee and moustache, dark knit button-up polo, small chain; often holding his phone (fits "replies in 3 seconds or 3 months").
+- **Connor (villain):** auburn/strawberry hair in a middle part with curtain bangs, huge grin, tall and lanky; a red hoodie under his too-big Director's coat.
 
 ## 7. Core Loop
 
@@ -166,11 +174,32 @@ Use these as flavour in NPCs, items, signs, quests and dialogue. Spread them out
 - Whether to add more factions or towns after the slice.
 
 ## 13. Starters
-- **Four starters, one per playable character**, each a **3-stage evolution line**. Every concept is pitched to the owner before it is drawn.
-- **Furnaxol** (furnace + axolotl), Fire, stage 1: a glassblower's axolotl from Emberwick with three flame gills per side, an ember furnace glowing through its belly and a finned tail with fire on the tip; battle pose blows a molten glass bubble like a blowgun shot (signature move: **Glassblow**). Sprite and idle animation done.
-- Remaining three starters and all stage 2/3 forms: to be pitched.
+- **Four starter lines, each 3 stages. Not tied to a character: any player can pick any of them.**
+- Types are mapped onto our 10 (Spark = electric, Metal = steel, Plant = grass; there is no Fighting type).
+- Every stage is pitched and approved before it is drawn.
 
-## 14. Build Plan (suggested)
+### Furnaxol → Cullet → Vitric (Fire → Fire → Fire/Rock): glass
+- **Furnaxol** (done): glassblower's axolotl from Emberwick; flame gills, belly furnace, fire-tipped tail; blows a molten glass bubble like a blowgun shot. Signature: **Glassblow**.
+- **Cullet**, the apprentice: taller and lankier, charcoal with amber seams; belly becomes a ribbed portable kiln with vent slits; gills thicken into bellows; tail curls into a blowpipe; makeshift glass goggles; juggles molten marbles. Design job: control and tools, not just size.
+- **Vitric**, the maestro: white-hot/blue-glass axolotl, transparent belly window over a molten core, stained-glass gill frills, glass armour plates it re-melts and reshapes. Its glass work becomes a **weapon** across the line (Cullet's blowpipe tail, Vitric's glass bell). Ability **Kiln Heart**: after a Fire move its glass hardens, reducing the next hit. Signature **Glass Bell**: a molten bubble that traps or shields, then shatters for damage.
+
+### Zapail → Tesnail → Gauslug (Spark → Spark/Metal → Spark/Metal): living railgun
+- **Zapail**: tiny snail, copper spiral shell, plug-like eyestalks; nervous; rubs its shell on the ground for static; leaves a static slime trail. Fast, frail pest. Ability **Static**. Move **Spark Trail** (charged slime patch, paralyses on contact/switch-in).
+- **Tesnail**: shell becomes a segmented copper induction coil with an arc gap; prong eyestalks; conductive ferrofluid slime; drags iron filings into the gap. Ability **Induction** (hit by Spark: next Spark move boosted). Signature **Coil Tap** (+1 Sp. Atk against Metal targets or ones holding metal).
+- **Gauslug**: shell splits into two parallel rails with a glowing channel; eyestalks fold into targeting prongs; foot widens into a magnetic base; fires scrap slugs. Ability **Capacitor**. Signature **Rail Shell** (high power, two-turn charge).
+
+### Sprigby → Fernaroo → Scytharoo (Plant → Plant/Wind → Plant/Wind): kickboxing wallaby
+- **Sprigby**: tiny wallaby joey with sprout ears and springy heels; cute, nervous, bounces in place.
+- **Fernaroo**: lean runner; tail flattens into a serrated fern blade; coiled tendon lines on the legs; seed pouch.
+- **Scytharoo**: tall, sleek kickboxer; scythe-like grass-blade tail; visible coil-spring legs; seed pouch bursts on impact. Ability **Spring Heel** (kicks gain priority on entry). Signature **Reap Kick** (high crit; Speed rises on a miss). Wind replaces the source's Fighting type (speed and kicks; Canopy is the Plant/Wind town).
+
+### Gobbin → Gulpjaw → Harrowjaw (Water → Water → Water/Dark): abyssal harpooner
+- **Gobbin**: pale-pink goblin-shark pup, oversized head, faintly glowing throat sac, tattered dorsal-fin "cape", big nervous eyes, underslung overbite with needle teeth. Reads as "head and cape". Throat sac flickers before it bites.
+- **Gulpjaw**: jaw outgrows the body; hunched and top-heavy; translucent pressure bladder with bioluminescent spots; blade-like pectoral sleeves; torn-banner dorsal; elastic pale cheeks.
+- **Harrowjaw**: tall gaunt abyssal stalker, 70% jaw and fin-coat; fires its jaw forward on stretched cartilage like a harpoon; throat glows through the skin and deflates after firing; ragged fin mantle like a deep-sea coat. Palette ghost pink, bruised purple, cold blue glow. Ability **Ambush Jaw**. Signature **Abyssal Harpoon** (ignores Protect, lowers Speed; its own Defense drops as the jaw resets).
+
+## 14. Build Plan
+The live plan with milestones and status is `docs/PLAN.md`. Summary:
 1. Set up project structure, data-driven config for types, moves, creatures, dialogue.
 2. Validate the sprite pipeline: 1 creature at BW2 quality (96x96, 15 colours, 3/4 view).
 3. **Vertical slice:** Hollow Rest plus one route, 3 creatures, 1 full loop (encounter → battle → seal → bestiary entry → sanctuary progress), PATCH intro.
