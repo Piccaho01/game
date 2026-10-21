@@ -45,16 +45,17 @@ const NEAR_GILLS = [
   [58, 36, 68, 37, 78, 35, 77, 39, 87, 41, 78, 45, 82, 50, 70, 46, 60, 44],
 ]
 // legs, starter-style in a wide stance: round thigh at the hip, short straight shin, flat
-// foot with the toes forward. Near leg steps forward-left, far leg braces back-right.
+// foot with the toes forward. The far leg steps forward-left under the bubble; the near leg
+// braces back-right, in front of the hip.
 const FAR_LEG = [
-  { e: [62, 72, 7, 6.5] },                                    // thigh (mostly behind the hip)
-  { p: [61, 75, 69, 75, 72, 86, 64, 86] },                    // shin, angled back
-  { p: [59, 91, 60, 88, 65, 86, 73, 86, 76, 89, 76, 91] },    // foot
+  { e: [42, 74, 7, 6.5] },                                    // thigh (mostly behind the belly)
+  { p: [32, 78, 42, 78, 41, 86, 31, 86] },                    // shin
+  { p: [23, 91, 24, 88, 29, 86, 41, 86, 43, 89, 43, 91] },    // foot
 ]
 const NEAR_LEG = [
-  { p: [36, 79, 45, 79, 44, 87, 35, 87] },                    // shin
-  { e: [44, 76, 8.5, 7] },                                    // thigh, over the top of the shin
-  { p: [25, 91, 26, 88, 31, 86, 44, 86, 46, 89, 46, 91] },    // foot
+  { p: [56, 79, 65, 79, 69, 87, 59, 87] },                    // shin, angled back
+  { e: [58, 75, 8.5, 7] },                                    // thigh, over the top of the shin
+  { p: [55, 91, 56, 88, 61, 86, 70, 86, 73, 89, 73, 91] },    // foot
 ]
 // far arm from the shoulder, forward and down to a hand cupped under the bubble
 const ARM = [38, 61, 30, 63, 22, 64, 14, 66, 8, 66, 3, 63, 1, 58, 4, 58, 7, 62, 12, 62, 18, 59, 26, 56, 33, 54, 38, 54]
@@ -75,8 +76,12 @@ const parts = [
   ...FAR_LEG.map((q) => ({ g: "farLeg", ...shape(q), c: "S", sh: [1, 1] })),
   { g: "torso", s: T(TORSO_TAIL), c: "s", tone: [[T(BELLY), "c"]], sh: [2, 2],
     hl: { s: T([66, 60, 76, 54, 84, 46, 87, 41, 84, 51, 76, 59, 68, 64]) } },
-  { g: "window", circle: [T([46, 65]), 6 * K], c: "o", rim: [1, 1],
-    core: { circle: [T([45, 64]), 3.6 * K] }, glint: [[43, 62]] },
+  // belly window: fired-clay rim, dark kiln interior, a flame burning inside, glint on the glass
+  { g: "window", circle: [T([45, 64]), 8 * K], c: "C", sh: [1, 1],
+    tone: [[{ circle: [T([45, 64]), 5.6 * K] }, "m"],
+           [{ s: T([41, 70, 42, 65, 44, 67, 45, 61, 47, 66, 49, 64, 49, 70]) }, "o"],
+           [{ s: T([43, 70, 44, 67, 45, 65, 46, 67, 47, 70]) }, "y"]],
+    glint: [[42, 61], [43, 60]] },
   ...NEAR_LEG.map((q) => ({ g: "nearLeg", ...shape(q), c: "s", sh: [2, 1], cast: true })),
   { g: "head", s: T(HEAD), c: "s", tone: [[T(THROAT), "c"]], sh: [2, 2], cast: true,
     hl: { s: T([22, 27, 27, 23, 34, 21, 40, 21, 35, 23, 29, 26, 25, 30]) } },
@@ -87,6 +92,7 @@ const parts = [
     core: { circle: [T([4, 50]), 5 * K] }, glint: [[1, 47], [2, 46]] },
 ]
 const SHADOW = { s: "S", c: "C", S: "D", o: "R", y: "o", R: "D", L: "s", Y: "y" }
+const SELOUT = { s: "D", L: "D", S: "D", c: "D", C: "D", o: "R", y: "R", Y: "o", R: "D" }
 const LIGHT = { s: "L", S: "s", o: "y", y: "Y", c: "c", R: "o" }
 
 function inPoly(pts, x, y) {
@@ -110,7 +116,7 @@ function render(c, { lines, shading }) {
     for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) {
       if (!inP(x, y)) continue
       let k = p.c
-      for (const [t, tc] of p.tone || []) if (inPoly(t, x, y)) k = tc
+      for (const [t, tc] of p.tone || []) if (Array.isArray(t) ? inPoly(t, x, y) : inPart(t, x, y)) k = tc
       if (shading) {
         const base = k
         if (p.hl && inPart(p.hl, x, y)) k = LIGHT[base] || base
@@ -130,7 +136,12 @@ function render(c, { lines, shading }) {
     const i = own[y * N + x]
     for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
       const j = at(x + dx, y + dy)
-      if (i < 0 && j >= 0) { out[y * N + x] = "k"; break }                    // outer outline
+      if (i < 0 && j >= 0) {                                                 // outer outline
+        // BW selective outline: lit (top/left) edges take the material's darkest tone,
+        // shadow (bottom/right) edges stay black
+        const lit = (dx === 1 || dy === 1) && at(x - 1, y) < 0 && at(x, y - 1) < 0
+        out[y * N + x] = lines === "sel" && lit ? SELOUT[col[(y + dy) * N + x + dx]] || "k" : "k"; break
+      }
       if (lines && i >= 0 && j >= 0 && j < i && parts[j].g !== parts[i].g) { out[y * N + x] = "k"; break }
     }
   }
@@ -152,4 +163,46 @@ sprite("kilnlotl_sil", { w: 96, h: 96 }, (c) => {
 sprite("kilnlotl_flats", { w: 96, h: 96 }, (c) => render(c, { lines: true }))
 
 // Stage 3: shading
-sprite("kilnlotl", { w: 96, h: 96 }, (c) => render(c, { lines: true, shading: true }))
+sprite("kilnlotl_shaded", { w: 96, h: 96 }, (c) => render(c, { lines: true, shading: true }))
+
+// Stages 4-5: selective outline, then hand-placed details in output pixels
+sprite("kilnlotl", { w: 96, h: 96 }, (c) => render(c, { lines: "sel", shading: true }),
+  // near eye, Fire style: thick top lid flicking up at the outer corner, amber iris
+  // fading to orange, slit pupil, glint
+  grid(41, 55, `
+    ....kk
+    .kkkk.
+    kwykyk
+    kyykyk
+    koooak
+    .kkkk.`.replace("a", "o")),
+  // far eye: the same eye turned away (narrower, same height)
+  grid(34, 56, `
+    kk..
+    .kkk
+    kwkk
+    kykk
+    kook
+    .kk.`),
+  // near cheek puffed out with the breath
+  grid(38, 61, `
+    .LLL.
+    LLLLs
+    .sss.`),
+  // pursed lips wrapped around the glass neck
+  grid(30, 61, `
+    kD
+    Ls
+    Ls
+    kD`),
+  // far hand cupped under the bubble, three fingertips curled over its front
+  grid(21, 71, `
+    ..kk.kk.kk..
+    .kSskSskSsk.
+    .kSSkSSkSSkk
+    ..kkSSSSSSSS
+    ....kkkkkkkk`),
+  // toes split by short lines
+  vline(36, 88, 2, "k"), vline(39, 88, 2, "k"),
+  vline(56, 88, 2, "k"), vline(59, 88, 2, "k"),
+)
