@@ -20,10 +20,10 @@ A BW2-style creature-collecting RPG where four best friends get trapped inside t
 
 ## 4. Art Direction
 - **Look:** Nintendo DS, **Pokémon Black/White 2 style specifically**, 2.5D feel. ALL sprites (creatures, characters, NPCs, overworld) must match the BW2 look: its pixel density, shading, outlines and palette feel. Not a generic pixel-art style, and not Gen 1–4 or modern 3D.
-- **Creature sprites:** strict 64x64, indexed colour (15 colours max plus transparent), 3/4-view (not flat side profiles), dynamic non-stiff poses.
+- **Creature sprites:** strict 96x96 canvas (the real BW battle-sprite size; body size varies per creature), indexed colour (15 colours max plus transparent), 3/4-view (not flat side profiles), dynamic non-stiff poses. Follow `art/BW_STYLE.md`.
 - **Quality bar:** detailed, original creatures with a unique overall style. Each type gets its own distinct eyes and mouth style, not a shared face template.
 - **Evolution:** hand-designed sprites per stage (no swappable-parts system).
-- **Process:** all sprites are made with **claude-pxl** (pixel-art-as-code tool). Do not hand-roll sprite generation or guess pixel placement. Define sprites as code on the 64x64 grid with a fixed 15-colour palette per creature. Reference sprites may be supplied by the owner as silhouette guides.
+- **Process:** all sprites are made with **claude-pxl** (pixel-art-as-code tool). Do not hand-roll sprite generation or guess pixel placement. Define sprites as code on the 96x96 grid with a fixed 15-colour palette per creature. Reference sprites may be supplied by the owner as silhouette guides.
 - **Art is the main risk.** Prior attempts looked bad. Validate the sprite pipeline on 1 creature before building more.
 
 ## 5. Premise
@@ -165,7 +165,7 @@ Use these as flavour in NPCs, items, signs, quests and dialogue. Spread them out
 
 ## 13. Build Plan (suggested)
 1. Set up project structure, data-driven config for types, moves, creatures, dialogue.
-2. Validate the sprite pipeline: 1 creature at BW2 quality (64x64, 15 colours, 3/4 view).
+2. Validate the sprite pipeline: 1 creature at BW2 quality (96x96, 15 colours, 3/4 view).
 3. **Vertical slice:** Hollow Rest plus one route, 3 creatures, 1 full loop (encounter → battle → seal → bestiary entry → sanctuary progress), PATCH intro.
 4. Add character swapping and leader assists.
 5. Expand towns, factions and the Connor storyline.
