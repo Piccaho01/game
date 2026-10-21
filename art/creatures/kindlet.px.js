@@ -1,26 +1,28 @@
 // Kindlet — Fire. Pipeline test creature (CLAUDE.md §4): 64x64, 15 colours + transparent,
-// 3/4 view facing screen-left like a BW2 front battle sprite.
+// 3/4 view facing screen-left like a BW2 front battle sprite. Starter proportions.
 //
-// Built the way BW sprites are: every body segment is a hand-placed polygon with its joints
-// where the anatomy puts them; each gets a flat base, hand-placed shadow (lower right) and
-// highlight (upper left) shapes. Wherever a segment overlaps one behind it, its contour gets
-// a black line. Far-side limbs use the shadow material. Face and paws are hand-placed pixels.
+// Built the way BW sprites are: rounded masses with BW cel shading (a shadow crescent on the
+// lower right, a highlight on the upper left, 2-3 flat tones per material, no dithering),
+// a black contour wherever a part overlaps one behind it, far-side limbs in the shadow tone.
+// Face, paws and fur detail are hand-placed pixels on top.
 //
-// Fire face style: upturned almond eyes with a heavy lid, amber-to-orange iris, slit pupil;
-// open snarl with one big upper fang.
+// Fire face style: big upturned eyes with a thick lid that flicks up at the outer corner,
+// amber iris, white glint; a cheeky single fang over the lower lip.
 
 pal({
   k: "#101010",                                       // outline
-  D: "#6e1f1c", d: "#c43c29", r: "#f07038",           // hide: dark, base, light
-  b: "#a8673f", c: "#ecc183", C: "#fff3d0",           // cream fur
-  g: "#2b2631", G: "#5a5262", H: "#948a9a",           // charcoal (plates, socks, paws)
-  f: "#ec6418", y: "#ffcf38", Y: "#fff8c4",           // flame / iris
-  w: "#ffffff", m: "#4a0f1e",                         // fang/eye glint, mouth
+  D: "#7c2420", d: "#d04a2c", r: "#f58a48",           // hide: shadow, base, light
+  b: "#c28a58", c: "#f0cf98", C: "#fff6dc",           // cream fur
+  g: "#2e2834", G: "#5c5466", H: "#9a90a2",           // charcoal (ear tips, paws)
+  f: "#f0681c", y: "#ffcf38", Y: "#fff8c4",           // flame / iris
+  w: "#ffffff", m: "#58142a",                         // glint & fang, mouth
 })
 
 const W = 62, H = 62                 // outline adds 1px each side -> 64x64
 
-function inPoly(pts, x, y) {
+// ---- shapes: (x, y) => boolean, sampled at pixel centres
+const E = (cx, cy, rx, ry) => (x, y) => ((x + 0.5 - cx) / rx) ** 2 + ((y + 0.5 - cy) / ry) ** 2 <= 1
+const P = (pts) => (x, y) => {
   const px = x + 0.5, py = y + 0.5
   let inside = false
   for (let i = 0, j = pts.length - 2; i < pts.length; j = i, i += 2) {
@@ -29,150 +31,126 @@ function inPoly(pts, x, y) {
   }
   return inside
 }
+const U = (...ss) => (x, y) => ss.some((s) => s(x, y))
+const I = (a, b) => (x, y) => a(x, y) && b(x, y)
 
-// Segments back to front. poly: silhouette, c: base, tone: [[poly, colour], ...] painted
-// only inside the silhouette. Segments in the same group join without a contour line.
-const segs = [
-  // ---- tail, rising from the rump, flame on the tip
-  { g: "tail", poly: [48, 32, 53, 29, 56, 24, 56, 17, 61, 17, 61, 27, 58, 34, 52, 38], c: "d",
-    tone: [[[59, 17, 62, 17, 62, 27, 58, 35, 54, 38, 57, 31, 59, 25], "D"],
-           [[52, 29, 55, 24, 55, 17, 57, 17, 57, 25, 54, 30], "r"]] },
-  { g: "flame", poly: [51, 21, 50, 14, 52, 9, 53, 12, 55, 4, 57, 9, 59, 1, 60, 8, 62, 6, 61, 13, 62, 17, 61, 21], c: "f",
-    tone: [[[53, 21, 53, 15, 55, 11, 56, 14, 58, 7, 59, 13, 60, 11, 60, 21], "y"],
-           [[55, 21, 55, 17, 57, 14, 58, 17, 59, 21], "Y"]] },
+// ---- parts, back to front
+// s: silhouette, c: base, sh: [colour, dx, dy] shadow crescent (pixels whose (x+dx, y+dy)
+// falls outside the silhouette), hl: [colour, shape] highlight, tone: [[shape, colour]] extra
+// flats. Parts sharing g join without a contour line.
+const HIDE = { c: "d", sh: ["D", 3, 3] }
+const parts = [
+  // tail: big brush curling up behind, flame on the tip
+  { g: "tail", s: U(E(52, 38, 6, 5.5), E(56, 30, 5.5, 6.5), E(56, 21, 5, 5.5)), ...HIDE, sh: ["D", 3, 1],
+    hl: ["r", U(E(51, 34, 2, 2.5), E(54, 24, 1.5, 3))] },
+  { g: "flame", s: P([50, 21, 49, 13, 51, 8, 53, 11, 54, 3, 57, 9, 59, 0, 60, 7, 62, 5, 61, 12, 62, 16, 61, 21]), c: "f",
+    tone: [[P([52, 21, 52, 15, 54, 10, 55, 13, 57, 6, 58, 12, 60, 10, 60, 21]), "y"],
+           [P([54, 21, 54, 16, 56, 13, 57, 16, 58, 21]), "Y"]] },
 
-  // ---- far hind leg (only the lower leg shows), shadow material
-  { g: "farHind", poly: [38, 42, 44, 42, 44, 51, 43, 55, 38, 55, 39, 49], c: "D",
-    tone: [[[37, 50, 45, 50, 45, 56, 37, 56], "g"]] },
-  { g: "farHind", poly: [36, 54, 43, 54, 45, 56, 44, 59, 37, 59, 36, 57], c: "g" },
+  // far legs (shadow tone)
+  { g: "farHind", s: E(38, 56.5, 3.6, 2.6), c: "g" },
+  { g: "farFront", s: P([25, 41, 31, 41, 31, 54, 25, 54]), c: "D", tone: [[P([25, 41, 27, 41, 27, 52, 25, 52]), "d"]] },
+  { g: "farFront", s: E(27.5, 56, 4.4, 2.8), c: "g", hl: ["G", E(26, 55, 1.6, 1)] },
 
-  // ---- far front leg, planted, shadow material
-  { g: "farFront", poly: [29, 37, 35, 37, 35, 47, 34, 53, 30, 53, 30, 47], c: "D",
-    tone: [[[29, 47, 36, 47, 36, 54, 29, 54], "g"], [[30, 37, 32, 37, 32, 46, 31, 46], "d"]] },
-  { g: "farFront", poly: [28, 52, 35, 52, 37, 55, 36, 59, 28, 59, 27, 56], c: "G",
-    tone: [[[33, 52, 37, 52, 37, 59, 33, 59], "g"]] },
+  // body, compact, behind the head
+  { g: "body", s: E(40, 42, 11, 9), ...HIDE, hl: ["r", E(41, 35.5, 5, 1.8)], tone: [[E(31, 38, 6, 8), "D"]] },
+  // near hind leg: round haunch, short foot under it
+  { g: "hind", s: U(E(46, 44, 7, 7.5), P([40, 49, 47, 49, 48, 55, 40, 55])), ...HIDE, hl: ["r", E(44, 40, 3, 2.5)] },
+  { g: "hindPaw", s: E(42, 56.2, 5.4, 2.8), c: "G", sh: ["g", 1, 1], hl: ["H", E(40, 55, 2, 1)] },
 
-  // ---- torso, receding up-right behind the chest
-  { g: "body", poly: [30, 30, 36, 27, 44, 27, 50, 28, 55, 31, 57, 36, 56, 42, 52, 45, 46, 46, 40, 45, 34, 44, 30, 40], c: "d",
-    tone: [[[32, 41, 40, 43, 46, 44, 52, 43, 56, 38, 58, 36, 57, 43, 52, 46, 46, 47, 40, 46, 33, 45], "D"],
-           [[36, 28, 44, 28, 50, 29, 54, 31, 50, 31, 44, 30, 37, 30], "r"]] },
-  // charcoal spine plates
-  ...[[35, 29, 38, 22, 42, 28], [41, 28, 45, 21, 49, 29], [48, 30, 52, 24, 55, 32]].map((p) => ({
-    g: "plate", poly: p, c: "G",
-    tone: [[[p[2], p[3], p[4], p[5], p[2] + 1, p[5]], "g"], [[p[0], p[1], p[2], p[3], p[2], p[3] + 3, p[0] + 2, p[1]], "H"]],
-  })),
+  // chest ruff, jagged lower edge
+  { g: "chest", s: I(E(24, 37, 9, 7), P([14, 30, 34, 30, 34, 40, 31, 42, 29, 40, 27, 44, 25, 41, 22, 44, 20, 41, 17, 42, 14, 38])),
+    c: "c", sh: ["b", 2, 2], hl: ["C", E(20, 34, 3, 2)] },
 
-  // ---- near hind leg: thigh, knee forward, shin back to the hock, paw forward
-  { g: "hind", poly: [44, 33, 51, 31, 56, 35, 57, 41, 55, 46, 50, 48, 45, 46, 43, 40], c: "d",
-    tone: [[[54, 36, 58, 40, 56, 47, 50, 49, 48, 47, 52, 45, 55, 41], "D"],
-           [[45, 34, 50, 32, 52, 33, 47, 36, 45, 40], "r"]] },
-  { g: "hind", poly: [47, 45, 53, 44, 56, 49, 55, 52, 51, 52, 48, 49], c: "d",
-    tone: [[[53, 45, 57, 49, 56, 53, 52, 53, 54, 49], "D"]] },
-  { g: "hind", poly: [50, 50, 56, 50, 55, 55, 50, 55], c: "G",
-    tone: [[[54, 50, 57, 50, 56, 56, 53, 56], "g"]] },
-  { g: "hindPaw", poly: [44, 54, 53, 54, 55, 56, 54, 59, 44, 59, 43, 57], c: "G",
-    tone: [[[51, 54, 56, 54, 56, 60, 51, 60], "g"], [[44, 54, 49, 54, 47, 55, 44, 56], "H"]] },
+  // near front leg, stepping forward
+  { g: "arm", s: P([18, 39, 26, 39, 24, 45, 19, 49, 15, 48, 16, 43]), ...HIDE, sh: ["D", 2, 2], hl: ["r", P([18, 40, 21, 40, 18, 44, 17, 44])] },
+  { g: "armPaw", s: E(14.5, 49, 4, 3.2), c: "G", sh: ["g", 1, 1], hl: ["H", E(13, 47.5, 2, 1)] },
 
-  // ---- chest fluff, jagged lower edge
-  { g: "chest", poly: [17, 27, 34, 26, 36, 31, 35, 35, 33, 34, 33, 38, 30, 36, 29, 41, 27, 37, 25, 42, 23, 37, 21, 40, 20, 35, 17, 36, 18, 31], c: "c",
-    tone: [[[30, 29, 34, 26, 37, 31, 35, 35, 33, 34, 33, 38, 30, 36, 29, 41, 27, 37, 28, 32], "b"],
-           [[18, 29, 25, 28, 23, 31, 20, 33], "C"]] },
+  // ears: far (shadow tone), near
+  { g: "farEar", s: P([10, 18, 8, 3, 21, 12]), c: "D",
+    tone: [[P([11, 15, 10, 7, 16, 12]), "b"], [P([7, 1, 11, 1, 11, 7, 8, 7]), "g"]] },
+  { g: "ear", s: P([25, 14, 32, 1, 38, 15]), ...HIDE, sh: ["D", 1, 0],
+    tone: [[P([28, 13, 32, 5, 35, 13]), "c"], [P([31, 12, 32, 6, 35, 13]), "b"], [P([29, -1, 36, -1, 35, 6, 30, 6]), "G"]] },
 
-  // ---- near front leg, lifted mid-step: upper arm down to the elbow, forearm forward,
-  //      wrist bent so the paw hangs pads-back
-  { g: "arm", poly: [21, 36, 29, 36, 28, 41, 26, 44, 22, 44, 21, 40], c: "d",
-    tone: [[[26, 37, 30, 36, 28, 42, 26, 45, 24, 44, 26, 41], "D"], [[21, 37, 24, 37, 23, 41, 22, 42], "r"]] },
-  { g: "arm", poly: [21, 41, 26, 42, 23, 46, 19, 49, 15, 49, 15, 46], c: "d",
-    tone: [[[15, 46, 19, 45, 22, 44, 23, 46, 19, 49, 15, 49], "G"], [[20, 47, 24, 44, 23, 47, 19, 50], "g"],
-           [[22, 41, 26, 42, 24, 44], "D"]] },
-  { g: "armPaw", poly: [12, 46, 19, 46, 20, 50, 18, 53, 14, 53, 12, 50], c: "G",
-    tone: [[[17, 47, 21, 47, 20, 51, 18, 54, 16, 54, 18, 50], "g"], [[12, 46, 15, 46, 13, 49], "H"]] },
-
-  // ---- far ear (shadow material), near ear
-  { g: "farEar", poly: [12, 12, 11, 5, 12, 1, 16, 5, 19, 10], c: "D",
-    tone: [[[12, 9, 12, 4, 15, 6, 16, 9], "g"], [[11, 0, 13, 0, 13, 4, 11, 4], "g"]] },
-  { g: "ear", poly: [22, 11, 28, 4, 33, 0, 34, 7, 33, 13], c: "d",
-    tone: [[[26, 10, 30, 4, 32, 4, 32, 10, 29, 12], "c"], [[29, 9, 32, 4, 32, 10, 30, 11], "b"],
-           [[30, 0, 35, 0, 34, 4, 29, 4], "G"], [[32, 5, 35, 4, 34, 13, 33, 13], "D"], [[23, 10, 27, 5, 25, 9], "r"]] },
-
-  // ---- head
-  { g: "head", poly: [11, 14, 16, 10, 22, 9, 28, 10, 33, 13, 35, 17, 34, 21, 31, 27, 27, 29, 21, 29, 17, 27, 13, 24, 10, 19], c: "d",
-    tone: [[[30, 18, 35, 16, 35, 22, 31, 28, 27, 30, 26, 26], "D"], [[14, 12, 18, 10, 22, 10, 18, 12, 15, 15], "r"]] },
-  // cheek tuft
-  { g: "head", poly: [27, 21, 33, 19, 37, 22, 34, 23, 36, 26, 32, 26, 33, 29, 28, 28], c: "c",
-    tone: [[[31, 23, 37, 22, 34, 23, 36, 26, 32, 26, 33, 29, 30, 27], "b"]] },
-  // snout, wedge pointing forward-left
-  { g: "head", poly: [13, 14, 18, 16, 19, 22, 13, 24, 6, 24, 4, 22, 5, 19, 9, 17], c: "d",
-    tone: [[[6, 21, 18, 20, 19, 24, 6, 24], "c"], [[7, 18, 12, 15, 14, 16, 10, 18], "r"]] },
-  // forehead plate
-  { g: "head", poly: [16, 11, 20, 6, 24, 11, 20, 13], c: "G",
-    tone: [[[20, 6, 24, 11, 20, 13], "g"], [[16, 11, 20, 6, 20, 9, 18, 11], "H"]] },
-  // lower jaw, dropped open
-  { g: "jaw", poly: [8, 27, 18, 27, 20, 29, 13, 30, 9, 29], c: "c",
-    tone: [[[14, 29, 19, 28, 20, 29, 13, 31], "b"]] },
+  // head: big and round
+  { g: "head", s: E(23, 23, 13, 11), ...HIDE, hl: ["r", U(E(17, 15, 5, 2), E(13, 18, 2, 3))],
+    tone: [[P([17, 13, 19, 9, 21, 13]), "d"]] },
+  // forehead tuft
+  { g: "head", s: P([16, 14, 18, 8, 21, 12, 23, 6, 25, 13, 27, 9, 28, 15]), c: "d", hl: ["r", P([17, 13, 18, 9, 20, 12, 22, 8, 23, 12])] },
+  // cheek fluff, both sides
+  { g: "head", s: P([30, 26, 37, 24, 34, 28, 39, 30, 33, 32, 34, 34, 28, 32]), c: "c", sh: ["b", 1, 2] },
+  { g: "head", s: P([12, 27, 7, 27, 10, 30, 6, 32, 13, 32]), c: "c", sh: ["b", 1, 1] },
+  // muzzle, short
+  { g: "head", s: E(14, 27.5, 6.5, 4.5), c: "c", sh: ["b", 2, 2], hl: ["C", E(12, 25.5, 3, 1.2)] },
 ]
 
 sprite("kindlet", { w: W, h: H, outline: "k" }, (c) => {
   const own = new Int16Array(W * H).fill(-1)
   const col = new Array(W * H).fill(null)
-  segs.forEach((s, i) => {
+  parts.forEach((p, i) => {
     for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
-      if (!inPoly(s.poly, x, y)) continue
-      let k = s.c
-      for (const [p, t] of s.tone || []) if (inPoly(p, x, y)) k = t
+      if (!p.s(x, y)) continue
+      let k = p.c
+      if (p.hl && p.hl[1](x, y)) k = p.hl[0]
+      for (const [s, t] of p.tone || []) if (s(x, y)) k = t
+      if (p.sh && !p.s(x + p.sh[1], y + p.sh[2])) k = p.sh[0]
       own[y * W + x] = i; col[y * W + x] = k
     }
   })
-  // contour line on a segment's edge wherever it overlaps a segment behind it
+  // contour on a part's edge wherever it overlaps a part behind it
   const out = col.slice()
   for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
     const i = own[y * W + x]
-    if (i < 0 || segs[i].g === "flame") continue
+    if (i < 0 || parts[i].g === "flame") continue
     for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
       const xx = x + dx, yy = y + dy
       if (xx < 0 || yy < 0 || xx >= W || yy >= H) continue
       const j = own[yy * W + xx]
-      if (j >= 0 && j < i && segs[j].g !== segs[i].g && segs[j].g !== "flame") { out[y * W + x] = "k"; break }
+      if (j >= 0 && j < i && parts[j].g !== parts[i].g && parts[j].g !== "flame") {
+        out[y * W + x] = parts[i].c === "d" && parts[j].c === "d" ? "D" : "k"; break
+      }
     }
   }
   for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) if (out[y * W + x]) c.px(x, y, out[y * W + x])
 },
   // ---- face ----
-  // near eye: heavy lid, slit pupil, amber to orange iris, glint
-  grid(21, 12, `
-    .....kkk
+  // near eye: big, thick lid flicking up at the outer corner, amber iris, glint
+  grid(24, 16, `
+    ......kk
+    .kkkkkk.
     kkkkkkk.
-    kyyykwk.
-    kyyfkyk.
-    .kffyk..
+    kwwyyyk.
+    kwkkyyk.
+    kykkyyk.
+    kyyyffk.
+    .kfffk..
     ..kkk...`),
-  // far eye, foreshortened beside the snout bridge
-  grid(13, 13, `
-    .kk
-    kkk
-    kyk
-    kfk
-    .k.`),
+  // far eye, foreshortened
+  grid(15, 17, `
+    .kk.
+    kkkk
+    kwyk
+    kkyk
+    kyfk
+    kffk
+    .kk.`),
   // nose
-  grid(4, 19, `
+  grid(7, 24, `
     .kk
     kkH
-    kkk`),
-  // open mouth with one big upper fang, tongue
-  grid(7, 24, `
-    kkkkkkkkkkkk
-    kwwmmmmmmmmk
-    kwwmmrrrmmk.
-    .kwkkkkkkk..`),
-  // snout ridge and brow lines
-  line(9, 18, 13, 15, "D"), hline(21, 11, 6, "D"),
-  // fur clumps on the chest
-  line(24, 33, 25, 38, "b"), line(28, 31, 29, 36, "b"), line(21, 32, 21, 36, "b"),
-  // toes split by black lines, claw tips
-  vline(14, 50, 3, "k"), vline(16, 50, 3, "k"), px(13, 53, "C"), px(15, 53, "C"), px(17, 53, "C"),
-  vline(47, 56, 3, "k"), vline(50, 56, 3, "k"), px(45, 59, "C"), px(48, 59, "C"),
-  vline(30, 56, 3, "k"), vline(33, 56, 3, "k"),
-  vline(39, 56, 3, "k"), vline(42, 56, 3, "k"),
-  // embers glowing in the plate cracks
-  px(38, 25, "f"), px(45, 24, "f"), px(52, 27, "f"), px(20, 9, "f"), px(20, 10, "y"),
+    .kk`),
+  // smile, one triangular fang over the lower lip
+  grid(9, 27, `
+    k.......
+    .kk...k.
+    ...kkkkk
+    ....kwwk
+    .....kwk
+    ......k.`),
+  // fur lines on the ruff
+  vline(22, 37, 3, "b"), vline(26, 36, 3, "b"), vline(18, 36, 2, "b"),
+  // toes and claws
+  hline(11, 49, 3, "g"), px(11, 51, "C"), px(13, 52, "C"),
+  vline(39, 55, 3, "k"), vline(42, 55, 3, "k"), px(37, 58, "C"), px(40, 58, "C"),
+  vline(26, 55, 3, "k"), vline(29, 55, 3, "k"),
 )
