@@ -32,10 +32,11 @@ function tone(ramp, n, bias = 0) {
 }
 
 // Shapes return a normal at (x, y) or null when outside.
-function ell(cx, cy, rx, ry) {
+// flat > 1 flattens the volume toward the viewer (faces: mostly mid tone, thin shadow rim)
+function ell(cx, cy, rx, ry, flat = 1.2) {
   return (x, y) => {
     const u = (x + 0.5 - cx) / rx, v = (y + 0.5 - cy) / ry, q = u * u + v * v
-    return q > 1 ? null : norm([u, v, Math.sqrt(1 - q) * 1.2])
+    return q > 1 ? null : norm([u, v, Math.sqrt(1 - q) * flat])
   }
 }
 // Tapered tube through points [[x, y, r], ...]
@@ -53,6 +54,11 @@ function tube(pts) {
     return norm([best.ox, best.oy, Math.sqrt(Math.max(0, 1 - best.q * best.q)) * 1.2])
   }
 }
+// shape limited to inside a polygon (jagged fur edges keep the volume's shading)
+function within(shape, pts) {
+  const inside = polyShape(pts, [0, 0, 1])
+  return (x, y) => (inside(x, y) ? shape(x, y) : null)
+}
 // Flat-ish polygon with a fixed normal (ears, plates)
 function polyShape(pts, n) {
   return (x, y) => {
@@ -66,48 +72,55 @@ function polyShape(pts, n) {
   }
 }
 
-// Parts back to front. g: parts sharing a group blend without separation lines. mat: ramp, or (x, y) => ramp. sep: draw separation line against parts behind.
+// Parts back to front. g: parts sharing a group blend without separation lines.
+// mat: ramp, or (x, y) => ramp. bias darkens parts on the far side of the body.
+//
+// Anatomy (3/4 front, facing screen-left): big head over the chest, chest and front legs
+// nearest the viewer, the torso receding up-right behind them, hind legs at the back with
+// the hock bent backwards, tail rising from the rump.
+const tipped = (y0) => (x, y) => (y < y0 ? ROCK : HIDE)
 const parts = [
-  // tail: thick brush from the rump sweeping up behind the body, torch flame on the tip
-  { g: "tail", s: tube([[46, 42, 5.5], [53, 37, 5], [56, 29, 4.6], [54, 22, 4.2]]), mat: HIDE },
-  { s: polyShape([47, 22, 46, 15, 48, 10, 49, 13, 51, 5, 53, 9, 55, 0, 57, 8, 61, 4, 60, 12, 62, 16, 60, 22],
+  // tail rising from the rump, torch flame on the tip
+  { g: "tail", s: tube([[47, 37, 4], [53, 33, 4.6], [56, 26, 4.4], [55, 19, 3.8]]), mat: HIDE },
+  { g: "flame", s: polyShape([48, 20, 47, 14, 49, 9, 50, 12, 52, 4, 54, 8, 56, 0, 57, 7, 61, 3, 60, 11, 62, 15, 61, 20],
       [0, 0, 1]), mat: ["f", "f", "f"], flame: true },
-  { s: polyShape([49, 22, 49, 16, 51, 11, 52, 14, 54, 6, 56, 13, 58, 9, 58, 16, 59, 22], [0, 0, 1]),
+  { g: "flame", s: polyShape([50, 20, 50, 15, 52, 10, 53, 13, 55, 5, 57, 12, 59, 8, 59, 15, 60, 20], [0, 0, 1]),
     mat: ["y", "y", "y"], flame: true },
-  { s: polyShape([51, 22, 51, 18, 53, 14, 54, 17, 55, 11, 56, 17, 57, 22], [0, 0, 1]),
+  { g: "flame", s: polyShape([52, 20, 52, 16, 54, 13, 55, 16, 56, 10, 57, 16, 58, 20], [0, 0, 1]),
     mat: ["Y", "Y", "Y"], flame: true },
-  // far legs (darker by bias)
-  { g: "farL", s: tube([[29, 46, 4], [28, 52, 3.2], [27, 57, 3]]), mat: HIDE, bias: -0.4 },
-  { g: "farR", s: tube([[48, 46, 4.5], [50, 52, 3.2], [50, 57, 3]]), mat: HIDE, bias: -0.4 },
-  // torso: chest forward-left, rump back-right
-  { g: "body", s: ell(36, 43, 13, 9), mat: (x, y) => (y > 41 + (x - 22) * 0.35 && x < 36 ? CREAM : HIDE) },
-  { g: "body", s: ell(46, 41, 8, 7.5), mat: HIDE },                 // haunch
-  // charcoal back plates
-  { g: "body", s: polyShape([31, 35, 35, 29.5, 39, 34.5], [-0.3, -0.8, 0.6]), mat: ROCK },
-  { g: "body", s: polyShape([38.5, 34, 43, 28, 47, 33.5], [-0.3, -0.8, 0.6]), mat: ROCK },
-  { g: "body", s: polyShape([46.5, 34, 51, 30, 53.5, 36], [0.2, -0.8, 0.6]), mat: ROCK },
-  // near hind leg
-  { g: "hind", s: tube([[47, 45, 4.6], [44, 52, 3.4], [44, 56, 3.2]]), mat: HIDE, bias: -0.12 },
-  { g: "hind", s: ell(42, 57.5, 4.2, 2.4), mat: CREAM },            // hind paw
-  // planted front leg
-  { g: "front", s: tube([[33, 47, 3.8], [34, 53, 3.1], [33, 56, 3.1]]), mat: HIDE, bias: -0.12 },
-  { g: "front", s: ell(32, 57.6, 4.2, 2.4), mat: CREAM },
-  // near front leg, raised and bent (dynamic pose)
-  { g: "raised", s: tube([[25, 45, 4.4], [20, 50, 3.4], [16, 48, 3.1]]), mat: HIDE, bias: -0.12 },
-  { g: "raised", s: ell(13.5, 47, 3.8, 3.2), mat: CREAM },            // raised paw
-  // neck ruff
-  { g: "head", s: ell(25, 35, 7.5, 6.5), mat: CREAM },
-  // far ear (charcoal tip)
-  { g: "farEar", s: tube([[27, 17, 4.6], [32, 10, 3.2], [36, 5, 0.8]]), mat: (x, y) => (y < 9 ? ROCK : HIDE), bias: -0.25 },
-  // head: round, cute proportions
-  { g: "head", s: ell(20, 25, 12, 10.5), mat: HIDE },
-  // short muzzle
-  { g: "head", s: ell(10.5, 29.5, 6, 4.4), mat: CREAM },
-  // flame-shaped cheek tufts
-  { g: "head", s: polyShape([22, 30, 33, 29, 29, 33, 31, 35.5, 24, 34], [0.1, 0.3, 0.9]), mat: CREAM },
-  // near ear: broad, swept back, charcoal tip
-  { g: "ear", s: tube([[16, 18, 5.4], [18, 10, 3.6], [21, 3, 0.8]]), mat: (x, y) => (y < 8 ? ROCK : HIDE) },
-  { g: "ear", s: tube([[17.5, 15, 1.5], [19, 10, 0.9]]), mat: ["D", "D", "D"] }, // inner ear
+  // far hind leg
+  { g: "farH", s: tube([[40, 44, 3.6], [41, 51, 2.6], [40, 55, 2.6]]), mat: HIDE, bias: -0.4 },
+  { g: "farH", s: ell(39.5, 56.5, 3.4, 2), mat: CREAM, bias: -0.3 },
+  // torso receding behind the chest, haunch at the back
+  { g: "body", s: ell(40, 38, 11, 8.5, 1.6), mat: HIDE },
+  { g: "body", s: ell(46, 40, 7.5, 7.5), mat: HIDE },
+  // charcoal back plates along the spine
+  { g: "body", s: polyShape([33, 31.5, 36, 26.5, 39, 31], [-0.3, -0.8, 0.6]), mat: ROCK },
+  { g: "body", s: polyShape([38.5, 31, 42, 25.5, 45.5, 31], [-0.3, -0.8, 0.6]), mat: ROCK },
+  { g: "body", s: polyShape([45, 32, 49, 28, 51, 34], [0.2, -0.8, 0.6]), mat: ROCK },
+  // near hind leg: thigh is the haunch, hock bends back, paw forward
+  { g: "hind", s: tube([[48, 44, 4.4], [51, 50, 2.8], [49, 55, 2.7]]), mat: HIDE, bias: -0.1 },
+  { g: "hind", s: ell(47.5, 56.8, 4, 2.2), mat: CREAM },
+  // far front leg, straight under the far shoulder
+  { g: "farF", s: tube([[32, 40, 3.8], [32, 49, 3], [32, 54, 2.8]]), mat: HIDE, bias: -0.3 },
+  { g: "farF", s: ell(31.5, 56, 3.8, 2.2), mat: CREAM, bias: -0.2 },
+  // chest, nearest part of the body
+  { g: "chest", s: ell(27, 37, 9, 8, 1.8), mat: HIDE },
+  // near front leg, braced forward (pouncing stance)
+  { g: "front", s: tube([[22, 40, 4.4], [19, 48, 3.3], [18, 54, 3.1]]), mat: HIDE },
+  { g: "front", s: ell(17.5, 56.6, 4.2, 2.4), mat: CREAM },
+  // neck ruff, jagged fur edge
+  { g: "ruff", s: within(ell(25, 33, 9.5, 6.5), [15, 27, 35, 27, 35, 32, 32, 36, 30, 33.5, 27, 38, 25, 34, 22, 37.5, 20.5, 33.5, 17, 35]),
+    mat: CREAM },
+  // far ear, charcoal tip
+  { g: "farEar", s: tube([[17, 10, 4], [13, 4.5, 2.4], [10, 0.8, 0.6]]), mat: tipped(5), bias: -0.25 },
+  // head, big and round (starter proportions), face toward the viewer
+  { g: "head", s: ell(24, 19, 12, 10.5, 2.4), mat: HIDE },
+  { g: "head", s: ell(17, 24.5, 6.3, 3.9), mat: CREAM },          // muzzle
+  { g: "head", s: polyShape([30, 22, 38, 25, 34, 27, 37, 30, 30, 29.5], [0.2, 0.3, 0.9]), mat: CREAM }, // cheek tuft
+  // near ear, charcoal tip
+  { g: "ear", s: tube([[31, 9, 4.6], [35, 4.5, 3.2], [38, 0.8, 0.7]]), mat: tipped(5) },
+  { g: "ear", s: tube([[32.5, 7, 1.6], [35, 3.5, 0.8]]), mat: ["D", "D", "D"] },  // inner ear
 ]
 
 sprite("kindlet", { w: W, h: H, outline: "k" }, (c) => {
@@ -139,7 +152,7 @@ sprite("kindlet", { w: W, h: H, outline: "k" }, (c) => {
 },
   // ---- face (hand-placed) ----
   // near eye: upturned almond, heavy top lid, amber iris, one hard highlight
-  grid(16, 20, `
+  grid(25, 14, `
     ......kk
     .kkkkkkk
     kkeewwkk
@@ -147,19 +160,18 @@ sprite("kindlet", { w: W, h: H, outline: "k" }, (c) => {
     keyYyek.
     .kkeekk.
     ...kk...`),
-  // far eye: foreshortened, tucked behind the brow ridge
-  grid(8, 21, `
+  // far eye: foreshortened beside the bridge of the muzzle
+  grid(14, 15, `
     ..kk
     kkkk
     kewk
     keyk
     .kk.`),
-  px(30, 58, "b"), px(34, 58, "b"), px(41, 58, "b"), px(44, 58, "b"), // toes
-  px(12, 45, "b"), px(11, 47, "b"),
-  grid(4, 27, "kk\nkk"), px(5, 26, "g"),             // nose
+  grid(11, 21, "kk\nkk"), px(12, 21, "G"),            // nose
   // grin with one fang
-  grid(6, 31, `
-    kk......
-    .kmmmmkk
-    ..kwkkk.`),
+  grid(12, 25, `
+    k.........
+    .kkmmmmkk.
+    ..kwk.....`),
+  px(17, 57, "b"), px(20, 57, "b"), px(47, 57, "b"), px(31, 56, "b"), // toes
 )
