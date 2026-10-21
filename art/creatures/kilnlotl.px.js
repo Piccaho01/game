@@ -86,15 +86,21 @@ const shape = (q, f = (p) => p) => (q.p ? { s: T(f(q.p)) } : { ell: [...T(f(q.e.
 const parts = [
   ...FAR_GILLS.map((p) => ({ g: "farGill", s: T(H(p)), c: "R" })),
   ...FAR_LEG.map((q) => ({ g: "farLeg", ...shape(q), c: "S", sh: [1, 1] })),
-  { g: "torso", s: T(B(TORSO_TAIL)), c: "s", tone: [[T(B(BELLY)), "c"]], sh: [2, 2],
+  // belly furnace: the ember core glows through thin skin (emissive tones: never shaded),
+  // a pale bloom on the cream, an uneven orange glow, a flame-shaped hot centre
+  { g: "torso", s: T(B(TORSO_TAIL)), c: "s", sh: [2, 2],
+    tone: [[T(B(BELLY)), "c"],
+           [{ ell: [...T(B([46, 62])), 8.5 * K, 9.5 * K] }, "Y", true],
+           [T(B([40, 61, 42, 56, 46, 54, 50, 55, 52, 60, 52, 66, 49, 70, 44, 70, 41, 66])), "o", true],
+           [T(B([42, 68, 43, 63, 45, 65, 46, 57, 48, 63, 50, 61, 50, 68, 46, 70])), "y", true],
+           [T(B([44, 68, 45, 64, 46, 62, 47, 64, 48, 68])), "Y", true]],
     hl: { s: T(B([66, 60, 76, 54, 84, 46, 87, 41, 84, 51, 76, 59, 68, 64])) } },
-  // belly window: fired-clay rim, dark kiln interior, a flame burning inside, glint on the glass
-  { g: "window", circle: [T(B([46, 61])), 8 * K], c: "C", sh: [1, 1],
-    tone: [[{ circle: [T(B([46, 61])), 5.6 * K] }, "m"],
-           [{ s: T(B([42, 67, 43, 62, 45, 64, 46, 58, 48, 63, 50, 61, 50, 67])) }, "o"],
-           [{ s: T(B([44, 67, 45, 64, 46, 62, 47, 64, 48, 67])) }, "y"]],
-    glint: [B([43, 58]), B([44, 57])] },
-  ...NEAR_LEG.map((q) => ({ g: "nearLeg", ...shape(q), c: "s", sh: [2, 1], cast: true })),
+  // fire on the tail tip, leaning back with the tail
+  { g: "tailFire", s: T(B([86, 42, 84, 35, 87, 37, 87, 29, 90, 33, 92, 24, 94, 31, 97, 28, 96, 36, 98, 40, 95, 44])),
+    c: "o", sh: [1, 1],
+    tone: [[T(B([88, 42, 87, 37, 89, 38, 90, 32, 92, 36, 94, 31, 94, 38, 95, 42])), "y"],
+           [T(B([89, 43, 90, 39, 92, 37, 93, 40, 93, 43])), "Y"]] },
+  ...NEAR_LEG.map((q) => ({ g: "nearLeg", ...shape(q), c: "s", sh: [2, 1], cast: true, soft: true, top: q.e ? 1 : 0 })),
   { g: "head", s: T(H(HEAD)), c: "s", tone: [[T(H(THROAT)), "c"]], sh: [2, 2], cast: true,
     hl: { s: T(H([22, 27, 27, 23, 34, 21, 40, 21, 35, 23, 29, 26, 25, 30])) } },
   ...NEAR_GILLS.map((p, i) => ({ g: "gill" + i, s: T(H(p)), c: "o", sh: [1, 1], top: 2, cast: true })),
@@ -127,9 +133,9 @@ function render(c, { lines, shading }) {
     const inP = (x, y) => inPart(p, x, y)
     for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) {
       if (!inP(x, y)) continue
-      let k = p.c
-      for (const [t, tc] of p.tone || []) if (Array.isArray(t) ? inPoly(t, x, y) : inPart(t, x, y)) k = tc
-      if (shading) {
+      let k = p.c, emit = false
+      for (const [t, tc, e] of p.tone || []) if (Array.isArray(t) ? inPoly(t, x, y) : inPart(t, x, y)) { k = tc; emit = !!e }
+      if (shading && !emit) {
         const base = k
         if (p.hl && inPart(p.hl, x, y)) k = LIGHT[base] || base
         if (p.top && !inP(x, y - p.top)) k = LIGHT[base] || base
@@ -154,7 +160,9 @@ function render(c, { lines, shading }) {
         const lit = (dx === 1 || dy === 1) && at(x - 1, y) < 0 && at(x, y - 1) < 0
         out[y * N + x] = lines === "sel" && lit ? SELOUT[col[(y + dy) * N + x + dx]] || "k" : "k"; break
       }
-      if (lines && i >= 0 && j >= 0 && j < i && parts[j].g !== parts[i].g) { out[y * N + x] = "k"; break }
+      if (lines && i >= 0 && j >= 0 && j < i && parts[j].g !== parts[i].g) {
+        out[y * N + x] = parts[i].soft && parts[j].g === "torso" ? "D" : "k"; break
+      }
     }
   }
   if (shading) for (const p of parts) for (const g of p.glint || []) {
@@ -196,21 +204,25 @@ sprite("kilnlotl", { w: 96, h: 96 }, (c) => render(c, { lines: "sel", shading: t
     kkyk
     kook
     .kk.`),
-  // near arm, hand-placed (at this size an arm needs a clean 5 px-wide shape): upper arm
-  // hanging from the shoulder, elbow at the hip, forearm bent forward into a clenched fist
-  grid(52, 65, `
-    ...kkkkk..
-    ..kLsssSk.
-    ..kLsssSk.
-    ..kLssSSSk
-    ...kLsSSSk
-    ...kLssSSk
-    .kkkLsssSk
-    kLLLssssSk
-    kLsssssSSk
-    kLsksSkkk.
-    kssSSk....
-    .kkkk.....`),
+  // near arm, hand-placed (at this size an arm needs a clean 5 px-wide shape): hanging
+  // straight down the side from under the jaw, elbow slightly bent, full fist clenched at
+  // the hip, clear of the belly glow
+  grid(53, 65, `
+    ..kkkkk..
+    .kLsssSk.
+    .kLsssSk.
+    .kLssSSk.
+    .kLssSSk.
+    ..kLsSSk.
+    ..kLsSSk.
+    ..kLssSk.
+    .kLssSSk.
+    .kLssSSk.
+    kLLsssSSk
+    kLsssSSSk
+    kLkskSSk.
+    ksSsSSk..
+    .kkkkk...`),
   // near cheek puffed out with the breath
   grid(36, 62, `
     .LLL.
