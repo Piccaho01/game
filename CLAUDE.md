@@ -48,7 +48,7 @@ One active leader at a time. The other three wait at the sanctuary. **Squad mode
 Each has a field role and one battle command (leader assist):
 
 ### Callum: the Collector
-- Light-brown curly hair (from his photo), blue eyes. Scottish, lives in Canada now. Big comic nerd, fixates on niche hobbies and collections, loves emulating old games. Witty and protective.
+- Dirty-blonde hair with some curls, blue eyes. Scottish, lives in Canada now. Big comic nerd, fixates on niche hobbies and collections, loves emulating old games. Witty and protective.
 - Field role: reads creature lore, fills bestiary entries, spots rares.
 - Battle command: **Scan** (reveals weaknesses).
 - Likes Pokémon.
@@ -74,7 +74,7 @@ Each has a field role and one battle command (leader assist):
 
 ### Looks for sprites (from the owner's photos)
 Photos are reference only and are **never committed**; only the finished pixel sprites go in the repo. No real brand logos on clothes: use original designs.
-- **Callum:** curly light-brown hair worn longish over the ears, small stud earrings, silver chain, black tee with a bold white chest logo and a small Canadian flag, light-grey sweatpants. Easy half-smile.
+- **Callum:** dirty-blonde curly hair worn longish over the ears, small stud earrings, silver chain, black tee with a bold white chest logo and a small Canadian flag, light-grey sweatpants. Easy half-smile.
 - **Nolan:** dark-brown hair, longer and straight, often slicked back; big squinting grin; plain grey tee. Signature hand gesture (fingers up, rock-on style).
 - **Haydon:** shaggy brown hair with a heavy fringe, heavy-lidded unbothered look, sand/khaki anorak hoodie with drawstrings. Peak "nah that's cap" face.
 - **Dani:** dark textured crop with a fade and a short fringe, goatee and moustache, dark knit button-up polo, small chain; often holding his phone (fits "replies in 3 seconds or 3 months").
