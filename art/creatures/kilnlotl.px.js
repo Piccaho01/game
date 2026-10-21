@@ -4,7 +4,8 @@
 // molten glass bubble from its pursed lips and cradling it in its far hand, tail raised as
 // a counterweight.
 //
-// Stage 1: silhouette (kilnlotl_sil). Stage 2: flat colours (kilnlotl). Process and rules:
+// Stage 1: silhouette (kilnlotl_sil). Stage 2: flat colours (kilnlotl_flats). Stage 3:
+// shading (kilnlotl). Process and rules:
 // art/BW_STYLE.md. Every part is a hand-placed polygon in design space, overlapping the part
 // it attaches to so nothing floats; T scales design space down to starter size.
 
@@ -62,18 +63,31 @@ const ARM = [38, 61, 30, 63, 22, 64, 14, 66, 8, 66, 3, 63, 1, 58, 4, 58, 7, 62, 
 const shape = (q) => (q.p ? { s: T(q.p) } : { ell: [...T(q.e.slice(0, 2)), q.e[2] * K, q.e[3] * K] })
 
 // ---- parts back to front. Parts in different groups get a contour where they overlap.
+// Shading (stage 3), all in output pixels, one light from the upper left:
+//   sh: [dx, dy]  shadow crescent: pixels whose (x+dx, y+dy) falls outside the part
+//   rim: [dx, dy] a second, darker crescent hugging the bottom-right edge (glass)
+//   hl: shape     highlight shape on the lit plane (design space), or
+//   top: n        lit top edge, n px deep (flame tips, top of the far arm)
+//   core: shape   hot core (glass), glint: [x, y] white specular pixels (design space)
+//   cast: true    the part casts a shadow down-right onto the parts behind it
 const parts = [
   ...FAR_GILLS.map((p) => ({ g: "farGill", s: T(p), c: "R" })),
-  ...FAR_LEG.map((q) => ({ g: "farLeg", ...shape(q), c: "S" })),
-  { g: "torso", s: T(TORSO_TAIL), c: "s", tone: [[T(BELLY), "c"]] },
-  { g: "window", circle: [T([46, 65]), 6 * K], c: "o" },
-  ...NEAR_LEG.map((q) => ({ g: "nearLeg", ...shape(q), c: "s" })),
-  { g: "head", s: T(HEAD), c: "s", tone: [[T(THROAT), "c"]] },
-  ...NEAR_GILLS.map((p, i) => ({ g: "gill" + i, s: T(p), c: "o" })),
-  { g: "arm", s: T(ARM), c: "S" },
+  ...FAR_LEG.map((q) => ({ g: "farLeg", ...shape(q), c: "S", sh: [1, 1] })),
+  { g: "torso", s: T(TORSO_TAIL), c: "s", tone: [[T(BELLY), "c"]], sh: [2, 2],
+    hl: { s: T([66, 60, 76, 54, 84, 46, 87, 41, 84, 51, 76, 59, 68, 64]) } },
+  { g: "window", circle: [T([46, 65]), 6 * K], c: "o", rim: [1, 1],
+    core: { circle: [T([45, 64]), 3.6 * K] }, glint: [[43, 62]] },
+  ...NEAR_LEG.map((q) => ({ g: "nearLeg", ...shape(q), c: "s", sh: [2, 1], cast: true })),
+  { g: "head", s: T(HEAD), c: "s", tone: [[T(THROAT), "c"]], sh: [2, 2], cast: true,
+    hl: { s: T([22, 27, 27, 23, 34, 21, 40, 21, 35, 23, 29, 26, 25, 30]) } },
+  ...NEAR_GILLS.map((p, i) => ({ g: "gill" + i, s: T(p), c: "o", sh: [1, 1], top: 2, cast: true })),
+  { g: "arm", s: T(ARM), c: "S", sh: [1, 1], top: 1, cast: true },
   { g: "glass", s: T([17, 41, 15, 47, 11, 48, 12, 42]), c: "y" },
-  { g: "glass", circle: [T([7, 53]), 11 * K], c: "y" },
+  { g: "glass", circle: [T([7, 53]), 11 * K], c: "y", sh: [3, 3], rim: [1, 1],
+    core: { circle: [T([4, 50]), 5 * K] }, glint: [[1, 47], [2, 46]] },
 ]
+const SHADOW = { s: "S", c: "C", S: "D", o: "R", y: "o", R: "D", L: "s", Y: "y" }
+const LIGHT = { s: "L", S: "s", o: "y", y: "Y", c: "c", R: "o" }
 
 function inPoly(pts, x, y) {
   const px = x + 0.5, py = y + 0.5
@@ -89,13 +103,25 @@ const inPart = (p, x, y) => p.circle
   : p.ell ? ((x + 0.5 - p.ell[0]) / p.ell[2]) ** 2 + ((y + 0.5 - p.ell[1]) / p.ell[3]) ** 2 <= 1
   : inPoly(p.s, x, y)
 
-function render(c, { lines }) {
+function render(c, { lines, shading }) {
   const N = 96, own = new Int16Array(N * N).fill(-1), col = new Array(N * N).fill(null)
   parts.forEach((p, i) => {
+    const inP = (x, y) => inPart(p, x, y)
     for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) {
-      if (!inPart(p, x, y)) continue
+      if (!inP(x, y)) continue
       let k = p.c
       for (const [t, tc] of p.tone || []) if (inPoly(t, x, y)) k = tc
+      if (shading) {
+        const base = k
+        if (p.hl && inPart(p.hl, x, y)) k = LIGHT[base] || base
+        if (p.top && !inP(x, y - p.top)) k = LIGHT[base] || base
+        if (p.core && inPart(p.core, x, y)) k = LIGHT[base] || base
+        let dark = p.sh && !inP(x + p.sh[0], y + p.sh[1])
+        for (let j = i + 1; j < parts.length && !dark; j++)
+          if (parts[j].cast && parts[j].g !== p.g && inPart(parts[j], x - 1, y - 2)) dark = true
+        if (dark) k = SHADOW[base] || base
+        if (p.rim && !inP(x + p.rim[0], y + p.rim[1])) k = SHADOW[SHADOW[base]] || k
+      }
       own[y * N + x] = i; col[y * N + x] = k
     }
   })
@@ -108,6 +134,10 @@ function render(c, { lines }) {
       if (lines && i >= 0 && j >= 0 && j < i && parts[j].g !== parts[i].g) { out[y * N + x] = "k"; break }
     }
   }
+  if (shading) for (const p of parts) for (const g of p.glint || []) {
+    const [x, y] = T(g).map(Math.floor)
+    if (out[y * N + x] && out[y * N + x] !== "k") out[y * N + x] = "w"
+  }
   for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) if (out[y * N + x]) c.px(x, y, out[y * N + x])
 }
 
@@ -119,4 +149,7 @@ sprite("kilnlotl_sil", { w: 96, h: 96 }, (c) => {
 })
 
 // Stage 2: flat colours, one base per material, contours where parts overlap
-sprite("kilnlotl", { w: 96, h: 96 }, (c) => render(c, { lines: true }))
+sprite("kilnlotl_flats", { w: 96, h: 96 }, (c) => render(c, { lines: true }))
+
+// Stage 3: shading
+sprite("kilnlotl", { w: 96, h: 96 }, (c) => render(c, { lines: true, shading: true }))
