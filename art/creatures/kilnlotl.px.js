@@ -59,9 +59,9 @@ const NEAR_GILLS = [
 // The near leg plants forward-left and takes the weight (knee bent over the foot); the far
 // leg stretches out behind, up on its toes.
 const FAR_LEG = [
-  { e: [61, 72, 7, 6.5] },                                    // thigh (mostly behind the hip)
-  { p: [60, 74, 67, 72, 78, 84, 72, 87] },                    // shin, stretched back
-  { p: [68, 91, 69, 88, 74, 86, 78, 83, 81, 85, 78, 91] },    // foot, heel lifted
+  { e: [62, 73, 8.5, 7.5] },                                  // thigh (mostly behind the hip)
+  { p: [56, 74, 68, 70, 74, 76, 81, 83, 74, 89, 66, 80] },    // calf and shin, as thick as the front leg
+  { p: [64, 91, 65, 87, 72, 84, 79, 81, 84, 85, 81, 91] },    // foot, heel lifted
 ]
 const NEAR_LEG = [
   { p: [31, 77, 40, 77, 43, 86, 34, 86] },                    // shin, knee forward
@@ -99,9 +99,9 @@ const parts = [
     hl: { s: T(H([22, 27, 27, 23, 34, 21, 40, 21, 35, 23, 29, 26, 25, 30])) } },
   ...NEAR_GILLS.map((p, i) => ({ g: "gill" + i, s: T(H(p)), c: "o", sh: [1, 1], top: 2, cast: true })),
   { g: "arm", s: T(ARM), c: "S", sh: [1, 1], top: 1, cast: true },
-  { g: "glass", s: T(H([17, 41, 15, 47, 11, 48, 12, 42])), c: "y" },
-  { g: "glass", circle: [T(H([7, 53])), 11 * K], c: "y", sh: [3, 3], rim: [1, 1],
-    core: { circle: [T(H([4, 50])), 5 * K] }, glint: [H([1, 47]), H([2, 46])] },
+  { g: "glass", s: T(H([17, 40, 16, 45, 12, 46, 12, 41])), c: "y" },
+  { g: "glass", circle: [T(H([7, 49.5])), 11 * K], c: "y", sh: [3, 3], rim: [1, 1],
+    core: { circle: [T(H([4, 46.5])), 5 * K] }, glint: [H([1, 43.5]), H([2, 42.5])] },
 ]
 const SHADOW = { s: "S", c: "C", S: "D", o: "R", y: "o", R: "D", L: "s", Y: "y" }
 const SELOUT = { s: "D", L: "D", S: "D", c: "D", C: "D", o: "R", y: "R", Y: "o", R: "D" }
@@ -216,5 +216,5 @@ sprite("kilnlotl", { w: 96, h: 96 }, (c) => render(c, { lines: "sel", shading: t
     ....kkkkkkkk`),
   // toes split by short lines
   vline(38, 89, 2, "k"), vline(41, 89, 2, "k"),
-  vline(63, 89, 2, "k"), vline(65, 88, 2, "k"),
+  vline(63, 89, 2, "k"), vline(66, 88, 2, "k"),
 )
