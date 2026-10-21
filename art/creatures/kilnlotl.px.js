@@ -72,13 +72,6 @@ const NEAR_LEG = [
 const ARM = [38, 61, 30, 63, 22, 64, 14, 66, 8, 66, 3, 63, 1, 58, 4, 58, 7, 62, 12, 62, 18, 59, 26, 56, 33, 54, 38, 54]
   .flatMap((v, i, a) => (i % 2 ? [] : a[i] <= 26 ? H([a[i], a[i + 1]]) : B([a[i], a[i + 1]])))
 
-// near arm, pulled back to brace: shoulder under the jaw, elbow bent out behind, clenched
-// fist at the hip (torso space, so it leans back with the body)
-const NEAR_ARM = [
-  { p: [47, 53, 56, 51, 66, 54, 72, 58, 71, 64, 64, 68, 60, 65, 66, 61, 59, 58, 51, 60] },  // upper arm, forearm
-  { e: [59, 68, 5.2, 4.6] },                                                     // fist
-]
-
 // a leg piece is a polygon {p} or an ellipse {e: [cx, cy, rx, ry]} in design space
 const shape = (q, f = (p) => p) => (q.p ? { s: T(f(q.p)) } : { ell: [...T(f(q.e.slice(0, 2))), q.e[2] * K, q.e[3] * K] })
 
@@ -102,8 +95,6 @@ const parts = [
            [{ s: T(B([44, 67, 45, 64, 46, 62, 47, 64, 48, 67])) }, "y"]],
     glint: [B([43, 58]), B([44, 57])] },
   ...NEAR_LEG.map((q) => ({ g: "nearLeg", ...shape(q), c: "s", sh: [2, 1], cast: true })),
-  ...NEAR_ARM.map((q) => ({ g: "nearArm", ...shape(q, B), c: "s", sh: [1, 1], cast: true,
-    top: q.p ? 1 : 0, hl: q.e ? { ell: [...T(B([57.5, 66.5])), 2.2 * K, 1.8 * K] } : undefined })),
   { g: "head", s: T(H(HEAD)), c: "s", tone: [[T(H(THROAT)), "c"]], sh: [2, 2], cast: true,
     hl: { s: T(H([22, 27, 27, 23, 34, 21, 40, 21, 35, 23, 29, 26, 25, 30])) } },
   ...NEAR_GILLS.map((p, i) => ({ g: "gill" + i, s: T(H(p)), c: "o", sh: [1, 1], top: 2, cast: true })),
@@ -205,6 +196,21 @@ sprite("kilnlotl", { w: 96, h: 96 }, (c) => render(c, { lines: "sel", shading: t
     kkyk
     kook
     .kk.`),
+  // near arm, hand-placed (at this size an arm needs a clean 5 px-wide shape): upper arm
+  // hanging from the shoulder, elbow at the hip, forearm bent forward into a clenched fist
+  grid(52, 65, `
+    ...kkkkk..
+    ..kLsssSk.
+    ..kLsssSk.
+    ..kLssSSSk
+    ...kLsSSSk
+    ...kLssSSk
+    .kkkLsssSk
+    kLLLssssSk
+    kLsssssSSk
+    kLsksSkkk.
+    kssSSk....
+    .kkkk.....`),
   // near cheek puffed out with the breath
   grid(36, 62, `
     .LLL.
