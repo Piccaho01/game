@@ -105,6 +105,9 @@ Measurements come from `pixel-art-studio/scripts/study.py` and direct pixel coun
     are small (about 3-4 px wide, 4-5 tall: black, one white shine pixel top-left, the iris
     colour across the bottom, the Oshawott/Snivy formula), set in the upper half of the head;
     mouths are small. Copying the concept's eye size reads as fan art and makes eyes droop.
+    On a 3/4 head the far eye sits against the face's edge, squashed (or hidden); the near eye is
+    the big one and carries the detail (iris ring, pupil, shine). BW mouths have no black box
+    around them: an open mouth is a shape in the dark mouth colour with a lighter tongue (Emolga).
 28. **Copy the concept's silhouette, not an idea of it.** Measure it on a gridded underlay at
     sprite size (head shape, neck width, where parts overlap) instead of inventing proportions;
     take the concept's light and shade for the body masses, cut to 3 tones, then hand-draw the
