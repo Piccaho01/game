@@ -42,14 +42,14 @@ sprite("gobbin_tr", { w: 96, h: 96 }, (c) => c.grid(26, 50, `
     .........HHHpppppskkkkspHHPSSsspk
     ........HHHHpssssswwkkspHHHsspkkk
     ........PsssSSSSSsPkkSsspHHsSHhhHk
-    ......PPSSSSSSSSSsSSSPSSpHHHHhhHhHk
-    ....PPSSSSSSSSSSSSSsPSSsHHHHhhkkkjk
-    ..PPPSSSSssppppppppppSsHhHHhhk...kk......PPk
-    kkkkkkkkkwPwPwPwPwPPHHHHhHpHk...........PPk
-    ........kPPPPPPPPPHHHHHhhHsssk........PPppk
-    .........PwPwPwPwPHHHHhhjtssssPk.....Ppppk
-    .........kppppppsssHHhhjTTttssSSPk...Pppk
-    ..........kkkkkkkkpHhhjTTTttSssSSkk.Pppppk
+    ......PPSSSSSSSSSsSSSPSSpjhhhhhHhHk
+    ....PPSSSSSSSSSSSSSsPSSsjjhhhhkkkjk
+    ..PPPSSSSssppppppppppSsPjjhhhk...kk......PPk
+    kkkkkkkkkwPwPwPwPwPpsPjjhhhHk...........PPk
+    ........kPPPPPPPPPPpPjhhhHsssk........PPppk
+    .........PwPwPwPwPPpjhhhhtssssPk.....Ppppk
+    .........kppppppsssPjhhhTTttssSSPk...Pppk
+    ..........kkkkkkkkkHhhhTTTttSssSSkk.Pppppk
     ..............PPssskhhrRrRrRrHSSSskPpppppk
     .............PsSssk.HTttrTTtkrrkSskHpppppk
     ............PsSssk..TTTTRtttrRhkhkkkkkkspk
