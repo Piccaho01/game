@@ -1,11 +1,11 @@
 // Gobbin (goblin shark + gob) — Water starter, stage 1. 96x96 BW battle sprite, 3/4 front facing screen-left.
-// A pale-pink goblin-shark pup from the deep water off Kettleport, built like a little hooded
-// goblin: its dorsal fin grows up over its head into a pointed hood and hangs down as a
-// ragged cloak, its blade snout is the long goblin nose, small fins poke out of the hood like
-// goblin ears, and an underslung jaw of needle teeth drops open under a faintly glowing
-// throat sac that flickers before it bites. Battle pose, turned three-quarters to the viewer:
-// hunched in its cloak, fin-hands clutching it shut at the chest, peering out from under
-// the hood with its jaw open; the shark tail pokes out under the hem.
+// A pale-pink goblin-shark pup from the deep water off Kettleport: a head far too big for it,
+// a long blade snout (its goblin nose), pointy fin-ears, an underslung jaw of needle teeth, a
+// faintly glowing throat sac that flickers before it bites, a ragged scrap of a tunic, and a
+// tattered dorsal fin worn like a cape whose tip flops over like a goblin's hood. Battle
+// pose, turned three-quarters to the viewer: standing hunched on stubby fin-feet, jaw dropped
+// open, fins raised nervously, the cape hanging behind it to the ground with the shark tail
+// poking out under the hem.
 //
 // Stages: silhouette (gobbin_sil). Process and rules: art/BW_STYLE.md; structure follows
 // furnaxol.px.js (parts are hand-placed shapes that overlap what they attach to).
@@ -15,37 +15,45 @@
 
 pal({ k: "#181018" })
 
-const K = 0.8
+const K = 0.76
 const T = (pts) => pts.map((v, i) => (i % 2 ? 91 - (91 - v) * K : 48 + (v - 48) * K))
 
 // ---- parts, back to front. {s: polygon} | {ell: [cx, cy, rx, ry]} | {grid: [x, y, rows]} ("#" = in)
 const parts = [
-  // tail: poking out behind, under the cloak's hem, a long upper lobe and a short lower one
-  { g: "tail", s: [66, 80, 76, 76, 83, 70, 87, 63, 91, 62, 90, 69, 93, 75, 86, 76, 80, 82, 72, 86, 66, 86] },
-  // cloak: the dorsal fin hanging from the hood over the shoulders to the ground, flaring
-  // out, its hem torn into strips
-  { g: "cloak", s: [30, 54, 46, 50, 58, 55, 66, 66, 73, 78, 79, 87, 75, 86, 74, 91, 70, 87, 67, 91, 63, 87,
-    59, 91, 55, 87, 50, 90, 44, 87, 38, 90, 32, 87, 26, 89, 23, 84, 25, 72, 27, 62] },
-  // fin-feet peeking out under the hem, far one (left) smaller
-  { g: "farFoot", s: [22, 86, 30, 86, 30, 90, 20, 90] },
-  { g: "foot", s: [34, 86, 45, 86, 47, 91, 32, 91] },
-  // hood: the same fin rising over the head, its pointed tip flopping back like a goblin's
-  { g: "hood", s: [25, 46, 26, 36, 32, 28, 40, 23, 50, 20, 58, 15, 66, 10, 71, 12, 68, 17, 62, 24, 61, 32,
-    61, 42, 58, 51, 52, 58, 44, 62, 34, 62, 28, 57] },
-  // face peering out of the hood's opening (lower left)
-  { g: "face", ell: [34, 47, 10, 9.5] },
-  // rostrum: the long goblin nose, pointing forward and toward the viewer
-  { g: "face", s: [29, 41, 20, 43, 11, 46, 7, 49, 13, 50, 27, 50] },
-  // fin-ears poking out through the hood, the far one (left) narrower
-  { g: "farEar", s: [27, 42, 19, 36, 18, 38, 22, 45, 27, 48] },
-  { g: "ear", s: [58, 38, 66, 32, 68, 34, 64, 41, 58, 45] },
+  // three-quarter turn: chest and face toward the viewer, the far side on the left, the
+  // back (cape, tail) running away up to the right
+  // cape: the dorsal fin, rising behind the head to a tall point that flops over at the tip
+  // like a goblin's hood, then hanging behind the body to the ground (a sliver shows past
+  // the far shoulder); its hem torn into strips
+  { g: "cape", s: [38, 32, 46, 24, 54, 18, 62, 13, 69, 11, 73, 14, 73, 20, 70, 17, 64, 22, 62, 30, 63, 38, 66, 46, 72, 58, 78, 72, 82, 86,
+    78, 85, 77, 90, 73, 86, 70, 90, 66, 85, 62, 88, 58, 84, 48, 86, 36, 86, 28, 84, 25, 80, 27, 70, 31, 56, 35, 44] },
+  // tail: poking out under the hem, lifted, a long upper lobe and a short lower one
+  { g: "tail", s: [66, 80, 76, 77, 83, 71, 87, 63, 91, 62, 90, 69, 93, 75, 87, 76, 81, 81, 72, 85, 66, 85] },
+  // far fin-foot (left), set back
+  { g: "farFoot", s: [27, 83, 36, 83, 37, 89, 24, 89, 24, 87] },
+  // body: short upright trunk, chest facing out
+  { g: "body", s: [32, 56, 44, 54, 52, 58, 55, 68, 54, 80, 49, 88, 36, 88, 30, 82, 29, 68] },
+  // tunic: a ragged scrap of cloth over the body, its hem torn into points
+  { g: "tunic", s: [29, 64, 37, 60, 48, 60, 55, 64, 56, 73, 57, 82, 54, 80, 53, 85, 50, 81, 47, 86, 44, 81,
+    41, 86, 38, 81, 34, 85, 32, 80, 28, 82, 28, 72] },
+  // near fin-foot (right), planted forward
+  { g: "foot", s: [40, 84, 50, 84, 53, 91, 37, 91, 37, 88] },
+  // far fin-hand: a blade fin held up nervously in front of the far side of the chest
+  { g: "farFin", s: [31, 68, 28, 73, 24, 78, 21, 77, 24, 70] },
+  // far fin-ear: pointy, sticking out from the far side of the head (narrower, turned away)
+  { g: "farEar", s: [27, 40, 19, 33, 17, 34, 21, 43, 26, 46] },
+  // head: oversized and domed, turned toward the viewer, wide enough for both big eyes
+  { g: "head", s: [24, 42, 27, 34, 33, 28, 41, 25, 49, 27, 55, 33, 57, 41, 55, 50, 50, 56, 42, 59, 32, 59, 26, 55, 23, 49] },
+  // rostrum: the blade snout (its long goblin nose), pointing forward and toward the viewer
+  { g: "head", s: [29, 38, 20, 41, 11, 45, 8, 48, 14, 49, 27, 48] },
+  // near fin-ear: pointy, sticking out and back from the near side of the head
+  { g: "ear", s: [55, 37, 63, 30, 66, 31, 62, 41, 56, 46] },
   // throat sac: a round bulge under the jaw
-  { g: "sac", ell: [35, 61, 5.5, 4.5] },
-  // jaw: dropped open under the nose, needle teeth jagging up along its rim
-  { g: "jaw", s: [41, 57, 33, 60, 23, 59, 16, 56, 13, 52, 15, 51, 16, 54, 18, 50, 19, 53, 21, 50, 22, 53, 24, 51, 26, 53, 32, 52, 38, 53] },
-  // fin-hands clutching the cloak shut at the chest
-  { g: "farHand", s: [29, 67, 34, 64, 37, 68, 33, 72] },
-  { g: "hand", s: [41, 67, 47, 65, 50, 70, 44, 74] },
+  { g: "sac", ell: [35, 63, 6, 5] },
+  // jaw: dropped open under the snout, needle teeth jagging up along its rim
+  { g: "jaw", s: [42, 59, 33, 62, 23, 61, 16, 58, 13, 53, 15, 52, 16, 55, 18, 51, 19, 54, 21, 51, 22, 54, 24, 52, 26, 54, 32, 53, 38, 55] },
+  // near fin-hand: a blade fin hanging at the near side, tip flicked forward
+  { g: "fin", s: [50, 60, 56, 65, 58, 73, 55, 79, 52, 74, 49, 67] },
 ]
 
 function inPoly(pts, x, y) {
