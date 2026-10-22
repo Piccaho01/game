@@ -82,7 +82,11 @@ Measurements come from `pixel-art-studio/scripts/study.py` and direct pixel coun
     creature's right side) are on screen-right and bigger; a limb reaching for the opponent
     comes forward on the left. Never a flat side profile, never squared to the camera. The
     back sprite is the same pose seen from behind.
-20. **Starter proportions**: the head is 40-45% of the total height.
+20. **Starter size and proportions** (measured on BW sprites): basic forms are small and sleek.
+    Body boxes: Snivy 40x37, Tepig 33x39, Oshawott 29x36, Scraggy 32x40, Axew 36x45, Zorua
+    40x47, Shelmet 40x35, all on the 96x96 canvas. Arms 2-3 px thick, legs 3-4 px, eyes about
+    4-6 px, heads about half the height. Draw at this size pixel by pixel; never scale down a big
+    drawing (that is what made the first attempts chunky).
 21. **Personality first**: every creature gets one trait (smug, cocky, jittery, sly...) that the
     brows, mouth and pose all sell. "The animal plus its gimmick" is not a design. The pose
     *acts* the trait (hand on hip, leaning back on a tail, rubbing hands together).

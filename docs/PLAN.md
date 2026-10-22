@@ -75,7 +75,9 @@ Work happens on branch `claude/m2-starters`. Rules: `art/BW_STYLE.md`, especiall
   a tattered hood whose front edge arches; ears visible; keep the fin cape. Not horror.
 
 **Next steps**
-1. Get the owner's full BW2 sprite reference sheet (Imgur album
+1. (Done in the first session: the album was downloaded and studied; sizes are in BW_STYLE rule
+   20. Sprigby was redone at true size as `art/creatures/wip/sprigby2.px.js`, awaiting review.)
+   Get the owner's full BW2 sprite reference sheet (Imgur album
    `https://imgur.com/a/pokemon-sprites-c5nZi`; needs `imgur.com` and `i.imgur.com` allowed in the
    environment's network settings, or the owner attaches the images). Study the basic forms and the
    Unova starter lines: sizes, limb thickness, shading, eye and mouth style. The owner's earlier
