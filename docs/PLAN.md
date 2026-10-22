@@ -17,7 +17,7 @@ Rules that keep it efficient:
 ## Status
 - [x] Bible, art style guide (`art/BW_STYLE.md`), sprite pipeline validated (Furnaxol + idle)
 - [x] M1 Foundation (live once Pages is enabled: Settings → Pages → Source: GitHub Actions)
-- [ ] M2 Stage-1 starters
+- [ ] M2 Stage-1 starters (checkpoint 1: silhouettes awaiting review, `art/creatures/out/_preview/starters_sil.png`)
 - [ ] M3 Core loop
 - [ ] M4 Characters + world slice
 - [ ] M5 Playtest build
