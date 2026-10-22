@@ -6,7 +6,9 @@
 // to face left) the BW way: art/tools/art2sprite.py did the majority-vote downscale to 48 px tall,
 // then the head, crest, face, fists and sprig were redrawn by hand over a gridded underlay of the
 // art. Approved by the owner. The back sprite is the same pose from behind, facing right, drawn
-// like Mienfoo's: the camera moved behind him, both fists still up; the back faces away from the
+// like Mienfoo's: the camera moved behind him, both arms still up but seen from behind
+// (elbow and forearm on the near side, the back of the taped fist past the head; the fists point
+// away toward the foe); the back faces away from the
 // light, so the skin is the shadow tone with a lit rim along the top and right, one continuous
 // form from the head down; the corner of the eye and the sprig's tip peek past the head's right
 // edge to show the facing.
@@ -101,14 +103,14 @@ const BACK = `
   k.DglLk.......Dssssssssssbbkk
   DDkglLk.......DssssssssssbbkLLLl
   DlDglsk.k.....Dsssssssssbbkkggg
-  DgDglsDDlsk...Dssssssssbbkl..k
-  DgDglsDglk....DssssssbbDglGgblk
-  DgDglDglsk...DsssssssbbDggGlGgk
-  kggglDglsk...DDDDssssbbkglGgGlk
-  .DgglDglk...DDlblDssssbbkgggggk
-  .kggDgglk..DglGlGlDssssbbkkkkk
-  ..DgDglk...DggGlGgDssssbk
-  ..kgglDk...kgggggkssssbbk
+  DgDglsDDl.....DssssssssbbkkGGk
+  DgDglsDgl...DskssssssssbbkgGgGk
+  DgDglDgls..DsskssssssssbbksGgGk
+  kggglDgls.Dssskssssssssbbkssk
+  .DgglDglk.DsGGksssssssbbkkk
+  .kggDgglk.DGgGksssssssbbk
+  ..DgDglk..kGGGkDssssssbbk
+  ..kgglDk...kkk.Dssssssbbk
   ...rRRk.........Dsssssbbk
   ...rRRk........Dsssssssbbk
   ...kRRk.......Dlssssssssbbk
