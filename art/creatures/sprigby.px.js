@@ -1,8 +1,8 @@
 // Sprigby (sprig + wallaby) — Plant starter, stage 1. 96x96 BW battle sprite, 3/4 front facing screen-left.
 // A tiny wallaby joey from Canopy. Its ears are two sprouting leaves, its heels are coiled
 // vine springs, and it can't stop bouncing. Battle pose: nervous but game, up on its toes
-// with the heel springs wound, little fists up in a wobbly guard (the kickboxer it grows
-// into), ears pinned back, thick tail planted behind as a third leg.
+// with the heel springs wound, one fist tucked in a guard while the other throws a
+// wobbly uppercut (the kickboxer it grows into), head leaning back from its own punch, ears pinned back, thick tail planted behind as a third leg.
 //
 // Stages: silhouette (sprigby_sil). Process and rules: art/BW_STYLE.md; structure follows
 // furnaxol.px.js (parts are hand-placed shapes that overlap what they attach to).
@@ -18,7 +18,7 @@ const T = (pts) => pts.map((v, i) => (i % 2 ? 91 - (91 - v) * K : 48 + (v - 48) 
 // ---- parts, back to front. {s: polygon} | {ell: [cx, cy, rx, ry]} | {grid: [x, y, rows]} ("#" = in)
 const parts = [
   // far ear: the same leaf turned away (narrower), more upright, a V of air between the ears
-  { g: "farEar", s: [28, 42, 27, 36, 26, 30, 28, 23, 32, 17, 35, 14, 36, 20, 35, 27, 33, 34, 32, 43] },
+  { g: "farEar", s: [34, 41, 33, 35, 32, 29, 34, 22, 38, 16, 41, 13, 42, 19, 41, 26, 39, 33, 38, 42] },
   // tail: thick at the rump, down to the ground behind, tip curling up
   { g: "tail", s: [56, 70, 66, 74, 76, 79, 84, 78, 87, 72, 91, 71, 92, 78, 87, 85, 78, 89, 70, 88, 64, 80] },
   // far foot: toes just showing past the near one
@@ -39,16 +39,17 @@ const parts = [
     ...###
     .#####`] },
   // head: big and round (a joey is mostly head), snout pushed forward at the target
-  { g: "head", s: [24, 44, 30, 39, 38, 38, 45, 41, 49, 47, 49, 54, 46, 59, 40, 62, 32, 63, 25, 62, 20, 59, 16, 56, 15, 53, 18, 49] },
+  { g: "head", s: [30, 43, 36, 38, 44, 37, 51, 40, 55, 46, 55, 53, 52, 58, 46, 61, 38, 62, 31, 61, 26, 58, 22, 55, 21, 52, 24, 48] },
   // near ear: a big sprout leaf swept back from the crown: thin stem, wide middle, pointed
   // tip, a bite-notch on its back edge
-  { g: "ear", s: [38, 42, 40, 36, 41, 31, 44, 25, 49, 20, 55, 16, 61, 14, 60, 19, 57, 25, 58, 27, 53, 31, 47, 35, 43, 40, 42, 44] },
-  // arms: little fists up in a wobbly guard below the chin, with air around them; the far
-  // fist higher and ahead, the near one lower and bigger
-  { g: "farArm", s: [35, 70, 28, 70, 22, 69, 16, 68, 17, 63, 23, 64, 29, 65, 35, 64] },
-  { g: "farArm", ell: [13, 66.5, 4, 3.5] },
-  { g: "arm", s: [40, 80, 33, 79, 27, 77, 22, 75, 25, 70, 29, 72, 34, 74, 40, 74] },
-  { g: "arm", ell: [19, 75.5, 4.5, 4] },
+  { g: "ear", s: [44, 41, 46, 35, 47, 30, 50, 24, 55, 19, 61, 15, 67, 13, 66, 18, 63, 24, 64, 26, 59, 30, 53, 34, 49, 39, 48, 43] },
+  // arms: the head leans back away from the punch. The far fist is tucked in a guard under
+  // the chin; the near arm throws an uppercut, elbow low in front of the chest, forearm
+  // driving straight up ahead of the snout, fist at eye height
+  { g: "farArm", s: [36, 70, 30, 70, 26, 68, 28, 64, 33, 65] },
+  { g: "farArm", ell: [25, 66.5, 4, 3.5] },
+  { g: "arm", s: [40, 68, 34, 74, 26, 78, 18, 77, 13, 70, 11, 60, 10, 52, 16, 52, 17, 60, 19, 69, 24, 71, 32, 66] },
+  { g: "arm", ell: [13, 49, 5, 4.5] },
 ]
 
 function inPoly(pts, x, y) {

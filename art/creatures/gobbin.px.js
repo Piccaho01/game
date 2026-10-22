@@ -1,9 +1,10 @@
 // Gobbin (goblin shark + gob) — Water starter, stage 1. 96x96 BW battle sprite, 3/4 front facing screen-left.
 // A pale-pink goblin-shark pup from the deep water off Kettleport: a head far too big for it,
 // a long blade snout, an underslung jaw of needle teeth, a faintly glowing throat sac that
-// flickers before it bites, and a tattered dorsal fin worn like a cape. Reads as "head and
-// cape". Battle pose: hunched and creeping forward on stubby fin-feet, jaw dropped and
-// pushed out under the snout, cape fin trailing, tail lifted behind.
+// flickers before it bites, and a tattered dorsal fin worn like a hooded cape. Reads as "head
+// and cape": a little hooded goblin. Battle pose: standing hunched on stubby fin-feet, jaw
+// dropped open under the snout, fin-hands raised nervously, the cape hanging from the back of
+// its head to the ground behind it with the shark tail poking out under the hem.
 //
 // Stages: silhouette (gobbin_sil). Process and rules: art/BW_STYLE.md; structure follows
 // furnaxol.px.js (parts are hand-placed shapes that overlap what they attach to).
@@ -13,33 +14,33 @@
 
 pal({ k: "#181018" })
 
-const K = 0.82
+const K = 0.76
 const T = (pts) => pts.map((v, i) => (i % 2 ? 91 - (91 - v) * K : 48 + (v - 48) * K))
 
 // ---- parts, back to front. {s: polygon} | {ell: [cx, cy, rx, ry]} | {grid: [x, y, rows]} ("#" = in)
 const parts = [
-  // tail: from under the cape, low and back, a long upper lobe (shark tail) and a short lower
-  { g: "tail", s: [58, 78, 68, 78, 76, 75, 81, 70, 85, 64, 88, 65, 87, 72, 90, 76, 84, 78, 76, 83, 66, 86, 58, 86] },
-  // far fin-foot, set back and higher
-  { g: "farFoot", s: [54, 80, 62, 80, 66, 88, 60, 89, 52, 88] },
-  // cape: the tattered dorsal fin, rising off the back of the head with its tip swept back
-  // like a hood, then draping down and back like a cape; its ragged hem torn into strips that hang clear
-  { g: "cape", s: [40, 44, 46, 39, 52, 35, 58, 32, 64, 30, 69, 31, 66, 34, 66, 40, 70, 48, 76, 55, 79, 62, 76, 61, 77, 68,
-    73, 64, 72, 71, 68, 66, 66, 73, 63, 67, 58, 70, 52, 60, 44, 54] },
-  // body: small and hunched under the head
-  { g: "body", s: [36, 60, 48, 58, 56, 62, 60, 70, 60, 78, 56, 84, 46, 86, 38, 82, 34, 72] },
+  // cape: the dorsal fin, rising behind the head (lower than the dome) with its tip swept back, then hanging behind the
+  // body to the ground, flaring back; its hem torn into strips
+  { g: "cape", s: [44, 38, 50, 34, 56, 31, 64, 29, 60, 33, 61, 38, 64, 44, 69, 56, 74, 68, 80, 80, 83, 88,
+    79, 86, 78, 91, 74, 87, 71, 91, 68, 86, 64, 89, 60, 84, 54, 80, 50, 66, 48, 52, 44, 42] },
+  // tail: poking out under the hem, lifted, a long upper lobe and a short lower one
+  { g: "tail", s: [66, 80, 76, 78, 84, 72, 88, 64, 92, 63, 91, 70, 94, 76, 88, 77, 82, 82, 72, 86, 66, 86] },
+  // far fin-foot, set back
+  { g: "farFoot", s: [46, 84, 54, 84, 56, 90, 44, 90] },
+  // body: short upright trunk under the head
+  { g: "body", s: [32, 58, 44, 55, 50, 55, 52, 62, 54, 72, 52, 82, 46, 88, 36, 88, 31, 80, 30, 68] },
   // near fin-foot: stubby, planted forward
-  { g: "foot", s: [38, 80, 48, 80, 50, 86, 48, 91, 34, 91, 33, 88] },
-  // head: oversized, domed, overhanging the jaw
-  { g: "head", s: [20, 47, 25, 41, 33, 38, 41, 38, 47, 42, 51, 49, 51, 57, 46, 63, 37, 65, 28, 64, 22, 61, 20, 55] },
+  { g: "foot", s: [30, 84, 40, 84, 42, 91, 26, 91, 26, 88] },
+  // head: oversized and domed
+  { g: "head", s: [22, 40, 26, 33, 33, 28, 41, 27, 48, 30, 53, 37, 54, 46, 50, 55, 42, 60, 33, 61, 26, 58, 22, 52] },
   // rostrum: the long flat blade snout jutting forward, high over the open mouth
-  { g: "head", s: [24, 44, 16, 46, 9, 48, 6, 50, 12, 52, 22, 53] },
-  // throat sac: a round bulge hanging under the jaw hinge
-  { g: "sac", ell: [31, 68, 7, 6] },
-  // jaw: dropped and pushed out under the snout, needle teeth jagging up along its rim
-  { g: "jaw", s: [36, 64, 28, 68, 18, 68, 11, 65, 8, 61, 10, 60, 11, 62, 13, 59, 14, 62, 16, 59, 17, 62, 19, 59, 20, 62, 23, 60, 26, 62, 32, 61] },
-  // pectoral fin: a little blade-arm held nervously against the chest
-  { g: "fin", s: [44, 66, 49, 68, 47, 74, 42, 80, 38, 79, 40, 72] },
+  { g: "head", s: [25, 38, 16, 40, 8, 42, 4, 44, 10, 46, 24, 47] },
+  // throat sac: a round bulge under the jaw hinge
+  { g: "sac", ell: [33, 63, 6, 5] },
+  // jaw: dropped open and pushed out under the snout, needle teeth jagging up along its rim
+  { g: "jaw", s: [34, 60, 27, 63, 18, 63, 12, 60, 10, 56, 12, 55, 13, 57, 15, 54, 16, 57, 18, 54, 19, 57, 21, 54, 23, 57, 26, 56, 30, 57] },
+  // fin-hand: a blade-like pectoral fin hanging at its side, tip flicked forward nervously
+  { g: "fin", s: [38, 64, 43, 66, 42, 74, 38, 80, 33, 82, 35, 76] },
 ]
 
 function inPoly(pts, x, y) {
