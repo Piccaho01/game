@@ -196,7 +196,7 @@ Use these as flavour in NPCs, items, signs, quests and dialogue. Spread them out
 
 ### Gobbin → Gulpjaw → Harrowjaw (Water → Water → Water/Dark): hooded goblin harpooner
 - Look is set by the concept art in `art/concepts/gobbin.png`: a goblin-shark pup dressed like a little goblin scavenger.
-- **Gobbin**: dusky grey-pink skin, long flat blade snout over a spring-loaded jaw full of needle teeth, sly grin and narrow eyes, pointed fin-shaped goblin ears, its tattered slate dorsal fin worn as a hood/cape, ragged tunic with a rope belt and a pouch, faint blue throat glow. Cute and sneaky, not scary.
+- **Gobbin**: dusky grey-pink skin, long flat blade snout over a spring-loaded jaw full of needle teeth, sly grin and narrow eyes, pointed fin-shaped goblin ears, its tattered slate dorsal fin worn as a hood/cape, ragged tunic with a rope belt and a pouch (no throat glow at this stage). Cute and sneaky, not scary.
 - **Gulpjaw**: the scavenger. Lankier and hunched, the jaw outgrowing the body; the fin-hood grows into a long tattered cloak; a bandolier of pouches and hoarded shiny junk (bottle caps, hooks, glass); blade-like pectoral fins used as hands; the throat glow brighter, showing bioluminescent spots.
 - **Harrowjaw**: the goblin king of the deep. Tall and gaunt, a ragged fin mantle like a deep-sea coat with a cowl, a crown-like crest of torn fin; fires its jaw forward on stretched cartilage like a harpoon, the throat glowing cold blue before it fires; trophy chains of hooks and lures. Palette: dusky grey-pink, slate and bruised purple, cold blue glow. Ability **Ambush Jaw**. Signature **Abyssal Harpoon** (ignores Protect, lowers Speed; its own Defense drops as the jaw resets).
 
