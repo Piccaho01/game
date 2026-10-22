@@ -113,6 +113,22 @@ Measurements come from `pixel-art-studio/scripts/study.py` and direct pixel coun
     take the concept's light and shade for the body masses, cut to 3 tones, then hand-draw the
     face and small details.
 
+## Translating a concept (the checklist, from Sprigby and Zapail)
+1. Classify every concept pixel by **material** (skin, cloth, shell...), take the majority material
+   per sprite cell, and that material's tone from the concept's own light and shade (3-4 tones,
+   lone pixels cleaned). This keeps the concept's silhouette and proportions exactly.
+2. Pick the palette up front: saturated, complementary, 15 colours max (a washed-out palette
+   reads as a shiny).
+3. One continuous body: no outlines or shade bands across a neck or between parts of the same
+   mass; overlapping parts get a line only where one is in front of another.
+4. Face by hand, BW-sized (rules 27): eyes small and detailed, the far eye on the face's edge or
+   hidden, mouths with no black box.
+5. Before showing: compare zoomed beside the concept and at real size beside BW sprites; look for
+   seams, gaps, stray pixels, parts that merge (a hand into a tail, a tail into a leg).
+6. Back sprite (Mienfoo): the same pose with the camera behind; limbs and fists seen from behind,
+   pointing away; whatever is on the front (a face plate, a belly) hidden; the back in the shadow
+   tones with a lit rim; a sliver of the face past the head's edge; a tail grows from the spine.
+
 ## Process (claude-pxl) — the professional order of work
 Researched from the BW-style spriting community (Smogon sprite projects, PokéCommunity and
 Dragonfly Cave guides) and measured on the owner's full Gen 5 sprite sheet. Each step fixes a
