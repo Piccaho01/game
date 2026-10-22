@@ -47,7 +47,7 @@ Work happens on branch `claude/m2-starters`. Rules: `art/BW_STYLE.md`, especiall
 (added after the owner's reviews this milestone).
 
 **State**
-- **Furnaxol is approved and final as-is** (`art/creatures/furnaxol.px.js`). Do not re-pose it.
+- **Furnaxol is approved** and was shrunk to 80% to match the other starters (`art/creatures/furnaxol.px.js`, frame grids; the original build is `art/creatures/wip/furnaxol_large.px.js`). Do not re-pose it.
 - **Sprigby is approved** (`art/creatures/sprigby.px.js`): translated from the concept art, front,
   idle, back and back idle, in game. Its head is a **round head** with the muzzle as a cream patch
   inside the face (no snout: every snout attempt read as an anteater); copy the concept's head
