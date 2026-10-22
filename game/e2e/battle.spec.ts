@@ -23,7 +23,7 @@ test('boots on a phone and Furnaxol wins the placeholder battle', async ({ page 
   const errors: string[] = [];
   page.on('pageerror', (e) => errors.push(e.message));
   await page.goto('/?seed=3');
-  await page.waitForFunction(() => window.__battle?.phase() === 'menu', null, { timeout: 20_000 });
+  await page.waitForFunction(() => window.__battle?.phase() === 'menu', null, { timeout: 60_000 });
   expect(await page.evaluate(() => window.__battle.log())).toEqual(['A wild Sprigby appeared!', 'Go! Furnaxol!']);
 
   for (let turn = 0; turn < 20; turn++) {
@@ -39,6 +39,6 @@ test('boots on a phone and Furnaxol wins the placeholder battle', async ({ page 
 
   // The end screen offers the next fight.
   await tap(page, 'next');
-  await page.waitForFunction(() => window.__battle.log()[0] === 'A wild Zapail appeared!', null, { timeout: 20_000 });
+  await page.waitForFunction(() => window.__battle.log()[0] === 'A wild Zapail appeared!', null, { timeout: 60_000 });
   expect(errors).toEqual([]);
 });

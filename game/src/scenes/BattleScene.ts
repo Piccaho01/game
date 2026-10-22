@@ -16,6 +16,8 @@ const FOE_LEVEL = 5;
 const FOE_ROTATION = ['sprigby', 'zapail', 'gobbin'];
 const STATUS_COLORS: Record<StatusId, number> = { brn: 0xe8603c, par: 0xd8b020, psn: 0xa050c0, slp: 0x8890a0 };
 const BOTTOM = SCREEN_H;
+const CHAR_MS = 18;
+const LINE_HOLD_MS = 700;
 
 /** BW layout: battle on the top screen, touch menu on the bottom screen. */
 export class BattleScene extends Phaser.Scene {
@@ -325,29 +327,28 @@ class MessageBox {
   /** Types the line out, then waits briefly (or for a tap) before resolving. */
   show(line: string) {
     return new Promise<void>((resolve) => {
-      let shown = 0;
       let done = false;
+      let hold: Phaser.Time.TimerEvent | undefined;
       this.text.setText('');
-      const typer = this.scene.time.addEvent({
-        delay: 18, repeat: line.length - 1,
-        callback: () => {
-          this.text.setText(line.slice(0, ++shown));
-          if (shown >= line.length) finishTyping();
-        },
+      // Driven by elapsed time, not frames, so slow devices skip letters instead of crawling.
+      const counter = { shown: 0 };
+      const typer = this.scene.tweens.add({
+        targets: counter, shown: line.length, duration: line.length * CHAR_MS,
+        onUpdate: () => this.text.setText(line.slice(0, Math.floor(counter.shown))),
+        onComplete: () => finishTyping(),
       });
       const finish = () => {
         if (done) return;
         done = true;
-        hold.remove();
+        hold?.remove();
         this.skip = undefined;
         resolve();
       };
-      let hold = this.scene.time.addEvent({ delay: 1e9 });
       const finishTyping = () => {
-        typer.remove();
+        if (hold) return;
+        typer.stop();
         this.text.setText(line);
-        hold.remove();
-        hold = this.scene.time.delayedCall(700, finish);
+        hold = this.scene.time.delayedCall(LINE_HOLD_MS, finish);
         this.skip = finish;
       };
       this.skip = finishTyping;

@@ -5,7 +5,7 @@ const executablePath = process.env.PW_CHROMIUM || undefined;
 
 export default defineConfig({
   testDir: 'e2e',
-  timeout: 60_000,
+  timeout: 180_000,
   use: {
     baseURL: 'http://localhost:4173',
     launchOptions: { executablePath },

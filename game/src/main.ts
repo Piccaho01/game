@@ -14,6 +14,8 @@ async function start() {
     height: VIEW_H * ZOOM,
     backgroundColor: '#101018',
     pixelArt: true,
+    // Use the real frame time so a slow device drops frames instead of running in slow motion.
+    fps: { smoothStep: false },
     scale: { mode: Phaser.Scale.FIT, autoCenter: Phaser.Scale.CENTER_BOTH },
     input: { activePointers: 2 },
     scene: [BootScene, BattleScene],
