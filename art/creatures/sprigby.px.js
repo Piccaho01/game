@@ -5,16 +5,20 @@
 // Translated from the owner's concept art (art/concepts/line_wallaby.png, left creature, mirrored
 // to face left) the BW way: art/tools/art2sprite.py did the majority-vote downscale to 48 px tall,
 // then the head, crest, face, fists and sprig were redrawn by hand over a gridded underlay of the
-// art. Approved by the owner. The back sprite is the same pose from behind, facing right, drawn
-// like Mienfoo's: the camera moved behind him, both arms still up but seen from behind
-// (elbow and forearm on the near side, the back of the taped fist past the head; the fists point
-// away toward the foe); the tail grows from the base of the spine and lies over the hips, toward
-// the camera, before curving up into the leaf fan; the legs are the pose turned round, not mirrored: his right leg,
-// nearer the camera, trails back toward it (the biggest and lowest, the heel and sole showing),
-// the left steps forward and away (only its shin and foot peek out on the far right); the back faces away from the
-// light, so the skin is the shadow tone with a lit rim along the top and right, one continuous
-// form from the head down; the corner of the eye and the sprig's tip peek past the head's right
-// edge to show the facing.
+// art. Approved by the owner.
+//
+// The back sprite is the same pose turned round (not mirrored), facing right, drawn like
+// Mienfoo's back: the camera moved behind him.
+// - Arms still up but seen from behind: elbow and forearm on the near side, the back of the taped
+//   fist past the head; the fists point away toward the foe.
+// - The back faces away from the light: the skin is the shadow tone with a lit rim along the top
+//   and right, one continuous form from the head down.
+// - The tail grows from the base of the spine and lies over the hips, toward the camera, before
+//   curving up into the leaf fan.
+// - Legs: a wide planted stance with thick haunches; his right leg, nearer the camera, is the
+//   biggest and lowest, the left steps away and sits higher and smaller; feet seen heel-on, the
+//   toe claws peeking over.
+// - The corner of the eye and the sprig's tip peek past the head's right edge to show the facing.
 // Grids sit so the feet are on y = 91.
 //
 // Sprites: sprigby (front still), sprigby_idle, sprigby_back, sprigby_back_idle.
@@ -116,25 +120,25 @@ const BACK = `
   ..kgrRrk...kkk.Dssssssbbk
   ....krRr........Dsssssbbk
   .....krRr......Dsssssssbbk
-  ......krRrr...DlsrrrrDDDDkk
-  .......krRRrrrrrrRRRRkssbbkk
-  ........krrRRRRRRrrrrkssbbkbk
-  .........kkrrrrrrrrkkssssbbkk
-  ..........Dkkkkkkkkssssssbbkkk
-  ...........DsssbbkDssssssbbkk
-  ...........ksssbbkssssssbbkbbk
-  ............kkkkkDssssssbbksbbk
-  ................Dssssssbbkssbbk
-  ................Dsssssbbk.kssbbk
-  ................Dssssbbk...ksrrk
-  ...............Dsssssbkk....rRRRk
-  ...............Dsssbbk......kkkkk
-  ..............Dsssbbk
-  ..............Dssbbk
-  .............rrrrkk
-  ............rRRRRRk
-  ............kRRRRRk
-  .............kkkkk`
+  ......krRrr...Dlsrrrrsssbbk
+  .......krRRrrrrrrRRRRksssbbk
+  ........krrRRRRRRrrrrkssssbbk
+  .........kkrrrrrrrrkkDDkssbbk
+  ..........DDDDDDkkkDDssbDksbbk
+  ..........DssssbbkDsssssbbk
+  ..........DssssbbDsssssssbbk
+  .........DsssssbbDsssssssbbk
+  ........DssssssbbDsssssssbbk
+  .......Dssssssbkkksssssssbbk
+  ......Dsssssbkk...Dsssssbbk
+  ....k.kkksbkk.....Dssssbbk
+  ....rrrrrkk.......Dsssbbk
+  ...rrrrrrk........Dsssbbk
+  ...kRRRRRk.......kDkskbk
+  ....kkkkk........rrrrrrk
+  ................rrrrrrrrk
+  ................kRRRRRRRk
+  .................kkkkkkk`
 
 // Draw a grid with everything above row `split` shifted down by `bob` (the breath: the upper body
 // sinks into the hips); the lower rows go first so the upper body overlaps them.
