@@ -128,6 +128,9 @@ Measurements come from `pixel-art-studio/scripts/study.py` and direct pixel coun
 6. Back sprite (Mienfoo): the same pose with the camera behind; limbs and fists seen from behind,
    pointing away; whatever is on the front (a face plate, a belly) hidden; the back in the shadow
    tones with a lit rim; a sliver of the face past the head's edge; a tail grows from the spine.
+   Turn the pose round, don't mirror it: the side that was far is now near. Feet point away
+   (heels and soles toward the camera); the trailing leg comes toward the camera, biggest and
+   lowest; the leading leg steps away, mostly hidden behind the body.
 
 ## Process (claude-pxl) — the professional order of work
 Researched from the BW-style spriting community (Smogon sprite projects, PokéCommunity and
