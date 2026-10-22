@@ -5,7 +5,9 @@
 // Translated from the owner's concept art (art/concepts/line_wallaby.png, left creature, mirrored
 // to face left) the BW way: art/tools/art2sprite.py did the majority-vote downscale to 48 px tall,
 // then the head, crest, face, fists and sprig were redrawn by hand over a gridded underlay of the
-// art. Approved by the owner. The back sprite is the same pose from behind, facing right.
+// art. Approved by the owner. The back sprite is the same pose from behind, facing right: the
+// far fist is hidden behind the body, and the corner of the eye and the sprig's tip peek past the
+// head's right edge (BW backs keep a sliver of the face to show the facing).
 // Grids sit so the feet are on y = 91.
 //
 // Sprites: sprigby (front still), sprigby_idle, sprigby_back, sprigby_back_idle.
@@ -89,27 +91,27 @@ const BACK = `
   ...DDgglLLLLlDDDLLDlLgkbbbk
   .DgggglllllllDDLLLLDlkbbbbbk
   .GgggggllllllDDLLLLbkbbbbbbk
-  ..kkkggggggggDLLLLbbbbbbbbbbk
-  ......DkkkkkkDLLbbbbbbbbbbbbk
-  ....DLk......Dbbbbbbbbbbbbssk
+  ..kkkggggggggDLLLLbbbbbbbbbkk
+  ......DkkkkkkDLLbbbbbbbbbbbek
+  ....DLk......Dbbbbbbbbbbbbskk
   ...DlLk......Dbbbbbbbbbbssssk
   ..DglLk......kbbbbbbbbbsssssk
   k.DglLk.......Dbbbbbbsssssskk
-  DDkglLk.......Dbbbbssssssssk
-  DlDglsk.k.....DDbbsssssssskk
-  DgDglsDDlsk...DsDsssssssskl..k
-  DgDglsDglk....DbbbbbbssDglGgslk
-  DgDglDglsk...DsssbbbbssDggGlGgk
-  kggglDglsk...DDDDsbbbsskglGgGlk
-  .DgglDglk...DDlslDsbbbsskgggggk
-  .kggDgglk..DglGlGlDbbbbsskkkkk
-  ..DgDglk...DggGlGgDbbbbss
-  ..kgglDk...kgggggkLbbbssk
-  ...rRRk.........DLbbbbssk
-  ...rRRk........DLbbbbbbssk
-  ...kRRk.......DlLbbbbbbbssk
-  ....rRk......DLbbbbbbbbbbssk
-  ....rRRk....DLbbbbbbbbbbbbssk
+  DDkglLk.......DbbbbsssssssskLLLl
+  DlDglsk.k.....DLbbsssssssskkggg
+  DgDglsDDlsk...DLbsssssssskl..k
+  DgDglsDgl....DLbbbbbbbbbbbbbslk
+  DgDglDgls....DLbbbbbbssDggGlGgk
+  kggglDgls....DLbbbbbbsskglGgGlk
+  .DgglDglk....DLbbbbbbbsskgggggk
+  .kggDgglk....DLbbbbbbbbsskkkkk
+  ..DgDglk.....DLbbbbbbbbss
+  ..kgglDk.....DLbbbbbbbssk
+  ...rRRk.......DLbbbbbbssk
+  ...rRRk.......DLbbbbbbbssk
+  ...kRRk......DLbbbbbbbbbssk
+  ....rRk.....DLbbbbbbbbbbbssk
+  ....rRRk...DLbbbbbbbbbbbbbssk
   ....rRRRrrrDLbbbbbbbbbbbbbssk
   ....krRRRRLbbbbbbbbbssbbbbbssk
   .....krrrrLbbbbbbbsskksbbbssk
