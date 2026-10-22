@@ -586,39 +586,39 @@ const BACK = [
   .....................kkkkk....y..uk.uk
   ....................knnnnak.....kkkkk
   ....................knnnnnk....knnnnak
-  .....................kkkkk.....knnnnnk
-  .......................Bk.......kkkkk
-  ...............qqk.....kak......Bk
-  ...............qYk......Bk.....Bak
-  ...............kkk......BBBBBBBBk
-  ..............kkkkk....BBaaaaaaaaBk
-  ..............kannk...BAaaaaaaaaaabk
+  ...............qqk...kkkkk.....knnnnnk
+  ...............qYk.....Bk.......kkkkk
+  ...............kkk.....kak......Bk
+  ..............kkkkk.....Bk.....Bak
+  ..............kannk.....BBBBBBBBk
+  ..............kaYnk....BBaaaaaaaaBk
+  ..............kYYYk...BAaaaaaaaaaabk
   ..............kaYnk...BAaaaaaaaaaabk
-  ..............kYYYk...BAaaaaaaaaaabkk
-  ..............kaYnk..BAaaaaaaaaaaaabY
-  ..........qk..kkkkk..qkaaaaaaaaaaaabk
-  ..........qk.qkkkkkkkkkaaaaaaaaaaaabk
-  ..........qYqkOOOOOOOOkkaaaaaaaaaaabk
-  ..........qYkOOOqqqqqqOOkaaaaaaaaabk
-  .........qYkOOqqqOOOOqqookaaaaaaaabmk
-  .........qkOOqqOOOOOooqqokkaaaaaaabk
-  ......qqqukOOqOOOOOoooooqokaaaaaabk
-  ......kkukOOqqOOOoqqooooqqkaaaaaabk
-  ........qkOOqOOOqqqqqooooqkaaaaaaabk
-  ........qkOOqOOoqooooqoooqqkaaaaaabk
-  ........qkOOqoooqooooqooooqkaaaaaabk
-  ........qkOOqoooqqoooqoooqqkaaaaaabk
-  .......qukOoqqoooooooqooqqkaaaaaaabk
-  .......kkkOooqoooooooqqqqqkaaaaaaabk
-  .........koooqqoooooqqqqqqkaaaaaaabk
-  ..........koooqqqqqqqqqqqqkaaaaaaaabk
-  ..........koooooooqqqqqqqkaaaaaaaaabk
-  ..........qkoooooqqqqqqqkaaaaaaaaaaabk
-  ..........kkkoooqqqqqqqkaaaaaaaaaaaabk
-  .............kkqqqqqqkkaaaaaaaaaaaaabk
-  ...............kkkkkkaaaaaaaaaaaaaaabk
-  .............BBBBaaaaaaaaaaayyaaaayybk
-  .........BBBBaaaaaaaaayyaaaaaayaaykkkk
+  ..............kkkkk...qkaaaaaaaaaabkk
+  .........qqqqkkkkOOkkkkkaaaaaaaaaaabY
+  .........qYYkOOOOOOOOOOkaaaaaaaaaaabk
+  .........qYkOOOOqqqqqOOOkaaaaaaaaaabk
+  ........qYkOOOqqqOOOqqqoOkaaaaaaaaabk
+  ........qkOOOqqOOOOOOooqqokaaaaaaabk
+  .......qkOOOqqOOOOOOooooqqokaaaaaabmk
+  .....qqukOOOqOOOOOoooooooqokaaaaaabk
+  .....kuukOOqqOOOOoqqoooooqqkaaaaabk
+  ......qkOOOqOOOOqqqqqqooooqokaaaabk
+  ......qkOOOqOOooqooooqooooqokaaaaabk
+  ......qkOOOqOooqqooooqqoooqokaaaaabk
+  ......qkOOOqooooqoooooqooooqkaaaaabk
+  ......qkOOoqooooqqooooqoooqqkaaaaabk
+  .....qukOooqooooooooooqoqqqqkaaaaabk
+  .....kkkOoooqooooooooqqqqqqqkaaaaabk
+  .......kkoooqqooooooqqqqqqqkaaaaaabk
+  ........kooooqqqoooqqqqqqqqkaaaaaaabk
+  ........kooooooqqqqqqqqqqqqkaaaaaaabk
+  .........kooooooooqqqqqqqqkaaaaaaaaabk
+  .........qkoooooqqqqqqqqqkaaaaaaaaaabk
+  .........kkkoooqqqqqqqqqkaaaaaaaaaaabk
+  ............kkqqqqqqqqkkaaaaaaaaaaaabk
+  .............Bkkkkkkkkaaaaaayyaaaayybk
+  .........BBBBaakkkaaaayyaaaaaayaaykkkk
   .......BBayyaaaayyyaayaayaayaabkkk
   ......Baayaayaayaaayyaaaaykkkkk
   .....Baayaaaayyaaaaabkkkkk
@@ -631,39 +631,39 @@ const BACK = [
   .....................kkkkk....y..uk.uk
   ....................knnnnak.....kkkkk
   ....................knnnnnk....knnnnak
-  .....................kkkkk.....knnnnnk
-  .......................Bk.......kkkkk
-  ...............qqk.....kak......Bk
-  ...............qYk......Bk.....Bak
-  ...............kkk......BBBBBBBBk
-  ..............kkkkk....BBaaaaaaaaBk
-  ..............kannk...BAaaaaaaaaaabk
+  ...............qqk...kkkkk.....knnnnnk
+  ...............qYk.....Bk.......kkkkk
+  ...............kkk.....kak......Bk
+  ..............kkkkk.....Bk.....Bak
+  ..............kannk.....BBBBBBBBk
+  ..............kaYnk....BBaaaaaaaaBk
+  ..............kYYYk...BAaaaaaaaaaabk
   ..............kaYnk...BAaaaaaaaaaabk
-  ..............kYYYk...BAaaaaaaaaaabkk
-  ..............kaYnk..BAaaaaaaaaaaaabY
-  ..........qk..kkkkk..qkaaaaaaaaaaaabk
-  ..........qk.qkkkkkkkkkaaaaaaaaaaaabk
-  ..........qYqkOOOOOOOOkkaaaaaaaaaaabk
-  ..........qYkOOOqqqqqqOOkaaaaaaaaabk
-  .........qYkOOqqqOOOOqqookaaaaaaaabmk
-  .........qkOOqqOOOOOooqqokkaaaaaaabk
-  ......qqqukOOqOOOOOoooooqokaaaaaabk
-  ......kkukOOqqOOOoqqooooqqkaaaaaabk
-  ........qkOOqOOOqqqqqooooqkaaaaaaabk
-  ........qkOOqOOoqooooqoooqqkaaaaaabk
-  ........qkOOqoooqooooqooooqkaaaaaabk
-  ........qkOOqoooqqoooqoooqqkaaaaaabk
-  .......qukOoqqoooooooqooqqkaaaaaaabk
-  .......kkkOooqoooooooqqqqqkaaaaaaabk
-  .........koooqqoooooqqqqqqkaaaaaaabk
-  ..........koooqqqqqqqqqqqqkaaaaaaaabk
-  ..........koooooooqqqqqqqkaaaaaaaaabk
-  ..........qkoooooqqqqqqqkaaaaaaaaaaabk
-  ..........kkkoooqqqqqqqkaaaaaaaaaaaabk
-  .............kkqqqqqqkkaaaaaaaaaaaaabk
-  ...............kkkkkkaaaaaaaaaaaaaaabk
-  .............BBBBaaaaaaaaaaayyaaaayybk
-  .........BBBBaaaaaaaaayyaaaaaayaaykkkk
+  ..............kkkkk...qkaaaaaaaaaabkk
+  .........qqqqkkkkOOkkkkkaaaaaaaaaaabY
+  .........qYYkOOOOOOOOOOkaaaaaaaaaaabk
+  .........qYkOOOOqqqqqOOOkaaaaaaaaaabk
+  ........qYkOOOqqqOOOqqqoOkaaaaaaaaabk
+  ........qkOOOqqOOOOOOooqqokaaaaaaabk
+  .......qkOOOqqOOOOOOooooqqokaaaaaabmk
+  .....qqukOOOqOOOOOoooooooqokaaaaaabk
+  .....kuukOOqqOOOOoqqoooooqqkaaaaabk
+  ......qkOOOqOOOOqqqqqqooooqokaaaabk
+  ......qkOOOqOOooqooooqooooqokaaaaabk
+  ......qkOOOqOooqqooooqqoooqokaaaaabk
+  ......qkOOOqooooqoooooqooooqkaaaaabk
+  ......qkOOoqooooqqooooqoooqqkaaaaabk
+  .....qukOooqooooooooooqoqqqqkaaaaabk
+  .....kkkOoooqooooooooqqqqqqqkaaaaabk
+  .......kkoooqqooooooqqqqqqqkaaaaaabk
+  ........kooooqqqoooqqqqqqqqkaaaaaaabk
+  ........kooooooqqqqqqqqqqqqkaaaaaaabk
+  .........kooooooooqqqqqqqqkaaaaaaaaabk
+  .........qkoooooqqqqqqqqqkaaaaaaaaaabk
+  .........kkkoooqqqqqqqqqkaaaaaaaaaaabk
+  ............kkqqqqqqqqkkaaaaaaaaaaaabk
+  .............Bkkkkkkkkaaaaaayyaaaayybk
+  .........BBBBaakkkaaaayyaaaaaayaaykkkk
   .......BBayyaaaayyyaayaayaayaabkkk
   ......Baayaayaayaaayyaaaaykkkkk
   .....Baayaaaayyaaaaabkkkkk
@@ -676,39 +676,39 @@ const BACK = [
   .....................kkkkk.y.....uk.uk
   ....................knnnnak.....kkkkk
   ....................knnnnnk....knnnnak
-  .....................kkkkk.....knnnnnk
-  .......................Bk.......kkkkk
-  ...............qqk.....kak......Bk
-  ...............qYk......Bk.....Bak
-  ...............kkk......BBBBBBBBk
-  ..............kkkkk....BBaaaaaaaaBk
-  ..............kannk...BAaaaaaaaaaabk
+  ...............qqk...kkkkk.....knnnnnk
+  ...............qYk.....Bk.......kkkkk
+  ...............kkk.....kak......Bk
+  ..............kkkkk.....Bk.....Bak
+  ..............kannk.....BBBBBBBBk
+  ..............kaYnk....BBaaaaaaaaBk
+  ..............kYYYk...BAaaaaaaaaaabk
   ..............kaYnk...BAaaaaaaaaaabk
-  ..............kYYYk...BAaaaaaaaaaabkk
-  ..............kaYnk..BAaaaaaaaaaaaabY
-  ..........qk..kkkkk..qkaaaaaaaaaaaabk
-  ..........qk.qkkkkkkkkkaaaaaaaaaaaabk
-  ..........qYqkOOOOOOOOkkaaaaaaaaaaabk
-  ..........qYkOOOqqqqqqOOkaaaaaaaaabk
-  .........qYkOOqqqOOOOqqookaaaaaaaabmk
-  .........qkOOqqOOOOOooqqokkaaaaaaabk
-  ......qqqukOOqOOOOOoooooqokaaaaaabk
-  ......kkukOOqqOOOoqqooooqqkaaaaaabk
-  ........qkOOqOOOqqqqqooooqkaaaaaaabk
-  ........qkOOqOOoqooooqoooqqkaaaaaabk
-  ........qkOOqoooqooooqooooqkaaaaaabk
-  ........qkOOqoooqqoooqoooqqkaaaaaabk
-  .......qukOoqqoooooooqooqqkaaaaaaabk
-  .......kkkOooqoooooooqqqqqkaaaaaaabk
-  .........koooqqoooooqqqqqqkaaaaaaabk
-  ..........koooqqqqqqqqqqqqkaaaaaaaabk
-  ..........koooooooqqqqqqqkaaaaaaaaabk
-  ..........qkoooooqqqqqqqkaaaaaaaaaaabk
-  ..........kkkoooqqqqqqqkaaaaaaaaaaaabk
-  .............kkqqqqqqkkaaaaaaaaaaaaabk
-  ...............kkkkkkaaaaaaaaaaaaaaabk
-  .............BBBBaaaaaaaaaaayyaaaayybk
-  .........BBBBaaaaaaaaayyaaaaaayaaykkkk
+  ..............kkkkk...qkaaaaaaaaaabkk
+  .........qqqqkkkkOOkkkkkaaaaaaaaaaabY
+  .........qYYkOOOOOOOOOOkaaaaaaaaaaabk
+  .........qYkOOOOqqqqqOOOkaaaaaaaaaabk
+  ........qYkOOOqqqOOOqqqoOkaaaaaaaaabk
+  ........qkOOOqqOOOOOOooqqokaaaaaaabk
+  .......qkOOOqqOOOOOOooooqqokaaaaaabmk
+  .....qqukOOOqOOOOOoooooooqokaaaaaabk
+  .....kuukOOqqOOOOoqqoooooqqkaaaaabk
+  ......qkOOOqOOOOqqqqqqooooqokaaaabk
+  ......qkOOOqOOooqooooqooooqokaaaaabk
+  ......qkOOOqOooqqooooqqoooqokaaaaabk
+  ......qkOOOqooooqoooooqooooqkaaaaabk
+  ......qkOOoqooooqqooooqoooqqkaaaaabk
+  .....qukOooqooooooooooqoqqqqkaaaaabk
+  .....kkkOoooqooooooooqqqqqqqkaaaaabk
+  .......kkoooqqooooooqqqqqqqkaaaaaabk
+  ........kooooqqqoooqqqqqqqqkaaaaaaabk
+  ........kooooooqqqqqqqqqqqqkaaaaaaabk
+  .........kooooooooqqqqqqqqkaaaaaaaaabk
+  .........qkoooooqqqqqqqqqkaaaaaaaaaabk
+  .........kkkoooqqqqqqqqqkaaaaaaaaaaabk
+  ............kkqqqqqqqqkkaaaaaaaaaaaabk
+  .............Bkkkkkkkkaaaaaayyaaaayybk
+  .........BBBBaakkkaaaayyaaaaaayaaykkkk
   .......BBayyaaaayyyaayaayaayaabkkk
   ......Baayaayaayaaayyaaaaykkkkk
   .....Baayaaaayyaaaaabkkkkk
@@ -721,39 +721,39 @@ const BACK = [
   ......................uk.uy.Y..y.Yk.Yk
   .....................kkkkk.y.....uk.uk
   ....................knnnnak.....kkkkk
-  ....................knnnnnk....knnnnak
-  .....................kkkkk.....knnnnnk
-  ...............qqk.....Bk.......kkkkk
-  ...............qYk.....kak......Bk
-  ...............kkk......Bk.....Bak
-  ..............kkkkk.....BBBBBBBBk
-  ..............kannk....BBaaaaaaaaBk
+  ...............qqk..knnnnnk....knnnnak
+  ...............qYk...kkkkk.....knnnnnk
+  ...............kkk.....Bk.......kkkkk
+  ..............kkkkk....kak......Bk
+  ..............kannk.....Bk.....Bak
+  ..............kaYnk.....BBBBBBBBk
+  ..............kYYYk....BBaaaaaaaaBk
   ..............kaYnk...BAaaaaaaaaaabk
-  ..............kYYYk...BAaaaaaaaaaabk
-  ..............kaYnk...BAaaaaaaaaaabkk
-  ..........qk..kkkkk..qkaaaaaaaaaaaabY
-  ..........qk.qkkkkkkkkkaaaaaaaaaaaabk
-  ..........qYqkOOOOOOOOkkaaaaaaaaaaabk
-  ..........qYkOOOqqqqqqOOkaaaaaaaaaabk
-  .........qYkOOqqqOOOOqqookaaaaaaaabk
-  .........qkOOqqOOOOOooqqokkaaaaaaabmk
-  ......qqqukOOqOOOOOoooooqokaaaaaaabk
-  ......kkukOOqqOOOoqqooooqqkaaaaaabk
-  ........qkOOqOOOqqqqqooooqkaaaaaaabk
-  ........qkOOqOOoqooooqoooqqkaaaaaabk
-  ........qkOOqoooqooooqooooqkaaaaaabk
-  ........qkOOqoooqqoooqoooqqkaaaaaabk
-  .......qukOoqqoooooooqooqqkaaaaaaabk
-  .......kkkOooqoooooooqqqqqkaaaaaaabk
-  .........koooqqoooooqqqqqqkaaaaaaabk
-  ..........koooqqqqqqqqqqqqkaaaaaaaabk
-  ..........koooooooqqqqqqqkaaaaaaaaabk
-  ..........qkoooooqqqqqqqkaaaaaaaaaaabk
-  ..........kkkoooqqqqqqqkaaaaaaaaaaaabk
-  .............kkqqqqqqkkaaaaaaaaaaaaabk
-  ...............kkkkkkaaaaaaaaaaaaaaabk
-  .............BBBBaaaaaaaaaaayyaaaayybk
-  .........BBBBaaaaaaaaayyaaaaaayaaykkkk
+  ..............kkkkk...qkaaaaaaaaaabk
+  .........qqqqkkkkOOkkkkkaaaaaaaaaabkk
+  .........qYYkOOOOOOOOOOkaaaaaaaaaaabY
+  .........qYkOOOOqqqqqOOOkaaaaaaaaaabk
+  ........qYkOOOqqqOOOqqqoOkaaaaaaaaabk
+  ........qkOOOqqOOOOOOooqqokaaaaaaaabk
+  .......qkOOOqqOOOOOOooooqqokaaaaaabk
+  .....qqukOOOqOOOOOoooooooqokaaaaaabmk
+  .....kuukOOqqOOOOoqqoooooqqkaaaaaabk
+  ......qkOOOqOOOOqqqqqqooooqokaaaabk
+  ......qkOOOqOOooqooooqooooqokaaaaabk
+  ......qkOOOqOooqqooooqqoooqokaaaaabk
+  ......qkOOOqooooqoooooqooooqkaaaaabk
+  ......qkOOoqooooqqooooqoooqqkaaaaabk
+  .....qukOooqooooooooooqoqqqqkaaaaabk
+  .....kkkOoooqooooooooqqqqqqqkaaaaabk
+  .......kkoooqqooooooqqqqqqqkaaaaaabk
+  ........kooooqqqoooqqqqqqqqkaaaaaaabk
+  ........kooooooqqqqqqqqqqqqkaaaaaaabk
+  .........kooooooooqqqqqqqqkaaaaaaaaabk
+  .........qkoooooqqqqqqqqqkaaaaaaaaaabk
+  .........kkkoooqqqqqqqqqkaaaaaaaaaaabk
+  ............kkqqqqqqqqkkaaaaaaaaaaaabk
+  .............Bkkkkkkkkaaaaaayyaaaayybk
+  .........BBBBaakkkaaaayyaaaaaayaaykkkk
   .......BBayyaaaayyyaayaayaayaabkkk
   ......Baayaayaayaaayyaaaaykkkkk
   .....Baayaaaayyaaaaabkkkkk
@@ -766,39 +766,39 @@ const BACK = [
   ......................uk.uyy.y.y.Yk.Yk
   .....................kkkkk..Y....uk.uk
   ....................knnnnak.....kkkkk
-  ....................knnnnnk....knnnnak
-  .....................kkkkk.....knnnnnk
-  ...............qqk.....Bk.......kkkkk
-  ...............qYk.....kak......Bk
-  ...............kkk......Bk.....Bak
-  ..............kkkkk.....BBBBBBBBk
-  ..............kannk....BBaaaaaaaaBk
+  ...............qqk..knnnnnk....knnnnak
+  ...............qYk...kkkkk.....knnnnnk
+  ...............kkk.....Bk.......kkkkk
+  ..............kkkkk....kak......Bk
+  ..............kannk.....Bk.....Bak
+  ..............kaYnk.....BBBBBBBBk
+  ..............kYYYk....BBaaaaaaaaBk
   ..............kaYnk...BAaaaaaaaaaabk
-  ..............kYYYk...BAaaaaaaaaaabk
-  ..............kaYnk...BAaaaaaaaaaabkk
-  ..........qk..kkkkk..qkaaaaaaaaaaaabY
-  ..........qk.qkkkkkkkkkaaaaaaaaaaaabk
-  ..........qYqkOOOOOOOOkkaaaaaaaaaaabk
-  ..........qYkOOOqqqqqqOOkaaaaaaaaaabk
-  .........qYkOOqqqOOOOqqookaaaaaaaabk
-  .........qkOOqqOOOOOooqqokkaaaaaaabmk
-  ......qqqukOOqOOOOOoooooqokaaaaaaabk
-  ......kkukOOqqOOOoqqooooqqkaaaaaabk
-  ........qkOOqOOOqqqqqooooqkaaaaaaabk
-  ........qkOOqOOoqooooqoooqqkaaaaaabk
-  ........qkOOqoooqooooqooooqkaaaaaabk
-  ........qkOOqoooqqoooqoooqqkaaaaaabk
-  .......qukOoqqoooooooqooqqkaaaaaaabk
-  .......kkkOooqoooooooqqqqqkaaaaaaabk
-  .........koooqqoooooqqqqqqkaaaaaaabk
-  ..........koooqqqqqqqqqqqqkaaaaaaaabk
-  ..........koooooooqqqqqqqkaaaaaaaaabk
-  ..........qkoooooqqqqqqqkaaaaaaaaaaabk
-  ..........kkkoooqqqqqqqkaaaaaaaaaaaabk
-  .............kkqqqqqqkkaaaaaaaaaaaaabk
-  ...............kkkkkkaaaaaaaaaaaaaaabk
-  .............BBBBaaaaaaaaaaayyaaaayybk
-  .........BBBBaaaaaaaaayyaaaaaayaaykkkk
+  ..............kkkkk...qkaaaaaaaaaabk
+  .........qqqqkkkkOOkkkkkaaaaaaaaaabkk
+  .........qYYkOOOOOOOOOOkaaaaaaaaaaabY
+  .........qYkOOOOqqqqqOOOkaaaaaaaaaabk
+  ........qYkOOOqqqOOOqqqoOkaaaaaaaaabk
+  ........qkOOOqqOOOOOOooqqokaaaaaaaabk
+  .......qkOOOqqOOOOOOooooqqokaaaaaabk
+  .....qqukOOOqOOOOOoooooooqokaaaaaabmk
+  .....kuukOOqqOOOOoqqoooooqqkaaaaaabk
+  ......qkOOOqOOOOqqqqqqooooqokaaaabk
+  ......qkOOOqOOooqooooqooooqokaaaaabk
+  ......qkOOOqOooqqooooqqoooqokaaaaabk
+  ......qkOOOqooooqoooooqooooqkaaaaabk
+  ......qkOOoqooooqqooooqoooqqkaaaaabk
+  .....qukOooqooooooooooqoqqqqkaaaaabk
+  .....kkkOoooqooooooooqqqqqqqkaaaaabk
+  .......kkoooqqooooooqqqqqqqkaaaaaabk
+  ........kooooqqqoooqqqqqqqqkaaaaaaabk
+  ........kooooooqqqqqqqqqqqqkaaaaaaabk
+  .........kooooooooqqqqqqqqkaaaaaaaaabk
+  .........qkoooooqqqqqqqqqkaaaaaaaaaabk
+  .........kkkoooqqqqqqqqqkaaaaaaaaaaabk
+  ............kkqqqqqqqqkkaaaaaaaaaaaabk
+  .............Bkkkkkkkkaaaaaayyaaaayybk
+  .........BBBBaakkkaaaayyaaaaaayaaykkkk
   .......BBayyaaaayyyaayaayaayaabkkk
   ......Baayaayaayaaayyaaaaykkkkk
   .....Baayaaaayyaaaaabkkkkk
@@ -811,39 +811,39 @@ const BACK = [
   ......................uk.uyy.y.y.Yk.Yk
   .....................kkkkk..Y....uk.uk
   ....................knnnnak.....kkkkk
-  ....................knnnnnk....knnnnak
-  .....................kkkkk.....knnnnnk
-  ...............qqk.....Bk.......kkkkk
-  ...............qYk.....kak......Bk
-  ...............kkk......Bk.....Bak
-  ..............kkkkk.....BBBBBBBBk
-  ..............kannk....BBaaaaaaaaBk
+  ...............qqk..knnnnnk....knnnnak
+  ...............qYk...kkkkk.....knnnnnk
+  ...............kkk.....Bk.......kkkkk
+  ..............kkkkk....kak......Bk
+  ..............kannk.....Bk.....Bak
+  ..............kaYnk.....BBBBBBBBk
+  ..............kYYYk....BBaaaaaaaaBk
   ..............kaYnk...BAaaaaaaaaaabk
-  ..............kYYYk...BAaaaaaaaaaabk
-  ..............kaYnk...BAaaaaaaaaaabkk
-  ..........qk..kkkkk..qkaaaaaaaaaaaabY
-  ..........qk.qkkkkkkkkkaaaaaaaaaaaabk
-  ..........qYqkOOOOOOOOkkaaaaaaaaaaabk
-  ..........qYkOOOqqqqqqOOkaaaaaaaaaabk
-  .........qYkOOqqqOOOOqqookaaaaaaaabk
-  .........qkOOqqOOOOOooqqokkaaaaaaabmk
-  ......qqqukOOqOOOOOoooooqokaaaaaaabk
-  ......kkukOOqqOOOoqqooooqqkaaaaaabk
-  ........qkOOqOOOqqqqqooooqkaaaaaaabk
-  ........qkOOqOOoqooooqoooqqkaaaaaabk
-  ........qkOOqoooqooooqooooqkaaaaaabk
-  ........qkOOqoooqqoooqoooqqkaaaaaabk
-  .......qukOoqqoooooooqooqqkaaaaaaabk
-  .......kkkOooqoooooooqqqqqkaaaaaaabk
-  .........koooqqoooooqqqqqqkaaaaaaabk
-  ..........koooqqqqqqqqqqqqkaaaaaaaabk
-  ..........koooooooqqqqqqqkaaaaaaaaabk
-  ..........qkoooooqqqqqqqkaaaaaaaaaaabk
-  ..........kkkoooqqqqqqqkaaaaaaaaaaaabk
-  .............kkqqqqqqkkaaaaaaaaaaaaabk
-  ...............kkkkkkaaaaaaaaaaaaaaabk
-  .............BBBBaaaaaaaaaaayyaaaayybk
-  .........BBBBaaaaaaaaayyaaaaaayaaykkkk
+  ..............kkkkk...qkaaaaaaaaaabk
+  .........qqqqkkkkOOkkkkkaaaaaaaaaabkk
+  .........qYYkOOOOOOOOOOkaaaaaaaaaaabY
+  .........qYkOOOOqqqqqOOOkaaaaaaaaaabk
+  ........qYkOOOqqqOOOqqqoOkaaaaaaaaabk
+  ........qkOOOqqOOOOOOooqqokaaaaaaaabk
+  .......qkOOOqqOOOOOOooooqqokaaaaaabk
+  .....qqukOOOqOOOOOoooooooqokaaaaaabmk
+  .....kuukOOqqOOOOoqqoooooqqkaaaaaabk
+  ......qkOOOqOOOOqqqqqqooooqokaaaabk
+  ......qkOOOqOOooqooooqooooqokaaaaabk
+  ......qkOOOqOooqqooooqqoooqokaaaaabk
+  ......qkOOOqooooqoooooqooooqkaaaaabk
+  ......qkOOoqooooqqooooqoooqqkaaaaabk
+  .....qukOooqooooooooooqoqqqqkaaaaabk
+  .....kkkOoooqooooooooqqqqqqqkaaaaabk
+  .......kkoooqqooooooqqqqqqqkaaaaaabk
+  ........kooooqqqoooqqqqqqqqkaaaaaaabk
+  ........kooooooqqqqqqqqqqqqkaaaaaaabk
+  .........kooooooooqqqqqqqqkaaaaaaaaabk
+  .........qkoooooqqqqqqqqqkaaaaaaaaaabk
+  .........kkkoooqqqqqqqqqkaaaaaaaaaaabk
+  ............kkqqqqqqqqkkaaaaaaaaaaaabk
+  .............Bkkkkkkkkaaaaaayyaaaayybk
+  .........BBBBaakkkaaaayyaaaaaayaaykkkk
   .......BBayyaaaayyyaayaayaayaabkkk
   ......Baayaayaayaaayyaaaaykkkkk
   .....Baayaaaayyaaaaabkkkkk
@@ -856,39 +856,39 @@ const BACK = [
   ......................uk.uk......Yk.Yk
   .....................kkkkk.......uk.uk
   ....................knnnnak.....kkkkk
-  ....................knnnnnk....knnnnak
-  .....................kkkkk.....knnnnnk
-  ...............qqk.....Bk.......kkkkk
-  ...............qYk.....kak......Bk
-  ...............kkk......Bk.....Bak
-  ..............kkkkk.....BBBBBBBBk
-  ..............kannk....BBaaaaaaaaBk
+  ...............qqk..knnnnnk....knnnnak
+  ...............qYk...kkkkk.....knnnnnk
+  ...............kkk.....Bk.......kkkkk
+  ..............kkkkk....kak......Bk
+  ..............kannk.....Bk.....Bak
+  ..............kaYnk.....BBBBBBBBk
+  ..............kYYYk....BBaaaaaaaaBk
   ..............kaYnk...BAaaaaaaaaaabk
-  ..............kYYYk...BAaaaaaaaaaabk
-  ..............kaYnk...BAaaaaaaaaaabkk
-  ..........qk..kkkkk..qkaaaaaaaaaaaabY
-  ..........qk.qkkkkkkkkkaaaaaaaaaaaabk
-  ..........qYqkOOOOOOOOkkaaaaaaaaaaabk
-  ..........qYkOOOqqqqqqOOkaaaaaaaaaabk
-  .........qYkOOqqqOOOOqqookaaaaaaaabk
-  .........qkOOqqOOOOOooqqokkaaaaaaabmk
-  ......qqqukOOqOOOOOoooooqokaaaaaaabk
-  ......kkukOOqqOOOoqqooooqqkaaaaaabk
-  ........qkOOqOOOqqqqqooooqkaaaaaaabk
-  ........qkOOqOOoqooooqoooqqkaaaaaabk
-  ........qkOOqoooqooooqooooqkaaaaaabk
-  ........qkOOqoooqqoooqoooqqkaaaaaabk
-  .......qukOoqqoooooooqooqqkaaaaaaabk
-  .......kkkOooqoooooooqqqqqkaaaaaaabk
-  .........koooqqoooooqqqqqqkaaaaaaabk
-  ..........koooqqqqqqqqqqqqkaaaaaaaabk
-  ..........koooooooqqqqqqqkaaaaaaaaabk
-  ..........qkoooooqqqqqqqkaaaaaaaaaaabk
-  ..........kkkoooqqqqqqqkaaaaaaaaaaaabk
-  .............kkqqqqqqkkaaaaaaaaaaaaabk
-  ...............kkkkkkaaaaaaaaaaaaaaabk
-  .............BBBBaaaaaaaaaaayyaaaayybk
-  .........BBBBaaaaaaaaayyaaaaaayaaykkkk
+  ..............kkkkk...qkaaaaaaaaaabk
+  .........qqqqkkkkOOkkkkkaaaaaaaaaabkk
+  .........qYYkOOOOOOOOOOkaaaaaaaaaaabY
+  .........qYkOOOOqqqqqOOOkaaaaaaaaaabk
+  ........qYkOOOqqqOOOqqqoOkaaaaaaaaabk
+  ........qkOOOqqOOOOOOooqqokaaaaaaaabk
+  .......qkOOOqqOOOOOOooooqqokaaaaaabk
+  .....qqukOOOqOOOOOoooooooqokaaaaaabmk
+  .....kuukOOqqOOOOoqqoooooqqkaaaaaabk
+  ......qkOOOqOOOOqqqqqqooooqokaaaabk
+  ......qkOOOqOOooqooooqooooqokaaaaabk
+  ......qkOOOqOooqqooooqqoooqokaaaaabk
+  ......qkOOOqooooqoooooqooooqkaaaaabk
+  ......qkOOoqooooqqooooqoooqqkaaaaabk
+  .....qukOooqooooooooooqoqqqqkaaaaabk
+  .....kkkOoooqooooooooqqqqqqqkaaaaabk
+  .......kkoooqqooooooqqqqqqqkaaaaaabk
+  ........kooooqqqoooqqqqqqqqkaaaaaaabk
+  ........kooooooqqqqqqqqqqqqkaaaaaaabk
+  .........kooooooooqqqqqqqqkaaaaaaaaabk
+  .........qkoooooqqqqqqqqqkaaaaaaaaaabk
+  .........kkkoooqqqqqqqqqkaaaaaaaaaaabk
+  ............kkqqqqqqqqkkaaaaaaaaaaaabk
+  .............Bkkkkkkkkaaaaaayyaaaayybk
+  .........BBBBaakkkaaaayyaaaaaayaaykkkk
   .......BBayyaaaayyyaayaayaayaabkkk
   ......Baayaayaayaaayyaaaaykkkkk
   .....Baayaaaayyaaaaabkkkkk
@@ -901,39 +901,39 @@ const BACK = [
   ......................uk.uy..y.y.Yk.Yk
   .....................kkkkk....y..uk.uk
   ....................knnnnak.....kkkkk
-  ....................knnnnnk....knnnnak
-  .....................kkkkk.....knnnnnk
-  ...............qqk.....Bk.......kkkkk
-  ...............qYk.....kak......Bk
-  ...............kkk......Bk.....Bak
-  ..............kkkkk.....BBBBBBBBk
-  ..............kannk....BBaaaaaaaaBk
+  ...............qqk..knnnnnk....knnnnak
+  ...............qYk...kkkkk.....knnnnnk
+  ...............kkk.....Bk.......kkkkk
+  ..............kkkkk....kak......Bk
+  ..............kannk.....Bk.....Bak
+  ..............kaYnk.....BBBBBBBBk
+  ..............kYYYk....BBaaaaaaaaBk
   ..............kaYnk...BAaaaaaaaaaabk
-  ..............kYYYk...BAaaaaaaaaaabk
-  ..............kaYnk...BAaaaaaaaaaabkk
-  ..........qk..kkkkk..qkaaaaaaaaaaaabY
-  ..........qk.qkkkkkkkkkaaaaaaaaaaaabk
-  ..........qYqkOOOOOOOOkkaaaaaaaaaaabk
-  ..........qYkOOOqqqqqqOOkaaaaaaaaaabk
-  .........qYkOOqqqOOOOqqookaaaaaaaabk
-  .........qkOOqqOOOOOooqqokkaaaaaaabmk
-  ......qqqukOOqOOOOOoooooqokaaaaaaabk
-  ......kkukOOqqOOOoqqooooqqkaaaaaabk
-  ........qkOOqOOOqqqqqooooqkaaaaaaabk
-  ........qkOOqOOoqooooqoooqqkaaaaaabk
-  ........qkOOqoooqooooqooooqkaaaaaabk
-  ........qkOOqoooqqoooqoooqqkaaaaaabk
-  .......qukOoqqoooooooqooqqkaaaaaaabk
-  .......kkkOooqoooooooqqqqqkaaaaaaabk
-  .........koooqqoooooqqqqqqkaaaaaaabk
-  ..........koooqqqqqqqqqqqqkaaaaaaaabk
-  ..........koooooooqqqqqqqkaaaaaaaaabk
-  ..........qkoooooqqqqqqqkaaaaaaaaaaabk
-  ..........kkkoooqqqqqqqkaaaaaaaaaaaabk
-  .............kkqqqqqqkkaaaaaaaaaaaaabk
-  ...............kkkkkkaaaaaaaaaaaaaaabk
-  .............BBBBaaaaaaaaaaayyaaaayybk
-  .........BBBBaaaaaaaaayyaaaaaayaaykkkk
+  ..............kkkkk...qkaaaaaaaaaabk
+  .........qqqqkkkkOOkkkkkaaaaaaaaaabkk
+  .........qYYkOOOOOOOOOOkaaaaaaaaaaabY
+  .........qYkOOOOqqqqqOOOkaaaaaaaaaabk
+  ........qYkOOOqqqOOOqqqoOkaaaaaaaaabk
+  ........qkOOOqqOOOOOOooqqokaaaaaaaabk
+  .......qkOOOqqOOOOOOooooqqokaaaaaabk
+  .....qqukOOOqOOOOOoooooooqokaaaaaabmk
+  .....kuukOOqqOOOOoqqoooooqqkaaaaaabk
+  ......qkOOOqOOOOqqqqqqooooqokaaaabk
+  ......qkOOOqOOooqooooqooooqokaaaaabk
+  ......qkOOOqOooqqooooqqoooqokaaaaabk
+  ......qkOOOqooooqoooooqooooqkaaaaabk
+  ......qkOOoqooooqqooooqoooqqkaaaaabk
+  .....qukOooqooooooooooqoqqqqkaaaaabk
+  .....kkkOoooqooooooooqqqqqqqkaaaaabk
+  .......kkoooqqooooooqqqqqqqkaaaaaabk
+  ........kooooqqqoooqqqqqqqqkaaaaaaabk
+  ........kooooooqqqqqqqqqqqqkaaaaaaabk
+  .........kooooooooqqqqqqqqkaaaaaaaaabk
+  .........qkoooooqqqqqqqqqkaaaaaaaaaabk
+  .........kkkoooqqqqqqqqqkaaaaaaaaaaabk
+  ............kkqqqqqqqqkkaaaaaaaaaaaabk
+  .............Bkkkkkkkkaaaaaayyaaaayybk
+  .........BBBBaakkkaaaayyaaaaaayaaykkkk
   .......BBayyaaaayyyaayaayaayaabkkk
   ......Baayaayaayaaayyaaaaykkkkk
   .....Baayaaaayyaaaaabkkkkk
@@ -946,39 +946,39 @@ const BACK = [
   ......................uk.uy.Y..y.Yk.Yk
   .....................kkkkk.y.....uk.uk
   ....................knnnnak.....kkkkk
-  ....................knnnnnk....knnnnak
-  .....................kkkkk.....knnnnnk
-  ...............qqk.....Bk.......kkkkk
-  ...............qYk.....kak......Bk
-  ...............kkk......Bk.....Bak
-  ..............kkkkk.....BBBBBBBBk
-  ..............kannk....BBaaaaaaaaBk
+  ...............qqk..knnnnnk....knnnnak
+  ...............qYk...kkkkk.....knnnnnk
+  ...............kkk.....Bk.......kkkkk
+  ..............kkkkk....kak......Bk
+  ..............kannk.....Bk.....Bak
+  ..............kaYnk.....BBBBBBBBk
+  ..............kYYYk....BBaaaaaaaaBk
   ..............kaYnk...BAaaaaaaaaaabk
-  ..............kYYYk...BAaaaaaaaaaabk
-  ..............kaYnk...BAaaaaaaaaaabkk
-  ..........qk..kkkkk..qkaaaaaaaaaaaabY
-  ..........qk.qkkkkkkkkkaaaaaaaaaaaabk
-  ..........qYqkOOOOOOOOkkaaaaaaaaaaabk
-  ..........qYkOOOqqqqqqOOkaaaaaaaaaabk
-  .........qYkOOqqqOOOOqqookaaaaaaaabk
-  .........qkOOqqOOOOOooqqokkaaaaaaabmk
-  ......qqqukOOqOOOOOoooooqokaaaaaaabk
-  ......kkukOOqqOOOoqqooooqqkaaaaaabk
-  ........qkOOqOOOqqqqqooooqkaaaaaaabk
-  ........qkOOqOOoqooooqoooqqkaaaaaabk
-  ........qkOOqoooqooooqooooqkaaaaaabk
-  ........qkOOqoooqqoooqoooqqkaaaaaabk
-  .......qukOoqqoooooooqooqqkaaaaaaabk
-  .......kkkOooqoooooooqqqqqkaaaaaaabk
-  .........koooqqoooooqqqqqqkaaaaaaabk
-  ..........koooqqqqqqqqqqqqkaaaaaaaabk
-  ..........koooooooqqqqqqqkaaaaaaaaabk
-  ..........qkoooooqqqqqqqkaaaaaaaaaaabk
-  ..........kkkoooqqqqqqqkaaaaaaaaaaaabk
-  .............kkqqqqqqkkaaaaaaaaaaaaabk
-  ...............kkkkkkaaaaaaaaaaaaaaabk
-  .............BBBBaaaaaaaaaaayyaaaayybk
-  .........BBBBaaaaaaaaayyaaaaaayaaykkkk
+  ..............kkkkk...qkaaaaaaaaaabk
+  .........qqqqkkkkOOkkkkkaaaaaaaaaabkk
+  .........qYYkOOOOOOOOOOkaaaaaaaaaaabY
+  .........qYkOOOOqqqqqOOOkaaaaaaaaaabk
+  ........qYkOOOqqqOOOqqqoOkaaaaaaaaabk
+  ........qkOOOqqOOOOOOooqqokaaaaaaaabk
+  .......qkOOOqqOOOOOOooooqqokaaaaaabk
+  .....qqukOOOqOOOOOoooooooqokaaaaaabmk
+  .....kuukOOqqOOOOoqqoooooqqkaaaaaabk
+  ......qkOOOqOOOOqqqqqqooooqokaaaabk
+  ......qkOOOqOOooqooooqooooqokaaaaabk
+  ......qkOOOqOooqqooooqqoooqokaaaaabk
+  ......qkOOOqooooqoooooqooooqkaaaaabk
+  ......qkOOoqooooqqooooqoooqqkaaaaabk
+  .....qukOooqooooooooooqoqqqqkaaaaabk
+  .....kkkOoooqooooooooqqqqqqqkaaaaabk
+  .......kkoooqqooooooqqqqqqqkaaaaaabk
+  ........kooooqqqoooqqqqqqqqkaaaaaaabk
+  ........kooooooqqqqqqqqqqqqkaaaaaaabk
+  .........kooooooooqqqqqqqqkaaaaaaaaabk
+  .........qkoooooqqqqqqqqqkaaaaaaaaaabk
+  .........kkkoooqqqqqqqqqkaaaaaaaaaaabk
+  ............kkqqqqqqqqkkaaaaaaaaaaaabk
+  .............Bkkkkkkkkaaaaaayyaaaayybk
+  .........BBBBaakkkaaaayyaaaaaayaaykkkk
   .......BBayyaaaayyyaayaayaayaabkkk
   ......Baayaayaayaaayyaaaaykkkkk
   .....Baayaaaayyaaaaabkkkkk
@@ -991,39 +991,39 @@ const BACK = [
   .....................kkkkk.y.....uk.uk
   ....................knnnnak.....kkkkk
   ....................knnnnnk....knnnnak
-  .....................kkkkk.....knnnnnk
-  .......................Bk.......kkkkk
-  ...............qqk.....kak......Bk
-  ...............qYk......Bk.....Bak
-  ...............kkk......BBBBBBBBk
-  ..............kkkkk....BBaaaaaaaaBk
-  ..............kannk...BAaaaaaaaaaabk
+  ...............qqk...kkkkk.....knnnnnk
+  ...............qYk.....Bk.......kkkkk
+  ...............kkk.....kak......Bk
+  ..............kkkkk.....Bk.....Bak
+  ..............kannk.....BBBBBBBBk
+  ..............kaYnk....BBaaaaaaaaBk
+  ..............kYYYk...BAaaaaaaaaaabk
   ..............kaYnk...BAaaaaaaaaaabk
-  ..............kYYYk...BAaaaaaaaaaabkk
-  ..............kaYnk..BAaaaaaaaaaaaabY
-  ..........qk..kkkkk..qkaaaaaaaaaaaabk
-  ..........qk.qkkkkkkkkkaaaaaaaaaaaabk
-  ..........qYqkOOOOOOOOkkaaaaaaaaaaabk
-  ..........qYkOOOqqqqqqOOkaaaaaaaaabk
-  .........qYkOOqqqOOOOqqookaaaaaaaabmk
-  .........qkOOqqOOOOOooqqokkaaaaaaabk
-  ......qqqukOOqOOOOOoooooqokaaaaaabk
-  ......kkukOOqqOOOoqqooooqqkaaaaaabk
-  ........qkOOqOOOqqqqqooooqkaaaaaaabk
-  ........qkOOqOOoqooooqoooqqkaaaaaabk
-  ........qkOOqoooqooooqooooqkaaaaaabk
-  ........qkOOqoooqqoooqoooqqkaaaaaabk
-  .......qukOoqqoooooooqooqqkaaaaaaabk
-  .......kkkOooqoooooooqqqqqkaaaaaaabk
-  .........koooqqoooooqqqqqqkaaaaaaabk
-  ..........koooqqqqqqqqqqqqkaaaaaaaabk
-  ..........koooooooqqqqqqqkaaaaaaaaabk
-  ..........qkoooooqqqqqqqkaaaaaaaaaaabk
-  ..........kkkoooqqqqqqqkaaaaaaaaaaaabk
-  .............kkqqqqqqkkaaaaaaaaaaaaabk
-  ...............kkkkkkaaaaaaaaaaaaaaabk
-  .............BBBBaaaaaaaaaaayyaaaayybk
-  .........BBBBaaaaaaaaayyaaaaaayaaykkkk
+  ..............kkkkk...qkaaaaaaaaaabkk
+  .........qqqqkkkkOOkkkkkaaaaaaaaaaabY
+  .........qYYkOOOOOOOOOOkaaaaaaaaaaabk
+  .........qYkOOOOqqqqqOOOkaaaaaaaaaabk
+  ........qYkOOOqqqOOOqqqoOkaaaaaaaaabk
+  ........qkOOOqqOOOOOOooqqokaaaaaaabk
+  .......qkOOOqqOOOOOOooooqqokaaaaaabmk
+  .....qqukOOOqOOOOOoooooooqokaaaaaabk
+  .....kuukOOqqOOOOoqqoooooqqkaaaaabk
+  ......qkOOOqOOOOqqqqqqooooqokaaaabk
+  ......qkOOOqOOooqooooqooooqokaaaaabk
+  ......qkOOOqOooqqooooqqoooqokaaaaabk
+  ......qkOOOqooooqoooooqooooqkaaaaabk
+  ......qkOOoqooooqqooooqoooqqkaaaaabk
+  .....qukOooqooooooooooqoqqqqkaaaaabk
+  .....kkkOoooqooooooooqqqqqqqkaaaaabk
+  .......kkoooqqooooooqqqqqqqkaaaaaabk
+  ........kooooqqqoooqqqqqqqqkaaaaaaabk
+  ........kooooooqqqqqqqqqqqqkaaaaaaabk
+  .........kooooooooqqqqqqqqkaaaaaaaaabk
+  .........qkoooooqqqqqqqqqkaaaaaaaaaabk
+  .........kkkoooqqqqqqqqqkaaaaaaaaaaabk
+  ............kkqqqqqqqqkkaaaaaaaaaaaabk
+  .............Bkkkkkkkkaaaaaayyaaaayybk
+  .........BBBBaakkkaaaayyaaaaaayaaykkkk
   .......BBayyaaaayyyaayaayaayaabkkk
   ......Baayaayaayaaayyaaaaykkkkk
   .....Baayaaaayyaaaaabkkkkk
@@ -1036,39 +1036,39 @@ const BACK = [
   .....................kkkkk..Y....uk.uk
   ....................knnnnak.....kkkkk
   ....................knnnnnk....knnnnak
-  .....................kkkkk.....knnnnnk
-  .......................Bk.......kkkkk
-  ...............qqk.....kak......Bk
-  ...............qYk......Bk.....Bak
-  ...............kkk......BBBBBBBBk
-  ..............kkkkk....BBaaaaaaaaBk
-  ..............kannk...BAaaaaaaaaaabk
+  ...............qqk...kkkkk.....knnnnnk
+  ...............qYk.....Bk.......kkkkk
+  ...............kkk.....kak......Bk
+  ..............kkkkk.....Bk.....Bak
+  ..............kannk.....BBBBBBBBk
+  ..............kaYnk....BBaaaaaaaaBk
+  ..............kYYYk...BAaaaaaaaaaabk
   ..............kaYnk...BAaaaaaaaaaabk
-  ..............kYYYk...BAaaaaaaaaaabkk
-  ..............kaYnk..BAaaaaaaaaaaaabY
-  ..........qk..kkkkk..qkaaaaaaaaaaaabk
-  ..........qk.qkkkkkkkkkaaaaaaaaaaaabk
-  ..........qYqkOOOOOOOOkkaaaaaaaaaaabk
-  ..........qYkOOOqqqqqqOOkaaaaaaaaabk
-  .........qYkOOqqqOOOOqqookaaaaaaaabmk
-  .........qkOOqqOOOOOooqqokkaaaaaaabk
-  ......qqqukOOqOOOOOoooooqokaaaaaabk
-  ......kkukOOqqOOOoqqooooqqkaaaaaabk
-  ........qkOOqOOOqqqqqooooqkaaaaaaabk
-  ........qkOOqOOoqooooqoooqqkaaaaaabk
-  ........qkOOqoooqooooqooooqkaaaaaabk
-  ........qkOOqoooqqoooqoooqqkaaaaaabk
-  .......qukOoqqoooooooqooqqkaaaaaaabk
-  .......kkkOooqoooooooqqqqqkaaaaaaabk
-  .........koooqqoooooqqqqqqkaaaaaaabk
-  ..........koooqqqqqqqqqqqqkaaaaaaaabk
-  ..........koooooooqqqqqqqkaaaaaaaaabk
-  ..........qkoooooqqqqqqqkaaaaaaaaaaabk
-  ..........kkkoooqqqqqqqkaaaaaaaaaaaabk
-  .............kkqqqqqqkkaaaaaaaaaaaaabk
-  ...............kkkkkkaaaaaaaaaaaaaaabk
-  .............BBBBaaaaaaaaaaayyaaaayybk
-  .........BBBBaaaaaaaaayyaaaaaayaaykkkk
+  ..............kkkkk...qkaaaaaaaaaabkk
+  .........qqqqkkkkOOkkkkkaaaaaaaaaaabY
+  .........qYYkOOOOOOOOOOkaaaaaaaaaaabk
+  .........qYkOOOOqqqqqOOOkaaaaaaaaaabk
+  ........qYkOOOqqqOOOqqqoOkaaaaaaaaabk
+  ........qkOOOqqOOOOOOooqqokaaaaaaabk
+  .......qkOOOqqOOOOOOooooqqokaaaaaabmk
+  .....qqukOOOqOOOOOoooooooqokaaaaaabk
+  .....kuukOOqqOOOOoqqoooooqqkaaaaabk
+  ......qkOOOqOOOOqqqqqqooooqokaaaabk
+  ......qkOOOqOOooqooooqooooqokaaaaabk
+  ......qkOOOqOooqqooooqqoooqokaaaaabk
+  ......qkOOOqooooqoooooqooooqkaaaaabk
+  ......qkOOoqooooqqooooqoooqqkaaaaabk
+  .....qukOooqooooooooooqoqqqqkaaaaabk
+  .....kkkOoooqooooooooqqqqqqqkaaaaabk
+  .......kkoooqqooooooqqqqqqqkaaaaaabk
+  ........kooooqqqoooqqqqqqqqkaaaaaaabk
+  ........kooooooqqqqqqqqqqqqkaaaaaaabk
+  .........kooooooooqqqqqqqqkaaaaaaaaabk
+  .........qkoooooqqqqqqqqqkaaaaaaaaaabk
+  .........kkkoooqqqqqqqqqkaaaaaaaaaaabk
+  ............kkqqqqqqqqkkaaaaaaaaaaaabk
+  .............Bkkkkkkkkaaaaaayyaaaayybk
+  .........BBBBaakkkaaaayyaaaaaayaaykkkk
   .......BBayyaaaayyyaayaayaayaabkkk
   ......Baayaayaayaaayyaaaaykkkkk
   .....Baayaaaayyaaaaabkkkkk
@@ -1081,39 +1081,39 @@ const BACK = [
   .....................kkkkk.......uk.uk
   ....................knnnnak.....kkkkk
   ....................knnnnnk....knnnnak
-  .....................kkkkk.....knnnnnk
-  .......................Bk.......kkkkk
-  ...............qqk.....kak......Bk
-  ...............qYk......Bk.....Bak
-  ...............kkk......BBBBBBBBk
-  ..............kkkkk....BBaaaaaaaaBk
-  ..............kannk...BAaaaaaaaaaabk
+  ...............qqk...kkkkk.....knnnnnk
+  ...............qYk.....Bk.......kkkkk
+  ...............kkk.....kak......Bk
+  ..............kkkkk.....Bk.....Bak
+  ..............kannk.....BBBBBBBBk
+  ..............kaYnk....BBaaaaaaaaBk
+  ..............kYYYk...BAaaaaaaaaaabk
   ..............kaYnk...BAaaaaaaaaaabk
-  ..............kYYYk...BAaaaaaaaaaabkk
-  ..............kaYnk..BAaaaaaaaaaaaabY
-  ..........qk..kkkkk..qkaaaaaaaaaaaabk
-  ..........qk.qkkkkkkkkkaaaaaaaaaaaabk
-  ..........qYqkOOOOOOOOkkaaaaaaaaaaabk
-  ..........qYkOOOqqqqqqOOkaaaaaaaaabk
-  .........qYkOOqqqOOOOqqookaaaaaaaabmk
-  .........qkOOqqOOOOOooqqokkaaaaaaabk
-  ......qqqukOOqOOOOOoooooqokaaaaaabk
-  ......kkukOOqqOOOoqqooooqqkaaaaaabk
-  ........qkOOqOOOqqqqqooooqkaaaaaaabk
-  ........qkOOqOOoqooooqoooqqkaaaaaabk
-  ........qkOOqoooqooooqooooqkaaaaaabk
-  ........qkOOqoooqqoooqoooqqkaaaaaabk
-  .......qukOoqqoooooooqooqqkaaaaaaabk
-  .......kkkOooqoooooooqqqqqkaaaaaaabk
-  .........koooqqoooooqqqqqqkaaaaaaabk
-  ..........koooqqqqqqqqqqqqkaaaaaaaabk
-  ..........koooooooqqqqqqqkaaaaaaaaabk
-  ..........qkoooooqqqqqqqkaaaaaaaaaaabk
-  ..........kkkoooqqqqqqqkaaaaaaaaaaaabk
-  .............kkqqqqqqkkaaaaaaaaaaaaabk
-  ...............kkkkkkaaaaaaaaaaaaaaabk
-  .............BBBBaaaaaaaaaaayyaaaayybk
-  .........BBBBaaaaaaaaayyaaaaaayaaykkkk
+  ..............kkkkk...qkaaaaaaaaaabkk
+  .........qqqqkkkkOOkkkkkaaaaaaaaaaabY
+  .........qYYkOOOOOOOOOOkaaaaaaaaaaabk
+  .........qYkOOOOqqqqqOOOkaaaaaaaaaabk
+  ........qYkOOOqqqOOOqqqoOkaaaaaaaaabk
+  ........qkOOOqqOOOOOOooqqokaaaaaaabk
+  .......qkOOOqqOOOOOOooooqqokaaaaaabmk
+  .....qqukOOOqOOOOOoooooooqokaaaaaabk
+  .....kuukOOqqOOOOoqqoooooqqkaaaaabk
+  ......qkOOOqOOOOqqqqqqooooqokaaaabk
+  ......qkOOOqOOooqooooqooooqokaaaaabk
+  ......qkOOOqOooqqooooqqoooqokaaaaabk
+  ......qkOOOqooooqoooooqooooqkaaaaabk
+  ......qkOOoqooooqqooooqoooqqkaaaaabk
+  .....qukOooqooooooooooqoqqqqkaaaaabk
+  .....kkkOoooqooooooooqqqqqqqkaaaaabk
+  .......kkoooqqooooooqqqqqqqkaaaaaabk
+  ........kooooqqqoooqqqqqqqqkaaaaaaabk
+  ........kooooooqqqqqqqqqqqqkaaaaaaabk
+  .........kooooooooqqqqqqqqkaaaaaaaaabk
+  .........qkoooooqqqqqqqqqkaaaaaaaaaabk
+  .........kkkoooqqqqqqqqqkaaaaaaaaaaabk
+  ............kkqqqqqqqqkkaaaaaaaaaaaabk
+  .............Bkkkkkkkkaaaaaayyaaaayybk
+  .........BBBBaakkkaaaayyaaaaaayaaykkkk
   .......BBayyaaaayyyaayaayaayaabkkk
   ......Baayaayaayaaayyaaaaykkkkk
   .....Baayaaaayyaaaaabkkkkk
