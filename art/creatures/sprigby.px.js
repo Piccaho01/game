@@ -47,12 +47,12 @@ const parts = [
   // near ear: the big sprout leaf, swept up and back from the right of the crown: thin stem,
   // wide middle, pointed tip, a bite-notch on its back edge
   { g: "ear", s: [41, 38, 43, 32, 45, 26, 49, 20, 54, 15, 60, 12, 63, 12, 62, 17, 60, 22, 61, 24, 57, 29, 52, 34, 48, 39, 46, 42] },
-  // arms come off the chest. The far fist is tucked in a guard against the chest under the
-  // chin; the near arm throws an uppercut across the chest, fist rising past the muzzle
-  { g: "farArm", s: [32, 60, 30, 66, 26, 68, 23, 66, 25, 62] },
-  { g: "farArm", ell: [24, 66, 4, 3.5] },
-  { g: "arm", s: [52, 64, 50, 72, 44, 76, 36, 76, 28, 72, 20, 63, 13, 51, 18, 48, 24, 59, 32, 68, 38, 70, 44, 68, 46, 62] },
-  { g: "arm", ell: [14, 46, 5, 4.5] },
+  // short joey arms off the chest. The far fist is tucked in a guard under the chin; the near
+  // arm throws a short uppercut across the chest, fist coming up under the muzzle
+  { g: "farArm", s: [34, 62, 32, 67, 29, 69, 27, 66, 29, 63] },
+  { g: "farArm", ell: [29, 66, 4, 3.5] },
+  { g: "arm", s: [50, 64, 48, 71, 42, 75, 34, 75, 27, 70, 22, 66, 25, 61, 30, 65, 36, 68, 42, 66, 46, 61] },
+  { g: "arm", ell: [21, 62, 5, 4.5] },
 ]
 
 function inPoly(pts, x, y) {

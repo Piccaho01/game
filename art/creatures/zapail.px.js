@@ -26,32 +26,34 @@ function gear(cx, cy, r, d, n, rot = 0) {
   return pts
 }
 
-// ---- parts, back to front. {s: polygon} | {ell: [cx, cy, rx, ry]}
+// ---- parts, back to front. {s: polygon} | {ell: [cx, cy, rx, ry]} | {grid: [x, y, rows]} ("#" = in)
 const parts = [
-  // far eyestalk: thinner, higher, splayed back; the eye bulb is a plug with two prongs
-  // pointing at the target
-  { g: "farStalk", s: [33, 56, 35, 46, 37, 39, 40, 40, 38, 47, 37, 56] },
-  { g: "farStalk", ell: [38.5, 37.5, 3.5, 3.5] },
-  { g: "farStalk", s: [32, 34, 36, 34, 36, 36, 32, 36] },
-  { g: "farStalk", s: [32, 38, 36, 38, 36, 40, 32, 40] },
-  // shell: a machine. A big geared copper housing (cog teeth round the rim) seated on the
-  // back and pressed right up against the neck, a battery-style terminal post on top
-  { g: "shell", s: gear(61, 63, 18, 3.5, 11, -Math.PI / 2 + Math.PI / 11) },
-  { g: "shell", s: [58, 46, 64, 46, 64, 38, 58, 38] },
-  { g: "shell", s: [55, 38, 67, 38, 67, 35, 55, 35] },
-  // foot: one slug body from the tail tip behind the shell, along the ground, rearing up
-  // into a thick neck and the head; the shell overlaps the back of the neck
-  { g: "body", s: [
-    90, 91, 86, 88, 80, 84, 70, 82, 54, 81, 48, 78, 46, 70, 45, 62, 41, 55,
-    33, 52, 27, 51, 21, 53, 17, 57, 16, 62, 19, 66, 24, 68, 27, 73, 28, 80, 26, 86, 22, 89, 21, 91] },
+  // three-quarter turn: the head is nearest the viewer (lower left), the foot runs back and
+  // up to the right, and the shell sits behind the head, its cog face on the near side
+  // shell: a machine. A big geared copper housing (cog teeth round the rim) riding on the
+  // back, the head overlapping its front edge so there is no gap; a battery-style terminal post on top
+  { g: "shell", s: gear(57, 58, 18, 3.5, 11, -Math.PI / 2 + Math.PI / 11) },
+  { g: "shell", s: [54, 41, 60, 41, 60, 33, 54, 33] },
+  { g: "shell", s: [51, 33, 63, 33, 63, 30, 51, 30] },
   // static: bolts arcing off the terminal and off the back of the housing
-  { g: "spark", s: [66, 36, 72, 31, 71, 34, 77, 32, 74, 36, 70, 37, 70, 39, 66, 40] },
-  { g: "spark", s: [78, 70, 84, 67, 83, 70, 89, 69, 86, 72, 82, 72, 82, 75, 78, 75] },
-  // near eyestalk: longer, thicker, thrust up-forward at the target; plug bulb and prongs
-  { g: "stalk", s: [22, 55, 20, 47, 19, 41, 23, 41, 24, 47, 27, 55] },
-  { g: "stalk", ell: [21.5, 38, 4.5, 4] },
-  { g: "stalk", s: [13, 34, 18, 34, 18, 36, 13, 36] },
-  { g: "stalk", s: [13, 39, 18, 39, 18, 41, 13, 41] },
+  { g: "spark", s: [62, 31, 68, 26, 67, 29, 73, 27, 70, 31, 66, 32, 66, 34, 62, 35] },
+  { g: "spark", s: [75, 64, 81, 61, 80, 64, 86, 63, 83, 66, 79, 66, 79, 69, 75, 69] },
+  // foot: from the tail tip far back (higher, smaller) along the ground under the shell to
+  // the rounded front of the foot, nearest the viewer
+  { g: "body", s: [88, 84, 84, 81, 76, 74, 64, 70, 52, 70, 44, 72, 40, 70, 28, 68, 20, 74, 17, 82, 19, 89, 26, 91, 44, 91, 58, 88, 72, 86, 82, 86] },
+  // neck and head: reared up, turned toward the viewer, wide enough for two eyes
+  { g: "body", s: [22, 82, 20, 72, 22, 64, 30, 63, 40, 66, 44, 74, 42, 84] },
+  { g: "head", ell: [31, 57, 12, 9.5] },
+  // eyestalks from the top of the head, splayed: the far one (left) thinner, the near one
+  // (right) bigger; each plug bulb points two prongs at the target
+  { g: "farStalk", s: [24, 50, 21, 42, 19, 36, 22, 35, 25, 42, 28, 49] },
+  { g: "farStalk", ell: [20, 33, 3.5, 3.5] },
+  { g: "farStalk", s: [13, 30, 17, 30, 17, 32, 13, 32] },
+  { g: "farStalk", s: [13, 34, 17, 34, 17, 36, 13, 36] },
+  { g: "stalk", s: [34, 49, 37, 41, 39, 34, 43, 35, 41, 42, 39, 50] },
+  { g: "stalk", ell: [41, 31, 4.5, 4] },
+  { g: "stalk", s: [32, 27, 37, 27, 37, 29, 32, 29] },
+  { g: "stalk", s: [32, 32, 37, 32, 37, 34, 32, 34] },
 ]
 
 function inPoly(pts, x, y) {
@@ -75,4 +77,21 @@ const inPart = (p, x, y) => {
 // Stage 1: silhouette
 sprite("zapail_sil", { w: 96, h: 96 }, (c) => {
   for (const p of parts) for (let y = 0; y < 96; y++) for (let x = 0; x < 96; x++) if (inPart(p, x, y)) c.px(x, y, "k")
+})
+
+// Silhouette with each part's contour drawn in, so the three-quarter turn can be judged
+// before colour
+sprite("zapail_parts", { w: 96, h: 96 }, (c) => {
+  const own = new Int16Array(96 * 96).fill(-1)
+  parts.forEach((p, i) => { for (let y = 0; y < 96; y++) for (let x = 0; x < 96; x++) if (inPart(p, x, y)) own[y * 96 + x] = i })
+  const at = (x, y) => (x < 0 || y < 0 || x > 95 || y > 95 ? -1 : own[y * 96 + x])
+  for (let y = 0; y < 96; y++) for (let x = 0; x < 96; x++) {
+    const i = at(x, y)
+    if (i < 0) continue
+    const edge = [[1, 0], [-1, 0], [0, 1], [0, -1]].some(([dx, dy]) => {
+      const j = at(x + dx, y + dy)
+      return j < 0 || (j < i && parts[j].g !== parts[i].g)
+    })
+    c.px(x, y, edge ? "k" : "#9a94a8")
+  }
 })

@@ -2,7 +2,7 @@
 // A pale-pink goblin-shark pup from the deep water off Kettleport: a head far too big for it,
 // a long blade snout, an underslung jaw of needle teeth, a faintly glowing throat sac that
 // flickers before it bites, and a tattered dorsal fin worn like a hooded cape. Reads as "head
-// and cape": a little hooded goblin. Battle pose: standing hunched on stubby fin-feet, jaw
+// and cape": a little hooded goblin. Battle pose, turned three-quarters to the viewer: standing hunched on stubby fin-feet, jaw
 // dropped open under the snout, fin-hands raised nervously, the cape hanging from the back of
 // its head to the ground behind it with the shark tail poking out under the hem.
 //
@@ -19,28 +19,33 @@ const T = (pts) => pts.map((v, i) => (i % 2 ? 91 - (91 - v) * K : 48 + (v - 48) 
 
 // ---- parts, back to front. {s: polygon} | {ell: [cx, cy, rx, ry]} | {grid: [x, y, rows]} ("#" = in)
 const parts = [
-  // cape: the dorsal fin, rising behind the head (lower than the dome) with its tip swept back, then hanging behind the
-  // body to the ground, flaring back; its hem torn into strips
-  { g: "cape", s: [44, 38, 50, 34, 56, 31, 64, 29, 60, 33, 61, 38, 64, 44, 69, 56, 74, 68, 80, 80, 83, 88,
-    79, 86, 78, 91, 74, 87, 71, 91, 68, 86, 64, 89, 60, 84, 54, 80, 50, 66, 48, 52, 44, 42] },
+  // three-quarter turn: chest and face toward the viewer, the far side on the left, the
+  // back (cape, tail) running away up to the right
+  // cape: the dorsal fin, rising behind the head with its tip swept back, then hanging
+  // behind the body to the ground (a sliver shows past the far shoulder); its hem torn
+  // into strips
+  { g: "cape", s: [38, 32, 48, 26, 58, 22, 67, 20, 62, 26, 62, 34, 66, 46, 72, 58, 78, 72, 82, 86,
+    78, 85, 77, 90, 73, 86, 70, 90, 66, 85, 62, 88, 58, 84, 48, 86, 36, 86, 28, 84, 25, 80, 27, 70, 31, 56, 35, 44] },
   // tail: poking out under the hem, lifted, a long upper lobe and a short lower one
-  { g: "tail", s: [66, 80, 76, 78, 84, 72, 88, 64, 92, 63, 91, 70, 94, 76, 88, 77, 82, 82, 72, 86, 66, 86] },
-  // far fin-foot, set back
-  { g: "farFoot", s: [46, 84, 54, 84, 56, 90, 44, 90] },
-  // body: short upright trunk under the head
-  { g: "body", s: [32, 58, 44, 55, 50, 55, 52, 62, 54, 72, 52, 82, 46, 88, 36, 88, 31, 80, 30, 68] },
-  // near fin-foot: stubby, planted forward
-  { g: "foot", s: [30, 84, 40, 84, 42, 91, 26, 91, 26, 88] },
-  // head: oversized and domed
-  { g: "head", s: [22, 40, 26, 33, 33, 28, 41, 27, 48, 30, 53, 37, 54, 46, 50, 55, 42, 60, 33, 61, 26, 58, 22, 52] },
-  // rostrum: the long flat blade snout jutting forward, high over the open mouth
-  { g: "head", s: [25, 38, 16, 40, 8, 42, 4, 44, 10, 46, 24, 47] },
-  // throat sac: a round bulge under the jaw hinge
-  { g: "sac", ell: [33, 63, 6, 5] },
-  // jaw: dropped open and pushed out under the snout, needle teeth jagging up along its rim
-  { g: "jaw", s: [34, 60, 27, 63, 18, 63, 12, 60, 10, 56, 12, 55, 13, 57, 15, 54, 16, 57, 18, 54, 19, 57, 21, 54, 23, 57, 26, 56, 30, 57] },
-  // fin-hand: a blade-like pectoral fin hanging at its side, tip flicked forward nervously
-  { g: "fin", s: [38, 64, 43, 66, 42, 74, 38, 80, 33, 82, 35, 76] },
+  { g: "tail", s: [66, 80, 76, 77, 83, 71, 87, 63, 91, 62, 90, 69, 93, 75, 87, 76, 81, 81, 72, 85, 66, 85] },
+  // far fin-foot (left), set back
+  { g: "farFoot", s: [27, 83, 36, 83, 37, 89, 24, 89, 24, 87] },
+  // body: short upright trunk, chest facing out
+  { g: "body", s: [32, 56, 44, 54, 52, 58, 55, 68, 54, 80, 49, 88, 36, 88, 30, 82, 29, 68] },
+  // near fin-foot (right), planted forward
+  { g: "foot", s: [40, 84, 50, 84, 53, 91, 37, 91, 37, 88] },
+  // far fin-hand: a blade fin held up nervously in front of the far side of the chest
+  { g: "farFin", s: [31, 68, 28, 73, 24, 78, 21, 77, 24, 70] },
+  // head: oversized and domed, turned toward the viewer, wide enough for both big eyes
+  { g: "head", s: [24, 42, 27, 34, 33, 28, 41, 25, 49, 27, 55, 33, 57, 41, 55, 50, 50, 56, 42, 59, 32, 59, 26, 55, 23, 49] },
+  // rostrum: the blade snout, pointing forward and toward the viewer (foreshortened)
+  { g: "head", s: [29, 38, 20, 41, 11, 45, 8, 48, 14, 49, 27, 48] },
+  // throat sac: a round bulge under the jaw
+  { g: "sac", ell: [35, 63, 6, 5] },
+  // jaw: dropped open under the snout, needle teeth jagging up along its rim
+  { g: "jaw", s: [42, 59, 33, 62, 23, 61, 16, 58, 13, 53, 15, 52, 16, 55, 18, 51, 19, 54, 21, 51, 22, 54, 24, 52, 26, 54, 32, 53, 38, 55] },
+  // near fin-hand: a blade fin hanging at the near side, tip flicked forward
+  { g: "fin", s: [50, 60, 56, 65, 58, 73, 55, 79, 52, 74, 49, 67] },
 ]
 
 function inPoly(pts, x, y) {
@@ -64,4 +69,21 @@ const inPart = (p, x, y) => {
 // Stage 1: silhouette
 sprite("gobbin_sil", { w: 96, h: 96 }, (c) => {
   for (const p of parts) for (let y = 0; y < 96; y++) for (let x = 0; x < 96; x++) if (inPart(p, x, y)) c.px(x, y, "k")
+})
+
+// Silhouette with each part's contour drawn in, so the three-quarter turn can be judged
+// before colour
+sprite("gobbin_parts", { w: 96, h: 96 }, (c) => {
+  const own = new Int16Array(96 * 96).fill(-1)
+  parts.forEach((p, i) => { for (let y = 0; y < 96; y++) for (let x = 0; x < 96; x++) if (inPart(p, x, y)) own[y * 96 + x] = i })
+  const at = (x, y) => (x < 0 || y < 0 || x > 95 || y > 95 ? -1 : own[y * 96 + x])
+  for (let y = 0; y < 96; y++) for (let x = 0; x < 96; x++) {
+    const i = at(x, y)
+    if (i < 0) continue
+    const edge = [[1, 0], [-1, 0], [0, 1], [0, -1]].some(([dx, dy]) => {
+      const j = at(x + dx, y + dy)
+      return j < 0 || (j < i && parts[j].g !== parts[i].g)
+    })
+    c.px(x, y, edge ? "k" : "#9a94a8")
+  }
 })
