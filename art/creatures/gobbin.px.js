@@ -2,7 +2,8 @@
 // A pale-pink goblin-shark pup from the deep water off Kettleport: a head far too big for it,
 // a long blade snout (its goblin nose), pointy fin-ears, an underslung jaw of needle teeth, a
 // faintly glowing throat sac that flickers before it bites, a ragged scrap of a tunic, and a
-// tattered dorsal fin worn like a cape whose tip flops over like a goblin's hood. Battle
+// tattered dorsal fin worn as a hooded cape: a traditional rounded hood over its head with the
+// fin-ears poking out from under it. Battle
 // pose, turned three-quarters to the viewer: standing hunched on stubby fin-feet, jaw dropped
 // open, fins raised nervously, the cape hanging behind it to the ground with the shark tail
 // poking out under the hem.
@@ -22,11 +23,11 @@ const T = (pts) => pts.map((v, i) => (i % 2 ? 91 - (91 - v) * K : 48 + (v - 48) 
 const parts = [
   // three-quarter turn: chest and face toward the viewer, the far side on the left, the
   // back (cape, tail) running away up to the right
-  // cape: the dorsal fin, rising behind the head to a tall point that flops over at the tip
-  // like a goblin's hood, then hanging behind the body to the ground (a sliver shows past
-  // the far shoulder); its hem torn into strips
-  { g: "cape", s: [38, 32, 46, 24, 54, 18, 62, 13, 69, 11, 73, 14, 73, 20, 70, 17, 64, 22, 62, 30, 63, 38, 66, 46, 72, 58, 78, 72, 82, 86,
-    78, 85, 77, 90, 73, 86, 70, 90, 66, 85, 62, 88, 58, 84, 48, 86, 36, 86, 28, 84, 25, 80, 27, 70, 31, 56, 35, 44] },
+  // cape: the dorsal fin, rounded over the back of the head into the hood, then hanging
+  // behind the body to the ground (a sliver shows past the far shoulder); its hem torn
+  // into strips
+  { g: "cape", s: [36, 30, 44, 24, 52, 22, 58, 24, 63, 30, 65, 38, 66, 46, 72, 58, 78, 72, 82, 86,
+    78, 85, 77, 90, 73, 86, 70, 90, 66, 85, 62, 88, 58, 84, 48, 86, 36, 86, 28, 84, 25, 80, 27, 70, 31, 56, 33, 42] },
   // tail: poking out under the hem, lifted, a long upper lobe and a short lower one
   { g: "tail", s: [66, 80, 76, 77, 83, 71, 87, 63, 91, 62, 90, 69, 93, 75, 87, 76, 81, 81, 72, 85, 66, 85] },
   // far fin-foot (left), set back
@@ -40,14 +41,17 @@ const parts = [
   { g: "foot", s: [40, 84, 50, 84, 53, 91, 37, 91, 37, 88] },
   // far fin-hand: a blade fin held up nervously in front of the far side of the chest
   { g: "farFin", s: [31, 68, 28, 73, 24, 78, 21, 77, 24, 70] },
-  // far fin-ear: pointy, sticking out from the far side of the head (narrower, turned away)
-  { g: "farEar", s: [27, 40, 19, 33, 17, 34, 21, 43, 26, 46] },
   // head: oversized and domed, turned toward the viewer, wide enough for both big eyes
   { g: "head", s: [24, 42, 27, 34, 33, 28, 41, 25, 49, 27, 55, 33, 57, 41, 55, 50, 50, 56, 42, 59, 32, 59, 26, 55, 23, 49] },
   // rostrum: the blade snout (its long goblin nose), pointing forward and toward the viewer
   { g: "head", s: [29, 38, 20, 41, 11, 45, 8, 48, 14, 49, 27, 48] },
-  // near fin-ear: pointy, sticking out and back from the near side of the head
-  { g: "ear", s: [55, 37, 63, 30, 66, 31, 62, 41, 56, 46] },
+  // hood: a traditional rounded hood pulled over the top of the head, its front edge
+  // framing the face from the forehead down to the cheeks
+  { g: "hood", s: [22, 42, 23, 33, 29, 25, 37, 20, 47, 19, 55, 22, 61, 29, 64, 39, 63, 50, 59, 57, 56, 51,
+    54, 43, 50, 37, 43, 33, 35, 33, 29, 37, 25, 45] },
+  // fin-ears poking out from under the hood's edge, the far one (left) narrower
+  { g: "farEar", s: [26, 42, 17, 35, 13, 35, 17, 45, 25, 51] },
+  { g: "ear", s: [58, 44, 68, 37, 72, 37, 67, 49, 59, 55] },
   // throat sac: a round bulge under the jaw
   { g: "sac", ell: [35, 63, 6, 5] },
   // jaw: dropped open under the snout, needle teeth jagging up along its rim
