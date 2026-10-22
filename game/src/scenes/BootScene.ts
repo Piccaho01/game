@@ -1,0 +1,62 @@
+import Phaser from 'phaser';
+import { SPRITES } from '../assets';
+import { SPECIES, TYPES } from '../engine/data';
+
+/** Texture key for a species' battle sprite; always exists after boot (real art or a placeholder). */
+export const frontKey = (species: string) => `front:${species}`;
+export const idleAnimKey = (species: string) => `idle:${species}`;
+
+export class BootScene extends Phaser.Scene {
+  constructor() { super('boot'); }
+
+  preload() {
+    for (const [id, sp] of Object.entries(SPECIES)) {
+      const art = sp.sprite ? SPRITES[sp.sprite] : undefined;
+      if (art?.idle?.png && art.idle.json) {
+        this.load.atlas(frontKey(id), art.idle.png, art.idle.json);
+        this.load.json(`${frontKey(id)}:json`, art.idle.json);
+      } else if (art?.still) this.load.image(frontKey(id), art.still);
+    }
+  }
+
+  create() {
+    for (const [id, sp] of Object.entries(SPECIES)) {
+      const key = frontKey(id);
+      if (!this.textures.exists(key)) this.makePlaceholder(key, TYPES[sp.types[0]].color, sp.dex);
+      const frames = this.textures.get(key).getFrameNames();
+      if (frames.length > 1) this.anims.create({ key: idleAnimKey(id), ...this.idleFrames(key, frames), repeat: -1 });
+    }
+    const params = new URLSearchParams(location.search);
+    this.scene.start('battle', {
+      player: params.get('player') ?? 'furnaxol',
+      foe: params.get('foe') ?? 'sprigby',
+      seed: params.has('seed') ? Number(params.get('seed')) : undefined,
+    });
+  }
+
+  /** pxl atlases name frames <name>_<n> with per-frame durations in the JSON. */
+  private idleFrames(key: string, names: string[]) {
+    const sorted = names.sort((a, b) => Number(a.split('_').pop()) - Number(b.split('_').pop()));
+    const json = this.cache.json.get(`${key}:json`) as { frames?: Record<string, { duration?: number }> } | undefined;
+    return { frames: sorted.map((frame) => ({ key, frame, duration: json?.frames?.[frame]?.duration ?? 100 })) };
+  }
+
+  /** A blobby stand-in in the type colour until the real sprite is approved (M2). */
+  private makePlaceholder(key: string, color: string, dex: number) {
+    const c = Phaser.Display.Color.HexStringToColor(color);
+    const dark = Phaser.Display.Color.ValueToColor(c.color).darken(45).color;
+    const light = Phaser.Display.Color.ValueToColor(c.color).lighten(25).color;
+    const g = this.make.graphics({}, false);
+    g.fillStyle(0x101010).fillEllipse(48, 66, 58, 50).fillEllipse(54, 40, 40, 36);
+    g.fillStyle(dark).fillEllipse(48, 66, 54, 46).fillEllipse(54, 40, 36, 32);
+    g.fillStyle(c.color).fillEllipse(45, 63, 46, 38).fillEllipse(51, 38, 30, 26);
+    g.fillStyle(light).fillEllipse(40, 56, 16, 10);
+    g.fillStyle(0x101010).fillRect(40, 36, 4, 6).fillRect(52, 36, 4, 6);
+    g.fillStyle(0xffffff).fillRect(40, 36, 2, 2).fillRect(52, 36, 2, 2);
+    g.fillStyle(0x101010).fillRect(22, 84, 52, 2);
+    g.generateTexture(key, 96, 96);
+    g.destroy();
+    // Mark it so the scene can label it as a placeholder.
+    this.registry.set(`placeholder:${key}`, dex);
+  }
+}
