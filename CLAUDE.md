@@ -193,10 +193,14 @@ Use these as flavour in NPCs, items, signs, quests and dialogue. Spread them out
 - **Fernaroo**: lean runner; tail flattens into a serrated fern blade; coiled tendon lines on the legs; seed pouch.
 - **Scytharoo**: tall, sleek kickboxer; scythe-like grass-blade tail; visible coil-spring legs; seed pouch bursts on impact. Ability **Spring Heel** (kicks gain priority on entry). Signature **Reap Kick** (high crit; Speed rises on a miss). Wind replaces the source's Fighting type (speed and kicks; Canopy is the Plant/Wind town).
 
-### Gobbin → Gulpjaw → Harrowjaw (Water → Water → Water/Dark): abyssal harpooner
-- **Gobbin**: pale-pink goblin-shark pup, oversized head, faintly glowing throat sac, tattered dorsal-fin "cape", big nervous eyes, underslung overbite with needle teeth. Reads as "head and cape". Throat sac flickers before it bites.
-- **Gulpjaw**: jaw outgrows the body; hunched and top-heavy; translucent pressure bladder with bioluminescent spots; blade-like pectoral sleeves; torn-banner dorsal; elastic pale cheeks.
-- **Harrowjaw**: tall gaunt abyssal stalker, 70% jaw and fin-coat; fires its jaw forward on stretched cartilage like a harpoon; throat glows through the skin and deflates after firing; ragged fin mantle like a deep-sea coat. Palette ghost pink, bruised purple, cold blue glow. Ability **Ambush Jaw**. Signature **Abyssal Harpoon** (ignores Protect, lowers Speed; its own Defense drops as the jaw resets).
+### Gobbin → Gulpjaw → Harrowjaw (Water → Water → Water/Dark): hooded goblin harpooner
+- Look is set by the concept art in `art/concepts/gobbin.png`: a goblin-shark pup dressed like a little goblin scavenger.
+- **Gobbin**: dusky grey-pink skin, long flat blade snout over a spring-loaded jaw full of needle teeth, sly grin and narrow eyes, pointed fin-shaped goblin ears, its tattered slate dorsal fin worn as a hood/cape, ragged tunic with a rope belt and a pouch, faint blue throat glow. Cute and sneaky, not scary.
+- **Gulpjaw**: the scavenger. Lankier and hunched, the jaw outgrowing the body; the fin-hood grows into a long tattered cloak; a bandolier of pouches and hoarded shiny junk (bottle caps, hooks, glass); blade-like pectoral fins used as hands; the throat glow brighter, showing bioluminescent spots.
+- **Harrowjaw**: the goblin king of the deep. Tall and gaunt, a ragged fin mantle like a deep-sea coat with a cowl, a crown-like crest of torn fin; fires its jaw forward on stretched cartilage like a harpoon, the throat glowing cold blue before it fires; trophy chains of hooks and lures. Palette: dusky grey-pink, slate and bruised purple, cold blue glow. Ability **Ambush Jaw**. Signature **Abyssal Harpoon** (ignores Protect, lowers Speed; its own Defense drops as the jaw resets).
+
+### Concept art
+Every creature gets concept art in official-artwork style first (made by the owner with ChatGPT, kept in `art/concepts/`), then is translated into the BW sprite: the front sprite is the art's pose at sprite size, the back sprite the same pose from behind.
 
 ## 14. Build Plan
 The live plan with milestones and status is `docs/PLAN.md`. Summary:
