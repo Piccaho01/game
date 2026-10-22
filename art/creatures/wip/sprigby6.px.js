@@ -37,10 +37,10 @@ sprite("sprigby6", { w: 96, h: 96 }, (c) => c.grid(32, 43, `
   ..DLbbkebbkeekbsssk.......k.....
   .DccLbbkbbbkkbbssk.......DLk....
   kkcccbbbbbbbGlGssk.......DLlk...
-  Dccccckbbbbbbbssk........DLlgk..
-  .kccckkbbbbbssk......k...DLlgk.k
-  .lkkcccbbbbssk.......Dk..DLlgkDk
-  Ll.kkkbbbbssk........DLk.DLlgDlk
+  Dccccckbbbbbbbsssk.......DLlgk..
+  .kccckkbbbbbbbsssk...k...DLlgk.k
+  .lkkcccbbbbbbbsssk...Dk..DLlgkDk
+  Ll.kkkbbbbbbbbbssk...DLk.DLlgDlk
   ..DlLlgkDLcccbbbsk...DLlkDLlgDgk
   .DlLgGlgDLccccbbbk....DlgDLlgDgk
   .DgGlGggDLccccbbbsk...DLlgDlgDgk
