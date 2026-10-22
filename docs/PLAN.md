@@ -17,7 +17,7 @@ Rules that keep it efficient:
 ## Status
 - [x] Bible, art style guide (`art/BW_STYLE.md`), sprite pipeline validated (Furnaxol + idle)
 - [x] M1 Foundation (live once Pages is enabled: Settings → Pages → Source: GitHub Actions)
-- [ ] M2 Stage-1 starters (in progress on branch `claude/m2-starters`: Furnaxol, Sprigby and Zapail done (Furnaxol still needs a back sprite); Gobbin next; see "M2 handoff" below)
+- [ ] M2 Stage-1 starters (in progress on branch `claude/m2-starters`: all four fronts, idles in game; back sprites done except Furnaxol's; see "M2 handoff" below)
 - [ ] M3 Core loop
 - [ ] M4 Characters + world slice
 - [ ] M5 Playtest build
@@ -57,7 +57,10 @@ Work happens on branch `claude/m2-starters`. Rules: `art/BW_STYLE.md`, especiall
 - **Zapail front and idle are approved** (`art/creatures/zapail.px.js`, 12 frame grids: breath,
   turning coil, flickering arc). Built in scratch with a small Python painter (concept silhouette
   and tones + hand face); the lessons are BW_STYLE rules 27-28. Back sprite done: the gear face looks at the camera.
-- Still a placeholder (rejected first attempt): `art/creatures/gobbin.px.js`. Next: translate `art/concepts/gobbin.png` the same way, then a back sprite for Furnaxol.
+- **Gobbin is approved** (`art/creatures/gobbin.px.js`): translated with the material classifier
+  (BW_STYLE checklist), front, idle (breath + the goblin-shark jaw firing forward), back and back
+  idle. The owner dropped the concept's throat glow.
+- Last M2 item: Furnaxol's back sprite (Mienfoo method, BW_STYLE checklist step 6); then tick M2.
 - `art/creatures/wip/` holds rejected redesign attempts (useful only as a record of what not to do).
 - `art/creatures/lib/creature.js` is the shared renderer (parts, tones, shading, selective
   outline, pinhole fill); include it from new creature files.
