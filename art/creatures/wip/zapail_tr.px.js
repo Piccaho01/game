@@ -34,18 +34,18 @@ sprite("zapail_tr", { w: 96, h: 96 }, (c) => c.grid(30, 48, `
     ...Bk........Bak.......kkkkk
     ...BaBBBBBBkBak........kannk
     ...BBBAAaaaaBk.........kaYnk
-    ..BAAwwaaaaaaaBk.......kYYYk
-    .BAAkkaaaaaaaabk....QQQkaYnk
-    .BAkYYkaaaakkkabk.QQoookkkkk
-    .BakwkkaaakYYYkbkQooOOOooookqk
-    BaakkkkaaakYwkkbkOoOOOOOooooqk
-    BaakkkkaaakYkkkbkOOOOOOOOqqqYuk.qk
-    BaakyykaaakYkkkbkOOOOOOOqYYYYuuquk
-    kaaakkaaaakyYykbkOoooooqYYnnnnuuk
-    .BaaaakkkkkkkkabkOoooooqYnnOOOnuuk
-    .kaaaakwmmmkaaabkoooooqYYnqqqqOnuuqk
-    ..BaaaakmmkaaabkOoooooqYnOqOOOqOnuuk
-    ..kkaaaakkaaaabkooqoooqYnqqyyOqOnuk
+    ..BAAAkaaaaaaaBk.......kYYYk
+    .BAAakwkaaakkabk....QQQkaYnk
+    .BAaakkkaakwkkabk.QQoookkkkk
+    .BaaakYkaakkkkabkQooOOOooookqk
+    BaaaaakaaakYYkabkOoOOOOOooooqk
+    BaaaaaaaaaakkaabkOOOOOOOOqqqYuk.qk
+    BaaaaakkkkkaaaabkOOOOOOOqYYYYuuquk
+    kaaaaakwmmkaaaabkOoooooqYYnnnnuuk
+    .BaaaaakmkaaaaabkOoooooqYnnOOOnuuk
+    .kaaaaaaaaaaaaabkoooooqYYnqqqqOnuuqk
+    ..BaaaaaaaaaaabkOoooooqYnOqOOOqOnuuk
+    ..kkaaaaaaaaaabkooqoooqYnqqyyOqOnuk
     ....kkkaaaaaaaaboqqqooquOqqyYyOOnuk
     .......BaaaaaabbkqqqqqqnqqOYYyOOnuk
     .......kaaaaabbbkqqqqqquqqOyYyOOnuuqk
