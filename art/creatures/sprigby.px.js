@@ -15,9 +15,8 @@
 //   and right, one continuous form from the head down.
 // - The tail grows from the base of the spine and lies over the hips, toward the camera, before
 //   curving up into the leaf fan.
-// - Legs: a wide planted stance with thick haunches; his right leg, nearer the camera, is the
-//   biggest and lowest, the left steps away and sits higher and smaller; feet seen heel-on, the
-//   toe claws peeking over.
+// - Legs: the front sprite's legs as drawn (the camera only moved), in the back's shadow tones;
+//   his right leg sits behind the forward one.
 // - The corner of the eye and the sprig's tip peek past the head's right edge to show the facing.
 // Grids sit so the feet are on y = 91.
 //
@@ -123,22 +122,22 @@ const BACK = `
   ......krRrr...Dlsrrrrsssbbk
   .......krRRrrrrrrRRRRksssbbk
   ........krrRRRRRRrrrrkssssbbk
-  .........kkrrrrrrrrkkDDkssbbk
-  ..........DDDDDDkkkDDssbDksbbk
-  ..........DssssbbkDsssssbbk
-  ..........DssssbbDsssssssbbk
-  .........DsssssbbDsssssssbbk
-  ........DssssssbbDsssssssbbk
-  .......Dssssssbkkksssssssbbk
-  ......Dsssssbkk...Dsssssbbk
-  ....k.kkksbkk.....Dssssbbk
-  ....rrrrrkk.......Dsssbbk
-  ...rrrrrrk........Dsssbbk
-  ...kRRRRRk.......kDkskbk
-  ....kkkkk........rrrrrrk
-  ................rrrrrrrrk
-  ................kRRRRRRRk
-  .................kkkkkkk`
+  .........kkrrrrrrrrkksssssbbk
+  ..........kkkkkkkkkssssssssbbk
+  ............Dsssssbkksssssssssk
+  ............kssssbk..kksssssssk
+  .............kssssk....kkDssssk
+  ..............Dssssk.....kkDsssk
+  ............rDsssskk.......kDssk
+  ..........krRRRbkk..........kDssk
+  .........krrrRRk.............Dsssk
+  .........kkrkkk..............DsRRRk
+  ...........k.................rRRRRRk
+  .............................rRRRrRrk
+  .............................krrRrrrk
+  ..............................krkrrrkk
+  ...............................k.kkk
+  ...................................k`
 
 // Draw a grid with everything above row `split` shifted down by `bob` (the breath: the upper body
 // sinks into the hips); the lower rows go first so the upper body overlaps them.
