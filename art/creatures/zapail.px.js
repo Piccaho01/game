@@ -12,8 +12,8 @@
 // Sprites: zapail (front still), zapail_idle, zapail_back and zapail_back_idle. Idle loops are 12 frames at 10 fps: a slow breath where the head and plugs sink 1 px,
 // the coil turns and its core pulses, the arc flickers; frame 0 is the still. The back sprite
 // faces right, the same pose from behind: the gear face is on the far side of the shell, so the
-// camera sees the shell's plain copper end cap (rivets, hub) with the gear's brass teeth peeking
-// round its rim; the head peeks out past the shell's top right with a sliver of the face.
+// camera sees the shell's copper end cap (a lit rolled rim and a snail-shell spiral groove) with
+// the gear's brass teeth peeking round its rim; the shell overlaps the neck (no gap); the head peeks out past the shell's top right with a sliver of the face.
 
 pal({
   A: "#bfeafc",
@@ -596,28 +596,28 @@ const BACK = [
   ..............kaYnk...BAaaaaaaaaaabk
   ..............kYYYk...BAaaaaaaaaaabkk
   ..............kaYnk..BAaaaaaaaaaaaabY
-  ..............kkkkk..BAaaaaaaaaaaaabk
-  ........qk...qYkkk.qqkAaaaaaaaaaaaabk
-  ........kk.qkkkOOOkkkkAaaaaaaaaaaaabk
-  .........qqkOOOOOOOOOkBAaaaaaaaaaabk
-  ........qYkOOOOOuOOoookAaaaaaaaaaabmk
-  ........qkOOuOOOOOoouookaaaaaaaaaabk
-  .....qqqkOOOOOOOOOooooookaaaaaaaabk
-  .....quukOOOOOooooooooookAaaaaaaabk
-  .....kuukOOOOooqqqoooooookaaaaaaaabk
-  ......qkOuOOooqqOOqoooouokaaaaaaaabk
-  ......qkOOOOooqOOOoqooooqkaaaaaaaabk
-  ......kkOooooqOOOooqooooqkaaaaaaaabk
-  .......kOoooooqooooqoqqqqkAaaaaaaabk
-  .....qqkouooooqoooqooqquqkAaaaaaaabk
-  .....kkkkouooooqqqooqquqqkAaaaaaaabk
-  ........kooooooooooqqqqqkBAaaaaaaaabk
-  ........kooooooqooqqqqqqkkaaaaaaaaabk
-  .........koouooqqqqquuqk..Baaaaaaaaabk
-  ........qukooooqqqqqqqqk..Baaaaaaaaabk
-  ........kkkkqqqquqqqqkkBBBaaaaaaaaaabk
-  ............kkqqqqqkkBaaaaaaaaaaaaaabk
-  .............Bkkkkkaaaaaaaaayyaaaayybk
+  ..........qk..kkkkk..qkaaaaaaaaaaaabk
+  ..........qk.qkkkkkkkkkaaaaaaaaaaaabk
+  ..........qYqkOOOOOOOOkkaaaaaaaaaaabk
+  ..........qYkOOOqqqqqqOOkaaaaaaaaabk
+  .........qYkOOqqqOOOOqqookaaaaaaaabmk
+  .........qkOOqqOOOOOooqqokkaaaaaaabk
+  ......qqqukOOqOOOOOoooooqokaaaaaabk
+  ......kkukOOqqOOOoqqooooqqkaaaaaabk
+  ........qkOOqOOOqqqqqooooqkaaaaaaabk
+  ........qkOOqOOoqooooqoooqqkaaaaaabk
+  ........qkOOqoooqooooqooooqkaaaaaabk
+  ........qkOOqoooqqoooqoooqqkaaaaaabk
+  .......qukOoqqoooooooqooqqkaaaaaaabk
+  .......kkkOooqoooooooqqqqqkaaaaaaabk
+  .........koooqqoooooqqqqqqkaaaaaaabk
+  ..........koooqqqqqqqqqqqqkaaaaaaaabk
+  ..........koooooooqqqqqqqkaaaaaaaaabk
+  ..........qkoooooqqqqqqqkaaaaaaaaaaabk
+  ..........kkkoooqqqqqqqkaaaaaaaaaaaabk
+  .............kkqqqqqqkkaaaaaaaaaaaaabk
+  ...............kkkkkkaaaaaaaaaaaaaaabk
+  .............BBBBaaaaaaaaaaayyaaaayybk
   .........BBBBaaaaaaaaayyaaaaaayaaykkkk
   .......BBayyaaaayyyaayaayaayaabkkk
   ......Baayaayaayaaayyaaaaykkkkk
@@ -641,28 +641,28 @@ const BACK = [
   ..............kaYnk...BAaaaaaaaaaabk
   ..............kYYYk...BAaaaaaaaaaabkk
   ..............kaYnk..BAaaaaaaaaaaaabY
-  ..............kkkkk..BAaaaaaaaaaaaabk
-  ........qk...qYkkk.qqkAaaaaaaaaaaaabk
-  ........kk.qkkkOOOkkkkAaaaaaaaaaaaabk
-  .........qqkOOOOOOOOOkBAaaaaaaaaaabk
-  ........qYkOOOOOuOOoookAaaaaaaaaaabmk
-  ........qkOOuOOOOOoouookaaaaaaaaaabk
-  .....qqqkOOOOOOOOOooooookaaaaaaaabk
-  .....quukOOOOOooooooooookAaaaaaaabk
-  .....kuukOOOOooqqqoooooookaaaaaaaabk
-  ......qkOuOOooqqOOqoooouokaaaaaaaabk
-  ......qkOOOOooqOOOoqooooqkaaaaaaaabk
-  ......kkOooooqOOOooqooooqkaaaaaaaabk
-  .......kOoooooqooooqoqqqqkAaaaaaaabk
-  .....qqkouooooqoooqooqquqkAaaaaaaabk
-  .....kkkkouooooqqqooqquqqkAaaaaaaabk
-  ........kooooooooooqqqqqkBAaaaaaaaabk
-  ........kooooooqooqqqqqqkkaaaaaaaaabk
-  .........koouooqqqqquuqk..Baaaaaaaaabk
-  ........qukooooqqqqqqqqk..Baaaaaaaaabk
-  ........kkkkqqqquqqqqkkBBBaaaaaaaaaabk
-  ............kkqqqqqkkBaaaaaaaaaaaaaabk
-  .............Bkkkkkaaaaaaaaayyaaaayybk
+  ..........qk..kkkkk..qkaaaaaaaaaaaabk
+  ..........qk.qkkkkkkkkkaaaaaaaaaaaabk
+  ..........qYqkOOOOOOOOkkaaaaaaaaaaabk
+  ..........qYkOOOqqqqqqOOkaaaaaaaaabk
+  .........qYkOOqqqOOOOqqookaaaaaaaabmk
+  .........qkOOqqOOOOOooqqokkaaaaaaabk
+  ......qqqukOOqOOOOOoooooqokaaaaaabk
+  ......kkukOOqqOOOoqqooooqqkaaaaaabk
+  ........qkOOqOOOqqqqqooooqkaaaaaaabk
+  ........qkOOqOOoqooooqoooqqkaaaaaabk
+  ........qkOOqoooqooooqooooqkaaaaaabk
+  ........qkOOqoooqqoooqoooqqkaaaaaabk
+  .......qukOoqqoooooooqooqqkaaaaaaabk
+  .......kkkOooqoooooooqqqqqkaaaaaaabk
+  .........koooqqoooooqqqqqqkaaaaaaabk
+  ..........koooqqqqqqqqqqqqkaaaaaaaabk
+  ..........koooooooqqqqqqqkaaaaaaaaabk
+  ..........qkoooooqqqqqqqkaaaaaaaaaaabk
+  ..........kkkoooqqqqqqqkaaaaaaaaaaaabk
+  .............kkqqqqqqkkaaaaaaaaaaaaabk
+  ...............kkkkkkaaaaaaaaaaaaaaabk
+  .............BBBBaaaaaaaaaaayyaaaayybk
   .........BBBBaaaaaaaaayyaaaaaayaaykkkk
   .......BBayyaaaayyyaayaayaayaabkkk
   ......Baayaayaayaaayyaaaaykkkkk
@@ -686,28 +686,28 @@ const BACK = [
   ..............kaYnk...BAaaaaaaaaaabk
   ..............kYYYk...BAaaaaaaaaaabkk
   ..............kaYnk..BAaaaaaaaaaaaabY
-  ..............kkkkk..BAaaaaaaaaaaaabk
-  ........qk...qYkkk.qqkAaaaaaaaaaaaabk
-  ........kk.qkkkOOOkkkkAaaaaaaaaaaaabk
-  .........qqkOOOOOOOOOkBAaaaaaaaaaabk
-  ........qYkOOOOOuOOoookAaaaaaaaaaabmk
-  ........qkOOuOOOOOoouookaaaaaaaaaabk
-  .....qqqkOOOOOOOOOooooookaaaaaaaabk
-  .....quukOOOOOooooooooookAaaaaaaabk
-  .....kuukOOOOooqqqoooooookaaaaaaaabk
-  ......qkOuOOooqqOOqoooouokaaaaaaaabk
-  ......qkOOOOooqOOOoqooooqkaaaaaaaabk
-  ......kkOooooqOOOooqooooqkaaaaaaaabk
-  .......kOoooooqooooqoqqqqkAaaaaaaabk
-  .....qqkouooooqoooqooqquqkAaaaaaaabk
-  .....kkkkouooooqqqooqquqqkAaaaaaaabk
-  ........kooooooooooqqqqqkBAaaaaaaaabk
-  ........kooooooqooqqqqqqkkaaaaaaaaabk
-  .........koouooqqqqquuqk..Baaaaaaaaabk
-  ........qukooooqqqqqqqqk..Baaaaaaaaabk
-  ........kkkkqqqquqqqqkkBBBaaaaaaaaaabk
-  ............kkqqqqqkkBaaaaaaaaaaaaaabk
-  .............Bkkkkkaaaaaaaaayyaaaayybk
+  ..........qk..kkkkk..qkaaaaaaaaaaaabk
+  ..........qk.qkkkkkkkkkaaaaaaaaaaaabk
+  ..........qYqkOOOOOOOOkkaaaaaaaaaaabk
+  ..........qYkOOOqqqqqqOOkaaaaaaaaabk
+  .........qYkOOqqqOOOOqqookaaaaaaaabmk
+  .........qkOOqqOOOOOooqqokkaaaaaaabk
+  ......qqqukOOqOOOOOoooooqokaaaaaabk
+  ......kkukOOqqOOOoqqooooqqkaaaaaabk
+  ........qkOOqOOOqqqqqooooqkaaaaaaabk
+  ........qkOOqOOoqooooqoooqqkaaaaaabk
+  ........qkOOqoooqooooqooooqkaaaaaabk
+  ........qkOOqoooqqoooqoooqqkaaaaaabk
+  .......qukOoqqoooooooqooqqkaaaaaaabk
+  .......kkkOooqoooooooqqqqqkaaaaaaabk
+  .........koooqqoooooqqqqqqkaaaaaaabk
+  ..........koooqqqqqqqqqqqqkaaaaaaaabk
+  ..........koooooooqqqqqqqkaaaaaaaaabk
+  ..........qkoooooqqqqqqqkaaaaaaaaaaabk
+  ..........kkkoooqqqqqqqkaaaaaaaaaaaabk
+  .............kkqqqqqqkkaaaaaaaaaaaaabk
+  ...............kkkkkkaaaaaaaaaaaaaaabk
+  .............BBBBaaaaaaaaaaayyaaaayybk
   .........BBBBaaaaaaaaayyaaaaaayaaykkkk
   .......BBayyaaaayyyaayaayaayaabkkk
   ......Baayaayaayaaayyaaaaykkkkk
@@ -731,28 +731,28 @@ const BACK = [
   ..............kaYnk...BAaaaaaaaaaabk
   ..............kYYYk...BAaaaaaaaaaabk
   ..............kaYnk...BAaaaaaaaaaabkk
-  ..............kkkkk..BAaaaaaaaaaaaabY
-  ........qk...qYkkk.qqkAaaaaaaaaaaaabk
-  ........kk.qkkkOOOkkkkAaaaaaaaaaaaabk
-  .........qqkOOOOOOOOOkAaaaaaaaaaaaabk
-  ........qYkOOOOOuOOoookAaaaaaaaaaabk
-  ........qkOOuOOOOOoouookaaaaaaaaaabmk
-  .....qqqkOOOOOOOOOooooookaaaaaaaaabk
-  .....quukOOOOOooooooooookaaaaaaaabk
-  .....kuukOOOOooqqqoooooookaaaaaaaabk
-  ......qkOuOOooqqOOqoooouokaaaaaaaabk
-  ......qkOOOOooqOOOoqooooqkaaaaaaaabk
-  ......kkOooooqOOOooqooooqkaaaaaaaabk
-  .......kOoooooqooooqoqqqqkaaaaaaaabk
-  .....qqkouooooqoooqooqquqkAaaaaaaabk
-  .....kkkkouooooqqqooqquqqkAaaaaaaabk
-  ........kooooooooooqqqqqkBAaaaaaaaabk
-  ........kooooooqooqqqqqqkBaaaaaaaaabk
-  .........koouooqqqqquuqk.kaaaaaaaaaabk
-  ........qukooooqqqqqqqqk..Baaaaaaaaabk
-  ........kkkkqqqquqqqqkkBBBaaaaaaaaaabk
-  ............kkqqqqqkkBaaaaaaaaaaaaaabk
-  .............Bkkkkkaaaaaaaaayyaaaayybk
+  ..........qk..kkkkk..qkaaaaaaaaaaaabY
+  ..........qk.qkkkkkkkkkaaaaaaaaaaaabk
+  ..........qYqkOOOOOOOOkkaaaaaaaaaaabk
+  ..........qYkOOOqqqqqqOOkaaaaaaaaaabk
+  .........qYkOOqqqOOOOqqookaaaaaaaabk
+  .........qkOOqqOOOOOooqqokkaaaaaaabmk
+  ......qqqukOOqOOOOOoooooqokaaaaaaabk
+  ......kkukOOqqOOOoqqooooqqkaaaaaabk
+  ........qkOOqOOOqqqqqooooqkaaaaaaabk
+  ........qkOOqOOoqooooqoooqqkaaaaaabk
+  ........qkOOqoooqooooqooooqkaaaaaabk
+  ........qkOOqoooqqoooqoooqqkaaaaaabk
+  .......qukOoqqoooooooqooqqkaaaaaaabk
+  .......kkkOooqoooooooqqqqqkaaaaaaabk
+  .........koooqqoooooqqqqqqkaaaaaaabk
+  ..........koooqqqqqqqqqqqqkaaaaaaaabk
+  ..........koooooooqqqqqqqkaaaaaaaaabk
+  ..........qkoooooqqqqqqqkaaaaaaaaaaabk
+  ..........kkkoooqqqqqqqkaaaaaaaaaaaabk
+  .............kkqqqqqqkkaaaaaaaaaaaaabk
+  ...............kkkkkkaaaaaaaaaaaaaaabk
+  .............BBBBaaaaaaaaaaayyaaaayybk
   .........BBBBaaaaaaaaayyaaaaaayaaykkkk
   .......BBayyaaaayyyaayaayaayaabkkk
   ......Baayaayaayaaayyaaaaykkkkk
@@ -776,28 +776,28 @@ const BACK = [
   ..............kaYnk...BAaaaaaaaaaabk
   ..............kYYYk...BAaaaaaaaaaabk
   ..............kaYnk...BAaaaaaaaaaabkk
-  ..............kkkkk..BAaaaaaaaaaaaabY
-  ........qk...qYkkk.qqkAaaaaaaaaaaaabk
-  ........kk.qkkkOOOkkkkAaaaaaaaaaaaabk
-  .........qqkOOOOOOOOOkAaaaaaaaaaaaabk
-  ........qYkOOOOOuOOoookAaaaaaaaaaabk
-  ........qkOOuOOOOOoouookaaaaaaaaaabmk
-  .....qqqkOOOOOOOOOooooookaaaaaaaaabk
-  .....quukOOOOOooooooooookaaaaaaaabk
-  .....kuukOOOOooqqqoooooookaaaaaaaabk
-  ......qkOuOOooqqOOqoooouokaaaaaaaabk
-  ......qkOOOOooqOOOoqooooqkaaaaaaaabk
-  ......kkOooooqOOOooqooooqkaaaaaaaabk
-  .......kOoooooqooooqoqqqqkaaaaaaaabk
-  .....qqkouooooqoooqooqquqkAaaaaaaabk
-  .....kkkkouooooqqqooqquqqkAaaaaaaabk
-  ........kooooooooooqqqqqkBAaaaaaaaabk
-  ........kooooooqooqqqqqqkBaaaaaaaaabk
-  .........koouooqqqqquuqk.kaaaaaaaaaabk
-  ........qukooooqqqqqqqqk..Baaaaaaaaabk
-  ........kkkkqqqquqqqqkkBBBaaaaaaaaaabk
-  ............kkqqqqqkkBaaaaaaaaaaaaaabk
-  .............Bkkkkkaaaaaaaaayyaaaayybk
+  ..........qk..kkkkk..qkaaaaaaaaaaaabY
+  ..........qk.qkkkkkkkkkaaaaaaaaaaaabk
+  ..........qYqkOOOOOOOOkkaaaaaaaaaaabk
+  ..........qYkOOOqqqqqqOOkaaaaaaaaaabk
+  .........qYkOOqqqOOOOqqookaaaaaaaabk
+  .........qkOOqqOOOOOooqqokkaaaaaaabmk
+  ......qqqukOOqOOOOOoooooqokaaaaaaabk
+  ......kkukOOqqOOOoqqooooqqkaaaaaabk
+  ........qkOOqOOOqqqqqooooqkaaaaaaabk
+  ........qkOOqOOoqooooqoooqqkaaaaaabk
+  ........qkOOqoooqooooqooooqkaaaaaabk
+  ........qkOOqoooqqoooqoooqqkaaaaaabk
+  .......qukOoqqoooooooqooqqkaaaaaaabk
+  .......kkkOooqoooooooqqqqqkaaaaaaabk
+  .........koooqqoooooqqqqqqkaaaaaaabk
+  ..........koooqqqqqqqqqqqqkaaaaaaaabk
+  ..........koooooooqqqqqqqkaaaaaaaaabk
+  ..........qkoooooqqqqqqqkaaaaaaaaaaabk
+  ..........kkkoooqqqqqqqkaaaaaaaaaaaabk
+  .............kkqqqqqqkkaaaaaaaaaaaaabk
+  ...............kkkkkkaaaaaaaaaaaaaaabk
+  .............BBBBaaaaaaaaaaayyaaaayybk
   .........BBBBaaaaaaaaayyaaaaaayaaykkkk
   .......BBayyaaaayyyaayaayaayaabkkk
   ......Baayaayaayaaayyaaaaykkkkk
@@ -821,28 +821,28 @@ const BACK = [
   ..............kaYnk...BAaaaaaaaaaabk
   ..............kYYYk...BAaaaaaaaaaabk
   ..............kaYnk...BAaaaaaaaaaabkk
-  ..............kkkkk..BAaaaaaaaaaaaabY
-  ........qk...qYkkk.qqkAaaaaaaaaaaaabk
-  ........kk.qkkkOOOkkkkAaaaaaaaaaaaabk
-  .........qqkOOOOOOOOOkAaaaaaaaaaaaabk
-  ........qYkOOOOOuOOoookAaaaaaaaaaabk
-  ........qkOOuOOOOOoouookaaaaaaaaaabmk
-  .....qqqkOOOOOOOOOooooookaaaaaaaaabk
-  .....quukOOOOOooooooooookaaaaaaaabk
-  .....kuukOOOOooqqqoooooookaaaaaaaabk
-  ......qkOuOOooqqOOqoooouokaaaaaaaabk
-  ......qkOOOOooqOOOoqooooqkaaaaaaaabk
-  ......kkOooooqOOOooqooooqkaaaaaaaabk
-  .......kOoooooqooooqoqqqqkaaaaaaaabk
-  .....qqkouooooqoooqooqquqkAaaaaaaabk
-  .....kkkkouooooqqqooqquqqkAaaaaaaabk
-  ........kooooooooooqqqqqkBAaaaaaaaabk
-  ........kooooooqooqqqqqqkBaaaaaaaaabk
-  .........koouooqqqqquuqk.kaaaaaaaaaabk
-  ........qukooooqqqqqqqqk..Baaaaaaaaabk
-  ........kkkkqqqquqqqqkkBBBaaaaaaaaaabk
-  ............kkqqqqqkkBaaaaaaaaaaaaaabk
-  .............Bkkkkkaaaaaaaaayyaaaayybk
+  ..........qk..kkkkk..qkaaaaaaaaaaaabY
+  ..........qk.qkkkkkkkkkaaaaaaaaaaaabk
+  ..........qYqkOOOOOOOOkkaaaaaaaaaaabk
+  ..........qYkOOOqqqqqqOOkaaaaaaaaaabk
+  .........qYkOOqqqOOOOqqookaaaaaaaabk
+  .........qkOOqqOOOOOooqqokkaaaaaaabmk
+  ......qqqukOOqOOOOOoooooqokaaaaaaabk
+  ......kkukOOqqOOOoqqooooqqkaaaaaabk
+  ........qkOOqOOOqqqqqooooqkaaaaaaabk
+  ........qkOOqOOoqooooqoooqqkaaaaaabk
+  ........qkOOqoooqooooqooooqkaaaaaabk
+  ........qkOOqoooqqoooqoooqqkaaaaaabk
+  .......qukOoqqoooooooqooqqkaaaaaaabk
+  .......kkkOooqoooooooqqqqqkaaaaaaabk
+  .........koooqqoooooqqqqqqkaaaaaaabk
+  ..........koooqqqqqqqqqqqqkaaaaaaaabk
+  ..........koooooooqqqqqqqkaaaaaaaaabk
+  ..........qkoooooqqqqqqqkaaaaaaaaaaabk
+  ..........kkkoooqqqqqqqkaaaaaaaaaaaabk
+  .............kkqqqqqqkkaaaaaaaaaaaaabk
+  ...............kkkkkkaaaaaaaaaaaaaaabk
+  .............BBBBaaaaaaaaaaayyaaaayybk
   .........BBBBaaaaaaaaayyaaaaaayaaykkkk
   .......BBayyaaaayyyaayaayaayaabkkk
   ......Baayaayaayaaayyaaaaykkkkk
@@ -866,28 +866,28 @@ const BACK = [
   ..............kaYnk...BAaaaaaaaaaabk
   ..............kYYYk...BAaaaaaaaaaabk
   ..............kaYnk...BAaaaaaaaaaabkk
-  ..............kkkkk..BAaaaaaaaaaaaabY
-  ........qk...qYkkk.qqkAaaaaaaaaaaaabk
-  ........kk.qkkkOOOkkkkAaaaaaaaaaaaabk
-  .........qqkOOOOOOOOOkAaaaaaaaaaaaabk
-  ........qYkOOOOOuOOoookAaaaaaaaaaabk
-  ........qkOOuOOOOOoouookaaaaaaaaaabmk
-  .....qqqkOOOOOOOOOooooookaaaaaaaaabk
-  .....quukOOOOOooooooooookaaaaaaaabk
-  .....kuukOOOOooqqqoooooookaaaaaaaabk
-  ......qkOuOOooqqOOqoooouokaaaaaaaabk
-  ......qkOOOOooqOOOoqooooqkaaaaaaaabk
-  ......kkOooooqOOOooqooooqkaaaaaaaabk
-  .......kOoooooqooooqoqqqqkaaaaaaaabk
-  .....qqkouooooqoooqooqquqkAaaaaaaabk
-  .....kkkkouooooqqqooqquqqkAaaaaaaabk
-  ........kooooooooooqqqqqkBAaaaaaaaabk
-  ........kooooooqooqqqqqqkBaaaaaaaaabk
-  .........koouooqqqqquuqk.kaaaaaaaaaabk
-  ........qukooooqqqqqqqqk..Baaaaaaaaabk
-  ........kkkkqqqquqqqqkkBBBaaaaaaaaaabk
-  ............kkqqqqqkkBaaaaaaaaaaaaaabk
-  .............Bkkkkkaaaaaaaaayyaaaayybk
+  ..........qk..kkkkk..qkaaaaaaaaaaaabY
+  ..........qk.qkkkkkkkkkaaaaaaaaaaaabk
+  ..........qYqkOOOOOOOOkkaaaaaaaaaaabk
+  ..........qYkOOOqqqqqqOOkaaaaaaaaaabk
+  .........qYkOOqqqOOOOqqookaaaaaaaabk
+  .........qkOOqqOOOOOooqqokkaaaaaaabmk
+  ......qqqukOOqOOOOOoooooqokaaaaaaabk
+  ......kkukOOqqOOOoqqooooqqkaaaaaabk
+  ........qkOOqOOOqqqqqooooqkaaaaaaabk
+  ........qkOOqOOoqooooqoooqqkaaaaaabk
+  ........qkOOqoooqooooqooooqkaaaaaabk
+  ........qkOOqoooqqoooqoooqqkaaaaaabk
+  .......qukOoqqoooooooqooqqkaaaaaaabk
+  .......kkkOooqoooooooqqqqqkaaaaaaabk
+  .........koooqqoooooqqqqqqkaaaaaaabk
+  ..........koooqqqqqqqqqqqqkaaaaaaaabk
+  ..........koooooooqqqqqqqkaaaaaaaaabk
+  ..........qkoooooqqqqqqqkaaaaaaaaaaabk
+  ..........kkkoooqqqqqqqkaaaaaaaaaaaabk
+  .............kkqqqqqqkkaaaaaaaaaaaaabk
+  ...............kkkkkkaaaaaaaaaaaaaaabk
+  .............BBBBaaaaaaaaaaayyaaaayybk
   .........BBBBaaaaaaaaayyaaaaaayaaykkkk
   .......BBayyaaaayyyaayaayaayaabkkk
   ......Baayaayaayaaayyaaaaykkkkk
@@ -911,28 +911,28 @@ const BACK = [
   ..............kaYnk...BAaaaaaaaaaabk
   ..............kYYYk...BAaaaaaaaaaabk
   ..............kaYnk...BAaaaaaaaaaabkk
-  ..............kkkkk..BAaaaaaaaaaaaabY
-  ........qk...qYkkk.qqkAaaaaaaaaaaaabk
-  ........kk.qkkkOOOkkkkAaaaaaaaaaaaabk
-  .........qqkOOOOOOOOOkAaaaaaaaaaaaabk
-  ........qYkOOOOOuOOoookAaaaaaaaaaabk
-  ........qkOOuOOOOOoouookaaaaaaaaaabmk
-  .....qqqkOOOOOOOOOooooookaaaaaaaaabk
-  .....quukOOOOOooooooooookaaaaaaaabk
-  .....kuukOOOOooqqqoooooookaaaaaaaabk
-  ......qkOuOOooqqOOqoooouokaaaaaaaabk
-  ......qkOOOOooqOOOoqooooqkaaaaaaaabk
-  ......kkOooooqOOOooqooooqkaaaaaaaabk
-  .......kOoooooqooooqoqqqqkaaaaaaaabk
-  .....qqkouooooqoooqooqquqkAaaaaaaabk
-  .....kkkkouooooqqqooqquqqkAaaaaaaabk
-  ........kooooooooooqqqqqkBAaaaaaaaabk
-  ........kooooooqooqqqqqqkBaaaaaaaaabk
-  .........koouooqqqqquuqk.kaaaaaaaaaabk
-  ........qukooooqqqqqqqqk..Baaaaaaaaabk
-  ........kkkkqqqquqqqqkkBBBaaaaaaaaaabk
-  ............kkqqqqqkkBaaaaaaaaaaaaaabk
-  .............Bkkkkkaaaaaaaaayyaaaayybk
+  ..........qk..kkkkk..qkaaaaaaaaaaaabY
+  ..........qk.qkkkkkkkkkaaaaaaaaaaaabk
+  ..........qYqkOOOOOOOOkkaaaaaaaaaaabk
+  ..........qYkOOOqqqqqqOOkaaaaaaaaaabk
+  .........qYkOOqqqOOOOqqookaaaaaaaabk
+  .........qkOOqqOOOOOooqqokkaaaaaaabmk
+  ......qqqukOOqOOOOOoooooqokaaaaaaabk
+  ......kkukOOqqOOOoqqooooqqkaaaaaabk
+  ........qkOOqOOOqqqqqooooqkaaaaaaabk
+  ........qkOOqOOoqooooqoooqqkaaaaaabk
+  ........qkOOqoooqooooqooooqkaaaaaabk
+  ........qkOOqoooqqoooqoooqqkaaaaaabk
+  .......qukOoqqoooooooqooqqkaaaaaaabk
+  .......kkkOooqoooooooqqqqqkaaaaaaabk
+  .........koooqqoooooqqqqqqkaaaaaaabk
+  ..........koooqqqqqqqqqqqqkaaaaaaaabk
+  ..........koooooooqqqqqqqkaaaaaaaaabk
+  ..........qkoooooqqqqqqqkaaaaaaaaaaabk
+  ..........kkkoooqqqqqqqkaaaaaaaaaaaabk
+  .............kkqqqqqqkkaaaaaaaaaaaaabk
+  ...............kkkkkkaaaaaaaaaaaaaaabk
+  .............BBBBaaaaaaaaaaayyaaaayybk
   .........BBBBaaaaaaaaayyaaaaaayaaykkkk
   .......BBayyaaaayyyaayaayaayaabkkk
   ......Baayaayaayaaayyaaaaykkkkk
@@ -956,28 +956,28 @@ const BACK = [
   ..............kaYnk...BAaaaaaaaaaabk
   ..............kYYYk...BAaaaaaaaaaabk
   ..............kaYnk...BAaaaaaaaaaabkk
-  ..............kkkkk..BAaaaaaaaaaaaabY
-  ........qk...qYkkk.qqkAaaaaaaaaaaaabk
-  ........kk.qkkkOOOkkkkAaaaaaaaaaaaabk
-  .........qqkOOOOOOOOOkAaaaaaaaaaaaabk
-  ........qYkOOOOOuOOoookAaaaaaaaaaabk
-  ........qkOOuOOOOOoouookaaaaaaaaaabmk
-  .....qqqkOOOOOOOOOooooookaaaaaaaaabk
-  .....quukOOOOOooooooooookaaaaaaaabk
-  .....kuukOOOOooqqqoooooookaaaaaaaabk
-  ......qkOuOOooqqOOqoooouokaaaaaaaabk
-  ......qkOOOOooqOOOoqooooqkaaaaaaaabk
-  ......kkOooooqOOOooqooooqkaaaaaaaabk
-  .......kOoooooqooooqoqqqqkaaaaaaaabk
-  .....qqkouooooqoooqooqquqkAaaaaaaabk
-  .....kkkkouooooqqqooqquqqkAaaaaaaabk
-  ........kooooooooooqqqqqkBAaaaaaaaabk
-  ........kooooooqooqqqqqqkBaaaaaaaaabk
-  .........koouooqqqqquuqk.kaaaaaaaaaabk
-  ........qukooooqqqqqqqqk..Baaaaaaaaabk
-  ........kkkkqqqquqqqqkkBBBaaaaaaaaaabk
-  ............kkqqqqqkkBaaaaaaaaaaaaaabk
-  .............Bkkkkkaaaaaaaaayyaaaayybk
+  ..........qk..kkkkk..qkaaaaaaaaaaaabY
+  ..........qk.qkkkkkkkkkaaaaaaaaaaaabk
+  ..........qYqkOOOOOOOOkkaaaaaaaaaaabk
+  ..........qYkOOOqqqqqqOOkaaaaaaaaaabk
+  .........qYkOOqqqOOOOqqookaaaaaaaabk
+  .........qkOOqqOOOOOooqqokkaaaaaaabmk
+  ......qqqukOOqOOOOOoooooqokaaaaaaabk
+  ......kkukOOqqOOOoqqooooqqkaaaaaabk
+  ........qkOOqOOOqqqqqooooqkaaaaaaabk
+  ........qkOOqOOoqooooqoooqqkaaaaaabk
+  ........qkOOqoooqooooqooooqkaaaaaabk
+  ........qkOOqoooqqoooqoooqqkaaaaaabk
+  .......qukOoqqoooooooqooqqkaaaaaaabk
+  .......kkkOooqoooooooqqqqqkaaaaaaabk
+  .........koooqqoooooqqqqqqkaaaaaaabk
+  ..........koooqqqqqqqqqqqqkaaaaaaaabk
+  ..........koooooooqqqqqqqkaaaaaaaaabk
+  ..........qkoooooqqqqqqqkaaaaaaaaaaabk
+  ..........kkkoooqqqqqqqkaaaaaaaaaaaabk
+  .............kkqqqqqqkkaaaaaaaaaaaaabk
+  ...............kkkkkkaaaaaaaaaaaaaaabk
+  .............BBBBaaaaaaaaaaayyaaaayybk
   .........BBBBaaaaaaaaayyaaaaaayaaykkkk
   .......BBayyaaaayyyaayaayaayaabkkk
   ......Baayaayaayaaayyaaaaykkkkk
@@ -1001,28 +1001,28 @@ const BACK = [
   ..............kaYnk...BAaaaaaaaaaabk
   ..............kYYYk...BAaaaaaaaaaabkk
   ..............kaYnk..BAaaaaaaaaaaaabY
-  ..............kkkkk..BAaaaaaaaaaaaabk
-  ........qk...qYkkk.qqkAaaaaaaaaaaaabk
-  ........kk.qkkkOOOkkkkAaaaaaaaaaaaabk
-  .........qqkOOOOOOOOOkBAaaaaaaaaaabk
-  ........qYkOOOOOuOOoookAaaaaaaaaaabmk
-  ........qkOOuOOOOOoouookaaaaaaaaaabk
-  .....qqqkOOOOOOOOOooooookaaaaaaaabk
-  .....quukOOOOOooooooooookAaaaaaaabk
-  .....kuukOOOOooqqqoooooookaaaaaaaabk
-  ......qkOuOOooqqOOqoooouokaaaaaaaabk
-  ......qkOOOOooqOOOoqooooqkaaaaaaaabk
-  ......kkOooooqOOOooqooooqkaaaaaaaabk
-  .......kOoooooqooooqoqqqqkAaaaaaaabk
-  .....qqkouooooqoooqooqquqkAaaaaaaabk
-  .....kkkkouooooqqqooqquqqkAaaaaaaabk
-  ........kooooooooooqqqqqkBAaaaaaaaabk
-  ........kooooooqooqqqqqqkkaaaaaaaaabk
-  .........koouooqqqqquuqk..Baaaaaaaaabk
-  ........qukooooqqqqqqqqk..Baaaaaaaaabk
-  ........kkkkqqqquqqqqkkBBBaaaaaaaaaabk
-  ............kkqqqqqkkBaaaaaaaaaaaaaabk
-  .............Bkkkkkaaaaaaaaayyaaaayybk
+  ..........qk..kkkkk..qkaaaaaaaaaaaabk
+  ..........qk.qkkkkkkkkkaaaaaaaaaaaabk
+  ..........qYqkOOOOOOOOkkaaaaaaaaaaabk
+  ..........qYkOOOqqqqqqOOkaaaaaaaaabk
+  .........qYkOOqqqOOOOqqookaaaaaaaabmk
+  .........qkOOqqOOOOOooqqokkaaaaaaabk
+  ......qqqukOOqOOOOOoooooqokaaaaaabk
+  ......kkukOOqqOOOoqqooooqqkaaaaaabk
+  ........qkOOqOOOqqqqqooooqkaaaaaaabk
+  ........qkOOqOOoqooooqoooqqkaaaaaabk
+  ........qkOOqoooqooooqooooqkaaaaaabk
+  ........qkOOqoooqqoooqoooqqkaaaaaabk
+  .......qukOoqqoooooooqooqqkaaaaaaabk
+  .......kkkOooqoooooooqqqqqkaaaaaaabk
+  .........koooqqoooooqqqqqqkaaaaaaabk
+  ..........koooqqqqqqqqqqqqkaaaaaaaabk
+  ..........koooooooqqqqqqqkaaaaaaaaabk
+  ..........qkoooooqqqqqqqkaaaaaaaaaaabk
+  ..........kkkoooqqqqqqqkaaaaaaaaaaaabk
+  .............kkqqqqqqkkaaaaaaaaaaaaabk
+  ...............kkkkkkaaaaaaaaaaaaaaabk
+  .............BBBBaaaaaaaaaaayyaaaayybk
   .........BBBBaaaaaaaaayyaaaaaayaaykkkk
   .......BBayyaaaayyyaayaayaayaabkkk
   ......Baayaayaayaaayyaaaaykkkkk
@@ -1046,28 +1046,28 @@ const BACK = [
   ..............kaYnk...BAaaaaaaaaaabk
   ..............kYYYk...BAaaaaaaaaaabkk
   ..............kaYnk..BAaaaaaaaaaaaabY
-  ..............kkkkk..BAaaaaaaaaaaaabk
-  ........qk...qYkkk.qqkAaaaaaaaaaaaabk
-  ........kk.qkkkOOOkkkkAaaaaaaaaaaaabk
-  .........qqkOOOOOOOOOkBAaaaaaaaaaabk
-  ........qYkOOOOOuOOoookAaaaaaaaaaabmk
-  ........qkOOuOOOOOoouookaaaaaaaaaabk
-  .....qqqkOOOOOOOOOooooookaaaaaaaabk
-  .....quukOOOOOooooooooookAaaaaaaabk
-  .....kuukOOOOooqqqoooooookaaaaaaaabk
-  ......qkOuOOooqqOOqoooouokaaaaaaaabk
-  ......qkOOOOooqOOOoqooooqkaaaaaaaabk
-  ......kkOooooqOOOooqooooqkaaaaaaaabk
-  .......kOoooooqooooqoqqqqkAaaaaaaabk
-  .....qqkouooooqoooqooqquqkAaaaaaaabk
-  .....kkkkouooooqqqooqquqqkAaaaaaaabk
-  ........kooooooooooqqqqqkBAaaaaaaaabk
-  ........kooooooqooqqqqqqkkaaaaaaaaabk
-  .........koouooqqqqquuqk..Baaaaaaaaabk
-  ........qukooooqqqqqqqqk..Baaaaaaaaabk
-  ........kkkkqqqquqqqqkkBBBaaaaaaaaaabk
-  ............kkqqqqqkkBaaaaaaaaaaaaaabk
-  .............Bkkkkkaaaaaaaaayyaaaayybk
+  ..........qk..kkkkk..qkaaaaaaaaaaaabk
+  ..........qk.qkkkkkkkkkaaaaaaaaaaaabk
+  ..........qYqkOOOOOOOOkkaaaaaaaaaaabk
+  ..........qYkOOOqqqqqqOOkaaaaaaaaabk
+  .........qYkOOqqqOOOOqqookaaaaaaaabmk
+  .........qkOOqqOOOOOooqqokkaaaaaaabk
+  ......qqqukOOqOOOOOoooooqokaaaaaabk
+  ......kkukOOqqOOOoqqooooqqkaaaaaabk
+  ........qkOOqOOOqqqqqooooqkaaaaaaabk
+  ........qkOOqOOoqooooqoooqqkaaaaaabk
+  ........qkOOqoooqooooqooooqkaaaaaabk
+  ........qkOOqoooqqoooqoooqqkaaaaaabk
+  .......qukOoqqoooooooqooqqkaaaaaaabk
+  .......kkkOooqoooooooqqqqqkaaaaaaabk
+  .........koooqqoooooqqqqqqkaaaaaaabk
+  ..........koooqqqqqqqqqqqqkaaaaaaaabk
+  ..........koooooooqqqqqqqkaaaaaaaaabk
+  ..........qkoooooqqqqqqqkaaaaaaaaaaabk
+  ..........kkkoooqqqqqqqkaaaaaaaaaaaabk
+  .............kkqqqqqqkkaaaaaaaaaaaaabk
+  ...............kkkkkkaaaaaaaaaaaaaaabk
+  .............BBBBaaaaaaaaaaayyaaaayybk
   .........BBBBaaaaaaaaayyaaaaaayaaykkkk
   .......BBayyaaaayyyaayaayaayaabkkk
   ......Baayaayaayaaayyaaaaykkkkk
@@ -1091,28 +1091,28 @@ const BACK = [
   ..............kaYnk...BAaaaaaaaaaabk
   ..............kYYYk...BAaaaaaaaaaabkk
   ..............kaYnk..BAaaaaaaaaaaaabY
-  ..............kkkkk..BAaaaaaaaaaaaabk
-  ........qk...qYkkk.qqkAaaaaaaaaaaaabk
-  ........kk.qkkkOOOkkkkAaaaaaaaaaaaabk
-  .........qqkOOOOOOOOOkBAaaaaaaaaaabk
-  ........qYkOOOOOuOOoookAaaaaaaaaaabmk
-  ........qkOOuOOOOOoouookaaaaaaaaaabk
-  .....qqqkOOOOOOOOOooooookaaaaaaaabk
-  .....quukOOOOOooooooooookAaaaaaaabk
-  .....kuukOOOOooqqqoooooookaaaaaaaabk
-  ......qkOuOOooqqOOqoooouokaaaaaaaabk
-  ......qkOOOOooqOOOoqooooqkaaaaaaaabk
-  ......kkOooooqOOOooqooooqkaaaaaaaabk
-  .......kOoooooqooooqoqqqqkAaaaaaaabk
-  .....qqkouooooqoooqooqquqkAaaaaaaabk
-  .....kkkkouooooqqqooqquqqkAaaaaaaabk
-  ........kooooooooooqqqqqkBAaaaaaaaabk
-  ........kooooooqooqqqqqqkkaaaaaaaaabk
-  .........koouooqqqqquuqk..Baaaaaaaaabk
-  ........qukooooqqqqqqqqk..Baaaaaaaaabk
-  ........kkkkqqqquqqqqkkBBBaaaaaaaaaabk
-  ............kkqqqqqkkBaaaaaaaaaaaaaabk
-  .............Bkkkkkaaaaaaaaayyaaaayybk
+  ..........qk..kkkkk..qkaaaaaaaaaaaabk
+  ..........qk.qkkkkkkkkkaaaaaaaaaaaabk
+  ..........qYqkOOOOOOOOkkaaaaaaaaaaabk
+  ..........qYkOOOqqqqqqOOkaaaaaaaaabk
+  .........qYkOOqqqOOOOqqookaaaaaaaabmk
+  .........qkOOqqOOOOOooqqokkaaaaaaabk
+  ......qqqukOOqOOOOOoooooqokaaaaaabk
+  ......kkukOOqqOOOoqqooooqqkaaaaaabk
+  ........qkOOqOOOqqqqqooooqkaaaaaaabk
+  ........qkOOqOOoqooooqoooqqkaaaaaabk
+  ........qkOOqoooqooooqooooqkaaaaaabk
+  ........qkOOqoooqqoooqoooqqkaaaaaabk
+  .......qukOoqqoooooooqooqqkaaaaaaabk
+  .......kkkOooqoooooooqqqqqkaaaaaaabk
+  .........koooqqoooooqqqqqqkaaaaaaabk
+  ..........koooqqqqqqqqqqqqkaaaaaaaabk
+  ..........koooooooqqqqqqqkaaaaaaaaabk
+  ..........qkoooooqqqqqqqkaaaaaaaaaaabk
+  ..........kkkoooqqqqqqqkaaaaaaaaaaaabk
+  .............kkqqqqqqkkaaaaaaaaaaaaabk
+  ...............kkkkkkaaaaaaaaaaaaaaabk
+  .............BBBBaaaaaaaaaaayyaaaayybk
   .........BBBBaaaaaaaaayyaaaaaayaaykkkk
   .......BBayyaaaayyyaayaayaayaabkkk
   ......Baayaayaayaaayyaaaaykkkkk
