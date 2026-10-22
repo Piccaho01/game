@@ -5,7 +5,7 @@ import { createBattler } from '../engine/battler';
 import { MOVES, SPECIES, TYPES, type StatusId } from '../engine/data';
 import { createRng } from '../engine/rng';
 import { pixelText } from '../ui/text';
-import { frontKey, idleAnimKey } from './BootScene';
+import { backIdleAnimKey, backKey, frontKey, idleAnimKey } from './BootScene';
 
 interface BattleInit { player: string; foe: string; seed?: number }
 type Phase = 'intro' | 'menu' | 'fight' | 'playing' | 'over';
@@ -78,6 +78,13 @@ export class BattleScene extends Phaser.Scene {
 
   private addBattler(side: Side, x: number, y: number) {
     const species = this.battle.sides[side].species;
+    // BW shows your own Patchling from behind at 2x; species without a back sprite yet use the
+    // front one mirrored.
+    if (side === 'player' && this.textures.exists(backKey(species))) {
+      const b = this.add.sprite(x, y + 8, backKey(species)).setOrigin(0.5, 1).setScale(2);
+      if (this.anims.exists(backIdleAnimKey(species))) b.play(backIdleAnimKey(species));
+      return b;
+    }
     const s = this.add.sprite(x, y, frontKey(species)).setOrigin(0.5, 1);
     if (this.anims.exists(idleAnimKey(species))) s.play(idleAnimKey(species));
     if (side === 'player') s.setFlipX(true);
