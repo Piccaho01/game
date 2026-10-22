@@ -101,6 +101,14 @@ Measurements come from `pixel-art-studio/scripts/study.py` and direct pixel coun
     can be cocky or sly but must stay cute.
 26. Work one creature at a time, checking it next to the references at the same scale at every
     stage (silhouette, colour, face) before starting the next.
+27. **Shrink the face from the concept.** Concept art has big anime eyes; BW sprites don't. Eyes
+    are small (about 3-4 px wide, 4-5 tall: black, one white shine pixel top-left, the iris
+    colour across the bottom, the Oshawott/Snivy formula), set in the upper half of the head;
+    mouths are small. Copying the concept's eye size reads as fan art and makes eyes droop.
+28. **Copy the concept's silhouette, not an idea of it.** Measure it on a gridded underlay at
+    sprite size (head shape, neck width, where parts overlap) instead of inventing proportions;
+    take the concept's light and shade for the body masses, cut to 3 tones, then hand-draw the
+    face and small details.
 
 ## Process (claude-pxl) — the professional order of work
 Researched from the BW-style spriting community (Smogon sprite projects, PokéCommunity and
