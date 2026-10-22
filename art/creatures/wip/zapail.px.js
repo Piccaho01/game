@@ -1,10 +1,10 @@
 // Zapail, redesign (work in progress). Spark starter, stage 1. Front sprite: body squared to
 // the camera, head turned slightly toward the opponent (screen-left).
 // Personality: the over-caffeinated live wire, always buzzing.
-// Pose: rearing up toward the camera in an S-curve, head thrust forward, grinning through
-// gritted teeth; its slime is so full of static that a frizzy crest stands straight up; plug
-// antennae crackling. The copper cog shell rises behind it with a battery terminal on top and
-// a wind-up key in its side, like a toy machine.
+// Pose: rearing up toward the camera, head thrust forward, grinning through gritted teeth;
+// its slime is so full of static that a frizzy crest stands straight up; plug antennae
+// crackling. Its shell, as before: a geared copper housing with a coil wound on its face and a
+// battery terminal on top, seated on its back with the body wrapped round its base.
 // Coordinates are output pixels (K = 1); foot on y = 91.
 
 include("../lib/creature.js")
@@ -22,32 +22,31 @@ function gear(cx, cy, r, d, n, rot = 0) {
 }
 
 const parts = [
-  // wind-up key in the shell's side: stem and a two-lobed bow
-  { g: "key", s: [72, 56, 80, 56, 80, 59, 72, 59] },
-  { g: "key", ell: [82, 53.5, 3, 3.5] },
-  { g: "key", ell: [82, 61.5, 3, 3.5] },
-  // shell: a big copper cog housing on its back, behind the head
-  { g: "shell", s: gear(57, 58, 16, 3.5, 11, -Math.PI / 2 + Math.PI / 11) },
+  // body: the slug's foot along the ground from the tail end on the right to the front lip on
+  // the left, its back rising in a hump under the shell so the shell's lower half sits in it
+  { g: "body", s: [86, 91, 84, 86, 79, 78, 72, 72, 60, 69, 48, 71, 42, 78, 26, 83, 18, 85, 12, 87, 11, 90, 14, 91] },
+  // shell: the geared copper housing seated on the back (coil face and glowing core in colour)
+  { g: "shell", s: gear(58, 61, 18, 3.5, 11, -Math.PI / 2 + Math.PI / 11) },
   // battery terminal on top of the shell
-  { g: "post", s: [55, 39, 60, 39, 60, 34, 55, 34] },
-  { g: "post", s: [53, 34, 62, 34, 62, 32, 53, 32] },
-  // body: one thick slug body pouring out from under the shell, its foot along the ground
-  // toward the camera, its front curling up into a short thick neck under the head
-  { g: "body", s: [84, 91, 80, 87, 70, 83, 56, 81, 46, 79, 42, 70, 40, 62, 34, 58, 26, 60, 23, 66, 24, 74, 24, 80, 18, 83, 12, 86, 11, 90, 14, 91] },
-  // head: big and round, thrust forward over the foot, turned slightly left
-  { g: "head", ell: [33, 49, 12, 10.5] },
+  { g: "post", s: [55, 41, 61, 41, 61, 36, 55, 36] },
+  { g: "post", s: [52, 36, 64, 36, 64, 33, 52, 33] },
+  // neck: rising from the front of the foot in front of the shell's lower left edge
+  { g: "body", s: [20, 86, 23, 76, 24, 66, 30, 60, 38, 60, 42, 66, 43, 76, 46, 86] },
+  // head: big and round, thrust forward over the foot, turned slightly left, overlapping the
+  // shell's front edge
+  { g: "head", ell: [33, 51, 12.5, 10.5] },
   // static crest: frizzy slime spikes fanning out off the crown at uneven lengths, like hair
   // standing on end
-  { g: "crest", s: [22, 46, 15, 38, 23, 41, 22, 31, 28, 38, 31, 27, 34, 37, 39, 29, 39, 38, 47, 34, 43, 43] },
+  { g: "crest", s: [22, 47, 15, 39, 23, 42, 22, 32, 28, 39, 31, 28, 34, 38, 39, 30, 39, 39, 47, 35, 44, 44] },
   // plug antennae from the sides of the crown, splayed up and out; prongs point up
-  { g: "farStalk", s: [24, 45, 18, 37, 15, 32, 17, 31, 21, 36, 27, 43] },
-  { g: "farStalk", ell: [15.5, 29.5, 3, 3] },
-  { g: "farStalk", s: [12, 24, 14, 24, 14, 28, 12, 28] },
-  { g: "farStalk", s: [16, 23, 18, 23, 18, 27, 16, 27] },
-  { g: "stalk", s: [40, 42, 45, 35, 48, 30, 50, 31, 48, 36, 43, 45] },
-  { g: "stalk", ell: [50, 28, 3.5, 3.5] },
-  { g: "stalk", s: [47, 20, 49, 20, 49, 25, 47, 25] },
-  { g: "stalk", s: [51, 21, 53, 21, 53, 26, 51, 26] },
+  { g: "farStalk", s: [24, 46, 18, 38, 15, 33, 17, 32, 21, 37, 27, 44] },
+  { g: "farStalk", ell: [15.5, 30.5, 3, 3] },
+  { g: "farStalk", s: [12, 25, 14, 25, 14, 29, 12, 29] },
+  { g: "farStalk", s: [16, 24, 18, 24, 18, 28, 16, 28] },
+  { g: "stalk", s: [40, 43, 45, 36, 48, 31, 50, 32, 48, 37, 43, 46] },
+  { g: "stalk", ell: [50, 29, 3.5, 3.5] },
+  { g: "stalk", s: [47, 21, 49, 21, 49, 26, 47, 26] },
+  { g: "stalk", s: [51, 22, 53, 22, 53, 27, 51, 27] },
 ]
 
 sprite("zapail_sil", { w: 96, h: 96 }, (c) => silhouette(c, parts))

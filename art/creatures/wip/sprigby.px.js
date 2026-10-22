@@ -1,7 +1,8 @@
 // Sprigby, redesign (work in progress). Plant starter, stage 1. Front sprite: body squared to
 // the camera, head turned slightly toward the opponent (screen-left).
 // Personality: the cocky little scrapper who picks fights with things twice its size.
-// Pose: kangaroo stance, leaning back on its thick tail like a tripod, chest puffed, chin up,
+// Pose: kangaroo stance, leaning back on its thick tail like a tripod, chest puffed, chin
+// tucked down glaring up from under its brows, head right on its shoulders,
 // short vine-taped fists hanging low and forward ("come at me"). Leaf ears swept back like a
 // fighter's mohawk; a leaf plaster on one cheek.
 // Coordinates are output pixels (K = 1); feet on y = 91.
@@ -28,15 +29,16 @@ const parts = [
   { g: "arm", s: [56, 61, 62, 63, 67, 67, 68, 72, 65, 74, 63, 69, 60, 66, 55, 65] },
   { g: "fist", ell: [65.5, 76, 4.5, 4] },
   // far ear (left): leaf swept up and back
-  { g: "farEar", s: [42, 39, 42, 32, 44, 26, 47, 20, 50, 16, 52, 19, 51, 25, 49, 31, 47, 38] },
-  // head: big (about 40% of the height), chin up, turned slightly left; cheek tufts
-  { g: "head", ell: [47, 45, 12.5, 10.5] },
-  { g: "head", s: [35, 48, 32, 51, 35, 51, 33, 54, 37, 53, 39, 51] },
-  { g: "head", s: [59, 47, 62, 49, 60, 50, 62, 53, 58, 52, 56, 50] },
-  // muzzle: pushing out to the lower left, toward the opponent
-  { g: "muzzle", ell: [38, 49, 6.5, 4.5] },
+  { g: "farEar", s: [41, 44, 41, 37, 43, 31, 46, 25, 49, 21, 51, 24, 50, 30, 48, 36, 46, 43] },
+  // head: big (about 40% of the height), sitting right on the shoulders with no neck, chin
+  // tucked down (glaring up from under its brows), turned slightly left; cheek tufts
+  { g: "head", ell: [46, 50, 12.5, 10] },
+  { g: "head", s: [34, 53, 31, 56, 34, 56, 32, 59, 36, 58, 38, 56] },
+  { g: "head", s: [58, 52, 61, 54, 59, 55, 61, 58, 57, 57, 55, 55] },
+  // muzzle: pointing down and out to the lower left, toward the opponent
+  { g: "muzzle", ell: [38, 55, 6.5, 4.5] },
   // near ear (right): the bigger leaf, swept back like a mohawk, a bite-notch on its edge
-  { g: "ear", s: [49, 37, 53, 31, 57, 25, 61, 20, 66, 16, 70, 15, 68, 20, 68, 23, 65, 26, 61, 32, 55, 38, 51, 40] },
+  { g: "ear", s: [48, 42, 52, 36, 56, 30, 60, 25, 65, 21, 69, 20, 67, 25, 67, 28, 64, 31, 60, 37, 54, 43, 50, 45] },
 ]
 
 sprite("sprigby_sil", { w: 96, h: 96 }, (c) => silhouette(c, parts))

@@ -44,14 +44,48 @@ function creature({ K, SHADOW, LIGHT, SELOUT, N = 96 }) {
   const inPart = (p, x, y) => inGeom(p, x, y)
   const geom = (g) => (Array.isArray(g) ? { s: g } : g)
 
+  // Pinholes: enclosed gaps of at most `max` pixels where parts meet are artefacts, not
+  // negative space; give each pixel the owner (and colour) of a neighbour inside the shape.
+  function fillPinholes(own, col, max = 6) {
+    const seen = new Uint8Array(N * N)
+    for (let s0 = 0; s0 < N * N; s0++) {
+      if (own[s0] >= 0 || seen[s0]) continue
+      const region = [], st = [s0]; let open = false
+      seen[s0] = 1
+      while (st.length) {
+        const q = st.pop(), x = q % N, y = (q / N) | 0
+        region.push(q)
+        if (x === 0 || y === 0 || x === N - 1 || y === N - 1) open = true
+        for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
+          const xx = x + dx, yy = y + dy, r = yy * N + xx
+          if (xx < 0 || yy < 0 || xx >= N || yy >= N || seen[r] || own[r] >= 0) continue
+          seen[r] = 1; st.push(r)
+        }
+      }
+      if (open || region.length > max) continue
+      for (let pass = 0; pass < max; pass++) for (const q of region) {
+        if (own[q] >= 0) continue
+        const x = q % N, n = [q - 1, q + 1, q - N, q + N].find((r) => r >= 0 && r < N * N && own[r] >= 0 && Math.abs((r % N) - x) <= 1)
+        if (n !== undefined) { own[q] = own[n]; if (col) col[q] = col[n] }
+      }
+    }
+  }
+
+  function owners(parts) {
+    const own = new Int16Array(N * N).fill(-1)
+    parts.forEach((p, i) => { for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) if (inPart(p, x, y)) own[y * N + x] = i })
+    fillPinholes(own)
+    return own
+  }
+
   function silhouette(c, parts) {
-    for (const p of parts) for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) if (inPart(p, x, y)) c.px(x, y, "k")
+    const own = owners(parts)
+    for (let q = 0; q < N * N; q++) if (own[q] >= 0) c.px(q % N, (q / N) | 0, "k")
   }
 
   // silhouette with each part's contour drawn in, to judge the pose before colour
   function partsView(c, parts) {
-    const own = new Int16Array(N * N).fill(-1)
-    parts.forEach((p, i) => { for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) if (inPart(p, x, y)) own[y * N + x] = i })
+    const own = owners(parts)
     const at = (x, y) => (x < 0 || y < 0 || x >= N || y >= N ? -1 : own[y * N + x])
     for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) {
       const i = at(x, y)
@@ -85,6 +119,7 @@ function creature({ K, SHADOW, LIGHT, SELOUT, N = 96 }) {
         own[y * N + x] = i; col[y * N + x] = k
       }
     })
+    fillPinholes(own, col)
     const out = col.slice(), at = (x, y) => (x < 0 || y < 0 || x >= N || y >= N ? -1 : own[y * N + x])
     for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) {
       const i = own[y * N + x]
