@@ -102,16 +102,44 @@ Measurements come from `pixel-art-studio/scripts/study.py` and direct pixel coun
 26. Work one creature at a time, checking it next to the references at the same scale at every
     stage (silhouette, colour, face) before starting the next.
 
-## Process (claude-pxl)
-1. **Silhouette**: block the pose in one colour (pxl primitives are fine at this
-   stage), check the silhouette render, iterate until the pose and anatomy read.
-2. **Flats**: one base colour per material.
-3. **Shading**: shadow and highlight shapes by form, placed by hand as grid patches.
-4. **Lines**: selective outline, interior overlaps, fur clump lines.
-5. **Details**: face, claws, specular highlights, type markings.
-6. Check every stage against the references at the same scale (comparison sheet) and
-   show it to the owner before moving on.
-7. Animation (BW2-style idle loop) only after the still is approved.
+## Process (claude-pxl) — the professional order of work
+Researched from the BW-style spriting community (Smogon sprite projects, PokéCommunity and
+Dragonfly Cave guides) and measured on the owner's full Gen 5 sprite sheet. Each step fixes a
+decision the next one depends on; never skip ahead.
+1. **Gesture.** One line of action for the pose and one personality trait the pose acts out.
+   Pick the 2-3 closest BW basics as size/angle guides and keep them next to the canvas.
+2. **Line art first, at final size.** Smooth contours, never stair-stepped: pixel runs change
+   gradually along a curve (5-4-3-2-1), straight edges use clean slopes (1:1, 1:2, 2:1), no
+   doubled pixels in corners. Shapes are drawn as smooth curves (splines), never as a few straight
+   polygon segments or by scaling a bigger drawing down. Check the silhouette solid black.
+3. **Flats.** One base colour per material from a locked palette (15 colours max, shiny =
+   palette swap).
+4. **Cel shading, 3-4 levels.** Light from the top-left corner; form shadows on the lower-right
+   of every part (rule 23), small highlights top-left; dithering only sparingly; enough contrast
+   between tones that the shading reads; not oversaturated.
+5. **Colour the lines (selective outline).** Gen 5 has pronounced **black** lines on the
+   right and bottom of every part; the top/left lines take the material's darkest tone. Where a
+   part overlaps another, its own line separates them (black on its right/bottom side).
+6. **Face and details** by hand: eyes, mouth, markings, claws. Interior detail lines are
+   coloured unless they sit in shadow.
+7. **Clean-up.** Remove doubles and 2x2 line clumps, check against the guides at the same scale.
+8. **Animation** like BW: paper-puppet parts (head, limbs, tail) pivoted and bobbed, frame 0 is
+   the still.
+
+### Faces in BW basics (measured)
+- Faces turn about 3/4 toward the viewer while bodies stay closer to side-on, all facing left.
+- Eyes are large vertical ovals sitting **low on the head and close together near the front**,
+  just behind/above the muzzle. The far eye is squeezed against the face contour, often only a
+  2-3 px sliver (Zorua, Deerling). Thick black upper lid, coloured iris, white glint, pupil and
+  iris toward the front (looking at the opponent).
+- Expression comes from the lid shape: Purrloin's sly half-closed almond eyes over a smile,
+  Snivy's flat lid, Axew's determined round eye.
+- Muzzles are small cream patches under the eyes; mouths are short lines or small shapes.
+
+### Sleek vs chunky (measured)
+- Legs 2-4 px thick, necks slim, torsos small and narrow with a waist, tails taper to a point
+  (Purrloin, Deerling, Blitzle, Mienfoo). Bodies are smaller than the head on cute basics.
+- Big round torsos, fat thighs and blob limbs read as "chunky" and cheap; avoid them.
 
 ## Lessons from the first approved creature (Furnaxol)
 What worked, in order of how much it mattered. Start the next creature from

@@ -74,7 +74,17 @@ Work happens on branch `claude/m2-starters`. Rules: `art/BW_STYLE.md`, especiall
 - Gobbin: a goblin shark, so the big spring jaw (protrusible jaw) is its hook; goblin touches;
   a tattered hood whose front edge arches; ears visible; keep the fin cape. Not horror.
 
-**Next steps**
+**New direction (end of the first session):** the owner will make concept art in official
+Pokémon (Sugimori) style with ChatGPT; we translate it into BW sprites the way Game Freak did
+(the BW front sprite is the official art's pose at sprite size, the back sprite the same pose
+from behind). Plan: calibrate an art-to-sprite translator on real pairs (official artwork + BW
+front/back sprites for all Unova Pokémon, from the public PokeAPI/sprites repo via a sparse
+git clone into scratch space; never commit them), then translate the owner's art and finish by
+hand. Facing = the art's angle: body and face toward the viewer, turned slightly left, both eyes
+visible. `art/creatures/lib/sprite.js` (spline line art, selective outline) is a start for the
+clean-up stage; its automatic form shading looked like a vector render and is not BW enough.
+
+**Next steps (older)**
 1. (Done in the first session: the album was downloaded and studied; sizes are in BW_STYLE rule
    20. Sprigby was redone at true size as `art/creatures/wip/sprigby2.px.js`, awaiting review.)
    Get the owner's full BW2 sprite reference sheet (Imgur album
