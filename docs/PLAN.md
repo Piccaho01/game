@@ -17,7 +17,7 @@ Rules that keep it efficient:
 ## Status
 - [x] Bible, art style guide (`art/BW_STYLE.md`), sprite pipeline validated (Furnaxol + idle)
 - [x] M1 Foundation (live once Pages is enabled: Settings → Pages → Source: GitHub Actions)
-- [ ] M2 Stage-1 starters (in progress on branch `claude/m2-starters`: Furnaxol and Sprigby done, Zapail and Gobbin next; see "M2 handoff" below)
+- [ ] M2 Stage-1 starters (in progress on branch `claude/m2-starters`: Furnaxol, Sprigby and Zapail fronts done; Zapail back sprite and Gobbin next; see "M2 handoff" below)
 - [ ] M3 Core loop
 - [ ] M4 Characters + world slice
 - [ ] M5 Playtest build
@@ -54,9 +54,11 @@ Work happens on branch `claude/m2-starters`. Rules: `art/BW_STYLE.md`, especiall
   shape, not other Pokémon's.
 - The battle scene shows the player's Patchling from behind at 2x when `<sprite>_back` exists
   (`sprigby_back`, `sprigby_back_idle`); otherwise the front sprite mirrored.
-- Still placeholders (rejected first attempts): `art/creatures/{zapail,gobbin}.px.js`. Next:
-  translate `art/concepts/zapail.png` then `art/concepts/gobbin.png` the same way, one at a time,
-  then a back sprite for Furnaxol.
+- **Zapail front and idle are approved** (`art/creatures/zapail.px.js`, 12 frame grids: breath,
+  turning coil, flickering arc). Built in scratch with a small Python painter (concept silhouette
+  and tones + hand face); the lessons are BW_STYLE rules 27-28. Still needs its back sprite.
+- Still a placeholder (rejected first attempt): `art/creatures/gobbin.px.js`. Next: Zapail's back
+  sprite, then translate `art/concepts/gobbin.png` the same way, then a back sprite for Furnaxol.
 - `art/creatures/wip/` holds rejected redesign attempts (useful only as a record of what not to do).
 - `art/creatures/lib/creature.js` is the shared renderer (parts, tones, shading, selective
   outline, pinhole fill); include it from new creature files.
