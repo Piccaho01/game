@@ -2,8 +2,8 @@
 // the owner's review. 44x42 grid: every concept pixel classified by material (skin, fin hood,
 // tunic, rope, throat glow), the sprite cell taking the majority material and that material's
 // tone from the concept's light and shade; then by hand: the eye under the hood's edge, the open
-// jaw (needle teeth, dark mouth, blue throat glow, no black box), the smirk, the rope belt and
-// pouch, the tunic's shading. Feet on y = 91.
+// jaw (needle teeth, dark mouth, blue throat glow, no black box), the smirk, the pointed ear, the
+// clawed hands, the rope belt and pouch, the tunic's shading. Feet on y = 91.
 
 pal({
   H: "#1e2638",
@@ -36,11 +36,11 @@ sprite("gobbin_tr", { w: 96, h: 96 }, (c) => c.grid(26, 50, `
     ..............PsssHjjjjjjhHppk
     .............HHHHHjjjjjhjhhHHk
     ...........PPHjjjjjjjjjhhhhhhk
-    ..........PsHjjjjjjjHjjhhhhhhHk
-    ..........PHjjjjjHHHpHjjhhHHHssPkk
-    .........HHHHHHHHpssssHHhHsssssk
-    .........HHHpppppskkkkspHHsssssHk
-    ........HHHHpssssswwkkspHHssSHHhk
+    ..........PsHjjjjjjjHjjhhhhhhHkPPk
+    ..........PHjjjjjHHHpHjjhhHHHPPSSk
+    .........HHHHHHHHpssssHHhHHPPSSspk
+    .........HHHpppppskkkkspHHPSSsspk
+    ........HHHHpssssswwkkspHHHsspkkk
     ........PsssSSSSSsPkkSsspHHsSHhhHk
     ......PPSSSSSSSSSsSSSPSSpHHHHhhHhHk
     ....PPSSSSSSSSSSSSSsPSSsHHHHhhkkkjk
@@ -49,14 +49,14 @@ sprite("gobbin_tr", { w: 96, h: 96 }, (c) => c.grid(26, 50, `
     ........kPPPPPPPPgggggHhhHsssk........PPppk
     .........PwPwPwPwggHgHhhjtssssPk.....Ppppk
     .........kppppppsssHHhhjTTttssSSPk...Pppk
-    ..........kkkkkkkkpHhhjTTTttSssSSk..Pppppk
-    ..............PPssskhhrRrRrRrHSSSsHPpppppk
-    .............Pssssk.HTttrTTtkrrkSsHHpppppk
-    ............Hssskk..TTTTRtttrRRrHHHkkkkspk
-    ............Hpsk...TTTTtrstpkrrkhHk....kkpk
-    ............kkk...PttTTttpttpTTtkk.......kk
-    .................PSSsTTTTTTTTttk
-    ................PssstTTTTTttttsk
+    ..........kkkkkkkkpHhhjTTTttSssSSkk.Pppppk
+    ..............PPssskhhrRrRrRrHSSSskPpppppk
+    .............PsSssk.HTttrTTtkrrkSskHpppppk
+    ............PsSssk..TTTTRtttrRhkhkkkkkkspk
+    ...........PsssPk..TTTTtrstpkrrkhHk....kkpk
+    ...........hkhkhk.PttTTttpttpTTtkk.......kk
+    ...........k.k.k.PSSsTTTTTTTTttk
+    ................PPsstTTTTTttttsk
     ................ksssskTtkttsttsk
     .................Pssk.kk.kkkSsssk
     .................Pssk..kk...kksssPk
