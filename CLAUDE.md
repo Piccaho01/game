@@ -189,9 +189,10 @@ Use these as flavour in NPCs, items, signs, quests and dialogue. Spread them out
 - **Gauslug**: shell splits into two parallel rails with a glowing channel; eyestalks fold into targeting prongs; foot widens into a magnetic base; fires scrap slugs. Ability **Capacitor**. Signature **Rail Shell** (high power, two-turn charge).
 
 ### Sprigby → Fernaroo → Scytharoo (Plant → Plant/Wind → Plant/Wind): kickboxing wallaby
-- **Sprigby**: tiny wallaby joey with sprout ears and springy heels; cute, nervous, bounces in place.
-- **Fernaroo**: lean runner; tail flattens into a serrated fern blade; coiled tendon lines on the legs; seed pouch.
-- **Scytharoo**: tall, sleek kickboxer; scythe-like grass-blade tail; visible coil-spring legs; seed pouch bursts on impact. Ability **Spring Heel** (kicks gain priority on entry). Signature **Reap Kick** (high crit; Speed rises on a miss). Wind replaces the source's Fighting type (speed and kicks; Canopy is the Plant/Wind town).
+- Look is set by `art/concepts/line_wallaby.png` (supersedes the first Sprigby concept).
+- **Sprigby**: tough little lime-green joey, pale-green belly, a spiky crest of leaves for ears and fringe, a leaf plaster on one cheek, cocky smirk chewing a grass sprig, vine-taped fists up in a guard, brown clawed feet, brown tail ending in a leaf fan. Small but fearless.
+- **Fernaroo**: lanky teenage brawler mid-hop; brown bark patches on shoulders and thighs, vines wound up its legs, tail a long serrated fern blade, scar across the nose, still chewing the sprig.
+- **Scytharoo**: armoured kickboxing champion mid high-kick; dark forest green with bark armour, huge leaf crest, thorny vine wraps on fists and legs, scythe-like grass-blade tail. Ability **Spring Heel** (kicks gain priority on entry). Signature **Reap Kick** (high crit; Speed rises on a miss). Wind replaces the source's Fighting type.
 
 ### Gobbin → Gulpjaw → Harrowjaw (Water → Water → Water/Dark): hooded goblin harpooner
 - Look is set by the concept art in `art/concepts/gobbin.png`: a goblin-shark pup dressed like a little goblin scavenger.
@@ -200,7 +201,8 @@ Use these as flavour in NPCs, items, signs, quests and dialogue. Spread them out
 - **Harrowjaw**: the goblin king of the deep. Tall and gaunt, a ragged fin mantle like a deep-sea coat with a cowl, a crown-like crest of torn fin; fires its jaw forward on stretched cartilage like a harpoon, the throat glowing cold blue before it fires; trophy chains of hooks and lures. Palette: dusky grey-pink, slate and bruised purple, cold blue glow. Ability **Ambush Jaw**. Signature **Abyssal Harpoon** (ignores Protect, lowers Speed; its own Defense drops as the jaw resets).
 
 ### Concept art
-Every creature gets concept art in official-artwork style first (made by the owner with ChatGPT, kept in `art/concepts/`), then is translated into the BW sprite: the front sprite is the art's pose at sprite size, the back sprite the same pose from behind.
+Line sheets: `art/concepts/line_glass.png`, `line_railgun.png`, `line_wallaby.png`, `line_goblin.png`
+(stage 1 singles: `zapail.png`, `gobbin.png`). Every creature gets concept art in official-artwork style first (made by the owner with ChatGPT, kept in `art/concepts/`), then is translated into the BW sprite: the front sprite is the art's pose at sprite size, the back sprite the same pose from behind.
 
 ## 14. Build Plan
 The live plan with milestones and status is `docs/PLAN.md`. Summary:
