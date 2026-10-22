@@ -76,15 +76,27 @@ Measurements come from `pixel-art-studio/scripts/study.py` and direct pixel coun
     instantly readable "hook" (a flame mohawk, a shell, a big tail).
 
 ### Facing, proportions and personality (from the owner's review of the first starter batch)
-19. **Front sprites face the camera**: body squared to the viewer, head turned only slightly
-    toward the opponent (screen-left), like BW front sprites (the ones on the summary screen).
-    Never a side profile. The back sprite is the same pose seen from behind.
-20. **Starter proportions**: the head is 40-45% of the total height; eyes are 9-11 px tall.
+19. **Angle: 3/4 toward screen-left, like every reference.** The body is turned about 45°
+    toward the opponent; the head turns a little further so the face shows (near eye on the
+    right of the nose bridge, far eye foreshortened toward the snout). Near limbs (the
+    creature's right side) are on screen-right and bigger; a limb reaching for the opponent
+    comes forward on the left. Never a flat side profile, never squared to the camera. The
+    back sprite is the same pose seen from behind.
+20. **Starter proportions**: the head is 40-45% of the total height.
 21. **Personality first**: every creature gets one trait (smug, cocky, jittery, sly...) that the
     brows, mouth and pose all sell. "The animal plus its gimmick" is not a design. The pose
     *acts* the trait (hand on hip, leaning back on a tail, rubbing hands together).
-22. Draw parts in perspective with the head: a mouth on a 3/4 or front-facing head is drawn
-    from the front, not in profile.
+22. Draw parts in perspective with the head: a mouth on a 3/4 head follows the head's turn.
+23. **Shadow masses, not crescents.** In the references the shadow side is a big shape that
+    follows the form: often a third to half of a body part sits in the shadow tone (the back,
+    the underside, the far half). A 1-2 px rim of shadow reads as flat clip art.
+24. **Organic shapes.** No perfect ellipses: masses bulge and taper, edges carry notches,
+    tufts and joints. Eyes stay modest relative to the head; expression comes from lid and
+    brow shape, not eye size.
+25. **Stage 1 is appealing first.** Menace and horror belong to final evolutions; a starter
+    can be cocky or sly but must stay cute.
+26. Work one creature at a time, checking it next to the references at the same scale at every
+    stage (silhouette, colour, face) before starting the next.
 
 ## Process (claude-pxl)
 1. **Silhouette**: block the pose in one colour (pxl primitives are fine at this
