@@ -75,6 +75,17 @@ Measurements come from `pixel-art-studio/scripts/study.py` and direct pixel coun
     chunky colour clusters of 3+ px, and a bold dark outline. Every sprite needs one
     instantly readable "hook" (a flame mohawk, a shell, a big tail).
 
+### Facing, proportions and personality (from the owner's review of the first starter batch)
+19. **Front sprites face the camera**: body squared to the viewer, head turned only slightly
+    toward the opponent (screen-left), like BW front sprites (the ones on the summary screen).
+    Never a side profile. The back sprite is the same pose seen from behind.
+20. **Starter proportions**: the head is 40-45% of the total height; eyes are 9-11 px tall.
+21. **Personality first**: every creature gets one trait (smug, cocky, jittery, sly...) that the
+    brows, mouth and pose all sell. "The animal plus its gimmick" is not a design. The pose
+    *acts* the trait (hand on hip, leaning back on a tail, rubbing hands together).
+22. Draw parts in perspective with the head: a mouth on a 3/4 or front-facing head is drawn
+    from the front, not in profile.
+
 ## Process (claude-pxl)
 1. **Silhouette**: block the pose in one colour (pxl primitives are fine at this
    stage), check the silhouette render, iterate until the pose and anatomy read.
