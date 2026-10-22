@@ -148,4 +148,4 @@ const BREATH = [0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0]
 sprite("sprigby", { w: 96, h: 96 }, (c) => draw(c, FRONT, 30, 43))
 anim("sprigby_idle", { w: 96, h: 96, frames: 12, fps: 10 }, (c) => draw(c, FRONT, 30, 43, BREATH[c.frame]))
 sprite("sprigby_back", { w: 96, h: 96 }, (c) => draw(c, BACK, 32, 43))
-anim("sprigby_back_idle", { w: 96, h: 96, frames: 12, fps: 10 }, (c) => draw(c, BACK, 32, 43, BREATH[c.frame]))
+anim("sprigby_back_idle", { w: 96, h: 96, frames: 12, fps: 10 }, (c) => draw(c, BACK, 32, 43, BREATH[c.frame], 32))
