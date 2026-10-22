@@ -9,7 +9,9 @@
 // like Mienfoo's: the camera moved behind him, both arms still up but seen from behind
 // (elbow and forearm on the near side, the back of the taped fist past the head; the fists point
 // away toward the foe); the tail grows from the base of the spine and lies over the hips, toward
-// the camera, before curving up into the leaf fan; his right leg (screen right) is the one stretched back; the back faces away from the
+// the camera, before curving up into the leaf fan; the legs are the pose turned round, not mirrored: his right leg,
+// nearer the camera, trails back toward it (the biggest and lowest, the heel and sole showing),
+// the left steps forward and away (only its shin and foot peek out on the far right); the back faces away from the
 // light, so the skin is the shadow tone with a lit rim along the top and right, one continuous
 // form from the head down; the corner of the eye and the sprig's tip peek past the head's right
 // edge to show the facing.
@@ -114,25 +116,25 @@ const BACK = `
   ..kgrRrk...kkk.Dssssssbbk
   ....krRr........Dsssssbbk
   .....krRr......Dsssssssbbk
-  ......krRrr...Dlsrrrrsssbbk
-  .......krRRrrrrrrRRRRksssbbk
-  ........krrRRRRRRrrrrkssssbbk
-  .........kkrrrrrrrrkksssssbbk
-  ..........kssssssssssssssssbbk
-  ...........Dsssssskksssssssbbk
-  ...........ksssbbk..kksssssbbk
-  ............kssbbk....kksssbbk
-  .............Dssbbk.....kksssbbk
-  ...........Drsssbkk.......ksbbk
-  .........DrRRrbkk..........ksbbk
-  ........DRRrrRk.............Dsbbk
-  ........kkrkkk..............DsrrRk
-  ..........k.................DrrrrRk
-  ............................DrrrrrRk
-  ............................krrrrrRk
-  .............................krkrrrkk
-  ..............................k.kkk
-  ..................................k`
+  ......krRrr...DlsrrrrDDDDkk
+  .......krRRrrrrrrRRRRkssbbkk
+  ........krrRRRRRRrrrrkssbbkbk
+  .........kkrrrrrrrrkkssssbbkk
+  ..........Dkkkkkkkkssssssbbkkk
+  ...........DsssbbkDssssssbbkk
+  ...........ksssbbkssssssbbkbbk
+  ............kkkkkDssssssbbksbbk
+  ................Dssssssbbkssbbk
+  ................Dsssssbbk.kssbbk
+  ................Dssssbbk...ksrrk
+  ...............Dsssssbkk....rRRRk
+  ...............Dsssbbk......kkkkk
+  ..............Dsssbbk
+  ..............Dssbbk
+  .............rrrrkk
+  ............rRRRRRk
+  ............kRRRRRk
+  .............kkkkk`
 
 // Draw a grid with everything above row `split` shifted down by `bob` (the breath: the upper body
 // sinks into the hips); the lower rows go first so the upper body overlaps them.
