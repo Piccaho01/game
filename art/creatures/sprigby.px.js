@@ -15,9 +15,9 @@
 //   and right, one continuous form from the head down.
 // - The tail grows from the base of the spine and lies over the hips, toward the camera, before
 //   curving up into the leaf fan.
-// - Legs: both feet point right, the way he faces. The leg nearer the camera comes down from the
-//   hip to the lowest, biggest foot, drawn in front; the other steps forward toward the foe, its
-//   foot higher and further away, drawn behind.
+// - Legs, drawn by hand: both feet point right, the way he faces. The near leg (his front
+//   sprite's extended leg) is bigger and lower, with a lit rim; the far leg steps forward, smaller,
+//   higher and all in shadow.
 // - The corner of the eye and the sprig's tip peek past the head's right edge to show the facing.
 // Grids sit so the feet are on y = 91.
 //
@@ -125,20 +125,19 @@ const BACK = `
   ........krrRRRRRRrrrrkssssbbk
   .........kkrrrrrrrrkksssssbbk
   ..........Dkkkkkkkkssssssssbbk
-  ..........ksssssssbbk.kssssk
-  ...........kkssssssskkssssk
-  .............kkssssskkkssssDk
-  ...............kkssbbk.kksRRRrk
-  .................ksbbk...kRRrrrk
-  ..................ksbbk...kkkrkk
-  ...................Dsbbk.....k
-  ...................DsRRRk
-  ...................rRRRRRk
-  ...................rRRRrRrk
-  ...................krrRrrrk
-  ....................krkrrrkk
-  .....................k.kkk
-  .........................k`
+  ..........DssssssskDssssssssbk
+  ..........Dssssssk.Dsssssssssbk
+  .........Dsssssk...Dssssssssbbk
+  .........Dssssk.....Dssssssbbk
+  .........Dssssk......Dsssssbbk
+  .........Dsssk........Dssssbbk
+  ........rRRRRRrk......Dssssbbk
+  ........rRRRRrrrkk....Dssssbbk
+  ........kkkkkkk.k.....Dsssbbbk
+  .....................rRRRRRRRrk
+  .....................rRRRRRrRRrrk
+  .....................krrrrrrrrkrkk
+  ......................kkkkkkkk.k.k`
 
 // Draw a grid with everything above row `split` shifted down by `bob` (the breath: the upper body
 // sinks into the hips); the lower rows go first so the upper body overlaps them.
@@ -153,5 +152,5 @@ const BREATH = [0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0]
 
 sprite("sprigby", { w: 96, h: 96 }, (c) => draw(c, FRONT, 30, 43))
 anim("sprigby_idle", { w: 96, h: 96, frames: 12, fps: 10 }, (c) => draw(c, FRONT, 30, 43, BREATH[c.frame]))
-sprite("sprigby_back", { w: 96, h: 96 }, (c) => draw(c, BACK, 32, 43))
-anim("sprigby_back_idle", { w: 96, h: 96, frames: 12, fps: 10 }, (c) => draw(c, BACK, 32, 43, BREATH[c.frame], 32))
+sprite("sprigby_back", { w: 96, h: 96 }, (c) => draw(c, BACK, 32, 44))
+anim("sprigby_back_idle", { w: 96, h: 96, frames: 12, fps: 10 }, (c) => draw(c, BACK, 32, 44, BREATH[c.frame], 32))
