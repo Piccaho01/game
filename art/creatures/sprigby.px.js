@@ -1,22 +1,21 @@
 // Sprigby (sprig + wallaby) — Plant starter, stage 1. 96x96 BW battle sprite, 3/4 front facing screen-left.
-// A tiny wallaby joey from Canopy. Its ears are two sprouting leaves, its heels are coiled
-// vine springs, and it can't stop bouncing. Battle pose, turned three-quarters to the viewer:
-// nervous but game, up on its toes with the heel spring wound, the far fist tucked in a guard
+// A tiny wallaby joey from Canopy. Its ears are two sprouting leaves, and it can't stop
+// bouncing on its springy heels. Battle pose, turned three-quarters to the viewer:
+// nervous but game, up on its toes, the far fist tucked in a guard
 // against its chest while the near one throws a wobbly uppercut across it (the kickboxer it
 // grows into), thick tail planted behind as a third leg.
 //
 // Stages: silhouette (sprigby_sil). Process and rules: art/BW_STYLE.md; structure follows
 // furnaxol.px.js (parts are hand-placed shapes that overlap what they attach to).
 // Shapes are drawn in design space (output pixels before scaling); K scales them to starter
-// size, anchored on the feet at the bottom centre of the canvas (y = 91). Grid parts are
-// placed in output pixels.
+// size, anchored on the feet at the bottom centre of the canvas (y = 91).
 
 pal({ k: "#181018" })
 
 const K = 0.8
 const T = (pts) => pts.map((v, i) => (i % 2 ? 91 - (91 - v) * K : 48 + (v - 48) * K))
 
-// ---- parts, back to front. {s: polygon} | {ell: [cx, cy, rx, ry]} | {grid: [x, y, rows]} ("#" = in)
+// ---- parts, back to front. {s: polygon} | {ell: [cx, cy, rx, ry]}
 const parts = [
   // tail: behind the body, out to the right and down to the ground, tip curling up
   { g: "tail", s: [52, 72, 62, 75, 72, 79, 80, 78, 84, 72, 88, 71, 89, 78, 84, 85, 76, 89, 68, 88, 60, 82, 54, 80] },
@@ -26,20 +25,11 @@ const parts = [
   { g: "farLeg", s: [26, 80, 32, 82, 30, 88, 20, 90, 10, 90, 10, 88, 20, 85] },
   // body: pear-shaped torso turned three-quarters to the viewer, chest and pouch facing out
   { g: "body", s: [30, 58, 38, 55, 48, 57, 54, 63, 57, 72, 56, 81, 50, 87, 38, 88, 30, 84, 26, 76, 26, 66] },
-  // near side (screen-right, closer): big round haunch, shin back to the lifted heel, long
-  // foot running forward-left on its toes
+  // near side (screen-right, closer): big round haunch, shin back to the heel, long foot
+  // running forward-left, heel just off the ground
   { g: "leg", ell: [50, 77, 9, 8.5] },
-  { g: "leg", s: [47, 79, 55, 77, 61, 80, 57, 84] },
-  { g: "leg", s: [54, 79, 61, 80, 58, 83, 46, 89, 34, 91, 28, 91, 29, 88, 38, 86, 48, 82] },
-  // heel spring: a vine coil from the lifted heel to the ground (output pixels)
-  { g: "spring", grid: [55, 84, `
-    .####.
-    ...###
-    .#####
-    ##....
-    ######
-    ...###
-    .#####`] },
+  { g: "leg", s: [47, 79, 55, 77, 60, 84, 56, 88] },
+  { g: "leg", s: [54, 84, 60, 84, 60, 88, 52, 90, 40, 91, 28, 91, 29, 88, 40, 87] },
   // far ear: the same sprout leaf turned away (narrower), standing up on the left of the crown
   { g: "farEar", s: [26, 42, 24, 35, 23, 28, 24, 21, 27, 15, 29, 12, 31, 18, 31, 26, 31, 34, 31, 42] },
   // head: wide and round, turned three-quarters, muzzle pushing out toward the lower left
@@ -65,7 +55,6 @@ function inPoly(pts, x, y) {
   return inside
 }
 const inPart = (p, x, y) => {
-  if (p.grid) return (p.grid[2].trim().split("\n")[y - p.grid[1]] || "").trim()[x - p.grid[0]] === "#"
   if (p.ell) {
     const [cx, cy] = T(p.ell.slice(0, 2))
     return ((x + 0.5 - cx) / (p.ell[2] * K)) ** 2 + ((y + 0.5 - cy) / (p.ell[3] * K)) ** 2 <= 1

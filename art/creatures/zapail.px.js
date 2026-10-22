@@ -1,9 +1,9 @@
 // Zapail (zap + snail) — Spark starter, stage 1. 96x96 BW battle sprite, 3/4 front facing screen-left.
 // A tiny, nervous snail whose shell is a machine: a geared copper housing (a coil wound inside,
 // shown in the colours) with a battery terminal on top that crackles with the static it builds
-// by grinding its rim on the ground. Its eyestalks end in two-pronged plugs. Battle pose:
-// startled, body reared up, plug eyestalks splayed at the target, the housing pressed up
-// against its neck. Leaves a charged slime trail (Spark Trail).
+// by grinding its rim on the ground. Its eyestalks end in two-pronged plugs. Battle pose,
+// turned three-quarters to the viewer: startled, head reared up against the housing, plug
+// eyestalks splayed at the target. Leaves a charged slime trail (Spark Trail).
 //
 // Stages: silhouette (zapail_sil). Process and rules: art/BW_STYLE.md; structure follows
 // furnaxol.px.js (parts are hand-placed shapes that overlap what they attach to).
