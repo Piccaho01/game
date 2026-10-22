@@ -111,14 +111,14 @@ const BACK = `
   .DgglDglk.DsGGksssssssbbkkk
   .kggDgglk.DGgGksssssssbbk
   ..Dgrrlk..kGGGkDssssssbbk
-  ..kgkRrr...kkk.Dssssssbbk
-  .....kRRrr......Dsssssbbk
-  ......kkRRrrrr.Dsssssssbbk
-  ........kkRRRRrrrrrrssssbbk
-  ..........kkkrRRRRRRkssssbbk
-  ............Dkkkrrrrksssssbbk
-  ...........Dsssskkkkksssssbbk
-  ..........Dssssssssssssssssbbk
+  ..kgrRrk...kkk.Dssssssbbk
+  ....krRr........Dsssssbbk
+  .....krRr......Dsssssssbbk
+  ......krRrr...Dlsrrrrsssbbk
+  .......krRRrrrrrrRRRRksssbbk
+  ........krrRRRRRRrrrrkssssbbk
+  .........kkrrrrrrrrkksssssbbk
+  ..........Dkkkkkkkkssssssssbbk
   ..........Dsssssssbbkkssssbbk
   ..........Dsssssbbkk..Dsssbbk
   ..........Dsssbbkk....Dssbbk
