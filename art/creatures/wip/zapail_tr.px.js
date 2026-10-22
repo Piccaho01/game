@@ -46,9 +46,9 @@ sprite("zapail_tr", { w: 96, h: 96 }, (c) => c.grid(30, 48, `
     .BAAkkaaaaakkkbkoooooqqYnnOOOnnuqqk
     .kAAAkkkkkkaaabkoooqqqYYnOqqqOnuuuk
     ..kAAkwmmmkaabkoooqquYYnOqyyyqOnuk
-    ...kAAkmmkaaabkooqqkkYYnqOyYyqOnuk
-    ....kaakkaaaabkoqqqqqqunOqYYYqOnqk
-    .....BaaaaaaabkqqqqqqqunOqyYyqOnqqqk
+    ...kAAkmmkaaabkooqqkkYYnqyYYYyOnuk
+    ....kaakkaaaabkoqqqqqqunOyYYYyOnqk
+    .....BaaaaaaabkqqqqqqqunOyYYYyOnqqqk
     .....BaaaaaaabkqqqqqqqunqOyyyqOnqqqk
     .....kaaaaaaaabkqqqqquuunOOqqOnqqkkk
     ......BaaaaaaabkqqqqkkkunnOOOnnqk
