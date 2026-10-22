@@ -1,0 +1,93 @@
+{
+  "_note": "One line of lore per bestiary stage: sighted, tracked, studied, sealed, bonded. Callum's field notes are in [brackets]. 'quest' marks entries that stay incomplete until a world task is done.",
+  "entries": {
+    "furnaxol": {
+      "sighted": "A small orange axolotl with gills that glow like coals. Smells faintly of a hot oven.",
+      "tracked": "Lives in the warm runoff pools of Emberwick's glassworks. Follows glassblowers around like a dog that wants a job.",
+      "studied": "Its belly is a working furnace. It gulps sand, melts it, and blows the glass out as a bubble. [PATCH insists this is 'biologically fine'.]",
+      "sealed": "Emberwick glassblowers say a Furnaxol that likes you will warm your hands in winter. One that doesn't will warm your eyebrows off.",
+      "bonded": "It has started blowing small glass figures of its trainer. They are all slightly wrong in the face. [Callum has kept every one.]"
+    },
+    "cullet": {
+      "sighted": "Taller, lankier, charcoal-grey, with amber seams that glow when it concentrates.",
+      "tracked": "Hangs around kilns and juggles marbles. Has been seen wearing goggles it made itself.",
+      "studied": "Its belly has become a ribbed portable kiln and its tail a blowpipe. It has stopped being cute and started being competent.",
+      "sealed": "Named after the scrap glass that gets melted back down. Takes no insult from this.",
+      "bonded": "Will fix a cracked phone screen if you ask nicely. Results vary."
+    },
+    "vitric": {
+      "sighted": "A white-hot axolotl in armour made of blue glass. You can see its heart burning through the window in its belly.",
+      "tracked": "Rarely seen outside the deepest Emberwick forges. The glassblowers bow when it passes.",
+      "studied": "It re-melts and reshapes its own armour mid-fight. Its glass bell can trap a foe or shield a friend.",
+      "sealed": "Old Emberwick songs call it the Maestro. Nobody admits to writing the songs.",
+      "bonded": "It hums while it works. The hum is in tune. [PATCH: 'I did not program the humming.']"
+    },
+    "zapail": {
+      "sighted": "A tiny snail with a copper shell and eyestalks shaped like plugs. Twitchy.",
+      "tracked": "Leaves a sparkling slime trail that makes your hair stand up. Hikers report socks fused to their feet.",
+      "studied": "Rubs its shell on the ground to build static, then panics and discharges it all at once.",
+      "sealed": "Considered a pest by the Wayfarers, who keep finding it inside their lanterns.",
+      "bonded": "Charges your phone if you leave it nearby overnight. Slowly. [Dani: 'finally a useful one']"
+    },
+    "tesnail": {
+      "sighted": "The shell has become a segmented copper coil with a gap that crackles.",
+      "tracked": "Drags iron filings into its arc gap and wears them like a beard.",
+      "studied": "Its slime is a conductive ferrofluid that crawls toward magnets. Hit it with lightning and it only gets stronger.",
+      "sealed": "Kettleport dockworkers pay good money to keep one away from the cranes.",
+      "bonded": "Lines its filings up into little patterns when it's happy. One of them looked like a smiley face."
+    },
+    "gauslug": {
+      "sighted": "Its shell has split into two parallel rails with a glowing channel between them.",
+      "tracked": "Plants itself on a magnetic foot and does not move for hours. Then fires.",
+      "studied": "A living railgun. It charges for a full turn and launches scrap slugs at speeds PATCH calls 'regrettable'.",
+      "sealed": "The Tally tried to license one as a weapon. The form was never finished.",
+      "bonded": "Lets you hold the slug before it fires. This is a sign of deep trust and also a bad idea."
+    },
+    "sprigby": {
+      "sighted": "A tiny wallaby joey with sprouts for ears. It is bouncing. It has not stopped bouncing.",
+      "tracked": "Lives in the low grass around Canopy's tree trunks. The springs in its heels never really switch off.",
+      "studied": "Nervous, but its kick is shockingly strong for the size. Bounces in place when it's scared, which is always.",
+      "sealed": "Canopy kids keep them as pets and use them to jump between rope bridges. Parents are not thrilled.",
+      "bonded": "Calms down a little when its trainer is close. Only a little. [Nolan says it reminds him of his dog.]"
+    },
+    "fernaroo": {
+      "sighted": "A lean runner with a serrated fern blade for a tail and a seed pouch on its belly.",
+      "tracked": "Races the gondolas up to the Cloud Station. Usually wins.",
+      "studied": "The coiled tendons in its legs store wind like a spring. Its tail is sharp enough to trim hedges, which Canopy's gardeners exploit.",
+      "sealed": "Every Fernaroo has a favourite route and runs it daily. Getting in its way is a mistake.",
+      "bonded": "Carries small things for you in its pouch. Mostly seeds. Sometimes your keys, uninvited."
+    },
+    "scytharoo": {
+      "sighted": "A tall, sleek kickboxer with a scythe of grass for a tail. Stares at you like you owe it money.",
+      "tracked": "Holds sparring matches at dawn in Canopy's highest clearings. Spectators keep their distance.",
+      "studied": "Its coil-spring legs give it a first kick nobody can beat. The seed pouch bursts on impact and plants whatever it hits.",
+      "sealed": "Haydon called it overrated. It kicked a tree over. Haydon still says it's overrated.",
+      "bonded": "Bows before every fight. Then shows no mercy whatsoever."
+    },
+    "gobbin": {
+      "sighted": "A pale-pink shark pup that is mostly head. Its throat glows faintly. It looks worried.",
+      "tracked": "Hides under Kettleport's piers and wears its torn dorsal fin like a cape.",
+      "studied": "Its throat sac flickers right before it bites. Learn the flicker, keep your fingers.",
+      "sealed": "Fishermen call it the Little Goblin. It has never once been happy about it.",
+      "bonded": "Will sleep in a bucket next to your bed. The glow works as a night light."
+    },
+    "gulpjaw": {
+      "sighted": "The jaw has outgrown the body. It moves hunched over, like the head is too heavy.",
+      "tracked": "Lurks where the harbour drops off into deep water. Its bioluminescent spots blink in patterns.",
+      "studied": "A translucent pressure bladder lets it dive deep and fire water in one blast. Its cheeks stretch further than seems legal.",
+      "sealed": "Local legend says if you see the spots blink twice, it's laughing at you.",
+      "bonded": "Carries things in its cheeks for you. Do not ask for them back."
+    },
+    "harrowjaw": {
+      "sighted": "A tall, gaunt stalker in a ragged fin coat. The jaw is most of it.",
+      "tracked": "Only surfaces on moonless nights near the Tidal Causeway. Divers refuse to go near the trench.",
+      "studied": "It fires its jaw forward on stretched cartilage like a harpoon. Its throat glows through the skin and dims after each shot.",
+      "sealed": "Old Hollowfolk charts mark its trench with a single word: 'Don't.'",
+      "bonded": "Still terrifying. Now terrifying on your side."
+    }
+  },
+  "redacted": {
+    "name": "[REDACTED]",
+    "lore": "Haydon has a list. This entry is on it. That is all anyone knows."
+  }
+}

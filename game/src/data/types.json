@@ -1,0 +1,27 @@
+{
+  "_note": "First-pass matchup chart (bible §12: finalize in play-testing). chart[attacker][defender] = multiplier; anything not listed is 1. Spark -> Rock is 0 (Rock grounds Spark).",
+  "types": {
+    "fire":  { "name": "Fire",  "color": "#e8603c" },
+    "water": { "name": "Water", "color": "#4a8ee8" },
+    "plant": { "name": "Plant", "color": "#5cb84a" },
+    "rock":  { "name": "Rock",  "color": "#b49a5a" },
+    "wind":  { "name": "Wind",  "color": "#8ccfd8" },
+    "spark": { "name": "Spark", "color": "#f0c830" },
+    "ice":   { "name": "Ice",   "color": "#9ee0f0" },
+    "dark":  { "name": "Dark",  "color": "#5a4a78" },
+    "metal": { "name": "Metal", "color": "#a0a8b8" },
+    "relic": { "name": "Relic", "color": "#c07ad0" }
+  },
+  "chart": {
+    "fire":  { "plant": 2, "ice": 2, "metal": 2, "fire": 0.5, "water": 0.5, "rock": 0.5 },
+    "water": { "fire": 2, "rock": 2, "water": 0.5, "plant": 0.5 },
+    "plant": { "water": 2, "rock": 2, "fire": 0.5, "plant": 0.5, "wind": 0.5, "metal": 0.5 },
+    "rock":  { "fire": 2, "ice": 2, "wind": 2, "rock": 0.5, "metal": 0.5 },
+    "wind":  { "plant": 2, "relic": 2, "rock": 0.5, "metal": 0.5, "spark": 0.5 },
+    "spark": { "water": 2, "wind": 2, "spark": 0.5, "plant": 0.5, "rock": 0 },
+    "ice":   { "plant": 2, "wind": 2, "fire": 0.5, "water": 0.5, "ice": 0.5, "metal": 0.5 },
+    "dark":  { "relic": 2, "dark": 2, "metal": 0.5 },
+    "metal": { "rock": 2, "ice": 2, "fire": 0.5, "water": 0.5, "spark": 0.5, "metal": 0.5 },
+    "relic": { "relic": 2, "metal": 2, "dark": 0.5 }
+  }
+}
