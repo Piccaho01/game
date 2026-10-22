@@ -8,7 +8,8 @@
 // art. Approved by the owner. The back sprite is the same pose from behind, facing right, drawn
 // like Mienfoo's: the camera moved behind him, both arms still up but seen from behind
 // (elbow and forearm on the near side, the back of the taped fist past the head; the fists point
-// away toward the foe); the back faces away from the
+// away toward the foe); the tail grows from the base of the spine and lies over the hips, toward
+// the camera, before curving up into the leaf fan; the back faces away from the
 // light, so the skin is the shadow tone with a lit rim along the top and right, one continuous
 // form from the head down; the corner of the eye and the sprig's tip peek past the head's right
 // edge to show the facing.
@@ -109,18 +110,18 @@ const BACK = `
   kggglDgls.Dssskssssssssbbkssk
   .DgglDglk.DsGGksssssssbbkkk
   .kggDgglk.DGgGksssssssbbk
-  ..DgDglk..kGGGkDssssssbbk
-  ..kgglDk...kkk.Dssssssbbk
-  ...rRRk.........Dsssssbbk
-  ...rRRk........Dsssssssbbk
-  ...kRRk.......Dlssssssssbbk
-  ....rRk......Dsssssssssssbbk
-  ....rRRk....Dsssssssssssssbbk
-  ....rRRRrrrDssssssssssssssbbk
-  ....krRRRRsssssssssssssssssbbk
-  .....krrrrssssssssbbkkssssbbk
-  ......krrrssssssbbkk..Dsssbbk
-  .......krrssssbbkk....Dssbbk
+  ..Dgrrlk..kGGGkDssssssbbk
+  ..kgkRrr...kkk.Dssssssbbk
+  .....kRRrr......Dsssssbbk
+  ......kkRRrrrr.Dsssssssbbk
+  ........kkRRRRrrrrrrssssbbk
+  ..........kkkrRRRRRRkssssbbk
+  ............Dkkkrrrrksssssbbk
+  ...........Dsssskkkkksssssbbk
+  ..........Dssssssssssssssssbbk
+  ..........Dsssssssbbkkssssbbk
+  ..........Dsssssbbkk..Dsssbbk
+  ..........Dsssbbkk....Dssbbk
   ........ksssbbkk.....Dsssbk
   .........Dsbbk.......kkssbbrk
   ........DLssk..........kksRRRrk
