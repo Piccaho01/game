@@ -72,13 +72,14 @@ Each has a field role and one battle command (leader assist):
 - Battle command: **Shield**.
 - Does NOT care about Pokémon (keep this as a gag; he'll still play).
 
-### Looks for sprites (from the owner's photos)
-Photos are reference only and are **never committed**; only the finished pixel sprites go in the repo. No real brand logos on clothes: use original designs.
-- **Callum:** dirty-blonde curly hair worn longish over the ears, small stud earrings, silver chain, black tee with a bold white chest logo and a small Canadian flag, light-grey sweatpants. Easy half-smile.
-- **Nolan:** dark-brown hair, longer and straight, often slicked back; big squinting grin; plain grey tee. Signature hand gesture (fingers up, rock-on style).
-- **Haydon:** shaggy brown hair with a heavy fringe, heavy-lidded unbothered look, sand/khaki anorak hoodie with drawstrings. Peak "nah that's cap" face.
-- **Dani:** dark textured crop with a fade and a short fringe, goatee and moustache, dark knit button-up polo, small chain; often holding his phone (fits "replies in 3 seconds or 3 months").
-- **Connor (villain):** auburn/strawberry hair in a middle part with curtain bangs, huge grin, tall and lanky; a red hoodie under his too-big Director's coat.
+### Looks (locked; character sheets in `art/concepts/trainers/`)
+Faces and hair come from the owner's photos; outfits are game designs, one colourway each so the friends read apart even as tiny walk sprites. Photos are reference only and are **never committed**. No real brand logos, and no Poké Balls: anything ball-like (pins, a ball in a throwing hand) is redrawn as our own seal orb.
+- **Callum (teal / charcoal / orange):** dirty-blonde curls spilling out from under a slouchy charcoal skullcap with an orange D-pad patch and tiny pixel stars; slate-teal oversized jacket with a cream sherpa collar and Patchling pins; cream tee with a faded orange sunset graphic; silver chain, stud earrings; baggy black cargo pants with a chain and orange strap; chunky cream sneakers with orange laces. Signature: a chunky retro handheld he modded into his **Scanner**, on an orange/black wrist lanyard. Easy half-smile.
+- **Nolan (grey / black, a little green):** the producer. Dark-brown hair slicked back, silver aviator sunglasses, big grin, rock-on hand. Cropped grey jacket over a grey hoodie, studio headphones round his neck, a black sampler/drum pad on a crossbody strap with a coiled green patch cable (his **Patch Up**), baggy black cargo pants, black-and-cream sneakers.
+- **Haydon (khaki / black / acid green):** shaggy brown hair, heavy-lidded "nah that's cap" face. Cropped khaki bomber with a crossed-out cap emblem on the back, black hoodie with the hood up, headphones round his neck and a clip-on streamer mic, baggy black cargo pants with acid-green zip pulls, black/cream/green sneakers. Hands in pockets.
+- **Dani (navy / yellow / red):** dark textured crop with a fade, goatee and moustache, warm smile. Yellow puffer vest with red trim over a navy knit polo, small chain, navy joggers, cream/red/navy sneakers with one lace untied (took 30 minutes to leave the house). A round navy **shield backpack** with a red stripe, and his phone on a wrist lanyard, always mid-reply.
+- **Connor (villain; slate / gold / red):** strawberry-blonde hair in a middle part with curtain bangs, green eyes, huge grin, very tall and lanky. A slate-grey Director's greatcoat two sizes too big (gold buttons and epaulettes, the gold Tally crest of four slashed tally marks), red hoodie underneath, slim black trousers, red sneakers. A black umbrella with a gold tally-mark handle (he runs on rain checks), RAIN CHECK tickets in his pocket, a faded festival wristband, a DIRECTOR lanyard badge, his phone mid-"might be a bit late guys". Lovable, never menacing.
+- **PATCH (pitched, not yet approved):** a giant boxy battered robot (about three times their height) with an old CRT monitor head showing a simple pixel face (dot eyes, flat-line mouth that flickers when annoyed), mismatched panels held on with patches, tape and bolts, a scorched shoulder vent that still smokes, a blinking antenna, big gentle three-fingered hands.
 
 ## 7. Core Loop
 
