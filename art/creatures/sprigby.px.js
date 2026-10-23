@@ -10,7 +10,8 @@
 // The back sprite is translated from the owner's back-view concept (art/concepts/sprigby_back.png)
 // the same way: every concept pixel classified by material (lime skin, leaf, brown), the cell
 // taking the majority material and its tone; the concept's bark patches left out (they are
-// Fernaroo's); the head, crest, eye corner and sprig drawn by hand over a gridded underlay.
+// Fernaroo's); the head, crest, eye corner and sprig drawn by hand over a gridded underlay; the body
+// below the shoulders shortened so he is as stubby (and as tall) as his front sprite.
 // Grids sit so the feet are on y = 91.
 //
 // Sprites: sprigby (front still), sprigby_idle, sprigby_back, sprigby_back_idle.
@@ -98,44 +99,39 @@ const BACK = `
   ................kk.....kksssskLLLl
   .......................ssssss.ggg
   ......................DDDbbbbk
-  ....k................DbbbbbbbbDDk
-  ....GGk.............Dssbbbbbbbbsk
-  ....GllGGk..........Dssbbbbbbbbksk
-  ....Gllllk..........Dssbbbbssbbbkk
-  ....kllllgk.k......Dsssbbbbskbbbkk
-  GGk..GlglggGk.....Gssskbbbbk.kbbbbk
+  ....Gk...............DbbbbbbbbDDk
+  ....Glk.k...........Dssbbbbbbbbggk
+  ....GllGgk..........DssbbbbssbbkLk
+  ....kllllk..........Dssbbbbssbbbkk
+  GGk..GlgllGGk.....GDsskbbbbbkkbbbbk
   kllGGllgllllk.....Gksgkbbbbk..Dbbbk
-  .kllllLgggllk.....kkkk.Dbbbk..kskbk
-  ..GgglLLggllk.........Dbbbbk...kkk
-  ..GgggLLLglLLk.......Dbbbbbbk
-  .GGggggLLLlllk......rbbbbbbbbk
-  klggggggllglk......rsbRkbbbbbbk
-  .kggggggglglk.....rksRRkbbbbbbbk
+  .kllllLgggllk.....kkkkbbbbbk..kskkk
+  ..kgglLLLgllk.........Dbbbbk...kk
+  ...GgggLLglLLk.......Dbbbbbbk
+  kGGgggggLLgllk......Dbbbbbbbbk
+  .kggggggggglk.....rrsRRkbbbbbbDk
   ..kgggggggRk.....rrrRRRkbbbbbbbbk
-  ...kkgggGrRk.....rrRRRRkssbbbbbbk
-  .....GgGGrrRk....rRRRRrkskssbbbbbk
-  ....kkkggGrrrrrrrRRRRrrlk.kksssbbbk
-  .......kkkkrrRRRRRRrrrrk....kksbbbk
-  ...........rrrrRRrrrrrk.......Dsssbk
-  ...........kkrrrrrrrsk........Dsbbk
-  .............krrrbbsk........Dsbbbk
+  ...kggggGrRk.....rrRRRRkssbbbbbbk
+  ....GgggGrrRk...rrRRRRkskkssbbbbbk
+  ....kkkggkrrrrrrRRRRrrrk..kksssbbbk
+  .......kk.krrrRRRRrrrrk.....kksbbbbk
+  ...........krrrrrrrrrk........Dsssbk
+  ............kkrrrrrsk.........Dsbbk
   ..............Dbbbbk.........Dsbbk
   ..............Dbbbbk.........Dsbk
   .............Dbbbbk..........Dbk
-  .............Dbbbkk..........Dbk
-  .............Dbbk............kssk
-  ............Dbbk..............ksbk
-  ...........Dbbk................Dsbrk
-  ..........Dbbbk................kssRRk
-  ..........Dbbk..................krrkkk
-  .........Dbbbk...................kk
+  .............Dbbbk..........kbbbk
+  ............Dbbkk............kssbk
+  ...........Dbbk...............kssbrk
+  ..........DDbbk................DssRRk
+  ..........Dbbbk................kkrrRkk
+  .........Dbbbk...................kkk
   ........rbRbbk
   .......rrRRRRk
-  .......rrRRRRk
-  ......rrrRrRRrk
-  .....kklrrrrrkk
-  .......krkkrk
-  ........k..k`
+  ......rrrRrrRk
+  ......rrrrrrRrk
+  .....kkkrksrkk
+  ........k.kk`
 
 // Draw a grid with everything above row `split` shifted down by `bob` (the breath: the upper body
 // sinks into the hips); the lower rows go first so the upper body overlaps them.
@@ -150,5 +146,5 @@ const BREATH = [0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0]
 
 sprite("sprigby", { w: 96, h: 96 }, (c) => draw(c, FRONT, 30, 43))
 anim("sprigby_idle", { w: 96, h: 96, frames: 12, fps: 10 }, (c) => draw(c, FRONT, 30, 43, BREATH[c.frame]))
-sprite("sprigby_back", { w: 96, h: 96 }, (c) => draw(c, BACK, 32, 38))
-anim("sprigby_back_idle", { w: 96, h: 96, frames: 12, fps: 10 }, (c) => draw(c, BACK, 32, 38, BREATH[c.frame], 30))
+sprite("sprigby_back", { w: 96, h: 96 }, (c) => draw(c, BACK, 32, 43))
+anim("sprigby_back_idle", { w: 96, h: 96, frames: 12, fps: 10 }, (c) => draw(c, BACK, 32, 43, BREATH[c.frame], 28))
