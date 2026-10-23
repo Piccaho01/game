@@ -111,7 +111,7 @@ export class NewGameScene extends Phaser.Scene {
     const progress = newProgress(this.starter, this.leader);
     saveProgress(progress);
     this.registry.set('progress', progress);
-    // First wild battle: a Route 1 common.
-    this.scene.start('battle', { foe: 'fledjet' });
+    // Out into Hollow Rest (PATCH's intro comes before this in M4 step 5).
+    this.scene.start('overworld');
   }
 }

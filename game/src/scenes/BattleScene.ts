@@ -16,7 +16,8 @@ import { saveProgress } from '../save';
 import { backIdleAnimKey, backKey, frontKey, idleAnimKey } from './BootScene';
 import { SealMinigame } from './SealMinigame';
 
-interface BattleInit { foe: string; seed?: number }
+/** `from: 'overworld'`: a wild encounter, which goes back to the same spot when it ends. */
+interface BattleInit { foe: string; seed?: number; level?: number; from?: 'overworld' }
 type Phase = 'intro' | 'menu' | 'fight' | 'team' | 'switching' | 'playing' | 'sealing' | 'over';
 
 const FOE_LEVEL = 5;
@@ -62,7 +63,7 @@ export class BattleScene extends Phaser.Scene {
     this.progress = this.registry.get('progress') as Progress;
     // The whole team comes along; the lead goes out first. Everyone is healed between battles for now.
     const team = this.progress.team.map((m) => createBattler(m.species, m.level, undefined, m.bond));
-    this.battle = new Battle(team, createBattler(this.params.foe, FOE_LEVEL), createRng(seed));
+    this.battle = new Battle(team, createBattler(this.params.foe, this.params.level ?? FOE_LEVEL), createRng(seed));
     this.introEvents = this.battle.intro();
 
     this.drawBackdrop();
@@ -216,6 +217,12 @@ export class BattleScene extends Phaser.Scene {
     const title = outcome === 'win' ? 'You won!' : outcome === 'lose' ? 'You blacked out...' : outcome === 'sealed' ? 'Sealed!' : 'Got away.';
     this.menu.add(pixelText(this, 128, 34, title, { color: TEXT_COLORS.light, size: TEXT_SIZE.title, shadow: '#000000' }).setOrigin(0.5));
     if (this.bond) this.menu.add(pixelText(this, 128, 58, BOND_NAMES[this.bond], { color: TEXT_COLORS.gold }).setOrigin(0.5));
+    if (this.params.from === 'overworld') {
+      this.menu.add(button(this, 128, 104, 200, 44, 'CONTINUE', TONES.go, () => this.scene.start('overworld'), { name: 'continue' }));
+      this.menu.add(button(this, 128, 160, 120, 32, 'JOURNAL', TONES.seal, () => this.scene.start('journal', { from: 'overworld' }), { name: 'journal' }));
+      return;
+    }
+    // Test battles (?foe=) cycle through the wild Patchlings.
     const next = FOE_ROTATION[(FOE_ROTATION.indexOf(this.params.foe) + 1) % FOE_ROTATION.length];
     this.menu.add(button(this, 128, 100, 200, 40, 'NEXT BATTLE', TONES.go, () => this.restart(next), { sub: `vs ${SPECIES[next].name}`, name: 'next' }));
     this.menu.add(button(this, 70, 156, 104, 36, 'REMATCH', TONES.neutral, () => this.restart(this.params.foe), { name: 'rematch' }));
@@ -384,6 +391,7 @@ export class BattleScene extends Phaser.Scene {
     (window as unknown as Record<string, unknown>).__battle = {
       phase: () => this.phase,
       outcome: () => this.battle.outcome,
+      foe: () => ({ species: this.battle.foe.species, level: this.battle.foe.level }),
       bond: () => this.bond,
       active: () => this.battle.player.name,
       sealBeatsIn: () => this.sealGame?.msToBeats() ?? null,

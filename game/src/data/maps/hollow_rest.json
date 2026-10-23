@@ -1,0 +1,33 @@
+{
+  "_note": "Hollow Rest (bible §9): the sleepy hillside start village around the ruined sanctuary. Layout is a first pass; houses, NPCs and the sanctuary come in M4 steps 4-6.",
+  "id": "hollow_rest",
+  "name": "Hollow Rest",
+  "legend": { ".": "grass", "=": "path", "f": "flowers", "T": "tree", "#": "fence", "W": "wall", "R": "roof", "D": "door", "X": "ruin", "~": "water", "S": "sign" },
+  "rows": [
+    "TTTTTTTTTTTTTTTTTTTT",
+    "TTTXXXXXXXXXXXXXXTTT",
+    "TT.X....XXXX....X.TT",
+    "TT.X............X.TT",
+    "TT.XXXXXX==XXXXXX.TT",
+    "T.........==.......T",
+    "T..RRRR...==..RRRR.T",
+    "T..RRRR...==..RRRR.T",
+    "T..WWDW...==..WDWW.T",
+    "T....=========.=...T",
+    "T.f..=....==S.f=.f.T",
+    "T....=....==...=...T",
+    "T~~..=============.T",
+    "T~~~......==.......T",
+    "T~~~.ff...==...ff..T",
+    "T.........==.......T",
+    "TTTTTTTTTT==TTTTTTTT"
+  ],
+  "spawn": { "x": 10, "y": 13 },
+  "signs": [
+    { "x": 12, "y": 10, "text": "HOLLOW REST. Pop. 31. Established last Tuesday, apparently." }
+  ],
+  "warps": [
+    { "x": 10, "y": 16, "to": "route1", "tx": 10, "ty": 1 },
+    { "x": 11, "y": 16, "to": "route1", "tx": 11, "ty": 1 }
+  ]
+}

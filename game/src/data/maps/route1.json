@@ -1,0 +1,40 @@
+{
+  "_note": "Route 1 (bible §15): the hills outside Hollow Rest. Tall grass hides the Route 1 commons. Encounter rate is per step in tall grass (0-1); tune on a phone.",
+  "id": "route1",
+  "name": "Route 1",
+  "legend": { ".": "grass", ",": "tall", "=": "path", "f": "flowers", "T": "tree", "#": "fence", "~": "water", "S": "sign", "_": "ledge" },
+  "rows": [
+    "TTTTTTTTTT==TTTTTTTT",
+    "T.........==.......T",
+    "T.,,,,....==..,,,,.T",
+    "T.,,,,,...==..,,,,.T",
+    "T.,,,,,...==.......T",
+    "T.........=====....T",
+    "T__________..=_____T",
+    "T....f.......=.....T",
+    "T..,,,,,,....=..f..T",
+    "T..,,,,,,....=.....T",
+    "T..,,,,,,..=====...T",
+    "T..........=...,,,,T",
+    "T~~~~......=...,,,,T",
+    "T~~~~~.....=...,,,,T",
+    "T~~~~~..S..=.......T",
+    "TTTTTTTTTTTTTTTTTTTT"
+  ],
+  "spawn": { "x": 10, "y": 1 },
+  "signs": [
+    { "x": 8, "y": 14, "text": "ROUTE 1. Meteorite salvage licensed by the Tally. Licence office hours: rescheduled." }
+  ],
+  "warps": [
+    { "x": 10, "y": 0, "to": "hollow_rest", "tx": 10, "ty": 15 },
+    { "x": 11, "y": 0, "to": "hollow_rest", "tx": 11, "ty": 15 }
+  ],
+  "encounters": {
+    "rate": 0.12,
+    "levels": [3, 5],
+    "table": [
+      { "species": "orbitot", "weight": 50 },
+      { "species": "fledjet", "weight": 50 }
+    ]
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "_note": "Overworld tile kinds. Maps (data/maps/*.json) draw with one character per tile through their legend. solid: can't walk on it. encounter: tall grass, wild Patchlings can jump out. color/accent: the placeholder look until the BW2-style tileset arrives.",
+  "tiles": {
+    "grass":   { "color": "#78c060", "accent": "#68b050" },
+    "tall":    { "color": "#4c9a40", "accent": "#3a8030", "encounter": true },
+    "path":    { "color": "#e0c890", "accent": "#d0b478" },
+    "flowers": { "color": "#78c060", "accent": "#f07890" },
+    "tree":    { "color": "#2f6a3a", "accent": "#1f4f2a", "solid": true },
+    "water":   { "color": "#4a8ee8", "accent": "#78b0f0", "solid": true },
+    "fence":   { "color": "#78c060", "accent": "#a07848", "solid": true },
+    "wall":    { "color": "#e8dcc0", "accent": "#b8a888", "solid": true },
+    "roof":    { "color": "#c2502f", "accent": "#983a20", "solid": true },
+    "door":    { "color": "#6a4a30", "accent": "#4a3020" },
+    "ruin":    { "color": "#a8a090", "accent": "#7a7468", "solid": true },
+    "floor":   { "color": "#c8b8a0", "accent": "#b8a890" },
+    "sign":    { "color": "#78c060", "accent": "#a07848", "solid": true },
+    "ledge":   { "color": "#78c060", "accent": "#5a9048", "solid": true }
+  }
+}

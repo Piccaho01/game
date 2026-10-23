@@ -32,13 +32,29 @@ test('screens', async ({ page }) => {
   await shot(page, '03-newgame-starter');
   await tapOn(page, '__newgame', 'confirm');
 
+  // Overworld: Hollow Rest, then the sign by the path (up 3, right 1, read).
+  type Ow = { ready(): boolean; pos(): { x: number; y: number } };
+  const owReady = () => page.waitForFunction(() => (window as unknown as { __overworld?: Ow }).__overworld?.ready(), null, { timeout: 60_000 });
+  await owReady();
+  await page.waitForTimeout(300);
+  await shot(page, '04-overworld');
+  for (const key of ['ArrowUp', 'ArrowUp', 'ArrowUp', 'ArrowRight']) {
+    await page.keyboard.press(key);
+    await page.waitForTimeout(260);
+    await owReady();
+  }
+  await page.keyboard.press('Space');
+  await page.waitForTimeout(1500);
+  await shot(page, '05-overworld-sign');
+
+  await page.goto('/?foe=fledjet&seed=2');
   await page.waitForFunction(() => window.__battle?.phase() === 'menu', null, { timeout: 60_000 });
-  await shot(page, '04-battle-menu');
+  await shot(page, '06-battle-menu');
   await tapOn(page, '__battle', 'fight');
-  await shot(page, '05-battle-fight');
+  await shot(page, '07-battle-fight');
   await tapOn(page, '__battle', 'move2');
   await page.waitForTimeout(400);
-  await shot(page, '06-battle-message');
+  await shot(page, '08-battle-message');
   await page.waitForFunction(() => ['menu', 'over'].includes(window.__battle.phase()), null, { timeout: 30_000 });
 
   // Win quickly so the end screen and the Journal are reachable.
@@ -47,14 +63,14 @@ test('screens', async ({ page }) => {
     await tapOn(page, '__battle', 'move2');
     await page.waitForFunction(() => ['menu', 'over'].includes(window.__battle.phase()), null, { timeout: 30_000 });
   }
-  await shot(page, '07-battle-end');
+  await shot(page, '09-battle-end');
   await tapOn(page, '__battle', 'journal');
   await page.waitForFunction(() => !!(window as unknown as { __journal?: unknown }).__journal);
   await page.waitForTimeout(200);
   await tapOn(page, '__journal', 'member0');
-  await shot(page, '08-journal-team');
+  await shot(page, '10-journal-team');
   await tapOn(page, '__journal', 'tab-bestiary');
   await tapOn(page, '__journal', 'dex-fledjet');
-  await shot(page, '09-journal-bestiary');
+  await shot(page, '11-journal-bestiary');
   expect(errors).toEqual([]);
 });
