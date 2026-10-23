@@ -1,0 +1,29 @@
+{
+  "_note": "The four playable leaders (bible §6). One leads at a time; each has a battle command (leader assist, built next in M3). 'line' is what they say when picked; portraits are placeholders until the M4 trainer sprites.",
+  "characters": {
+    "callum": {
+      "name": "Callum", "role": "The Collector", "color": "#d8b048",
+      "field": "Reads creature lore, fills bestiary entries, spots rares.",
+      "assist": { "name": "Scan", "desc": "Reveals the foe's weaknesses." },
+      "line": "Right. Gotta seal 'em all. I'm keeping a spreadsheet."
+    },
+    "nolan": {
+      "name": "Nolan", "role": "The Reliable One", "color": "#7a5a40",
+      "field": "Steady support, recovery and cleanup.",
+      "assist": { "name": "Patch Up", "desc": "Heals your Patchling." },
+      "line": "Someone has to be the responsible one. Again."
+    },
+    "haydon": {
+      "name": "Haydon", "role": "The Ragebaiter", "color": "#c8b48a",
+      "field": "Provokes NPCs and enemies.",
+      "assist": { "name": "Taunt", "desc": "Riles the foe up: it drops its guard." },
+      "line": "Trapped in a video game? Nah that's cap."
+    },
+    "dani": {
+      "name": "Dani", "role": "The Heart", "color": "#5a3a30",
+      "field": "Befriends anything, tanks for the group.",
+      "assist": { "name": "Shield", "desc": "Takes the edge off the next hit." },
+      "line": "I don't care about Pokémon. But okay, I play. Five minutes."
+    }
+  }
+}

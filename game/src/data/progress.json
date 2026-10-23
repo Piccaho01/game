@@ -1,6 +1,7 @@
 {
   "_note": "Team, sanctuary and bestiary rules (bible §7). A stage is reached when any one of its conditions is met; reaching a stage unlocks its lore and all earlier lore. Sanctuary points are the sum of every entry's stage (sighted 1 ... bonded 5); wings are unlocked by points in M4. Tune in play-testing.",
   "teamSize": 6,
+  "starters": ["furnaxol", "zapail", "sprigby", "gobbin"],
   "starterLevel": 8,
   "starterBond": "strong",
   "stages": {

@@ -1,17 +1,17 @@
-import { newProgress, parseProgress, type Progress } from './engine/progress';
+import { parseProgress, type Progress } from './engine/progress';
 
 /** Progress lives in the browser so it survives closing the tab (one save per device). */
 const KEY = 'patchlings.save.v1';
 
-export function loadProgress(starter: string): Progress {
+/** The saved game, or null for a new one. */
+export function loadProgress(): Progress | null {
   try {
     const raw = localStorage.getItem(KEY);
-    const p = raw ? parseProgress(JSON.parse(raw)) : null;
-    if (p) return p;
+    return raw ? parseProgress(JSON.parse(raw)) : null;
   } catch {
     // Private mode or a corrupt save: start fresh rather than crash.
+    return null;
   }
-  return newProgress(starter);
 }
 
 export function saveProgress(p: Progress) {

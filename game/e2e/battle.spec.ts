@@ -24,7 +24,7 @@ async function tap(page: Page, name: string) {
 test('boots on a phone and Furnaxol wins the placeholder battle', async ({ page }) => {
   const errors: string[] = [];
   page.on('pageerror', (e) => errors.push(e.message));
-  await page.goto('/?seed=3');
+  await page.goto('/?seed=3&player=furnaxol');
   await page.waitForFunction(() => window.__battle?.phase() === 'menu', null, { timeout: 60_000 });
   expect(await page.evaluate(() => window.__battle.log())).toEqual(['A wild Sprigby appeared!', 'Go! Furnaxol!', 'Bestiary: Sprigby sighted. New entry!']);
 
@@ -54,7 +54,7 @@ test('boots on a phone and Furnaxol wins the placeholder battle', async ({ page 
 test('a seal with no taps breaks, and the wild Patchling gets its turn', async ({ page }) => {
   const errors: string[] = [];
   page.on('pageerror', (e) => errors.push(e.message));
-  await page.goto('/?seed=4&foe=zapail');
+  await page.goto('/?seed=4&foe=zapail&player=furnaxol');
   await page.waitForFunction(() => window.__battle?.phase() === 'menu', null, { timeout: 60_000 });
   await tap(page, 'seal');
   await page.waitForFunction(() => window.__battle.phase() === 'sealing');
@@ -100,5 +100,28 @@ test('switching: a voluntary switch, then a forced pick when the active Patchlin
   await tap(page, 'member0');
   await page.waitForFunction(() => window.__battle.phase() === 'menu', null, { timeout: 30_000 });
   expect(await page.evaluate(() => window.__battle.active())).toBe('Sprigby');
+  expect(errors).toEqual([]);
+});
+
+test('a new game picks a leader and a starter, then the first battle starts', async ({ page }) => {
+  const errors: string[] = [];
+  page.on('pageerror', (e) => errors.push(e.message));
+  const tapNew = async (name: string) => {
+    const pt = await page.evaluate((n) => (window as unknown as { __newgame: { buttonAt(n: string): { x: number; y: number } | null } }).__newgame.buttonAt(n), name);
+    expect(pt, `button ${name}`).not.toBeNull();
+    await page.touchscreen.tap(pt!.x, pt!.y);
+  };
+  await page.goto('/?seed=2');
+  await page.waitForFunction(() => (window as unknown as { __newgame?: { step(): string } }).__newgame?.step() === 'leader', null, { timeout: 60_000 });
+  await tapNew('char-dani');
+  await tapNew('confirm');
+  await page.waitForFunction(() => (window as unknown as { __newgame: { step(): string } }).__newgame.step() === 'starter');
+  await tapNew('starter-gobbin');
+  await tapNew('confirm');
+  await page.waitForFunction(() => window.__battle?.phase() === 'menu', null, { timeout: 60_000 });
+  expect(await page.evaluate(() => window.__battle.active())).toBe('Gobbin');
+  const save = await page.evaluate(() => JSON.parse(localStorage.getItem('patchlings.save.v1')!));
+  expect(save.leader).toBe('dani');
+  expect(save.team[0].species).toBe('gobbin');
   expect(errors).toEqual([]);
 });

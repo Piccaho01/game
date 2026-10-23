@@ -18,7 +18,7 @@ Rules that keep it efficient:
 - [x] Bible, art style guide (`art/BW_STYLE.md`), sprite pipeline validated (Furnaxol + idle)
 - [x] M1 Foundation (live once Pages is enabled: Settings → Pages → Source: GitHub Actions)
 - [x] M2 Stage-1 starters (branch `claude/m2-starters`: all four with front, idle, back and back idle in game; see "M2 handoff" below)
-- [ ] M3 Core loop (in progress on branch `claude/m3-core-loop`: seal, team of six + sanctuary, bestiary stages, save, Journal and switching in battle done; next: character and starter pick, leader assists)
+- [ ] M3 Core loop (in progress on branch `claude/m3-core-loop`: seal, team of six + sanctuary, bestiary stages, save, Journal, switching and the new-game pick done; next: leader assists)
 - [ ] M4 Characters + world slice
 - [ ] M5 Playtest build
 - [ ] After the slice: evolutions, Connor, more of Verrow
@@ -141,6 +141,9 @@ clean-up stage; its automatic form shading looked like a vector render and is no
 - Switching (built): TEAM in battle swaps Patchlings (takes the turn; the foe hits whoever comes in);
   a faint with others left asks for a free pick; the battle is lost when the whole team is down.
   Leaving the field clears stat changes. Can't switch mid two-turn move.
+- New game (built): pick who leads (Callum, Nolan, Haydon, Dani; `data/characters.json`: role,
+  assist, a line in their voice), then any starter. Portraits are placeholders until the M4
+  trainer sprites. The save stores the leader; separate teams per character come with swapping in M4.
 - Not yet: no XP/levels, the team is fully healed before every battle.
 
 ## M4 Characters + world slice (art + code)

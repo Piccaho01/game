@@ -76,9 +76,18 @@ describe('save', () => {
     expect(parseProgress(old)).toEqual(p);
   });
 
+  it('a save from before the character pick belongs to Callum', () => {
+    const p = newProgress('gobbin', 'dani');
+    const v1 = { ...JSON.parse(JSON.stringify(p)), version: 1 };
+    delete v1.leader;
+    expect(parseProgress(v1)).toEqual({ ...p, leader: 'callum' });
+    expect(parseProgress(JSON.parse(JSON.stringify(p)))?.leader).toBe('dani');
+  });
+
   it('rejects garbage', () => {
     expect(parseProgress(null)).toBeNull();
     expect(parseProgress({ version: 2 })).toBeNull();
     expect(parseProgress({ version: 1, team: [], sanctuary: [], bestiary: {} })).toBeNull();
+    expect(parseProgress({ version: 3, team: [{ uid: 1, species: 'gobbin', level: 5, bond: 'wary' }], sanctuary: [], bestiary: {} })).toBeNull();
   });
 });
