@@ -1,92 +1,161 @@
-"""Hollow Rest test layout (awaiting the owner's approval): a height map (island, upper terrace) gives
-the cliffs; forest in clumps; ragged scorch round the crater; winding paths. Writes rows + objects JSON.
-Usage: python3 art/tools/hollow_rest_layout.py OUT.json"""
-import json, math
-W,H=32,26
-def inpoly(x,y,pts):
-    c=False; n=len(pts)
-    for i in range(n):
-        x1,y1=pts[i]; x2,y2=pts[(i+1)%n]
-        if (y1>y)!=(y2>y) and x < (x2-x1)*(y-y1)/(y2-y1)+x1: c=not c
-    return c
-# Height: 0 = drop to mist, 1 = lower terrace, 2 = upper terrace (the hill with the sanctuary).
-island=[(0,0),(32,0),(32,7),(30,8),(30,12),(29,14),(27,15),(27,18),(24,19),(20,20),(16,20),(12,21),(8,20),(5,20),(2,19),(0,18)]
-upper=[(0,0),(32,0),(32,7),(25,8),(21,9),(16,9),(13,10),(9,10),(6,11),(2,11),(0,10)]
-def level(x,y):
-    cx,cy=x+.5,y+.5
-    if not inpoly(cx,cy,island): return 0
-    return 2 if inpoly(cx,cy,upper) else 1
-g=[['.' for _ in range(W)] for _ in range(H)]
-L=[[level(x,y) for x in range(W)] for y in range(H)]
+"""Hollow Rest, laid out after the owner's concept (art/concepts/locations/hollow_rest_concept.png)
+and written into the game's map file (game/src/data/maps/hollow_rest.json), keeping its NPCs, signs
+and warps. Positions are thought of in screen terms: u = x - y (left/right), s = x + y (back to
+front); this converts to the grid.
+
+  back: the hill with the sanctuary (height 3), trees behind it
+  upper terrace (2): the stone cottage and the casa on the left, a laundry line between them; the
+                     suburban house with the van on the right
+  middle (1): the crater, the sunflower garden and lamp post, the shed at the right edge
+  front: the island drops into the sky; stairs go down off the edge (to Route 1)
+Usage: python3 art/tools/hollow_rest_layout.py
+"""
+import json, math, os
+
+MAP = os.path.join(os.path.dirname(__file__), '..', '..', 'game', 'src', 'data', 'maps', 'hollow_rest.json')
+W = H = 24
+
+
+def us(x, y):
+    return x - y, x + y
+
+
+def height(x, y):
+    u, s = us(x, y)
+    wob = math.sin(u * 0.9) * 0.8 + math.cos(u * 0.37 + 1) * 1.2
+    front = 37 - 0.18 * abs(u) + wob
+    if abs(u) > 17 - max(0, (s - 30)) * 0.6 or s > front or s < 1: return 0
+    if s < 12 + math.sin(u * 0.7) * 0.6 and -3 <= u <= 6: return 3
+    if (u < -2 and s < 21 + math.sin(u * 0.8)) or (u >= -2 and s < 17 + math.cos(u * 0.6) * 0.7): return 2
+    return 1
+
+
+Z = [[height(x, y) for x in range(W)] for y in range(H)]
+K = [['.' for _ in range(W)] for _ in range(H)]
+
+
+def put(x, y, c):
+    if 0 <= x < W and 0 <= y < H and Z[y][x] > 0: K[y][x] = c
+
+
+def path(points, c='='):
+    """A path through (u, s) points, rasterized onto the grid as a 4-connected chain."""
+    cells = []
+    for (u1, s1), (u2, s2) in zip(points, points[1:]):
+        n = int(max(abs(u2 - u1), abs(s2 - s1)) * 3) + 1
+        for i in range(n + 1):
+            u, s = u1 + (u2 - u1) * i / n, s1 + (s2 - s1) * i / n
+            x, y = round((s + u) / 2), round((s - u) / 2)
+            if not cells or cells[-1] != (x, y):
+                if cells and abs(cells[-1][0] - x) + abs(cells[-1][1] - y) == 2:
+                    cells.append((x, cells[-1][1]))
+                cells.append((x, y))
+    for x, y in cells: put(x, y, c)
+    return cells
+
+
+def tile(u, s):
+    return round((s + u) / 2), round((s - u) / 2)
+
+
+# Trees: dense woods behind the hill and down the left slope; a clump on the right; bushes
+# along the edges and round the houses (the concept is lush).
 for y in range(H):
     for x in range(W):
-        if L[y][x]==0: g[y][x]='M'
-# Cliffs wherever the ground drops toward the viewer; a rock row under edges that drop to mist.
-for y in range(H-1):
-    for x in range(W):
-        if L[y][x]>L[y+1][x]:
-            g[y][x]='C'
-            if L[y+1][x]==0:
-                g[y+1][x]='R'
-                if y+2<H and L[y+2][x]==0: g[y+2][x]='U'
-def put(x,y,c):
-    if 0<=x<W and 0<=y<H: g[y][x]=c
-def line(pts,c='=',width=1):
-    for (x1,y1),(x2,y2) in zip(pts,pts[1:]):
-        x,y=x1,y1
-        while (x,y)!=(x2,y2):
-            for w in range(width): put(x+(w if y1==y2 else 0)*0, y, c) if False else None
-            put(x,y,c)
-            if width==2: put(x+1,y,c) if x1==x2 else put(x,y+1,c)
-            if x!=x2: x+= 1 if x2>x else -1
-            elif y!=y2: y+= 1 if y2>y else -1
-        put(x2,y2,c)
-# Forest: the hill behind the sanctuary and the west slope, in clumps with gaps, never a full ring.
+        u, s = us(x, y)
+        if Z[y][x] == 0: continue
+        n = ((x * 73856093) ^ (y * 19349663)) % 10
+        if s < 7 and not (0 <= u <= 4): K[y][x] = 'T'
+        elif s < 11 and (u < -5 or u > 8): K[y][x] = 'T' if n < 8 else 'b'
+        elif u < -11 and s < 30: K[y][x] = 'T' if n < 7 else 'b'
+        elif u > 12 and s < 21: K[y][x] = 'T' if n < 7 else 'b'
+        elif n == 0 and Z[y][x] < 3: K[y][x] = 'b'
+
+# Paths (as in the concept): from the stairs at the front edge, a winding track up-left past the
+# garden to the cottage terrace; a branch right round the crater to the shed and up to the
+# suburb; and up the hill to the sanctuary.
+path([(-1, 40), (-1, 35), (-2, 31), (-5, 28), (-8, 25), (-9, 22), (-8, 19), (-7, 17)])          # front -> left terrace
+path([(-8, 25), (-3, 26), (2, 26), (6, 24), (8, 21), (7, 18), (6, 16)])              # round the crater -> right
+path([(-7, 17), (-5, 15), (-2, 14), (1, 13), (2, 11)])                                # upper terrace -> hill
+path([(6, 16), (5, 15), (4, 14), (1, 13)])
+path([(-8, 15), (-7, 17)]); path([(-4, 12), (-5, 15)])                                 # to the doors
+# stairs down off the island: the front-most path tile (whose ground drops away in front of it)
+edge = [(x, y) for y in range(H) for x in range(W) if K[y][x] == '=' and Z[y][x] > 0 and ((y + 1 >= H or Z[y + 1][x] == 0) or (x + 1 >= W or Z[y][x + 1] == 0))]
+ex, ey = max(edge, key=lambda p: p[0] + p[1])
+K[ey][ex] = 'E'
+
+# Stairs where the paths cross a terrace edge: the stair tile is the lower one.
+def stairs_at(x, y):
+    z = Z[y][x]
+    for dx, dy in ((0, -1), (-1, 0)):
+        nx, ny = x + dx, y + dy
+        if 0 <= nx < W and 0 <= ny < H and Z[ny][nx] == z + 1:
+            K[y][x] = 'H'; return True
+    return False
 for y in range(H):
     for x in range(W):
-        if L[y][x]==0 or g[y][x]!='.': continue
-        n=math.sin(x*1.7)*0.9+math.cos(y*2.3+x*0.6)*0.8
-        if y<=1 and not (x in (4,5,22) and y==1): g[y][x]='T'
-        elif y==2 and n>-0.4: g[y][x]='T'
-        elif x<=1 and y<16 and n>-0.9: g[y][x]='T'
-        elif x==2 and 3<y<10 and n>0.5: g[y][x]='T'
-        elif x>=29 and y<8 and n>-0.6: g[y][x]='T'
-for x,y in [(26,9),(27,9),(27,10),(25,17),(4,17),(3,16),(9,18),(22,3),(27,4),(28,5)]:
-    if L[y][x]>0 and g[y][x]=='.': g[y][x]='T'
-# Scorched ground round the crater: a ragged blob.
+        if K[y][x] == '=':
+            for dx, dy in ((0, 1), (1, 0)):
+                nx, ny = x + dx, y + dy
+                if 0 <= nx < W and 0 <= ny < H and Z[ny][nx] == Z[y][x] - 1 and K[ny][nx] == '=':
+                    stairs_at(nx, ny)
+# the way off the island: stairs down the front edge
+fx, fy = tile(-1, 35)
+for k in range(1, 4):
+    if Z[fy][fx + k] == 0 or Z[fy + k][fx] == 0: pass
+
+# Scorched ground round the crater; the sunflower garden; flowers.
 for y in range(H):
     for x in range(W):
-        dx,dy=(x+.5-15.5)/5.6,(y+.5-14.5)/3.0
-        r=dx*dx+dy*dy+0.18*math.sin(x*2.1+y*1.3)
-        if r<1 and g[y][x]=='.' and L[y][x]==1: g[y][x]='d'
-# The pond: a blob on the west of the lower terrace.
-for y in range(H):
-    for x in range(W):
-        dx,dy=(x+.5-5.2)/2.4,(y+.5-15.4)/1.7
-        if dx*dx+dy*dy+0.15*math.cos(x*2.7)<1 and g[y][x]=='.': g[y][x]='~'
-# Paths: winding, from the doors down to the stairs and round the crater to the way off the island.
-line([(7,8),(7,9),(9,9),(9,8),(12,8),(12,7)])            # cottage door -> casa door
-line([(9,9),(9,12)])                                        # the west slope down (no cliff there)
-line([(12,8),(15,8),(15,7),(19,7),(19,6)])                 # to the sanctuary steps
-line([(17,8),(17,10)]); put(17,8,'H')                       # east stairs through the terrace cliff
-line([(17,10),(17,11),(22,11),(22,12)])                    # to the suburb's door
-line([(9,12),(9,13),(10,13)]); line([(10,13),(10,18),(14,18),(14,19)])
-line([(17,11),(21,11)]); line([(21,11),(21,15),(23,15),(23,16)])  # past the shed
-line([(21,15),(20,17),(20,18),(14,18)])
-for y in range(19,23): put(14,y,'H')                        # stairs down the cliff, off the island to Route 1
-# Garden fence by the pond, flowers, the town sign.
-for x in range(3,8): put(x,18,'#')
-for x,y in [(4,6),(13,5),(24,6),(6,13),(12,17),(19,16),(24,13),(3,12),(26,12)]:
-    if g[y][x]=='.': put(x,y,'*')
-put(15,17,'S')
-rows=[''.join(r) for r in g]
-objects=[
- {"kind":"sanctuary","x":16,"y":2},
- {"kind":"cottage","x":4,"y":5},
- {"kind":"casa","x":10,"y":4},
- {"kind":"crater","x":12,"y":13},
- {"kind":"suburb","x":20,"y":9},
- {"kind":"shed","x":22,"y":13},
-]
-json.dump({"rows":rows,"objects":objects},open(__import__('sys').argv[1],'w'))
-print('\n'.join(rows))
+        u, s = us(x, y)
+        if Z[y][x] == 1 and K[y][x] == '.' and (u / 4.2) ** 2 + ((s - 21.5) / 3.6) ** 2 + 0.15 * math.sin(x * 2.1 + y) < 1:
+            K[y][x] = 'd'
+for u, s in [(-12, 21), (10, 20), (-4, 8), (9, 26), (-10, 28), (3, 31)]:
+    x, y = tile(u, s); K[y][x] = '*' if K[y][x] == '.' else K[y][x]
+# fences along the garden and the cliff top, as in the concept
+for pts in ([(-10, 26), (-9, 27), (-8, 28), (-7, 29), (-6, 30)], [(-4, 26), (-3, 27)], [(10, 27), (11, 26), (12, 25)], [(-12, 22), (-11, 23)]):
+    for u, s in pts:
+        x, y = tile(u, s)
+        if 0 <= x < W and 0 <= y < H and K[y][x] in '.b': K[y][x] = '#'
+
+objects = []
+def obj(kind, u, s, wx=1, wy=1):
+    """Place by the footprint's front tile at (u, s)."""
+    fx, fy = tile(u, s)
+    objects.append({'kind': kind, 'x': fx - wx + 1, 'y': fy - wy + 1})
+obj('sanctuary', 2, 10, 3, 4)
+obj('cottage', -10, 18, 2, 3)
+obj('casa', -4, 16, 2, 3)
+obj('suburb', 8, 15, 5, 2)
+obj('crater', 0, 22, 3, 3)
+obj('shed', 10, 24, 2, 2)
+for u, s in [(-7, 23), (-6, 24), (-7, 25), (-5, 23)]: obj('sunflowers', u, s)
+obj('lamp', -6, 21)
+obj('laundry', -7, 18)
+obj('chalk', -2, 30)
+obj('cat', -4, 31)
+obj('bench', 4, 28)
+obj('crates', 12, 24)
+
+# objects stand on their own ground: clear terrain under them, and level the ground to the front tile
+OBJ = json.load(open(os.path.join(os.path.dirname(MAP), '..', 'objects.json')))['objects']
+for o in objects:
+    d = OBJ[o['kind']]
+    zf = Z[o['y'] + d['wy'] - 1][o['x'] + d['wx'] - 1]
+    for yy in range(o['y'], o['y'] + d['wy']):
+        for xx in range(o['x'], o['x'] + d['wx']):
+            if K[yy][xx] in 'Tb#*': K[yy][xx] = '.'
+            Z[yy][xx] = zf          # level ground under it
+# the town sign by the path to the edge
+K[18][19] = 'S'
+
+rows = [''.join(r) for r in K]
+heights = [''.join(str(z) for z in r) for r in Z]
+data = json.load(open(MAP))
+data.update({
+    '_note': "Hollow Rest (bible §9), after the owner's concept art. Isometric (art/tools/iso_map.py bakes the look from this file). 'heights': the ground level per tile (0 = the sky past the island's edge). Built by art/tools/hollow_rest_layout.py; NPCs, signs and warps are placed by hand.",
+    'legend': {'.': 'grass', '=': 'path', 'd': 'dirt', 'T': 'tree', 'b': 'bush', '#': 'fence', '*': 'flowers', 'H': 'stairs', 'E': 'exit', 'S': 'sign', '~': 'water'},
+    'rows': rows, 'heights': heights, 'objects': objects,
+})
+json.dump(data, open(MAP, 'w'), indent=2)
+print('\n'.join(r + '   ' + h for r, h in zip(rows, heights)))

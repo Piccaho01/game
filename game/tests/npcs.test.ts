@@ -64,13 +64,13 @@ describe('NPCs', () => {
     expect(ids('callum')).toContain('patch');
   });
 
-  it('every NPC stands on open ground, PATCH takes two tiles, and NPCs block steps', () => {
+  it('every NPC stands on open ground, and NPCs block steps', () => {
     for (const map of Object.values(MAPS)) {
       for (const n of map.npcs) for (let dx = 0; dx < (n.w ?? 1); dx++) expect(isBlocked(map, n.x + dx, n.y), `${map.id}/${n.id}`).toBe(false);
     }
     const npcs = npcsFor(town, 'callum');
     const patch = town.npcs.find((n) => n.id === 'patch')!;
-    expect(npcAt(npcs, patch.x + 1, patch.y)?.id).toBe('patch');
+    expect(npcAt(npcs, patch.x, patch.y)?.id).toBe('patch');
     const below = { map: 'hollow_rest', x: patch.x, y: patch.y + 1, dir: 'down' as const };
     expect(step(below, 'up', (x, y) => !!npcAt(npcs, x, y)).moved).toBe(false);
   });

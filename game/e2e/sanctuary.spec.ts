@@ -14,7 +14,7 @@ test('at the sanctuary stones, the first wing is restored with the bestiary poin
       version: 2, leader: 'nolan', nextUid: 3, sanctuary: [], wings: [],
       team: [{ uid: 1, species: 'sprigby', level: 8, bond: 'strong' }, { uid: 2, species: 'orbitot', level: 4, bond: 'steady' }],
       bestiary: { sprigby: rec({ encounters: 1, seals: 1, strongBonds: 1 }), orbitot: rec({ seals: 1 }), fledjet: rec({ encounters: 1 }) },
-      pos: { map: 'hollow_rest', x: 10, y: 3, dir: 'up' },
+      pos: { map: 'hollow_rest', x: 5, y: 5, dir: 'up' },
     }));
   });
   await page.goto('/?seed=1');

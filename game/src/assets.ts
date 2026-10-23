@@ -21,6 +21,18 @@ export const STANDS: Record<string, string> = Object.fromEntries(
   Object.entries(stands).map(([path, url]) => [base(path).replace(/_stand$/, ''), url]),
 );
 
+/** Isometric maps baked by art/tools/iso_map.py: the ground image and where everything upright stands. */
+export interface MapSprite { art: string; x: number; y: number; fx: number; fy: number; wx: number; wy: number; key: number; decal: boolean }
+export interface MapLayout { origin: { x: number; y: number }; tile: { w: number; h: number; z: number }; size: { w: number; h: number }; sprites: MapSprite[] }
+const mapPngs = import.meta.glob('../../art/locations/out/maps/*.png', { eager: true, query: '?url', import: 'default' }) as Record<string, string>;
+const mapJsons = import.meta.glob('../../art/locations/out/maps/*.json', { eager: true, import: 'default' }) as Record<string, MapLayout>;
+export const MAP_ART: Record<string, { png: string; layout: MapLayout }> = Object.fromEntries(
+  Object.entries(mapJsons).map(([path, layout]) => [base(path), { layout, png: mapPngs[path.replace(/\.json$/, '.png')] }]),
+);
+/** The upright pieces those maps use, colour-graded to match (art/locations/out/graded). */
+const props = import.meta.glob('../../art/locations/out/graded/*.png', { eager: true, query: '?url', import: 'default' }) as Record<string, string>;
+export const PROP_ART: Record<string, string> = Object.fromEntries(Object.entries(props).map(([path, url]) => [base(path), url]));
+
 export const SPRITES: Record<string, SpriteAsset> = {};
 for (const [path, url] of Object.entries(anims)) {
   const key = base(path).replace(/_idle$/, '');

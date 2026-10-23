@@ -1,19 +1,8 @@
-import { expect, test, type Page } from '@playwright/test';
+import { expect, test } from '@playwright/test';
+import { ow, ready as waitReady, tapKey, walkTo } from './walk';
 
-type Ow = { pos(): { map: string; x: number; y: number; dir: string }; ready(): boolean; talking(): boolean; npcs(): string[] };
-const ow = (page: Page) => page.evaluate(() => (window as unknown as { __overworld: Ow }).__overworld.pos());
+type Ow = { ready(): boolean; talking(): boolean; npcs(): string[] };
 const ready = () => (window as unknown as { __overworld?: Ow }).__overworld?.ready();
-
-async function tapKey(page: Page, key: string) {
-  const before = await ow(page);
-  await page.keyboard.press(key);
-  await page.waitForFunction((b) => {
-    const o = (window as unknown as { __overworld: Ow }).__overworld;
-    const p = o.pos();
-    return o.ready() && (p.x !== b.x || p.y !== b.y || p.dir !== b.dir);
-  }, before, { timeout: 5_000 }).catch(() => undefined);
-  await page.waitForFunction(ready, null, { timeout: 10_000 });
-}
 
 test('the friends wait at the sanctuary, and PATCH heals the team', async ({ page }) => {
   const errors: string[] = [];
@@ -28,16 +17,15 @@ test('the friends wait at the sanctuary, and PATCH heals the team', async ({ pag
     }));
   });
   await page.goto('/?seed=1');
-  await page.waitForFunction(ready, null, { timeout: 60_000 });
+  await waitReady(page);
   const npcs = await page.evaluate(() => (window as unknown as { __overworld: Ow }).__overworld.npcs());
   expect(npcs).toEqual(expect.arrayContaining(['patch', 'nolan', 'haydon', 'dani']));
   expect(npcs).not.toContain('callum');
 
-  // Up the path into the sanctuary, right to stand under PATCH, face him.
-  while ((await ow(page)).y > 3) await tapKey(page, 'ArrowUp');
-  while ((await ow(page)).x < 13) await tapKey(page, 'ArrowRight');
-  await tapKey(page, 'ArrowUp');
-  expect(await ow(page)).toEqual({ map: 'hollow_rest', x: 13, y: 3, dir: 'up' });
+  // Up the hill to the sanctuary, to stand in front of PATCH, and face him.
+  await walkTo(page, 3, 6);
+  await tapKey(page, 'up');
+  expect(await ow(page)).toEqual({ map: 'hollow_rest', x: 3, y: 6, dir: 'up' });
 
   await page.keyboard.press('Space');
   await page.waitForFunction(() => (window as unknown as { __overworld: Ow }).__overworld.talking());
