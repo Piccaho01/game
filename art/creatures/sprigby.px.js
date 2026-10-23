@@ -44,11 +44,11 @@ const FRONT = `
   .......DLLLLLLbbbbkkDlLLLLlggkk
   ......DLLLLLbbbbbbbkDlllllllggggk
   ......DLLLLbbbbbbbbkDllllllgggggG
-  .....Dkkkbbbbbkkkkbskggggggggkkk
-  .....Dwkekbbbkwkekbskkkkkkkk
-  .....Dekekbbbkekekbsk......DLk
-  .....Deeekbbbkeeekbsk......DLlk
-  .....Dkkkcccbbkkkbssk......DLlgk
+  .....Dbbbbbbbbbbbbbskggggggggkkk
+  .....Dkkbbbbbbkkkbbskkkkkkkk
+  .....Dwkkbbbbkwkkbbsk......DLk
+  .....Deekbbbbkeekbbsk......DLlk
+  .....Dkkbbccbbkkbbssk......DLlgk
   L....kkcccckccbbGlGk.......DLlgk.k
   gLLLLLlkkkkcccbsGGGk.......DLlgkDk
   .ggg..kccccccbbbbssk.....k.DLlgDlk
