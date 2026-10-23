@@ -13,7 +13,7 @@ import { backIdleAnimKey, backKey, frontKey, idleAnimKey } from './BootScene';
 import { SealMinigame } from './SealMinigame';
 
 interface BattleInit { foe: string; seed?: number }
-type Phase = 'intro' | 'menu' | 'fight' | 'playing' | 'sealing' | 'over';
+type Phase = 'intro' | 'menu' | 'fight' | 'team' | 'switching' | 'playing' | 'sealing' | 'over';
 
 const FOE_LEVEL = 5;
 /** Wild foes the "Next battle" button cycles through. */
@@ -40,6 +40,9 @@ export class BattleScene extends Phaser.Scene {
   private bond: Bond | null = null;
   private sealGame?: SealMinigame;
   private progress!: Progress;
+  private introEvents: BattleEvent[] = [];
+  /** Team HP when the current events were made, so a Patchling switching in shows its HP before the foe's hit. */
+  private hpBefore: number[] = [];
   private lastSeal: SealResult | null = null;
 
   constructor() { super('battle'); }
@@ -55,14 +58,14 @@ export class BattleScene extends Phaser.Scene {
     this.cameras.main.setOrigin(0, 0).setZoom(ZOOM).setRoundPixels(true);
     const seed = this.params.seed ?? Math.floor(Math.random() * 2 ** 31);
     this.progress = this.registry.get('progress') as Progress;
-    // The team's lead battles (one active Patchling per side until switching lands).
-    const lead = this.progress.team[0];
-    this.battle = new Battle(createBattler(lead.species, lead.level, undefined, lead.bond), createBattler(this.params.foe, FOE_LEVEL), createRng(seed));
+    // The whole team comes along; the lead goes out first. Everyone is healed between battles for now.
+    const team = this.progress.team.map((m) => createBattler(m.species, m.level, undefined, m.bond));
+    this.battle = new Battle(team, createBattler(this.params.foe, FOE_LEVEL), createRng(seed));
+    this.introEvents = this.battle.intro();
 
     this.drawBackdrop();
     this.sprites = {
       foe: this.addBattler('foe', 192, 100),
-      // Back sprites arrive in M2; until then the front sprite is mirrored to face the foe.
       player: this.addBattler('player', 66, 158),
     };
     this.hpBoxes = { foe: new HpBox(this, 6, 10, 'foe'), player: new HpBox(this, 136, 104, 'player') };
@@ -92,8 +95,7 @@ export class BattleScene extends Phaser.Scene {
     g.fillStyle(0x6ca858).fillEllipse(66, 153, 140, 26);
   }
 
-  private addBattler(side: Side, x: number, y: number) {
-    const species = this.battle.sides[side].species;
+  private addBattler(side: Side, x: number, y: number, species = this.battle.sides[side].species) {
     // BW shows your own Patchling from behind at 2x; species without a back sprite yet use the
     // front one mirrored.
     if (side === 'player' && this.textures.exists(backKey(species))) {
@@ -130,7 +132,41 @@ export class BattleScene extends Phaser.Scene {
     const canSeal = this.battle.canSeal();
     this.menu.add(button(this, 44, 160, 76, 40, 'SEAL', canSeal ? 0x9050c0 : 0x505058, canSeal ? () => this.trySeal() : undefined, { name: 'seal' }));
     this.menu.add(button(this, 128, 166, 76, 32, 'RUN', 0x4070c0, () => this.choose({ kind: 'run' }), { name: 'run' }));
-    this.menu.add(button(this, 212, 160, 76, 40, 'TEAM', 0x707080, undefined, { sub: 'soon' }));
+    const canSwitch = this.battle.canSwitch();
+    this.menu.add(button(this, 212, 160, 76, 40, 'TEAM', canSwitch ? 0x40a060 : 0x505058, canSwitch ? () => this.showTeamMenu(false) : undefined, { name: 'team' }));
+  }
+
+  /** Pick a Patchling to send in. Forced after a faint (no BACK, no foe turn). */
+  private showTeamMenu(forced: boolean) {
+    this.phase = forced ? 'switching' : 'team';
+    this.clearMenu();
+    if (forced) this.message.prompt('Who will you send in next?');
+    const ok = new Set(this.battle.switchable());
+    this.battle.team.forEach((b, i) => {
+      const x = 66 + (i % 2) * 124;
+      const y = 26 + Math.floor(i / 2) * 44;
+      const color = Phaser.Display.Color.HexStringToColor(TYPES[b.types[0]].color).darken(28).color;
+      const sub = i === this.battle.active ? 'IN BATTLE' : b.hp <= 0 ? 'FAINTED' : `HP ${b.hp}/${b.stats.hp}`;
+      this.menu.add(button(this, x, y, 118, 38, `${b.name} Lv${b.level}`, ok.has(i) ? color : 0x505058,
+        ok.has(i) ? () => (forced ? this.sendIn(i) : this.choose({ kind: 'switch', index: i })) : undefined, { sub, name: `member${i}` }));
+    });
+    if (!forced) this.menu.add(button(this, 128, 172, 120, 28, 'BACK', 0x505060, () => this.showMainMenu(), { name: 'back' }));
+  }
+
+  private async sendIn(index: number) {
+    if (this.phase !== 'switching') return;
+    this.phase = 'playing';
+    this.clearMenu();
+    this.hpBefore = this.battle.team.map((b) => b.hp);
+    await this.playEvents(this.battle.forceSwitch(index));
+    this.showMainMenu();
+  }
+
+  /** After a turn's events: the battle ended, a fainted Patchling needs replacing, or back to the menu. */
+  private async next() {
+    if (this.battle.outcome) await this.afterBattle();
+    else if (this.battle.needsSwitch) this.showTeamMenu(true);
+    else this.showMainMenu();
   }
 
   private showFightMenu() {
@@ -176,7 +212,7 @@ export class BattleScene extends Phaser.Scene {
 
   private async playIntro() {
     this.clearMenu();
-    await this.playEvents(this.battle.intro());
+    await this.playEvents(this.introEvents);
     await this.record(recordEncounter(this.progress, this.battle.foe.species));
     this.showMainMenu();
   }
@@ -205,13 +241,13 @@ export class BattleScene extends Phaser.Scene {
   }
 
   private async choose(action: PlayerAction) {
-    if (this.phase !== 'menu' && this.phase !== 'fight') return;
+    if (this.phase !== 'menu' && this.phase !== 'fight' && this.phase !== 'team') return;
     this.phase = 'playing';
     this.clearMenu();
     this.menu.add(pixelText(this, 128, 96, 'tap to speed up', { color: '#8888a0' }).setOrigin(0.5));
+    this.hpBefore = this.battle.team.map((b) => b.hp);
     await this.playEvents(this.battle.runTurn(action));
-    if (this.battle.outcome) await this.afterBattle();
-    else this.showMainMenu();
+    await this.next();
   }
 
   private async trySeal() {
@@ -228,9 +264,9 @@ export class BattleScene extends Phaser.Scene {
     this.sealGame = undefined;
     this.lastSeal = result;
     this.phase = 'playing';
+    this.hpBefore = this.battle.team.map((b) => b.hp);
     await this.playEvents(this.battle.seal(result));
-    if (this.battle.outcome) await this.afterBattle();
-    else this.showMainMenu();
+    await this.next();
   }
 
   private async playEvents(events: BattleEvent[]) {
@@ -253,6 +289,9 @@ export class BattleScene extends Phaser.Scene {
           break;
         case 'faint':
           await this.faint(e.side);
+          break;
+        case 'switch':
+          await this.swapIn(e.index);
           break;
         case 'sealed':
           this.bond = e.bond;
@@ -289,6 +328,21 @@ export class BattleScene extends Phaser.Scene {
     await wait(this, 80);
   }
 
+  /** The outgoing Patchling shrinks away (unless it already fainted) and the new one pops in. */
+  private async swapIn(index: number) {
+    const old = this.sprites.player;
+    if (old.alpha > 0) await tweenAsync(this, { targets: old, scaleX: 0, scaleY: 0, duration: 200, ease: 'Quad.easeIn' });
+    (old.getData('label') as Phaser.GameObjects.Text | undefined)?.destroy();
+    old.destroy();
+    const b = this.battle.team[index];
+    const s = this.addBattler('player', 66, 158, b.species);
+    const scale = s.scaleX;
+    s.setScale(0);
+    this.sprites.player = s;
+    this.hpBoxes.player.set({ ...b, hp: this.hpBefore[index] ?? b.hp, status: b.status });
+    await tweenAsync(this, { targets: s, scaleX: scale, scaleY: scale, duration: 220, ease: 'Back.easeOut' });
+  }
+
   private faint(side: Side) {
     const s = this.sprites[side];
     s.stop();
@@ -310,6 +364,7 @@ export class BattleScene extends Phaser.Scene {
       phase: () => this.phase,
       outcome: () => this.battle.outcome,
       bond: () => this.bond,
+      active: () => this.battle.player.name,
       sealBeatsIn: () => this.sealGame?.msToBeats() ?? null,
       lastSeal: () => this.lastSeal,
       log: () => [...this.log],
