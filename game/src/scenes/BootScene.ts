@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import { SPRITES, type SpriteAsset } from '../assets';
 import { SPECIES, TYPES } from '../engine/data';
+import { clearProgress, loadProgress } from '../save';
 
 /** Texture key for a species' battle sprite; always exists after boot (real art or a placeholder). */
 export const frontKey = (species: string) => `front:${species}`;
@@ -28,8 +29,11 @@ export class BootScene extends Phaser.Scene {
       if (this.textures.exists(backKey(id))) this.makeIdle(backKey(id), backIdleAnimKey(id));
     }
     const params = new URLSearchParams(location.search);
+    // ?reset clears the save; ?player picks the starter for a new save (the starter pick screen comes later in M3).
+    if (params.has('reset')) clearProgress();
+    const starter = params.get('player');
+    this.registry.set('progress', loadProgress(starter && SPECIES[starter] ? starter : 'furnaxol'));
     this.scene.start('battle', {
-      player: params.get('player') ?? 'furnaxol',
       foe: params.get('foe') ?? 'sprigby',
       seed: params.has('seed') ? Number(params.get('seed')) : undefined,
     });

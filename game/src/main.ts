@@ -3,6 +3,7 @@ import Phaser from 'phaser';
 import { SCREEN_W, VIEW_H, ZOOM } from './config';
 import { BootScene } from './scenes/BootScene';
 import { BattleScene } from './scenes/BattleScene';
+import { JournalScene } from './scenes/JournalScene';
 
 async function start() {
   // Text is drawn to textures, so the pixel font must be ready before the first scene.
@@ -18,7 +19,7 @@ async function start() {
     fps: { smoothStep: false },
     scale: { mode: Phaser.Scale.FIT, autoCenter: Phaser.Scale.CENTER_BOTH },
     input: { activePointers: 2 },
-    scene: [BootScene, BattleScene],
+    scene: [BootScene, BattleScene, JournalScene],
   });
   (window as unknown as { __game: Phaser.Game }).__game = game;
 }

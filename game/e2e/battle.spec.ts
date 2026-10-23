@@ -25,7 +25,7 @@ test('boots on a phone and Furnaxol wins the placeholder battle', async ({ page 
   page.on('pageerror', (e) => errors.push(e.message));
   await page.goto('/?seed=3');
   await page.waitForFunction(() => window.__battle?.phase() === 'menu', null, { timeout: 60_000 });
-  expect(await page.evaluate(() => window.__battle.log())).toEqual(['A wild Sprigby appeared!', 'Go! Furnaxol!']);
+  expect(await page.evaluate(() => window.__battle.log())).toEqual(['A wild Sprigby appeared!', 'Go! Furnaxol!', 'Bestiary: Sprigby sighted. New entry!']);
 
   for (let turn = 0; turn < 20; turn++) {
     await tap(page, 'fight');
@@ -37,10 +37,16 @@ test('boots on a phone and Furnaxol wins the placeholder battle', async ({ page 
 
   expect(await page.evaluate(() => window.__battle.outcome())).toBe('win');
   expect(await page.evaluate(() => window.__battle.log())).toContain('The wild Sprigby fainted!');
+  expect(await page.evaluate(() => window.__battle.log())).toContain('Bestiary: Sprigby is now Tracked.');
 
   // The end screen offers the next fight.
   await tap(page, 'next');
   await page.waitForFunction(() => window.__battle.log()[0] === 'A wild Zapail appeared!', null, { timeout: 60_000 });
+
+  // Progress is saved: after a reload Sprigby is already in the bestiary, so no new entry.
+  await page.goto('/?seed=3');
+  await page.waitForFunction(() => window.__battle?.phase() === 'menu', null, { timeout: 60_000 });
+  expect(await page.evaluate(() => window.__battle.log())).toEqual(['A wild Sprigby appeared!', 'Go! Furnaxol!']);
   expect(errors).toEqual([]);
 });
 

@@ -2,22 +2,27 @@ import Phaser from 'phaser';
 import { SCREEN_H, SCREEN_W, ZOOM } from '../config';
 import { Battle, type BattleEvent, type PlayerAction, type Side } from '../engine/battle';
 import { createBattler } from '../engine/battler';
+import { recordDefeat, recordEncounter, recordSeal, type DexChange, type Progress } from '../engine/progress';
 import { MOVES, SPECIES, TYPES, type StatusId } from '../engine/data';
 import { createRng } from '../engine/rng';
 import { sealPattern, sealWindows, type Bond, type SealResult } from '../engine/seal';
 import { pixelText } from '../ui/text';
+import { button, tweenAsync, wait } from '../ui/widgets';
+import { saveProgress } from '../save';
 import { backIdleAnimKey, backKey, frontKey, idleAnimKey } from './BootScene';
 import { SealMinigame } from './SealMinigame';
 
-interface BattleInit { player: string; foe: string; seed?: number }
+interface BattleInit { foe: string; seed?: number }
 type Phase = 'intro' | 'menu' | 'fight' | 'playing' | 'sealing' | 'over';
 
-const PLAYER_LEVEL = 8;
 const FOE_LEVEL = 5;
 /** Wild foes the "Next battle" button cycles through. */
-const FOE_ROTATION = ['sprigby', 'zapail', 'gobbin'];
+const FOE_ROTATION = ['sprigby', 'zapail', 'gobbin', 'furnaxol'];
 const STATUS_COLORS: Record<StatusId, number> = { brn: 0xe8603c, par: 0xd8b020, psn: 0xa050c0, slp: 0x8890a0 };
 const BOTTOM = SCREEN_H;
+const STAGE_TEXT: Record<string, string> = {
+  sighted: 'sighted. New entry!', tracked: 'is now Tracked.', studied: 'is now Studied.', sealed: 'is now Sealed.', bonded: 'is now Bonded!',
+};
 const BOND_NAMES: Record<Bond, string> = { strong: 'Strong bond', steady: 'Steady bond', wary: 'Wary' };
 const CHAR_MS = 18;
 const LINE_HOLD_MS = 700;
@@ -34,6 +39,7 @@ export class BattleScene extends Phaser.Scene {
   private log: string[] = [];
   private bond: Bond | null = null;
   private sealGame?: SealMinigame;
+  private progress!: Progress;
   private lastSeal: SealResult | null = null;
 
   constructor() { super('battle'); }
@@ -48,7 +54,10 @@ export class BattleScene extends Phaser.Scene {
   create() {
     this.cameras.main.setOrigin(0, 0).setZoom(ZOOM).setRoundPixels(true);
     const seed = this.params.seed ?? Math.floor(Math.random() * 2 ** 31);
-    this.battle = new Battle(createBattler(this.params.player, PLAYER_LEVEL), createBattler(this.params.foe, FOE_LEVEL), createRng(seed));
+    this.progress = this.registry.get('progress') as Progress;
+    // The team's lead battles (one active Patchling per side until switching lands).
+    const lead = this.progress.team[0];
+    this.battle = new Battle(createBattler(lead.species, lead.level, undefined, lead.bond), createBattler(this.params.foe, FOE_LEVEL), createRng(seed));
 
     this.drawBackdrop();
     this.sprites = {
@@ -154,12 +163,13 @@ export class BattleScene extends Phaser.Scene {
     this.menu.add(pixelText(this, 128, 40, title, { color: '#ffffff', size: 16 }).setOrigin(0.5));
     if (this.bond) this.menu.add(pixelText(this, 128, 62, BOND_NAMES[this.bond], { color: '#d0b0ff' }).setOrigin(0.5));
     const next = FOE_ROTATION[(FOE_ROTATION.indexOf(this.params.foe) + 1) % FOE_ROTATION.length];
-    this.menu.add(button(this, 128, 104, 200, 44, 'NEXT BATTLE', 0x40a060, () => this.restart(next), { sub: `vs ${SPECIES[next].name}`, name: 'next' }));
-    this.menu.add(button(this, 128, 158, 200, 36, 'REMATCH', 0x505060, () => this.restart(this.params.foe), { name: 'rematch' }));
+    this.menu.add(button(this, 128, 100, 200, 40, 'NEXT BATTLE', 0x40a060, () => this.restart(next), { sub: `vs ${SPECIES[next].name}`, name: 'next' }));
+    this.menu.add(button(this, 70, 156, 104, 36, 'REMATCH', 0x505060, () => this.restart(this.params.foe), { name: 'rematch' }));
+    this.menu.add(button(this, 186, 156, 104, 36, 'JOURNAL', 0x9050c0, () => this.scene.start('journal', { foe: this.params.foe }), { name: 'journal' }));
   }
 
   private restart(foe: string) {
-    this.scene.restart({ player: this.params.player, foe });
+    this.scene.restart({ foe });
   }
 
   // ---------- flow ----------
@@ -167,7 +177,31 @@ export class BattleScene extends Phaser.Scene {
   private async playIntro() {
     this.clearMenu();
     await this.playEvents(this.battle.intro());
+    await this.record(recordEncounter(this.progress, this.battle.foe.species));
     this.showMainMenu();
+  }
+
+  /** Saves progress and announces a bestiary stage change, if any. */
+  private async record(change: DexChange | null) {
+    saveProgress(this.progress);
+    if (change) await this.say(`Bestiary: ${SPECIES[change.species].name} ${STAGE_TEXT[change.to]}`);
+  }
+
+  private async say(text: string) {
+    this.log.push(text);
+    await this.message.show(text);
+  }
+
+  /** After the battle: a defeat or a seal moves the bestiary; a seal adds to the team or sanctuary. */
+  private async afterBattle() {
+    const foe = this.battle.foe;
+    if (this.battle.outcome === 'win') await this.record(recordDefeat(this.progress, foe.species));
+    if (this.battle.outcome === 'sealed' && this.bond) {
+      const { where, change } = recordSeal(this.progress, foe.species, foe.level, this.bond);
+      await this.say(where === 'team' ? `${foe.name} joined your team!` : `Your team is full, so ${foe.name} went to the sanctuary.`);
+      await this.record(change);
+    }
+    this.showEndMenu();
   }
 
   private async choose(action: PlayerAction) {
@@ -176,7 +210,7 @@ export class BattleScene extends Phaser.Scene {
     this.clearMenu();
     this.menu.add(pixelText(this, 128, 96, 'tap to speed up', { color: '#8888a0' }).setOrigin(0.5));
     await this.playEvents(this.battle.runTurn(action));
-    if (this.battle.outcome) this.showEndMenu();
+    if (this.battle.outcome) await this.afterBattle();
     else this.showMainMenu();
   }
 
@@ -195,7 +229,7 @@ export class BattleScene extends Phaser.Scene {
     this.lastSeal = result;
     this.phase = 'playing';
     await this.playEvents(this.battle.seal(result));
-    if (this.battle.outcome) this.showEndMenu();
+    if (this.battle.outcome) await this.afterBattle();
     else this.showMainMenu();
   }
 
@@ -203,8 +237,7 @@ export class BattleScene extends Phaser.Scene {
     for (const e of events) {
       switch (e.kind) {
         case 'text':
-          this.log.push(e.text);
-          await this.message.show(e.text);
+          await this.say(e.text);
           break;
         case 'move':
           await this.lunge(e.side);
@@ -405,38 +438,4 @@ class MessageBox {
       this.skip = finishTyping;
     });
   }
-}
-
-function button(
-  scene: Phaser.Scene, x: number, y: number, w: number, h: number, label: string, color: number,
-  onTap?: () => void, opts: { size?: number; sub?: string; name?: string } = {},
-) {
-  const c = scene.add.container(x, y);
-  if (opts.name) c.setName(opts.name);
-  const light = Phaser.Display.Color.ValueToColor(color).lighten(18).color;
-  const dark = Phaser.Display.Color.ValueToColor(color).darken(30).color;
-  const g = scene.add.graphics();
-  g.fillStyle(0x101018).fillRoundedRect(-w / 2 - 1, -h / 2 - 1, w + 2, h + 4, 8);
-  g.fillStyle(dark).fillRoundedRect(-w / 2, -h / 2 + 2, w, h, 7);
-  g.fillStyle(color).fillRoundedRect(-w / 2, -h / 2, w, h, 7);
-  g.fillStyle(light).fillRoundedRect(-w / 2 + 4, -h / 2 + 3, w - 8, Math.min(8, h / 4), 3);
-  c.add(g);
-  const textY = opts.sub ? -6 : 0;
-  c.add(pixelText(scene, 0, textY, label, { color: onTap ? '#ffffff' : '#b0b0b8', size: opts.size ?? 8, shadow: '#00000080' }).setOrigin(0.5));
-  if (opts.sub) c.add(pixelText(scene, 0, 10, opts.sub, { color: '#f0f0f0', size: 6 }).setOrigin(0.5));
-  if (onTap) {
-    c.setSize(w, h).setInteractive({ useHandCursor: true });
-    c.on('pointerdown', () => c.setY(y + 2));
-    c.on('pointerout', () => c.setY(y));
-    c.on('pointerup', () => { c.setY(y); onTap(); });
-  }
-  return c;
-}
-
-function wait(scene: Phaser.Scene, ms: number) {
-  return new Promise<void>((r) => scene.time.delayedCall(ms, r));
-}
-
-function tweenAsync(scene: Phaser.Scene, config: Phaser.Types.Tweens.TweenBuilderConfig) {
-  return new Promise<void>((r) => scene.tweens.add({ ...config, onComplete: () => r() }));
 }

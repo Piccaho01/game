@@ -18,7 +18,7 @@ Rules that keep it efficient:
 - [x] Bible, art style guide (`art/BW_STYLE.md`), sprite pipeline validated (Furnaxol + idle)
 - [x] M1 Foundation (live once Pages is enabled: Settings → Pages → Source: GitHub Actions)
 - [x] M2 Stage-1 starters (branch `claude/m2-starters`: all four with front, idle, back and back idle in game; see "M2 handoff" below)
-- [ ] M3 Core loop (in progress on branch `claude/m3-core-loop`: seal minigame in battle; next: sealed Patchlings join a team + bestiary stages + sanctuary progress, save, character and starter pick, leader assists)
+- [ ] M3 Core loop (in progress on branch `claude/m3-core-loop`: seal, team of six + sanctuary, bestiary stages, save and the Journal done; next: switching team members in battle, character and starter pick, leader assists)
 - [ ] M4 Characters + world slice
 - [ ] M5 Playtest build
 - [ ] After the slice: evolutions, Connor, more of Verrow
@@ -128,6 +128,17 @@ clean-up stage; its automatic form shading looked like a vector render and is no
   count against you. A weaker target widens the windows and lowers the score needed (50% at
   0 HP, 80% at full HP). Bond: strong (85%+), steady (65%+), wary (sealed but sloppy).
 - A broken seal costs the turn. All numbers are first guesses: tune them on a phone.
+
+### Team, sanctuary, bestiary, save (built)
+- `game/src/data/progress.json`: team of 6 (owner's call); a seal with a full team goes straight to
+  the sanctuary. The starter comes bonded (its whole entry open).
+- Bestiary stages: Sighted (seen once), Tracked (seen twice or beaten once), Studied (seen 5 times
+  or beaten 3), Sealed, Bonded (sealed with a strong bond). Stages can be skipped; reaching one
+  opens all earlier lore. Sanctuary points = sum of stages (wings unlock on points in M4).
+- Bond boosts stats: strong +10%, steady +5%, wary +0.
+- Saved in the browser (localStorage) after every change; `?reset` starts over.
+- Journal (end of battle): TEAM (pick the lead) and BESTIARY (lore pages per stage).
+- Not yet: only the lead battles (no switching), no XP/levels, no healing between battles.
 
 ## M4 Characters + world slice (art + code)
 - From the owner's photos (bible §6 Looks): BW trainer battle sprite and a 4-direction

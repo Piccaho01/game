@@ -1,4 +1,6 @@
 import { MOVES, SPECIES, type StageStat, type Stats, type StatusId, type TypeId } from './data';
+import { BOND_BOOST } from './progress';
+import type { Bond } from './seal';
 
 export interface MoveSlot { id: string; pp: number; maxPp: number }
 
@@ -26,7 +28,7 @@ export interface Battler {
   };
 }
 
-/** Gen-3-style stat formula without IVs/EVs (bond boosts arrive with the seal in M3). */
+/** Gen-3-style stat formula without IVs/EVs. */
 export function calcStats(base: Stats, level: number): Stats {
   const other = (b: number) => Math.floor((2 * b * level) / 100) + 5;
   return {
@@ -42,10 +44,12 @@ export function movesAtLevel(speciesId: string, level: number): string[] {
   return [...new Set(learned)].slice(-4);
 }
 
-export function createBattler(speciesId: string, level: number, moveIds?: string[]): Battler {
+/** `bond`: how well it was sealed; a better seal means better stats (progress.json bondBoost). */
+export function createBattler(speciesId: string, level: number, moveIds?: string[], bond?: Bond): Battler {
   const sp = SPECIES[speciesId];
   if (!sp) throw new Error(`Unknown Patchling: ${speciesId}`);
-  const stats = calcStats(sp.base, level);
+  const boost = 1 + (bond ? BOND_BOOST[bond] : 0);
+  const stats = Object.fromEntries(Object.entries(calcStats(sp.base, level)).map(([k, v]) => [k, Math.floor(v * boost)])) as Stats;
   const ids = moveIds ?? movesAtLevel(speciesId, level);
   for (const id of ids) if (!MOVES[id]) throw new Error(`Unknown move: ${id}`);
   return {
