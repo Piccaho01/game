@@ -96,8 +96,9 @@ export class IntroScene extends Phaser.Scene {
       if (line.from !== 'system') {
         const dots = this.addTyping(line.from);
         await this.pause(TYPING_MS + Math.min(600, line.text.length * 12));
-        dots.destroy();
+        // Read its height before it goes: a destroyed object has no data.
         this.chatH -= dots.getData('h') as number;
+        dots.destroy();
       }
       if (this.skipped) return;
       await this.addMessage(line);
