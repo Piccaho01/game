@@ -5,6 +5,7 @@ declare global {
     __battle: {
       phase(): string;
       outcome(): string | null;
+      bond(): string | null;
       log(): string[];
       hp(): { player: number; foe: number };
       buttonAt(name: string): { x: number; y: number } | null;
@@ -40,5 +41,20 @@ test('boots on a phone and Furnaxol wins the placeholder battle', async ({ page 
   // The end screen offers the next fight.
   await tap(page, 'next');
   await page.waitForFunction(() => window.__battle.log()[0] === 'A wild Zapail appeared!', null, { timeout: 60_000 });
+  expect(errors).toEqual([]);
+});
+
+test('a seal with no taps breaks, and the wild Patchling gets its turn', async ({ page }) => {
+  const errors: string[] = [];
+  page.on('pageerror', (e) => errors.push(e.message));
+  await page.goto('/?seed=4&foe=zapail');
+  await page.waitForFunction(() => window.__battle?.phase() === 'menu', null, { timeout: 60_000 });
+  await tap(page, 'seal');
+  await page.waitForFunction(() => window.__battle.phase() === 'sealing');
+  await page.waitForFunction(() => window.__battle.phase() === 'menu', null, { timeout: 30_000 });
+  const log = await page.evaluate(() => window.__battle.log());
+  expect(log).toContain('Argh! The wild Zapail broke the seal!');
+  expect(log.some((l) => l.startsWith('The wild Zapail used'))).toBe(true);
+  expect(await page.evaluate(() => window.__battle.outcome())).toBeNull();
   expect(errors).toEqual([]);
 });

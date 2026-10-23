@@ -18,7 +18,7 @@ Rules that keep it efficient:
 - [x] Bible, art style guide (`art/BW_STYLE.md`), sprite pipeline validated (Furnaxol + idle)
 - [x] M1 Foundation (live once Pages is enabled: Settings → Pages → Source: GitHub Actions)
 - [x] M2 Stage-1 starters (branch `claude/m2-starters`: all four with front, idle, back and back idle in game; see "M2 handoff" below)
-- [ ] M3 Core loop
+- [ ] M3 Core loop (in progress on branch `claude/m3-core-loop`: seal minigame in battle; next: sealed Patchlings join a team + bestiary stages + sanctuary progress, save, character and starter pick, leader assists)
 - [ ] M4 Characters + world slice
 - [ ] M5 Playtest build
 - [ ] After the slice: evolutions, Connor, more of Verrow
@@ -119,6 +119,15 @@ clean-up stage; its automatic form shading looked like a vector render and is no
 - Leader assists for all four (Scan, Patch Up, Taunt, Shield).
 - Save to the browser (local storage) so progress survives closing the tab.
 - **Done when:** the full loop works start to finish with the four starters.
+
+### Seal (built)
+- `game/src/data/seals.json` holds the patterns (Fire *Kindle*: speeds up; Water *Tide*: pairs
+  then a swell; Plant *Root*: slow pulse, last beat early; Spark *Arc*: quick triples), timing
+  windows and scoring; other types use an even default beat until they get their own.
+- Rings close on the target; tap anywhere as each lands. Perfect/good/miss; taps between beats
+  count against you. A weaker target widens the windows and lowers the score needed (50% at
+  0 HP, 80% at full HP). Bond: strong (85%+), steady (65%+), wary (sealed but sloppy).
+- A broken seal costs the turn. All numbers are first guesses: tune them on a phone.
 
 ## M4 Characters + world slice (art + code)
 - From the owner's photos (bible §6 Looks): BW trainer battle sprite and a 4-direction
