@@ -7,18 +7,10 @@
 // then the head, crest, face, fists and sprig were redrawn by hand over a gridded underlay of the
 // art. Approved by the owner.
 //
-// The back sprite is the same pose turned round (not mirrored), facing right, drawn like
-// Mienfoo's back: the camera moved behind him.
-// - Arms still up but seen from behind: elbow and forearm on the near side, the back of the taped
-//   fist past the head; the fists point away toward the foe.
-// - The back faces away from the light: the skin is the shadow tone with a lit rim along the top
-//   and right, one continuous form from the head down.
-// - The tail grows from the base of the spine and lies over the hips, toward the camera, before
-//   curving up into the leaf fan.
-// - Legs, drawn by hand: both feet point right, the way he faces. The near leg (his front
-//   sprite's extended leg) is bigger and lower, with a lit rim; the far leg steps forward, bent at the
-//   knee, smaller, higher and all in shadow.
-// - The corner of the eye and the sprig's tip peek past the head's right edge to show the facing.
+// The back sprite is translated from the owner's back-view concept (art/concepts/sprigby_back.png)
+// the same way: every concept pixel classified by material (lime skin, leaf, brown), the cell
+// taking the majority material and its tone; the concept's bark patches left out (they are
+// Fernaroo's); the head, crest, eye corner and sprig drawn by hand over a gridded underlay.
 // Grids sit so the feet are on y = 91.
 //
 // Sprites: sprigby (front still), sprigby_idle, sprigby_back, sprigby_back_idle.
@@ -90,54 +82,60 @@ const FRONT = `
   ........................k.kkk
   ............................k`
 const BACK = `
-  .....................k
-  ....................Dlk
-  ...................DLlk
-  .......DDDDDDk.....DLlk
-  .....DgglllLLlDk..DgLlk
-  .....kggggllllLlDDkgLlk.Dk
-  .......kkgggglllLlDgLlDDLlk
-  .........DkkggllllDgLlDLlk
-  ......DDDDDDDk.DDDlLblgkDk
-  ...DDgglLLLLlDDDLLDlbgkbbLk
-  .DgggglllllllDDbbbbDlkbLLbLk
-  .GgggggllllllDDbbbbbbbbsLLLk
-  ..kkkggggggggDbssssbbbssssbLk
-  ......DkkkkkkDbsssssssssssbLe
-  ....DLk......Dssssssssssssbbk
-  ...DlLk......Dssssssssssssbbk
-  ..DglLk......kssssssssssssbbk
-  k.DglLk.......Dssssssssssbbkk
-  DDkglLk.......DssssssssssbbkLLLl
-  DlDglsk.k.....Dsssssssssbbkkggg
-  DgDglsDDl.....DssssssssbbkkGGk
-  DgDglsDgl...DskssssssssbbkgGgGk
-  DgDglDgls..DsskssssssssbbksGgGk
-  kggglDgls.Dssskssssssssbbkssk
-  .DgglDglk.DsGGksssssssbbkkk
-  .kggDgglk.DGgGksssssssbbk
-  ..Dgrrlk..kGGGkDssssssbbk
-  ..kgrRrk...kkk.Dssssssbbk
-  ....krRr........Dsssssbbk
-  .....krRr......Dsssssssbbk
-  ......krRrr...Dlsrrrrsssbbk
-  .......krRRrrrrrrRRRRksssbbk
-  ........krrRRRRRRrrrrkssssbbk
-  .........kkrrrrrrrrkksssssbbk
-  ..........Dkkkkkkkkssssssssbbk
-  ..........DssssssskDssssssbbk
-  .........Dssssssk...Dsssssbbk
-  ........Dsssssk.....Dsssssbbk
-  .......Dssssk........Dssssbbk
-  ........Dssssk.......Dsssbbk
-  .........Dssssk.......Dssbbk
-  ..........Dsssk.......Dssbbk
-  .........rRRRRRrk.....Dssbbk
-  .........rRRRRrrrkk...Dssbbk
-  .........kkkkkkk.k...rRRRRRRrk
-  .....................rRRRRrRRrrk
-  .....................krrrrrrrkrkk
-  ......................kkkkkkk.k.k`
+  ....................Gk
+  ....................Glk
+  ....................GLgk
+  .....................GLggk....Gk
+  .....................GLlggk..Glgk
+  ...........GGGGGGGGGGkGLlgkkGLlgk
+  .........GlllGlLLLLllgkGlgkLGlgk
+  .........kggkglllllggggkLLLbbgk
+  .............kkggggggggkLbbbbbbk
+  ...................Gllggkbbbbbbk
+  ..................Glgggkbbbbbbse
+  .................Glggkkbbbbbsssk
+  ................Gggk...Dbbbsssk
+  ................kk.....kksssskLLLl
+  .......................ssssss.ggg
+  ......................DDDbbbbk
+  ....k................DbbbbbbbbDDk
+  ....GGk.............Dssbbbbbbbbsk
+  ....GllGGk..........Dssbbbbbbbbksk
+  ....Gllllk..........Dssbbbbssbbbkk
+  ....kllllgk.k......Dsssbbbbskbbbkk
+  GGk..GlglggGk.....Gssskbbbbk.kbbbbk
+  kllGGllgllllk.....Gksgkbbbbk..Dbbbk
+  .kllllLgggllk.....kkkk.Dbbbk..kskbk
+  ..GgglLLggllk.........Dbbbbk...kkk
+  ..GgggLLLglLLk.......Dbbbbbbk
+  .GGggggLLLlllk......rbbbbbbbbk
+  klggggggllglk......rsbRkbbbbbbk
+  .kggggggglglk.....rksRRkbbbbbbbk
+  ..kgggggggRk.....rrrRRRkbbbbbbbbk
+  ...kkgggGrRk.....rrRRRRkssbbbbbbk
+  .....GgGGrrRk....rRRRRrkskssbbbbbk
+  ....kkkggGrrrrrrrRRRRrrlk.kksssbbbk
+  .......kkkkrrRRRRRRrrrrk....kksbbbk
+  ...........rrrrRRrrrrrk.......Dsssbk
+  ...........kkrrrrrrrsk........Dsbbk
+  .............krrrbbsk........Dsbbbk
+  ..............Dbbbbk.........Dsbbk
+  ..............Dbbbbk.........Dsbk
+  .............Dbbbbk..........Dbk
+  .............Dbbbkk..........Dbk
+  .............Dbbk............kssk
+  ............Dbbk..............ksbk
+  ...........Dbbk................Dsbrk
+  ..........Dbbbk................kssRRk
+  ..........Dbbk..................krrkkk
+  .........Dbbbk...................kk
+  ........rbRbbk
+  .......rrRRRRk
+  .......rrRRRRk
+  ......rrrRrRRrk
+  .....kklrrrrrkk
+  .......krkkrk
+  ........k..k`
 
 // Draw a grid with everything above row `split` shifted down by `bob` (the breath: the upper body
 // sinks into the hips); the lower rows go first so the upper body overlaps them.
@@ -152,5 +150,5 @@ const BREATH = [0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0]
 
 sprite("sprigby", { w: 96, h: 96 }, (c) => draw(c, FRONT, 30, 43))
 anim("sprigby_idle", { w: 96, h: 96, frames: 12, fps: 10 }, (c) => draw(c, FRONT, 30, 43, BREATH[c.frame]))
-sprite("sprigby_back", { w: 96, h: 96 }, (c) => draw(c, BACK, 32, 44))
-anim("sprigby_back_idle", { w: 96, h: 96, frames: 12, fps: 10 }, (c) => draw(c, BACK, 32, 44, BREATH[c.frame], 32))
+sprite("sprigby_back", { w: 96, h: 96 }, (c) => draw(c, BACK, 32, 38))
+anim("sprigby_back_idle", { w: 96, h: 96, frames: 12, fps: 10 }, (c) => draw(c, BACK, 32, 38, BREATH[c.frame], 30))
