@@ -110,10 +110,11 @@ export class OverworldScene extends Phaser.Scene {
     this.npcSprites.clear();
     for (const n of this.npcs) {
       const f = this.feet(n.x, n.y);
-      const s = this.add.image(f.x, f.y, '__DEFAULT').setOrigin(0.5, 1).setDepth((n.x + n.y) * 10 + 5);
+      const s = this.add.image(f.x, f.y, '__DEFAULT').setOrigin(0.5, 1);
       this.npcSprites.set(n.id, s);
       this.world.add(s);
       this.faceNpc(n, n.dir ?? 'down');
+      s.setDepth(this.depthAt(s, n));
     }
     this.world.add(this.player);
     this.placePlayer();
@@ -167,15 +168,20 @@ export class OverworldScene extends Phaser.Scene {
     const sx = clamp(this.player.x - SCREEN_W / 2, size.w, SCREEN_W);
     const sy = clamp(this.player.y - 16 - SCREEN_H / 2, size.h, SCREEN_H);
     this.world.setPosition(-Math.round(sx), -Math.round(sy));
+    this.player.setDepth(this.depthAt(this.player, tile));
+    this.world.sort('depth');
+  }
+
+  /** Draw order for someone on a tile: by tile depth, except that next to a building the footprint decides. */
+  private depthAt(sprite: Phaser.GameObjects.Image, tile: { x: number; y: number }) {
     let depth = (tile.x + tile.y) * 10 + 5;
-    const b = this.player.getBounds();
+    const b = sprite.getBounds();
     for (const { img, sp } of this.big) {
       if (!Phaser.Geom.Intersects.RectangleToRectangle(b, img.getBounds())) continue;
       const inFront = tile.x >= sp.fx + sp.wx || tile.y >= sp.fy + sp.wy;
       depth = inFront ? Math.max(depth, sp.key + 1) : Math.min(depth, sp.key - 1);
     }
-    this.player.setDepth(depth);
-    this.world.sort('depth');
+    return depth;
   }
 
   private showMapName() {

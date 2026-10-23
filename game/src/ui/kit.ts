@@ -276,14 +276,14 @@ export function isoPad(scene: Phaser.Scene, x: number, y: number, size: number, 
       diamond(ax, ay, r, shade(COLORS.metalLight, -0.4), 2);
       diamond(ax, ay, r, d === held ? shade(COLORS.metalLight, 0.15) : COLORS.metalLight);
       diamond(ax, ay - Math.floor(r / 2), Math.floor(r / 3), shade(COLORS.metalLight, 0.25));
-      // arrow pointing out along the diagonal
+      // a triangle in the arm's outer corner, pointing out along the diagonal
       const sx = Math.sign(ax), sy = Math.sign(ay);
       g.fillStyle(d === held ? COLORS.gold : COLORS.paper);
-      for (let i = 0; i < 4; i++) {
-        g.fillRect(ax + sx * 3 - (sx > 0 ? i : -i) * 1 - (sx > 0 ? 1 : 0), ay + sy * 3, 1, 1);
-        g.fillRect(ax + sx * 3, ay + sy * 3 - (sy > 0 ? i : -i) * 1 - (sy > 0 ? 1 : 0), 1, 1);
+      for (let dx = 1; dx <= 4; dx++) {
+        for (let dy = 1; dy <= 4; dy++) {
+          if (dx + dy >= 5) g.fillRect(ax + sx * dx - (sx < 0 ? 1 : 0), ay + sy * dy - (sy < 0 ? 1 : 0) - 1, 1, 1);
+        }
       }
-      g.fillRect(ax + sx * 3 - (sx > 0 ? 1 : 0) - sx, ay + sy * 3 - (sy > 0 ? 1 : 0) - sy, 1, 1);
     }
   };
   drawPad(null);
