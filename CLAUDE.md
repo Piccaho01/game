@@ -23,9 +23,9 @@ A BW2-style creature-collecting RPG where four best friends get trapped inside t
 - **Creature sprites:** strict 96x96 canvas (the real BW battle-sprite size; body size varies per creature), indexed colour (15 colours max plus transparent), 3/4-view (not flat side profiles), dynamic non-stiff poses. Follow `art/BW_STYLE.md`.
 - **Quality bar:** detailed, original creatures with a unique overall style. Each type gets its own distinct eyes and mouth style, not a shared face template.
 - **Evolution:** hand-designed sprites per stage (no swappable-parts system).
-- **Process:** all sprites are made with **claude-pxl** (pixel-art-as-code tool). Do not hand-roll sprite generation or guess pixel placement. Define sprites as code on the 96x96 grid with a fixed 15-colour palette per creature. Reference sprites may be supplied by the owner as silhouette guides.
+- **Process (since M2):** the owner draws each sprite (front and back) as a **pixel-art draft with ChatGPT** (prompt in `art/BW_STYLE.md`, "Workflow"); drafts are kept in `art/concepts/`. Claude converts the draft with `art/tools/pixel2grid.py` (recovers the real pixel grid, maps to a 15-colour palette, cleans specks and outlines) into a **claude-pxl** file (`art/creatures/<name>.px.js`, grids on the 96x96 canvas), then does the hand pass and the idle animation. Do not redraw a draft from scratch or invent pixel placement: AI drafts look far better than code-built shapes, so changes are edits on the converted grid. Reference sprites may be supplied by the owner as guides.
 - **Pitch first:** before drawing any creature (or evolution stage), pitch the concept to the owner (name, type, look, story hook, battle pose, signature move) and get approval. Never commit to a design unpitched.
-- **Art is the main risk.** The pipeline is validated on **Furnaxol** (`art/creatures/furnaxol.px.js`, the reference creature); start new creatures from it and from the lessons in `art/BW_STYLE.md`.
+- **Art is the main risk.** The workflow is validated on **Furnaxol's back sprite** (`art/concepts/furnaxol_back.png` → `art/creatures/furnaxol.px.js`); the rules in `art/BW_STYLE.md` are the review checklist for every converted sprite.
 
 ## 5. Premise
 Four close friends are chilling, realizing they have no direction. Callum says his AI can cook up a plan. It builds a creature-collecting world. The supercomputer then explodes, and the world becomes a real universe with the four stuck inside it, with real politics, ecology and history nobody wrote on purpose.
@@ -202,7 +202,7 @@ Use these as flavour in NPCs, items, signs, quests and dialogue. Spread them out
 
 ### Concept art
 Line sheets: `art/concepts/line_glass.png`, `line_railgun.png`, `line_wallaby.png`, `line_goblin.png`
-(stage 1 singles: `zapail.png`, `gobbin.png`). Every creature gets concept art in official-artwork style first (made by the owner with ChatGPT, kept in `art/concepts/`), then is translated into the BW sprite: the front sprite is the art's pose at sprite size, the back sprite the same pose from behind.
+(stage 1 singles: `zapail.png`, `gobbin.png`). Every creature gets concept art in official-artwork style first (made by the owner with ChatGPT, kept in `art/concepts/`), then the owner has ChatGPT redraw it as a BW pixel sprite (front, then back: the same pose from behind), which Claude converts (see §4 Process).
 
 ## 14. Build Plan
 The live plan with milestones and status is `docs/PLAN.md`. Summary:

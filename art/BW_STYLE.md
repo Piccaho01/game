@@ -5,6 +5,29 @@ sprites the owner supplied (Infernape, Entei, Machoke, Exploud, Aggron, Scizor, 
 Torkoal, Banette, Spiritomb, Deoxys) plus the owner's own 64x64 sprites (Sonnet set).
 Measurements come from `pixel-art-studio/scripts/study.py` and direct pixel counts.
 
+## Workflow (since M2): AI pixel draft → converter → hand pass
+Code-built sprites (shapes, scaled concept art) came out blocky: uneven stair-steps on curves,
+banded shading, uniform outlines. A pixel-art draft from ChatGPT has the hand-pixelled look
+(even 3-2-1 steps, shading in clean clusters, outlines that lighten in the light) because it
+learned it from real sprites. So the owner makes the draft and Claude makes it game-ready.
+
+1. **Concept** (official-artwork style) approved, as before.
+2. **Pixel draft** by the owner in ChatGPT, front then back, with the concept attached:
+   > Redraw this creature as a Pokémon Black/White 2 battle sprite: pixel art, 3/4 view facing
+   > left, [pose from the concept]. Body about 50 px wide on a 96x96 canvas, at most 15 colours,
+   > dark outlines, flat white background, no text or shadow.
+
+   For the back: *"Same sprite seen from behind, as BW2 shows your own Pokémon: same pose with
+   the camera moved behind it, facing up and to the right, [what shows from the back]."*
+   Keep the draft at the size it should be in game: shrinking later costs quality.
+3. **Convert** (saved in `art/concepts/<name>[_back].png`):
+   `python3 art/tools/pixel2grid.py DRAFT.png OUT --pal art/creatures/<name>.px.js --line-top D`
+   (or `--colors 15` for a new creature; `--drop R C` removes the R rows and C columns with the
+   least detail if it must shrink). Paste the grid into the .px.js file; feet on y = 91.
+4. **Hand pass** against the rules below: face (rule 27), seams, merged parts, specks.
+5. **Idle** from the grid: breath (shift the rows above a clean split row by 1 px), plus a part
+   moving (flame tips, blink, jaw); frame 0 is the still.
+
 ## Measured facts
 
 | | Infernape | Entei | Machoke | Exploud | Aggron | Torkoal | Banette |
