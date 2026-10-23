@@ -66,7 +66,7 @@ export class JournalScene extends Phaser.Scene {
         this.bottom.add(button(this, x, y, 118, 30, '-', 0x383848));
         continue;
       }
-      const color = Phaser.Display.Color.HexStringToColor(TYPES[SPECIES[m.species].types[0]].color).darken(15).color;
+      const color = Phaser.Display.Color.HexStringToColor(TYPES[SPECIES[m.species].types[0]].color).darken(28).color;
       this.bottom.add(button(this, x, y, 118, 30, `${SPECIES[m.species].name} Lv${m.level}`, this.selected === m.uid ? 0x9050c0 : color,
         () => { this.selected = m.uid; this.render(); }, { sub: i === 0 ? 'LEAD' : BOND_NAMES[m.bond], name: `member${i}` }));
     }

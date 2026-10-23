@@ -18,7 +18,7 @@ Rules that keep it efficient:
 - [x] Bible, art style guide (`art/BW_STYLE.md`), sprite pipeline validated (Furnaxol + idle)
 - [x] M1 Foundation (live once Pages is enabled: Settings → Pages → Source: GitHub Actions)
 - [x] M2 Stage-1 starters (branch `claude/m2-starters`: all four with front, idle, back and back idle in game; see "M2 handoff" below)
-- [ ] M3 Core loop (in progress on branch `claude/m3-core-loop`: seal, team of six + sanctuary, bestiary stages, save and the Journal done; next: switching team members in battle, character and starter pick, leader assists)
+- [x] M3 Core loop (pick a leader and starter → wild battle → seal → team/sanctuary → bestiary stages and sanctuary points, leader assists, switching, saved in the browser)
 - [ ] M4 Characters + world slice
 - [ ] M5 Playtest build
 - [ ] After the slice: evolutions, Connor, more of Verrow
@@ -138,7 +138,17 @@ clean-up stage; its automatic form shading looked like a vector render and is no
 - Bond boosts stats: strong +10%, steady +5%, wary +0.
 - Saved in the browser (localStorage) after every change; `?reset` starts over.
 - Journal (end of battle): TEAM (pick the lead) and BESTIARY (lore pages per stage).
-- Not yet: only the lead battles (no switching), no XP/levels, no healing between battles.
+- Switching (built): TEAM in battle swaps Patchlings (takes the turn; the foe hits whoever comes in);
+  a faint with others left asks for a free pick; the battle is lost when the whole team is down.
+  Leaving the field clears stat changes. Can't switch mid two-turn move.
+- New game (built): pick who leads (Callum, Nolan, Haydon, Dani; `data/characters.json`: role,
+  assist, a line in their voice), then any starter. Portraits are placeholders until the M4
+  trainer sprites. The save stores the leader; separate teams per character come with swapping in M4.
+- Leader assists (built): once per battle and free (the Patchling still moves). Scan (Callum):
+  type, weaknesses, x2/x½ hints on moves, and counts toward Studied. Patch Up (Nolan): heals half,
+  cures status. Taunt (Haydon): foe Defense and Sp. Def -1. Shield (Dani): halves the next hit.
+- Carried to later milestones: XP/levels, healing between battles (the team is fully healed
+  before every battle for now), separate teams per character (M4 swapping).
 
 ## M4 Characters + world slice (art + code)
 - From the owner's photos (bible §6 Looks): BW trainer battle sprite and a 4-direction

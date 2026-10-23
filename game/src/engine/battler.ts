@@ -23,6 +23,8 @@ export interface Battler {
     chargingMove: string | null;
     /** Kiln Heart: next hit taken is reduced. */
     hardened: boolean;
+    /** Dani's Shield: next hit taken is halved. */
+    shielded: boolean;
     /** Turns this battler has been in battle (0 on its first turn). */
     turnsOut: number;
   };
@@ -58,7 +60,7 @@ export function createBattler(speciesId: string, level: number, moveIds?: string
     moves: ids.map((id) => ({ id, pp: MOVES[id].pp, maxPp: MOVES[id].pp })),
     status: null, sleepTurns: 0,
     stages: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
-    volatile: { charged: false, chargingMove: null, hardened: false, turnsOut: 0 },
+    volatile: { charged: false, chargingMove: null, hardened: false, shielded: false, turnsOut: 0 },
   };
 }
 

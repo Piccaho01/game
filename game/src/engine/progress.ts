@@ -1,38 +1,51 @@
+import charactersJson from '../data/characters.json';
 import progressJson from '../data/progress.json';
 import { BESTIARY, SPECIES } from './data';
+import type { AssistId } from './battle';
 import type { Bond } from './seal';
 
 /** The player's progress (bible §7): a team of six, the sanctuary for the rest, and the bestiary. */
 export const STAGES = ['sighted', 'tracked', 'studied', 'sealed', 'bonded'] as const;
 export type Stage = (typeof STAGES)[number];
 
+export type CharacterId = 'callum' | 'nolan' | 'haydon' | 'dani';
+export interface CharacterData { name: string; role: string; color: string; field: string; assist: { id: AssistId; name: string; short: string; desc: string }; line: string }
+export const CHARACTERS = charactersJson.characters as Record<CharacterId, CharacterData>;
+
 export interface Member { uid: number; species: string; level: number; bond: Bond }
-export interface DexRecord { encounters: number; defeats: number; seals: number; strongBonds: number }
+/** `scans`: Callum's Scan, which counts toward Studied. */
+export interface DexRecord { encounters: number; defeats: number; seals: number; strongBonds: number; scans: number }
 export interface Progress {
-  version: 1;
+  version: 2;
+  /** The character leading (bible §6); swapping leaders and their own teams come in M4. */
+  leader: CharacterId;
   nextUid: number;
   team: Member[];
   sanctuary: Member[];
   bestiary: Record<string, DexRecord>;
 }
 
+const EMPTY_RECORD: DexRecord = { encounters: 0, defeats: 0, seals: 0, strongBonds: 0, scans: 0 };
+
 type Condition = Partial<Record<keyof DexRecord, number>>;
 const RULES = progressJson as unknown as {
-  teamSize: number; starterLevel: number; starterBond: Bond;
+  teamSize: number; starters: string[]; starterLevel: number; starterBond: Bond;
   stages: Record<Stage, Condition>;
   bondBoost: Record<Bond, number>;
 };
 export const TEAM_SIZE = RULES.teamSize;
+export const STARTERS = RULES.starters;
 export const BOND_BOOST = RULES.bondBoost;
 
-export function newProgress(starter: string): Progress {
+export function newProgress(starter: string, leader: CharacterId = 'callum'): Progress {
   if (!SPECIES[starter]) throw new Error(`Unknown Patchling: ${starter}`);
+  if (!CHARACTERS[leader]) throw new Error(`Unknown character: ${leader}`);
   return {
-    version: 1, nextUid: 2,
+    version: 2, leader, nextUid: 2,
     team: [{ uid: 1, species: starter, level: RULES.starterLevel, bond: RULES.starterBond }],
     sanctuary: [],
     // PATCH hands over the starter already bonded, so its whole entry is open.
-    bestiary: { [starter]: { encounters: 1, defeats: 0, seals: 1, strongBonds: RULES.starterBond === 'strong' ? 1 : 0 } },
+    bestiary: { [starter]: { encounters: 1, defeats: 0, seals: 1, strongBonds: RULES.starterBond === 'strong' ? 1 : 0, scans: 0 } },
   };
 }
 
@@ -62,7 +75,7 @@ export function sanctuaryPoints(p: Progress): number {
 export interface DexChange { species: string; from: Stage | null; to: Stage }
 
 function bump(p: Progress, species: string, field: keyof DexRecord): DexChange | null {
-  const r = (p.bestiary[species] ??= { encounters: 0, defeats: 0, seals: 0, strongBonds: 0 });
+  const r = (p.bestiary[species] ??= { ...EMPTY_RECORD });
   const from = stageOf(r);
   r[field]++;
   const to = stageOf(r)!;
@@ -71,6 +84,7 @@ function bump(p: Progress, species: string, field: keyof DexRecord): DexChange |
 
 export function recordEncounter(p: Progress, species: string) { return bump(p, species, 'encounters'); }
 export function recordDefeat(p: Progress, species: string) { return bump(p, species, 'defeats'); }
+export function recordScan(p: Progress, species: string) { return bump(p, species, 'scans'); }
 
 /** A sealed Patchling joins the team, or goes straight to the sanctuary when the team is full. */
 export function recordSeal(p: Progress, species: string, level: number, bond: Bond) {
@@ -85,11 +99,15 @@ export function recordSeal(p: Progress, species: string, level: number, bond: Bo
 
 /** Loads saved progress, dropping anything that no longer matches the data (renamed species). */
 export function parseProgress(raw: unknown): Progress | null {
-  const p = raw as Progress | null;
-  if (!p || p.version !== 1 || !Array.isArray(p.team) || !Array.isArray(p.sanctuary) || typeof p.bestiary !== 'object') return null;
+  const p = raw as (Omit<Progress, 'version' | 'leader'> & { version: number; leader?: string }) | null;
+  if (!p || (p.version !== 1 && p.version !== 2) || !Array.isArray(p.team) || !Array.isArray(p.sanctuary) || typeof p.bestiary !== 'object') return null;
+  // Version 1 saves came before the character pick: they belong to Callum.
+  const leader = (p.leader && p.leader in CHARACTERS ? p.leader : 'callum') as CharacterId;
   const ok = (m: Member) => !!SPECIES[m?.species] && m.level > 0 && ['strong', 'steady', 'wary'].includes(m.bond);
   const team = p.team.filter(ok);
   if (team.length === 0) return null;
-  const bestiary = Object.fromEntries(Object.entries(p.bestiary).filter(([id]) => SPECIES[id]));
-  return { ...p, team, sanctuary: p.sanctuary.filter(ok), bestiary };
+  // Records saved before a counter existed get it at 0.
+  const bestiary = Object.fromEntries(Object.entries(p.bestiary).filter(([id]) => SPECIES[id])
+    .map(([id, r]) => [id, { ...EMPTY_RECORD, ...(r as Partial<DexRecord>) }]));
+  return { ...p, version: 2, leader, team, sanctuary: p.sanctuary.filter(ok), bestiary };
 }

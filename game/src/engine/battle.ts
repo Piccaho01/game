@@ -5,6 +5,7 @@ import type { Rng } from './rng';
 import type { Bond, SealResult } from './seal';
 import { orderActions, type Action } from './turnOrder';
 import { effectiveness, effectivenessText } from './typeChart';
+import { TYPES, type TypeId } from './data';
 
 export type Side = 'player' | 'foe';
 export type Outcome = 'win' | 'lose' | 'fled' | 'sealed';
@@ -18,9 +19,14 @@ export type BattleEvent =
   | { kind: 'stat'; side: Side; stat: StageStat; delta: number }
   | { kind: 'faint'; side: Side }
   | { kind: 'sealed'; bond: Bond }
+  /** Scan revealed the foe (the fight menu can show effectiveness from now on). */
+  | { kind: 'scan' }
+  /** The player's active Patchling changed to team[index]. */
+  | { kind: 'switch'; index: number }
   | { kind: 'end'; outcome: Outcome };
 
-export type PlayerAction = { kind: 'move'; index: number } | { kind: 'run' };
+export type AssistId = 'scan' | 'patch_up' | 'taunt' | 'shield';
+export type PlayerAction = { kind: 'move'; index: number } | { kind: 'switch'; index: number } | { kind: 'run' };
 
 const STAT_NAMES: Record<StageStat, string> = { atk: 'Attack', def: 'Defense', spa: 'Sp. Atk', spd: 'Sp. Def', spe: 'Speed' };
 const BOND_TEXT: Record<Bond, string> = {
@@ -32,12 +38,28 @@ const STATUS_TEXT: Record<StatusId, string> = { brn: 'was burned!', par: 'is par
 
 export class Battle {
   readonly sides: Record<Side, Battler>;
+  /** The player's team; `sides.player` is the active one. */
+  readonly team: Battler[];
+  active = 0;
+  /** The active Patchling fainted and others can still fight: the player must pick one (`forceSwitch`). */
+  needsSwitch = false;
+  /** The leader's assist is once per battle. */
+  assistUsed = false;
+  /** Scan has revealed the foe. */
+  scanned = false;
   outcome: Outcome | null = null;
   turn = 0;
   private events: BattleEvent[] = [];
 
-  constructor(player: Battler, foe: Battler, private rng: Rng, private wild = true) {
-    this.sides = { player, foe };
+  constructor(player: Battler | Battler[], foe: Battler, private rng: Rng, private wild = true) {
+    this.team = Array.isArray(player) ? player : [player];
+    if (this.team.length === 0) throw new Error('Empty team');
+    this.sides = { player: this.team[0], foe };
+  }
+
+  /** Team slots that could come in now (alive and not already out). */
+  switchable(): number[] {
+    return this.team.flatMap((b, i) => (b.hp > 0 && i !== this.active ? [i] : []));
   }
 
   get player() { return this.sides.player; }
@@ -50,6 +72,9 @@ export class Battle {
   }
 
   intro(): BattleEvent[] {
+    // Lead with the first Patchling that can still fight.
+    const first = this.team.findIndex((b) => b.hp > 0);
+    if (first > 0) { this.active = first; this.sides.player = this.team[first]; }
     return [{ kind: 'text', text: `A wild ${this.foe.name} appeared!` }, { kind: 'text', text: `Go! ${this.player.name}!` }];
   }
 
@@ -76,8 +101,16 @@ export class Battle {
 
   runTurn(action: PlayerAction): BattleEvent[] {
     if (this.outcome) throw new Error('Battle is over');
+    if (this.needsSwitch) throw new Error('Pick a Patchling first');
     this.events = [];
     this.turn++;
+
+    if (action.kind === 'switch') {
+      // Switching takes the turn; the foe gets a free hit on whoever comes in.
+      this.doSwitch(action.index, true);
+      this.foeOnlyTurn();
+      return this.events;
+    }
 
     if (action.kind === 'run') {
       if (!this.wild) {
@@ -94,7 +127,7 @@ export class Battle {
       { side: 'foe', battler: this.foe, moveId: this.chooseFoeMove() },
     ];
     for (const act of orderActions(actions, this.rng)) {
-      if (this.outcome) break;
+      if (this.outcome || this.needsSwitch) break;
       if (act.battler.hp <= 0) continue;
       this.act(act.side, act.moveId);
       this.checkFaints();
@@ -107,12 +140,18 @@ export class Battle {
 
   /** A seal needs a wild target and the player's Patchling free to act (not mid-charge). */
   canSeal(): boolean {
-    return this.wild && !this.outcome && !this.player.volatile.chargingMove;
+    return this.wild && !this.outcome && !this.needsSwitch && !this.player.volatile.chargingMove;
+  }
+
+  /** A voluntary switch needs someone to switch to, and no two-turn move locked in. */
+  canSwitch(): boolean {
+    return !this.outcome && !this.needsSwitch && !this.player.volatile.chargingMove && this.switchable().length > 0;
   }
 
   /** The player's seal attempt (the minigame already played): sealed ends the battle, a failed seal costs the turn. */
   seal(result: SealResult): BattleEvent[] {
     if (this.outcome) throw new Error('Battle is over');
+    if (this.needsSwitch) throw new Error('Pick a Patchling first');
     this.events = [];
     if (!this.wild) {
       this.say("The seal won't take on someone else's Patchling!");
@@ -127,12 +166,95 @@ export class Battle {
       return this.events;
     }
     this.say(`Argh! ${this.label('foe')} broke the seal!`);
+    this.foeOnlyTurn();
+    return this.events;
+  }
+
+  canAssist(): boolean {
+    return !this.assistUsed && !this.outcome && !this.needsSwitch;
+  }
+
+  /**
+   * The leader's battle command (bible §6): once per battle, and free: the player still picks a
+   * move this turn. `leader` is the character's name for the text.
+   */
+  assist(id: AssistId, leader: string): BattleEvent[] {
+    if (!this.canAssist()) throw new Error('Assist not available');
+    this.events = [];
+    this.assistUsed = true;
+    const p = this.player;
+    switch (id) {
+      case 'scan': {
+        this.scanned = true;
+        this.say(`${leader} scanned ${this.label('foe').replace(/^The/, 'the')}!`);
+        this.push({ kind: 'scan' });
+        const types = this.foe.types;
+        const by = (pick: (m: number) => boolean) => (Object.keys(TYPES) as TypeId[]).filter((t) => pick(effectiveness(t, types))).map((t) => TYPES[t].name);
+        this.say(`Type: ${types.map((t) => TYPES[t].name).join('/')}.`);
+        const weak = by((m) => m > 1);
+        const resist = by((m) => m < 1);
+        this.say(`Weak to: ${weak.join(', ') || 'nothing'}.`);
+        if (resist.length) this.say(`Resists: ${resist.join(', ')}.`);
+        break;
+      }
+      case 'patch_up': {
+        this.say(`${leader} patched up ${p.name}!`);
+        const heal = Math.min(p.stats.hp - p.hp, Math.ceil(p.stats.hp / 2));
+        if (heal > 0) {
+          p.hp += heal;
+          this.push({ kind: 'hp', side: 'player', hp: p.hp, maxHp: p.stats.hp });
+        }
+        if (p.status) {
+          p.status = null;
+          p.sleepTurns = 0;
+          this.push({ kind: 'status', side: 'player', status: null });
+        }
+        this.say(heal > 0 ? `${p.name} recovered ${heal} HP.` : `${p.name} was already fine. ${leader} did it anyway.`);
+        break;
+      }
+      case 'taunt':
+        this.say(`${leader} taunted ${this.label('foe').replace(/^The/, 'the')}! "Nah, that's cap."`);
+        this.changeStat('foe', 'def', -1);
+        this.changeStat('foe', 'spd', -1);
+        break;
+      case 'shield':
+        p.volatile.shielded = true;
+        this.say(`${leader} stepped in front of ${p.name}! The next hit will be softened.`);
+        break;
+    }
+    return this.events;
+  }
+
+  /** After the active Patchling faints: send in another. Free, no foe turn. */
+  forceSwitch(index: number): BattleEvent[] {
+    if (!this.needsSwitch) throw new Error('No switch needed');
+    this.events = [];
+    this.needsSwitch = false;
+    this.doSwitch(index, false);
+    return this.events;
+  }
+
+  private doSwitch(index: number, recall: boolean) {
+    const next = this.team[index];
+    if (!next || next.hp <= 0 || index === this.active) throw new Error(`Team slot ${index} can't come in`);
+    const out = this.player;
+    // Leaving the field clears stat changes and charges (status stays), as in BW.
+    out.stages = { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 };
+    out.volatile = { charged: false, chargingMove: null, hardened: false, shielded: false, turnsOut: 0 };
+    if (recall) this.say(`Come back, ${out.name}!`);
+    this.active = index;
+    this.sides.player = next;
+    this.push({ kind: 'switch', index });
+    this.say(`Go! ${next.name}!`);
+  }
+
+  /** A turn where only the foe acts (after a switch or a broken seal). */
+  private foeOnlyTurn() {
     this.act('foe', this.chooseFoeMove());
     this.checkFaints();
-    if (!this.outcome) this.endOfTurn();
+    if (!this.outcome && !this.needsSwitch) this.endOfTurn();
     this.player.volatile.turnsOut++;
     this.foe.volatile.turnsOut++;
-    return this.events;
   }
 
   private playerMoveId(index: number): string {
@@ -214,6 +336,10 @@ export class Battle {
         damageMod: this.damageMod(target),
       });
       target.volatile.hardened = false;
+      if (target.volatile.shielded) {
+        target.volatile.shielded = false;
+        this.say(`The shield took the edge off!`);
+      }
       const applied = Math.min(damage, target.hp);
       target.hp -= applied;
       dealt += applied;
@@ -247,6 +373,7 @@ export class Battle {
   private damageMod(target: Battler): number {
     let mod = 1;
     if (target.volatile.hardened) mod *= 0.75;
+    if (target.volatile.shielded) mod *= 0.5;
     if (target.ability === 'capacitor' && target.volatile.chargingMove) mod *= 0.5;
     return mod;
   }
@@ -324,20 +451,23 @@ export class Battle {
       this.push({ kind: 'hp', side, hp: b.hp, maxHp: b.stats.hp });
       this.say(`${this.label(side)} is hurt by its ${b.status === 'brn' ? 'burn' : 'poison'}!`);
       this.checkFaints();
-      if (this.outcome) return;
+      if (this.outcome || this.needsSwitch) return;
     }
   }
 
   private checkFaints() {
-    if (this.outcome) return;
+    if (this.outcome || this.needsSwitch) return;
     for (const side of ['foe', 'player'] as Side[]) {
       if (this.sides[side].hp > 0) continue;
       this.push({ kind: 'faint', side });
       this.say(`${this.label(side)} fainted!`);
     }
-    // One active Patchling per side until parties land, so a faint ends the battle.
-    if (this.player.hp <= 0) this.finish('lose');
-    else if (this.foe.hp <= 0) this.finish('win');
+    // A wild battle is one Patchling, so its faint wins; the player loses when the whole team is down.
+    if (this.foe.hp <= 0) this.finish('win');
+    else if (this.player.hp <= 0) {
+      if (this.switchable().length > 0) this.needsSwitch = true;
+      else this.finish('lose');
+    }
   }
 
   private finish(outcome: Outcome) {
