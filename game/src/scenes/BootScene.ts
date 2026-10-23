@@ -1,21 +1,22 @@
 import Phaser from 'phaser';
-import { SPRITES } from '../assets';
+import { SPRITES, type SpriteAsset } from '../assets';
 import { SPECIES, TYPES } from '../engine/data';
 
 /** Texture key for a species' battle sprite; always exists after boot (real art or a placeholder). */
 export const frontKey = (species: string) => `front:${species}`;
 export const idleAnimKey = (species: string) => `idle:${species}`;
+/** The player's Patchling is shown from behind, like BW; optional per species (`<sprite>_back`). */
+export const backKey = (species: string) => `back:${species}`;
+export const backIdleAnimKey = (species: string) => `idle:back:${species}`;
 
 export class BootScene extends Phaser.Scene {
   constructor() { super('boot'); }
 
   preload() {
     for (const [id, sp] of Object.entries(SPECIES)) {
-      const art = sp.sprite ? SPRITES[sp.sprite] : undefined;
-      if (art?.idle?.png && art.idle.json) {
-        this.load.atlas(frontKey(id), art.idle.png, art.idle.json);
-        this.load.json(`${frontKey(id)}:json`, art.idle.json);
-      } else if (art?.still) this.load.image(frontKey(id), art.still);
+      if (!sp.sprite) continue;
+      this.loadArt(frontKey(id), SPRITES[sp.sprite]);
+      this.loadArt(backKey(id), SPRITES[`${sp.sprite}_back`]);
     }
   }
 
@@ -23,8 +24,8 @@ export class BootScene extends Phaser.Scene {
     for (const [id, sp] of Object.entries(SPECIES)) {
       const key = frontKey(id);
       if (!this.textures.exists(key)) this.makePlaceholder(key, TYPES[sp.types[0]].color, sp.dex);
-      const frames = this.textures.get(key).getFrameNames();
-      if (frames.length > 1) this.anims.create({ key: idleAnimKey(id), ...this.idleFrames(key, frames), repeat: -1 });
+      this.makeIdle(key, idleAnimKey(id));
+      if (this.textures.exists(backKey(id))) this.makeIdle(backKey(id), backIdleAnimKey(id));
     }
     const params = new URLSearchParams(location.search);
     this.scene.start('battle', {
@@ -32,6 +33,18 @@ export class BootScene extends Phaser.Scene {
       foe: params.get('foe') ?? 'sprigby',
       seed: params.has('seed') ? Number(params.get('seed')) : undefined,
     });
+  }
+
+  private loadArt(key: string, art: SpriteAsset | undefined) {
+    if (art?.idle?.png && art.idle.json) {
+      this.load.atlas(key, art.idle.png, art.idle.json);
+      this.load.json(`${key}:json`, art.idle.json);
+    } else if (art?.still) this.load.image(key, art.still);
+  }
+
+  private makeIdle(key: string, animKey: string) {
+    const frames = this.textures.get(key).getFrameNames();
+    if (frames.length > 1) this.anims.create({ key: animKey, ...this.idleFrames(key, frames), repeat: -1 });
   }
 
   /** pxl atlases name frames <name>_<n> with per-frame durations in the JSON. */

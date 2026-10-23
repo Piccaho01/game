@@ -23,9 +23,9 @@ A BW2-style creature-collecting RPG where four best friends get trapped inside t
 - **Creature sprites:** strict 96x96 canvas (the real BW battle-sprite size; body size varies per creature), indexed colour (15 colours max plus transparent), 3/4-view (not flat side profiles), dynamic non-stiff poses. Follow `art/BW_STYLE.md`.
 - **Quality bar:** detailed, original creatures with a unique overall style. Each type gets its own distinct eyes and mouth style, not a shared face template.
 - **Evolution:** hand-designed sprites per stage (no swappable-parts system).
-- **Process:** all sprites are made with **claude-pxl** (pixel-art-as-code tool). Do not hand-roll sprite generation or guess pixel placement. Define sprites as code on the 96x96 grid with a fixed 15-colour palette per creature. Reference sprites may be supplied by the owner as silhouette guides.
+- **Process (since M2):** the owner draws each sprite (front and back) as a **pixel-art draft with ChatGPT** (prompt in `art/BW_STYLE.md`, "Workflow"); drafts are kept in `art/concepts/`. Claude converts the draft with `art/tools/pixel2grid.py` (recovers the real pixel grid, maps to a 15-colour palette, cleans specks and outlines) into a **claude-pxl** file (`art/creatures/<name>.px.js`, grids on the 96x96 canvas), then does the hand pass and the idle animation. Do not redraw a draft from scratch or invent pixel placement: AI drafts look far better than code-built shapes, so changes are edits on the converted grid. Reference sprites may be supplied by the owner as guides.
 - **Pitch first:** before drawing any creature (or evolution stage), pitch the concept to the owner (name, type, look, story hook, battle pose, signature move) and get approval. Never commit to a design unpitched.
-- **Art is the main risk.** The pipeline is validated on **Furnaxol** (`art/creatures/furnaxol.px.js`, the reference creature); start new creatures from it and from the lessons in `art/BW_STYLE.md`.
+- **Art is the main risk.** The workflow is validated on **Furnaxol's back sprite** (`art/concepts/furnaxol_back.png` → `art/creatures/furnaxol.px.js`); the rules in `art/BW_STYLE.md` are the review checklist for every converted sprite.
 
 ## 5. Premise
 Four close friends are chilling, realizing they have no direction. Callum says his AI can cook up a plan. It builds a creature-collecting world. The supercomputer then explodes, and the world becomes a real universe with the four stuck inside it, with real politics, ecology and history nobody wrote on purpose.
@@ -189,14 +189,20 @@ Use these as flavour in NPCs, items, signs, quests and dialogue. Spread them out
 - **Gauslug**: shell splits into two parallel rails with a glowing channel; eyestalks fold into targeting prongs; foot widens into a magnetic base; fires scrap slugs. Ability **Capacitor**. Signature **Rail Shell** (high power, two-turn charge).
 
 ### Sprigby → Fernaroo → Scytharoo (Plant → Plant/Wind → Plant/Wind): kickboxing wallaby
-- **Sprigby**: tiny wallaby joey with sprout ears and springy heels; cute, nervous, bounces in place.
-- **Fernaroo**: lean runner; tail flattens into a serrated fern blade; coiled tendon lines on the legs; seed pouch.
-- **Scytharoo**: tall, sleek kickboxer; scythe-like grass-blade tail; visible coil-spring legs; seed pouch bursts on impact. Ability **Spring Heel** (kicks gain priority on entry). Signature **Reap Kick** (high crit; Speed rises on a miss). Wind replaces the source's Fighting type (speed and kicks; Canopy is the Plant/Wind town).
+- Look is set by `art/concepts/line_wallaby.png` (supersedes the first Sprigby concept).
+- **Sprigby**: tough little lime-green joey, pale-green belly, a spiky crest of leaves for ears and fringe, a leaf plaster on one cheek, cocky smirk chewing a grass sprig, vine-taped fists up in a guard, brown clawed feet, brown tail ending in a leaf fan. Small but fearless.
+- **Fernaroo**: lanky teenage brawler mid-hop; brown bark patches on shoulders and thighs, vines wound up its legs, tail a long serrated fern blade, scar across the nose, still chewing the sprig.
+- **Scytharoo**: armoured kickboxing champion mid high-kick; dark forest green with bark armour, huge leaf crest, thorny vine wraps on fists and legs, scythe-like grass-blade tail. Ability **Spring Heel** (kicks gain priority on entry). Signature **Reap Kick** (high crit; Speed rises on a miss). Wind replaces the source's Fighting type.
 
-### Gobbin → Gulpjaw → Harrowjaw (Water → Water → Water/Dark): abyssal harpooner
-- **Gobbin**: pale-pink goblin-shark pup, oversized head, faintly glowing throat sac, tattered dorsal-fin "cape", big nervous eyes, underslung overbite with needle teeth. Reads as "head and cape". Throat sac flickers before it bites.
-- **Gulpjaw**: jaw outgrows the body; hunched and top-heavy; translucent pressure bladder with bioluminescent spots; blade-like pectoral sleeves; torn-banner dorsal; elastic pale cheeks.
-- **Harrowjaw**: tall gaunt abyssal stalker, 70% jaw and fin-coat; fires its jaw forward on stretched cartilage like a harpoon; throat glows through the skin and deflates after firing; ragged fin mantle like a deep-sea coat. Palette ghost pink, bruised purple, cold blue glow. Ability **Ambush Jaw**. Signature **Abyssal Harpoon** (ignores Protect, lowers Speed; its own Defense drops as the jaw resets).
+### Gobbin → Gulpjaw → Harrowjaw (Water → Water → Water/Dark): hooded goblin harpooner
+- Look is set by the concept art in `art/concepts/gobbin.png`: a goblin-shark pup dressed like a little goblin scavenger.
+- **Gobbin**: dusky grey-pink skin, long flat blade snout over a spring-loaded jaw full of needle teeth, sly grin and narrow eyes, pointed fin-shaped goblin ears, its tattered slate dorsal fin worn as a hood/cape, ragged tunic with a rope belt and a pouch (no throat glow at this stage). Cute and sneaky, not scary.
+- **Gulpjaw**: the scavenger. Lankier and hunched, the jaw outgrowing the body; the fin-hood grows into a long tattered cloak; a bandolier of pouches and hoarded shiny junk (bottle caps, hooks, glass); blade-like pectoral fins used as hands; the throat glow brighter, showing bioluminescent spots.
+- **Harrowjaw**: the goblin king of the deep. Tall and gaunt, a ragged fin mantle like a deep-sea coat with a cowl, a crown-like crest of torn fin; fires its jaw forward on stretched cartilage like a harpoon, the throat glowing cold blue before it fires; trophy chains of hooks and lures. Palette: dusky grey-pink, slate and bruised purple, cold blue glow. Ability **Ambush Jaw**. Signature **Abyssal Harpoon** (ignores Protect, lowers Speed; its own Defense drops as the jaw resets).
+
+### Concept art
+Line sheets: `art/concepts/line_glass.png`, `line_railgun.png`, `line_wallaby.png`, `line_goblin.png`
+(stage 1 singles: `zapail.png`, `gobbin.png`). Every creature gets concept art in official-artwork style first (made by the owner with ChatGPT, kept in `art/concepts/`), then the owner has ChatGPT redraw it as a BW pixel sprite (front, then back: the same pose from behind), which Claude converts (see §4 Process).
 
 ## 14. Build Plan
 The live plan with milestones and status is `docs/PLAN.md`. Summary:

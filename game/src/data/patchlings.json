@@ -13,7 +13,7 @@
       "base": { "hp": 78, "atk": 75, "def": 90, "spa": 110, "spd": 85, "spe": 92 },
       "learnset": [[1, "ember_puff"], [1, "stoke"], [1, "glassblow"], [1, "shard_toss"], [13, "kiln_vent"], [16, "molten_marbles"], [36, "glass_bell"]] },
 
-    "zapail": { "dex": 4, "name": "Zapail", "types": ["spark"], "ability": "static",
+    "zapail": { "dex": 4, "name": "Zapail", "types": ["spark"], "ability": "static", "sprite": "zapail",
       "base": { "hp": 35, "atk": 40, "def": 40, "spa": 62, "spd": 45, "spe": 88 },
       "learnset": [[1, "zap"], [1, "static_rub"], [4, "spark_trail"], [8, "shell_in"], [13, "coil_tap"]],
       "evolves": { "to": "tesnail", "level": 16 } },
@@ -25,7 +25,7 @@
       "base": { "hp": 70, "atk": 70, "def": 85, "spa": 125, "spd": 80, "spe": 100 },
       "learnset": [[1, "zap"], [1, "static_rub"], [1, "spark_trail"], [1, "shell_in"], [13, "coil_tap"], [16, "iron_filings"], [36, "rail_shell"]] },
 
-    "sprigby": { "dex": 7, "name": "Sprigby", "types": ["plant"], "ability": "spring_heel",
+    "sprigby": { "dex": 7, "name": "Sprigby", "types": ["plant"], "ability": "spring_heel", "sprite": "sprigby",
       "base": { "hp": 45, "atk": 62, "def": 40, "spa": 40, "spd": 45, "spe": 78 },
       "learnset": [[1, "sprout_swipe"], [1, "jitter_bounce"], [4, "springy_hop"], [8, "gust_kick"], [13, "fern_blade"]],
       "evolves": { "to": "fernaroo", "level": 16 } },
@@ -37,7 +37,7 @@
       "base": { "hp": 75, "atk": 120, "def": 70, "spa": 60, "spd": 70, "spe": 135 },
       "learnset": [[1, "sprout_swipe"], [1, "jitter_bounce"], [1, "springy_hop"], [1, "gust_kick"], [13, "fern_blade"], [36, "reap_kick"]] },
 
-    "gobbin": { "dex": 10, "name": "Gobbin", "types": ["water"], "ability": "ambush_jaw",
+    "gobbin": { "dex": 10, "name": "Gobbin", "types": ["water"], "ability": "ambush_jaw", "sprite": "gobbin",
       "base": { "hp": 55, "atk": 64, "def": 50, "spa": 45, "spd": 46, "spe": 50 },
       "learnset": [[1, "bubble_snap"], [1, "throat_glow"], [4, "needle_bite"], [8, "brine_spit"], [13, "pressure_jet"]],
       "evolves": { "to": "gulpjaw", "level": 16 } },

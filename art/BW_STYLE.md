@@ -5,6 +5,29 @@ sprites the owner supplied (Infernape, Entei, Machoke, Exploud, Aggron, Scizor, 
 Torkoal, Banette, Spiritomb, Deoxys) plus the owner's own 64x64 sprites (Sonnet set).
 Measurements come from `pixel-art-studio/scripts/study.py` and direct pixel counts.
 
+## Workflow (since M2): AI pixel draft → converter → hand pass
+Code-built sprites (shapes, scaled concept art) came out blocky: uneven stair-steps on curves,
+banded shading, uniform outlines. A pixel-art draft from ChatGPT has the hand-pixelled look
+(even 3-2-1 steps, shading in clean clusters, outlines that lighten in the light) because it
+learned it from real sprites. So the owner makes the draft and Claude makes it game-ready.
+
+1. **Concept** (official-artwork style) approved, as before.
+2. **Pixel draft** by the owner in ChatGPT, front then back, with the concept attached:
+   > Redraw this creature as a Pokémon Black/White 2 battle sprite: pixel art, 3/4 view facing
+   > left, [pose from the concept]. Body about 50 px wide on a 96x96 canvas, at most 15 colours,
+   > dark outlines, flat white background, no text or shadow.
+
+   For the back: *"Same sprite seen from behind, as BW2 shows your own Pokémon: same pose with
+   the camera moved behind it, facing up and to the right, [what shows from the back]."*
+   Keep the draft at the size it should be in game: shrinking later costs quality.
+3. **Convert** (saved in `art/concepts/<name>[_back].png`):
+   `python3 art/tools/pixel2grid.py DRAFT.png OUT --pal art/creatures/<name>.px.js --line-top D`
+   (or `--colors 15` for a new creature; `--drop R C` removes the R rows and C columns with the
+   least detail if it must shrink). Paste the grid into the .px.js file; feet on y = 91.
+4. **Hand pass** against the rules below: face (rule 27), seams, merged parts, specks.
+5. **Idle** from the grid: breath (shift the rows above a clean split row by 1 px), plus a part
+   moving (flame tips, blink, jaw); frame 0 is the still.
+
 ## Measured facts
 
 | | Infernape | Entei | Machoke | Exploud | Aggron | Torkoal | Banette |
@@ -75,16 +98,101 @@ Measurements come from `pixel-art-studio/scripts/study.py` and direct pixel coun
     chunky colour clusters of 3+ px, and a bold dark outline. Every sprite needs one
     instantly readable "hook" (a flame mohawk, a shell, a big tail).
 
-## Process (claude-pxl)
-1. **Silhouette**: block the pose in one colour (pxl primitives are fine at this
-   stage), check the silhouette render, iterate until the pose and anatomy read.
-2. **Flats**: one base colour per material.
-3. **Shading**: shadow and highlight shapes by form, placed by hand as grid patches.
-4. **Lines**: selective outline, interior overlaps, fur clump lines.
-5. **Details**: face, claws, specular highlights, type markings.
-6. Check every stage against the references at the same scale (comparison sheet) and
-   show it to the owner before moving on.
-7. Animation (BW2-style idle loop) only after the still is approved.
+### Facing, proportions and personality (from the owner's review of the first starter batch)
+19. **Angle: 3/4 toward screen-left, like every reference.** The body is turned about 45°
+    toward the opponent; the head turns a little further so the face shows (near eye on the
+    right of the nose bridge, far eye foreshortened toward the snout). Near limbs (the
+    creature's right side) are on screen-right and bigger; a limb reaching for the opponent
+    comes forward on the left. Never a flat side profile, never squared to the camera. The
+    back sprite is the same pose seen from behind.
+20. **Starter size and proportions** (measured on BW sprites): basic forms are small and sleek.
+    Body boxes: Snivy 40x37, Tepig 33x39, Oshawott 29x36, Scraggy 32x40, Axew 36x45, Zorua
+    40x47, Shelmet 40x35, all on the 96x96 canvas. Arms 2-3 px thick, legs 3-4 px, eyes about
+    4-6 px, heads about half the height. Draw at this size pixel by pixel; never scale down a big
+    drawing (that is what made the first attempts chunky).
+21. **Personality first**: every creature gets one trait (smug, cocky, jittery, sly...) that the
+    brows, mouth and pose all sell. "The animal plus its gimmick" is not a design. The pose
+    *acts* the trait (hand on hip, leaning back on a tail, rubbing hands together).
+22. Draw parts in perspective with the head: a mouth on a 3/4 head follows the head's turn.
+23. **Shadow masses, not crescents.** In the references the shadow side is a big shape that
+    follows the form: often a third to half of a body part sits in the shadow tone (the back,
+    the underside, the far half). A 1-2 px rim of shadow reads as flat clip art.
+24. **Organic shapes.** No perfect ellipses: masses bulge and taper, edges carry notches,
+    tufts and joints. Eyes stay modest relative to the head; expression comes from lid and
+    brow shape, not eye size.
+25. **Stage 1 is appealing first.** Menace and horror belong to final evolutions; a starter
+    can be cocky or sly but must stay cute.
+26. Work one creature at a time, checking it next to the references at the same scale at every
+    stage (silhouette, colour, face) before starting the next.
+27. **Shrink the face from the concept.** Concept art has big anime eyes; BW sprites don't. Eyes
+    are small (about 3-4 px wide, 4-5 tall: black, one white shine pixel top-left, the iris
+    colour across the bottom, the Oshawott/Snivy formula), set in the upper half of the head;
+    mouths are small. Copying the concept's eye size reads as fan art and makes eyes droop.
+    On a 3/4 head the far eye sits against the face's edge, squashed (or hidden); the near eye is
+    the big one and carries the detail (iris ring, pupil, shine). BW mouths have no black box
+    around them: an open mouth is a shape in the dark mouth colour with a lighter tongue (Emolga).
+28. **Copy the concept's silhouette, not an idea of it.** Measure it on a gridded underlay at
+    sprite size (head shape, neck width, where parts overlap) instead of inventing proportions;
+    take the concept's light and shade for the body masses, cut to 3 tones, then hand-draw the
+    face and small details.
+
+## Translating a concept (the checklist, from Sprigby and Zapail)
+1. Classify every concept pixel by **material** (skin, cloth, shell...), take the majority material
+   per sprite cell, and that material's tone from the concept's own light and shade (3-4 tones,
+   lone pixels cleaned). This keeps the concept's silhouette and proportions exactly.
+2. Pick the palette up front: saturated, complementary, 15 colours max (a washed-out palette
+   reads as a shiny).
+3. One continuous body: no outlines or shade bands across a neck or between parts of the same
+   mass; overlapping parts get a line only where one is in front of another.
+4. Face by hand, BW-sized (rules 27): eyes small and detailed, the far eye on the face's edge or
+   hidden, mouths with no black box.
+5. Before showing: compare zoomed beside the concept and at real size beside BW sprites; look for
+   seams, gaps, stray pixels, parts that merge (a hand into a tail, a tail into a leg).
+6. Back sprite (Mienfoo): the same pose with the camera behind; limbs and fists seen from behind,
+   pointing away; whatever is on the front (a face plate, a belly) hidden; the back in the shadow
+   tones with a lit rim; a sliver of the face past the head's edge; a tail grows from the spine.
+   Turn the pose round, don't mirror it: the side that was far is now near. Feet point away
+   (heels and soles toward the camera); the trailing leg comes toward the camera, biggest and
+   lowest; the leading leg steps away, mostly hidden behind the body.
+
+## Process (claude-pxl) — the professional order of work
+Researched from the BW-style spriting community (Smogon sprite projects, PokéCommunity and
+Dragonfly Cave guides) and measured on the owner's full Gen 5 sprite sheet. Each step fixes a
+decision the next one depends on; never skip ahead.
+1. **Gesture.** One line of action for the pose and one personality trait the pose acts out.
+   Pick the 2-3 closest BW basics as size/angle guides and keep them next to the canvas.
+2. **Line art first, at final size.** Smooth contours, never stair-stepped: pixel runs change
+   gradually along a curve (5-4-3-2-1), straight edges use clean slopes (1:1, 1:2, 2:1), no
+   doubled pixels in corners. Shapes are drawn as smooth curves (splines), never as a few straight
+   polygon segments or by scaling a bigger drawing down. Check the silhouette solid black.
+3. **Flats.** One base colour per material from a locked palette (15 colours max, shiny =
+   palette swap).
+4. **Cel shading, 3-4 levels.** Light from the top-left corner; form shadows on the lower-right
+   of every part (rule 23), small highlights top-left; dithering only sparingly; enough contrast
+   between tones that the shading reads; not oversaturated.
+5. **Colour the lines (selective outline).** Gen 5 has pronounced **black** lines on the
+   right and bottom of every part; the top/left lines take the material's darkest tone. Where a
+   part overlaps another, its own line separates them (black on its right/bottom side).
+6. **Face and details** by hand: eyes, mouth, markings, claws. Interior detail lines are
+   coloured unless they sit in shadow.
+7. **Clean-up.** Remove doubles and 2x2 line clumps, check against the guides at the same scale.
+8. **Animation** like BW: paper-puppet parts (head, limbs, tail) pivoted and bobbed, frame 0 is
+   the still.
+
+### Faces in BW basics (measured)
+- Faces turn about 3/4 toward the viewer while bodies stay closer to side-on, all facing left.
+- Eyes are large vertical ovals sitting **low on the head and close together near the front**,
+  just behind/above the muzzle. The far eye is squeezed against the face contour, often only a
+  2-3 px sliver (Zorua, Deerling). Thick black upper lid, coloured iris, white glint, pupil and
+  iris toward the front (looking at the opponent).
+- Expression comes from the lid shape: Purrloin's sly half-closed almond eyes over a smile,
+  Snivy's flat lid, Axew's determined round eye.
+- Muzzles are small cream patches under the eyes; mouths are short lines or small shapes.
+
+### Sleek vs chunky (measured)
+- Legs 2-4 px thick, necks slim, torsos small and narrow with a waist, tails taper to a point
+  (Purrloin, Deerling, Blitzle, Mienfoo). Bodies are smaller than the head on cute basics.
+- Big round torsos, fat thighs and blob limbs read as "chunky" and cheap; avoid them.
 
 ## Lessons from the first approved creature (Furnaxol)
 What worked, in order of how much it mattered. Start the next creature from
