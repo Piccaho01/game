@@ -111,7 +111,7 @@ test('a new game picks a leader and a starter, then walks out into Hollow Rest',
     expect(pt, `button ${name}`).not.toBeNull();
     await page.touchscreen.tap(pt!.x, pt!.y);
   };
-  await page.goto('/?seed=2');
+  await page.goto('/?seed=2&skipintro');
   await page.waitForFunction(() => (window as unknown as { __newgame?: { step(): string } }).__newgame?.step() === 'leader', null, { timeout: 60_000 });
   await tapNew('char-dani');
   await tapNew('confirm');

@@ -48,7 +48,8 @@ export class BootScene extends Phaser.Scene {
       saveProgress(progress);
     }
     if (!progress) {
-      this.scene.start('newgame');
+      // A new game opens on the intro (?skipintro goes straight to the pick, for tests).
+      this.scene.start(params.has('skipintro') ? 'newgame' : 'intro');
       return;
     }
     this.registry.set('progress', progress);

@@ -6,6 +6,7 @@ import { BattleScene } from './scenes/BattleScene';
 import { JournalScene } from './scenes/JournalScene';
 import { NewGameScene } from './scenes/NewGameScene';
 import { OverworldScene } from './scenes/OverworldScene';
+import { IntroScene } from './scenes/IntroScene';
 
 async function start() {
   // Text is drawn to textures, so the pixel font must be ready before the first scene.
@@ -21,7 +22,7 @@ async function start() {
     fps: { smoothStep: false },
     scale: { mode: Phaser.Scale.FIT, autoCenter: Phaser.Scale.CENTER_BOTH },
     input: { activePointers: 2 },
-    scene: [BootScene, NewGameScene, OverworldScene, BattleScene, JournalScene],
+    scene: [BootScene, IntroScene, NewGameScene, OverworldScene, BattleScene, JournalScene],
   });
   (window as unknown as { __game: Phaser.Game }).__game = game;
 }
