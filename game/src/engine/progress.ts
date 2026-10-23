@@ -2,6 +2,7 @@ import charactersJson from '../data/characters.json';
 import progressJson from '../data/progress.json';
 import { BESTIARY, SPECIES } from './data';
 import type { AssistId } from './battle';
+import { MAPS, type Position } from './overworld';
 import type { Bond } from './seal';
 
 /** The player's progress (bible §7): a team of six, the sanctuary for the rest, and the bestiary. */
@@ -23,6 +24,8 @@ export interface Progress {
   team: Member[];
   sanctuary: Member[];
   bestiary: Record<string, DexRecord>;
+  /** Where the leader stands in the overworld; missing until they first walk out. */
+  pos?: Position;
 }
 
 const EMPTY_RECORD: DexRecord = { encounters: 0, defeats: 0, seals: 0, strongBonds: 0, scans: 0 };
@@ -109,5 +112,8 @@ export function parseProgress(raw: unknown): Progress | null {
   // Records saved before a counter existed get it at 0.
   const bestiary = Object.fromEntries(Object.entries(p.bestiary).filter(([id]) => SPECIES[id])
     .map(([id, r]) => [id, { ...EMPTY_RECORD, ...(r as Partial<DexRecord>) }]));
-  return { ...p, version: 2, leader, team, sanctuary: p.sanctuary.filter(ok), bestiary };
+  // A position on a map that no longer exists (or off its edge) is dropped: the game starts them at the spawn.
+  const map = p.pos && MAPS[p.pos.map];
+  const pos = map && p.pos!.x >= 0 && p.pos!.y >= 0 && p.pos!.x < map.width && p.pos!.y < map.height ? p.pos : undefined;
+  return { ...p, version: 2, leader, team, sanctuary: p.sanctuary.filter(ok), bestiary, pos };
 }

@@ -31,7 +31,7 @@ export class BootScene extends Phaser.Scene {
     }
     const params = new URLSearchParams(location.search);
     // ?reset clears the save. A new game goes to the character and starter pick, unless ?player
-    // names a starter (a shortcut for tests and quick checks).
+    // names a starter (a shortcut for tests and quick checks). ?foe jumps straight into a battle.
     if (params.has('reset')) clearProgress();
     let progress = loadProgress();
     const starter = params.get('player');
@@ -44,10 +44,12 @@ export class BootScene extends Phaser.Scene {
       return;
     }
     this.registry.set('progress', progress);
-    this.scene.start('battle', {
-      foe: params.get('foe') ?? 'sprigby',
-      seed: params.has('seed') ? Number(params.get('seed')) : undefined,
-    });
+    const foe = params.get('foe');
+    if (foe && SPECIES[foe]) {
+      this.scene.start('battle', { foe, seed: params.has('seed') ? Number(params.get('seed')) : undefined });
+      return;
+    }
+    this.scene.start('overworld');
   }
 
   private loadArt(key: string, art: SpriteAsset | undefined) {

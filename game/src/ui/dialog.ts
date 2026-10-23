@@ -22,6 +22,7 @@ export interface ShowOpts {
  * finishes the typing, then moves on.
  */
 export class DialogBox {
+  private box: Phaser.GameObjects.Graphics;
   private text: Phaser.GameObjects.Text;
   private arrow: Phaser.GameObjects.Graphics;
   private speaker?: Phaser.GameObjects.Container;
@@ -29,7 +30,7 @@ export class DialogBox {
   private readonly y = SCREEN_H - BOX_H - 7;
 
   constructor(private scene: Phaser.Scene, private depth = 5) {
-    drawPanel(scene.add.graphics().setDepth(depth), 4, this.y, SCREEN_W - 8, BOX_H, 'paper');
+    this.box = drawPanel(scene.add.graphics().setDepth(depth), 4, this.y, SCREEN_W - 8, BOX_H, 'paper');
     this.text = pixelText(scene, 14, this.y + 9, '', { color: TEXT_COLORS.ink, wrap: SCREEN_W - 32 }).setDepth(depth + 1);
     this.arrow = scene.add.graphics().setDepth(depth + 1).setVisible(false);
     this.arrow.fillStyle(COLORS.rust).fillRect(0, 0, 7, 1).fillRect(1, 1, 5, 1).fillRect(2, 2, 3, 1).fillRect(3, 3, 1, 1);
@@ -43,8 +44,29 @@ export class DialogBox {
     this.speaker = name ? tapeLabel(this.scene, 12, this.y - 6, name).setDepth(this.depth + 2) : undefined;
   }
 
+  /** Hides the box (the overworld only shows it while someone talks). */
+  hide() {
+    this.setSpeaker();
+    for (const o of [this.box, this.text, this.arrow]) o.setVisible(false);
+  }
+
+  private reveal() {
+    this.box.setVisible(true);
+    this.text.setVisible(true);
+  }
+
+  /** What a tap does: finish the typing, or move on. For keys (Space, Enter). */
+  advance() {
+    this.skip?.();
+  }
+
+  get open() {
+    return this.box.visible && !!this.skip;
+  }
+
   /** A line that stays up while the player chooses. */
   prompt(line: string) {
+    this.reveal();
     this.setSpeaker();
     this.arrow.setVisible(false);
     this.text.setText(line);
@@ -52,6 +74,7 @@ export class DialogBox {
 
   /** Types the text out a page (two lines) at a time, then waits briefly (or for a tap). */
   async show(text: string, opts: ShowOpts = {}) {
+    this.reveal();
     this.setSpeaker(opts.speaker);
     const lines = this.text.getWrappedText(text);
     for (let i = 0; i < lines.length; i += LINES) await this.page(lines.slice(i, i + LINES).join('\n'), opts);

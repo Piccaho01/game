@@ -24,7 +24,7 @@ async function tap(page: Page, name: string) {
 test('boots on a phone and Furnaxol wins the placeholder battle', async ({ page }) => {
   const errors: string[] = [];
   page.on('pageerror', (e) => errors.push(e.message));
-  await page.goto('/?seed=3&player=furnaxol');
+  await page.goto('/?seed=3&player=furnaxol&foe=sprigby');
   await page.waitForFunction(() => window.__battle?.phase() === 'menu', null, { timeout: 60_000 });
   expect(await page.evaluate(() => window.__battle.log())).toEqual(['A wild Sprigby appeared!', 'Go! Furnaxol!', 'Bestiary: Sprigby sighted. New entry!']);
 
@@ -45,7 +45,7 @@ test('boots on a phone and Furnaxol wins the placeholder battle', async ({ page 
   await page.waitForFunction(() => window.__battle.log()[0] === 'A wild Zapail appeared!', null, { timeout: 60_000 });
 
   // Progress is saved: after a reload Sprigby is already in the bestiary, so no new entry.
-  await page.goto('/?seed=3');
+  await page.goto('/?seed=3&foe=sprigby');
   await page.waitForFunction(() => window.__battle?.phase() === 'menu', null, { timeout: 60_000 });
   expect(await page.evaluate(() => window.__battle.log())).toEqual(['A wild Sprigby appeared!', 'Go! Furnaxol!']);
   expect(errors).toEqual([]);
@@ -103,7 +103,7 @@ test('switching: a voluntary switch, then a forced pick when the active Patchlin
   expect(errors).toEqual([]);
 });
 
-test('a new game picks a leader and a starter, then the first battle starts', async ({ page }) => {
+test('a new game picks a leader and a starter, then walks out into Hollow Rest', async ({ page }) => {
   const errors: string[] = [];
   page.on('pageerror', (e) => errors.push(e.message));
   const tapNew = async (name: string) => {
@@ -118,8 +118,7 @@ test('a new game picks a leader and a starter, then the first battle starts', as
   await page.waitForFunction(() => (window as unknown as { __newgame: { step(): string } }).__newgame.step() === 'starter');
   await tapNew('starter-gobbin');
   await tapNew('confirm');
-  await page.waitForFunction(() => window.__battle?.phase() === 'menu', null, { timeout: 60_000 });
-  expect(await page.evaluate(() => window.__battle.active())).toBe('Gobbin');
+  await page.waitForFunction(() => (window as unknown as { __overworld?: { ready(): boolean } }).__overworld?.ready(), null, { timeout: 60_000 });
   const save = await page.evaluate(() => JSON.parse(localStorage.getItem('patchlings.save.v1')!));
   expect(save.leader).toBe('dani');
   expect(save.team[0].species).toBe('gobbin');

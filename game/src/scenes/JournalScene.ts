@@ -29,8 +29,12 @@ export class JournalScene extends Phaser.Scene {
 
   constructor() { super('journal'); }
 
-  init(data: { foe?: string; tab?: Tab }) {
+  /** Where BACK goes: the overworld, or the test battle it came from. */
+  private from: 'overworld' | 'battle' = 'battle';
+
+  init(data: { foe?: string; tab?: Tab; from?: 'overworld' }) {
     this.foe = data.foe ?? 'sprigby';
+    this.from = data.from ?? 'battle';
     this.tab = data.tab ?? 'team';
     this.selected = null;
   }
@@ -59,7 +63,7 @@ export class JournalScene extends Phaser.Scene {
     this.bottom.add([tabBtn(66, 'team', 'TEAM'), tabBtn(190, 'bestiary', 'BESTIARY')]);
     if (this.tab === 'team') this.renderTeam();
     else this.renderBestiary();
-    this.bottom.add(button(this, 66, 172, 120, 28, 'BACK', TONES.neutral, () => this.scene.start('battle', { foe: this.foe }), { name: 'back' }));
+    this.bottom.add(button(this, 66, 172, 120, 28, 'BACK', TONES.neutral, () => (this.from === 'overworld' ? this.scene.start('overworld') : this.scene.start('battle', { foe: this.foe })), { name: 'back' }));
     this.renderTop();
   }
 
