@@ -61,8 +61,9 @@ Work happens on branch `claude/m2-starters`. Rules: `art/BW_STYLE.md`, especiall
 - **Gobbin is approved** (`art/creatures/gobbin.px.js`): translated with the material classifier
   (BW_STYLE checklist), front, idle (breath + the goblin-shark jaw firing forward), back and back
   idle. The owner dropped the concept's throat glow.
-- **Furnaxol's back** is built in scratch from shapes (head, torso, limbs, tail) with its flames
-  taken from the matching front idle frame, so both idles flicker together. M2 is done; next is M3.
+- **Furnaxol's back** is translated from the owner's back concept (`art/concepts/furnaxol_back.png`,
+  already pixel art: resampled on its own grid, then shrunk by dropping low-detail rows and
+  columns). M2 is done; next is M3.
 - `art/creatures/wip/` holds rejected redesign attempts (useful only as a record of what not to do).
 - `art/creatures/lib/creature.js` is the shared renderer (parts, tones, shading, selective
   outline, pinhole fill); include it from new creature files.
