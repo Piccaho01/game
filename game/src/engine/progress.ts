@@ -1,6 +1,7 @@
 import charactersJson from '../data/characters.json';
 import progressJson from '../data/progress.json';
 import { BESTIARY, SPECIES } from './data';
+import type { AssistId } from './battle';
 import type { Bond } from './seal';
 
 /** The player's progress (bible §7): a team of six, the sanctuary for the rest, and the bestiary. */
@@ -8,11 +9,12 @@ export const STAGES = ['sighted', 'tracked', 'studied', 'sealed', 'bonded'] as c
 export type Stage = (typeof STAGES)[number];
 
 export type CharacterId = 'callum' | 'nolan' | 'haydon' | 'dani';
-export interface CharacterData { name: string; role: string; color: string; field: string; assist: { name: string; desc: string }; line: string }
+export interface CharacterData { name: string; role: string; color: string; field: string; assist: { id: AssistId; name: string; short: string; desc: string }; line: string }
 export const CHARACTERS = charactersJson.characters as Record<CharacterId, CharacterData>;
 
 export interface Member { uid: number; species: string; level: number; bond: Bond }
-export interface DexRecord { encounters: number; defeats: number; seals: number; strongBonds: number }
+/** `scans`: Callum's Scan, which counts toward Studied. */
+export interface DexRecord { encounters: number; defeats: number; seals: number; strongBonds: number; scans: number }
 export interface Progress {
   version: 2;
   /** The character leading (bible §6); swapping leaders and their own teams come in M4. */
@@ -22,6 +24,8 @@ export interface Progress {
   sanctuary: Member[];
   bestiary: Record<string, DexRecord>;
 }
+
+const EMPTY_RECORD: DexRecord = { encounters: 0, defeats: 0, seals: 0, strongBonds: 0, scans: 0 };
 
 type Condition = Partial<Record<keyof DexRecord, number>>;
 const RULES = progressJson as unknown as {
@@ -41,7 +45,7 @@ export function newProgress(starter: string, leader: CharacterId = 'callum'): Pr
     team: [{ uid: 1, species: starter, level: RULES.starterLevel, bond: RULES.starterBond }],
     sanctuary: [],
     // PATCH hands over the starter already bonded, so its whole entry is open.
-    bestiary: { [starter]: { encounters: 1, defeats: 0, seals: 1, strongBonds: RULES.starterBond === 'strong' ? 1 : 0 } },
+    bestiary: { [starter]: { encounters: 1, defeats: 0, seals: 1, strongBonds: RULES.starterBond === 'strong' ? 1 : 0, scans: 0 } },
   };
 }
 
@@ -71,7 +75,7 @@ export function sanctuaryPoints(p: Progress): number {
 export interface DexChange { species: string; from: Stage | null; to: Stage }
 
 function bump(p: Progress, species: string, field: keyof DexRecord): DexChange | null {
-  const r = (p.bestiary[species] ??= { encounters: 0, defeats: 0, seals: 0, strongBonds: 0 });
+  const r = (p.bestiary[species] ??= { ...EMPTY_RECORD });
   const from = stageOf(r);
   r[field]++;
   const to = stageOf(r)!;
@@ -80,6 +84,7 @@ function bump(p: Progress, species: string, field: keyof DexRecord): DexChange |
 
 export function recordEncounter(p: Progress, species: string) { return bump(p, species, 'encounters'); }
 export function recordDefeat(p: Progress, species: string) { return bump(p, species, 'defeats'); }
+export function recordScan(p: Progress, species: string) { return bump(p, species, 'scans'); }
 
 /** A sealed Patchling joins the team, or goes straight to the sanctuary when the team is full. */
 export function recordSeal(p: Progress, species: string, level: number, bond: Bond) {
@@ -101,6 +106,8 @@ export function parseProgress(raw: unknown): Progress | null {
   const ok = (m: Member) => !!SPECIES[m?.species] && m.level > 0 && ['strong', 'steady', 'wary'].includes(m.bond);
   const team = p.team.filter(ok);
   if (team.length === 0) return null;
-  const bestiary = Object.fromEntries(Object.entries(p.bestiary).filter(([id]) => SPECIES[id]));
+  // Records saved before a counter existed get it at 0.
+  const bestiary = Object.fromEntries(Object.entries(p.bestiary).filter(([id]) => SPECIES[id])
+    .map(([id, r]) => [id, { ...EMPTY_RECORD, ...(r as Partial<DexRecord>) }]));
   return { ...p, version: 2, leader, team, sanctuary: p.sanctuary.filter(ok), bestiary };
 }

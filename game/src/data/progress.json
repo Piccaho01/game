@@ -7,7 +7,7 @@
   "stages": {
     "sighted": { "encounters": 1 },
     "tracked": { "encounters": 2, "defeats": 1 },
-    "studied": { "encounters": 5, "defeats": 3 },
+    "studied": { "encounters": 5, "defeats": 3, "scans": 1 },
     "sealed": { "seals": 1 },
     "bonded": { "strongBonds": 1 }
   },

@@ -2,7 +2,8 @@ import Phaser from 'phaser';
 import { SCREEN_H, SCREEN_W, ZOOM } from '../config';
 import { Battle, type BattleEvent, type PlayerAction, type Side } from '../engine/battle';
 import { createBattler } from '../engine/battler';
-import { recordDefeat, recordEncounter, recordSeal, type DexChange, type Progress } from '../engine/progress';
+import { CHARACTERS, recordDefeat, recordEncounter, recordScan, recordSeal, type DexChange, type Progress } from '../engine/progress';
+import { effectiveness } from '../engine/typeChart';
 import { MOVES, SPECIES, TYPES, type StatusId } from '../engine/data';
 import { createRng } from '../engine/rng';
 import { sealPattern, sealWindows, type Bond, type SealResult } from '../engine/seal';
@@ -128,12 +129,27 @@ export class BattleScene extends Phaser.Scene {
     this.clearMenu();
     const p = this.battle.player;
     this.message.prompt(`What will ${p.name} do?`);
-    this.menu.add(button(this, 128, 76, 200, 84, 'FIGHT', 0xd04040, () => this.showFightMenu(), { size: 16, name: 'fight' }));
+    // The leader's assist: once per battle, and free (the Patchling still moves this turn).
+    const leader = CHARACTERS[this.progress.leader];
+    const canAssist = this.battle.canAssist();
+    this.menu.add(button(this, 128, 24, 232, 28, `${leader.name.toUpperCase()}: ${leader.assist.name.toUpperCase()}`, canAssist ? 0x9050c0 : 0x505058,
+      canAssist ? () => this.useAssist() : undefined, { sub: canAssist ? `${leader.assist.short} (once, free)` : 'used this battle', name: 'assist' }));
+    this.menu.add(button(this, 128, 90, 200, 72, 'FIGHT', 0xd04040, () => this.showFightMenu(), { size: 16, name: 'fight' }));
     const canSeal = this.battle.canSeal();
     this.menu.add(button(this, 44, 160, 76, 40, 'SEAL', canSeal ? 0x9050c0 : 0x505058, canSeal ? () => this.trySeal() : undefined, { name: 'seal' }));
     this.menu.add(button(this, 128, 166, 76, 32, 'RUN', 0x4070c0, () => this.choose({ kind: 'run' }), { name: 'run' }));
     const canSwitch = this.battle.canSwitch();
     this.menu.add(button(this, 212, 160, 76, 40, 'TEAM', canSwitch ? 0x40a060 : 0x505058, canSwitch ? () => this.showTeamMenu(false) : undefined, { name: 'team' }));
+  }
+
+  private async useAssist() {
+    if (this.phase !== 'menu' || !this.battle.canAssist()) return;
+    this.phase = 'playing';
+    this.clearMenu();
+    const leader = CHARACTERS[this.progress.leader];
+    await this.playEvents(this.battle.assist(leader.assist.id, leader.name));
+    if (leader.assist.id === 'scan') await this.record(recordScan(this.progress, this.battle.foe.species));
+    this.showMainMenu();
   }
 
   /** Pick a Patchling to send in. Forced after a faint (no BACK, no foe turn). */
@@ -176,12 +192,15 @@ export class BattleScene extends Phaser.Scene {
     const usable = new Set(this.battle.usableMoves('player'));
     p.moves.forEach((slot, i) => {
       const m = MOVES[slot.id];
-      const color = m.type ? Phaser.Display.Color.HexStringToColor(TYPES[m.type].color).color : 0x808080;
+      const color = m.type ? Phaser.Display.Color.HexStringToColor(TYPES[m.type].color).darken(18).color : 0x808080;
       const x = 66 + (i % 2) * 124;
       const y = 40 + Math.floor(i / 2) * 64;
       const ok = usable.has(i);
+      // After Scan, moves show how well they land on the foe.
+      const mult = this.battle.scanned && m.category !== 'status' ? effectiveness(m.type, this.battle.foe.types) : 1;
+      const hint = mult === 1 ? '' : mult === 0 ? '  x0' : mult > 1 ? `  x${mult}` : '  x½';
       this.menu.add(button(this, x, y, 118, 56, m.name, ok ? color : 0x505058, ok ? () => this.choose({ kind: 'move', index: i }) : undefined, {
-        sub: `${m.type ? TYPES[m.type].name : '-'}  PP ${slot.pp}/${slot.maxPp}`,
+        sub: `${m.type ? TYPES[m.type].name : '-'}  PP ${slot.pp}/${slot.maxPp}${hint}`,
         name: `move${i}`,
       }));
     });
@@ -289,6 +308,9 @@ export class BattleScene extends Phaser.Scene {
           break;
         case 'faint':
           await this.faint(e.side);
+          break;
+        case 'scan':
+          await this.statFlash('foe', true);
           break;
         case 'switch':
           await this.swapIn(e.index);

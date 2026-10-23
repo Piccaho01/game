@@ -18,7 +18,7 @@ Rules that keep it efficient:
 - [x] Bible, art style guide (`art/BW_STYLE.md`), sprite pipeline validated (Furnaxol + idle)
 - [x] M1 Foundation (live once Pages is enabled: Settings → Pages → Source: GitHub Actions)
 - [x] M2 Stage-1 starters (branch `claude/m2-starters`: all four with front, idle, back and back idle in game; see "M2 handoff" below)
-- [ ] M3 Core loop (in progress on branch `claude/m3-core-loop`: seal, team of six + sanctuary, bestiary stages, save, Journal, switching and the new-game pick done; next: leader assists)
+- [x] M3 Core loop (pick a leader and starter → wild battle → seal → team/sanctuary → bestiary stages and sanctuary points, leader assists, switching, saved in the browser)
 - [ ] M4 Characters + world slice
 - [ ] M5 Playtest build
 - [ ] After the slice: evolutions, Connor, more of Verrow
@@ -144,7 +144,11 @@ clean-up stage; its automatic form shading looked like a vector render and is no
 - New game (built): pick who leads (Callum, Nolan, Haydon, Dani; `data/characters.json`: role,
   assist, a line in their voice), then any starter. Portraits are placeholders until the M4
   trainer sprites. The save stores the leader; separate teams per character come with swapping in M4.
-- Not yet: no XP/levels, the team is fully healed before every battle.
+- Leader assists (built): once per battle and free (the Patchling still moves). Scan (Callum):
+  type, weaknesses, x2/x½ hints on moves, and counts toward Studied. Patch Up (Nolan): heals half,
+  cures status. Taunt (Haydon): foe Defense and Sp. Def -1. Shield (Dani): halves the next hit.
+- Carried to later milestones: XP/levels, healing between battles (the team is fully healed
+  before every battle for now), separate teams per character (M4 swapping).
 
 ## M4 Characters + world slice (art + code)
 - From the owner's photos (bible §6 Looks): BW trainer battle sprite and a 4-direction

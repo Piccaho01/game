@@ -125,3 +125,22 @@ test('a new game picks a leader and a starter, then the first battle starts', as
   expect(save.team[0].species).toBe('gobbin');
   expect(errors).toEqual([]);
 });
+
+test("the leader's assist is free and once per battle (Callum's Scan)", async ({ page }) => {
+  const errors: string[] = [];
+  page.on('pageerror', (e) => errors.push(e.message));
+  await page.goto('/?seed=6&foe=gobbin&player=sprigby');
+  await page.waitForFunction(() => window.__battle?.phase() === 'menu', null, { timeout: 60_000 });
+  await tap(page, 'assist');
+  await page.waitForFunction(() => window.__battle.phase() === 'menu', null, { timeout: 30_000 });
+  const log = await page.evaluate(() => window.__battle.log());
+  expect(log).toContain('Callum scanned the wild Gobbin!');
+  expect(log).toContain('Weak to: Plant, Spark.');
+  expect(log).toContain('Bestiary: Gobbin is now Studied.');
+  expect(log.some((l) => l.startsWith('The wild Gobbin used'))).toBe(false);
+  // Used up: the button no longer answers.
+  await tap(page, 'assist');
+  await page.waitForTimeout(500);
+  expect(await page.evaluate(() => window.__battle.phase())).toBe('menu');
+  expect(errors).toEqual([]);
+});

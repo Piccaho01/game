@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { createBattler } from '../src/engine/battler';
 import {
-  loreOf, newProgress, parseProgress, recordDefeat, recordEncounter, recordSeal, sanctuaryPoints, stageOf, TEAM_SIZE,
+  loreOf, newProgress, parseProgress, recordDefeat, recordEncounter, recordScan, recordSeal, sanctuaryPoints, stageOf, TEAM_SIZE,
 } from '../src/engine/progress';
 
 describe('team and sanctuary', () => {
@@ -49,6 +49,12 @@ describe('bestiary', () => {
     expect(loreOf(p, 'gobbin')).toEqual([]);
   });
 
+  it("Callum's Scan makes an entry Studied", () => {
+    const p = newProgress('furnaxol');
+    recordEncounter(p, 'gobbin');
+    expect(recordScan(p, 'gobbin')).toEqual({ species: 'gobbin', from: 'sighted', to: 'studied' });
+  });
+
   it('a wary seal stops at Sealed', () => {
     const p = newProgress('furnaxol');
     recordEncounter(p, 'gobbin');
@@ -82,6 +88,13 @@ describe('save', () => {
     delete v1.leader;
     expect(parseProgress(v1)).toEqual({ ...p, leader: 'callum' });
     expect(parseProgress(JSON.parse(JSON.stringify(p)))?.leader).toBe('dani');
+  });
+
+  it('older bestiary records get the scan counter', () => {
+    const p = newProgress('furnaxol');
+    const old = JSON.parse(JSON.stringify(p));
+    delete old.bestiary.furnaxol.scans;
+    expect(parseProgress(old)?.bestiary.furnaxol.scans).toBe(0);
   });
 
   it('rejects garbage', () => {
