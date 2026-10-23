@@ -190,11 +190,18 @@ because every new screen uses it):
 7. **Trainer sprites:** walk sheets done for the four (`art/tools/walk2sheet.py` from
    `art/trainers/walk_frames.json`, loose-pixel cleanup built in) and PATCH's standing pose
    (`art/tools/pose2sprite.py`). Still to do: battle front/back portraits, Connor.
-8. **Location art (blocked on the owner):** the owner rejected a code-drawn tileset as generic
-   ("exactly a Pokémon starting town"). New split, in `art/LOCATION_STYLE.md`: ChatGPT drafts each
-   location's identity (concept, then BW2 pixel drafts of set pieces and a terrain swatch), Claude
-   converts, builds matching tiles and lays out the maps. Hollow Rest first, as one test screen
-   for approval. **Ask the owner before building any visual asset** (owner's rule).
+8. **Location art: isometric** (owner approved the look; branch `claude/m4-hollow-rest`). The
+   overworld is 2:1 isometric, after the owner's concept (`art/concepts/locations/`). Pipeline:
+   - set pieces: owner's ChatGPT drafts -> `art/tools/draft2object.py` (native size, no redraw);
+   - terrain: `art/tools/terrain.py` (swatch palette, seamless, blended edges);
+   - layout: `art/tools/hollow_rest_layout.py` writes the game's map file (rows, `heights`,
+     `objects`) and checks every door, the sanctuary and the exit are reachable;
+   - bake: `art/tools/iso_map.py <map>` -> `art/locations/out/maps/<map>.png/.json` + graded props
+     (golden-hour grade, boulder cliffs patched with brick and taped plaster, sky backdrop).
+   Engine: heights, stairs (climb toward the path), object footprints/doors (`data/objects.json`),
+   `findPath`; the overworld sorts people in front of/behind buildings by footprint; diamond D-pad.
+   Still to do: diagonal walk sprites (owner: prompt below), Route 1's own isometric layout,
+   townsfolk sprites, tall grass as upright blades.
 
 Art asks for the owner: the Hollow Rest drafts from `art/LOCATION_STYLE.md` (concept, pixel map,
 set pieces, terrain swatch) into `art/concepts/locations/`; townsfolk NPC sprites (the elder,
