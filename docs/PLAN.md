@@ -162,14 +162,20 @@ Done so far:
 
 Next, in this order (decided with the owner: the overworld is the priority; the UI kit comes first
 because every new screen uses it):
-1. **UI kit (our own look):** one theme module (colour tokens, type scale, window/frame and
-   button styles, panel and list components) in `game/src/ui/`. Restyle battle, Journal and
-   new-game screens with it. Original style, not a copy of Nintendo's menus.
-2. **Overworld engine:** tile maps as data (JSON), grid-based 4-direction movement, on-screen
-   D-pad for touch (keys on desktop), camera follow, collision, map transitions, the player's
-   position saved. Placeholder tiles until the tileset arrives.
-3. **Route 1:** tall grass with wild encounters (Orbitot, Fledjet; table per map in data) that open
-   the battle scene and return to the same spot.
+1. ~~**UI kit (our own look)**~~ (done, PR #13): `game/src/ui/theme.ts` (colour tokens, button
+   tones by job, text sizes), `kit.ts` (stitched pixel panels, buttons, tape labels, chips,
+   meters, touch-screen backdrop, hinge, D-pad, PATCH's CRT portrait), `dialog.ts` (text box with
+   speaker tape and wait-for-tap). The look is "patched together" like PATCH: cream plates,
+   gunmetal, rust, faded blue, stitches and tape. New screens use only these.
+2. ~~**Overworld engine**~~ (done, branch `claude/m4-overworld`): maps are JSON in
+   `game/src/data/maps/` (one character per tile through a legend; tile kinds in
+   `data/tiles.json`), pure logic in `engine/overworld.ts` (steps, warps, signs, encounter rolls;
+   unit-tested), `scenes/OverworldScene.ts` (top screen: map following the leader; touch screen:
+   D-pad, A, JOURNAL). Keys: arrows/WASD, Space/Enter = A, M = Journal. A quick tap is one step.
+   Position saved in `progress.pos`. Placeholder tiles and walker drawn in `overworld/tileArt.ts`.
+   Boot goes to the overworld; `?foe=` still opens a test battle; `?rate=1` forces encounters.
+3. ~~**Route 1**~~ (done with step 2): tall grass rolls per step (`encounters` in the map file:
+   rate, levels, weighted table); the battle's CONTINUE returns to the same spot.
 4. **Hollow Rest:** a few houses and NPCs with data-driven dialogue in the bible's voice (inside
    jokes spread thin, §11), a heal spot.
 5. **PATCH's intro:** the crash landing and "this is your mess", flowing into the leader and
@@ -198,7 +204,10 @@ houses, water, sanctuary ruins) and NPC walk sprites. PATCH's sheet is in (`art/
   (`game/src/save.ts`, version 2). Test URL params: `?reset`, `?player=<starter>` (skip the pick),
   `?foe=`, `?seed=`. E2E hooks: `window.__battle`, `__newgame`, `__journal`.
 - **Checks before every push:** `npm test`, `npm run build`, `npx playwright test` (phone
-  viewport) in `game/`. Screenshot new screens at 390x844 and look at them.
+  viewport) in `game/`. Screenshot new screens at 390x844 and look at them: `e2e/screens.spec.ts`
+  saves every screen to `game/screens/`. If the container can't reach the npm registry, push the
+  branch and run the workflow by hand (workflow_dispatch): manual runs print the screenshots into
+  the job log as base64 (`SCREEN <file>` lines) as well as uploading the `screens` artifact.
 
 ## M5 Playtest build
 - Bug pass on phones (iOS Safari, Android Chrome), balance pass, the link shared with the
