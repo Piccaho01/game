@@ -157,8 +157,8 @@ Done so far:
 - Route 1 commons **Orbitot** (Rock/Dark, Gravity Well, Orbit Punch) and **Fledjet** (Wind,
   Slipstream, Afterburner), bible §15: sprites, idles, data, lore, seal rhythms; both lines in the
   data (evolutions with placeholder art). They lead the wild rotation; a new game opens on Fledjet.
-- The cast's looks are locked (bible §6 Looks) and the owner's character sheets are in
-  `art/concepts/trainers/` (concept, battle front and back, overworld walk frames per character).
+- The cast's looks are locked (bible §6 Looks), PATCH included, and the owner's character sheets
+  are in `art/concepts/trainers/` (concept, battle front and back, overworld walk frames each).
 
 Next, in this order (decided with the owner: the overworld is the priority; the UI kit comes first
 because every new screen uses it):
@@ -181,7 +181,7 @@ because every new screen uses it):
    orb; use the leader's walk sprite in the overworld and their back sprite at battle start.
 
 Art asks for the owner (none block code): a BW2-style tileset (grass, tall grass, paths, trees,
-houses, water, sanctuary ruins), PATCH's sheet once his look is approved, NPC walk sprites.
+houses, water, sanctuary ruins) and NPC walk sprites. PATCH's sheet is in (`art/concepts/trainers/patch.png`, look locked in bible §6).
 
 ### M4 handoff (read this first in a new session)
 - **Workflow with the owner:** the owner is the ideas side; Claude is the developer and should
