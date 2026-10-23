@@ -8,7 +8,7 @@ const DIR = 'screens';
 
 type Hooks = { buttonAt(n: string): { x: number; y: number } | null };
 
-async function tapOn(page: Page, hook: '__battle' | '__newgame' | '__journal', name: string) {
+async function tapOn(page: Page, hook: '__battle' | '__newgame' | '__journal' | '__intro', name: string) {
   const pt = await page.evaluate(([h, n]) => (window as unknown as Record<string, Hooks>)[h].buttonAt(n), [hook, name] as const);
   expect(pt, `button ${name}`).not.toBeNull();
   await page.touchscreen.tap(pt!.x, pt!.y);
@@ -21,7 +21,21 @@ test('screens', async ({ page }) => {
   const errors: string[] = [];
   page.on('pageerror', (e) => errors.push(e.message));
 
+  // The intro: the group chat, then PATCH at the crash site (taps hurry the chat along).
+  type Intro = { part(): string };
+  const part = () => page.evaluate(() => (window as unknown as { __intro?: Intro }).__intro?.part());
   await page.goto('/?reset&seed=2');
+  await page.waitForFunction(() => (window as unknown as { __intro?: Intro }).__intro?.part() === 'chat', null, { timeout: 60_000 });
+  await page.waitForTimeout(7000);
+  await shot(page, '00a-intro-chat');
+  for (let i = 0; i < 120 && (await part()) === 'chat'; i++) {
+    await page.touchscreen.tap(195, 300);
+    await page.waitForTimeout(250);
+  }
+  await page.waitForFunction(() => (window as unknown as { __intro: Intro }).__intro.part() === 'meet', null, { timeout: 30_000 });
+  await page.waitForTimeout(3500);
+  await shot(page, '00b-intro-patch');
+  await tapOn(page, '__intro', 'skip');
   await page.waitForFunction(() => (window as unknown as { __newgame?: { step(): string } }).__newgame?.step() === 'leader', null, { timeout: 60_000 });
   await page.waitForTimeout(300);
   await shot(page, '01-newgame-patch');

@@ -2,7 +2,8 @@ import Phaser from 'phaser';
 import { SCREEN_H, SCREEN_W, ZOOM } from '../config';
 import { Battle, type BattleEvent, type PlayerAction, type Side } from '../engine/battle';
 import { createBattler } from '../engine/battler';
-import { CHARACTERS, recordDefeat, recordEncounter, recordScan, recordSeal, type DexChange, type Progress } from '../engine/progress';
+import { CHARACTERS, healTeam, keepBattleDamage, recordDefeat, recordEncounter, recordScan, recordSeal, teamBattlers, type DexChange, type Progress } from '../engine/progress';
+import { HEAL_SPOT } from '../engine/overworld';
 import { effectiveness } from '../engine/typeChart';
 import { MOVES, SPECIES, TYPES, type StatusId } from '../engine/data';
 import { createRng } from '../engine/rng';
@@ -62,7 +63,10 @@ export class BattleScene extends Phaser.Scene {
     const seed = this.params.seed ?? Math.floor(Math.random() * 2 ** 31);
     this.progress = this.registry.get('progress') as Progress;
     // The whole team comes along; the lead goes out first. Everyone is healed between battles for now.
-    const team = this.progress.team.map((m) => createBattler(m.species, m.level, undefined, m.bond));
+    // Wild battles from the overworld carry HP between fights; test battles (?foe=) start fresh.
+    const team = this.params.from === 'overworld'
+      ? teamBattlers(this.progress)
+      : this.progress.team.map((m) => createBattler(m.species, m.level, undefined, m.bond));
     this.battle = new Battle(team, createBattler(this.params.foe, this.params.level ?? FOE_LEVEL), createRng(seed));
     this.introEvents = this.battle.intro();
 
@@ -218,7 +222,9 @@ export class BattleScene extends Phaser.Scene {
     this.menu.add(pixelText(this, 128, 34, title, { color: TEXT_COLORS.light, size: TEXT_SIZE.title, shadow: '#000000' }).setOrigin(0.5));
     if (this.bond) this.menu.add(pixelText(this, 128, 58, BOND_NAMES[this.bond], { color: TEXT_COLORS.gold }).setOrigin(0.5));
     if (this.params.from === 'overworld') {
-      this.menu.add(button(this, 128, 104, 200, 44, 'CONTINUE', TONES.go, () => this.scene.start('overworld'), { name: 'continue' }));
+      // Blacking out wakes you up at PATCH's, healed.
+      const notice = this.battle.outcome === 'lose' ? 'blackout' : undefined;
+      this.menu.add(button(this, 128, 104, 200, 44, 'CONTINUE', TONES.go, () => this.scene.start('overworld', { notice }), { name: 'continue' }));
       this.menu.add(button(this, 128, 160, 120, 32, 'JOURNAL', TONES.seal, () => this.scene.start('journal', { from: 'overworld' }), { name: 'journal' }));
       return;
     }
@@ -255,6 +261,14 @@ export class BattleScene extends Phaser.Scene {
 
   /** After the battle: a defeat or a seal moves the bestiary; a seal adds to the team or sanctuary. */
   private async afterBattle() {
+    if (this.params.from === 'overworld') {
+      keepBattleDamage(this.progress, this.battle.team);
+      if (this.battle.outcome === 'lose') {
+        healTeam(this.progress);
+        this.progress.pos = { ...HEAL_SPOT };
+      }
+      saveProgress(this.progress);
+    }
     const foe = this.battle.foe;
     if (this.battle.outcome === 'win') await this.record(recordDefeat(this.progress, foe.species));
     if (this.battle.outcome === 'sealed' && this.bond) {

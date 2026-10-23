@@ -6,7 +6,7 @@ import { saveProgress } from '../save';
 import { button, buttonPagePoint, chip, hinge, menuBackdrop, panel, patchPortrait, pxRect, screenBackdrop, tapeLabel } from '../ui/kit';
 import { pixelText } from '../ui/text';
 import { COLORS, hexToNum, shade, TEXT_COLORS, TEXT_SIZE, TONES } from '../ui/theme';
-import { frontKey, idleAnimKey } from './BootScene';
+import { frontKey, idleAnimKey, walkKey } from './BootScene';
 
 type Step = 'leader' | 'starter';
 const BOTTOM = SCREEN_H;
@@ -65,13 +65,16 @@ export class NewGameScene extends Phaser.Scene {
     const c = CHARACTERS[this.leader];
     const color = hexToNum(c.color);
     this.top.add(tapeLabel(this, 14, 2, 'LEADER'));
-    // Placeholder portrait until the M4 trainer sprites: a card in their outfit colour.
+    // A card in their outfit colour (the battle portraits come with the trainer battle sprites).
     const portrait = this.add.graphics();
     pxRect(portrait, 17, 21, 64, 80, COLORS.ink, 3);
     pxRect(portrait, 18, 22, 62, 78, color, 2);
     portrait.fillStyle(shade(color, -0.25)).fillRect(18, 78, 62, 20);
     portrait.fillStyle(shade(color, 0.3)).fillRect(20, 23, 58, 1);
-    this.top.add([portrait, pixelText(this, 49, 58, c.name[0], { color: TEXT_COLORS.light, size: 24, shadow: '#000000' }).setOrigin(0.5)]);
+    this.top.add(portrait);
+    // Their overworld sprite at 2x on the card; the initial if a sheet is missing.
+    if (this.textures.exists(walkKey(this.leader))) this.top.add(this.add.image(49, 97, walkKey(this.leader), 0).setOrigin(0.5, 1).setScale(2));
+    else this.top.add(pixelText(this, 49, 58, c.name[0], { color: TEXT_COLORS.light, size: 24, shadow: '#000000' }).setOrigin(0.5));
     this.top.add(pixelText(this, 92, 20, c.name, { size: TEXT_SIZE.heading }));
     this.top.add(pixelText(this, 92, 35, c.role, { color: TEXT_COLORS.inkSoft, size: TEXT_SIZE.small }));
     this.top.add(chip(this, 92, 48, `Assist: ${c.assist.name}`, TONES.patch));

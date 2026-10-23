@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import { SPRITES, type SpriteAsset } from '../assets';
+import { SPRITES, STANDS, WALK_FRAME, WALK_SHEETS, type SpriteAsset } from '../assets';
 import { SPECIES, TYPES } from '../engine/data';
 import { newProgress } from '../engine/progress';
 import { clearProgress, loadProgress, saveProgress } from '../save';
@@ -9,6 +9,10 @@ export const frontKey = (species: string) => `front:${species}`;
 export const idleAnimKey = (species: string) => `idle:${species}`;
 /** The player's Patchling is shown from behind, like BW; optional per species (`<sprite>_back`). */
 export const backKey = (species: string) => `back:${species}`;
+/** A character's overworld walk sheet (leaders now; NPCs later). */
+export const walkKey = (id: string) => `walk:${id}`;
+/** A single standing pose (PATCH in town): art/trainers/out/<id>_stand.png. */
+export const standKey = (id: string) => `stand:${id}`;
 export const backIdleAnimKey = (species: string) => `idle:back:${species}`;
 
 export class BootScene extends Phaser.Scene {
@@ -20,6 +24,10 @@ export class BootScene extends Phaser.Scene {
       this.loadArt(frontKey(id), SPRITES[sp.sprite]);
       this.loadArt(backKey(id), SPRITES[`${sp.sprite}_back`]);
     }
+    for (const [id, url] of Object.entries(WALK_SHEETS)) {
+      this.load.spritesheet(walkKey(id), url, { frameWidth: WALK_FRAME.w, frameHeight: WALK_FRAME.h });
+    }
+    for (const [id, url] of Object.entries(STANDS)) this.load.image(standKey(id), url);
   }
 
   create() {
@@ -40,7 +48,8 @@ export class BootScene extends Phaser.Scene {
       saveProgress(progress);
     }
     if (!progress) {
-      this.scene.start('newgame');
+      // A new game opens on the intro (?skipintro goes straight to the pick, for tests).
+      this.scene.start(params.has('skipintro') ? 'newgame' : 'intro');
       return;
     }
     this.registry.set('progress', progress);

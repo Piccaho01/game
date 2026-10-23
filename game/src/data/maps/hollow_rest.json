@@ -1,8 +1,20 @@
 {
-  "_note": "Hollow Rest (bible §9): the sleepy hillside start village around the ruined sanctuary. Layout is a first pass; houses, NPCs and the sanctuary come in M4 steps 4-6.",
+  "_note": "Hollow Rest (bible \u00a79): the sleepy hillside start village around the ruined sanctuary. Placeholder layout and tiles: the real town is drafted from art/LOCATION_STYLE.md and rebuilt once the owner approves the look. NPC positions are data and move with it.",
   "id": "hollow_rest",
   "name": "Hollow Rest",
-  "legend": { ".": "grass", "=": "path", "f": "flowers", "T": "tree", "#": "fence", "W": "wall", "R": "roof", "D": "door", "X": "ruin", "~": "water", "S": "sign" },
+  "legend": {
+    ".": "grass",
+    "=": "path",
+    "f": "flowers",
+    "T": "tree",
+    "#": "fence",
+    "W": "wall",
+    "R": "roof",
+    "D": "door",
+    "X": "ruin",
+    "~": "water",
+    "S": "sign"
+  },
   "rows": [
     "TTTTTTTTTTTTTTTTTTTT",
     "TTTXXXXXXXXXXXXXXTTT",
@@ -22,12 +34,128 @@
     "T.........==.......T",
     "TTTTTTTTTT==TTTTTTTT"
   ],
-  "spawn": { "x": 10, "y": 13 },
+  "spawn": {
+    "x": 10,
+    "y": 13
+  },
   "signs": [
-    { "x": 12, "y": 10, "text": "HOLLOW REST. Pop. 31. Established last Tuesday, apparently." }
+    {
+      "x": 12,
+      "y": 10,
+      "text": "HOLLOW REST. Pop. 31. Established last Tuesday, apparently."
+    },
+    {
+      "x": 8,
+      "y": 2,
+      "opens": "sanctuary"
+    },
+    {
+      "x": 9,
+      "y": 2,
+      "opens": "sanctuary"
+    },
+    {
+      "x": 10,
+      "y": 2,
+      "opens": "sanctuary"
+    },
+    {
+      "x": 11,
+      "y": 2,
+      "opens": "sanctuary"
+    }
   ],
   "warps": [
-    { "x": 10, "y": 16, "to": "route1", "tx": 10, "ty": 1 },
-    { "x": 11, "y": 16, "to": "route1", "tx": 11, "ty": 1 }
-  ]
+    {
+      "x": 10,
+      "y": 16,
+      "to": "route1",
+      "tx": 10,
+      "ty": 1
+    },
+    {
+      "x": 11,
+      "y": 16,
+      "to": "route1",
+      "tx": 11,
+      "ty": 1
+    }
+  ],
+  "npcs": [
+    {
+      "id": "patch",
+      "x": 13,
+      "y": 2,
+      "w": 2,
+      "dir": "down",
+      "sprite": "patch",
+      "talk": "patch_heal",
+      "heal": true
+    },
+    {
+      "id": "nolan",
+      "x": 5,
+      "y": 3,
+      "dir": "right",
+      "sprite": "walk:nolan",
+      "talk": "friend_nolan",
+      "friend": "nolan"
+    },
+    {
+      "id": "haydon",
+      "x": 7,
+      "y": 3,
+      "dir": "down",
+      "sprite": "walk:haydon",
+      "talk": "friend_haydon",
+      "friend": "haydon"
+    },
+    {
+      "id": "dani",
+      "x": 6,
+      "y": 2,
+      "dir": "down",
+      "sprite": "walk:dani",
+      "talk": "friend_dani",
+      "friend": "dani"
+    },
+    {
+      "id": "callum",
+      "x": 15,
+      "y": 3,
+      "dir": "left",
+      "sprite": "walk:callum",
+      "talk": "friend_callum",
+      "friend": "callum"
+    },
+    {
+      "id": "elder",
+      "x": 8,
+      "y": 5,
+      "dir": "right",
+      "sprite": "placeholder:#7a6a58",
+      "talk": "elder"
+    },
+    {
+      "id": "neighbour",
+      "x": 17,
+      "y": 9,
+      "dir": "left",
+      "sprite": "placeholder:#c8a040",
+      "talk": "neighbour"
+    },
+    {
+      "id": "pond_kid",
+      "x": 4,
+      "y": 14,
+      "dir": "left",
+      "sprite": "placeholder:#e07050",
+      "talk": "pond_kid"
+    }
+  ],
+  "healSpot": {
+    "x": 13,
+    "y": 3,
+    "dir": "up"
+  }
 }

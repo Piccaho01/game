@@ -1,6 +1,7 @@
 import charactersJson from '../data/characters.json';
 import progressJson from '../data/progress.json';
-import { BESTIARY, SPECIES } from './data';
+import { BESTIARY, SPECIES, type StatusId } from './data';
+import { createBattler, type Battler } from './battler';
 import type { AssistId } from './battle';
 import { MAPS, type Position } from './overworld';
 import type { Bond } from './seal';
@@ -13,7 +14,8 @@ export type CharacterId = 'callum' | 'nolan' | 'haydon' | 'dani';
 export interface CharacterData { name: string; role: string; color: string; field: string; assist: { id: AssistId; name: string; short: string; desc: string }; line: string }
 export const CHARACTERS = charactersJson.characters as Record<CharacterId, CharacterData>;
 
-export interface Member { uid: number; species: string; level: number; bond: Bond }
+/** `hp`/`status`: carried between wild battles; missing means full health and no status. */
+export interface Member { uid: number; species: string; level: number; bond: Bond; hp?: number; status?: StatusId | null }
 /** `scans`: Callum's Scan, which counts toward Studied. */
 export interface DexRecord { encounters: number; defeats: number; seals: number; strongBonds: number; scans: number }
 export interface Progress {
@@ -24,6 +26,8 @@ export interface Progress {
   team: Member[];
   sanctuary: Member[];
   bestiary: Record<string, DexRecord>;
+  /** Sanctuary wings restored (engine/sanctuary.ts), in order. */
+  wings: string[];
   /** Where the leader stands in the overworld; missing until they first walk out. */
   pos?: Position;
 }
@@ -47,6 +51,7 @@ export function newProgress(starter: string, leader: CharacterId = 'callum'): Pr
     version: 2, leader, nextUid: 2,
     team: [{ uid: 1, species: starter, level: RULES.starterLevel, bond: RULES.starterBond }],
     sanctuary: [],
+    wings: [],
     // PATCH hands over the starter already bonded, so its whole entry is open.
     bestiary: { [starter]: { encounters: 1, defeats: 0, seals: 1, strongBonds: RULES.starterBond === 'strong' ? 1 : 0, scans: 0 } },
   };
@@ -100,13 +105,48 @@ export function recordSeal(p: Progress, species: string, level: number, bond: Bo
   return { member, where, change };
 }
 
+/** The team as battlers, with the HP and status they were left with. */
+export function teamBattlers(p: Progress): Battler[] {
+  return p.team.map((m) => {
+    const b = createBattler(m.species, m.level, undefined, m.bond);
+    if (m.hp !== undefined) b.hp = Math.max(0, Math.min(b.stats.hp, m.hp));
+    b.status = m.status ?? null;
+    return b;
+  });
+}
+
+/** After a battle: each member keeps the HP and status it ended with (team order is unchanged). */
+export function keepBattleDamage(p: Progress, team: Battler[]) {
+  p.team.forEach((m, i) => {
+    const b = team[i];
+    if (!b) return;
+    m.hp = b.hp >= b.stats.hp ? undefined : b.hp;
+    m.status = b.hp > 0 ? b.status : null;
+    if (m.hp === undefined) delete m.hp;
+    if (!m.status) delete m.status;
+  });
+}
+
+export function healTeam(p: Progress) {
+  for (const m of p.team) {
+    delete m.hp;
+    delete m.status;
+  }
+}
+
+/** Can the team fight? (Someone is still standing.) */
+export function canBattle(p: Progress) {
+  return teamBattlers(p).some((b) => b.hp > 0);
+}
+
 /** Loads saved progress, dropping anything that no longer matches the data (renamed species). */
 export function parseProgress(raw: unknown): Progress | null {
   const p = raw as (Omit<Progress, 'version' | 'leader'> & { version: number; leader?: string }) | null;
   if (!p || (p.version !== 1 && p.version !== 2) || !Array.isArray(p.team) || !Array.isArray(p.sanctuary) || typeof p.bestiary !== 'object') return null;
   // Version 1 saves came before the character pick: they belong to Callum.
   const leader = (p.leader && p.leader in CHARACTERS ? p.leader : 'callum') as CharacterId;
-  const ok = (m: Member) => !!SPECIES[m?.species] && m.level > 0 && ['strong', 'steady', 'wary'].includes(m.bond);
+  const ok = (m: Member) => !!SPECIES[m?.species] && m.level > 0 && ['strong', 'steady', 'wary'].includes(m.bond)
+    && (m.hp === undefined || (typeof m.hp === 'number' && m.hp >= 0));
   const team = p.team.filter(ok);
   if (team.length === 0) return null;
   // Records saved before a counter existed get it at 0.
@@ -115,5 +155,6 @@ export function parseProgress(raw: unknown): Progress | null {
   // A position on a map that no longer exists (or off its edge) is dropped: the game starts them at the spawn.
   const map = p.pos && MAPS[p.pos.map];
   const pos = map && p.pos!.x >= 0 && p.pos!.y >= 0 && p.pos!.x < map.width && p.pos!.y < map.height ? p.pos : undefined;
-  return { ...p, version: 2, leader, team, sanctuary: p.sanctuary.filter(ok), bestiary, pos };
+  const wings = Array.isArray(p.wings) ? p.wings.filter((w): w is string => typeof w === 'string') : [];
+  return { ...p, version: 2, leader, team, sanctuary: p.sanctuary.filter(ok), bestiary, pos, wings };
 }

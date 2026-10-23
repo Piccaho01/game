@@ -176,18 +176,29 @@ because every new screen uses it):
    Boot goes to the overworld; `?foe=` still opens a test battle; `?rate=1` forces encounters.
 3. ~~**Route 1**~~ (done with step 2): tall grass rolls per step (`encounters` in the map file:
    rate, levels, weighted table); the battle's CONTINUE returns to the same spot.
-4. **Hollow Rest:** a few houses and NPCs with data-driven dialogue in the bible's voice (inside
-   jokes spread thin, §11), a heal spot.
-5. **PATCH's intro:** the crash landing and "this is your mess", flowing into the leader and
-   starter pick (the pick screens exist: NewGameScene).
-6. **Sanctuary hub:** the ruined sanctuary; sanctuary points (already tracked) restore the first
-   wing. That completes M4.
-7. **Trainer sprites in game** (any time): convert the battle front/back and walk frames from
-   `art/concepts/trainers/` (draft2sprite.py works on these); recolour any Poké Ball into a seal
-   orb; use the leader's walk sprite in the overworld and their back sprite at battle start.
+4. ~~**Hollow Rest people**~~ (code done, branch `claude/m4-identity`): NPCs in map data
+   (`npcs`: sprite, talk id, `friend` = only while someone else leads, `heal`), lines in
+   `data/dialogue.json` (with per-leader versions), the three non-leaders wait at the sanctuary,
+   **PATCH heals**. HP and status now carry between wild battles (`Member.hp/status`); blacking
+   out wakes you at PATCH (`healSpot`). PP still refills every battle.
+5. ~~**Intro**~~ (done): `IntroScene`, script in `data/intro.json`: the friends' group chat, Callum
+   adds PATCH, PATCH builds a world and blows up; then PATCH at the crash site; then the pick.
+   `?skipintro` skips it.
+6. ~~**Sanctuary**~~ (done): `data/sanctuary.json` wings (Root Hall 10 pts, then Tide Gallery,
+   Ember Vault), restored in order from the CRT stones at the sanctuary (`SanctuaryScene`).
+   M4's "done when" is met in code; what's left is the art.
+7. **Trainer sprites:** walk sheets done for the four (`art/tools/walk2sheet.py` from
+   `art/trainers/walk_frames.json`, loose-pixel cleanup built in) and PATCH's standing pose
+   (`art/tools/pose2sprite.py`). Still to do: battle front/back portraits, Connor.
+8. **Location art (blocked on the owner):** the owner rejected a code-drawn tileset as generic
+   ("exactly a Pokémon starting town"). New split, in `art/LOCATION_STYLE.md`: ChatGPT drafts each
+   location's identity (concept, then BW2 pixel drafts of set pieces and a terrain swatch), Claude
+   converts, builds matching tiles and lays out the maps. Hollow Rest first, as one test screen
+   for approval. **Ask the owner before building any visual asset** (owner's rule).
 
-Art asks for the owner (none block code): a BW2-style tileset (grass, tall grass, paths, trees,
-houses, water, sanctuary ruins) and NPC walk sprites. PATCH's sheet is in (`art/concepts/trainers/patch.png`, look locked in bible §6).
+Art asks for the owner: the Hollow Rest drafts from `art/LOCATION_STYLE.md` (concept, pixel map,
+set pieces, terrain swatch) into `art/concepts/locations/`; townsfolk NPC sprites (the elder,
+neighbour and pond kid are placeholders).
 
 ### M4 handoff (read this first in a new session)
 - **Workflow with the owner:** the owner is the ideas side; Claude is the developer and should
