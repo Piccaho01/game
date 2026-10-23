@@ -24,6 +24,9 @@ learned it from real sprites. So the owner makes the draft and Claude makes it g
    `python3 art/tools/pixel2grid.py DRAFT.png OUT --pal art/creatures/<name>.px.js --line-top D`
    (or `--colors 15` for a new creature; `--drop R C` removes the R rows and C columns with the
    least detail if it must shrink). Paste the grid into the .px.js file; feet on y = 91.
+   If that comes out mushy (drafts that mix pixel sizes, like Orbitot's and Fledjet's), use
+   `art/tools/draft2sprite.py` instead: it reduces colours at full size and shrinks straight to
+   sprite size. Show the owner the plain conversion before any hand pass; they may want it as is.
 4. **Hand pass** against the rules below: face (rule 27), seams, merged parts, specks.
 5. **Idle** from the grid: breath (shift the rows above a clean split row by 1 px), plus a part
    moving (flame tips, blink, jaw); frame 0 is the still.
