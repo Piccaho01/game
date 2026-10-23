@@ -33,6 +33,7 @@ export class IntroScene extends Phaser.Scene {
   private skipped = false;
   private part: 'chat' | 'boom' | 'meet' | 'done' = 'chat';
   private bottom!: Phaser.GameObjects.Container;
+  private hint!: Phaser.GameObjects.Text;
 
   constructor() { super('intro'); }
 
@@ -46,7 +47,8 @@ export class IntroScene extends Phaser.Scene {
     screenBackdrop(this, BOTTOM).setDepth(20);
     hinge(this);
     this.bottom = this.add.container(0, BOTTOM).setDepth(21);
-    this.bottom.add(pixelText(this, 128, 70, 'tap to hurry them up', { color: TEXT_COLORS.dim, size: TEXT_SIZE.small }).setOrigin(0.5));
+    this.hint = pixelText(this, 128, 70, 'tap to hurry them up', { color: TEXT_COLORS.dim, size: TEXT_SIZE.small }).setOrigin(0.5);
+    this.bottom.add(this.hint);
     this.bottom.add(button(this, 200, 168, 92, 28, 'SKIP', TONES.neutral, () => this.finish(), { name: 'skip' }));
     this.input.on('pointerdown', () => { this.hurry = true; });
     (window as unknown as Record<string, unknown>).__intro = {
@@ -74,15 +76,13 @@ export class IntroScene extends Phaser.Scene {
     g.fillStyle(0x15172a).fillRect(0, 0, SCREEN_W, SCREEN_H);
     g.fillStyle(0x1b1e36);
     for (let y = 0; y < SCREEN_H; y += 4) g.fillRect(0, y, SCREEN_W, 1);
-    // The chat's header bar.
-    pxRect(g, 0, 0, SCREEN_W, 18, COLORS.metal, 0);
-    g.fillStyle(COLORS.ink).fillRect(0, 18, SCREEN_W, 1);
-    tapeLabel(this, 8, 4, INTRO.chatTitle);
-    pixelText(this, SCREEN_W - 8, 6, '4 members', { color: TEXT_COLORS.dim, size: TEXT_SIZE.tiny }).setOrigin(1, 0);
-    this.chat = this.add.container(0, 0);
-    // Messages scroll up under the header.
-    const mask = this.make.graphics({}, false).fillRect(0, CHAT_TOP - 1, SCREEN_W, CHAT_BOTTOM - CHAT_TOP + 2);
-    this.chat.setMask(mask.createGeometryMask());
+    this.chat = this.add.container(0, 0).setDepth(1);
+    // The chat's header bar sits on top, so older messages scroll up underneath it.
+    const bar = this.add.graphics().setDepth(5);
+    pxRect(bar, 0, 0, SCREEN_W, 18, COLORS.metal, 0);
+    bar.fillStyle(COLORS.ink).fillRect(0, 18, SCREEN_W, 1);
+    tapeLabel(this, 8, 4, INTRO.chatTitle).setDepth(6);
+    pixelText(this, SCREEN_W - 8, 6, '4 members', { color: TEXT_COLORS.dim, size: TEXT_SIZE.tiny }).setOrigin(1, 0).setDepth(6);
   }
 
   private pause(ms: number) {
@@ -196,6 +196,7 @@ export class IntroScene extends Phaser.Scene {
     // Clear the phone; the touch screen and the hinge (depth 10+) stay.
     [...this.children.list].filter((o) => (o as unknown as Phaser.GameObjects.Components.Depth).depth < 10).forEach((o) => o.destroy());
     this.drawCrashSite();
+    this.hint.setText('tap to continue');
     const dialog = new DialogBox(this, 25);
     cam.fadeIn(700, 0, 0, 0);
     await wait(this, 800);
@@ -216,28 +217,28 @@ export class IntroScene extends Phaser.Scene {
     g.fillStyle(0x2e4a34).fillRect(0, 56, SCREEN_W, SCREEN_H - 56);
     g.fillStyle(0x3a5c3c).fillRect(0, 62, SCREEN_W, SCREEN_H - 62);
     g.fillStyle(0x45693f).fillRect(0, 74, SCREEN_W, SCREEN_H - 74);
-    // The crater: scorched ring, dark centre, a trench running off to the left.
-    g.fillStyle(0x3a2e24).fillEllipse(124, 116, 120, 40);
-    g.fillStyle(0x241c18).fillEllipse(124, 116, 92, 28);
-    g.fillStyle(0x15110f).fillEllipse(124, 117, 60, 16);
-    g.fillStyle(0x3a2e24).fillRect(20, 112, 60, 8);
-    g.fillStyle(0x241c18).fillRect(20, 114, 60, 4);
+    // The crater, behind them: scorched ring, dark centre, a trench running off to the left.
+    g.fillStyle(0x3a2e24).fillEllipse(132, 100, 100, 30);
+    g.fillStyle(0x241c18).fillEllipse(132, 100, 76, 20);
+    g.fillStyle(0x15110f).fillEllipse(132, 101, 48, 11);
+    g.fillStyle(0x3a2e24).fillRect(30, 96, 56, 7);
+    g.fillStyle(0x241c18).fillRect(30, 98, 56, 3);
     // Debris: bent panels in PATCH's colours.
-    for (const [x, y, w, h, c] of [[96, 104, 8, 4, 0xc2502f], [150, 110, 6, 5, 0x5a84c0], [70, 122, 7, 3, 0xe8dcc0], [172, 124, 5, 3, 0x5a84c0]] as const) {
+    for (const [x, y, w, h, c] of [[104, 90, 8, 4, 0xc2502f], [158, 94, 6, 5, 0x5a84c0], [92, 106, 7, 3, 0xe8dcc0], [170, 106, 5, 3, 0x5a84c0]] as const) {
       pxRect(g, x - 1, y - 1, w + 2, h + 2, COLORS.ink, 0);
       g.fillStyle(c).fillRect(x, y, w, h);
     }
     // Smoke rising from the middle.
     for (let i = 0; i < 6; i++) {
-      const puff = this.add.circle(124 + Phaser.Math.Between(-6, 6), 112, Phaser.Math.Between(3, 6), 0xb8b2a2, 0.5);
-      this.tweens.add({ targets: puff, y: 40, x: puff.x + Phaser.Math.Between(-10, 14), alpha: 0, scale: 2.4, duration: 2600, delay: i * 430, repeat: -1 });
+      const puff = this.add.circle(132 + Phaser.Math.Between(-6, 6), 98, Phaser.Math.Between(3, 6), 0xb8b2a2, 0.5);
+      this.tweens.add({ targets: puff, y: 30, x: puff.x + Phaser.Math.Between(-10, 14), alpha: 0, scale: 2.4, duration: 2600, delay: i * 430, repeat: -1 });
     }
-    // PATCH stands over it at 2x; the four of them on the near side.
-    if (this.textures.exists(standKey('patch'))) this.add.image(206, 140, standKey('patch')).setOrigin(0.5, 1).setScale(2);
+    // Everyone at 2x, so PATCH stands about twice their height.
+    if (this.textures.exists(standKey('patch'))) this.add.image(208, 146, standKey('patch')).setOrigin(0.5, 1).setScale(2);
     // Walk sheet rows: 0 down, 2 right (towards PATCH).
-    const friends: [CharacterId, number, number, number][] = [['callum', 44, 140, 2], ['nolan', 66, 146, 0], ['haydon', 26, 146, 2], ['dani', 48, 160, 2]];
+    const friends: [CharacterId, number, number, number][] = [['haydon', 22, 136, 2], ['callum', 52, 140, 2], ['nolan', 82, 138, 0], ['dani', 36, 150, 2]];
     for (const [id, x, y, row] of friends) {
-      if (this.textures.exists(walkKey(id))) this.add.image(x, y, walkKey(id), row * 3).setOrigin(0.5, 1);
+      if (this.textures.exists(walkKey(id))) this.add.image(x, y, walkKey(id), row * 3).setOrigin(0.5, 1).setScale(2);
     }
   }
 
