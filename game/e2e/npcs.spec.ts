@@ -22,10 +22,10 @@ test('the friends wait at the sanctuary, and PATCH heals the team', async ({ pag
   expect(npcs).toEqual(expect.arrayContaining(['patch', 'nolan', 'haydon', 'dani']));
   expect(npcs).not.toContain('callum');
 
-  // Up the hill to the sanctuary, to stand in front of PATCH, and face him.
-  await walkTo(page, 3, 6);
-  await tapKey(page, 'up');
-  expect(await ow(page)).toEqual({ map: 'hollow_rest', x: 3, y: 6, dir: 'up' });
+  // Up the hill to the sanctuary's steps, where PATCH stands guard, and face him.
+  await walkTo(page, 5, 5);
+  await tapKey(page, 'left');
+  expect(await ow(page)).toEqual({ map: 'hollow_rest', x: 5, y: 5, dir: 'left' });
 
   await page.keyboard.press('Space');
   await page.waitForFunction(() => (window as unknown as { __overworld: Ow }).__overworld.talking());

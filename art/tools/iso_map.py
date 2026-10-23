@@ -168,11 +168,12 @@ class Map:
 
 
 def stair_axis(m, x, y):
-    """Stairs climb toward whichever neighbour is one level up: -y (steps descend toward +y) or -x."""
+    """Stairs climb toward the neighbour one level up (-y: steps descend toward +y; or -x) that the
+    path carries on into; else any higher one. Same rule as the game (engine/overworld.ts)."""
     z = m.z(x, y)
-    if m.z(x, y - 1) == z + 1: return 'y'
-    if m.z(x - 1, y) == z + 1: return 'x'
-    return 'y'
+    up = [(a, nx, ny) for a, nx, ny in (('y', x, y - 1), ('x', x - 1, y)) if m.z(nx, ny) == z + 1]
+    on_path = [a for a, nx, ny in up if m.kind(nx, ny) in ('path', 'exit')]
+    return (on_path or [a for a, _, _ in up] or ['y'])[0]
 
 
 def ground_tile(m, x, y):

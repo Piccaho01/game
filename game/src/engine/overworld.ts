@@ -137,13 +137,16 @@ export function isBlocked(map: WorldMap, x: number, y: number) {
   return !!o && !OBJECTS[o.kind].walkable;
 }
 
-/** Stairs climb toward whichever neighbour is one level up: -y ('y') or -x ('x'). */
+/**
+ * Stairs climb toward the neighbour one level up, -y ('y') or -x ('x'): the one the path carries
+ * on into, else any higher one. Same rule as the baker (art/tools/iso_map.py).
+ */
 export function stairAxis(map: WorldMap, x: number, y: number): 'x' | 'y' | null {
   if (map.tiles[y]?.[x] !== 'stairs') return null;
   const z = heightAt(map, x, y);
-  if (heightAt(map, x, y - 1) === z + 1) return 'y';
-  if (heightAt(map, x - 1, y) === z + 1) return 'x';
-  return null;
+  const up = ([['y', x, y - 1], ['x', x - 1, y]] as const).filter(([, nx, ny]) => heightAt(map, nx, ny) === z + 1);
+  const onPath = up.filter(([, nx, ny]) => ['path', 'exit'].includes(map.tiles[ny]?.[nx]));
+  return (onPath[0] ?? up[0])?.[0] ?? null;
 }
 
 /** Can you walk from one tile to its neighbour? Same height, or up and down along a stairway. */

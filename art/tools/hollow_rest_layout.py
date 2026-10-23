@@ -12,6 +12,7 @@ Usage: python3 art/tools/hollow_rest_layout.py
 """
 import json, math, os
 
+SPAWN = (12, 13)
 MAP = os.path.join(os.path.dirname(__file__), '..', '..', 'game', 'src', 'data', 'maps', 'hollow_rest.json')
 W = H = 24
 
@@ -25,7 +26,7 @@ def height(x, y):
     wob = math.sin(u * 0.9) * 0.8 + math.cos(u * 0.37 + 1) * 1.2
     front = 37 - 0.18 * abs(u) + wob
     if abs(u) > 17 - max(0, (s - 30)) * 0.6 or s > front or s < 1: return 0
-    if s < 12 + math.sin(u * 0.7) * 0.6 and -3 <= u <= 6: return 3
+    if s < 11.5 and -1 <= u <= 6: return 3
     if (u < -2 and s < 21 + math.sin(u * 0.8)) or (u >= -2 and s < 17 + math.cos(u * 0.6) * 0.7): return 2
     return 1
 
@@ -35,7 +36,7 @@ K = [['.' for _ in range(W)] for _ in range(H)]
 
 
 def put(x, y, c):
-    if 0 <= x < W and 0 <= y < H and Z[y][x] > 0: K[y][x] = c
+    if 0 <= x < W and 0 <= y < H and Z[y][x] > 0 and (x, y) not in globals().get('FOOT', ()): K[y][x] = c
 
 
 def path(points, c='='):
@@ -71,6 +72,33 @@ for y in range(H):
         elif u > 12 and s < 21: K[y][x] = 'T' if n < 7 else 'b'
         elif n == 0 and Z[y][x] < 3: K[y][x] = 'b'
 
+objects = []
+def obj(kind, u, s, wx=1, wy=1):
+    """Place by the footprint's front tile at (u, s)."""
+    fx, fy = tile(u, s)
+    objects.append({'kind': kind, 'x': fx - wx + 1, 'y': fy - wy + 1})
+obj('sanctuary', 2, 10, 3, 4)
+obj('cottage', -10, 18, 2, 3)
+obj('casa', -4, 16, 2, 3)
+obj('suburb', 8, 15, 5, 2)
+obj('crater', 0, 22, 3, 3)
+obj('shed', 10, 24, 2, 2)
+for u, s in [(-7, 23), (-6, 24), (-7, 25), (-5, 23)]: obj('sunflowers', u, s)
+obj('lamp', -6, 21)
+obj('laundry', -7, 18)
+obj('chalk', -2, 30)
+obj('cat', -4, 31)
+obj('bench', 4, 28)
+obj('crates', 12, 24)
+
+OBJ = json.load(open(os.path.join(os.path.dirname(MAP), '..', 'objects.json')))['objects']
+FOOT = set()
+for o in objects:
+    d = OBJ[o['kind']]
+    if d.get('walkable'): continue
+    for yy in range(o['y'], o['y'] + d['wy']):
+        for xx in range(o['x'], o['x'] + d['wx']): FOOT.add((xx, yy))
+
 # Paths (as in the concept): from the stairs at the front edge, a winding track up-left past the
 # garden to the cottage terrace; a branch right round the crater to the shed and up to the
 # suburb; and up the hill to the sanctuary.
@@ -89,7 +117,7 @@ def stairs_at(x, y):
     z = Z[y][x]
     for dx, dy in ((0, -1), (-1, 0)):
         nx, ny = x + dx, y + dy
-        if 0 <= nx < W and 0 <= ny < H and Z[ny][nx] == z + 1:
+        if 0 <= nx < W and 0 <= ny < H and Z[ny][nx] == z + 1 and (nx, ny) not in FOOT:
             K[y][x] = 'H'; return True
     return False
 for y in range(H):
@@ -118,27 +146,7 @@ for pts in ([(-10, 26), (-9, 27), (-8, 28), (-7, 29), (-6, 30)], [(-4, 26), (-3,
         x, y = tile(u, s)
         if 0 <= x < W and 0 <= y < H and K[y][x] in '.b': K[y][x] = '#'
 
-objects = []
-def obj(kind, u, s, wx=1, wy=1):
-    """Place by the footprint's front tile at (u, s)."""
-    fx, fy = tile(u, s)
-    objects.append({'kind': kind, 'x': fx - wx + 1, 'y': fy - wy + 1})
-obj('sanctuary', 2, 10, 3, 4)
-obj('cottage', -10, 18, 2, 3)
-obj('casa', -4, 16, 2, 3)
-obj('suburb', 8, 15, 5, 2)
-obj('crater', 0, 22, 3, 3)
-obj('shed', 10, 24, 2, 2)
-for u, s in [(-7, 23), (-6, 24), (-7, 25), (-5, 23)]: obj('sunflowers', u, s)
-obj('lamp', -6, 21)
-obj('laundry', -7, 18)
-obj('chalk', -2, 30)
-obj('cat', -4, 31)
-obj('bench', 4, 28)
-obj('crates', 12, 24)
-
 # objects stand on their own ground: clear terrain under them, and level the ground to the front tile
-OBJ = json.load(open(os.path.join(os.path.dirname(MAP), '..', 'objects.json')))['objects']
 for o in objects:
     d = OBJ[o['kind']]
     zf = Z[o['y'] + d['wy'] - 1][o['x'] + d['wx'] - 1]
@@ -147,7 +155,41 @@ for o in objects:
             if K[yy][xx] in 'Tb#*': K[yy][xx] = '.'
             Z[yy][xx] = zf          # level ground under it
 # the town sign by the path to the edge
-K[18][19] = 'S'
+K[17][13] = 'S'
+
+# Every door, the sanctuary, the heal spot and the way off must be walkable from the spawn.
+def walkable(x, y):
+    return 0 <= x < W and 0 <= y < H and Z[y][x] > 0 and K[y][x] not in 'TbS#' and (x, y) not in FOOT
+def stair_axis(x, y):
+    """Toward the higher neighbour (-y or -x) that the path carries on into; else any higher one."""
+    if K[y][x] != 'H': return None
+    up = [(a, nx, ny) for a, nx, ny in (('y', x, y - 1), ('x', x - 1, y)) if nx >= 0 and ny >= 0 and Z[ny][nx] == Z[y][x] + 1]
+    on_path = [a for a, nx, ny in up if K[ny][nx] in '=E']
+    return (on_path or [a for a, _, _ in up] or [None])[0]
+def climb(ax, ay, bx, by):
+    za, zb = Z[ay][ax], Z[by][bx]
+    if za == zb: return True
+    if abs(za - zb) != 1: return False
+    lx, ly, hx, hy = (ax, ay, bx, by) if za < zb else (bx, by, ax, ay)
+    a = stair_axis(lx, ly)
+    return (a == 'y' and (hx, hy) == (lx, ly - 1)) or (a == 'x' and (hx, hy) == (lx - 1, ly))
+def reach(start):
+    seen, todo = {start}, [start]
+    while todo:
+        x, y = todo.pop()
+        for dx, dy in ((0, 1), (0, -1), (1, 0), (-1, 0)):
+            n = (x + dx, y + dy)
+            if n not in seen and walkable(*n) and climb(x, y, *n):
+                seen.add(n); todo.append(n)
+    return seen
+R = reach(SPAWN)
+need = {'exit': (ex, ey)}
+for o in objects:
+    d = OBJ[o['kind']]
+    if 'door' in d: need[o['kind'] + ' door'] = (o['x'] + d['door'][0], o['y'] + d['door'][1])
+    if d.get('opens'): need[o['kind'] + ' front'] = (o['x'] + d['wx'] // 2, o['y'] + d['wy'])
+missing = {k: v for k, v in need.items() if v not in R}
+assert not missing, f'not reachable from the spawn: {missing}'
 
 rows = [''.join(r) for r in K]
 heights = [''.join(str(z) for z in r) for r in Z]

@@ -54,7 +54,7 @@ test('screens', async ({ page }) => {
   await walkTo(page, 6, 6);
   await page.waitForTimeout(300);
   await shot(page, '04b-overworld-sanctuary');
-  await walkTo(page, 20, 18);
+  await walkTo(page, 14, 17);
   await tapKey(page, 'left');
   await page.keyboard.press('Space');
   await page.waitForTimeout(1500);
