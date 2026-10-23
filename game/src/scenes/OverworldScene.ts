@@ -271,7 +271,8 @@ export class OverworldScene extends Phaser.Scene {
       return;
     }
     const sign = signAt(MAPS[this.pos.map], x, y);
-    if (sign) await this.say([{ text: sign.text }]);
+    if (sign?.opens) this.scene.start(sign.opens);
+    else if (sign?.text) await this.say([{ text: sign.text }]);
   }
 
   private talk(id: string) {

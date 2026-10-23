@@ -26,6 +26,8 @@ export interface Progress {
   team: Member[];
   sanctuary: Member[];
   bestiary: Record<string, DexRecord>;
+  /** Sanctuary wings restored (engine/sanctuary.ts), in order. */
+  wings: string[];
   /** Where the leader stands in the overworld; missing until they first walk out. */
   pos?: Position;
 }
@@ -49,6 +51,7 @@ export function newProgress(starter: string, leader: CharacterId = 'callum'): Pr
     version: 2, leader, nextUid: 2,
     team: [{ uid: 1, species: starter, level: RULES.starterLevel, bond: RULES.starterBond }],
     sanctuary: [],
+    wings: [],
     // PATCH hands over the starter already bonded, so its whole entry is open.
     bestiary: { [starter]: { encounters: 1, defeats: 0, seals: 1, strongBonds: RULES.starterBond === 'strong' ? 1 : 0, scans: 0 } },
   };
@@ -152,5 +155,6 @@ export function parseProgress(raw: unknown): Progress | null {
   // A position on a map that no longer exists (or off its edge) is dropped: the game starts them at the spawn.
   const map = p.pos && MAPS[p.pos.map];
   const pos = map && p.pos!.x >= 0 && p.pos!.y >= 0 && p.pos!.x < map.width && p.pos!.y < map.height ? p.pos : undefined;
-  return { ...p, version: 2, leader, team, sanctuary: p.sanctuary.filter(ok), bestiary, pos };
+  const wings = Array.isArray(p.wings) ? p.wings.filter((w): w is string => typeof w === 'string') : [];
+  return { ...p, version: 2, leader, team, sanctuary: p.sanctuary.filter(ok), bestiary, pos, wings };
 }

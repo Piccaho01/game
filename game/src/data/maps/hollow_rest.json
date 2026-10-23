@@ -43,6 +43,26 @@
       "x": 12,
       "y": 10,
       "text": "HOLLOW REST. Pop. 31. Established last Tuesday, apparently."
+    },
+    {
+      "x": 8,
+      "y": 2,
+      "opens": "sanctuary"
+    },
+    {
+      "x": 9,
+      "y": 2,
+      "opens": "sanctuary"
+    },
+    {
+      "x": 10,
+      "y": 2,
+      "opens": "sanctuary"
+    },
+    {
+      "x": 11,
+      "y": 2,
+      "opens": "sanctuary"
     }
   ],
   "warps": [

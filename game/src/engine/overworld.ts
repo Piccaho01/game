@@ -14,8 +14,8 @@ export const TILES = tilesJson.tiles as Record<string, TileData>;
 export const TILE_IDS = Object.keys(TILES);
 
 export interface Warp { x: number; y: number; to: string; tx: number; ty: number }
-/** Read with the A button while facing it. */
-export interface Sign { x: number; y: number; text: string }
+/** Read with the A button while facing it; `opens` a screen instead (the sanctuary's CRT stones). */
+export interface Sign { x: number; y: number; text?: string; opens?: 'sanctuary' }
 /**
  * Someone standing on the map. `sprite`: 'walk:<id>' (a walk sheet), 'patch' (PATCH, big), or
  * 'placeholder:#rrggbb' until their sprite is drawn. `talk`: a data/dialogue.json id. `w`: tiles

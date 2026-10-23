@@ -1,0 +1,23 @@
+{
+  "_note": "Sanctuary wings (bible §7, §9): restoring one costs sanctuary points (the bestiary's stages, engine/progress.ts sanctuaryPoints), fixes part of Verrow's ecology and pushes back the Tally. Only the first is reachable in the slice; the others show what's coming. 'patch': what PATCH says when it's restored. Points are first guesses: tune in play-testing.",
+  "wings": [
+    {
+      "id": "root_hall", "name": "Root Hall", "points": 10,
+      "desc": "The old keepers' hall, roots through every stone. Restoring it settles the hills around Hollow Rest.",
+      "patch": [
+        { "who": "PATCH", "text": "Root Hall: restored. The hills feel less... drafty." },
+        { "who": "PATCH", "text": "One wing. The Tally won't like that. I'm working on the rest." }
+      ]
+    },
+    {
+      "id": "tide_gallery", "name": "Tide Gallery", "points": 40,
+      "desc": "Flooded halls of shell and glass. Something in Kettleport's harbour remembers them.",
+      "patch": [{ "who": "PATCH", "text": "Tide Gallery: restored. Kettleport's water is behaving again." }]
+    },
+    {
+      "id": "ember_vault", "name": "Ember Vault", "points": 80,
+      "desc": "A kiln under the sanctuary, cold for a hundred years. Emberwick's glassblowers want it lit.",
+      "patch": [{ "who": "PATCH", "text": "Ember Vault: restored. It's warm. I'm choosing to take that as a compliment." }]
+    }
+  ]
+}
