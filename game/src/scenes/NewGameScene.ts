@@ -75,9 +75,11 @@ export class NewGameScene extends Phaser.Scene {
     this.top.add(pixelText(this, 92, 20, c.name, { size: TEXT_SIZE.heading }));
     this.top.add(pixelText(this, 92, 35, c.role, { color: TEXT_COLORS.inkSoft, size: TEXT_SIZE.small }));
     this.top.add(chip(this, 92, 48, `Assist: ${c.assist.name}`, TONES.patch));
-    this.top.add(pixelText(this, 92, 62, c.assist.desc, { size: TEXT_SIZE.small, wrap: 148 }));
-    this.top.add(pixelText(this, 92, 88, c.field, { color: TEXT_COLORS.inkSoft, size: TEXT_SIZE.small, wrap: 148 }));
-    this.top.add(pixelText(this, 18, 124, `"${c.line}"`, { color: TEXT_COLORS.rust, size: TEXT_SIZE.small, wrap: 220 }));
+    // Stacked by measured height: the descriptions wrap to different lengths per leader.
+    const desc = pixelText(this, 92, 62, c.assist.desc, { size: TEXT_SIZE.small, wrap: 148 });
+    const field = pixelText(this, 92, desc.y + desc.height + 4, c.field, { color: TEXT_COLORS.inkSoft, size: TEXT_SIZE.small, wrap: 148 });
+    const quoteY = Math.max(108, field.y + field.height + 8);
+    this.top.add([desc, field, pixelText(this, 18, quoteY, `"${c.line}"`, { color: TEXT_COLORS.rust, size: TEXT_SIZE.small, wrap: 220 })]);
   }
 
   private renderStarter() {
