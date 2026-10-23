@@ -1,6 +1,7 @@
 import tilesJson from '../data/tiles.json';
 import type { Rng } from './rng';
 import { SPECIES } from './data';
+import type { CharacterId } from './progress';
 
 /** The overworld as data (M4): grid maps, 4-direction steps, warps between maps, tall grass. */
 export type Dir = 'up' | 'down' | 'left' | 'right';
@@ -15,6 +16,16 @@ export const TILE_IDS = Object.keys(TILES);
 export interface Warp { x: number; y: number; to: string; tx: number; ty: number }
 /** Read with the A button while facing it. */
 export interface Sign { x: number; y: number; text: string }
+/**
+ * Someone standing on the map. `sprite`: 'walk:<id>' (a walk sheet), 'patch' (PATCH, big), or
+ * 'placeholder:#rrggbb' until their sprite is drawn. `talk`: a data/dialogue.json id. `w`: tiles
+ * wide (PATCH takes two). `friend`: one of the four, only there while someone else leads.
+ * `heal`: talking heals the team.
+ */
+export interface Npc {
+  id: string; x: number; y: number; w?: number; dir?: Dir; sprite: string; talk: string;
+  friend?: CharacterId; heal?: boolean;
+}
 export interface EncounterTable { rate: number; levels: [number, number]; table: { species: string; weight: number }[] }
 
 export interface MapData {
@@ -25,6 +36,9 @@ export interface MapData {
   spawn: { x: number; y: number };
   warps?: Warp[];
   signs?: Sign[];
+  npcs?: Npc[];
+  /** Where you wake up after blacking out (the map with one is the heal spot). */
+  healSpot?: { x: number; y: number; dir: Dir };
   encounters?: EncounterTable;
 }
 
@@ -38,6 +52,8 @@ export interface WorldMap {
   spawn: { x: number; y: number };
   warps: Warp[];
   signs: Sign[];
+  npcs: Npc[];
+  healSpot?: { x: number; y: number; dir: Dir };
   encounters?: EncounterTable;
 }
 
@@ -55,7 +71,7 @@ export function loadMap(raw: MapData): WorldMap {
   for (const e of raw.encounters?.table ?? []) {
     if (!SPECIES[e.species]) throw new Error(`${raw.id}: unknown Patchling ${e.species} in encounters`);
   }
-  return { id: raw.id, name: raw.name, width, height: tiles.length, tiles, spawn: raw.spawn, warps: raw.warps ?? [], signs: raw.signs ?? [], encounters: raw.encounters };
+  return { id: raw.id, name: raw.name, width, height: tiles.length, tiles, spawn: raw.spawn, warps: raw.warps ?? [], signs: raw.signs ?? [], npcs: raw.npcs ?? [], healSpot: raw.healSpot, encounters: raw.encounters };
 }
 
 const mapFiles = import.meta.glob('../data/maps/*.json', { eager: true, import: 'default' }) as Record<string, MapData>;
@@ -113,5 +129,20 @@ export function signAt(map: WorldMap, x: number, y: number) {
   return map.signs.find((s) => s.x === x && s.y === y) ?? null;
 }
 
+/** Who is on the map right now: the friend who is leading isn't also waiting around. */
+export function npcsFor(map: WorldMap, leader: CharacterId) {
+  return map.npcs.filter((n) => n.friend !== leader);
+}
+
+export function npcAt(npcs: Npc[], x: number, y: number) {
+  return npcs.find((n) => y === n.y && x >= n.x && x < n.x + (n.w ?? 1)) ?? null;
+}
+
 /** Where a new game starts. */
 export const START: Position = { map: 'hollow_rest', ...MAPS.hollow_rest.spawn, dir: 'down' };
+
+/** Where you wake up after the whole team faints. */
+export const HEAL_SPOT: Position = (() => {
+  const map = Object.values(MAPS).find((m) => m.healSpot);
+  return map ? { map: map.id, x: map.healSpot!.x, y: map.healSpot!.y, dir: map.healSpot!.dir } : START;
+})();

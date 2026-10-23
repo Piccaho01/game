@@ -1,0 +1,74 @@
+{
+  "_note": "Talk lines (bible §2 voice: friends talking, dry, quick, roast-heavy but warm; inside jokes from §11 spread thin). Each entry: 'lines' (who says what, in order), optional 'byLeader' (replaces 'lines' when that friend is leading). 'who' is the name taped on the text box; leave it out for signs and narration.",
+  "patch_heal": {
+    "lines": [
+      { "who": "PATCH", "text": "Hold still." },
+      { "who": "PATCH", "text": "Patched. All of them. I'm working on a fix for everything else." }
+    ],
+    "byLeader": {
+      "callum": [
+        { "who": "PATCH", "text": "Callum. Your Patchlings are healed." },
+        { "who": "PATCH", "text": "Your spreadsheet is not my responsibility." }
+      ],
+      "nolan": [
+        { "who": "PATCH", "text": "Nolan. You came back before anyone fainted. Statistically, that's you." },
+        { "who": "PATCH", "text": "Patched. All of them." }
+      ],
+      "haydon": [
+        { "who": "PATCH", "text": "Haydon. Before you say it: it is not cap. They're healed." }
+      ],
+      "dani": [
+        { "who": "PATCH", "text": "Dani. You're here. On time. I've logged it." },
+        { "who": "PATCH", "text": "Patched. All of them." }
+      ]
+    }
+  },
+  "patch_blackout": {
+    "lines": [
+      { "who": "PATCH", "text": "You fainted. I carried you back. Again." },
+      { "who": "PATCH", "text": "Your Patchlings are patched. I'm working on a fix." }
+    ]
+  },
+  "friend_callum": {
+    "lines": [
+      { "who": "Callum", "text": "I've filled four pages of the bestiary and we've seen two Patchlings. Don't ask how." },
+      { "who": "Callum", "text": "Go find me something rare. I'll be here. Collecting." }
+    ]
+  },
+  "friend_nolan": {
+    "lines": [
+      { "who": "Nolan", "text": "I'll hold down the sanctuary. Someone has to be the responsible one." },
+      { "who": "Nolan", "text": "PATCH keeps asking me to sign things. I'm not signing things." }
+    ]
+  },
+  "friend_haydon": {
+    "lines": [
+      { "who": "Haydon", "text": "Trapped inside our own video game? Nah that's cap." },
+      { "who": "Haydon", "text": "...Okay. It's a little bit not cap." }
+    ]
+  },
+  "friend_dani": {
+    "lines": [
+      { "who": "Dani", "text": "I'm coming, I'm coming. Five minutes." },
+      { "who": "Dani", "text": "Bro I replied. Check the group chat." }
+    ]
+  },
+  "elder": {
+    "lines": [
+      { "who": "Old keeper", "text": "My grandmother kept this sanctuary. Now a tin giant sleeps in it." },
+      { "who": "Old keeper", "text": "Outsiders. Don't touch the stones." }
+    ]
+  },
+  "neighbour": {
+    "lines": [
+      { "who": "Neighbour", "text": "That robot fell out of the sky at 3 AM. I watched the whole thing." },
+      { "who": "Neighbour", "text": "With a coffee." }
+    ]
+  },
+  "pond_kid": {
+    "lines": [
+      { "who": "Kid", "text": "A rock fell out of the sky and now it follows me home." },
+      { "who": "Kid", "text": "Mum says it's \"skybox\" and to stop feeding it." }
+    ]
+  }
+}

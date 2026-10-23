@@ -72,6 +72,35 @@ def shrink(a, bg, pal, height):
     return out
 
 
+def clean(g, pal):
+    """Loose pixels from the shrink. A pixel with no same-coloured neighbour (diagonals count)
+    whose colour is close to what surrounds it is noise: it takes the neighbours' colour, or goes
+    clear on the silhouette's edge. Lone pixels that stand out (an eye glint, the beanie's orange
+    cross) are deliberate and stay. One-pixel holes inside the body are filled."""
+    h, w = g.shape
+    out = g.copy()
+    near = lambda y, x, ds: [g[y + dy, x + dx] if 0 <= y + dy < h and 0 <= x + dx < w else -1 for dy, dx in ds]
+    four = ((-1, 0), (1, 0), (0, -1), (0, 1))
+    eight = four + ((-1, -1), (-1, 1), (1, -1), (1, 1))
+    for y in range(h):
+        for x in range(w):
+            c = g[y, x]
+            n4 = near(y, x, four)
+            if c < 0:
+                if all(v >= 0 for v in n4):
+                    out[y, x] = Counter(n4).most_common(1)[0][0]
+                continue
+            if c in near(y, x, eight):
+                continue
+            if sum(v < 0 for v in n4) >= 3:
+                out[y, x] = -1
+                continue
+            major = Counter(v for v in n4 if v >= 0).most_common(1)[0][0]
+            if np.sqrt(((pal[c] - pal[major]) ** 2).sum()) < 70:
+                out[y, x] = major
+    return out
+
+
 def convert(name, cfg, height, k):
     sheet = Image.open(os.path.join(ROOT, 'concepts', 'trainers', f'{name}.png')).convert('RGB')
     frames = {d: [cutout(sheet, b) for b in boxes] for d, boxes in cfg.items()}
@@ -82,6 +111,7 @@ def convert(name, cfg, height, k):
         src = 'left' if d == 'right' else d
         for col, (a, bg) in enumerate(frames[src]):
             g = shrink(a, bg, pal, height)
+            g = clean(g, pal)
             if d == 'right':
                 g = g[:, ::-1]
             h, w = g.shape
