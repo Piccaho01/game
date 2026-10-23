@@ -1,6 +1,8 @@
 import Phaser from 'phaser';
 import { SCREEN_H, SCREEN_W } from '../config';
 import { judgeSeal, type Grade, type SealPattern, type SealResult, type SealWindows } from '../engine/seal';
+import { pxRect, stitches } from '../ui/kit';
+import { COLORS } from '../ui/theme';
 import { pixelText } from '../ui/text';
 
 const COUNT_IN_MS = 1200;
@@ -38,8 +40,9 @@ export class SealMinigame {
     const { scene, pattern } = this;
     // Bottom screen: the whole screen is the tap pad.
     const pad = scene.add.graphics();
-    pad.fillStyle(0x101018, 0.6).fillRect(0, SCREEN_H, SCREEN_W, SCREEN_H);
-    pad.lineStyle(2, this.color).strokeRoundedRect(16, SCREEN_H + 44, SCREEN_W - 32, SCREEN_H - 60, 10);
+    pad.fillStyle(COLORS.ink, 0.6).fillRect(0, SCREEN_H, SCREEN_W, SCREEN_H);
+    pxRect(pad, 16, SCREEN_H + 44, SCREEN_W - 32, SCREEN_H - 60, this.color, 3, 0.18);
+    stitches(pad, 19, SCREEN_H + 47, SCREEN_W - 38, SCREEN_H - 66, this.color);
     this.objects.push(
       pad,
       pixelText(scene, SCREEN_W / 2, SCREEN_H + 14, `${pattern.name} seal`, { color: '#ffffff', size: 10, shadow: '#000000' }).setOrigin(0.5, 0),

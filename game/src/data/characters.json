@@ -1,26 +1,26 @@
 {
-  "_note": "The four playable leaders (bible §6). One leads at a time; each has a battle command (leader assist: once per battle, free, it doesn't use up the Patchling's move). 'line' is what they say when picked; portraits are placeholders until the M4 trainer sprites.",
+  "_note": "The four playable leaders (bible §6). One leads at a time; each has a battle command (leader assist: once per battle, free, it doesn't use up the Patchling's move). 'line' is what they say when picked; portraits are placeholders until the M4 trainer sprites. 'color' is the main colour of their outfit (bible §6 Looks), used for their buttons and cards.",
   "characters": {
     "callum": {
-      "name": "Callum", "role": "The Collector", "color": "#d8b048",
+      "name": "Callum", "role": "The Collector", "color": "#3a8f8c",
       "field": "Reads creature lore, fills bestiary entries, spots rares.",
       "assist": { "id": "scan", "short": "See its weaknesses", "name": "Scan", "desc": "Reveals the foe's type and weaknesses. Counts toward Studied." },
       "line": "Right. Gotta seal 'em all. I'm keeping a spreadsheet."
     },
     "nolan": {
-      "name": "Nolan", "role": "The Reliable One", "color": "#7a5a40",
+      "name": "Nolan", "role": "The Reliable One", "color": "#6f7682",
       "field": "Steady support, recovery and cleanup.",
       "assist": { "id": "patch_up", "short": "Heal half HP, cure status", "name": "Patch Up", "desc": "Heals half your Patchling's HP and cures its status." },
       "line": "Someone has to be the responsible one. Again."
     },
     "haydon": {
-      "name": "Haydon", "role": "The Ragebaiter", "color": "#c8b48a",
+      "name": "Haydon", "role": "The Ragebaiter", "color": "#9a8a52",
       "field": "Provokes NPCs and enemies.",
       "assist": { "id": "taunt", "short": "Lower its defences", "name": "Taunt", "desc": "Riles the foe up: its Defense and Sp. Def fall." },
       "line": "Trapped in a video game? Nah that's cap."
     },
     "dani": {
-      "name": "Dani", "role": "The Heart", "color": "#5a3a30",
+      "name": "Dani", "role": "The Heart", "color": "#d9a520",
       "field": "Befriends anything, tanks for the group.",
       "assist": { "id": "shield", "short": "Halve the next hit", "name": "Shield", "desc": "Halves the next hit your Patchling takes." },
       "line": "I don't care about Pokémon. But okay, I play. Five minutes."

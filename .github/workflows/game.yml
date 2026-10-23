@@ -35,6 +35,13 @@ jobs:
       - run: npm run test:e2e
         env:
           CI: true
+      # Phone-size screenshots of every screen (e2e/screens.spec.ts), for reviewing look changes.
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: screens
+          path: game/screens
+          if-no-files-found: ignore
       - uses: actions/upload-pages-artifact@v3
         if: github.ref == 'refs/heads/main'
         with:
