@@ -4,11 +4,13 @@ import { Battle, type BattleEvent, type PlayerAction, type Side } from '../engin
 import { createBattler } from '../engine/battler';
 import { MOVES, SPECIES, TYPES, type StatusId } from '../engine/data';
 import { createRng } from '../engine/rng';
+import { sealPattern, sealWindows, type Bond, type SealResult } from '../engine/seal';
 import { pixelText } from '../ui/text';
 import { backIdleAnimKey, backKey, frontKey, idleAnimKey } from './BootScene';
+import { SealMinigame } from './SealMinigame';
 
 interface BattleInit { player: string; foe: string; seed?: number }
-type Phase = 'intro' | 'menu' | 'fight' | 'playing' | 'over';
+type Phase = 'intro' | 'menu' | 'fight' | 'playing' | 'sealing' | 'over';
 
 const PLAYER_LEVEL = 8;
 const FOE_LEVEL = 5;
@@ -16,6 +18,7 @@ const FOE_LEVEL = 5;
 const FOE_ROTATION = ['sprigby', 'zapail', 'gobbin'];
 const STATUS_COLORS: Record<StatusId, number> = { brn: 0xe8603c, par: 0xd8b020, psn: 0xa050c0, slp: 0x8890a0 };
 const BOTTOM = SCREEN_H;
+const BOND_NAMES: Record<Bond, string> = { strong: 'Strong bond', steady: 'Steady bond', wary: 'Wary' };
 const CHAR_MS = 18;
 const LINE_HOLD_MS = 700;
 
@@ -29,6 +32,9 @@ export class BattleScene extends Phaser.Scene {
   private message!: MessageBox;
   private menu!: Phaser.GameObjects.Container;
   private log: string[] = [];
+  private bond: Bond | null = null;
+  private sealGame?: SealMinigame;
+  private lastSeal: SealResult | null = null;
 
   constructor() { super('battle'); }
 
@@ -36,6 +42,7 @@ export class BattleScene extends Phaser.Scene {
     this.params = data;
     this.phase = 'intro';
     this.log = [];
+    this.bond = null;
   }
 
   create() {
@@ -111,7 +118,8 @@ export class BattleScene extends Phaser.Scene {
     const p = this.battle.player;
     this.message.prompt(`What will ${p.name} do?`);
     this.menu.add(button(this, 128, 76, 200, 84, 'FIGHT', 0xd04040, () => this.showFightMenu(), { size: 16, name: 'fight' }));
-    this.menu.add(button(this, 44, 160, 76, 40, 'BAG', 0x707080, undefined, { sub: 'soon' }));
+    const canSeal = this.battle.canSeal();
+    this.menu.add(button(this, 44, 160, 76, 40, 'SEAL', canSeal ? 0x9050c0 : 0x505058, canSeal ? () => this.trySeal() : undefined, { name: 'seal' }));
     this.menu.add(button(this, 128, 166, 76, 32, 'RUN', 0x4070c0, () => this.choose({ kind: 'run' }), { name: 'run' }));
     this.menu.add(button(this, 212, 160, 76, 40, 'TEAM', 0x707080, undefined, { sub: 'soon' }));
   }
@@ -142,8 +150,9 @@ export class BattleScene extends Phaser.Scene {
     this.phase = 'over';
     this.clearMenu();
     const outcome = this.battle.outcome;
-    const title = outcome === 'win' ? 'You won!' : outcome === 'lose' ? 'You blacked out...' : 'Got away.';
+    const title = outcome === 'win' ? 'You won!' : outcome === 'lose' ? 'You blacked out...' : outcome === 'sealed' ? 'Sealed!' : 'Got away.';
     this.menu.add(pixelText(this, 128, 40, title, { color: '#ffffff', size: 16 }).setOrigin(0.5));
+    if (this.bond) this.menu.add(pixelText(this, 128, 62, BOND_NAMES[this.bond], { color: '#d0b0ff' }).setOrigin(0.5));
     const next = FOE_ROTATION[(FOE_ROTATION.indexOf(this.params.foe) + 1) % FOE_ROTATION.length];
     this.menu.add(button(this, 128, 104, 200, 44, 'NEXT BATTLE', 0x40a060, () => this.restart(next), { sub: `vs ${SPECIES[next].name}`, name: 'next' }));
     this.menu.add(button(this, 128, 158, 200, 36, 'REMATCH', 0x505060, () => this.restart(this.params.foe), { name: 'rematch' }));
@@ -171,6 +180,25 @@ export class BattleScene extends Phaser.Scene {
     else this.showMainMenu();
   }
 
+  private async trySeal() {
+    if (this.phase !== 'menu') return;
+    this.phase = 'sealing';
+    this.clearMenu();
+    const foe = this.battle.foe;
+    const hpFrac = foe.hp / foe.stats.hp;
+    this.message.prompt(`Seal ${foe.name}! Tap as each ring lands.`);
+    const s = this.sprites.foe;
+    const game = new SealMinigame(this, { x: s.x, y: s.y - 26 }, sealPattern(foe.types[0]), sealWindows(hpFrac), hpFrac, TYPES[foe.types[0]].color);
+    this.sealGame = game;
+    const result = await game.play();
+    this.sealGame = undefined;
+    this.lastSeal = result;
+    this.phase = 'playing';
+    await this.playEvents(this.battle.seal(result));
+    if (this.battle.outcome) this.showEndMenu();
+    else this.showMainMenu();
+  }
+
   private async playEvents(events: BattleEvent[]) {
     for (const e of events) {
       switch (e.kind) {
@@ -192,6 +220,10 @@ export class BattleScene extends Phaser.Scene {
           break;
         case 'faint':
           await this.faint(e.side);
+          break;
+        case 'sealed':
+          this.bond = e.bond;
+          await this.sealAway();
           break;
         case 'end':
           break;
@@ -231,10 +263,22 @@ export class BattleScene extends Phaser.Scene {
     return tweenAsync(this, { targets: label ? [s, label] : s, y: '+=40', alpha: 0, duration: 400, ease: 'Quad.easeIn' });
   }
 
+  /** The sealed Patchling glows its type colour and shrinks into the seal. */
+  private async sealAway() {
+    const s = this.sprites.foe;
+    s.stop();
+    s.setTintFill(Phaser.Display.Color.HexStringToColor(TYPES[this.battle.foe.types[0]].color).color);
+    await tweenAsync(this, { targets: s, scaleX: 0, scaleY: 0, y: s.y - 26, duration: 450, ease: 'Back.easeIn' });
+    s.setVisible(false);
+  }
+
   private exposeForTests() {
     (window as unknown as Record<string, unknown>).__battle = {
       phase: () => this.phase,
       outcome: () => this.battle.outcome,
+      bond: () => this.bond,
+      sealBeatsIn: () => this.sealGame?.msToBeats() ?? null,
+      lastSeal: () => this.lastSeal,
       log: () => [...this.log],
       hp: () => ({ player: this.battle.player.hp, foe: this.battle.foe.hp }),
       /** Centre of a named bottom-screen button in page (CSS) pixels, for real taps in e2e. */

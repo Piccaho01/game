@@ -2,11 +2,12 @@ import { effectiveStat, type Battler } from './battler';
 import { calcDamage } from './damage';
 import { MOVES, STRUGGLE_ID, type MoveData, type MoveEffect, type StageStat, type StatusId } from './data';
 import type { Rng } from './rng';
+import type { Bond, SealResult } from './seal';
 import { orderActions, type Action } from './turnOrder';
 import { effectiveness, effectivenessText } from './typeChart';
 
 export type Side = 'player' | 'foe';
-export type Outcome = 'win' | 'lose' | 'fled';
+export type Outcome = 'win' | 'lose' | 'fled' | 'sealed';
 
 /** What the scene plays back, in order. State events carry the new value so playback needs no engine access. */
 export type BattleEvent =
@@ -16,11 +17,17 @@ export type BattleEvent =
   | { kind: 'status'; side: Side; status: StatusId | null }
   | { kind: 'stat'; side: Side; stat: StageStat; delta: number }
   | { kind: 'faint'; side: Side }
+  | { kind: 'sealed'; bond: Bond }
   | { kind: 'end'; outcome: Outcome };
 
 export type PlayerAction = { kind: 'move'; index: number } | { kind: 'run' };
 
 const STAT_NAMES: Record<StageStat, string> = { atk: 'Attack', def: 'Defense', spa: 'Sp. Atk', spd: 'Sp. Def', spe: 'Speed' };
+const BOND_TEXT: Record<Bond, string> = {
+  strong: 'A perfect seal! {name} trusts you already.',
+  steady: '{name} seems settled in.',
+  wary: 'A sloppy seal... {name} is eyeing you.',
+};
 const STATUS_TEXT: Record<StatusId, string> = { brn: 'was burned!', par: 'is paralysed! It may be unable to move!', psn: 'was poisoned!', slp: 'fell asleep!' };
 
 export class Battle {
@@ -92,6 +99,36 @@ export class Battle {
       this.act(act.side, act.moveId);
       this.checkFaints();
     }
+    if (!this.outcome) this.endOfTurn();
+    this.player.volatile.turnsOut++;
+    this.foe.volatile.turnsOut++;
+    return this.events;
+  }
+
+  /** A seal needs a wild target and the player's Patchling free to act (not mid-charge). */
+  canSeal(): boolean {
+    return this.wild && !this.outcome && !this.player.volatile.chargingMove;
+  }
+
+  /** The player's seal attempt (the minigame already played): sealed ends the battle, a failed seal costs the turn. */
+  seal(result: SealResult): BattleEvent[] {
+    if (this.outcome) throw new Error('Battle is over');
+    this.events = [];
+    if (!this.wild) {
+      this.say("The seal won't take on someone else's Patchling!");
+      return this.events;
+    }
+    this.turn++;
+    if (result.sealed && result.bond) {
+      this.say(`Gotcha! ${this.foe.name} was sealed!`);
+      this.push({ kind: 'sealed', bond: result.bond });
+      this.say(BOND_TEXT[result.bond].replace('{name}', this.foe.name));
+      this.finish('sealed');
+      return this.events;
+    }
+    this.say(`Argh! ${this.label('foe')} broke the seal!`);
+    this.act('foe', this.chooseFoeMove());
+    this.checkFaints();
     if (!this.outcome) this.endOfTurn();
     this.player.volatile.turnsOut++;
     this.foe.volatile.turnsOut++;
