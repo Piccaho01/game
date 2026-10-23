@@ -16,8 +16,8 @@
 // - The tail grows from the base of the spine and lies over the hips, toward the camera, before
 //   curving up into the leaf fan.
 // - Legs, drawn by hand: both feet point right, the way he faces. The near leg (his front
-//   sprite's extended leg) is bigger and lower, with a lit rim; the far leg steps forward, smaller,
-//   higher and all in shadow.
+//   sprite's extended leg) is bigger and lower, with a lit rim; the far leg steps forward, bent at the
+//   knee, smaller, higher and all in shadow.
 // - The corner of the eye and the sprig's tip peek past the head's right edge to show the facing.
 // Grids sit so the feet are on y = 91.
 //
@@ -125,19 +125,19 @@ const BACK = `
   ........krrRRRRRRrrrrkssssbbk
   .........kkrrrrrrrrkksssssbbk
   ..........Dkkkkkkkkssssssssbbk
-  ..........DssssssskDssssssssbk
-  ..........Dssssssk.Dsssssssssbk
-  .........Dsssssk...Dssssssssbbk
-  .........Dssssk.....Dssssssbbk
-  .........Dssssk......Dsssssbbk
-  .........Dsssk........Dssssbbk
-  ........rRRRRRrk......Dssssbbk
-  ........rRRRRrrrkk....Dssssbbk
-  ........kkkkkkk.k.....Dsssbbbk
-  .....................rRRRRRRRrk
-  .....................rRRRRRrRRrrk
-  .....................krrrrrrrrkrkk
-  ......................kkkkkkkk.k.k`
+  ..........DssssssskDssssssbbk
+  .........Dssssssk...Dsssssbbk
+  ........Dsssssk.....Dsssssbbk
+  .......Dssssk........Dssssbbk
+  ........Dssssk.......Dsssbbk
+  .........Dssssk.......Dssbbk
+  ..........Dsssk.......Dssbbk
+  .........rRRRRRrk.....Dssbbk
+  .........rRRRRrrrkk...Dssbbk
+  .........kkkkkkk.k...rRRRRRRrk
+  .....................rRRRRrRRrrk
+  .....................krrrrrrrkrkk
+  ......................kkkkkkk.k.k`
 
 // Draw a grid with everything above row `split` shifted down by `bob` (the breath: the upper body
 // sinks into the hips); the lower rows go first so the upper body overlaps them.
