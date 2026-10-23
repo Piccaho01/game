@@ -117,6 +117,11 @@ export class Battle {
         this.say("You can't run from this one!");
         return this.events;
       }
+      if (this.foe.ability === 'gravity_well') {
+        this.say(`${this.label('foe')}'s Gravity Well holds you in place! You can't run!`);
+        this.foeOnlyTurn();
+        return this.events;
+      }
       this.say('Got away safely!');
       this.finish('fled');
       return this.events;
@@ -334,6 +339,8 @@ export class Battle {
       const { damage, crit } = calcDamage(user, target, move, this.rng, {
         powerMod: this.powerMod(user, move),
         damageMod: this.damageMod(target),
+        // Orbit Punch: a slowed foe can't dodge the fist coming back.
+        crit: move.flags?.critIfSlowed && target.stages.spe < 0 ? true : undefined,
       });
       target.volatile.hardened = false;
       if (target.volatile.shielded) {

@@ -17,8 +17,8 @@ interface BattleInit { foe: string; seed?: number }
 type Phase = 'intro' | 'menu' | 'fight' | 'team' | 'switching' | 'playing' | 'sealing' | 'over';
 
 const FOE_LEVEL = 5;
-/** Wild foes the "Next battle" button cycles through. */
-const FOE_ROTATION = ['sprigby', 'zapail', 'gobbin', 'furnaxol'];
+/** Wild foes the "Next battle" button cycles through: Route 1's commons first, then the starters. */
+const FOE_ROTATION = ['orbitot', 'fledjet', 'sprigby', 'zapail', 'gobbin', 'furnaxol'];
 const STATUS_COLORS: Record<StatusId, number> = { brn: 0xe8603c, par: 0xd8b020, psn: 0xa050c0, slp: 0x8890a0 };
 const BOTTOM = SCREEN_H;
 const STAGE_TEXT: Record<string, string> = {

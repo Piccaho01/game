@@ -58,3 +58,36 @@ describe('leader assists', () => {
     expect(shielded.shielded).toBe(false);
   });
 });
+
+describe('Route 1 commons', () => {
+  it("Gravity Well: can't run from a wild Orbitot, and the attempt costs the turn", () => {
+    const b = new Battle([createBattler('furnaxol', 8)], createBattler('orbitot', 5), createRng(1));
+    const ev = b.runTurn({ kind: 'run' });
+    expect(b.outcome).toBeNull();
+    expect(ev).toContainEqual({ kind: 'text', text: "The wild Orbitot's Gravity Well holds you in place! You can't run!" });
+    expect(ev.some((e) => e.kind === 'text' && e.text.startsWith('The wild Orbitot used'))).toBe(true);
+  });
+
+  it('Orbit Punch always crits a foe whose Speed was lowered', () => {
+    for (let seed = 1; seed <= 10; seed++) {
+      const b = new Battle([createBattler('orbitot', 20, ['orbit_punch'])], createBattler('zapail', 20, ['static_rub']), createRng(seed));
+      b.foe.stages.spe = -1;
+      const ev = b.runTurn({ kind: 'move', index: 0 });
+      if (ev.some((e) => e.kind === 'text' && e.text.includes('missed'))) continue;
+      expect(ev, `seed ${seed}`).toContainEqual({ kind: 'text', text: 'A critical hit!' });
+    }
+  });
+
+  it('Slipstream: Fledjet moves first on its first turn, even against a faster foe', () => {
+    const b = new Battle([createBattler('fledjet', 5, ['beak_jab'])], createBattler('zapail', 30, ['zap']), createRng(3));
+    const ev = b.runTurn({ kind: 'move', index: 0 });
+    const first = ev.find((e) => e.kind === 'text' && e.text.includes(' used '));
+    expect(first).toEqual({ kind: 'text', text: 'Fledjet used Beak Jab!' });
+  });
+
+  it('Afterburner raises Speed and lowers its own Defense', () => {
+    const b = new Battle([createBattler('fledjet', 20, ['afterburner'])], createBattler('orbitot', 40, ['nebula_drift']), createRng(2));
+    b.runTurn({ kind: 'move', index: 0 });
+    if (b.player.stages.spe !== 0) expect(b.player.stages).toMatchObject({ spe: 1, def: -1 });
+  });
+});

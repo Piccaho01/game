@@ -6,6 +6,9 @@
     "induction": { "name": "Induction", "desc": "When hit by a Spark move, its next Spark move deals double damage." },
     "capacitor": { "name": "Capacitor", "desc": "Takes half damage while charging a two-turn move." },
     "spring_heel": { "name": "Spring Heel", "desc": "On its first turn out, its kicks gain +1 priority." },
-    "ambush_jaw": { "name": "Ambush Jaw", "desc": "On its first turn out, its bite moves deal 1.5x damage." }
+    "ambush_jaw": { "name": "Ambush Jaw", "desc": "On its first turn out, its bite moves deal 1.5x damage." },
+
+    "gravity_well": { "name": "Gravity Well", "desc": "Foes can't run from it." },
+    "slipstream": { "name": "Slipstream", "desc": "On its first turn out, all its moves gain +1 priority." }
   }
 }

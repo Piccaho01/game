@@ -113,8 +113,7 @@ export class NewGameScene extends Phaser.Scene {
     const progress = newProgress(this.starter, this.leader);
     saveProgress(progress);
     this.registry.set('progress', progress);
-    // First wild battle: a starter that isn't yours.
-    const foe = STARTERS.find((id) => id !== this.starter) ?? 'sprigby';
-    this.scene.start('battle', { foe });
+    // First wild battle: a Route 1 common.
+    this.scene.start('battle', { foe: 'fledjet' });
   }
 }

@@ -30,7 +30,7 @@ export interface MoveData {
   hits?: [number, number];
   effects?: MoveEffect[];
   onMiss?: MoveEffect[];
-  flags?: { contact?: boolean; kick?: boolean; bite?: boolean; charge?: boolean; ignoresProtect?: boolean; recoil?: number };
+  flags?: { contact?: boolean; kick?: boolean; bite?: boolean; charge?: boolean; ignoresProtect?: boolean; recoil?: number; critIfSlowed?: boolean };
   desc: string;
 }
 

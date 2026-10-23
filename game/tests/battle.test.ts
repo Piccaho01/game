@@ -6,7 +6,7 @@ import { createRng } from '../src/engine/rng';
 
 describe('data', () => {
   it('every species references real moves, abilities, evolutions and lore', () => {
-    expect(Object.keys(SPECIES)).toHaveLength(12);
+    expect(Object.keys(SPECIES)).toHaveLength(18);
     for (const [id, sp] of Object.entries(SPECIES)) {
       expect(ABILITIES[sp.ability], `${id} ability`).toBeDefined();
       for (const [, m] of sp.learnset) expect(MOVES[m], `${id} move ${m}`).toBeDefined();
