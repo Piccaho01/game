@@ -7,6 +7,8 @@ import { COLORS, TEXT_COLORS } from './theme';
 const CHAR_MS = 18;
 const LINE_HOLD_MS = 700;
 const BOX_H = 38;
+/** Lines that fit in the box; longer text is shown in pages. */
+const LINES = 2;
 
 export interface ShowOpts {
   /** A name taped to the box's top edge (NPC dialogue). */
@@ -70,10 +72,15 @@ export class DialogBox {
     this.text.setText(line);
   }
 
-  /** Types the line out, then waits briefly (or for a tap) before resolving. */
-  show(line: string, opts: ShowOpts = {}) {
+  /** Types the text out a page (two lines) at a time, then waits briefly (or for a tap). */
+  async show(text: string, opts: ShowOpts = {}) {
     this.reveal();
     this.setSpeaker(opts.speaker);
+    const lines = this.text.getWrappedText(text);
+    for (let i = 0; i < lines.length; i += LINES) await this.page(lines.slice(i, i + LINES).join('\n'), opts);
+  }
+
+  private page(line: string, opts: ShowOpts) {
     return new Promise<void>((resolve) => {
       let done = false;
       let hold: Phaser.Time.TimerEvent | undefined;

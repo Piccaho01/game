@@ -11,6 +11,8 @@ import { frontKey, idleAnimKey } from './BootScene';
 
 type Tab = 'team' | 'bestiary';
 const BOTTOM = SCREEN_H;
+/** Bestiary entries per page on the touch screen: 3 columns, 4 rows. */
+const DEX_PER_PAGE = 12;
 const STAGE_NAMES: Record<Stage, string> = { sighted: 'Sighted', tracked: 'Tracked', studied: 'Studied', sealed: 'Sealed', bonded: 'Bonded' };
 const BOND_NAMES: Record<Bond, string> = { strong: 'Strong bond', steady: 'Steady bond', wary: 'Wary' };
 
@@ -23,6 +25,7 @@ export class JournalScene extends Phaser.Scene {
   private bottom!: Phaser.GameObjects.Container;
   private selected: string | number | null = null;
   private loreIndex = 0;
+  private dexPage = 0;
 
   constructor() { super('journal'); }
 
@@ -92,7 +95,9 @@ export class JournalScene extends Phaser.Scene {
 
   private renderBestiary() {
     const ids = Object.keys(SPECIES).sort((a, b) => SPECIES[a].dex - SPECIES[b].dex);
-    ids.forEach((id, i) => {
+    const pages = Math.ceil(ids.length / DEX_PER_PAGE);
+    this.dexPage = Math.min(this.dexPage, pages - 1);
+    ids.slice(this.dexPage * DEX_PER_PAGE, (this.dexPage + 1) * DEX_PER_PAGE).forEach((id, i) => {
       const stage = stageOf(this.progress.bestiary[id]);
       const x = 46 + (i % 3) * 82;
       const y = 46 + Math.floor(i / 3) * 28;
@@ -102,7 +107,10 @@ export class JournalScene extends Phaser.Scene {
         { sub: stage ? STAGE_NAMES[stage] : dex, name: `dex-${id}`, selected: this.selected === id }));
     });
     const seen = ids.filter((id) => stageOf(this.progress.bestiary[id])).length;
-    this.bottom.add(pixelText(this, 190, 172, `${seen}/${ids.length} seen`, { color: TEXT_COLORS.dim, size: TEXT_SIZE.small }).setOrigin(0.5));
+    this.bottom.add(pixelText(this, 128, 154, `${seen}/${ids.length} seen   page ${this.dexPage + 1}/${pages}`, { color: TEXT_COLORS.dim, size: TEXT_SIZE.small }).setOrigin(0.5));
+    const turn = (d: number) => () => { this.dexPage = (this.dexPage + d + pages) % pages; this.render(); };
+    this.bottom.add(button(this, 164, 172, 48, 28, '<', TONES.neutral, turn(-1), { name: 'dex-prev' }));
+    this.bottom.add(button(this, 222, 172, 48, 28, '>', TONES.neutral, turn(1), { name: 'dex-next' }));
   }
 
   private renderTop() {

@@ -70,6 +70,7 @@ test('screens', async ({ page }) => {
   await tapOn(page, '__journal', 'member0');
   await shot(page, '10-journal-team');
   await tapOn(page, '__journal', 'tab-bestiary');
+  await tapOn(page, '__journal', 'dex-next');
   await tapOn(page, '__journal', 'dex-fledjet');
   await shot(page, '11-journal-bestiary');
   expect(errors).toEqual([]);
