@@ -17,7 +17,7 @@ Rules that keep it efficient:
 ## Status
 - [x] Bible, art style guide (`art/BW_STYLE.md`), sprite pipeline validated (Furnaxol + idle)
 - [x] M1 Foundation (live once Pages is enabled: Settings → Pages → Source: GitHub Actions)
-- [ ] M2 Stage-1 starters (in progress on branch `claude/m2-starters`: all four fronts, idles in game; back sprites done except Furnaxol's; see "M2 handoff" below)
+- [x] M2 Stage-1 starters (branch `claude/m2-starters`: all four with front, idle, back and back idle in game; see "M2 handoff" below)
 - [ ] M3 Core loop
 - [ ] M4 Characters + world slice
 - [ ] M5 Playtest build
@@ -49,7 +49,8 @@ Work happens on branch `claude/m2-starters`. Rules: `art/BW_STYLE.md`, especiall
 **State**
 - **Furnaxol is approved** and was shrunk to 80% to match the other starters (`art/creatures/furnaxol.px.js`, frame grids; the original build is `art/creatures/wip/furnaxol_large.px.js`). Do not re-pose it.
 - **Sprigby is approved** (`art/creatures/sprigby.px.js`): translated from the concept art, front,
-  idle, back and back idle, in game. Its head is a **round head** with the muzzle as a cream patch
+  idle, back and back idle, in game. The back is translated from the owner's back concept
+  (`art/concepts/sprigby_back.png`), stubbier to match the front. Its head is a **round head** with the muzzle as a cream patch
   inside the face (no snout: every snout attempt read as an anteater); copy the concept's head
   shape, not other Pokémon's.
 - The battle scene shows the player's Patchling from behind at 2x when `<sprite>_back` exists
@@ -60,7 +61,8 @@ Work happens on branch `claude/m2-starters`. Rules: `art/BW_STYLE.md`, especiall
 - **Gobbin is approved** (`art/creatures/gobbin.px.js`): translated with the material classifier
   (BW_STYLE checklist), front, idle (breath + the goblin-shark jaw firing forward), back and back
   idle. The owner dropped the concept's throat glow.
-- Last M2 item: Furnaxol's back sprite (Mienfoo method, BW_STYLE checklist step 6); then tick M2.
+- **Furnaxol's back** is built in scratch from shapes (head, torso, limbs, tail) with its flames
+  taken from the matching front idle frame, so both idles flicker together. M2 is done; next is M3.
 - `art/creatures/wip/` holds rejected redesign attempts (useful only as a record of what not to do).
 - `art/creatures/lib/creature.js` is the shared renderer (parts, tones, shading, selective
   outline, pinhole fill); include it from new creature files.
