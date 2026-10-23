@@ -7,8 +7,11 @@ import { effectiveness } from '../engine/typeChart';
 import { MOVES, SPECIES, TYPES, type StatusId } from '../engine/data';
 import { createRng } from '../engine/rng';
 import { sealPattern, sealWindows, type Bond, type SealResult } from '../engine/seal';
+import { DialogBox } from '../ui/dialog';
+import { button, buttonPagePoint, chip, drawPanel, hinge, Meter, screenBackdrop } from '../ui/kit';
 import { pixelText } from '../ui/text';
-import { button, tweenAsync, wait } from '../ui/widgets';
+import { COLORS, hexToNum, shade, TEXT_COLORS, TEXT_SIZE, TONES } from '../ui/theme';
+import { tweenAsync, wait } from '../ui/widgets';
 import { saveProgress } from '../save';
 import { backIdleAnimKey, backKey, frontKey, idleAnimKey } from './BootScene';
 import { SealMinigame } from './SealMinigame';
@@ -19,14 +22,12 @@ type Phase = 'intro' | 'menu' | 'fight' | 'team' | 'switching' | 'playing' | 'se
 const FOE_LEVEL = 5;
 /** Wild foes the "Next battle" button cycles through: Route 1's commons first, then the starters. */
 const FOE_ROTATION = ['orbitot', 'fledjet', 'sprigby', 'zapail', 'gobbin', 'furnaxol'];
-const STATUS_COLORS: Record<StatusId, number> = { brn: 0xe8603c, par: 0xd8b020, psn: 0xa050c0, slp: 0x8890a0 };
+const STATUS_COLORS: Record<StatusId, number> = { brn: 0xe8603c, par: 0xc89a18, psn: 0x9a4ab8, slp: 0x7a8098 };
 const BOTTOM = SCREEN_H;
 const STAGE_TEXT: Record<string, string> = {
   sighted: 'sighted. New entry!', tracked: 'is now Tracked.', studied: 'is now Studied.', sealed: 'is now Sealed.', bonded: 'is now Bonded!',
 };
 const BOND_NAMES: Record<Bond, string> = { strong: 'Strong bond', steady: 'Steady bond', wary: 'Wary' };
-const CHAR_MS = 18;
-const LINE_HOLD_MS = 700;
 
 /** BW layout: battle on the top screen, touch menu on the bottom screen. */
 export class BattleScene extends Phaser.Scene {
@@ -35,7 +36,7 @@ export class BattleScene extends Phaser.Scene {
   private phase: Phase = 'intro';
   private sprites!: Record<Side, Phaser.GameObjects.Sprite>;
   private hpBoxes!: Record<Side, HpBox>;
-  private message!: MessageBox;
+  private message!: DialogBox;
   private menu!: Phaser.GameObjects.Container;
   private log: string[] = [];
   private bond: Bond | null = null;
@@ -72,7 +73,7 @@ export class BattleScene extends Phaser.Scene {
     this.hpBoxes = { foe: new HpBox(this, 6, 10, 'foe'), player: new HpBox(this, 136, 104, 'player') };
     this.hpBoxes.foe.set(this.battle.foe);
     this.hpBoxes.player.set(this.battle.player);
-    this.message = new MessageBox(this);
+    this.message = new DialogBox(this);
     this.drawBottomScreen();
     this.menu = this.add.container(0, BOTTOM);
 
@@ -116,10 +117,8 @@ export class BattleScene extends Phaser.Scene {
   // ---------- bottom screen ----------
 
   private drawBottomScreen() {
-    const g = this.add.graphics();
-    g.fillStyle(0x282838).fillRect(0, BOTTOM, SCREEN_W, SCREEN_H);
-    for (let y = 0; y < SCREEN_H; y += 8) g.fillStyle(y % 16 ? 0x2e2e40 : 0x323246).fillRect(0, BOTTOM + y, SCREEN_W, 4);
-    g.fillStyle(0x101018).fillRect(0, BOTTOM - 2, SCREEN_W, 4);
+    screenBackdrop(this, BOTTOM);
+    hinge(this);
   }
 
   private clearMenu() { this.menu.removeAll(true); }
@@ -132,14 +131,14 @@ export class BattleScene extends Phaser.Scene {
     // The leader's assist: once per battle, and free (the Patchling still moves this turn).
     const leader = CHARACTERS[this.progress.leader];
     const canAssist = this.battle.canAssist();
-    this.menu.add(button(this, 128, 24, 232, 28, `${leader.name.toUpperCase()}: ${leader.assist.name.toUpperCase()}`, canAssist ? 0x9050c0 : 0x505058,
+    this.menu.add(button(this, 128, 24, 232, 30, `${leader.name.toUpperCase()}: ${leader.assist.name.toUpperCase()}`, TONES.patch,
       canAssist ? () => this.useAssist() : undefined, { sub: canAssist ? `${leader.assist.short} (once, free)` : 'used this battle', name: 'assist' }));
-    this.menu.add(button(this, 128, 90, 200, 72, 'FIGHT', 0xd04040, () => this.showFightMenu(), { size: 16, name: 'fight' }));
+    this.menu.add(button(this, 128, 90, 200, 72, 'FIGHT', TONES.act, () => this.showFightMenu(), { size: TEXT_SIZE.title, name: 'fight' }));
     const canSeal = this.battle.canSeal();
-    this.menu.add(button(this, 44, 160, 76, 40, 'SEAL', canSeal ? 0x9050c0 : 0x505058, canSeal ? () => this.trySeal() : undefined, { name: 'seal' }));
-    this.menu.add(button(this, 128, 166, 76, 32, 'RUN', 0x4070c0, () => this.choose({ kind: 'run' }), { name: 'run' }));
+    this.menu.add(button(this, 44, 160, 76, 40, 'SEAL', TONES.seal, canSeal ? () => this.trySeal() : undefined, { name: 'seal' }));
+    this.menu.add(button(this, 128, 166, 76, 32, 'RUN', TONES.neutral, () => this.choose({ kind: 'run' }), { name: 'run' }));
     const canSwitch = this.battle.canSwitch();
-    this.menu.add(button(this, 212, 160, 76, 40, 'TEAM', canSwitch ? 0x40a060 : 0x505058, canSwitch ? () => this.showTeamMenu(false) : undefined, { name: 'team' }));
+    this.menu.add(button(this, 212, 160, 76, 40, 'TEAM', TONES.go, canSwitch ? () => this.showTeamMenu(false) : undefined, { name: 'team' }));
   }
 
   private async useAssist() {
@@ -161,12 +160,12 @@ export class BattleScene extends Phaser.Scene {
     this.battle.team.forEach((b, i) => {
       const x = 66 + (i % 2) * 124;
       const y = 26 + Math.floor(i / 2) * 44;
-      const color = Phaser.Display.Color.HexStringToColor(TYPES[b.types[0]].color).darken(28).color;
+      const color = shade(hexToNum(TYPES[b.types[0]].color), -0.3);
       const sub = i === this.battle.active ? 'IN BATTLE' : b.hp <= 0 ? 'FAINTED' : `HP ${b.hp}/${b.stats.hp}`;
-      this.menu.add(button(this, x, y, 118, 38, `${b.name} Lv${b.level}`, ok.has(i) ? color : 0x505058,
+      this.menu.add(button(this, x, y, 118, 38, `${b.name} Lv${b.level}`, color,
         ok.has(i) ? () => (forced ? this.sendIn(i) : this.choose({ kind: 'switch', index: i })) : undefined, { sub, name: `member${i}` }));
     });
-    if (!forced) this.menu.add(button(this, 128, 172, 120, 28, 'BACK', 0x505060, () => this.showMainMenu(), { name: 'back' }));
+    if (!forced) this.menu.add(button(this, 128, 172, 120, 28, 'BACK', TONES.neutral, () => this.showMainMenu(), { name: 'back' }));
   }
 
   private async sendIn(index: number) {
@@ -192,22 +191,22 @@ export class BattleScene extends Phaser.Scene {
     const usable = new Set(this.battle.usableMoves('player'));
     p.moves.forEach((slot, i) => {
       const m = MOVES[slot.id];
-      const color = m.type ? Phaser.Display.Color.HexStringToColor(TYPES[m.type].color).darken(18).color : 0x808080;
+      const color = m.type ? shade(hexToNum(TYPES[m.type].color), -0.22) : TONES.neutral;
       const x = 66 + (i % 2) * 124;
       const y = 40 + Math.floor(i / 2) * 64;
       const ok = usable.has(i);
       // After Scan, moves show how well they land on the foe.
       const mult = this.battle.scanned && m.category !== 'status' ? effectiveness(m.type, this.battle.foe.types) : 1;
       const hint = mult === 1 ? '' : mult === 0 ? '  x0' : mult > 1 ? `  x${mult}` : '  x½';
-      this.menu.add(button(this, x, y, 118, 56, m.name, ok ? color : 0x505058, ok ? () => this.choose({ kind: 'move', index: i }) : undefined, {
+      this.menu.add(button(this, x, y, 118, 56, m.name, color, ok ? () => this.choose({ kind: 'move', index: i }) : undefined, {
         sub: `${m.type ? TYPES[m.type].name : '-'}  PP ${slot.pp}/${slot.maxPp}${hint}`,
         name: `move${i}`,
       }));
     });
     if (usable.size === 0) {
-      this.menu.add(button(this, 128, 104, 160, 40, 'STRUGGLE', 0x808080, () => this.choose({ kind: 'move', index: 0 }), { name: 'move0' }));
+      this.menu.add(button(this, 128, 104, 160, 40, 'STRUGGLE', TONES.neutral, () => this.choose({ kind: 'move', index: 0 }), { name: 'move0' }));
     }
-    this.menu.add(button(this, 128, 172, 120, 28, 'BACK', 0x505060, () => this.showMainMenu(), { name: 'back' }));
+    this.menu.add(button(this, 128, 172, 120, 28, 'BACK', TONES.neutral, () => this.showMainMenu(), { name: 'back' }));
   }
 
   private showEndMenu() {
@@ -215,12 +214,12 @@ export class BattleScene extends Phaser.Scene {
     this.clearMenu();
     const outcome = this.battle.outcome;
     const title = outcome === 'win' ? 'You won!' : outcome === 'lose' ? 'You blacked out...' : outcome === 'sealed' ? 'Sealed!' : 'Got away.';
-    this.menu.add(pixelText(this, 128, 40, title, { color: '#ffffff', size: 16 }).setOrigin(0.5));
-    if (this.bond) this.menu.add(pixelText(this, 128, 62, BOND_NAMES[this.bond], { color: '#d0b0ff' }).setOrigin(0.5));
+    this.menu.add(pixelText(this, 128, 34, title, { color: TEXT_COLORS.light, size: TEXT_SIZE.title, shadow: '#000000' }).setOrigin(0.5));
+    if (this.bond) this.menu.add(pixelText(this, 128, 58, BOND_NAMES[this.bond], { color: TEXT_COLORS.gold }).setOrigin(0.5));
     const next = FOE_ROTATION[(FOE_ROTATION.indexOf(this.params.foe) + 1) % FOE_ROTATION.length];
-    this.menu.add(button(this, 128, 100, 200, 40, 'NEXT BATTLE', 0x40a060, () => this.restart(next), { sub: `vs ${SPECIES[next].name}`, name: 'next' }));
-    this.menu.add(button(this, 70, 156, 104, 36, 'REMATCH', 0x505060, () => this.restart(this.params.foe), { name: 'rematch' }));
-    this.menu.add(button(this, 186, 156, 104, 36, 'JOURNAL', 0x9050c0, () => this.scene.start('journal', { foe: this.params.foe }), { name: 'journal' }));
+    this.menu.add(button(this, 128, 100, 200, 40, 'NEXT BATTLE', TONES.go, () => this.restart(next), { sub: `vs ${SPECIES[next].name}`, name: 'next' }));
+    this.menu.add(button(this, 70, 156, 104, 36, 'REMATCH', TONES.neutral, () => this.restart(this.params.foe), { name: 'rematch' }));
+    this.menu.add(button(this, 186, 156, 104, 36, 'JOURNAL', TONES.seal, () => this.scene.start('journal', { foe: this.params.foe }), { name: 'journal' }));
   }
 
   private restart(foe: string) {
@@ -263,7 +262,7 @@ export class BattleScene extends Phaser.Scene {
     if (this.phase !== 'menu' && this.phase !== 'fight' && this.phase !== 'team') return;
     this.phase = 'playing';
     this.clearMenu();
-    this.menu.add(pixelText(this, 128, 96, 'tap to speed up', { color: '#8888a0' }).setOrigin(0.5));
+    this.menu.add(pixelText(this, 128, 96, 'tap to speed up', { color: TEXT_COLORS.dim }).setOrigin(0.5));
     this.hpBefore = this.battle.team.map((b) => b.hp);
     await this.playEvents(this.battle.runTurn(action));
     await this.next();
@@ -392,14 +391,7 @@ export class BattleScene extends Phaser.Scene {
       log: () => [...this.log],
       hp: () => ({ player: this.battle.player.hp, foe: this.battle.foe.hp }),
       /** Centre of a named bottom-screen button in page (CSS) pixels, for real taps in e2e. */
-      buttonAt: (name: string) => {
-        const obj = this.menu.list.find((o) => (o as Phaser.GameObjects.Container).name === name) as Phaser.GameObjects.Container | undefined;
-        if (!obj) return null;
-        const rect = this.game.canvas.getBoundingClientRect();
-        const sx = rect.width / this.game.canvas.width;
-        const sy = rect.height / this.game.canvas.height;
-        return { x: rect.left + obj.x * ZOOM * sx, y: rect.top + (obj.y + BOTTOM) * ZOOM * sy };
-      },
+      buttonAt: (name: string) => buttonPagePoint(this, this.menu, name),
     };
   }
 }
@@ -409,30 +401,29 @@ export class BattleScene extends Phaser.Scene {
 class HpBox {
   hp = 0;
   private maxHp = 1;
-  private bar: Phaser.GameObjects.Rectangle;
+  private meter: Meter;
   private nums?: Phaser.GameObjects.Text;
   private name: Phaser.GameObjects.Text;
+  private level: Phaser.GameObjects.Text;
   private status: Phaser.GameObjects.Container;
-  private readonly barW = 64;
 
   constructor(private scene: Phaser.Scene, x: number, y: number, side: Side) {
     const w = 114;
-    const h = side === 'player' ? 38 : 28;
-    const g = scene.add.graphics();
-    g.fillStyle(0x202020).fillRoundedRect(x - 1, y - 1, w + 2, h + 2, 4);
-    g.fillStyle(0xf8f8f0).fillRoundedRect(x, y, w, h, 3);
-    g.fillStyle(0xd8d8c8).fillRect(x + 3, y + h - 4, w - 6, 2);
-    this.name = pixelText(scene, x + 6, y + 5, '');
-    g.fillStyle(0x404040).fillRoundedRect(x + 30, y + 15, this.barW + 20, 9, 2);
-    pixelText(scene, x + 33, y + 17, 'HP', { color: '#f8c040', size: 5 });
-    g.fillStyle(0x303030).fillRect(x + 46, y + 17, this.barW, 5);
-    this.bar = scene.add.rectangle(x + 46, y + 17, this.barW, 5, 0x48d848).setOrigin(0, 0);
-    if (side === 'player') this.nums = pixelText(scene, x + w - 6, y + 26, '').setOrigin(1, 0);
-    this.status = scene.add.container(x + 6, y + 16);
+    const h = side === 'player' ? 38 : 30;
+    drawPanel(scene.add.graphics(), x, y, w, h, 'paper');
+    this.name = pixelText(scene, x + 8, y + 6, '');
+    this.level = pixelText(scene, x + w - 7, y + 8, '', { color: TEXT_COLORS.inkSoft, size: TEXT_SIZE.small }).setOrigin(1, 0);
+    const tag = scene.add.graphics();
+    tag.fillStyle(COLORS.ink).fillRect(x + 31, y + 17, 15, 8);
+    pixelText(scene, x + 33, y + 18, 'HP', { color: TEXT_COLORS.gold, size: TEXT_SIZE.tiny });
+    this.meter = new Meter(scene, x + 46, y + 19, w - 54, 4);
+    if (side === 'player') this.nums = pixelText(scene, x + w - 7, y + 27, '', { size: TEXT_SIZE.small }).setOrigin(1, 0);
+    this.status = scene.add.container(x + 7, y + 16);
   }
 
   set(b: { name: string; level: number; hp: number; stats: { hp: number }; status: StatusId | null }) {
-    this.name.setText(`${b.name}  Lv${b.level}`);
+    this.name.setText(b.name);
+    this.level.setText(`Lv${b.level}`);
     this.hp = b.hp;
     this.maxHp = b.stats.hp;
     this.draw(b.hp);
@@ -441,9 +432,7 @@ class HpBox {
 
   setStatus(status: StatusId | null) {
     this.status.removeAll(true);
-    if (!status) return;
-    this.status.add(this.scene.add.rectangle(0, 0, 22, 9, STATUS_COLORS[status]).setOrigin(0, 0));
-    this.status.add(pixelText(this.scene, 11, 2, status.toUpperCase(), { color: '#ffffff', size: 6 }).setOrigin(0.5, 0));
+    if (status) this.status.add(chip(this.scene, 0, 0, status, STATUS_COLORS[status]));
   }
 
   animateTo(hp: number, maxHp: number) {
@@ -459,60 +448,7 @@ class HpBox {
 
   private draw(hp: number) {
     const frac = Math.max(0, hp / this.maxHp);
-    this.bar.width = Math.ceil(this.barW * frac);
-    this.bar.fillColor = frac > 0.5 ? 0x48d848 : frac > 0.2 ? 0xf8c030 : 0xf04838;
+    this.meter.draw(frac, frac > 0.5 ? 0x48c860 : frac > 0.2 ? 0xf2b630 : 0xe8483a);
     this.nums?.setText(`${hp}/${this.maxHp}`);
-  }
-}
-
-class MessageBox {
-  private text: Phaser.GameObjects.Text;
-  private skip?: () => void;
-
-  constructor(private scene: Phaser.Scene) {
-    const y = SCREEN_H - 46;
-    const g = scene.add.graphics().setDepth(5);
-    g.fillStyle(0x283048).fillRect(0, y, SCREEN_W, 46);
-    g.fillStyle(0xf8f8f8).fillRoundedRect(4, y + 4, SCREEN_W - 8, 38, 4);
-    g.lineStyle(2, 0x5878a8).strokeRoundedRect(4, y + 4, SCREEN_W - 8, 38, 4);
-    this.text = pixelText(scene, 12, y + 10, '', { wrap: SCREEN_W - 24 }).setDepth(6);
-    // A tap anywhere skips typing or the pause after a line.
-    scene.input.on('pointerdown', () => this.skip?.());
-  }
-
-  /** A line that stays up while the player chooses. */
-  prompt(line: string) {
-    this.text.setText(line);
-  }
-
-  /** Types the line out, then waits briefly (or for a tap) before resolving. */
-  show(line: string) {
-    return new Promise<void>((resolve) => {
-      let done = false;
-      let hold: Phaser.Time.TimerEvent | undefined;
-      this.text.setText('');
-      // Driven by elapsed time, not frames, so slow devices skip letters instead of crawling.
-      const counter = { shown: 0 };
-      const typer = this.scene.tweens.add({
-        targets: counter, shown: line.length, duration: line.length * CHAR_MS,
-        onUpdate: () => this.text.setText(line.slice(0, Math.floor(counter.shown))),
-        onComplete: () => finishTyping(),
-      });
-      const finish = () => {
-        if (done) return;
-        done = true;
-        hold?.remove();
-        this.skip = undefined;
-        resolve();
-      };
-      const finishTyping = () => {
-        if (hold) return;
-        typer.stop();
-        this.text.setText(line);
-        hold = this.scene.time.delayedCall(LINE_HOLD_MS, finish);
-        this.skip = finish;
-      };
-      this.skip = finishTyping;
-    });
   }
 }

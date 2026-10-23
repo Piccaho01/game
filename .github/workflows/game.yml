@@ -35,6 +35,18 @@ jobs:
       - run: npm run test:e2e
         env:
           CI: true
+      # Phone-size screenshots of every screen (e2e/screens.spec.ts), for reviewing look changes.
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: screens
+          path: game/screens
+          if-no-files-found: ignore
+      # Manual runs also print the screenshots into the log, for reviewing from places that can
+      # read logs but not download artifacts.
+      - name: Screenshots in the log
+        if: always() && github.event_name == 'workflow_dispatch'
+        run: for f in screens/*.png; do echo "SCREEN $f"; base64 -w 0 "$f"; echo; done
       - uses: actions/upload-pages-artifact@v3
         if: github.ref == 'refs/heads/main'
         with:
