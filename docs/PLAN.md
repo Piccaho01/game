@@ -151,12 +151,54 @@ clean-up stage; its automatic form shading looked like a vector render and is no
   before every battle for now), separate teams per character (M4 swapping).
 
 ## M4 Characters + world slice (art + code)
-- From the owner's photos (bible §6 Looks): BW trainer battle sprite and a 4-direction
-  overworld walk cycle for Callum, Nolan, Haydon, Dani; then PATCH.
-- Two common route Patchlings for wild encounters (pitched first, one batch). Done: **Orbitot** (Rock/Dark, Gravity Well, Orbit Punch) and **Fledjet** (Wind, Slipstream, Afterburner), bible §15. Their sprites were converted from the owner's ChatGPT drafts by reducing colours at full size and shrinking straight to sprite size (the drafts mix 10 and 20 px pixels, so the grid-fitting converter fails on them); the owner preferred the conversion untouched. Evolutions are in the data with placeholder art.
-- Hollow Rest + Route 1 tiles and maps; PATCH's crash-landing intro and tutorial dialogue in
-  the bible's voice; sanctuary hub with the first wing to restore.
-- **Done when:** a new player goes from the intro to restoring the first sanctuary wing.
+**Done when:** a new player goes from PATCH's intro to restoring the first sanctuary wing, on a phone.
+
+Done so far:
+- Route 1 commons **Orbitot** (Rock/Dark, Gravity Well, Orbit Punch) and **Fledjet** (Wind,
+  Slipstream, Afterburner), bible §15: sprites, idles, data, lore, seal rhythms; both lines in the
+  data (evolutions with placeholder art). They lead the wild rotation; a new game opens on Fledjet.
+- The cast's looks are locked (bible §6 Looks) and the owner's character sheets are in
+  `art/concepts/trainers/` (concept, battle front and back, overworld walk frames per character).
+
+Next, in this order (decided with the owner: the overworld is the priority; the UI kit comes first
+because every new screen uses it):
+1. **UI kit (our own look):** one theme module (colour tokens, type scale, window/frame and
+   button styles, panel and list components) in `game/src/ui/`. Restyle battle, Journal and
+   new-game screens with it. Original style, not a copy of Nintendo's menus.
+2. **Overworld engine:** tile maps as data (JSON), grid-based 4-direction movement, on-screen
+   D-pad for touch (keys on desktop), camera follow, collision, map transitions, the player's
+   position saved. Placeholder tiles until the tileset arrives.
+3. **Route 1:** tall grass with wild encounters (Orbitot, Fledjet; table per map in data) that open
+   the battle scene and return to the same spot.
+4. **Hollow Rest:** a few houses and NPCs with data-driven dialogue in the bible's voice (inside
+   jokes spread thin, §11), a heal spot.
+5. **PATCH's intro:** the crash landing and "this is your mess", flowing into the leader and
+   starter pick (the pick screens exist: NewGameScene).
+6. **Sanctuary hub:** the ruined sanctuary; sanctuary points (already tracked) restore the first
+   wing. That completes M4.
+7. **Trainer sprites in game** (any time): convert the battle front/back and walk frames from
+   `art/concepts/trainers/` (draft2sprite.py works on these); recolour any Poké Ball into a seal
+   orb; use the leader's walk sprite in the overworld and their back sprite at battle start.
+
+Art asks for the owner (none block code): a BW2-style tileset (grass, tall grass, paths, trees,
+houses, water, sanctuary ruins), PATCH's sheet once his look is approved, NPC walk sprites.
+
+### M4 handoff (read this first in a new session)
+- **Workflow with the owner:** the owner is the ideas side; Claude is the developer and should
+  propose the most efficient plan. Work on a `claude/...` branch, open a PR when a piece is done,
+  the owner merges, `main` deploys to the live link. Watch the PR's CI and fix red before moving on.
+- **Art pipeline:** owner makes concept and pixel drafts in ChatGPT (prompts in
+  `art/BW_STYLE.md`, Workflow). Convert with `art/tools/pixel2grid.py`; if that is mushy (drafts
+  that mix pixel sizes) use `art/tools/draft2sprite.py`. Show the plain conversion before any hand
+  pass: the owner preferred Orbitot and Fledjet untouched. Background = white connected to the edge.
+- **Pitch before drawing** any creature or stage (bible §4); the owner rejected "boring" commons
+  and supplied the asteroid and jet-bird ideas, so offer bold concepts.
+- **Game code:** `game/` (Phaser 3 + TypeScript). Data in `game/src/data/*.json`; engine (pure,
+  unit-tested) in `game/src/engine/`; scenes in `game/src/scenes/`. Saves in localStorage
+  (`game/src/save.ts`, version 2). Test URL params: `?reset`, `?player=<starter>` (skip the pick),
+  `?foe=`, `?seed=`. E2E hooks: `window.__battle`, `__newgame`, `__journal`.
+- **Checks before every push:** `npm test`, `npm run build`, `npx playwright test` (phone
+  viewport) in `game/`. Screenshot new screens at 390x844 and look at them.
 
 ## M5 Playtest build
 - Bug pass on phones (iOS Safari, Android Chrome), balance pass, the link shared with the
