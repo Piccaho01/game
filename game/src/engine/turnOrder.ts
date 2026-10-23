@@ -9,6 +9,8 @@ export function movePriority(b: Battler, moveId: string): number {
   let p = m.priority ?? 0;
   // Spring Heel: kicks go first on the first turn out.
   if (b.ability === 'spring_heel' && m.flags?.kick && b.volatile.turnsOut === 0) p += 1;
+  // Slipstream: everything goes first on the first turn out.
+  if (b.ability === 'slipstream' && b.volatile.turnsOut === 0) p += 1;
   return p;
 }
 

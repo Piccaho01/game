@@ -84,6 +84,49 @@
       "studied": "It fires its jaw forward on stretched cartilage like a harpoon. Its throat glows through the skin and dims after each shot.",
       "sealed": "Old Hollowfolk charts mark its trench with a single word: 'Don't.'",
       "bonded": "Still terrifying. Now terrifying on your side."
+    },
+
+    "orbitot": {
+      "sighted": "A football-sized rock with its hands and feet floating beside it on strings of purple space.",
+      "tracked": "Found where the hills above Hollow Rest are pocked with fresh craters. Drifts up to strangers and orbits their heads.",
+      "studied": "The purple stuff holding it together is galaxy residue. PATCH: \"That's skybox. It's supposed to stay up there.\"",
+      "sealed": "The Tally sells licences for \"meteorite salvage\" on Route 1. Nobody has asked the meteorites.",
+      "bonded": "Its residue glows the same colour as the corrupted files in PATCH's old drafts. PATCH has stopped answering questions about this. [Callum: noted.]"
+    },
+    "craterra": {
+      "sighted": "Bigger, with four floating arms and a belt of rubble orbiting its waist.",
+      "tracked": "Sits on hilltops at night and pulls loose rocks into orbit around itself like a hobby.",
+      "studied": "Each rock in its belt is a different colour. It is collecting them. [Callum respects this.]",
+      "sealed": "Old Hollowfolk stories call it a star that came down to count the hills.",
+      "bonded": "Lets you pick one rock from its belt. It is the worst rock. It watches you hold it."
+    },
+    "singulith": {
+      "sighted": "A jagged dark core inside a glowing ring. Things near it lean toward it.",
+      "tracked": "Rarely seen. Compasses spin near the place it sleeps.",
+      "studied": "Its limbs are held by a swirl that looks like a small black hole. PATCH insists it is \"a rendering artefact\".",
+      "sealed": "The Tally has tried to license it twice. Both forms were pulled into the swirl.",
+      "bonded": "When it is calm, the stars in its ring spell out shapes. One of them is a cheeseburger. [Callum: triple.]"
+    },
+    "fledjet": {
+      "sighted": "A chubby steel-blue chick with swept-back wings, puffing grey exhaust from its nostrils.",
+      "tracked": "Nests under the Cloud Station's turbines and races the gondolas. It loses. It does not accept this.",
+      "studied": "Its nostrils are real air intakes. It has never been cleared for takeoff. It takes off anyway.",
+      "sealed": "The Tally's air traffic control grounds whole flocks with rain checks. The flocks wait on Route 1 for clearance that never comes.",
+      "bonded": "Does a fly-by over your head every morning to say hello. Misses about half the time. [Haydon: \"nah that's cap, it's aiming for you.\"]"
+    },
+    "contrailon": {
+      "sighted": "Sleek and long, with metal plates on its chest and contrails streaming off its wingtips.",
+      "tracked": "Wayfarers use them as couriers between towns. Packages arrive early, and slightly scorched.",
+      "studied": "Its crest has grown into something like a cockpit canopy. It looks at its reflection in it a lot.",
+      "sealed": "Holds the unofficial speed record over the Saltline Speedway. The official one is still waiting on a Tally form.",
+      "bonded": "Will carry a message anywhere in Verrow in an hour. Dani still replies three months later."
+    },
+    "strafalcon": {
+      "sighted": "Nearly a fighter jet: plated hull, twin tail fins, glowing exhaust. The head and talons are still a falcon's.",
+      "tracked": "Its sonic booms are why Hush is so quiet. Everyone there is still waiting for the next one.",
+      "studied": "Lands on its talons like landing gear. Has been seen doing a victory roll after every landing.",
+      "sealed": "The Tally finally cleared one for takeoff. It had already left.",
+      "bonded": "Lets you ride on its back over the mist. PATCH asks you to keep your arms inside the vehicle."
     }
   },
   "redacted": {

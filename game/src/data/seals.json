@@ -1,5 +1,5 @@
 {
-  "_note": "Seal patterns (bible §7). beats = ms after the first beat; a ring closes on the seal for leadMs before each beat. Windows are ±ms around a beat, widened as the target weakens. Fire/Water/Plant/Spark are the first four (PLAN M3); other types use the default until they get their own. Tune in play-testing.",
+  "_note": "Seal patterns (bible §7). beats = ms after the first beat; a ring closes on the seal for leadMs before each beat. Windows are ±ms around a beat, widened as the target weakens. Fire/Water/Plant/Spark came first (PLAN M3), then Rock and Wind for the Route 1 commons; other types use the default until they get their own. Tune in play-testing.",
   "windows": {
     "perfect": [45, 90],
     "good": [100, 170],
@@ -19,6 +19,8 @@
     "water":   { "name": "Tide",   "leadMs": 1000, "beats": [0, 350, 1300, 1650, 2600, 2950, 3300], "desc": "Waves in pairs, then a long swell." },
     "plant":   { "name": "Root",   "leadMs": 1000, "beats": [0, 800, 1600, 2400, 3200, 3600], "desc": "A slow, steady pulse; the last root snaps in early." },
     "spark":   { "name": "Arc",    "leadMs": 800, "beats": [0, 200, 400, 1300, 1500, 1700, 2350], "desc": "Quick triples with a gap; hold your nerve for the last jolt." },
+    "rock":    { "name": "Boulder", "leadMs": 1100, "beats": [0, 900, 1800, 2100, 3000, 3900], "desc": "Heavy and slow; one beat stumbles in early." },
+    "wind":    { "name": "Gust",   "leadMs": 900, "beats": [0, 450, 800, 1050, 1300, 1650, 2100, 2700], "desc": "Picks up speed, then trails off on the breeze." },
     "default": { "name": "Seal",   "leadMs": 1000, "beats": [0, 700, 1400, 2100, 2800], "desc": "An even beat." }
   }
 }

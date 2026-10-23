@@ -212,3 +212,18 @@ The live plan with milestones and status is `docs/PLAN.md`. Summary:
 4. Add character swapping and leader assists.
 5. Expand towns, factions and the Connor storyline.
 6. Playtest with the friend group; tune systems.
+
+## 15. Route 1 Commons (approved)
+Two common lines for the hills outside Hollow Rest. Stage 1s are drawn for M4; evolutions are pitched in detail before they are drawn.
+
+### Orbitot → Craterra → Singulith (Rock/Dark): the fallen asteroid
+- **Orbitot**: a round, football-sized grey-brown asteroid pocked with craters. No attached limbs: two stubby rock hands and two rock feet float apart from the body, tethered by wisps of **galaxy residue** (purple/blue nebula swirls flecked with stars). The biggest crater is its face: nebula glow with two star-glint eyes, no mouth (it "talks" by flaring the residue). Curious, clingy; orbits your head. Battle pose: 3/4 to the left, one floating fist wound back on a stretched tether.
+- Story hook: chunks of the world's skybox that fell when the supercomputer exploded (PATCH: "That's skybox. It's supposed to stay up there."). The Tally licenses "meteorite salvage" on Route 1. The residue matches what is inside PATCH's scrapped drafts (Draft Archive thread).
+- Signature **Orbit Punch** (Rock, physical: flings a fist on its tether; always crits a foe whose Speed was lowered). Ability **Gravity Well** (foes can't run).
+- **Craterra**: bigger, four floating arms, a belt of orbiting rubble. **Singulith**: jagged dark core with a glowing ring; limbs held by a black-hole swirl.
+
+### Fledjet → Contrailon → Strafalcon (Wind → Wind/Metal → Wind/Metal): bird becoming fighter jet
+- **Fledjet**: chubby, scrappy sparrow chick that wants to be a jet. Stubby swept-back delta wings, stiff V tail feathers like fins, intake-shaped nostrils on its beak that puff grey exhaust. Steel blue, white belly, white flight-stripe on each wing. Sharp eyes under a flat visor brow, cocky open-beak grin. Battle pose: mid-dive to the left, wings swept back, exhaust trailing.
+- Story hook: nests under the Cloud Station's turbines and races the gondolas; Wayfarers use grown ones as couriers. The Tally runs "air traffic control" and grounds every flight with rain checks. Bestiary: "Has been cleared for takeoff 0 times. Takes off anyway."
+- Signature **Afterburner** (Wind, physical: hits hard, raises Speed, lowers its own Defense). Ability **Slipstream** (its first move each battle goes first).
+- Each stage is more aircraft, less bird. **Contrailon**: sleek, wing panels growing in, chest plates, canopy-like crest, contrails off the wingtips. **Strafalcon**: nearly a fighter jet (plated hull, swept wings, twin tail fins, glowing exhaust) with a falcon head and talons as landing gear.

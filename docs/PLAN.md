@@ -19,7 +19,7 @@ Rules that keep it efficient:
 - [x] M1 Foundation (live once Pages is enabled: Settings → Pages → Source: GitHub Actions)
 - [x] M2 Stage-1 starters (branch `claude/m2-starters`: all four with front, idle, back and back idle in game; see "M2 handoff" below)
 - [x] M3 Core loop (pick a leader and starter → wild battle → seal → team/sanctuary → bestiary stages and sanctuary points, leader assists, switching, saved in the browser)
-- [ ] M4 Characters + world slice
+- [ ] M4 Characters + world slice (in progress on branch `claude/m4-route1`: Route 1 commons Orbitot and Fledjet in game; trainer sheets for the cast received)
 - [ ] M5 Playtest build
 - [ ] After the slice: evolutions, Connor, more of Verrow
 
@@ -153,7 +153,7 @@ clean-up stage; its automatic form shading looked like a vector render and is no
 ## M4 Characters + world slice (art + code)
 - From the owner's photos (bible §6 Looks): BW trainer battle sprite and a 4-direction
   overworld walk cycle for Callum, Nolan, Haydon, Dani; then PATCH.
-- Two common route Patchlings for wild encounters (pitched first, one batch).
+- Two common route Patchlings for wild encounters (pitched first, one batch). Done: **Orbitot** (Rock/Dark, Gravity Well, Orbit Punch) and **Fledjet** (Wind, Slipstream, Afterburner), bible §15. Their sprites were converted from the owner's ChatGPT drafts by reducing colours at full size and shrinking straight to sprite size (the drafts mix 10 and 20 px pixels, so the grid-fitting converter fails on them); the owner preferred the conversion untouched. Evolutions are in the data with placeholder art.
 - Hollow Rest + Route 1 tiles and maps; PATCH's crash-landing intro and tutorial dialogue in
   the bible's voice; sanctuary hub with the first wing to restore.
 - **Done when:** a new player goes from the intro to restoring the first sanctuary wing.
