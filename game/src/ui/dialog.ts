@@ -6,15 +6,22 @@ import { COLORS, TEXT_COLORS } from './theme';
 
 const CHAR_MS = 18;
 const LINE_HOLD_MS = 700;
-const BOX_H = 38;
-/** Lines that fit in the box; longer text is shown in pages. */
-const LINES = 2;
+const LINE_H = 10;
+
+export interface BoxOpts {
+  /** Top of the box; default: along the bottom of the top screen. */
+  y?: number;
+  /** Lines per page (default 2); longer text is shown in pages. */
+  lines?: number;
+}
 
 export interface ShowOpts {
   /** A name taped to the box's top edge (NPC dialogue). */
   speaker?: string;
   /** Wait for a tap after the line instead of moving on by itself (dialogue the player reads). */
   waitForTap?: boolean;
+  /** The speaker tape's colour (default: masking tape). */
+  speakerColor?: number;
 }
 
 /**
@@ -27,21 +34,25 @@ export class DialogBox {
   private arrow: Phaser.GameObjects.Graphics;
   private speaker?: Phaser.GameObjects.Container;
   private skip?: () => void;
-  private readonly y = SCREEN_H - BOX_H - 7;
+  private readonly y: number;
+  private readonly lines: number;
 
-  constructor(private scene: Phaser.Scene, private depth = 5) {
-    this.box = drawPanel(scene.add.graphics().setDepth(depth), 4, this.y, SCREEN_W - 8, BOX_H, 'paper');
+  constructor(private scene: Phaser.Scene, private depth = 5, opts: BoxOpts = {}) {
+    this.lines = opts.lines ?? 2;
+    const boxH = 18 + this.lines * LINE_H;
+    this.y = opts.y ?? SCREEN_H - boxH - 7;
+    this.box = drawPanel(scene.add.graphics().setDepth(depth), 4, this.y, SCREEN_W - 8, boxH, 'paper');
     this.text = pixelText(scene, 14, this.y + 9, '', { color: TEXT_COLORS.ink, wrap: SCREEN_W - 32 }).setDepth(depth + 1);
     this.arrow = scene.add.graphics().setDepth(depth + 1).setVisible(false);
     this.arrow.fillStyle(COLORS.rust).fillRect(0, 0, 7, 1).fillRect(1, 1, 5, 1).fillRect(2, 2, 3, 1).fillRect(3, 3, 1, 1);
-    this.arrow.setPosition(SCREEN_W - 20, this.y + BOX_H - 9);
+    this.arrow.setPosition(SCREEN_W - 20, this.y + boxH - 9);
     scene.tweens.add({ targets: this.arrow, y: this.arrow.y + 2, duration: 300, yoyo: true, repeat: -1 });
     scene.input.on('pointerdown', () => this.skip?.());
   }
 
-  private setSpeaker(name?: string) {
+  private setSpeaker(name?: string, color?: number) {
     this.speaker?.destroy();
-    this.speaker = name ? tapeLabel(this.scene, 12, this.y - 6, name).setDepth(this.depth + 2) : undefined;
+    this.speaker = name ? tapeLabel(this.scene, 12, this.y - 6, name, color).setDepth(this.depth + 2) : undefined;
   }
 
   /** Hides the box (the overworld only shows it while someone talks). */
@@ -72,12 +83,12 @@ export class DialogBox {
     this.text.setText(line);
   }
 
-  /** Types the text out a page (two lines) at a time, then waits briefly (or for a tap). */
+  /** Types the text out a page (two lines, or `lines`) at a time, then waits briefly (or for a tap). */
   async show(text: string, opts: ShowOpts = {}) {
     this.reveal();
-    this.setSpeaker(opts.speaker);
+    this.setSpeaker(opts.speaker, opts.speakerColor);
     const lines = this.text.getWrappedText(text);
-    for (let i = 0; i < lines.length; i += LINES) await this.page(lines.slice(i, i + LINES).join('\n'), opts);
+    for (let i = 0; i < lines.length; i += this.lines) await this.page(lines.slice(i, i + this.lines).join('\n'), opts);
   }
 
   private page(line: string, opts: ShowOpts) {

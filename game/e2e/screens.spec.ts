@@ -1,5 +1,6 @@
 import { expect, test, type Page } from '@playwright/test';
-import { ready, tapKey, walkTo } from './walk';
+import { readFileSync } from 'node:fs';
+import { ready, storyNow, tapKey, tapUntil, walkTo, walkUntilStory } from './walk';
 
 /**
  * Screenshots of every screen at phone size, saved to screens/ (CI uploads them with each run),
@@ -9,7 +10,7 @@ const DIR = 'screens';
 
 type Hooks = { buttonAt(n: string): { x: number; y: number } | null };
 
-async function tapOn(page: Page, hook: '__battle' | '__newgame' | '__journal' | '__intro', name: string) {
+async function tapOn(page: Page, hook: '__battle' | '__newgame' | '__journal' | '__cutscene', name: string) {
   const pt = await page.evaluate(([h, n]) => (window as unknown as Record<string, Hooks>)[h].buttonAt(n), [hook, name] as const);
   expect(pt, `button ${name}`).not.toBeNull();
   await page.touchscreen.tap(pt!.x, pt!.y);
@@ -22,21 +23,28 @@ test('screens', async ({ page }) => {
   const errors: string[] = [];
   page.on('pageerror', (e) => errors.push(e.message));
 
-  // The intro: the group chat, then PATCH at the crash site (taps hurry the chat along).
-  type Intro = { part(): string };
-  const part = () => page.evaluate(() => (window as unknown as { __intro?: Intro }).__intro?.part());
+  // The story cards: each card, a line or two in (taps move the lines on).
+  type Cut = { card(): string; step(): number; talking(): boolean };
+  const card = () => page.evaluate(() => (window as unknown as { __cutscene?: Cut }).__cutscene?.card());
+  const stepNo = () => page.evaluate(() => (window as unknown as { __cutscene: Cut }).__cutscene.step());
   await page.goto('/?reset&seed=2');
-  await page.waitForFunction(() => (window as unknown as { __intro?: Intro }).__intro?.part() === 'chat', null, { timeout: 60_000 });
-  await page.waitForTimeout(7000);
-  await shot(page, '00a-intro-chat');
-  for (let i = 0; i < 120 && (await part()) === 'chat'; i++) {
-    await page.touchscreen.tap(195, 300);
-    await page.waitForTimeout(250);
-  }
-  await page.waitForFunction(() => (window as unknown as { __intro: Intro }).__intro.part() === 'meet', null, { timeout: 30_000 });
-  await page.waitForTimeout(3500);
-  await shot(page, '00b-intro-patch');
-  await tapOn(page, '__intro', 'skip');
+  await page.waitForFunction(() => (window as unknown as { __cutscene?: Cut }).__cutscene?.card() === '01_couch', null, { timeout: 60_000 });
+  await page.waitForTimeout(2500);
+  await shot(page, '00a-story-couch');
+  const steps = JSON.parse(readFileSync('src/data/cutscenes.json', 'utf8')).scenes.opening.steps as { card?: string; text?: string }[];
+  const at = (pred: (s: { card?: string; text?: string }) => boolean) => steps.findIndex(pred);
+  // A shot a moment after a given step starts (its line typed out).
+  const shotAt = async (index: number, name: string, ms = 2200) => {
+    await tapUntil(page, async () => (await stepNo()) >= index);
+    await page.waitForTimeout(ms);
+    await shot(page, name);
+  };
+  await shotAt(at((s) => !!s.text?.startsWith('And a region')), '00b-story-plan');
+  await shotAt(at((s) => !!s.text?.startsWith("CALLUM'S LAPTOP")), '00c-story-blowup', 900);
+  await shotAt(at((s) => !!s.text?.startsWith('The computer blew up')), '00d-story-landing');
+  await shotAt(at((s) => !!s.text?.startsWith('Furnaxol.')), '00e-story-starters');
+  expect(await card()).toBe('05_starters');
+  await tapOn(page, '__cutscene', 'skip');
   await page.waitForFunction(() => (window as unknown as { __newgame?: { step(): string } }).__newgame?.step() === 'leader', null, { timeout: 60_000 });
   await page.waitForTimeout(300);
   await shot(page, '01-newgame-patch');
@@ -47,13 +55,22 @@ test('screens', async ({ page }) => {
   await shot(page, '03-newgame-starter');
   await tapOn(page, '__newgame', 'confirm');
 
-  // Overworld: Hollow Rest by the crater, up at the sanctuary, and the town sign by the edge.
+  // The first step out: the four and PATCH outside the sanctuary, talking.
+  await page.waitForFunction(() => (window as unknown as { __overworld?: { story(): string | null } }).__overworld?.story() === 'first_step', null, { timeout: 60_000 });
+  await page.waitForTimeout(4500);
+  await shot(page, '04a-story-first-step');
+  await tapUntil(page, async () => (await storyNow(page)) === null);
+
+  // Overworld: up at the sanctuary, then down toward the town sign, where Connor pings the chat.
   await ready(page);
   await page.waitForTimeout(400);
   await shot(page, '04-overworld');
-  await walkTo(page, 6, 6);
-  await page.waitForTimeout(300);
-  await shot(page, '04b-overworld-sanctuary');
+  await walkUntilStory(page, 14, 16);
+  await page.waitForFunction(() => (window as unknown as { __overworld: { story(): string | null } }).__overworld.story() === 'connor_hook', null, { timeout: 10_000 });
+  await page.waitForTimeout(9000);
+  await shot(page, '04c-story-connor-chat');
+  await tapUntil(page, async () => (await storyNow(page)) === null);
+  await ready(page);
   await walkTo(page, 14, 17);
   await tapKey(page, 'left');
   await page.keyboard.press('Space');

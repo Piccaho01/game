@@ -30,6 +30,11 @@ export interface Progress {
   wings: string[];
   /** Where the leader stands in the overworld; missing until they first walk out. */
   pos?: Position;
+  /**
+   * Overworld story scenes already played (engine/cutscene.ts). Missing on saves from before the
+   * story scenes (and on test shortcuts): those games are past them, so none play.
+   */
+  story?: string[];
 }
 
 const EMPTY_RECORD: DexRecord = { encounters: 0, defeats: 0, seals: 0, strongBonds: 0, scans: 0 };
@@ -52,6 +57,7 @@ export function newProgress(starter: string, leader: CharacterId = 'callum'): Pr
     team: [{ uid: 1, species: starter, level: RULES.starterLevel, bond: RULES.starterBond }],
     sanctuary: [],
     wings: [],
+    story: [],
     // PATCH hands over the starter already bonded, so its whole entry is open.
     bestiary: { [starter]: { encounters: 1, defeats: 0, seals: 1, strongBonds: RULES.starterBond === 'strong' ? 1 : 0, scans: 0 } },
   };
@@ -156,5 +162,6 @@ export function parseProgress(raw: unknown): Progress | null {
   const map = p.pos && MAPS[p.pos.map];
   const pos = map && p.pos!.x >= 0 && p.pos!.y >= 0 && p.pos!.x < map.width && p.pos!.y < map.height ? p.pos : undefined;
   const wings = Array.isArray(p.wings) ? p.wings.filter((w): w is string => typeof w === 'string') : [];
-  return { ...p, version: 2, leader, team, sanctuary: p.sanctuary.filter(ok), bestiary, pos, wings };
+  const story = Array.isArray(p.story) ? p.story.filter((s): s is string => typeof s === 'string') : undefined;
+  return { ...p, version: 2, leader, team, sanctuary: p.sanctuary.filter(ok), bestiary, pos, wings, story };
 }

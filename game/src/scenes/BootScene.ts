@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
-import { MAP_ART, PROP_ART, SPRITES, STANDS, WALK_FRAME, WALK_SHEETS, type SpriteAsset } from '../assets';
+import { CUTSCENE_CARDS, MAP_ART, PROP_ART, SPRITES, STANDS, WALK_FRAME, WALK_SHEETS, type SpriteAsset } from '../assets';
+import { SCENES } from '../engine/cutscene';
 import { SPECIES, TYPES } from '../engine/data';
 import { newProgress } from '../engine/progress';
 import { clearProgress, loadProgress, saveProgress } from '../save';
@@ -16,6 +17,8 @@ export const standKey = (id: string) => `stand:${id}`;
 /** A baked isometric map's ground, and the upright pieces placed on it. */
 export const groundKey = (id: string) => `ground:${id}`;
 export const propKey = (art: string) => `prop:${art}`;
+/** A story card (data/cutscenes.json). */
+export const cardKey = (id: string) => `card:${id}`;
 export const backIdleAnimKey = (species: string) => `idle:back:${species}`;
 
 export class BootScene extends Phaser.Scene {
@@ -33,6 +36,7 @@ export class BootScene extends Phaser.Scene {
     for (const [id, url] of Object.entries(STANDS)) this.load.image(standKey(id), url);
     for (const [id, art] of Object.entries(MAP_ART)) this.load.image(groundKey(id), art.png);
     for (const [id, url] of Object.entries(PROP_ART)) this.load.image(propKey(id), url);
+    for (const [id, url] of Object.entries(CUTSCENE_CARDS)) this.load.image(cardKey(id), url);
   }
 
   create() {
@@ -45,16 +49,27 @@ export class BootScene extends Phaser.Scene {
     const params = new URLSearchParams(location.search);
     // ?reset clears the save. A new game goes to the character and starter pick, unless ?player
     // names a starter (a shortcut for tests and quick checks). ?foe jumps straight into a battle.
+    // ?scene=<id> plays a story scene (data/cutscenes.json) for checking it: cards straight away,
+    // an overworld scene once the game is loaded.
     if (params.has('reset')) clearProgress();
     let progress = loadProgress();
     const starter = params.get('player');
     if (!progress && starter && SPECIES[starter]) {
       progress = newProgress(starter);
+      // A shortcut past the story: no story scenes play (like a save from before them).
+      delete progress.story;
       saveProgress(progress);
     }
+    const scene = params.get('scene');
+    if (scene && SCENES[scene]?.kind === 'cards') {
+      this.scene.start('cutscene', { id: scene });
+      return;
+    }
     if (!progress) {
-      // A new game opens on the intro (?skipintro goes straight to the pick, for tests).
-      this.scene.start(params.has('skipintro') ? 'newgame' : 'intro');
+      // A new game opens on the story (?skipintro goes straight to the pick and skips the story, for tests).
+      this.registry.set('skipStory', params.has('skipintro'));
+      if (params.has('skipintro')) this.scene.start('newgame');
+      else this.scene.start('cutscene', { id: 'opening' });
       return;
     }
     this.registry.set('progress', progress);
@@ -63,7 +78,7 @@ export class BootScene extends Phaser.Scene {
       this.scene.start('battle', { foe, seed: params.has('seed') ? Number(params.get('seed')) : undefined });
       return;
     }
-    this.scene.start('overworld');
+    this.scene.start('overworld', { scene: scene && SCENES[scene] ? scene : undefined });
   }
 
   private loadArt(key: string, art: SpriteAsset | undefined) {

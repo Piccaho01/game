@@ -26,3 +26,29 @@ export async function walkTo(page: Page, x: number, y: number) {
   for (const d of dirs!) await tapKey(page, d);
   expect(await ow(page)).toMatchObject({ x, y });
 }
+
+type Story = { story(): string | null; ready(): boolean; pathTo(x: number, y: number): string[] | null };
+export const storyNow = (page: Page) => page.evaluate(() => (window as unknown as { __overworld: Story }).__overworld.story());
+
+/** Walks toward a tile until a story scene starts on the way (it starts by itself when the leader steps into its spot). */
+export async function walkUntilStory(page: Page, x: number, y: number) {
+  const dirs = await page.evaluate(([tx, ty]) => (window as unknown as { __overworld: Story }).__overworld.pathTo(tx, ty), [x, y] as const);
+  expect(dirs, `a path to ${x},${y}`).not.toBeNull();
+  for (const d of dirs!) {
+    if (await storyNow(page)) return;
+    await page.keyboard.press(KEY[d]);
+    await page.waitForFunction(() => {
+      const o = (window as unknown as { __overworld: Story }).__overworld;
+      return o.ready() || !!o.story();
+    }, null, { timeout: 5_000 });
+  }
+}
+
+/** Taps through story lines (each tap finishes the typing, then moves on) until `done`. */
+export async function tapUntil(page: Page, done: () => Promise<boolean>, max = 250) {
+  for (let i = 0; i < max && !(await done()); i++) {
+    await page.touchscreen.tap(195, 250); // the top screen: nothing to press there
+    await page.waitForTimeout(120);
+  }
+  expect(await done()).toBe(true);
+}

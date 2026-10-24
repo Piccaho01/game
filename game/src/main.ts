@@ -6,7 +6,7 @@ import { BattleScene } from './scenes/BattleScene';
 import { JournalScene } from './scenes/JournalScene';
 import { NewGameScene } from './scenes/NewGameScene';
 import { OverworldScene } from './scenes/OverworldScene';
-import { IntroScene } from './scenes/IntroScene';
+import { CutsceneScene } from './scenes/CutsceneScene';
 import { SanctuaryScene } from './scenes/SanctuaryScene';
 
 async function start() {
@@ -23,7 +23,7 @@ async function start() {
     fps: { smoothStep: false },
     scale: { mode: Phaser.Scale.FIT, autoCenter: Phaser.Scale.CENTER_BOTH },
     input: { activePointers: 2 },
-    scene: [BootScene, IntroScene, NewGameScene, OverworldScene, BattleScene, JournalScene, SanctuaryScene],
+    scene: [BootScene, CutsceneScene, NewGameScene, OverworldScene, BattleScene, JournalScene, SanctuaryScene],
   });
   (window as unknown as { __game: Phaser.Game }).__game = game;
 }

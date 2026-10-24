@@ -114,9 +114,11 @@ export class NewGameScene extends Phaser.Scene {
   private begin() {
     if (!this.leader || !this.starter) return;
     const progress = newProgress(this.starter, this.leader);
+    // ?skipintro (tests) skips the story scenes too.
+    if (this.registry.get('skipStory')) delete progress.story;
     saveProgress(progress);
     this.registry.set('progress', progress);
-    // Out into Hollow Rest (PATCH's intro comes before this in M4 step 5).
+    // Out into Hollow Rest, where the first story scene on the map plays (OverworldScene).
     this.scene.start('overworld');
   }
 }

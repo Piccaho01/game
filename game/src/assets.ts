@@ -45,3 +45,7 @@ for (const [path, url] of Object.entries(stills)) {
   if (key.includes('_')) continue; // _flats, _shaded, _sil are pipeline previews
   (SPRITES[key] ??= {}).still = url;
 }
+
+/** Story cards (art/tools/card2screen.py): the owner's cutscene art at top-screen size, 256x192. */
+const cards = import.meta.glob('../../art/cutscenes/out/*.png', { eager: true, query: '?url', import: 'default' }) as Record<string, string>;
+export const CUTSCENE_CARDS: Record<string, string> = Object.fromEntries(Object.entries(cards).map(([path, url]) => [base(path), url]));
