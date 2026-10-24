@@ -19,7 +19,7 @@ Rules that keep it efficient:
 - [x] M1 Foundation (live once Pages is enabled: Settings → Pages → Source: GitHub Actions)
 - [x] M2 Stage-1 starters (branch `claude/m2-starters`: all four with front, idle, back and back idle in game; see "M2 handoff" below)
 - [x] M3 Core loop (pick a leader and starter → wild battle → seal → team/sanctuary → bestiary stages and sanctuary points, leader assists, switching, saved in the browser)
-- [ ] M4 Characters + world slice (in progress on branch `claude/m4-route1`: Route 1 commons Orbitot and Fledjet in game; trainer sheets for the cast received)
+- [ ] M4 Characters + world slice (in progress: Hollow Rest isometric with the owner's terrain/props and pixel-art walk sprites on `claude/m4-polish`; left: story intro, Route 1 isometric, townsfolk)
 - [ ] M5 Playtest build
 - [ ] After the slice: evolutions, Connor, more of Verrow
 
@@ -200,8 +200,16 @@ because every new screen uses it):
      (golden-hour grade, boulder cliffs patched with brick and taped plaster, sky backdrop).
    Engine: heights, stairs (climb toward the path), object footprints/doors (`data/objects.json`),
    `findPath`; the overworld sorts people in front of/behind buildings by footprint; diamond D-pad.
-   Still to do: diagonal walk sprites (owner: prompt below), Route 1's own isometric layout,
-   townsfolk sprites, tall grass as upright blades.
+   Since `claude/m4-polish`: terrain, cliffs, stairs and props come from the owner's isometric
+   sheets (`art/concepts/locations/iso_terrain.png`, `iso_props.png`) via `art/tools/iso_kit.py`
+   (cut out, shrunk, colour-reduced, outlined) and `iso_map.py` uses them; houses spread out;
+   walk sprites are the owner's pixel-art sheets read pixel for pixel (24x40 frames, row 0 toward
+   the viewer facing down-left, row 3 away facing up-left; `walk2sheet.py`, `walk_frames.json`
+   'pixel'). Still to do: Route 1's own isometric layout (drafts in: `route1_concept.png`,
+   `route1_pieces.png`), townsfolk sprites, PATCH walk sheet in the pixel style.
+9. **Story intro** (script draft for approval: `docs/INTRO_SCRIPT.md`): seven beats on the owner's
+   cutscene cards (`art/concepts/cutscenes/01..05`), PATCH presents the starters, Connor's
+   group-chat hook at the town sign.
 
 Art asks for the owner: the Hollow Rest drafts from `art/LOCATION_STYLE.md` (concept, pixel map,
 set pieces, terrain swatch) into `art/concepts/locations/`; townsfolk NPC sprites (the elder,

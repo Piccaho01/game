@@ -9,12 +9,12 @@ export interface SpriteAsset { idle?: { png: string; json: string }; still?: str
 
 const base = (p: string) => p.split('/').pop()!.replace(/\.(png|json)$/, '');
 
-/** Overworld walk sheets (art/tools/walk2sheet.py): <id>_walk.png, 24x32 frames, rows down/left/right/up. */
+/** Overworld walk sheets (art/tools/walk2sheet.py): <id>_walk.png, 24x40 frames; row 0 walks toward the viewer (facing down-left), row 3 away (up-left). */
 const walks = import.meta.glob('../../art/trainers/out/*_walk.png', { eager: true, query: '?url', import: 'default' }) as Record<string, string>;
 export const WALK_SHEETS: Record<string, string> = Object.fromEntries(
   Object.entries(walks).map(([path, url]) => [base(path).replace(/_walk$/, ''), url]),
 );
-export const WALK_FRAME = { w: 24, h: 32 };
+export const WALK_FRAME = { w: 24, h: 40 };
 /** Single standing poses (art/tools/pose2sprite.py): <id>_stand.png. */
 const stands = import.meta.glob('../../art/trainers/out/*_stand.png', { eager: true, query: '?url', import: 'default' }) as Record<string, string>;
 export const STANDS: Record<string, string> = Object.fromEntries(
