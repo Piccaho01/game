@@ -170,7 +170,7 @@ def native(sheet, box):
 
 def convert_pixel(name, cfg, k):
     """The owner's pixel-art walk sheet ('pixel'): rows 0 (toward the viewer, facing down-left) and 3
-    (away, facing up-left), rows 1-2 copies of row 0; 24x40 cells. Written as <name>_walk_px.png."""
+    (away, facing up-left), rows 1-2 copies of row 0; 24x40 cells. Written as <name>_walk.png."""
     pc = cfg['pixel']
     path = os.path.join(ROOT, 'concepts', pc['sheet'])
     boxes = sheet_cut.pieces(path, step=2, gap=1, min_area=800, white=240)
@@ -191,7 +191,7 @@ def convert_pixel(name, cfg, k):
                 for x in range(w):
                     if g[y, x] >= 0 and 0 <= ox + x < (col + 1) * cw and oy + y >= row * ch:
                         out.putpixel((ox + x, oy + y), (*(int(v) for v in pal[g[y, x]]), 255))
-    p = os.path.join(ROOT, 'trainers', 'out', f'{name}_walk_px.png')
+    p = os.path.join(ROOT, 'trainers', 'out', f'{name}_walk.png')
     out.save(p)
     print('wrote', p, 'frame', frames['down'][0].shape[:2])
 
@@ -200,6 +200,6 @@ if __name__ == '__main__':
     conf = json.load(open(os.path.join(ROOT, 'trainers', 'walk_frames.json')))
     for name in sys.argv[1:] or conf['sheets']:
         c = conf['sheets'][name]
-        if 'down' in c: convert(name, c, conf['height'], conf['colours'])
-        if 'diag' in c: convert(name, c, conf['height'], conf['colours'], diag=True)
+        # the owner's pixel-art sheet when there is one; else the character sheet's straight views
         if 'pixel' in c: convert_pixel(name, c, 16)
+        else: convert(name, c, conf['height'], conf['colours'])
