@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import { SPRITES, STANDS, WALK_FRAME, WALK_SHEETS, type SpriteAsset } from '../assets';
+import { MAP_ART, PROP_ART, SPRITES, STANDS, WALK_FRAME, WALK_SHEETS, type SpriteAsset } from '../assets';
 import { SPECIES, TYPES } from '../engine/data';
 import { newProgress } from '../engine/progress';
 import { clearProgress, loadProgress, saveProgress } from '../save';
@@ -13,6 +13,9 @@ export const backKey = (species: string) => `back:${species}`;
 export const walkKey = (id: string) => `walk:${id}`;
 /** A single standing pose (PATCH in town): art/trainers/out/<id>_stand.png. */
 export const standKey = (id: string) => `stand:${id}`;
+/** A baked isometric map's ground, and the upright pieces placed on it. */
+export const groundKey = (id: string) => `ground:${id}`;
+export const propKey = (art: string) => `prop:${art}`;
 export const backIdleAnimKey = (species: string) => `idle:back:${species}`;
 
 export class BootScene extends Phaser.Scene {
@@ -28,6 +31,8 @@ export class BootScene extends Phaser.Scene {
       this.load.spritesheet(walkKey(id), url, { frameWidth: WALK_FRAME.w, frameHeight: WALK_FRAME.h });
     }
     for (const [id, url] of Object.entries(STANDS)) this.load.image(standKey(id), url);
+    for (const [id, art] of Object.entries(MAP_ART)) this.load.image(groundKey(id), art.png);
+    for (const [id, url] of Object.entries(PROP_ART)) this.load.image(propKey(id), url);
   }
 
   create() {

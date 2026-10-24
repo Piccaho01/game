@@ -1,4 +1,5 @@
 import { expect, test, type Page } from '@playwright/test';
+import { ready, tapKey, walkTo } from './walk';
 
 /**
  * Screenshots of every screen at phone size, saved to screens/ (CI uploads them with each run),
@@ -46,17 +47,15 @@ test('screens', async ({ page }) => {
   await shot(page, '03-newgame-starter');
   await tapOn(page, '__newgame', 'confirm');
 
-  // Overworld: Hollow Rest, then the sign by the path (up 3, right 1, read).
-  type Ow = { ready(): boolean; pos(): { x: number; y: number } };
-  const owReady = () => page.waitForFunction(() => (window as unknown as { __overworld?: Ow }).__overworld?.ready(), null, { timeout: 60_000 });
-  await owReady();
-  await page.waitForTimeout(300);
+  // Overworld: Hollow Rest by the crater, up at the sanctuary, and the town sign by the edge.
+  await ready(page);
+  await page.waitForTimeout(400);
   await shot(page, '04-overworld');
-  for (const key of ['ArrowUp', 'ArrowUp', 'ArrowUp', 'ArrowRight']) {
-    await page.keyboard.press(key);
-    await page.waitForTimeout(260);
-    await owReady();
-  }
+  await walkTo(page, 6, 6);
+  await page.waitForTimeout(300);
+  await shot(page, '04b-overworld-sanctuary');
+  await walkTo(page, 14, 17);
+  await tapKey(page, 'left');
   await page.keyboard.press('Space');
   await page.waitForTimeout(1500);
   await shot(page, '05-overworld-sign');

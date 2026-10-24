@@ -37,9 +37,28 @@ good at tiles that repeat and join; it is bad at inventing a look.
 
 ## Camera and scale (all locations)
 
-- BW2 overworld view: top-down with a 3/4 tilt; you see roofs from above and the front walls.
-- 16x16 px tiles; the friends' walk sprites are about 1.5 tiles tall (24x32 frames).
-- One screen is 16x12 tiles (256x192 px). A small town is about 2x2 screens.
+- **Isometric (2:1)**, like the owner's concept: diamond tiles 32x16 px, each ground level 16 px
+  high; set pieces are drawn from the front corner. (A straight top-down tileset was tried and
+  rejected: the angled drafts looked like stickers on it.)
+- The friends' walk sprites are 24x32; set-piece drafts come out at game scale already (a door is
+  about as tall as a friend).
+- One screen is 256x192 px. Hollow Rest is a 24x24 grid, about three screens wide.
+
+## How a location is built
+1. Owner: concept, pixel map, set pieces, terrain swatch (prompts below), into `art/concepts/locations/`.
+2. `art/tools/draft2object.py` converts each set piece at native size.
+3. `art/tools/terrain.py` repaints the swatch as seamless tiles (edit its palette from the swatch).
+4. A layout script (like `art/tools/hollow_rest_layout.py`) writes the game's map file: terrain,
+   `heights` (0 = sky), `objects`; it fails if a door, the sanctuary or an exit can't be reached.
+5. `art/tools/iso_map.py <map>` bakes the look; the game loads it. Screenshots to the owner.
+
+### Walk sprites for isometric (one prompt per friend, with their character sheet attached)
+> Using this character sheet, draw an overworld walking sprite sheet in exactly the same
+> pixel-art style and size as the small walk frames on the sheet, for an isometric game. 2 rows x
+> 3 frames, evenly spaced on a flat white background, no text, no shadows: Row 1: walking toward
+> the viewer, body turned 45 degrees to the LEFT (3/4 front view, facing down-left). Row 2:
+> walking away from the viewer, body turned 45 degrees to the LEFT (3/4 back view, facing
+> up-left). Columns: standing, left foot forward, right foot forward.
 
 ## Hollow Rest (start town)
 

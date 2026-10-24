@@ -1,22 +1,29 @@
 import Phaser from 'phaser';
 import { SCREEN_H, SCREEN_W, ZOOM } from '../config';
 import { linesFor } from '../engine/dialogue';
-import { facing, MAPS, npcAt, npcsFor, rollEncounter, signAt, START, step, type Dir, type Npc, type Position } from '../engine/overworld';
+import { facing, findPath, heightAt, MAPS, npcAt, npcsFor, objectAction, rollEncounter, signAt, stairAxis, START, step, type Dir, type Npc, type Position } from '../engine/overworld';
 import { CHARACTERS, healTeam, type Progress } from '../engine/progress';
 import { createRng, type Rng } from '../engine/rng';
-import { mapTexture, TILE, walkerTextures } from '../overworld/tileArt';
+import { MAP_ART, type MapLayout, type MapSprite } from '../assets';
+import { walkerTextures } from '../overworld/tileArt';
 import { saveProgress } from '../save';
 import { DialogBox } from '../ui/dialog';
-import { standKey, walkKey } from './BootScene';
-import { button, buttonPagePoint, dpad, hinge, screenBackdrop, tapeLabel } from '../ui/kit';
+import { groundKey, propKey, standKey, walkKey } from './BootScene';
+import { button, buttonPagePoint, hinge, isoPad, screenBackdrop, tapeLabel } from '../ui/kit';
 import { TONES } from '../ui/theme';
 import { tweenAsync, wait } from '../ui/widgets';
 
 const STEP_MS = 170;
 const TURN_MS = 90;
 const BOTTOM = SCREEN_H;
-/** Rows of a walk sheet (art/tools/walk2sheet.py). */
-const WALK_ROWS: Record<Dir, number> = { down: 0, left: 1, right: 2, up: 3 };
+/**
+ * Which walk-sheet row shows each grid direction on the isometric screen (rows: 0 front, 3 back):
+ * +y runs down-left (front), +x down-right (front, mirrored), -x up-left (back), -y up-right
+ * (back, mirrored). Diagonal walk sheets will replace these stand-ins.
+ */
+const WALK_VIEW: Record<Dir, { row: number; flip: boolean }> = {
+  down: { row: 0, flip: false }, right: { row: 0, flip: true }, left: { row: 3, flip: false }, up: { row: 3, flip: true },
+};
 const OPPOSITE: Record<Dir, Dir> = { up: 'down', down: 'up', left: 'right', right: 'left' };
 const KEYS: Record<string, Dir> = { UP: 'up', DOWN: 'down', LEFT: 'left', RIGHT: 'right', W: 'up', S: 'down', A: 'left', D: 'right' };
 
@@ -29,7 +36,9 @@ export class OverworldScene extends Phaser.Scene {
   private progress!: Progress;
   private pos!: Position;
   private world!: Phaser.GameObjects.Container;
-  private mapImage?: Phaser.GameObjects.Image;
+  private layout!: MapLayout;
+  /** Buildings and other multi-tile pieces: the leader is drawn in front of or behind each by footprint. */
+  private big: { img: Phaser.GameObjects.Image; sp: MapSprite }[] = [];
   private player!: Phaser.GameObjects.Image;
   private npcs: Npc[] = [];
   private npcSprites = new Map<string, Phaser.GameObjects.Image>();
@@ -87,26 +96,45 @@ export class OverworldScene extends Phaser.Scene {
 
   private loadMap() {
     const map = MAPS[this.pos.map];
-    this.mapImage?.destroy();
-    this.world.removeAll(false);
-    this.mapImage = this.add.image(0, 0, mapTexture(this, map)).setOrigin(0, 0);
-    this.world.add([this.mapImage, this.player]);
+    this.layout = MAP_ART[map.id].layout;
+    this.world.remove(this.player);
+    this.world.removeAll(true);
+    this.world.add(this.add.image(0, 0, groundKey(map.id)).setOrigin(0, 0).setDepth(-100000));
+    this.big = [];
+    for (const sp of this.layout.sprites) {
+      const img = this.add.image(sp.x, sp.y, propKey(sp.art)).setOrigin(0, 0).setDepth(sp.decal ? -50000 : sp.key);
+      this.world.add(img);
+      if (!sp.decal && (sp.wx > 1 || sp.wy > 1)) this.big.push({ img, sp });
+    }
     this.npcs = npcsFor(map, this.progress.leader);
     this.npcSprites.clear();
     for (const n of this.npcs) {
-      const s = this.add.image(n.x * TILE + ((n.w ?? 1) * TILE) / 2, n.y * TILE + TILE - 1, '__DEFAULT').setOrigin(0.5, 1);
+      const f = this.feet(n.x, n.y);
+      const s = this.add.image(f.x, f.y, '__DEFAULT').setOrigin(0.5, 1);
       this.npcSprites.set(n.id, s);
       this.world.add(s);
       this.faceNpc(n, n.dir ?? 'down');
+      s.setDepth(this.depthAt(s, n));
     }
+    this.world.add(this.player);
     this.placePlayer();
+  }
+
+  /** Where someone standing on a tile has their feet, on the baked map (stairs: halfway up). */
+  private feet(x: number, y: number) {
+    const map = MAPS[this.pos.map];
+    const { origin, tile } = this.layout;
+    const z = heightAt(map, x, y) + (stairAxis(map, x, y) ? 0.5 : 0);
+    return { x: origin.x + (x - y) * tile.w / 2 + tile.w / 2, y: origin.y + (x + y) * tile.h / 2 - z * tile.z + 12 };
   }
 
   /** NPC sprites: a walk sheet (turns to face you), a standing pose, or a placeholder figure. */
   private faceNpc(n: Npc, dir: Dir) {
     const s = this.npcSprites.get(n.id)!;
+    const view = WALK_VIEW[dir];
+    s.setFlipX(false);
     if (n.sprite.startsWith('walk:') && this.textures.exists(walkKey(n.sprite.slice(5)))) {
-      s.setTexture(walkKey(n.sprite.slice(5)), WALK_ROWS[dir] * 3);
+      s.setTexture(walkKey(n.sprite.slice(5)), view.row * 3).setFlipX(view.flip);
     } else if (this.textures.exists(standKey(n.sprite))) {
       s.setTexture(standKey(n.sprite));
     } else {
@@ -116,7 +144,8 @@ export class OverworldScene extends Phaser.Scene {
   }
 
   private placePlayer() {
-    this.player.setPosition(this.pos.x * TILE + TILE / 2, this.pos.y * TILE + TILE - 1);
+    const f = this.feet(this.pos.x, this.pos.y);
+    this.player.setPosition(f.x, f.y);
     this.face(this.pos.dir, 0);
     this.follow();
   }
@@ -124,19 +153,35 @@ export class OverworldScene extends Phaser.Scene {
   /** Shows the leader facing `dir`: 0 standing, 1 and 2 the two steps. */
   private face(dir: Dir, step: 0 | 1 | 2) {
     const sheet = walkKey(this.progress.leader);
-    if (this.textures.exists(sheet)) this.player.setTexture(sheet, WALK_ROWS[dir] * 3 + step);
+    const view = WALK_VIEW[dir];
+    if (this.textures.exists(sheet)) this.player.setTexture(sheet, view.row * 3 + step).setFlipX(view.flip);
     else this.player.setTexture(`${this.walker}:${dir}:${step ? 1 : 0}`);
   }
 
-  /** Keeps the leader centred on the top screen, stopping at the map's edges. */
-  private follow() {
-    const map = MAPS[this.pos.map];
-    const clamp = (v: number, size: number, view: number) => size <= view ? (size - view) / 2 : Phaser.Math.Clamp(v, 0, size - view);
-    const sx = clamp(this.player.x - SCREEN_W / 2, map.width * TILE, SCREEN_W);
-    const sy = clamp(this.player.y - 8 - SCREEN_H / 2, map.height * TILE, SCREEN_H);
+  /**
+   * Keeps the leader centred on the top screen, stopping at the map's edges, and sorts who is in
+   * front: by tile depth, except that next to a building it's the footprint that decides.
+   */
+  private follow(tile = this.pos) {
+    const { size } = this.layout;
+    const clamp = (v: number, total: number, view: number) => total <= view ? (total - view) / 2 : Phaser.Math.Clamp(v, 0, total - view);
+    const sx = clamp(this.player.x - SCREEN_W / 2, size.w, SCREEN_W);
+    const sy = clamp(this.player.y - 16 - SCREEN_H / 2, size.h, SCREEN_H);
     this.world.setPosition(-Math.round(sx), -Math.round(sy));
-    // Whoever stands lower on the screen is drawn in front.
-    this.world.sort('y');
+    this.player.setDepth(this.depthAt(this.player, tile));
+    this.world.sort('depth');
+  }
+
+  /** Draw order for someone on a tile: by tile depth, except that next to a building the footprint decides. */
+  private depthAt(sprite: Phaser.GameObjects.Image, tile: { x: number; y: number }) {
+    let depth = (tile.x + tile.y) * 10 + 5;
+    const b = sprite.getBounds();
+    for (const { img, sp } of this.big) {
+      if (!Phaser.Geom.Intersects.RectangleToRectangle(b, img.getBounds())) continue;
+      const inFront = tile.x >= sp.fx + sp.wx || tile.y >= sp.fy + sp.wy;
+      depth = inFront ? Math.max(depth, sp.key + 1) : Math.min(depth, sp.key - 1);
+    }
+    return depth;
   }
 
   private showMapName() {
@@ -151,7 +196,7 @@ export class OverworldScene extends Phaser.Scene {
     screenBackdrop(this, BOTTOM).setDepth(20);
     hinge(this).setDepth(21);
     this.ui = this.add.container(0, BOTTOM).setDepth(22);
-    this.ui.add(dpad(this, 70, 104, 96, (d) => { this.padDir = d; if (d) this.queued = d; }).setName('dpad'));
+    this.ui.add(isoPad(this, 70, 104, 100, (d) => { this.padDir = d; if (d) this.queued = d; }).setName('dpad'));
     // While someone talks, the tap itself moves the text on (DialogBox), so A only starts things.
     this.ui.add(button(this, 196, 84, 64, 64, 'A', TONES.act, () => { if (!this.busy) void this.interact(); }, { size: 16, name: 'a' }));
     this.ui.add(button(this, 196, 160, 96, 30, 'JOURNAL', TONES.seal, () => this.openJournal(), { name: 'journal' }));
@@ -202,10 +247,12 @@ export class OverworldScene extends Phaser.Scene {
     }
     this.stepFrame = this.stepFrame === 1 ? 2 : 1;
     this.face(dir, this.stepFrame);
+    const to = this.feet(res.pos.x, res.pos.y);
+    // Sort by whichever tile is further forward while crossing between them.
+    const ahead = res.pos.x + res.pos.y > this.pos.x + this.pos.y ? res.pos : this.pos;
     await tweenAsync(this, {
-      targets: this.player,
-      x: res.pos.x * TILE + TILE / 2, y: res.pos.y * TILE + TILE - 1,
-      duration: STEP_MS, onUpdate: () => this.follow(),
+      targets: this.player, x: to.x, y: to.y,
+      duration: STEP_MS, onUpdate: () => this.follow(ahead),
     });
     this.pos = res.pos;
     this.face(dir, 0);
@@ -271,8 +318,9 @@ export class OverworldScene extends Phaser.Scene {
       return;
     }
     const sign = signAt(MAPS[this.pos.map], x, y);
-    if (sign?.opens) this.scene.start(sign.opens);
-    else if (sign?.text) await this.say([{ text: sign.text }]);
+    const act = sign ?? objectAction(MAPS[this.pos.map], this.pos);
+    if (act?.opens) this.scene.start(act.opens);
+    else if (act?.text) await this.say([{ text: act.text }]);
   }
 
   private talk(id: string) {
@@ -304,6 +352,8 @@ export class OverworldScene extends Phaser.Scene {
     (window as unknown as Record<string, unknown>).__overworld = {
       pos: () => ({ ...this.pos }),
       ready: () => !this.moving && !this.busy,
+      /** The walk to a tile on this map, as directions (engine/overworld.ts findPath). */
+      pathTo: (x: number, y: number) => findPath(this.pos.map, this.pos, { x, y }, (bx, by) => !!npcAt(this.npcs, bx, by)),
       talking: () => this.dialog.open,
       npcs: () => this.npcs.map((n) => n.id),
       buttonAt: (name: string) => buttonPagePoint(this, this.ui, name),

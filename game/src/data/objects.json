@@ -1,0 +1,100 @@
+{
+  "_note": "Things that stand on the overworld (isometric, M4 art pass). 'art': the image in art/locations/out/<art>.png (set pieces converted from the owner's drafts) or a prop drawn by art/tools/iso_map.py. 'wx'/'wy': footprint in tiles along the map's x (down-right on screen) and y (down-left); every footprint tile is solid unless 'walkable'. 'decal': lies flat on the ground (drawn under people). 'door': where you stand to knock (relative to the footprint's top corner; facing the building, A reads 'doorText'). 'opens': facing it and pressing A opens that screen (the sanctuary's CRT stones).",
+  "objects": {
+    "cottage": {
+      "art": "cottage",
+      "wx": 2,
+      "wy": 3,
+      "door": [
+        2,
+        2
+      ],
+      "doorText": "Callum's place. Smells like a fry-up and a Scottish summer (rain)."
+    },
+    "casa": {
+      "art": "casa",
+      "wx": 2,
+      "wy": 3,
+      "door": [
+        0,
+        3
+      ],
+      "doorText": "Dani's place. The door's open. Dani isn't here. Dani is \"five minutes away\"."
+    },
+    "suburb": {
+      "art": "suburb",
+      "wx": 5,
+      "wy": 2,
+      "door": [
+        2,
+        2
+      ],
+      "doorText": "Nolan's place. The van's still in the driveway. Someone is watching it from a window. With a coffee."
+    },
+    "shed": {
+      "art": "shed",
+      "wx": 2,
+      "wy": 2,
+      "door": [
+        2,
+        1
+      ],
+      "doorText": "Haydon's streaming shed. A sign says LIVE, with the V crossed out."
+    },
+    "crater": {
+      "art": "crater",
+      "wx": 3,
+      "wy": 3,
+      "decal": true
+    },
+    "sanctuary": {
+      "art": "sanctuary",
+      "wx": 3,
+      "wy": 4,
+      "opens": "sanctuary"
+    },
+    "tree": {
+      "art": "tree",
+      "wx": 1,
+      "wy": 1
+    },
+    "lamp": {
+      "art": "lamp",
+      "wx": 1,
+      "wy": 1
+    },
+    "sunflowers": {
+      "art": "sunflowers",
+      "wx": 1,
+      "wy": 1,
+      "walkable": true
+    },
+    "laundry": {
+      "art": "laundry",
+      "wx": 1,
+      "wy": 1
+    },
+    "cat": {
+      "art": "cat",
+      "wx": 1,
+      "wy": 1
+    },
+    "chalk": {
+      "art": "chalk",
+      "wx": 1,
+      "wy": 1,
+      "decal": true,
+      "walkable": true
+    },
+    "bench": {
+      "art": "bench",
+      "wx": 1,
+      "wy": 1
+    },
+    "crates": {
+      "art": "crates",
+      "wx": 1,
+      "wy": 1
+    }
+  }
+}

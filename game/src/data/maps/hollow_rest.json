@@ -1,102 +1,81 @@
 {
-  "_note": "Hollow Rest (bible \u00a79): the sleepy hillside start village around the ruined sanctuary. Placeholder layout and tiles: the real town is drafted from art/LOCATION_STYLE.md and rebuilt once the owner approves the look. NPC positions are data and move with it.",
+  "_note": "Hollow Rest (bible \u00a79), after the owner's concept art. Isometric (art/tools/iso_map.py bakes the look from this file). 'heights': the ground level per tile (0 = the sky past the island's edge). Built by art/tools/hollow_rest_layout.py; NPCs, signs and warps are placed by hand.",
   "id": "hollow_rest",
   "name": "Hollow Rest",
   "legend": {
     ".": "grass",
     "=": "path",
-    "f": "flowers",
+    "d": "dirt",
     "T": "tree",
+    "b": "bush",
     "#": "fence",
-    "W": "wall",
-    "R": "roof",
-    "D": "door",
-    "X": "ruin",
-    "~": "water",
-    "S": "sign"
+    "*": "flowers",
+    "H": "stairs",
+    "E": "exit",
+    "S": "sign",
+    "~": "water"
   },
   "rows": [
-    "TTTTTTTTTTTTTTTTTTTT",
-    "TTTXXXXXXXXXXXXXXTTT",
-    "TT.X....XXXX....X.TT",
-    "TT.X............X.TT",
-    "TT.XXXXXX==XXXXXX.TT",
-    "T.........==.......T",
-    "T..RRRR...==..RRRR.T",
-    "T..RRRR...==..RRRR.T",
-    "T..WWDW...==..WDWW.T",
-    "T....=========.=...T",
-    "T.f..=....==S.f=.f.T",
-    "T....=....==...=...T",
-    "T~~..=============.T",
-    "T~~~......==.......T",
-    "T~~~.ff...==...ff..T",
-    "T.........==.......T",
-    "TTTTTTTTTT==TTTTTTTT"
+    ".....TT..TT..bTTbT......",
+    "T.............TTbTT.....",
+    "TT.............bTTT.....",
+    "TTT.............TT......",
+    "TTT...............b.....",
+    "TT....=H====H..*........",
+    "T.*....==...===.....b.b.",
+    "TT....==...b.b==.....b..",
+    "TTT.=......db..=..*.....",
+    "TT..=..b..dddd.=.b......",
+    "T........ddddd.=..b.....",
+    ".b...=...ddddd==........",
+    "T....=...dddd.=...b...b.",
+    "bb...=...ddd.==.........",
+    "TTT..==.....==...*......",
+    "TTbb.bH...===......b....",
+    "bTTTT.=========.........",
+    "TTTbTT#b.b...S===b.b....",
+    ".bTbTbT.#####...==b.....",
+    "..bTbTTT.*.b.....=E.....",
+    "...TTTTTT.b.............",
+    "....TTbbTb...b..........",
+    ".....TTTb...............",
+    "......Tb...b............"
   ],
   "spawn": {
-    "x": 10,
+    "x": 12,
     "y": 13
   },
   "signs": [
     {
-      "x": 12,
-      "y": 10,
+      "x": 13,
+      "y": 17,
       "text": "HOLLOW REST. Pop. 31. Established last Tuesday, apparently."
-    },
-    {
-      "x": 8,
-      "y": 2,
-      "opens": "sanctuary"
-    },
-    {
-      "x": 9,
-      "y": 2,
-      "opens": "sanctuary"
-    },
-    {
-      "x": 10,
-      "y": 2,
-      "opens": "sanctuary"
-    },
-    {
-      "x": 11,
-      "y": 2,
-      "opens": "sanctuary"
     }
   ],
   "warps": [
     {
-      "x": 10,
-      "y": 16,
+      "x": 18,
+      "y": 19,
       "to": "route1",
       "tx": 10,
-      "ty": 1
-    },
-    {
-      "x": 11,
-      "y": 16,
-      "to": "route1",
-      "tx": 11,
       "ty": 1
     }
   ],
   "npcs": [
     {
       "id": "patch",
-      "x": 13,
-      "y": 2,
-      "w": 2,
-      "dir": "down",
+      "x": 4,
+      "y": 5,
+      "dir": "right",
       "sprite": "patch",
       "talk": "patch_heal",
       "heal": true
     },
     {
       "id": "nolan",
-      "x": 5,
-      "y": 3,
-      "dir": "right",
+      "x": 3,
+      "y": 4,
+      "dir": "down",
       "sprite": "walk:nolan",
       "talk": "friend_nolan",
       "friend": "nolan"
@@ -104,58 +83,166 @@
     {
       "id": "haydon",
       "x": 7,
-      "y": 3,
-      "dir": "down",
+      "y": 4,
+      "dir": "left",
       "sprite": "walk:haydon",
       "talk": "friend_haydon",
       "friend": "haydon"
     },
     {
       "id": "dani",
-      "x": 6,
-      "y": 2,
-      "dir": "down",
+      "x": 5,
+      "y": 6,
+      "dir": "up",
       "sprite": "walk:dani",
       "talk": "friend_dani",
       "friend": "dani"
     },
     {
       "id": "callum",
-      "x": 15,
+      "x": 3,
       "y": 3,
-      "dir": "left",
+      "dir": "right",
       "sprite": "walk:callum",
       "talk": "friend_callum",
       "friend": "callum"
     },
     {
       "id": "elder",
-      "x": 8,
-      "y": 5,
-      "dir": "right",
+      "x": 10,
+      "y": 6,
+      "dir": "left",
       "sprite": "placeholder:#7a6a58",
       "talk": "elder"
     },
     {
       "id": "neighbour",
-      "x": 17,
-      "y": 9,
+      "x": 13,
+      "y": 4,
       "dir": "left",
       "sprite": "placeholder:#c8a040",
       "talk": "neighbour"
     },
     {
       "id": "pond_kid",
-      "x": 4,
-      "y": 14,
-      "dir": "left",
+      "x": 12,
+      "y": 17,
+      "dir": "right",
       "sprite": "placeholder:#e07050",
       "talk": "pond_kid"
     }
   ],
   "healSpot": {
-    "x": 13,
-    "y": 3,
-    "dir": "up"
-  }
+    "x": 5,
+    "y": 5,
+    "dir": "left"
+  },
+  "heights": [
+    "033333322222222221000000",
+    "333333332222222211100000",
+    "233333333222222211110000",
+    "223333332222222111111000",
+    "222333332222221111111100",
+    "222233322222111111111110",
+    "222223222221111111111111",
+    "222222222211111111111111",
+    "222222222211111111111111",
+    "222222222111111111111111",
+    "222222221111111111111111",
+    "222222222111111111111111",
+    "222222222111111111111111",
+    "222222222111111111111110",
+    "222222221111111111111000",
+    "222222111111111111110000",
+    "222221111111111111110000",
+    "222221111111111111110000",
+    "022211111111111111110000",
+    "001111111111111111100000",
+    "000111111111111111000000",
+    "000011111111111110000000",
+    "000001111111000000000000",
+    "000000111111000000000000"
+  ],
+  "objects": [
+    {
+      "kind": "sanctuary",
+      "x": 4,
+      "y": 1
+    },
+    {
+      "kind": "cottage",
+      "x": 3,
+      "y": 12
+    },
+    {
+      "kind": "casa",
+      "x": 5,
+      "y": 8
+    },
+    {
+      "kind": "suburb",
+      "x": 8,
+      "y": 3
+    },
+    {
+      "kind": "crater",
+      "x": 9,
+      "y": 9
+    },
+    {
+      "kind": "shed",
+      "x": 16,
+      "y": 6
+    },
+    {
+      "kind": "sunflowers",
+      "x": 8,
+      "y": 15
+    },
+    {
+      "kind": "sunflowers",
+      "x": 9,
+      "y": 15
+    },
+    {
+      "kind": "sunflowers",
+      "x": 9,
+      "y": 16
+    },
+    {
+      "kind": "sunflowers",
+      "x": 9,
+      "y": 14
+    },
+    {
+      "kind": "lamp",
+      "x": 8,
+      "y": 14
+    },
+    {
+      "kind": "laundry",
+      "x": 6,
+      "y": 12
+    },
+    {
+      "kind": "chalk",
+      "x": 14,
+      "y": 16
+    },
+    {
+      "kind": "cat",
+      "x": 14,
+      "y": 18
+    },
+    {
+      "kind": "bench",
+      "x": 16,
+      "y": 12
+    },
+    {
+      "kind": "crates",
+      "x": 18,
+      "y": 6
+    }
+  ]
 }

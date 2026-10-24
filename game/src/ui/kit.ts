@@ -249,36 +249,42 @@ export function patchPortrait(scene: Phaser.Scene, x: number, y: number) {
 export type PadDir = 'up' | 'down' | 'left' | 'right';
 
 /**
- * A touch D-pad centred on (x, y), `size` px across. Hold an arm to walk; sliding the thumb to
- * another arm turns. `onChange` gets the held direction, or null when let go.
+ * The isometric D-pad: four arms on the diagonals, the way the leader walks on the isometric map.
+ * Up-right is the grid's 'up' (-y), down-right 'right' (+x), down-left 'down' (+y), up-left
+ * 'left' (-x). Hold to walk; sliding the thumb turns; `onChange` gets null when let go.
  */
-export function dpad(scene: Phaser.Scene, x: number, y: number, size: number, onChange: (d: PadDir | null) => void) {
+export function isoPad(scene: Phaser.Scene, x: number, y: number, size: number, onChange: (d: PadDir | null) => void) {
   const c = scene.add.container(x, y);
-  const arm = Math.floor(size / 3);
-  const half = Math.floor(size / 2);
   const g = scene.add.graphics();
+  const r = Math.floor(size * 0.24);
+  const off = Math.floor(size * 0.26);
+  const arms: Record<PadDir, [number, number]> = { up: [off, -off], right: [off, off], down: [-off, off], left: [-off, -off] };
+  /** A diamond (a square on its corner) of radius rr centred on (cx, cy). */
+  const diamond = (cx: number, cy: number, rr: number, col: number, dy = 0) => {
+    g.fillStyle(col);
+    for (let i = -rr; i <= rr; i++) {
+      const w = (rr - Math.abs(i)) * 2;
+      if (w > 0) g.fillRect(cx - w / 2, cy + i + dy, w, 1);
+    }
+  };
   const drawPad = (held: PadDir | null) => {
     g.clear();
-    // The cross: ink outline, a shade below, metal face.
-    for (const [rx, ry, rw, rh] of [[-half, -Math.floor(arm / 2), size, arm], [-Math.floor(arm / 2), -half, arm, size]]) {
-      pxRect(g, rx - 1, ry - 1, rw + 2, rh + 4, COLORS.ink, 3);
-      pxRect(g, rx, ry + 2, rw, rh, shade(COLORS.metalLight, -0.4), 2);
-    }
-    for (const [rx, ry, rw, rh] of [[-half, -Math.floor(arm / 2), size, arm], [-Math.floor(arm / 2), -half, arm, size]]) {
-      pxRect(g, rx, ry, rw, rh, COLORS.metalLight, 2);
-    }
-    // Arrows; the held arm lights up.
-    const arrows: Record<PadDir, [number, number]> = { up: [0, -half + 9], down: [0, half - 9], left: [-half + 9, 0], right: [half - 9, 0] };
-    for (const [d, [ax, ay]] of Object.entries(arrows) as [PadDir, [number, number]][]) {
+    diamond(0, 0, Math.floor(r * 0.8) + 2, COLORS.ink, 2);
+    diamond(0, 0, Math.floor(r * 0.8), shade(COLORS.metalLight, -0.25));
+    for (const [d, [ax, ay]] of Object.entries(arms) as [PadDir, [number, number]][]) {
+      diamond(ax, ay, r + 2, COLORS.ink, 3);
+      diamond(ax, ay, r, shade(COLORS.metalLight, -0.4), 2);
+      diamond(ax, ay, r, d === held ? shade(COLORS.metalLight, 0.15) : COLORS.metalLight);
+      diamond(ax, ay - Math.floor(r / 2), Math.floor(r / 3), shade(COLORS.metalLight, 0.25));
+      // a triangle in the arm's outer corner, pointing out along the diagonal
+      const sx = Math.sign(ax), sy = Math.sign(ay);
       g.fillStyle(d === held ? COLORS.gold : COLORS.paper);
-      for (let i = 0; i < 4; i++) {
-        if (d === 'up') g.fillRect(ax - i, ay - 2 + i, 2 * i + 1, 1);
-        if (d === 'down') g.fillRect(ax - i, ay + 2 - i, 2 * i + 1, 1);
-        if (d === 'left') g.fillRect(ax - 2 + i, ay - i, 1, 2 * i + 1);
-        if (d === 'right') g.fillRect(ax + 2 - i, ay - i, 1, 2 * i + 1);
+      for (let dx = 1; dx <= 4; dx++) {
+        for (let dy = 1; dy <= 4; dy++) {
+          if (dx + dy >= 5) g.fillRect(ax + sx * dx - (sx < 0 ? 1 : 0), ay + sy * dy - (sy < 0 ? 1 : 0) - 1, 1, 1);
+        }
       }
     }
-    g.fillStyle(shade(COLORS.metalLight, -0.2)).fillRect(-3, -3, 6, 6);
   };
   drawPad(null);
   c.add(g);
@@ -289,11 +295,11 @@ export function dpad(scene: Phaser.Scene, x: number, y: number, size: number, on
     drawPad(d);
     onChange(d);
   };
-  const dirAt = (p: Phaser.Input.Pointer) => {
+  const dirAt = (p: Phaser.Input.Pointer): PadDir | null => {
     const dx = p.worldX - c.x - (c.parentContainer?.x ?? 0);
     const dy = p.worldY - c.y - (c.parentContainer?.y ?? 0);
     if (Math.abs(dx) < 4 && Math.abs(dy) < 4) return held;
-    return Math.abs(dx) > Math.abs(dy) ? (dx > 0 ? 'right' : 'left') : (dy > 0 ? 'down' : 'up');
+    return dx >= 0 ? (dy < 0 ? 'up' : 'right') : (dy < 0 ? 'left' : 'down');
   };
   c.setSize(size + 12, size + 12).setInteractive();
   c.on('pointerdown', (p: Phaser.Input.Pointer) => set(dirAt(p)));
