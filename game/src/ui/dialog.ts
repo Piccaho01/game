@@ -6,7 +6,8 @@ import { COLORS, TEXT_COLORS } from './theme';
 
 const CHAR_MS = 18;
 const LINE_HOLD_MS = 700;
-const LINE_H = 10;
+/** Box height per line of text (2 lines: the 38px battle box). */
+const LINE_H = 15;
 
 export interface BoxOpts {
   /** Top of the box; default: along the bottom of the top screen. */
@@ -39,7 +40,7 @@ export class DialogBox {
 
   constructor(private scene: Phaser.Scene, private depth = 5, opts: BoxOpts = {}) {
     this.lines = opts.lines ?? 2;
-    const boxH = 18 + this.lines * LINE_H;
+    const boxH = 8 + this.lines * LINE_H;
     this.y = opts.y ?? SCREEN_H - boxH - 7;
     this.box = drawPanel(scene.add.graphics().setDepth(depth), 4, this.y, SCREEN_W - 8, boxH, 'paper');
     this.text = pixelText(scene, 14, this.y + 9, '', { color: TEXT_COLORS.ink, wrap: SCREEN_W - 32 }).setDepth(depth + 1);

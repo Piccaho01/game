@@ -73,7 +73,7 @@ export class CutsceneScene extends Phaser.Scene {
     this.ui = this.add.container(0, BOTTOM).setDepth(22);
     this.ui.add(pixelText(this, 12, 172, 'tap to continue', { color: TEXT_COLORS.dim, size: TEXT_SIZE.small }).setOrigin(0, 0.5));
     this.ui.add(button(this, 206, 172, 84, 26, 'SKIP', TONES.neutral, () => this.finish(), { name: 'skip' }));
-    this.dialog = new DialogBox(this, 25, { y: BOTTOM + 106, lines: 3 });
+    this.dialog = new DialogBox(this, 25, { y: BOTTOM + 100, lines: 3 });
     this.dialog.hide();
     const kb = this.input.keyboard;
     kb?.on('keydown-SPACE', () => this.dialog.advance());
