@@ -10,6 +10,9 @@ objects), so gameplay and art share one source. Writes:
                                     the owner's set pieces, props) with its screen position, footprint
                                     and draw order, so people can walk behind them
   art/locations/out/<prop>.png      the small props drawn here (lamp, sunflowers, laundry, cat...)
+Interiors (a map with 'interior': {floor, wall, windows}) bake as a cut-away room instead: a dark
+backdrop, the floor, two back walls with arches where warps leave through them, a mat where you
+walk out, and furniture (iso_room.py).
 Usage: python3 art/tools/iso_map.py hollow_rest [preview.png]
 """
 import json, os, sys
@@ -22,6 +25,7 @@ GAME = os.path.join(ROOT, '..', 'game', 'src', 'data')
 sys.path.insert(0, HERE)
 from terrain import P  # noqa: E402
 from draft2object import grid  # noqa: E402
+import iso_room  # noqa: E402
 
 TW, TH, HZ = 32, 16, 16
 OUT = os.path.join(ROOT, 'locations', 'out')
@@ -303,9 +307,48 @@ def village():
     return im.resize((im.width * 2, im.height * 2), Image.NEAREST)
 
 
+def bake_room(data, m):
+    """A room: floor diamonds, the back walls, the mat you leave by. Returns (canvas, scr)."""
+    room = data['interior']
+    pad_x, pad_top, pad_bot = 8, iso_room.WALL_H + 8, 12
+    W = (m.W + m.H) * TW // 2 + 2 * pad_x
+    Hh = (m.W + m.H) * TH // 2 + pad_top + pad_bot
+    OX, OY = pad_x + m.H * TW // 2 - TW // 2, pad_top
+    scr = lambda x, y, z: (OX + (x - y) * TW // 2, OY + (x + y) * TH // 2 - int(z * HZ))
+    canvas = np.zeros((Hh, W, 4), np.uint8)
+    canvas[...] = (*iso_room.BG, 255)
+    warps = data.get('warps', [])
+    for y in range(m.H):
+        for x in range(m.W):
+            if m.Z[y, x] == 0: continue
+            sx, sy = scr(x, y, m.Z[y, x])
+            t = iso_room.floor(room['floor'], x, y)
+            for py in range(TH):
+                for px in range(TW):
+                    if t[py, px, 3]: put(canvas, sx + px, sy + py, t[py, px])
+    # the open front: a thin lip of floor edge so the room reads as a cut-away
+    for y in range(m.H):
+        for x in range(m.W):
+            if x == m.W - 1 or y == m.H - 1:
+                sx, sy = scr(x, y, 1)
+                for c in range(16):
+                    if y == m.H - 1:
+                        for d in range(4): put(canvas, sx + c, sy + 8 + c // 2 + d + 1, (*(np.array(iso_room.FLOORS[room['floor']][2]) * (0.8 - d * 0.1)).astype(int), 255))
+                    if x == m.W - 1:
+                        for d in range(4): put(canvas, sx + 16 + c, sy + 15 - c // 2 + d + 1, (*(np.array(iso_room.FLOORS[room['floor']][2]) * (0.6 - d * 0.1)).astype(int), 255))
+    iso_room.walls(canvas, m, scr, room, warps)
+    for w in warps:
+        if w['x'] >= m.W: iso_room.doormat(canvas, scr, m.W - 1, w['y'])
+        elif w['y'] >= m.H: iso_room.doormat(canvas, scr, w['x'], m.H - 1)
+    return canvas, scr, W, Hh, OX, OY
+
+
 def bake(map_id, preview=None):
     data = json.load(open(os.path.join(GAME, 'maps', f'{map_id}.json')))
     m = Map(data)
+    if 'interior' in data:
+        iso_room.furniture()
+        return bake_finish(data, m, *bake_room(data, m), map_id, preview, room=True)
     pad_x, pad_top, pad_bot = 40, 80, 120
     W = (m.W + m.H) * TW // 2 + 2 * pad_x
     Hh = (m.W + m.H) * TH // 2 + pad_top + pad_bot
@@ -340,12 +383,20 @@ def bake(map_id, preview=None):
         for py in range(top.shape[0]):
             for px in range(TW):
                 if top[py, px, 3]: put(canvas, sx + px, sy - above + py, top[py, px])
+    return bake_finish(data, m, canvas, scr, W, Hh, OX, OY, map_id, preview)
+
+
+def bake_finish(data, m, canvas, scr, W, Hh, OX, OY, map_id, preview, room=False):
     # upright things: their screen spot and draw order
     for name, im in PROPS.items():
         im.save(os.path.join(OUT, f'{name}.png'))
     sprites = []
-    def add(art, img, x, y, wx, wy, z, decal=False):
-        if wx == 1 and wy == 1:
+    def add(art, img, x, y, wx, wy, z, decal=False, flags=None):
+        if room:
+            # furniture is drawn on a canvas as wide as its footprint, bottom row = its front corner
+            px = scr(x, y + wy - 1, z)[0]
+            py = scr(x + wx - 1, y + wy - 1, z)[1] + TH - img.height
+        elif wx == 1 and wy == 1:
             sx, sy = scr(x, y, z)
             px, py = sx + 16 - img.width // 2, sy + 12 - img.height
         else:
@@ -355,7 +406,7 @@ def bake(map_id, preview=None):
             sx, sy = scr(x + wx - 1, y + wy - 1, z)
             px, py = sx + 16 - fx, sy + TH - img.height + 1
         sprites.append({'art': art, 'x': int(px), 'y': int(py), 'fx': x, 'fy': y, 'wx': wx, 'wy': wy,
-                        'key': -1 if decal else (x + wx - 1 + y + wy - 1) * 10 + 6, 'decal': decal})
+                        'key': -1 if decal else (x + wx - 1 + y + wy - 1) * 10 + 6, 'decal': decal, **(flags or {})})
     for y in range(m.H):
         for x in range(m.W):
             k = m.kind(x, y)
@@ -378,17 +429,18 @@ def bake(map_id, preview=None):
     for o in data.get('objects', []):
         d = OBJ[o['kind']]
         img = Image.open(os.path.join(OUT, f"{d['art']}.png"))
-        add(d['art'], img, o['x'], o['y'], d['wx'], d['wy'], m.Z[o['y'], o['x']], d.get('decal', False))
+        add(d['art'], img, o['x'], o['y'], d['wx'], d['wy'], m.Z[o['y'], o['x']], d.get('decal', False),
+            {k: o[k] for k in ('until', 'when') if k in o})
     sprites.sort(key=lambda s: s['key'])
 
     os.makedirs(os.path.join(OUT, 'maps'), exist_ok=True)
-    canvas = grade(canvas, 0, 0, k=0.15)
+    canvas = grade(canvas, 0, 0, k=0.15) if not room else canvas
     Image.fromarray(canvas, 'RGBA').save(os.path.join(OUT, 'maps', f'{map_id}.png'))
     # every upright piece, graded to match (the game loads these)
     os.makedirs(os.path.join(OUT, 'graded'), exist_ok=True)
     for art in sorted({sp['art'] for sp in sprites}):
         a = np.asarray(Image.open(os.path.join(OUT, f'{art}.png')).convert('RGBA'))
-        Image.fromarray(grade(a, k=0.15 if art in PROPS else 1.0), 'RGBA').save(os.path.join(OUT, 'graded', f'{art}.png'))
+        Image.fromarray(grade(a, k=0.15 if art in PROPS or art.startswith('ph_') else 1.0), 'RGBA').save(os.path.join(OUT, 'graded', f'{art}.png'))
     json.dump({'origin': {'x': OX, 'y': OY}, 'tile': {'w': TW, 'h': TH, 'z': HZ}, 'size': {'w': W, 'h': Hh}, 'sprites': sprites},
               open(os.path.join(OUT, 'maps', f'{map_id}.json'), 'w'), indent=1)
     print(f'{map_id}: {W}x{Hh}, {len(sprites)} sprites')

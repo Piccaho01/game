@@ -65,6 +65,18 @@
       { "who": "Neighbour", "text": "With a coffee." }
     ]
   },
+  "elder_base": {
+    "lines": [
+      { "who": "Old keeper", "text": "Root Hall, breathing again. My grandmother would have cried. I won't. Much." },
+      { "who": "Old keeper", "text": "I'll keep an eye on the stones in here. Somebody sensible has to." }
+    ],
+    "byLeader": {
+      "haydon": [
+        { "who": "Old keeper", "text": "You restored a wing. You. The one who says everything is \"cap\"." },
+        { "who": "Old keeper", "text": "...It is not cap. I'm staying." }
+      ]
+    }
+  },
   "pond_kid": {
     "lines": [
       { "who": "Kid", "text": "A rock fell out of the sky and now it follows me home." },

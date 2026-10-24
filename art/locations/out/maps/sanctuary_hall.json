@@ -1,0 +1,117 @@
+{
+ "origin": {
+  "x": 120,
+  "y": 60
+ },
+ "tile": {
+  "w": 32,
+  "h": 16,
+  "z": 16
+ },
+ "size": {
+  "w": 304,
+  "h": 216
+ },
+ "sprites": [
+  {
+   "art": "ph_crt_stone",
+   "x": 104,
+   "y": 29,
+   "fx": 0,
+   "fy": 1,
+   "wx": 1,
+   "wy": 1,
+   "key": 16,
+   "decal": false
+  },
+  {
+   "art": "ph_rubble",
+   "x": 152,
+   "y": 42,
+   "fx": 2,
+   "fy": 0,
+   "wx": 1,
+   "wy": 1,
+   "key": 26,
+   "decal": false
+  },
+  {
+   "art": "ph_terminal",
+   "x": 184,
+   "y": 49,
+   "fx": 4,
+   "fy": 0,
+   "wx": 1,
+   "wy": 1,
+   "key": 46,
+   "decal": false
+  },
+  {
+   "art": "ph_rubble",
+   "x": 216,
+   "y": 74,
+   "fx": 6,
+   "fy": 0,
+   "wx": 1,
+   "wy": 1,
+   "key": 66,
+   "decal": false,
+   "until": "wing:root_hall"
+  },
+  {
+   "art": "ph_crt_stone",
+   "x": 24,
+   "y": 69,
+   "fx": 0,
+   "fy": 6,
+   "wx": 1,
+   "wy": 1,
+   "key": 66,
+   "decal": false
+  },
+  {
+   "art": "ph_bedroll",
+   "x": 248,
+   "y": 104,
+   "fx": 8,
+   "fy": 0,
+   "wx": 1,
+   "wy": 1,
+   "key": 86,
+   "decal": false
+  },
+  {
+   "art": "ph_bedroll",
+   "x": 264,
+   "y": 112,
+   "fx": 9,
+   "fy": 0,
+   "wx": 1,
+   "wy": 1,
+   "key": 96,
+   "decal": false
+  },
+  {
+   "art": "ph_bedroll",
+   "x": 232,
+   "y": 128,
+   "fx": 9,
+   "fy": 2,
+   "wx": 1,
+   "wy": 1,
+   "key": 116,
+   "decal": false
+  },
+  {
+   "art": "ph_bedroll",
+   "x": 216,
+   "y": 136,
+   "fx": 9,
+   "fy": 3,
+   "wx": 1,
+   "wy": 1,
+   "key": 126,
+   "decal": false
+  }
+ ]
+}

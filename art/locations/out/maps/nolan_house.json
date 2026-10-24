@@ -1,0 +1,72 @@
+{
+ "origin": {
+  "x": 88,
+  "y": 60
+ },
+ "tile": {
+  "w": 32,
+  "h": 16,
+  "z": 16
+ },
+ "size": {
+  "w": 224,
+  "h": 176
+ },
+ "sprites": [
+  {
+   "art": "ph_shelf",
+   "x": 72,
+   "y": 21,
+   "fx": 0,
+   "fy": 1,
+   "wx": 1,
+   "wy": 1,
+   "key": 16,
+   "decal": false
+  },
+  {
+   "art": "ph_sampler",
+   "x": 104,
+   "y": 39,
+   "fx": 1,
+   "fy": 0,
+   "wx": 2,
+   "wy": 1,
+   "key": 26,
+   "decal": false
+  },
+  {
+   "art": "ph_couch",
+   "x": 40,
+   "y": 58,
+   "fx": 0,
+   "fy": 3,
+   "wx": 2,
+   "wy": 1,
+   "key": 46,
+   "decal": false
+  },
+  {
+   "art": "ph_van_window",
+   "x": 168,
+   "y": 81,
+   "fx": 5,
+   "fy": 0,
+   "wx": 1,
+   "wy": 1,
+   "key": 56,
+   "decal": false
+  },
+  {
+   "art": "ph_table",
+   "x": 88,
+   "y": 97,
+   "fx": 4,
+   "fy": 4,
+   "wx": 1,
+   "wy": 1,
+   "key": 86,
+   "decal": false
+  }
+ ]
+}

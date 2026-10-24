@@ -1,5 +1,5 @@
 {
-  "_note": "Things that stand on the overworld (isometric, M4 art pass). 'art': the image in art/locations/out/<art>.png (set pieces converted from the owner's drafts) or a prop drawn by art/tools/iso_map.py. 'wx'/'wy': footprint in tiles along the map's x (down-right on screen) and y (down-left); every footprint tile is solid unless 'walkable'. 'decal': lies flat on the ground (drawn under people). 'door': where you stand to knock (relative to the footprint's top corner; facing the building, A reads 'doorText'). 'opens': facing it and pressing A opens that screen (the sanctuary's CRT stones).",
+  "_note": "Things that stand on the overworld (isometric, M4 art pass). 'art': the image in art/locations/out/<art>.png (set pieces converted from the owner's drafts) or a prop drawn by art/tools/iso_map.py. 'wx'/'wy': footprint in tiles along the map's x (down-right on screen) and y (down-left); every footprint tile is solid unless 'walkable'. 'decal': lies flat on the ground (drawn under people). 'door': where you stand to knock (relative to the footprint's top corner; facing the building, A reads 'doorText'). 'opens': facing it and pressing A opens that screen (the storage terminal). 'enter': walking into it from its door tile goes inside (that interior map's spawn). 'text': what A reads facing any side (a placed object's own 'text' replaces it). 'heal': A there heals the team. Furniture art 'ph_*' is placeholder art (art/tools/iso_room.py) until the owner's interior drafts are converted.",
   "objects": {
     "cottage": {
       "art": "cottage",
@@ -9,6 +9,7 @@
         2,
         2
       ],
+      "enter": "callum_house",
       "doorText": "Callum's place. Smells like a fry-up and a Scottish summer (rain)."
     },
     "casa": {
@@ -19,6 +20,7 @@
         0,
         3
       ],
+      "enter": "dani_house",
       "doorText": "Dani's place. The door's open. Dani isn't here. Dani is \"five minutes away\"."
     },
     "suburb": {
@@ -29,6 +31,7 @@
         2,
         2
       ],
+      "enter": "nolan_house",
       "doorText": "Nolan's place. The van's still in the driveway. Someone is watching it from a window. With a coffee."
     },
     "shed": {
@@ -39,6 +42,7 @@
         2,
         1
       ],
+      "enter": "haydon_shed",
       "doorText": "Haydon's streaming shed. A sign says LIVE, with the V crossed out."
     },
     "mailbox": {
@@ -66,7 +70,11 @@
       "art": "sanctuary",
       "wx": 3,
       "wy": 4,
-      "opens": "sanctuary"
+      "door": [
+        2,
+        4
+      ],
+      "enter": "sanctuary_hall"
     },
     "tree": {
       "art": "tree",
@@ -108,6 +116,129 @@
     },
     "crates": {
       "art": "crates",
+      "wx": 1,
+      "wy": 1
+    },
+    "bed": {
+      "art": "ph_bed",
+      "wx": 1,
+      "wy": 2
+    },
+    "bedroll": {
+      "art": "ph_bedroll",
+      "wx": 1,
+      "wy": 1,
+      "heal": true
+    },
+    "shelf": {
+      "art": "ph_shelf",
+      "wx": 1,
+      "wy": 1
+    },
+    "table": {
+      "art": "ph_table",
+      "wx": 1,
+      "wy": 1
+    },
+    "desk": {
+      "art": "ph_desk",
+      "wx": 2,
+      "wy": 1
+    },
+    "crt": {
+      "art": "ph_crt",
+      "wx": 1,
+      "wy": 1
+    },
+    "couch": {
+      "art": "ph_couch",
+      "wx": 2,
+      "wy": 1
+    },
+    "arcade": {
+      "art": "ph_arcade",
+      "wx": 1,
+      "wy": 1
+    },
+    "hammock": {
+      "art": "ph_hammock",
+      "wx": 2,
+      "wy": 1
+    },
+    "stove": {
+      "art": "ph_stove",
+      "wx": 1,
+      "wy": 1
+    },
+    "plant": {
+      "art": "ph_plant",
+      "wx": 1,
+      "wy": 1
+    },
+    "ball": {
+      "art": "ph_ball",
+      "wx": 1,
+      "wy": 1
+    },
+    "sampler": {
+      "art": "ph_sampler",
+      "wx": 2,
+      "wy": 1
+    },
+    "van_window": {
+      "art": "ph_van_window",
+      "wx": 1,
+      "wy": 1
+    },
+    "ring_light": {
+      "art": "ph_ring_light",
+      "wx": 1,
+      "wy": 1
+    },
+    "chair": {
+      "art": "ph_chair",
+      "wx": 1,
+      "wy": 1
+    },
+    "whiteboard": {
+      "art": "ph_whiteboard",
+      "wx": 1,
+      "wy": 1
+    },
+    "snacks": {
+      "art": "ph_snacks",
+      "wx": 1,
+      "wy": 1
+    },
+    "terminal": {
+      "art": "ph_terminal",
+      "wx": 1,
+      "wy": 1,
+      "opens": "sanctuary"
+    },
+    "workbench": {
+      "art": "ph_workbench",
+      "wx": 2,
+      "wy": 1
+    },
+    "cradle": {
+      "art": "ph_cradle",
+      "wx": 2,
+      "wy": 2
+    },
+    "panels": {
+      "art": "ph_panels",
+      "wx": 1,
+      "wy": 1
+    },
+    "rubble": {
+      "art": "ph_rubble",
+      "wx": 1,
+      "wy": 1,
+      "text": "Rubble, floor to ceiling. Something hums behind it. PATCH: \"I'm working on a fix.\""
+    },
+    "crt_stone": {
+      "art": "ph_crt_stone",
       "wx": 1,
       "wy": 1
     }

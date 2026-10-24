@@ -1,0 +1,63 @@
+{
+  "_note": "Root Hall: an interior (M4b). Built by art/tools/interiors_layout.py (edit it there); baked by art/tools/iso_map.py. Furniture is placeholder art until the owner's interior drafts are converted.",
+  "id": "sanctuary_root_hall",
+  "name": "Root Hall",
+  "interior": {
+    "floor": "stone",
+    "wall": "cave",
+    "windows": [],
+    "arches": []
+  },
+  "legend": {
+    ".": "floor"
+  },
+  "rows": [
+    "........",
+    "........",
+    "........",
+    "........",
+    "........",
+    "........",
+    "........"
+  ],
+  "spawn": {
+    "x": 4,
+    "y": 6
+  },
+  "warps": [
+    {
+      "x": 4,
+      "y": 7,
+      "to": "sanctuary_hall",
+      "tx": 6,
+      "ty": 0,
+      "dir": "down"
+    }
+  ],
+  "objects": [
+    {
+      "kind": "plant",
+      "x": 0,
+      "y": 1,
+      "text": "Roots through every stone. They hum, faintly. PATCH says that's normal."
+    },
+    {
+      "kind": "plant",
+      "x": 3,
+      "y": 0,
+      "text": "More roots. They lean toward you when you walk past."
+    },
+    {
+      "kind": "crt_stone",
+      "x": 6,
+      "y": 0,
+      "text": "A CRT stone, awake now: a slow blue pulse, in time with the hills outside."
+    },
+    {
+      "kind": "crt_stone",
+      "x": 0,
+      "y": 4,
+      "text": "A keeper's mark carved under the screen: a hand, and a seal."
+    }
+  ]
+}

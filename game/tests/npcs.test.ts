@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { DIALOGUE_IDS, linesFor } from '../src/engine/dialogue';
-import { HEAL_SPOT, isBlocked, MAPS, npcAt, npcsFor, step } from '../src/engine/overworld';
+import { CAST, HEAL_SPOT, isBlocked, MAPS, npcAt, npcsFor, step } from '../src/engine/overworld';
 import { canBattle, healTeam, keepBattleDamage, newProgress, parseProgress, recordSeal, teamBattlers } from '../src/engine/progress';
 
 describe('HP carries between wild battles', () => {
@@ -46,6 +46,7 @@ describe('HP carries between wild battles', () => {
 describe('dialogue', () => {
   it('every NPC talks with lines that exist, and leaders get their own version where written', () => {
     for (const map of Object.values(MAPS)) for (const n of map.npcs) expect(DIALOGUE_IDS, `${map.id}/${n.id}`).toContain(n.talk);
+    for (const [id, c] of Object.entries(CAST)) for (const t of [c.talk, ...(c.visits ?? []).map((v) => v.talk ?? c.talk)]) expect(DIALOGUE_IDS, id).toContain(t);
     expect(linesFor('patch_heal', 'dani')[0].text).toMatch(/On time/);
     expect(linesFor('patch_heal', 'callum')[1].text).toMatch(/spreadsheet/);
     expect(linesFor('friend_nolan', 'dani')[0].who).toBe('Nolan');

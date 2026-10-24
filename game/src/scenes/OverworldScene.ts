@@ -1,8 +1,8 @@
 import Phaser from 'phaser';
 import { SCREEN_H, SCREEN_W, ZOOM } from '../config';
 import { linesFor } from '../engine/dialogue';
-import { facing, findPath, heightAt, MAPS, npcAt, npcsFor, objectAction, rollEncounter, signAt, stairAxis, START, step, type Dir, type Npc, type Position } from '../engine/overworld';
-import { CHARACTERS, healTeam, type Progress } from '../engine/progress';
+import { facing, findPath, heightAt, MAPS, npcAt, npcsFor, objectAction, present, rollEncounter, signAt, stairAxis, START, step, type Dir, type Flags, type Npc, type Position } from '../engine/overworld';
+import { CHARACTERS, flagsOf, healTeam, type Progress } from '../engine/progress';
 import { createRng, type Rng } from '../engine/rng';
 import { MAP_ART, type MapLayout, type MapSprite } from '../assets';
 import { walkerTextures } from '../overworld/tileArt';
@@ -14,6 +14,8 @@ import { TONES } from '../ui/theme';
 import { tweenAsync, wait } from '../ui/widgets';
 
 const STEP_MS = 170;
+/** Behind a room's walls (matches iso_map.py's interior backdrop). */
+const INTERIOR_BG = 0x16141c;
 const TURN_MS = 90;
 const BOTTOM = SCREEN_H;
 /**
@@ -34,6 +36,8 @@ const KEYS: Record<string, Dir> = { UP: 'up', DOWN: 'down', LEFT: 'left', RIGHT:
  */
 export class OverworldScene extends Phaser.Scene {
   private progress!: Progress;
+  /** Restored wings and story flags: what rubble is gone, who has moved into the base. */
+  private flags!: Flags;
   private pos!: Position;
   private world!: Phaser.GameObjects.Container;
   private layout!: MapLayout;
@@ -67,6 +71,7 @@ export class OverworldScene extends Phaser.Scene {
   create() {
     this.cameras.main.setOrigin(0, 0).setZoom(ZOOM).setRoundPixels(true);
     this.progress = this.registry.get('progress') as Progress;
+    this.flags = flagsOf(this.progress);
     this.pos = { ...(this.progress.pos ?? START) };
     const params = new URLSearchParams(location.search);
     this.rng = createRng(params.has('seed') ? Number(params.get('seed')) : Math.floor(Math.random() * 2 ** 31));
@@ -97,16 +102,19 @@ export class OverworldScene extends Phaser.Scene {
   private loadMap() {
     const map = MAPS[this.pos.map];
     this.layout = MAP_ART[map.id].layout;
+    // Rooms sit in the dark; the island floats in its sky (baked into the ground image).
+    this.cameras.main.setBackgroundColor(map.interior ? INTERIOR_BG : 0x101018);
     this.world.remove(this.player);
     this.world.removeAll(true);
     this.world.add(this.add.image(0, 0, groundKey(map.id)).setOrigin(0, 0).setDepth(-100000));
     this.big = [];
     for (const sp of this.layout.sprites) {
+      if (!present(sp, this.flags)) continue;
       const img = this.add.image(sp.x, sp.y, propKey(sp.art)).setOrigin(0, 0).setDepth(sp.decal ? -50000 : sp.key);
       this.world.add(img);
       if (!sp.decal && (sp.wx > 1 || sp.wy > 1)) this.big.push({ img, sp });
     }
-    this.npcs = npcsFor(map, this.progress.leader);
+    this.npcs = npcsFor(map, this.progress.leader, this.flags);
     this.npcSprites.clear();
     for (const n of this.npcs) {
       const f = this.feet(n.x, n.y);
@@ -231,7 +239,7 @@ export class OverworldScene extends Phaser.Scene {
 
   private async walk(dir: Dir) {
     this.moving = true;
-    const res = step(this.pos, dir, (x, y) => !!npcAt(this.npcs, x, y));
+    const res = step(this.pos, dir, (x, y) => !!npcAt(this.npcs, x, y), this.flags);
     if (!res.moved) {
       // Bumped into something: just face it.
       this.pos = res.pos;
@@ -318,9 +326,12 @@ export class OverworldScene extends Phaser.Scene {
       return;
     }
     const sign = signAt(MAPS[this.pos.map], x, y);
-    const act = sign ?? objectAction(MAPS[this.pos.map], this.pos);
+    const act = sign ?? objectAction(MAPS[this.pos.map], this.pos, this.flags);
     if (act?.opens) this.scene.start(act.opens);
-    else if (act?.text) await this.say([{ text: act.text }]);
+    else if (act?.text) {
+      if ('heal' in act && act.heal) this.heal();
+      await this.say([{ text: act.text }]);
+    }
   }
 
   private talk(id: string) {
@@ -353,7 +364,7 @@ export class OverworldScene extends Phaser.Scene {
       pos: () => ({ ...this.pos }),
       ready: () => !this.moving && !this.busy,
       /** The walk to a tile on this map, as directions (engine/overworld.ts findPath). */
-      pathTo: (x: number, y: number) => findPath(this.pos.map, this.pos, { x, y }, (bx, by) => !!npcAt(this.npcs, bx, by)),
+      pathTo: (x: number, y: number) => findPath(this.pos.map, this.pos, { x, y }, (bx, by) => !!npcAt(this.npcs, bx, by), this.flags),
       talking: () => this.dialog.open,
       npcs: () => this.npcs.map((n) => n.id),
       buttonAt: (name: string) => buttonPagePoint(this, this.ui, name),

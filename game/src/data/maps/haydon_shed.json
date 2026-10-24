@@ -1,0 +1,72 @@
+{
+  "_note": "Haydon's shed: an interior (M4b). Built by art/tools/interiors_layout.py (edit it there); baked by art/tools/iso_map.py. Furniture is placeholder art until the owner's interior drafts are converted.",
+  "id": "haydon_shed",
+  "name": "Haydon's shed",
+  "interior": {
+    "floor": "boards",
+    "wall": "planks",
+    "windows": [
+      [
+        "l",
+        1
+      ]
+    ],
+    "arches": []
+  },
+  "legend": {
+    ".": "floor"
+  },
+  "rows": [
+    "......",
+    "......",
+    "......",
+    "......",
+    "......"
+  ],
+  "spawn": {
+    "x": 5,
+    "y": 2
+  },
+  "warps": [
+    {
+      "x": 6,
+      "y": 2,
+      "to": "hollow_rest",
+      "tx": 21,
+      "ty": 8,
+      "dir": "right"
+    }
+  ],
+  "objects": [
+    {
+      "kind": "ring_light",
+      "x": 1,
+      "y": 0,
+      "text": "A ring light. It's on. It's always on."
+    },
+    {
+      "kind": "desk",
+      "x": 2,
+      "y": 0,
+      "text": "Three monitors, a mic on an arm and a clip-on mic for good measure. Plaqueboymax is on one of them."
+    },
+    {
+      "kind": "chair",
+      "x": 3,
+      "y": 1,
+      "text": "His gaming chair. Still warm. Smells like ragebait."
+    },
+    {
+      "kind": "whiteboard",
+      "x": 0,
+      "y": 3,
+      "text": "A list. Every name is scribbled out. Under it, in Haydon's writing: [REDACTED]."
+    },
+    {
+      "kind": "snacks",
+      "x": 0,
+      "y": 2,
+      "text": "Snacks. A sticky note: \"nah these aren't yours\". They're yours."
+    }
+  ]
+}

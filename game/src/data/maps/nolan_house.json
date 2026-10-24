@@ -1,0 +1,73 @@
+{
+  "_note": "Nolan's basement: an interior (M4b). Built by art/tools/interiors_layout.py (edit it there); baked by art/tools/iso_map.py. Furniture is placeholder art until the owner's interior drafts are converted.",
+  "id": "nolan_house",
+  "name": "Nolan's basement",
+  "interior": {
+    "floor": "carpet",
+    "wall": "foam",
+    "windows": [
+      [
+        "r",
+        5
+      ]
+    ],
+    "arches": []
+  },
+  "legend": {
+    ".": "floor"
+  },
+  "rows": [
+    ".......",
+    ".......",
+    ".......",
+    ".......",
+    ".......",
+    "......."
+  ],
+  "spawn": {
+    "x": 2,
+    "y": 5
+  },
+  "warps": [
+    {
+      "x": 2,
+      "y": 6,
+      "to": "hollow_rest",
+      "tx": 10,
+      "ty": 5,
+      "dir": "down"
+    }
+  ],
+  "objects": [
+    {
+      "kind": "sampler",
+      "x": 1,
+      "y": 0,
+      "text": "The sampler and two monitors. A beat called final_FINAL_v7. Nolan says it's not done."
+    },
+    {
+      "kind": "van_window",
+      "x": 5,
+      "y": 0,
+      "text": "Through the window: the white work van in the driveway. A man is watching it with a coffee."
+    },
+    {
+      "kind": "couch",
+      "x": 0,
+      "y": 3,
+      "text": "The couch. Callum could have slept here. Callum chose the van."
+    },
+    {
+      "kind": "shelf",
+      "x": 0,
+      "y": 1,
+      "text": "A copy of 2K22 (the GOAT), a stack of records and a framed photo of a van."
+    },
+    {
+      "kind": "table",
+      "x": 4,
+      "y": 4,
+      "text": "A bottle of Goldschlager and a yoga mat. Nolan is a different breed on the headstands."
+    }
+  ]
+}

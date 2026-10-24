@@ -2,10 +2,10 @@ import { expect, test } from '@playwright/test';
 
 type S = { wings(): string[]; busy(): boolean; buttonAt(n: string): { x: number; y: number } | null };
 
-test('at the sanctuary stones, the first wing is restored with the bestiary points', async ({ page }) => {
+test('at the storage terminal in the sanctuary hall, the first wing is restored with the bestiary points', async ({ page }) => {
   const errors: string[] = [];
   page.on('pageerror', (e) => errors.push(e.message));
-  // 10 points: the bonded starter (5), a sealed Orbitot (4), a sighted Fledjet (1). Standing at the stones.
+  // 10 points: the bonded starter (5), a sealed Orbitot (4), a sighted Fledjet (1). Facing the terminal.
   await page.addInitScript(() => {
     if (sessionStorage.getItem('seeded')) return;
     sessionStorage.setItem('seeded', '1');
@@ -14,7 +14,7 @@ test('at the sanctuary stones, the first wing is restored with the bestiary poin
       version: 2, leader: 'nolan', nextUid: 3, sanctuary: [], wings: [],
       team: [{ uid: 1, species: 'sprigby', level: 8, bond: 'strong' }, { uid: 2, species: 'orbitot', level: 4, bond: 'steady' }],
       bestiary: { sprigby: rec({ encounters: 1, seals: 1, strongBonds: 1 }), orbitot: rec({ seals: 1 }), fledjet: rec({ encounters: 1 }) },
-      pos: { map: 'hollow_rest', x: 5, y: 5, dir: 'up' },
+      pos: { map: 'sanctuary_hall', x: 4, y: 1, dir: 'up' },
     }));
   });
   await page.goto('/?seed=1');

@@ -1,0 +1,114 @@
+{
+  "_note": "Sanctuary: an interior (M4b). Built by art/tools/interiors_layout.py (edit it there); baked by art/tools/iso_map.py. Furniture is placeholder art until the owner's interior drafts are converted.",
+  "id": "sanctuary_hall",
+  "name": "Sanctuary",
+  "interior": {
+    "floor": "stone",
+    "wall": "cave",
+    "windows": [],
+    "arches": [
+      [
+        "r",
+        2
+      ]
+    ]
+  },
+  "legend": {
+    ".": "floor"
+  },
+  "rows": [
+    "..........",
+    "..........",
+    "..........",
+    "..........",
+    "..........",
+    "..........",
+    "..........",
+    ".........."
+  ],
+  "spawn": {
+    "x": 4,
+    "y": 7
+  },
+  "warps": [
+    {
+      "x": 4,
+      "y": 8,
+      "to": "hollow_rest",
+      "tx": 6,
+      "ty": 5,
+      "dir": "down"
+    },
+    {
+      "x": -1,
+      "y": 3,
+      "to": "sanctuary_workshop",
+      "tx": 7,
+      "ty": 3,
+      "dir": "left"
+    },
+    {
+      "x": 6,
+      "y": -1,
+      "to": "sanctuary_root_hall",
+      "tx": 4,
+      "ty": 6,
+      "dir": "up"
+    }
+  ],
+  "objects": [
+    {
+      "kind": "terminal",
+      "x": 4,
+      "y": 0
+    },
+    {
+      "kind": "rubble",
+      "x": 6,
+      "y": 0,
+      "until": "wing:root_hall"
+    },
+    {
+      "kind": "rubble",
+      "x": 2,
+      "y": 0,
+      "text": "Rubble over the arch. Behind it, water drips: the Tide Gallery. PATCH: \"I'm working on a fix.\""
+    },
+    {
+      "kind": "crt_stone",
+      "x": 0,
+      "y": 1,
+      "text": "A dead CRT set into the stone, glowing faint blue. PATCH: \"Don't lick it.\""
+    },
+    {
+      "kind": "crt_stone",
+      "x": 0,
+      "y": 6,
+      "text": "Another CRT stone. Someone scratched a tally into it: four lines, one slash."
+    },
+    {
+      "kind": "bedroll",
+      "x": 8,
+      "y": 0,
+      "text": "Callum's bedroll, a bestiary under the pillow. You rest a while. The team's patched up."
+    },
+    {
+      "kind": "bedroll",
+      "x": 9,
+      "y": 0,
+      "text": "Nolan's bedroll, folded with corners you could cut yourself on. You rest a while. The team's patched up."
+    },
+    {
+      "kind": "bedroll",
+      "x": 9,
+      "y": 2,
+      "text": "Haydon's bedroll, a phone propped up, still streaming to nobody. You rest a while. The team's patched up."
+    },
+    {
+      "kind": "bedroll",
+      "x": 9,
+      "y": 3,
+      "text": "Dani's bedroll, still rolled up. He hasn't got here yet. You rest a while. The team's patched up."
+    }
+  ]
+}

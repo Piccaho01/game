@@ -2,12 +2,14 @@ import tilesJson from '../data/tiles.json';
 import objectsJson from '../data/objects.json';
 import type { Rng } from './rng';
 import { SPECIES } from './data';
+import castJson from '../data/cast.json';
 import type { CharacterId } from './progress';
 
 /**
  * The overworld as data (M4): grid maps with ground heights, 4-direction steps (on screen the grid
  * is drawn isometric: +x runs down-right, +y down-left), stairs between heights, objects with
- * footprints, warps between maps, tall grass.
+ * footprints, warps between maps, tall grass. Interiors (M4b) are maps too: a room with back
+ * walls, entered by walking into a building from its door tile.
  */
 export type Dir = 'up' | 'down' | 'left' | 'right';
 export const DIRS: Record<Dir, { dx: number; dy: number }> = {
@@ -18,16 +20,40 @@ export interface TileData { color: string; accent: string; solid?: boolean; enco
 export const TILES = tilesJson.tiles as Record<string, TileData>;
 export const TILE_IDS = Object.keys(TILES);
 
-/** Something standing on the map (data/objects.json): a set piece, a tree, a prop. */
+/**
+ * Something standing on the map (data/objects.json): a set piece, a tree, a prop, furniture.
+ * `enter`: walking into it from its door tile goes inside (that map's spawn). `text`: what A reads
+ * facing any side of it. `heal`: A there heals the team (the sanctuary's beds).
+ */
 export interface ObjectDef {
   art: string; wx: number; wy: number; decal?: boolean; walkable?: boolean;
-  door?: [number, number]; doorText?: string; opens?: 'sanctuary';
+  door?: [number, number]; doorText?: string; opens?: 'sanctuary'; enter?: string; text?: string; heal?: boolean;
 }
 export const OBJECTS = Object.fromEntries(Object.entries(objectsJson.objects)) as Record<string, ObjectDef>;
-/** Placed by its footprint's top corner (the tile with the lowest x and y). */
-export interface PlacedObject { kind: string; x: number; y: number }
+/**
+ * Placed by its footprint's top corner (the tile with the lowest x and y). `text` replaces the
+ * kind's own. `until`: there until that flag holds (rubble cleared by a restored wing); `when`:
+ * only there once it holds.
+ */
+export interface PlacedObject { kind: string; x: number; y: number; text?: string; until?: string; when?: string }
 
-export interface Warp { x: number; y: number; to: string; tx: number; ty: number }
+/**
+ * Story state the world reads: 'wing:<id>' once a sanctuary wing is restored, any other name a
+ * story flag (engine/progress.ts flagsOf). The default knows nothing: a fresh game.
+ */
+export type Flags = (flag: string) => boolean;
+export const NO_FLAGS: Flags = () => false;
+
+/** Is this thing here right now (its `when`/`unless`/`until` flags)? */
+export function present(t: { when?: string; unless?: string; until?: string }, flags: Flags) {
+  return (!t.when || flags(t.when)) && (!t.unless || !flags(t.unless)) && (!t.until || !flags(t.until));
+}
+
+/**
+ * Stepping onto (x, y) goes to another map. A warp may sit just off the map's edge: walking into
+ * a room's archway or out through its open front. `dir`: facing on arrival (else the step's).
+ */
+export interface Warp { x: number; y: number; to: string; tx: number; ty: number; dir?: Dir }
 /** Read with the A button while facing it; `opens` a screen instead (the sanctuary's CRT stones). */
 export interface Sign { x: number; y: number; text?: string; opens?: 'sanctuary' }
 /**
@@ -38,7 +64,7 @@ export interface Sign { x: number; y: number; text?: string; opens?: 'sanctuary'
  */
 export interface Npc {
   id: string; x: number; y: number; w?: number; dir?: Dir; sprite: string; talk: string;
-  friend?: CharacterId; heal?: boolean;
+  friend?: CharacterId; heal?: boolean; when?: string; unless?: string;
 }
 export interface EncounterTable { rate: number; levels: [number, number]; table: { species: string; weight: number }[] }
 
@@ -57,6 +83,8 @@ export interface MapData {
   /** Where you wake up after blacking out (the map with one is the heal spot). */
   healSpot?: { x: number; y: number; dir: Dir };
   encounters?: EncounterTable;
+  /** A room (M4b): floor and back walls instead of an island in the sky (art/tools/iso_map.py). */
+  interior?: { floor: string; wall: string };
 }
 
 export interface WorldMap {
@@ -75,6 +103,7 @@ export interface WorldMap {
   objects: PlacedObject[];
   healSpot?: { x: number; y: number; dir: Dir };
   encounters?: EncounterTable;
+  interior: boolean;
 }
 
 /** Turns a map file into a grid, failing loudly on typos (unknown legend chars, ragged rows). */
@@ -107,6 +136,7 @@ export function loadMap(raw: MapData): WorldMap {
   return {
     id: raw.id, name: raw.name, width, height: tiles.length, tiles, spawn: raw.spawn, warps: raw.warps ?? [],
     signs: raw.signs ?? [], npcs: raw.npcs ?? [], z, objects, healSpot: raw.healSpot, encounters: raw.encounters,
+    interior: !!raw.interior,
   };
 }
 
@@ -122,19 +152,27 @@ export function heightAt(map: WorldMap, x: number, y: number) {
   return map.z[y]?.[x] ?? 0;
 }
 
-/** The object whose footprint covers this tile, if any. */
-export function objectAt(map: WorldMap, x: number, y: number) {
-  return map.objects.find((o) => {
-    const d = OBJECTS[o.kind];
-    return x >= o.x && x < o.x + d.wx && y >= o.y && y < o.y + d.wy;
-  }) ?? null;
+function covers(o: PlacedObject, x: number, y: number) {
+  const d = OBJECTS[o.kind];
+  return x >= o.x && x < o.x + d.wx && y >= o.y && y < o.y + d.wy;
 }
 
-export function isBlocked(map: WorldMap, x: number, y: number) {
+/** The object whose footprint covers this tile, if any (and if it's there right now). */
+export function objectAt(map: WorldMap, x: number, y: number, flags: Flags = NO_FLAGS) {
+  return map.objects.find((o) => present(o, flags) && covers(o, x, y)) ?? null;
+}
+
+export function isBlocked(map: WorldMap, x: number, y: number, flags: Flags = NO_FLAGS) {
   const t = tileAt(map, x, y);
   if (!t || t.solid || heightAt(map, x, y) === 0) return true;
-  const o = objectAt(map, x, y);
+  const o = objectAt(map, x, y, flags);
   return !!o && !OBJECTS[o.kind].walkable;
+}
+
+/** The tile you stand on to knock on (or walk into) a placed building. */
+export function doorTile(o: PlacedObject) {
+  const d = OBJECTS[o.kind].door;
+  return d ? { x: o.x + d[0], y: o.y + d[1] } : null;
 }
 
 /**
@@ -173,14 +211,29 @@ export interface StepResult {
   grass: boolean;
 }
 
-/** One grid step. `blocked` lets the scene add things the map doesn't know about (NPCs). */
-export function step(pos: Position, dir: Dir, blocked: (x: number, y: number) => boolean = () => false): StepResult {
+/**
+ * One grid step. `blocked` lets the scene add things the map doesn't know about (NPCs); `flags`
+ * says which gated things are there (rubble, visitors).
+ */
+export function step(pos: Position, dir: Dir, blocked: (x: number, y: number) => boolean = () => false, flags: Flags = NO_FLAGS): StepResult {
   const map = MAPS[pos.map];
   const x = pos.x + DIRS[dir].dx;
   const y = pos.y + DIRS[dir].dy;
-  if (isBlocked(map, x, y) || blocked(x, y) || !canClimb(map, pos.x, pos.y, x, y)) return { moved: false, pos: { ...pos, dir }, warped: false, grass: false };
+  const stay = { moved: false, pos: { ...pos, dir }, warped: false, grass: false };
   const warp = map.warps.find((w) => w.x === x && w.y === y);
-  if (warp) return { moved: true, pos: { map: warp.to, x: warp.tx, y: warp.ty, dir }, warped: true, grass: false };
+  const offMap = x < 0 || y < 0 || x >= map.width || y >= map.height;
+  if (warp && offMap) return { moved: true, pos: { map: warp.to, x: warp.tx, y: warp.ty, dir: warp.dir ?? dir }, warped: true, grass: false };
+  if (isBlocked(map, x, y, flags) || blocked(x, y) || !canClimb(map, pos.x, pos.y, x, y)) {
+    // Walking into a building from its door tile goes inside.
+    const o = objectAt(map, x, y, flags);
+    const door = o && doorTile(o);
+    const inside = o && OBJECTS[o.kind].enter;
+    if (inside && door && door.x === pos.x && door.y === pos.y && MAPS[inside]) {
+      return { moved: true, pos: { map: inside, ...MAPS[inside].spawn, dir }, warped: true, grass: false };
+    }
+    return stay;
+  }
+  if (warp) return { moved: true, pos: { map: warp.to, x: warp.tx, y: warp.ty, dir: warp.dir ?? dir }, warped: true, grass: false };
   return { moved: true, pos: { map: pos.map, x, y, dir }, warped: false, grass: !!tileAt(map, x, y)?.encounter };
 }
 
@@ -203,19 +256,25 @@ export function signAt(map: WorldMap, x: number, y: number) {
   return map.signs.find((s) => s.x === x && s.y === y) ?? null;
 }
 
-/** What A does facing a building: knock (its door line, from its door tile) or open a screen. */
-export function objectAction(map: WorldMap, pos: Position): { text?: string; opens?: 'sanctuary' } | null {
+/**
+ * What A does facing an object: open a screen (the storage terminal), read it (furniture, from
+ * any side; a building's door line, from its door tile), and maybe heal (a bed).
+ */
+export function objectAction(map: WorldMap, pos: Position, flags: Flags = NO_FLAGS): { text?: string; opens?: 'sanctuary'; heal?: boolean } | null {
   const { x, y } = facing(pos);
-  const o = objectAt(map, x, y);
+  const o = objectAt(map, x, y, flags);
   if (!o) return null;
   const d = OBJECTS[o.kind];
   if (d.opens) return { opens: d.opens };
-  if (d.door && d.doorText && pos.x === o.x + d.door[0] && pos.y === o.y + d.door[1]) return { text: d.doorText };
+  const text = o.text ?? d.text;
+  if (text) return { text, heal: d.heal };
+  const door = doorTile(o);
+  if (door && d.doorText && pos.x === door.x && pos.y === door.y) return { text: d.doorText };
   return null;
 }
 
 /** The shortest walk between two tiles on one map (for tests, and NPCs later); null if none. */
-export function findPath(mapId: string, from: { x: number; y: number }, to: { x: number; y: number }, blocked: (x: number, y: number) => boolean = () => false): Dir[] | null {
+export function findPath(mapId: string, from: { x: number; y: number }, to: { x: number; y: number }, blocked: (x: number, y: number) => boolean = () => false, flags: Flags = NO_FLAGS): Dir[] | null {
   const map = MAPS[mapId];
   const key = (x: number, y: number) => y * map.width + x;
   const prev = new Map<number, { k: number; d: Dir } | null>([[key(from.x, from.y), null]]);
@@ -229,7 +288,7 @@ export function findPath(mapId: string, from: { x: number; y: number }, to: { x:
       return dirs;
     }
     for (const d of Object.keys(DIRS) as Dir[]) {
-      const r = step({ map: mapId, x: c.x, y: c.y, dir: d }, d, blocked);
+      const r = step({ map: mapId, x: c.x, y: c.y, dir: d }, d, blocked, flags);
       if (!r.moved || r.warped) continue;
       const k = key(r.pos.x, r.pos.y);
       if (prev.has(k)) continue;
@@ -240,9 +299,32 @@ export function findPath(mapId: string, from: { x: number; y: number }, to: { x:
   return null;
 }
 
-/** Who is on the map right now: the friend who is leading isn't also waiting around. */
-export function npcsFor(map: WorldMap, leader: CharacterId) {
-  return map.npcs.filter((n) => n.friend !== leader);
+/**
+ * The recurring cast (data/cast.json): people with a home spot and visits. A visit whose `when`
+ * holds moves them there (the last one listed wins), so people met on the journey turn up in the
+ * sanctuary as the story goes on; `talk` there replaces their home line.
+ */
+export interface Spot { map: string; x: number; y: number; dir?: Dir }
+export interface CastMember { sprite: string; talk: string; home: Spot; visits?: (Spot & { when: string; talk?: string })[] }
+export const CAST = castJson.people as unknown as Record<string, CastMember>;
+
+/** Where a cast member is right now, and what they say there. */
+export function castSpot(c: CastMember, flags: Flags): Spot & { talk: string } {
+  const visit = [...(c.visits ?? [])].reverse().find((v) => flags(v.when));
+  return visit ? { ...visit, talk: visit.talk ?? c.talk } : { ...c.home, talk: c.talk };
+}
+
+/**
+ * Who is on the map right now: its own people whose flags hold (the friend who is leading isn't
+ * also waiting around), plus whoever of the cast is here.
+ */
+export function npcsFor(map: WorldMap, leader: CharacterId, flags: Flags = NO_FLAGS): Npc[] {
+  const own = map.npcs.filter((n) => n.friend !== leader && present(n, flags));
+  const cast = Object.entries(CAST).flatMap(([id, c]) => {
+    const s = castSpot(c, flags);
+    return s.map === map.id ? [{ id, x: s.x, y: s.y, dir: s.dir, sprite: c.sprite, talk: s.talk }] : [];
+  });
+  return [...own, ...cast];
 }
 
 export function npcAt(npcs: Npc[], x: number, y: number) {

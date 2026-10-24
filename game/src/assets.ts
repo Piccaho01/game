@@ -22,7 +22,8 @@ export const STANDS: Record<string, string> = Object.fromEntries(
 );
 
 /** Isometric maps baked by art/tools/iso_map.py: the ground image and where everything upright stands. */
-export interface MapSprite { art: string; x: number; y: number; fx: number; fy: number; wx: number; wy: number; key: number; decal: boolean }
+/** `until`/`when`: the placed object's flags (rubble that goes once a wing is restored). */
+export interface MapSprite { art: string; x: number; y: number; fx: number; fy: number; wx: number; wy: number; key: number; decal: boolean; until?: string; when?: string }
 export interface MapLayout { origin: { x: number; y: number }; tile: { w: number; h: number; z: number }; size: { w: number; h: number }; sprites: MapSprite[] }
 const mapPngs = import.meta.glob('../../art/locations/out/maps/*.png', { eager: true, query: '?url', import: 'default' }) as Record<string, string>;
 const mapJsons = import.meta.glob('../../art/locations/out/maps/*.json', { eager: true, import: 'default' }) as Record<string, MapLayout>;

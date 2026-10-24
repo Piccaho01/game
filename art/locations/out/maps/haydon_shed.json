@@ -1,0 +1,72 @@
+{
+ "origin": {
+  "x": 72,
+  "y": 60
+ },
+ "tile": {
+  "w": 32,
+  "h": 16,
+  "z": 16
+ },
+ "size": {
+  "w": 192,
+  "h": 160
+ },
+ "sprites": [
+  {
+   "art": "ph_ring_light",
+   "x": 88,
+   "y": 24,
+   "fx": 1,
+   "fy": 0,
+   "wx": 1,
+   "wy": 1,
+   "key": 16,
+   "decal": false
+  },
+  {
+   "art": "ph_snacks",
+   "x": 40,
+   "y": 53,
+   "fx": 0,
+   "fy": 2,
+   "wx": 1,
+   "wy": 1,
+   "key": 26,
+   "decal": false
+  },
+  {
+   "art": "ph_desk",
+   "x": 104,
+   "y": 47,
+   "fx": 2,
+   "fy": 0,
+   "wx": 2,
+   "wy": 1,
+   "key": 36,
+   "decal": false
+  },
+  {
+   "art": "ph_whiteboard",
+   "x": 24,
+   "y": 35,
+   "fx": 0,
+   "fy": 3,
+   "wx": 1,
+   "wy": 1,
+   "key": 36,
+   "decal": false
+  },
+  {
+   "art": "ph_chair",
+   "x": 104,
+   "y": 66,
+   "fx": 3,
+   "fy": 1,
+   "wx": 1,
+   "wy": 1,
+   "key": 46,
+   "decal": false
+  }
+ ]
+}

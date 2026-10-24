@@ -1,0 +1,69 @@
+{
+  "_note": "PATCH's workshop: an interior (M4b). Built by art/tools/interiors_layout.py (edit it there); baked by art/tools/iso_map.py. Furniture is placeholder art until the owner's interior drafts are converted.",
+  "id": "sanctuary_workshop",
+  "name": "PATCH's workshop",
+  "interior": {
+    "floor": "stone",
+    "wall": "cave",
+    "windows": [],
+    "arches": []
+  },
+  "legend": {
+    ".": "floor"
+  },
+  "rows": [
+    "........",
+    "........",
+    "........",
+    "........",
+    "........",
+    "........",
+    "........"
+  ],
+  "spawn": {
+    "x": 7,
+    "y": 3
+  },
+  "warps": [
+    {
+      "x": 8,
+      "y": 3,
+      "to": "sanctuary_hall",
+      "tx": 0,
+      "ty": 3,
+      "dir": "right"
+    }
+  ],
+  "objects": [
+    {
+      "kind": "cradle",
+      "x": 1,
+      "y": 1,
+      "text": "PATCH's charging cradle, the size of a car. A note on it: NOT A BED. -P"
+    },
+    {
+      "kind": "workbench",
+      "x": 3,
+      "y": 0,
+      "text": "Spare bolts, tape rolls and a mug: WORLD'S OKAYEST ROBOT."
+    },
+    {
+      "kind": "whiteboard",
+      "x": 0,
+      "y": 4,
+      "text": "A whiteboard titled FIX. 1. Everything. 2. See 1."
+    },
+    {
+      "kind": "panels",
+      "x": 6,
+      "y": 0,
+      "text": "A pile of spare panels. One is labelled HAYDON, DO NOT."
+    },
+    {
+      "kind": "crt_stone",
+      "x": 0,
+      "y": 0,
+      "text": "A CRT stone PATCH has wired into the bench. It shows a loading bar. It has always shown a loading bar."
+    }
+  ]
+}

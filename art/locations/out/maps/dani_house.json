@@ -1,0 +1,83 @@
+{
+ "origin": {
+  "x": 88,
+  "y": 60
+ },
+ "tile": {
+  "w": 32,
+  "h": 16,
+  "z": 16
+ },
+ "size": {
+  "w": 224,
+  "h": 176
+ },
+ "sprites": [
+  {
+   "art": "ph_plant",
+   "x": 88,
+   "y": 36,
+   "fx": 0,
+   "fy": 0,
+   "wx": 1,
+   "wy": 1,
+   "key": 6,
+   "decal": false
+  },
+  {
+   "art": "ph_hammock",
+   "x": 104,
+   "y": 31,
+   "fx": 1,
+   "fy": 0,
+   "wx": 2,
+   "wy": 1,
+   "key": 26,
+   "decal": false
+  },
+  {
+   "art": "ph_stove",
+   "x": 40,
+   "y": 51,
+   "fx": 0,
+   "fy": 3,
+   "wx": 1,
+   "wy": 1,
+   "key": 36,
+   "decal": false
+  },
+  {
+   "art": "ph_table",
+   "x": 152,
+   "y": 65,
+   "fx": 4,
+   "fy": 0,
+   "wx": 1,
+   "wy": 1,
+   "key": 46,
+   "decal": false
+  },
+  {
+   "art": "ph_ball",
+   "x": 136,
+   "y": 91,
+   "fx": 5,
+   "fy": 2,
+   "wx": 1,
+   "wy": 1,
+   "key": 76,
+   "decal": false
+  },
+  {
+   "art": "ph_table",
+   "x": 120,
+   "y": 113,
+   "fx": 6,
+   "fy": 4,
+   "wx": 1,
+   "wy": 1,
+   "key": 106,
+   "decal": false
+  }
+ ]
+}

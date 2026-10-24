@@ -205,7 +205,9 @@ for o in objects:
 missing = {k: v for k, v in need.items() if v not in R}
 assert not missing, f'not reachable from the spawn: {missing}'
 # people stand on open ground (placed by hand in the map file): never under a prop, a tree or a bush
-covered = [n['id'] for n in json.load(open(MAP))['npcs'] if not walkable(n['x'], n['y'])]
+CAST = json.load(open(os.path.join(os.path.dirname(MAP), '..', 'cast.json')))['people']
+people = json.load(open(MAP))['npcs'] + [{'id': k, **c['home']} for k, c in CAST.items() if c['home']['map'] == 'hollow_rest']
+covered = [n['id'] for n in people if not walkable(n['x'], n['y'])]
 assert not covered, f'NPCs standing on something solid: {covered}'
 
 

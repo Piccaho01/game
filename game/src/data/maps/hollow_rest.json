@@ -106,30 +106,6 @@
       "sprite": "walk:callum",
       "talk": "friend_callum",
       "friend": "callum"
-    },
-    {
-      "id": "elder",
-      "x": 10,
-      "y": 6,
-      "dir": "left",
-      "sprite": "placeholder:#7a6a58",
-      "talk": "elder"
-    },
-    {
-      "id": "neighbour",
-      "x": 13,
-      "y": 4,
-      "dir": "left",
-      "sprite": "placeholder:#c8a040",
-      "talk": "neighbour"
-    },
-    {
-      "id": "pond_kid",
-      "x": 12,
-      "y": 17,
-      "dir": "right",
-      "sprite": "placeholder:#e07050",
-      "talk": "pond_kid"
     }
   ],
   "healSpot": {

@@ -6,12 +6,14 @@ import { createRng } from '../src/engine/rng';
 
 describe('maps', () => {
   it('every map loads, has its spawn on open ground, and its warps land on open ground', () => {
-    expect(Object.keys(MAPS).sort()).toEqual(['hollow_rest', 'route1']);
+    expect(Object.keys(MAPS)).toEqual(expect.arrayContaining(['hollow_rest', 'route1', 'callum_house', 'sanctuary_hall']));
     for (const map of Object.values(MAPS)) {
       expect(isBlocked(map, map.spawn.x, map.spawn.y), `${map.id} spawn`).toBe(false);
       for (const w of map.warps) {
         expect(MAPS[w.to], `${map.id} warp target`).toBeDefined();
-        expect(isBlocked(map, w.x, w.y), `${map.id} warp tile`).toBe(false);
+        // a warp just past the edge (a room's archway or open front) is walked into, not stood on
+        const offMap = w.x < 0 || w.y < 0 || w.x >= map.width || w.y >= map.height;
+        if (!offMap) expect(isBlocked(map, w.x, w.y), `${map.id} warp tile`).toBe(false);
         expect(isBlocked(MAPS[w.to], w.tx, w.ty), `${map.id} -> ${w.to} landing`).toBe(false);
       }
     }
@@ -85,13 +87,19 @@ describe('Hollow Rest', () => {
     for (const n of town.npcs) expect(isBlocked(town, n.x, n.y), n.id).toBe(false);
   });
 
-  it('A at a door reads its line; at the sanctuary it opens the sanctuary', () => {
+  it('A at a door reads its line', () => {
     const casa = town.objects.find((o) => o.kind === 'casa')!;
     // casa's door tile is in front of its +y face: facing up into the casa
     const at: Position = { map: 'hollow_rest', x: casa.x, y: casa.y + 3, dir: 'up' };
     expect(objectAction(town, at)?.text).toMatch(/Dani/);
-    const sanct = town.objects.find((o) => o.kind === 'sanctuary')!;
-    expect(objectAction(town, { map: 'hollow_rest', x: sanct.x + 1, y: sanct.y + 4, dir: 'up' })?.opens).toBe('sanctuary');
+  });
+
+  it('every door is reachable from the spawn', () => {
+    for (const o of town.objects) {
+      const d = OBJECTS[o.kind];
+      if (!d.enter) continue;
+      expect(findPath('hollow_rest', town.spawn, { x: o.x + d.door![0], y: o.y + d.door![1] }), o.kind).not.toBeNull();
+    }
   });
 });
 

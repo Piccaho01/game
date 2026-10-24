@@ -1,0 +1,83 @@
+{
+  "_note": "Dani's casa: an interior (M4b). Built by art/tools/interiors_layout.py (edit it there); baked by art/tools/iso_map.py. Furniture is placeholder art until the owner's interior drafts are converted.",
+  "id": "dani_house",
+  "name": "Dani's casa",
+  "interior": {
+    "floor": "tile",
+    "wall": "mint",
+    "windows": [
+      [
+        "l",
+        2
+      ],
+      [
+        "r",
+        4
+      ]
+    ],
+    "arches": []
+  },
+  "legend": {
+    ".": "floor"
+  },
+  "rows": [
+    ".......",
+    ".......",
+    ".......",
+    ".......",
+    ".......",
+    "......."
+  ],
+  "spawn": {
+    "x": 3,
+    "y": 5
+  },
+  "warps": [
+    {
+      "x": 3,
+      "y": 6,
+      "to": "hollow_rest",
+      "tx": 5,
+      "ty": 11,
+      "dir": "down"
+    }
+  ],
+  "objects": [
+    {
+      "kind": "hammock",
+      "x": 1,
+      "y": 0,
+      "text": "A hammock. Dani's \"five minutes\" starts here."
+    },
+    {
+      "kind": "plant",
+      "x": 0,
+      "y": 0,
+      "text": "A plant his mum told him to water. It's thriving. Nobody knows how."
+    },
+    {
+      "kind": "table",
+      "x": 4,
+      "y": 0,
+      "text": "Family photos. In every one Dani is in the middle, smiling, and late."
+    },
+    {
+      "kind": "stove",
+      "x": 0,
+      "y": 3,
+      "text": "A pot of Colombian coffee, still warm. Dani made it before he \"left\" an hour ago."
+    },
+    {
+      "kind": "ball",
+      "x": 5,
+      "y": 2,
+      "text": "A football. Dani says he could have gone pro. Dani also says he's on his way."
+    },
+    {
+      "kind": "table",
+      "x": 6,
+      "y": 4,
+      "text": "His phone charger and his shoes, by the door. One lace untied. He's still leaving."
+    }
+  ]
+}

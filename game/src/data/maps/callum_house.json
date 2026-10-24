@@ -1,0 +1,85 @@
+{
+  "_note": "Callum's cottage: an interior (M4b). Built by art/tools/interiors_layout.py (edit it there); baked by art/tools/iso_map.py. Furniture is placeholder art until the owner's interior drafts are converted.",
+  "id": "callum_house",
+  "name": "Callum's cottage",
+  "interior": {
+    "floor": "wood",
+    "wall": "stone",
+    "windows": [
+      [
+        "r",
+        3
+      ]
+    ],
+    "arches": []
+  },
+  "legend": {
+    ".": "floor"
+  },
+  "rows": [
+    ".......",
+    ".......",
+    ".......",
+    ".......",
+    ".......",
+    "......."
+  ],
+  "spawn": {
+    "x": 6,
+    "y": 3
+  },
+  "warps": [
+    {
+      "x": 7,
+      "y": 3,
+      "to": "hollow_rest",
+      "tx": 6,
+      "ty": 17,
+      "dir": "right"
+    }
+  ],
+  "objects": [
+    {
+      "kind": "shelf",
+      "x": 0,
+      "y": 1,
+      "text": "Comics and boxed retro games, alphabetical. A binder on top says DO NOT TOUCH (IN ORDER)."
+    },
+    {
+      "kind": "shelf",
+      "x": 0,
+      "y": 2,
+      "text": "A whole shelf of Patchling pins. Callum calls it a collection. Everyone else calls it a problem."
+    },
+    {
+      "kind": "crt",
+      "x": 2,
+      "y": 0,
+      "text": "A CRT running an emulator, paused mid-boss. The save file is older than the world."
+    },
+    {
+      "kind": "arcade",
+      "x": 4,
+      "y": 0,
+      "text": "The arcade cabinet from the porch, brought in out of the rain. It's always raining. It's a Scottish house."
+    },
+    {
+      "kind": "bed",
+      "x": 6,
+      "y": 0,
+      "text": "Callum's bed. A handheld under the pillow, still on."
+    },
+    {
+      "kind": "table",
+      "x": 3,
+      "y": 3,
+      "text": "A McDonald's bag. Double cheeseburger, extra patty, extra cheese. The Triple Cheese. Again."
+    },
+    {
+      "kind": "stove",
+      "x": 0,
+      "y": 4,
+      "text": "A kettle and a Scottish flag tea towel. His mum posted it. Into a video game. Somehow."
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+{
+ "origin": {
+  "x": 104,
+  "y": 60
+ },
+ "tile": {
+  "w": 32,
+  "h": 16,
+  "z": 16
+ },
+ "size": {
+  "w": 256,
+  "h": 192
+ },
+ "sprites": [
+  {
+   "art": "ph_plant",
+   "x": 88,
+   "y": 44,
+   "fx": 0,
+   "fy": 1,
+   "wx": 1,
+   "wy": 1,
+   "key": 16,
+   "decal": false
+  },
+  {
+   "art": "ph_plant",
+   "x": 152,
+   "y": 60,
+   "fx": 3,
+   "fy": 0,
+   "wx": 1,
+   "wy": 1,
+   "key": 36,
+   "decal": false
+  },
+  {
+   "art": "ph_crt_stone",
+   "x": 40,
+   "y": 53,
+   "fx": 0,
+   "fy": 4,
+   "wx": 1,
+   "wy": 1,
+   "key": 46,
+   "decal": false
+  },
+  {
+   "art": "ph_crt_stone",
+   "x": 200,
+   "y": 69,
+   "fx": 6,
+   "fy": 0,
+   "wx": 1,
+   "wy": 1,
+   "key": 66,
+   "decal": false
+  }
+ ]
+}

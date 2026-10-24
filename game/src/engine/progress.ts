@@ -3,7 +3,7 @@ import progressJson from '../data/progress.json';
 import { BESTIARY, SPECIES, type StatusId } from './data';
 import { createBattler, type Battler } from './battler';
 import type { AssistId } from './battle';
-import { MAPS, type Position } from './overworld';
+import { MAPS, type Flags, type Position } from './overworld';
 import type { Bond } from './seal';
 
 /** The player's progress (bible §7): a team of six, the sanctuary for the rest, and the bestiary. */
@@ -30,6 +30,8 @@ export interface Progress {
   wings: string[];
   /** Where the leader stands in the overworld; missing until they first walk out. */
   pos?: Position;
+  /** Story flags set so far (scripted scenes); missing means none. */
+  flags?: string[];
 }
 
 const EMPTY_RECORD: DexRecord = { encounters: 0, defeats: 0, seals: 0, strongBonds: 0, scans: 0 };
@@ -156,5 +158,11 @@ export function parseProgress(raw: unknown): Progress | null {
   const map = p.pos && MAPS[p.pos.map];
   const pos = map && p.pos!.x >= 0 && p.pos!.y >= 0 && p.pos!.x < map.width && p.pos!.y < map.height ? p.pos : undefined;
   const wings = Array.isArray(p.wings) ? p.wings.filter((w): w is string => typeof w === 'string') : [];
-  return { ...p, version: 2, leader, team, sanctuary: p.sanctuary.filter(ok), bestiary, pos, wings };
+  const flags = Array.isArray(p.flags) ? p.flags.filter((f): f is string => typeof f === 'string') : undefined;
+  return { ...p, version: 2, leader, team, sanctuary: p.sanctuary.filter(ok), bestiary, pos, wings, flags };
+}
+
+/** What the world reads from progress (engine/overworld.ts Flags): 'wing:<id>' once restored, else a story flag. */
+export function flagsOf(p: Progress): Flags {
+  return (flag) => (flag.startsWith('wing:') ? p.wings.includes(flag.slice(5)) : !!p.flags?.includes(flag));
 }

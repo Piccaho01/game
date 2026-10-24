@@ -15,7 +15,7 @@ const STATE_CHIP: Record<WingState, [string, number]> = {
 
 /**
  * The sanctuary (bible §7): wings restored with sanctuary points. Top screen: the chosen wing;
- * touch screen: the wings and RESTORE. Opened from the old CRT stones at the sanctuary.
+ * touch screen: the wings and RESTORE. Opened from the storage terminal in the sanctuary hall.
  */
 export class SanctuaryScene extends Phaser.Scene {
   private progress!: Progress;

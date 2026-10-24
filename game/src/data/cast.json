@@ -1,0 +1,45 @@
+{
+  "_note": "The recurring cast (bible \u00a77): people met on the journey who come back. 'home': where they stand at first. 'visits': once a visit's 'when' flag holds ('wing:<id>' for a restored sanctuary wing, or a story flag) they stand there instead (the last listed that holds wins), saying 'talk' if given. People who move into the sanctuary base are visits to its rooms. A map's own 'npcs' are for people who only ever stand there (PATCH, the friends).",
+  "people": {
+    "elder": {
+      "sprite": "placeholder:#7a6a58",
+      "talk": "elder",
+      "home": {
+        "map": "hollow_rest",
+        "x": 10,
+        "y": 6,
+        "dir": "left"
+      },
+      "visits": [
+        {
+          "map": "sanctuary_hall",
+          "x": 5,
+          "y": 4,
+          "dir": "down",
+          "when": "wing:root_hall",
+          "talk": "elder_base"
+        }
+      ]
+    },
+    "neighbour": {
+      "sprite": "placeholder:#c8a040",
+      "talk": "neighbour",
+      "home": {
+        "map": "hollow_rest",
+        "x": 13,
+        "y": 4,
+        "dir": "left"
+      }
+    },
+    "pond_kid": {
+      "sprite": "placeholder:#e07050",
+      "talk": "pond_kid",
+      "home": {
+        "map": "hollow_rest",
+        "x": 12,
+        "y": 17,
+        "dir": "right"
+      }
+    }
+  }
+}
