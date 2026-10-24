@@ -68,7 +68,7 @@ for y in range(H):
         n = ((x * 73856093) ^ (y * 19349663)) % 10
         if s < 7 and not (0 <= u <= 4): K[y][x] = 'T'
         elif s < 11 and (u < -5 or u > 8): K[y][x] = 'T' if n < 8 else 'b'
-        elif u < -11 and s < 30: K[y][x] = 'T' if n < 7 else 'b'
+        elif u < -12 and s < 28: K[y][x] = 'T' if n < 5 else 'b' if n < 7 else '.'
         elif u > 12 and s < 21: K[y][x] = 'T' if n < 7 else 'b'
         elif n == 0 and Z[y][x] < 3: K[y][x] = 'b'
 
@@ -78,18 +78,24 @@ def obj(kind, u, s, wx=1, wy=1):
     fx, fy = tile(u, s)
     objects.append({'kind': kind, 'x': fx - wx + 1, 'y': fy - wy + 1})
 obj('sanctuary', 2, 10, 3, 4)
-obj('cottage', -10, 18, 2, 3)
+obj('cottage', -12, 20, 2, 3)
 obj('casa', -4, 16, 2, 3)
 obj('suburb', 8, 15, 5, 2)
 obj('crater', 0, 22, 3, 3)
-obj('shed', 10, 24, 2, 2)
+obj('shed', 12, 28, 2, 2)
 for u, s in [(-7, 23), (-6, 24), (-7, 25), (-5, 23)]: obj('sunflowers', u, s)
 obj('lamp', -6, 21)
-obj('laundry', -7, 18)
+obj('laundry', -8, 19)
 obj('chalk', -2, 30)
 obj('cat', -4, 31)
 obj('bench', 4, 28)
-obj('crates', 12, 24)
+obj('crates', 14, 26)
+obj('mailbox', 4, 17)
+obj('pots', -2, 17)
+obj('pots', -3, 19)
+obj('rock', 14, 22)
+obj('rock', -9, 31)
+obj('rock', 9, 33)
 
 OBJ = json.load(open(os.path.join(os.path.dirname(MAP), '..', 'objects.json')))['objects']
 FOOT = set()
@@ -106,8 +112,8 @@ path([(-1, 40), (-1, 35), (-2, 31), (-5, 28), (-8, 25), (-9, 22), (-8, 19), (-7,
 path([(-8, 25), (-3, 26), (2, 26), (6, 24), (8, 21), (7, 18), (6, 16)])              # round the crater -> right
 path([(-7, 17), (-5, 15), (-2, 14), (1, 13), (2, 11)])                                # upper terrace -> hill
 path([(6, 16), (5, 15), (4, 14), (1, 13)])
-path([(-8, 15), (-7, 17)]); path([(-4, 12), (-5, 15)])                                 # to the doors
-path([(6, 24), (8, 25), (11, 25)])                                                     # to the shed door
+path([(-10, 18), (-8, 18), (-7, 17)]); path([(-4, 12), (-5, 15)])                     # to the doors
+path([(6, 24), (9, 27), (12, 29), (13, 29)])                                           # to the shed door
 # stairs down off the island: the front-most path tile (whose ground drops away in front of it)
 edge = [(x, y) for y in range(H) for x in range(W) if K[y][x] == '=' and Z[y][x] > 0 and ((y + 1 >= H or Z[y + 1][x] == 0) or (x + 1 >= W or Z[y][x + 1] == 0))]
 ex, ey = max(edge, key=lambda p: p[0] + p[1])

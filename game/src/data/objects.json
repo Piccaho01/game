@@ -41,6 +41,21 @@
       ],
       "doorText": "Haydon's streaming shed. A sign says LIVE, with the V crossed out."
     },
+    "mailbox": {
+      "art": "mailbox",
+      "wx": 1,
+      "wy": 1
+    },
+    "pots": {
+      "art": "pot_1",
+      "wx": 1,
+      "wy": 1
+    },
+    "rock": {
+      "art": "rock_l",
+      "wx": 1,
+      "wy": 1
+    },
     "crater": {
       "art": "crater",
       "wx": 3,

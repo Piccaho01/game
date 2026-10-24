@@ -167,9 +167,8 @@ def top_of(rgba, zoom=36):
     found from the left corner: that's the middle row of the diamond."""
     rgba = trim(rgba)
     h, w = rgba.shape[:2]
-    side_y = int(np.where((rgba[:, :4, 3] > 0).any(1))[0].mean())
+    side_y = int(np.where((rgba[:, :3, 3] > 0).any(1))[0].min())   # the left corner's tip
     y0 = side_y - w // 4                         # the diamond's top corner, in sheet pixels
-    above = max(0, round(y0 * 32 / w))
     # drawn a touch bigger and cropped, so the sheet tile's rim (its block edge) falls outside
     # and neighbouring tiles join without a grid of lines
     b = sharpen(shrink(rgba, (zoom, round(h * zoom / w))))
@@ -208,7 +207,7 @@ def build():
     made = {}
     for n in ('grass_0', 'grass_1', 'grass_2', 'grass_3', 'path', 'path_edge', 'cobble', 'crater', 'water'):
         # path, cobbles, crater and water are drawn with a grass rim: zoom past it to the middle
-        made[f'top_{n}'] = reduce(top_of(cut[n], 36 if n.startswith('grass') else 52)[0], 20)
+        made[f'top_{n}'] = reduce(top_of(cut[n], 36 if n.startswith('grass') else 64)[0], 20)
     tall, above = top_of(cut['tall'])
     made['top_tall'] = reduce(tall, 16)
     print('tall grass stands', above, 'px above its tile')
@@ -230,6 +229,26 @@ def build():
     assert len(pb) == 23, f'{len(pb)} prop pieces'
     for n, (i, size, cols) in PROPS.items():
         made[n] = prop(cutout(ppath, pb[i]), size, cols)
+    # the sheets came out a little yellow next to the concepts: greener grass and leaves
+    for n in made:
+        if n.startswith(('top_grass', 'top_tall', 'tree', 'bush', 'sunflowers', 'face', 'block', 'under', 'stairs')):
+            k = np.array([0.8, 0.95, 1.15]) if n.startswith(('top_', 'tree', 'bush')) else np.array([0.9, 0.97, 1.08])
+            g = made[n].astype(float)
+            green = (g[..., 1] > g[..., 2] + 20) & (g[..., 1] >= g[..., 0] * 0.8) & (g[..., :3].mean(2) < 150)
+            g[green, :3] = np.clip(g[green, :3] * k, 0, 255)
+            made[n] = g.astype(np.uint8)
+    # shrunk daisies turn into grey specks: grass takes them back
+    for n in made:
+        if not n.startswith(('top_grass', 'top_tall')): continue
+        g = made[n].astype(int)
+        rgb = g[..., :3]
+        grey = (rgb.max(2) - rgb.min(2) < 45) & (rgb.mean(2) > 95) & (g[..., 3] > 0)
+        out = g.copy()
+        for y, x in zip(*np.where(grey)):
+            nb = [g[yy, xx] for yy in range(y - 2, y + 3) for xx in range(x - 2, x + 3)
+                  if 0 <= yy < g.shape[0] and 0 <= xx < g.shape[1] and g[yy, xx, 3] and not grey[yy, xx]]
+            if nb: out[y, x] = nb[len(nb) // 2]
+        made[n] = out.astype(np.uint8)
     for n, a in made.items():
         Image.fromarray(a, 'RGBA').save(os.path.join(OUT, f'{n}.png'))
     return made

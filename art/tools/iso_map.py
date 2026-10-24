@@ -93,7 +93,11 @@ def stair_axis(m, x, y):
 
 
 TOPS = {n: np.asarray(kit(f'top_{n}')) for n in ('grass_0', 'grass_1', 'grass_2', 'grass_3', 'tall', 'path', 'cobble', 'crater', 'water')}
-EDGE = {'path': ('path', (122, 92, 52)), 'dirt': ('crater', (70, 52, 40)), 'water': ('water', (236, 240, 230)), 'cobble': ('cobble', (90, 84, 72))}
+# the crater's scorched ground: the path's dirt burnt darker (the sheet's crater tile has a pit in it)
+_d = TOPS['path'].astype(float)
+_d[..., :3] = _d[..., :3] * np.array([0.55, 0.45, 0.42])
+TOPS['dirt'] = _d.astype(np.uint8)
+EDGE = {'path': ('path', (122, 92, 52)), 'dirt': ('dirt', (70, 52, 40)), 'water': ('water', (236, 240, 230)), 'cobble': ('cobble', (90, 84, 72))}
 
 
 def variant(t, k):
@@ -123,6 +127,7 @@ def ground_tile(m, x, y):
     if kk in EDGE:
         src, line = EDGE[kk]
         over = variant(TOPS[src], (x * 3 + y * 5) % 4)
+        over = over[over.shape[0] - 16:]
         def same(dx, dy):
             k2 = m.kind(x + dx, y + dy)
             if k2 is None: return True
@@ -191,14 +196,18 @@ def face(canvas, sx, sy, side, depth, seed, under=0):
     for c in range(16):
         x = sx + c if side == 'l' else sx + 16 + c
         top = sy + 8 + c // 2 if side == 'l' else sy + 15 - c // 2
-        for d in range(depth):
-            dd = d if d < th - 2 else 4 + (d - th + 2 + seed) % (th - 6)
+        # from the tile's own edge row down (the top is drawn over it after, closing the
+        # stair-step gap along a diamond's edge)
+        for d in range(-1, depth):
+            dd = max(1, d + 1) if d < th - 3 else 4 + (d - th + 3 + seed) % (th - 6)   # row 0 is the sheet's rim
             col = tex[dd, c]
             if col[3]: put(canvas, x, top + d + 1, col)
         if under:
-            # rock hanging below, darkening into shadow, ending in a point or two per tile
-            point = abs(((c + seed) % 16) - 8) / 8
-            cut = int(under * (1 - 0.55 * point)) - int((c * 7 + seed) % 3)
+            # rock hanging below, darkening into shadow: a ragged edge that runs on across tiles
+            # (it follows the screen column), with a long point now and then
+            X = x * 1.0
+            f = max(0.0, np.sin(X * 0.13 + 1.3)) ** 4 * 0.75 + (np.sin(X * 0.47) + 1) * 0.12 + (np.sin(X * 1.9) + 1) * 0.04
+            cut = int(under * (0.3 + f))
             for d in range(cut):
                 col = tex[4 + (d + seed) % (th - 6), c].astype(float)
                 if not col[3]: continue
