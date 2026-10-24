@@ -1,8 +1,9 @@
-# Opening script (draft for the owner's approval)
+# Opening script (approved by the owner; starter beat updated for four teams)
 
 The story from "nothing to do" to the first step out of Hollow Rest. Seven beats, five of them on
 the owner's cutscene cards (`art/concepts/cutscenes/`). Lines are short so each fits the DS text
-box (two lines); a tap moves on, SKIP jumps to the starter pick.
+box (two lines); a tap moves on, SKIP jumps to the starter pick. All four friends are on screen
+in every beat: the comedy is the group, not one hero (bible §6).
 
 Who's talking: **C** Callum, **N** Nolan, **H** Haydon, **D** Dani, **P** PATCH.
 
@@ -79,22 +80,36 @@ pedestals, four small creatures.*
 - **N:** I'm not wearing a ring.
 - **P:** Not anymore.
 - **C:** I want all four. I need the full set.
-- **P:** One leader at a time. The others wait here, and their partners with them.
+- **P:** One each. Four of you, four of them. That's the only maths I got right.
+- **H:** Bet. I'm taking the one that kicks.
+- **N:** You're not even looking at them.
+- **H:** Don't need to. Kicking is a personality.
 - **D:** I don't care about Pokémon.
 - **P:** These are Patchlings.
 - **D:** I don't care about those either. But the little shark is smiling at me.
+- **N:** It's smiling at your phone. It wants your phone.
+- **D:** ...We are the same, me and him.
 
-**→ The game's pick:** *who leads* (leader card), then *which starter* (starter card), as now.
-After the pick, one line from the chosen starter's "Sighted" lore, then:
+**→ The game's pick: who takes which starter.** Each starter is dropped on a friend (drag or
+tap-tap); the defaults follow the banter (Haydon Sprigby, Dani Gobbin, and so on) but any order
+is fine. Each one gets a one-line reaction from the friend who took it, then:
 
-- **P:** Good choice. Or a fine choice. I'll know in a few battles.
+- **P:** Good. Four teams. Anything you seal and send back here, any of you can use. Share.
+- **C:** I'm keeping a spreadsheet.
+- **P:** Of course you are.
+
+**→ Who leads first** (the leader card, as now). The others follow; switch whenever you like.
 
 ## 6. First step (back in Hollow Rest, overworld)
-*The leader steps out of the sanctuary. Morning now. The other three wave from the ruins.*
+*Morning now. The four step out of the sanctuary together; the leader walks, the rest follow.*
 
 - **P:** The way off the island is the stairs at the front. Route 1 is below. Wild Patchlings live in the tall grass.
 - **P:** Weaken one, then seal it. The seal is a rhythm. Stay on the beat.
-- **P:** If your partner faints, come back to me. I fix things. Mostly.
+- **H:** Callum's going to miss the beat.
+- **C:** I have rhythm. I make music.
+- **N:** "And I picked up a mic and I'm chill."
+- **C:** I will leave you in this world.
+- **P:** If your partners faint, come back to me. I fix things. Mostly.
 
 ## 7. The hook (a group-chat ping, on the leader's phone, the moment they reach the town sign)
 *THE BOYS chat pops up. A fifth name nobody expected.*
@@ -114,9 +129,9 @@ After the pick, one line from the chosen starter's "Sighted" lore, then:
 ---
 
 ### Notes
-- Beats 1–4 replace the current chat-only opening; beat 5 wraps the existing leader and starter
-  pick; beat 7 is new and plants Director Connor (bible §10) without showing him.
+- Beats 1–4 replace the current chat-only opening; beat 5 becomes "who takes which starter"
+  (four teams, bible §6) then the leader pick; beat 7 is new and plants Director Connor (bible §10) without showing him.
 - Running gags placed: Dani's 30 minutes, "nah that's cap", PATCH's "I'm working on a fix" (said
   at the end of 2, 4, 5 and 7 so its payoff later lands), Callum the collector, Dani not caring
   about Pokémon.
-- Kept for later: the Triple Cheese, the van, Sergey, the mic line (they need their own scenes).
+- Kept for later: the Triple Cheese, the van, Sergey (they need their own scenes; the house interiors are a natural home).

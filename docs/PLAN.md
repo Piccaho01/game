@@ -20,6 +20,7 @@ Rules that keep it efficient:
 - [x] M2 Stage-1 starters (branch `claude/m2-starters`: all four with front, idle, back and back idle in game; see "M2 handoff" below)
 - [x] M3 Core loop (pick a leader and starter → wild battle → seal → team/sanctuary → bestiary stages and sanctuary points, leader assists, switching, saved in the browser)
 - [ ] M4 Characters + world slice (in progress: Hollow Rest isometric with the owner's terrain/props and pixel-art walk sprites on `claude/m4-polish`; left: story intro, Route 1 isometric, townsfolk)
+- [ ] M4b The squad, the base, the story (three tracks, see below)
 - [ ] M5 Playtest build
 - [ ] After the slice: evolutions, Connor, more of Verrow
 
@@ -234,6 +235,33 @@ neighbour and pond kid are placeholders).
   saves every screen to `game/screens/`. If the container can't reach the npm registry, push the
   branch and run the workflow by hand (workflow_dispatch): manual runs print the screenshots into
   the job log as base64 (`SCREEN <file>` lines) as well as uploading the `screens` artifact.
+
+## M4b The squad, the base, the story (owner's direction, 2026-10-24; bible §6, §7)
+The owner wants the four together: present in nearly every scene (banter), four separate teams
+(each friend takes one starter), switch the leader any time, shared sanctuary storage; the
+sanctuary as a big explorable base that unlocks with the story; recurring NPCs and Patchlings;
+explorable houses. Built in three parallel tracks, one fresh session each, each on its own branch
+and PR (owner approves visuals before they go in):
+
+- **Track A: Squad (code).** Save v3: `teams` per friend (replaces `team`), shared `sanctuary`
+  storage any friend can withdraw from, `leader` switchable. New game: "who takes which starter"
+  (one each), then who leads. Overworld: the other three follow the leader in a line (walk sheets
+  exist for all four); a SWITCH button on the touch screen swaps the leader (the leader's team
+  battles). Journal shows all four teams. Migrate v2 saves (the old team goes to its leader, the
+  other three get the remaining starters).
+- **Track B: Story (code + owner's cards).** A cutscene system: full-screen card (the owner's
+  `art/concepts/cutscenes/`), named speakers (any of the four, PATCH, Connor, system), the DS text
+  box, SKIP; and scripted overworld scenes where the four stand together and talk. Build the
+  opening from `docs/INTRO_SCRIPT.md` (beats 1–7), using Track A's starter assignment for beat 5.
+  All story dialogue is written for the group.
+- **Track C: World (code + owner's art).** Interiors: door tiles warp to interior maps (same
+  isometric engine, a room-sized map), the friends' four houses first, full of inside jokes.
+  The sanctuary base: the stone entrance warps into a multi-room interior; rooms gated by
+  `wings`/story flags, first hall open at the start; PATCH's workshop, the storage terminal, beds.
+  Recurring cast: NPC data gets a home/visit list so people met later can appear in the base.
+  Then Route 1 in isometric (drafts in: `route1_concept.png`, `route1_pieces.png`).
+  Art asks for the owner: interior concept + set-piece sheets per house and for the sanctuary
+  halls (prompts in `art/LOCATION_STYLE.md`).
 
 ## M5 Playtest build
 - Bug pass on phones (iOS Safari, Android Chrome), balance pass, the link shared with the
