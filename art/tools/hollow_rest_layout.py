@@ -78,7 +78,7 @@ def obj(kind, u, s, wx=1, wy=1):
     fx, fy = tile(u, s)
     objects.append({'kind': kind, 'x': fx - wx + 1, 'y': fy - wy + 1})
 obj('sanctuary', 2, 10, 3, 4)
-obj('cottage', -12, 20, 2, 3)
+obj('cottage', -12, 22, 2, 3)
 obj('casa', -4, 16, 2, 3)
 obj('suburb', 8, 15, 5, 2)
 obj('crater', 0, 22, 3, 3)
@@ -112,7 +112,7 @@ path([(-1, 40), (-1, 35), (-2, 31), (-5, 28), (-8, 25), (-9, 22), (-8, 19), (-7,
 path([(-8, 25), (-3, 26), (2, 26), (6, 24), (8, 21), (7, 18), (6, 16)])              # round the crater -> right
 path([(-7, 17), (-5, 15), (-2, 14), (1, 13), (2, 11)])                                # upper terrace -> hill
 path([(6, 16), (5, 15), (4, 14), (1, 13)])
-path([(-10, 18), (-8, 18), (-7, 17)]); path([(-4, 12), (-5, 15)])                     # to the doors
+path([(-11, 23), (-9, 22)]); path([(-4, 12), (-5, 15)])                                # to the doors
 path([(6, 24), (9, 27), (12, 29), (13, 29)])                                           # to the shed door
 # stairs down off the island: the front-most path tile (whose ground drops away in front of it)
 edge = [(x, y) for y in range(H) for x in range(W) if K[y][x] == '=' and Z[y][x] > 0 and ((y + 1 >= H or Z[y + 1][x] == 0) or (x + 1 >= W or Z[y][x + 1] == 0))]
@@ -161,6 +161,13 @@ for o in objects:
         for xx in range(o['x'], o['x'] + d['wx']):
             if K[yy][xx] in 'Tb#*': K[yy][xx] = '.'
             Z[yy][xx] = zf          # level ground under it
+# no tree right against a house (they'd hide its walls)
+for o in objects:
+    if o['kind'] not in ('cottage', 'casa', 'suburb', 'shed'): continue
+    d = OBJ[o['kind']]
+    for yy in range(o['y'] - 1, o['y'] + d['wy'] + 2):
+        for xx in range(o['x'] - 1, o['x'] + d['wx'] + 2):
+            if 0 <= xx < W and 0 <= yy < H and K[yy][xx] == 'T': K[yy][xx] = 'b' if (xx + yy) % 3 == 0 else '.'
 # the town sign by the path to the edge
 K[17][13] = 'S'
 

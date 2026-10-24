@@ -707,17 +707,6 @@
    "decal": false
   },
   {
-   "art": "bush_0",
-   "x": 254,
-   "y": 203,
-   "fx": 5,
-   "fy": 15,
-   "wx": 1,
-   "wy": 1,
-   "key": 206,
-   "decal": false
-  },
-  {
    "art": "tree_1",
    "x": 152,
    "y": 166,
@@ -725,17 +714,6 @@
    "fy": 18,
    "wx": 1,
    "wy": 1,
-   "key": 206,
-   "decal": false
-  },
-  {
-   "art": "cottage",
-   "x": 190,
-   "y": 152,
-   "fx": 3,
-   "fy": 14,
-   "wx": 2,
-   "wy": 3,
    "key": 206,
    "decal": false
   },
@@ -751,17 +729,6 @@
    "decal": false
   },
   {
-   "art": "tree_1",
-   "x": 203,
-   "y": 171,
-   "fx": 4,
-   "fy": 17,
-   "wx": 1,
-   "wy": 1,
-   "key": 216,
-   "decal": false
-  },
-  {
    "art": "rock_m",
    "x": 576,
    "y": 240,
@@ -773,35 +740,13 @@
    "decal": false
   },
   {
-   "art": "fence_x",
-   "x": 215,
-   "y": 227,
-   "fx": 5,
-   "fy": 17,
-   "wx": 1,
-   "wy": 1,
-   "key": 226,
-   "decal": false
-  },
-  {
-   "art": "tree_2",
-   "x": 169,
-   "y": 200,
+   "art": "cottage",
+   "x": 190,
+   "y": 184,
    "fx": 4,
-   "fy": 18,
-   "wx": 1,
-   "wy": 1,
-   "key": 226,
-   "decal": false
-  },
-  {
-   "art": "tree_0",
-   "x": 150,
-   "y": 202,
-   "fx": 3,
-   "fy": 19,
-   "wx": 1,
-   "wy": 1,
+   "fy": 15,
+   "wx": 2,
+   "wy": 3,
    "key": 226,
    "decal": false
   },
@@ -825,17 +770,6 @@
    "wx": 1,
    "wy": 1,
    "key": 226,
-   "decal": false
-  },
-  {
-   "art": "fence_x",
-   "x": 231,
-   "y": 235,
-   "fx": 6,
-   "fy": 17,
-   "wx": 1,
-   "wy": 1,
-   "key": 236,
    "decal": false
   },
   {
@@ -894,9 +828,9 @@
    "decal": false
   },
   {
-   "art": "tree_0",
-   "x": 182,
-   "y": 218,
+   "art": "rock_m",
+   "x": 192,
+   "y": 256,
    "fx": 5,
    "fy": 19,
    "wx": 1,
@@ -924,17 +858,6 @@
    "wx": 1,
    "wy": 1,
    "key": 246,
-   "decal": false
-  },
-  {
-   "art": "tree_0",
-   "x": 198,
-   "y": 226,
-   "fx": 6,
-   "fy": 19,
-   "wx": 1,
-   "wy": 1,
-   "key": 256,
    "decal": false
   },
   {
