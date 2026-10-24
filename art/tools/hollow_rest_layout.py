@@ -107,6 +107,7 @@ path([(-8, 25), (-3, 26), (2, 26), (6, 24), (8, 21), (7, 18), (6, 16)])         
 path([(-7, 17), (-5, 15), (-2, 14), (1, 13), (2, 11)])                                # upper terrace -> hill
 path([(6, 16), (5, 15), (4, 14), (1, 13)])
 path([(-8, 15), (-7, 17)]); path([(-4, 12), (-5, 15)])                                 # to the doors
+path([(6, 24), (8, 25), (11, 25)])                                                     # to the shed door
 # stairs down off the island: the front-most path tile (whose ground drops away in front of it)
 edge = [(x, y) for y in range(H) for x in range(W) if K[y][x] == '=' and Z[y][x] > 0 and ((y + 1 >= H or Z[y + 1][x] == 0) or (x + 1 >= W or Z[y][x + 1] == 0))]
 ex, ey = max(edge, key=lambda p: p[0] + p[1])
