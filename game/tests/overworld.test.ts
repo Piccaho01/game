@@ -35,7 +35,7 @@ describe('maps', () => {
   });
 
   it('a map without heights is flat', () => {
-    expect(heightAt(MAPS.route1, 5, 5)).toBe(1);
+    expect(heightAt(MAPS.callum_house, 3, 3)).toBe(1);
   });
 });
 
@@ -109,7 +109,11 @@ describe('movement', () => {
     const a = step({ ...START }, 'left');
     expect(a.moved).toBe(true);
     expect(a.pos).toMatchObject({ x: START.x - 1, y: START.y, dir: 'left' });
-    const r1: Position = { map: 'route1', x: 1, y: 1, dir: 'down' };
+    // a tree on Route 1, walked into from its right
+    const r = MAPS.route1;
+    const [tx, ty] = r.tiles.flatMap((row, y) => row.map((k, x) => [x, y, k] as const))
+      .find(([x, y, k]) => k === 'tree' && !isBlocked(r, x + 1, y) && heightAt(r, x + 1, y) === heightAt(r, x, y))!;
+    const r1: Position = { map: 'route1', x: tx + 1, y: ty, dir: 'down' };
     const b = step(r1, 'left');
     expect(b.moved).toBe(false);
     expect(b.pos).toEqual({ ...r1, dir: 'left' });
@@ -125,13 +129,30 @@ describe('movement', () => {
     const out = step(from, 'right');
     expect(out.warped).toBe(true);
     expect(out.pos).toMatchObject({ map: 'route1', x: exit.tx, y: exit.ty });
-    const back = step({ map: 'route1', x: 10, y: 1, dir: 'up' }, 'up');
-    expect(back.pos).toMatchObject({ map: 'hollow_rest', x: MAPS.route1.warps[0].tx, y: MAPS.route1.warps[0].ty });
+    // the way back: up the path onto the foot of the cliff stairs
+    const w = MAPS.route1.warps[0];
+    const back = step({ map: 'route1', x: w.x, y: w.y + 1, dir: 'up' }, 'up');
+    expect(back.pos).toMatchObject({ map: 'hollow_rest', x: w.tx, y: w.ty });
   });
 
   it('flags tall grass', () => {
-    const r = step({ map: 'route1', x: 1, y: 2, dir: 'right' }, 'right');
+    const m = MAPS.route1;
+    const [x, y] = m.tiles.flatMap((row, ty) => row.map((k, tx) => [tx, ty, k] as const))
+      .find(([tx, ty, k]) => k === 'tall' && !isBlocked(m, tx, ty) && !isBlocked(m, tx - 1, ty) && heightAt(m, tx - 1, ty) === heightAt(m, tx, ty))!;
+    const r = step({ map: 'route1', x: x - 1, y, dir: 'right' }, 'right');
     expect(r.grass).toBe(true);
+  });
+
+  it('Route 1: tall grass on both sides of the stream, and the bridge crosses it', () => {
+    const m = MAPS.route1;
+    const arrive = m.spawn;
+    const tall = m.tiles.flatMap((row, y) => row.map((k, x) => [x, y, k] as const)).filter(([, , k]) => k === 'tall');
+    const reach = tall.filter(([x, y]) => findPath('route1', arrive, { x, y }));
+    expect(reach.length).toBeGreaterThan(30);
+    const bridge = m.objects.find((o) => o.kind === 'bridge')!;
+    expect(findPath('route1', arrive, { x: bridge.x + OBJECTS.bridge.wx, y: bridge.y })).not.toBeNull();
+    expect(isBlocked(m, bridge.x + 1, bridge.y)).toBe(false);
+    expect(isBlocked(m, bridge.x + 1, bridge.y + 1)).toBe(true);     // the stream beside it
   });
 });
 

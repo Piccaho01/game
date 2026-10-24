@@ -101,6 +101,10 @@ TOPS = {n: np.asarray(kit(f'top_{n}')) for n in ('grass_0', 'grass_1', 'grass_2'
 _d = TOPS['path'].astype(float)
 _d[..., :3] = _d[..., :3] * np.array([0.55, 0.45, 0.42])
 TOPS['dirt'] = _d.astype(np.uint8)
+# the sheet's water came out pale (it read as ice): deeper and bluer
+_w = TOPS['water'].astype(float)
+_w[..., :3] = _w[..., :3] * np.array([0.62, 0.8, 0.98])
+TOPS['water'] = _w.astype(np.uint8)
 EDGE = {'path': ('path', (122, 92, 52)), 'dirt': ('dirt', (70, 52, 40)), 'water': ('water', (236, 240, 230)), 'cobble': ('cobble', (90, 84, 72))}
 
 
@@ -119,15 +123,27 @@ def ab(px, py):
     return v + u / 2, v - u / 2
 
 
+def top(name):
+    """A tile top by name: iso_kit's, or a map's own (its 'kit' in the map file, e.g. r1_top_tall)."""
+    if name not in TOPS: TOPS[name] = np.asarray(Image.open(os.path.join(KIT, f'{name}.png')).convert('RGBA'))
+    return TOPS[name]
+
+
+def prop_img(name):
+    """A small upright piece: iso_kit's props, or one converted into art/locations/out (route1_kit.py)."""
+    if name not in PROPS: PROPS[name] = Image.open(os.path.join(OUT, f'{name}.png')).convert('RGBA')
+    return PROPS[name]
+
+
 def ground_tile(m, x, y):
     """The tile's top (32x16, plus rows standing above it for tall grass) and how many rows stand above."""
     k = m.kind(x, y)
     h = (x * 7 + y * 13 + x * y) % 8
     if k == 'flowers': base = TOPS[('grass_1', 'grass_3')[h % 2]]
-    elif k == 'tall': base = TOPS['tall']
+    elif k == 'tall': base = top(m.d.get('kit', {}).get('tall', 'tall'))
     else: base = TOPS[('grass_0', 'grass_2')[h % 2]]
     t = variant(base, h >> 1)
-    kk = {'stairs': 'path', 'exit': 'path'}.get(k, k)
+    kk = {'stairs': 'path', 'exit': 'path', 'bridge': 'water'}.get(k, k)
     if kk in EDGE:
         src, line = EDGE[kk]
         over = variant(TOPS[src], (x * 3 + y * 5) % 4)
@@ -136,7 +152,7 @@ def ground_tile(m, x, y):
             k2 = m.kind(x + dx, y + dy)
             if k2 is None: return True
             if kk == 'path' and k2 in ('stairs', 'sign', 'exit', 'path'): return True
-            return {'stairs': 'path', 'exit': 'path'}.get(k2, k2) == kk
+            return {'stairs': 'path', 'exit': 'path', 'bridge': 'water'}.get(k2, k2) == kk
         sides = {'u': same(0, -1), 'r': same(1, 0), 'd': same(0, 1), 'l': same(-1, 0)}
         corners = {(1, -1): same(1, -1), (1, 1): same(1, 1), (-1, 1): same(-1, 1), (-1, -1): same(-1, -1)}
         rng = np.random.default_rng(x * 97 + y * 31)
@@ -219,6 +235,20 @@ def face(canvas, sx, sy, side, depth, seed, under=0):
                 col[:3] = col[:3] * k + np.array([60, 40, 50]) * (1 - k) * 0.5
                 if d >= cut - 1: col[:3] *= 0.6
                 put(canvas, x, top + depth + d + 1, col.astype(np.uint8))
+
+
+def waterfall(canvas, sx, sy, side, depth, seed):
+    """Water pouring off the island's edge over a side face, streaked, thinning out into spray."""
+    rng = np.random.default_rng(seed)
+    for c in range(1, 15):
+        x = sx + c if side == 'l' else sx + 16 + c
+        top = sy + 8 + c // 2 if side == 'l' else sy + 15 - c // 2
+        length = depth - int(rng.integers(0, 14))
+        for d in range(length):
+            k = (c * 5 + d // 3 + seed) % 7
+            col = (236, 246, 250) if k == 0 else (120, 182, 226) if k < 3 else (76, 140, 206)
+            if d > length - 8 and (c + d) % 2: continue
+            put(canvas, x, top + d + 1, (*col, 255))
 
 
 def stairs(canvas, scr, x, y, z_low, axis):
@@ -373,9 +403,11 @@ def bake(map_id, preview=None):
         if zl < z and not (k == 'stairs' and stair_axis(m, x, y) == 'y'):
             face(canvas, sx, sy, 'l', (z - zl) * HZ, seed, under if zl == 0 else 0)
             if k == 'exit': exit_steps(canvas, sx, sy, (z - zl) * HZ + under - 12, 'l')
+            if k == 'water' and zl == 0: waterfall(canvas, sx, sy, 'l', (z - zl) * HZ + under, seed)
         if zr < z and not (k == 'stairs' and stair_axis(m, x, y) == 'x'):
             face(canvas, sx, sy, 'r', (z - zr) * HZ, seed + 3, under if zr == 0 else 0)
             if k == 'exit' and zl != 0: exit_steps(canvas, sx, sy, (z - zr) * HZ + under - 12, 'r')
+            if k == 'water' and zr == 0: waterfall(canvas, sx, sy, 'r', (z - zr) * HZ + under, seed)
         if k == 'stairs':
             continue
         top = ground_tile(m, x, y)
@@ -388,8 +420,12 @@ def bake(map_id, preview=None):
 
 def bake_finish(data, m, canvas, scr, W, Hh, OX, OY, map_id, preview, room=False):
     # upright things: their screen spot and draw order
-    for name, im in PROPS.items():
-        im.save(os.path.join(OUT, f'{name}.png'))
+    for name in KIT_PROPS + ['chalk']:
+        PROPS[name].save(os.path.join(OUT, f'{name}.png'))
+    kit_of = data.get('kit', {})
+    trees = kit_of.get('trees', ['tree_0', 'tree_1', 'tree_2'])
+    bushes = kit_of.get('bushes', ['bush_0', 'bush_1', 'bush_2', 'rock_s', 'rock_m'])
+    signpost = kit_of.get('signpost', 'signpost')
     sprites = []
     def add(art, img, x, y, wx, wy, z, decal=False, flags=None):
         if room:
@@ -411,8 +447,8 @@ def bake_finish(data, m, canvas, scr, W, Hh, OX, OY, map_id, preview, room=False
         for x in range(m.W):
             k = m.kind(x, y)
             if k == 'tree':
-                v = (x * 5 + y * 3 + x * y) % 3
-                add(f'tree_{v}', PROPS[f'tree_{v}'], x, y, 1, 1, m.Z[y, x])
+                n = trees[(x * 5 + y * 3 + x * y) % len(trees)]
+                add(n, prop_img(n), x, y, 1, 1, m.Z[y, x])
                 j = sprites[-1]
                 j['x'] += (x * 7 + y * 11) % 7 - 3
                 j['y'] += (x * 5 + y * 13) % 5 - 2
@@ -421,11 +457,10 @@ def bake_finish(data, m, canvas, scr, W, Hh, OX, OY, map_id, preview, room=False
                 ax = 'x' if along_x else 'y'
                 add(f'fence_{ax}', PROPS[f'fence_{ax}'], x, y, 1, 1, m.Z[y, x])
             elif k == 'bush':
-                v = (x * 3 + y) % 5
-                n = f'bush_{v}' if v < 3 else f'rock_{"sm"[v - 3]}'
-                add(n, PROPS[n], x, y, 1, 1, m.Z[y, x])
+                n = bushes[(x * 3 + y) % len(bushes)]
+                add(n, prop_img(n), x, y, 1, 1, m.Z[y, x])
             elif k == 'sign':
-                add('signpost', PROPS['signpost'], x, y, 1, 1, m.Z[y, x])
+                add(signpost, prop_img(signpost), x, y, 1, 1, m.Z[y, x])
     for o in data.get('objects', []):
         d = OBJ[o['kind']]
         img = Image.open(os.path.join(OUT, f"{d['art']}.png"))
@@ -440,7 +475,7 @@ def bake_finish(data, m, canvas, scr, W, Hh, OX, OY, map_id, preview, room=False
     os.makedirs(os.path.join(OUT, 'graded'), exist_ok=True)
     for art in sorted({sp['art'] for sp in sprites}):
         a = np.asarray(Image.open(os.path.join(OUT, f'{art}.png')).convert('RGBA'))
-        Image.fromarray(grade(a, k=0.15 if art in PROPS or art.startswith('ph_') else 1.0), 'RGBA').save(os.path.join(OUT, 'graded', f'{art}.png'))
+        Image.fromarray(grade(a, k=0.15 if art in PROPS or art.startswith(('ph_', 'r1_')) else 1.0), 'RGBA').save(os.path.join(OUT, 'graded', f'{art}.png'))
     json.dump({'origin': {'x': OX, 'y': OY}, 'tile': {'w': TW, 'h': TH, 'z': HZ}, 'size': {'w': W, 'h': Hh}, 'sprites': sprites},
               open(os.path.join(OUT, 'maps', f'{map_id}.json'), 'w'), indent=1)
     print(f'{map_id}: {W}x{Hh}, {len(sprites)} sprites')

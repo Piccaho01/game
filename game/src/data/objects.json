@@ -241,6 +241,64 @@
       "art": "ph_crt_stone",
       "wx": 1,
       "wy": 1
+    },
+    "cliff_stairs": {
+      "art": "r1_cliff_stairs",
+      "wx": 2,
+      "wy": 2,
+      "text": "Stairs up the cliff to Hollow Rest. Someone has chalked a tally on every step."
+    },
+    "booth": {
+      "art": "r1_booth",
+      "wx": 3,
+      "wy": 3,
+      "text": "METEORITE SALVAGE: LICENSED BY THE TALLY. A note in the window: \"Back in 5 min.\" It's dated three weeks ago."
+    },
+    "meteor": {
+      "art": "r1_meteor",
+      "wx": 3,
+      "wy": 3,
+      "text": "A chunk of fallen sky, still full of stars. A Tally tag on it says: LICENSED. PENDING. RESCHEDULED."
+    },
+    "bridge": {
+      "art": "r1_bridge",
+      "wx": 4,
+      "wy": 1,
+      "decal": true,
+      "walkable": true
+    },
+    "r1_marker": {
+      "art": "r1_marker",
+      "wx": 1,
+      "wy": 1,
+      "text": "An old CRT marker stone. The screen flickers: ROUTE 1. Below it, smaller: \"it's skybox, it's supposed to stay up there\"."
+    },
+    "r1_rocks": {
+      "art": "r1_rocks",
+      "wx": 1,
+      "wy": 1
+    },
+    "r1_boulder": {
+      "art": "r1_boulder",
+      "wx": 1,
+      "wy": 1
+    },
+    "r1_meteor_tile": {
+      "art": "r1_meteor_tile",
+      "wx": 1,
+      "wy": 1,
+      "decal": true,
+      "walkable": true
+    },
+    "r1_stone": {
+      "art": "r1_stone",
+      "wx": 1,
+      "wy": 1
+    },
+    "r1_crate": {
+      "art": "r1_crate",
+      "wx": 1,
+      "wy": 1
     }
   }
 }

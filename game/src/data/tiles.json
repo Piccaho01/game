@@ -79,6 +79,10 @@
       "accent": "#177548",
       "solid": true
     },
+    "bridge": {
+      "color": "#a07848",
+      "accent": "#4a8ee8"
+    },
     "exit": {
       "color": "#edbe84",
       "accent": "#d4a56f"

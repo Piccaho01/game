@@ -1,5 +1,5 @@
 {
-  "_note": "Route 1 (bible \u00a715): the hills outside Hollow Rest. Tall grass hides the Route 1 commons. Encounter rate is per step in tall grass (0-1); tune on a phone. Still the old flat layout (every tile at height 1) until it gets its own isometric redesign.",
+  "_note": "Route 1 (bible \u00a79, \u00a715): the hills outside Hollow Rest, after the owner's concept. Isometric (art/tools/iso_map.py bakes it); built by art/tools/route1_layout.py (edit it there). Tall grass hides the Route 1 commons. Encounter rate is per step in tall grass (0-1); tune on a phone.",
   "id": "route1",
   "name": "Route 1",
   "legend": {
@@ -8,54 +8,57 @@
     "=": "path",
     "f": "flowers",
     "T": "tree",
+    "b": "bush",
     "#": "fence",
     "~": "water",
     "S": "sign",
-    "_": "bush"
+    "H": "stairs",
+    "E": "exit",
+    "B": "bridge"
   },
   "rows": [
-    "TTTTTTTTTT==TTTTTTTT",
-    "T.........==.......T",
-    "T.,,,,....==..,,,,.T",
-    "T.,,,,,...==..,,,,.T",
-    "T.,,,,,...==.......T",
-    "T.........=====....T",
-    "T__________..=_____T",
-    "T....f.......=.....T",
-    "T..,,,,,,....=..f..T",
-    "T..,,,,,,....=.....T",
-    "T..,,,,,,..=====...T",
-    "T..........=...,,,,T",
-    "T~~~~......=...,,,,T",
-    "T~~~~~.....=...,,,,T",
-    "T~~~~~..S..=.......T",
-    "TTTTTTTTTTTTTTTTTTTT"
+    ".TTbTT.....T...TT.....",
+    "TTb,,f..bf.b..TT~.....",
+    "TT,,,,..b...Eb.f~.....",
+    "bb,,,,#.....=T.~~.....",
+    "TT..,,...====..~~..b..",
+    "T.......==......~..b..",
+    ".,....f.=..b....~.....",
+    "......b.=f......~...b.",
+    ",,.,,,..=......~~.....",
+    ",,...b..H.f..f.~~,,...",
+    ".,,,f...==f....~~,.,..",
+    "bf,....b==.f..,~~,..,.",
+    "T......===.f...~~.,,..",
+    "bT....==.=====fBB==b..",
+    ".Tb..==.....bf,~~,=ff.",
+    "TbT===,,.....,,~~.=...",
+    "TTTT.....f..,,,~~.=...",
+    ".Tb.,...,,.,,,,~~.=...",
+    "..TT....,.b.,,,~~.S...",
+    ".....,,,,....,.~~.....",
+    "....fb,,.......~~.....",
+    ".......f.b....b~~....."
   ],
   "spawn": {
-    "x": 10,
-    "y": 1
+    "x": 12,
+    "y": 3
   },
   "signs": [
     {
-      "x": 8,
-      "y": 14,
-      "text": "ROUTE 1. Meteorite salvage licensed by the Tally. Licence office hours: rescheduled."
+      "x": 18,
+      "y": 18,
+      "text": "ROAD DOWN TO THE LOWLANDS. Closed for maintenance by order of the Tally. Reopening: rain check."
     }
   ],
   "warps": [
     {
-      "x": 10,
-      "y": 0,
+      "x": 12,
+      "y": 2,
       "to": "hollow_rest",
       "tx": 17,
-      "ty": 19
-    },
-    {
-      "x": 11,
-      "y": 0,
-      "to": "hollow_rest",
-      "tx": 17,
-      "ty": 19
+      "ty": 19,
+      "dir": "left"
     }
   ],
   "encounters": {
@@ -74,5 +77,108 @@
         "weight": 50
       }
     ]
+  },
+  "heights": [
+    "0222222222222222200000",
+    "2222222222222222110000",
+    "2222222222222222111000",
+    "2222222222222221111100",
+    "2222222222222211111110",
+    "2222222222221111111111",
+    "2222222222211111111111",
+    "2222222222211111111111",
+    "2222222222111111111111",
+    "2222222211111111111111",
+    "2222222111111111111111",
+    "2222222111111111111111",
+    "2222221111111111111111",
+    "2222111111111111111111",
+    "2221111111111111111110",
+    "2211111111111111111100",
+    "2211111111111111111100",
+    "0111111111111111111100",
+    "0011111111111111111000",
+    "0001111111111111100000",
+    "0000111111111111100000",
+    "0000011111111111100000"
+  ],
+  "objects": [
+    {
+      "kind": "cliff_stairs",
+      "x": 12,
+      "y": 0
+    },
+    {
+      "kind": "booth",
+      "x": 2,
+      "y": 5
+    },
+    {
+      "kind": "meteor",
+      "x": 13,
+      "y": 5
+    },
+    {
+      "kind": "meteor",
+      "x": 5,
+      "y": 16
+    },
+    {
+      "kind": "bridge",
+      "x": 14,
+      "y": 13
+    },
+    {
+      "kind": "r1_crate",
+      "x": 6,
+      "y": 8
+    },
+    {
+      "kind": "r1_marker",
+      "x": 10,
+      "y": 7
+    },
+    {
+      "kind": "r1_rocks",
+      "x": 3,
+      "y": 12
+    },
+    {
+      "kind": "r1_boulder",
+      "x": 19,
+      "y": 11
+    },
+    {
+      "kind": "r1_meteor_tile",
+      "x": 11,
+      "y": 9
+    },
+    {
+      "kind": "r1_meteor_tile",
+      "x": 19,
+      "y": 17
+    },
+    {
+      "kind": "r1_stone",
+      "x": 4,
+      "y": 19
+    }
+  ],
+  "kit": {
+    "trees": [
+      "r1_oak",
+      "r1_pine",
+      "r1_oak",
+      "tree_1"
+    ],
+    "bushes": [
+      "r1_bush_0",
+      "r1_bush_1",
+      "r1_bush_flower",
+      "r1_tuft_3",
+      "r1_pebbles"
+    ],
+    "tall": "r1_top_tall",
+    "signpost": "r1_signpost"
   }
 }

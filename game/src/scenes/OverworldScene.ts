@@ -366,6 +366,8 @@ export class OverworldScene extends Phaser.Scene {
       /** The walk to a tile on this map, as directions (engine/overworld.ts findPath). */
       pathTo: (x: number, y: number) => findPath(this.pos.map, this.pos, { x, y }, (bx, by) => !!npcAt(this.npcs, bx, by), this.flags),
       talking: () => this.dialog.open,
+      /** Forces the encounter rate from here on (like ?rate=), or null for the map's own. */
+      setRate: (rate: number | null) => { this.rateOverride = rate; },
       npcs: () => this.npcs.map((n) => n.id),
       buttonAt: (name: string) => buttonPagePoint(this, this.ui, name),
       /** The D-pad's centre in page px, plus how far its arms reach. */
