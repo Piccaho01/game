@@ -43,7 +43,9 @@ The creatures are called **Patchlings**: PATCH's creations (he gets defensive ab
 The world is simply a Pokémon-like region the AI generated, with depth. The twist is that the four are stuck in their own creation and it is deeper and weirder than planned.
 
 ## 6. The Four Playable Characters
-One active leader at a time. The other three wait at the sanctuary. **Squad mode** (optional): all four travel with you, but only the selected leader battles, using their own team. Each character has a separate team.
+**The four are together almost all the time.** All four are present in nearly every cutscene and story scene, so the banter between them carries the comedy (lines written for the group, not one hero). In the overworld one friend leads (the one you control and who battles) and the others follow or hang back by scene; **switch the leader at any time** (and the story sometimes splits them up on purpose).
+- **Four separate teams:** each friend has their own party and battles with it. At the start each friend takes one of the four starters, so all four lines are used in one playthrough.
+- **Shared storage:** Patchlings sent to the sanctuary are shared; any of the four can withdraw any of them.
 
 Each has a field role and one battle command (leader assist):
 
@@ -87,6 +89,13 @@ Faces and hair come from the owner's photos; outfits are game designs, one colou
 - Every creature has an entry with stages: **Sighted → Tracked → Studied → Sealed → Bonded**. Each stage unlocks lore.
 - Rare and unique creatures have **quest entries**: their page stays incomplete until the player does something tied to the world (help a faction, fix a habitat, uncover history).
 - Filling entries restores **sanctuary wings**, which unlock areas, abilities and story beats.
+
+### The Sanctuary (home base)
+- The stone entrance on the hill in Hollow Rest opens into a **huge explorable base** inside the hill: halls, wings and chambers that **unlock as the story progresses** (restored wings, quests, story beats). It's where Patchlings are stored, where the friends sleep, and where PATCH works.
+- **People and Patchlings come back:** NPCs met on the journey move in or visit (shops, quest givers, running gags), and Patchlings that live there roam its rooms. The base visibly fills up over the game.
+
+### Interiors
+- **Houses and buildings are explorable** (the friends' houses in Hollow Rest first). Interiors are full of personal detail and inside jokes (bible §11).
 - No gyms/league formula.
 
 ### Capture: the Seal
@@ -175,7 +184,7 @@ Use these as flavour in NPCs, items, signs, quests and dialogue. Spread them out
 - Whether to add more factions or towns after the slice.
 
 ## 13. Starters
-- **Four starter lines, each 3 stages. Not tied to a character: any player can pick any of them.**
+- **Four starter lines, each 3 stages. Not tied to a character:** at the start the player decides which friend takes which starter (one each).
 - Types are mapped onto our 10 (Spark = electric, Metal = steel, Plant = grass; there is no Fighting type).
 - Every stage is pitched and approved before it is drawn.
 

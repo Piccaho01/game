@@ -125,6 +125,40 @@ Save the drafts in `art/concepts/locations/` (e.g. `hollow_rest_concept.png`,
 `hollow_rest_map.png`, `hollow_rest_cottage.png`). Then Claude converts them and builds **one
 in-game test screen** for approval before anything else.
 
+## Interiors (houses, the sanctuary base)
+Same isometric camera, but a cut-away room: the floor diamond with the two back walls standing
+(left and right), no front walls, so you see inside like a dollhouse. One room per image.
+
+### Prompt I-1: room concept (one per room)
+> Isometric 2:1 pixel-art interior for a cozy creature-collecting RPG, a cut-away room seen from
+> the front corner: wooden or tiled floor, only the two back walls standing (no front walls, no
+> ceiling), golden-hour light through a window. The room is [ROOM]. Lived-in, full of small
+> personal details, nothing symmetrical, BW2-style pixel density, dark coloured outlines, warm
+> palette with rust red, cream, faded blue and gunmetal accents. No text, no characters.
+
+[ROOM] ideas:
+- **Callum's cottage:** a Scottish stone cottage's living room turned nerd den: shelves of comics
+  and boxed retro games, a CRT with an emulator running, a collection wall of pins, a Scottish
+  flag tea towel, a McDonald's bag on the table (the Triple Cheese).
+- **Dani's casa:** a bright Colombian living room: tiled floor, a hammock, a football, family
+  photos, a coffee pot on the stove, a phone charger by the door next to his shoes (he's still
+  leaving).
+- **Nolan's house:** a Burlington basement studio: a desk with a sampler and monitors, acoustic
+  foam, a couch, a window looking out at the white work van in the driveway.
+- **Haydon's shed:** a streaming room: ring light, gaming chair, a mic on an arm, a wall of LEDs,
+  a whiteboard with a list whose names are scribbled out (the [REDACTED] list), snacks.
+- **Sanctuary entrance hall:** inside a hill, ancient stone halls, roots through the ceiling,
+  dead CRT screens set in the walls with a faint blue glow, a broken storage terminal, rubble
+  blocking archways that lead deeper.
+- **PATCH's workshop:** a cave room in the sanctuary turned robot garage: spare panels, tape
+  rolls, a workbench, a charging cradle the size of a car, a whiteboard titled "FIX".
+
+### Prompt I-2: furniture/props sheet for that room (with the chosen concept attached)
+> From this interior, draw each piece of furniture and each prop separately as isometric pixel
+> art in the same style and palette, evenly spaced on a flat white background, no text, no floor
+> under them. Also draw the floor as one seamless isometric tile and each back wall as a straight
+> wall segment (left-facing and right-facing).
+
 ## Checklist for every location draft
 - Could you tell which location this is from a single screen? (landmark, scraps)
 - Is anything mirrored or in a row? Break it.
