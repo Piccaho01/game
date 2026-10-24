@@ -26,7 +26,8 @@ test('boots on a phone and Furnaxol wins the placeholder battle', async ({ page 
   page.on('pageerror', (e) => errors.push(e.message));
   await page.goto('/?seed=3&player=furnaxol&foe=sprigby');
   await page.waitForFunction(() => window.__battle?.phase() === 'menu', null, { timeout: 60_000 });
-  expect(await page.evaluate(() => window.__battle.log())).toEqual(['A wild Sprigby appeared!', 'Go! Furnaxol!', 'Bestiary: Sprigby sighted. New entry!']);
+  // Sprigby is Haydon's starter, so it's already in the bestiary: no new entry.
+  expect(await page.evaluate(() => window.__battle.log())).toEqual(['A wild Sprigby appeared!', 'Go! Furnaxol!']);
 
   for (let turn = 0; turn < 20; turn++) {
     await tap(page, 'fight');
@@ -38,13 +39,13 @@ test('boots on a phone and Furnaxol wins the placeholder battle', async ({ page 
 
   expect(await page.evaluate(() => window.__battle.outcome())).toBe('win');
   expect(await page.evaluate(() => window.__battle.log())).toContain('The wild Sprigby fainted!');
-  expect(await page.evaluate(() => window.__battle.log())).toContain('Bestiary: Sprigby is now Tracked.');
 
   // The end screen offers the next fight.
   await tap(page, 'next');
   await page.waitForFunction(() => window.__battle.log()[0] === 'A wild Zapail appeared!', null, { timeout: 60_000 });
 
-  // Progress is saved: after a reload Sprigby is already in the bestiary, so no new entry.
+  // Progress is saved: the defeat counts, and after a reload Callum's Furnaxol still leads.
+  expect(await page.evaluate(() => JSON.parse(localStorage.getItem('patchlings.save.v1')!).bestiary.sprigby.defeats)).toBe(1);
   await page.goto('/?seed=3&foe=sprigby');
   await page.waitForFunction(() => window.__battle?.phase() === 'menu', null, { timeout: 60_000 });
   expect(await page.evaluate(() => window.__battle.log())).toEqual(['A wild Sprigby appeared!', 'Go! Furnaxol!']);
@@ -103,40 +104,55 @@ test('switching: a voluntary switch, then a forced pick when the active Patchlin
   expect(errors).toEqual([]);
 });
 
-test('a new game picks a leader and a starter, then walks out into Hollow Rest', async ({ page }) => {
+test('a new game: a leader card, who takes which starter, who leads first, then out into Hollow Rest', async ({ page }) => {
   const errors: string[] = [];
   page.on('pageerror', (e) => errors.push(e.message));
+  type Ng = { step(): string; picks(): Record<string, string>; leader(): string | null; buttonAt(n: string): { x: number; y: number } | null };
   const tapNew = async (name: string) => {
-    const pt = await page.evaluate((n) => (window as unknown as { __newgame: { buttonAt(n: string): { x: number; y: number } | null } }).__newgame.buttonAt(n), name);
+    const pt = await page.evaluate((n) => (window as unknown as { __newgame: Ng }).__newgame.buttonAt(n), name);
     expect(pt, `button ${name}`).not.toBeNull();
     await page.touchscreen.tap(pt!.x, pt!.y);
+    await page.waitForTimeout(100);
   };
+  const step = () => page.evaluate(() => (window as unknown as { __newgame: Ng }).__newgame.step());
   await page.goto('/?seed=2&skipintro');
-  await page.waitForFunction(() => (window as unknown as { __newgame?: { step(): string } }).__newgame?.step() === 'leader', null, { timeout: 60_000 });
+  await page.waitForFunction(() => (window as unknown as { __newgame?: Ng }).__newgame?.step() === 'leader', null, { timeout: 60_000 });
   await tapNew('char-dani');
   await tapNew('confirm');
-  await page.waitForFunction(() => (window as unknown as { __newgame: { step(): string } }).__newgame.step() === 'starter');
-  await tapNew('starter-gobbin');
+  expect(await step()).toBe('starters');
+  const picks = () => page.evaluate(() => (window as unknown as { __newgame: Ng }).__newgame.picks());
+  expect(await picks()).toEqual({ haydon: 'sprigby', dani: 'gobbin', callum: 'furnaxol', nolan: 'zapail' });
+  // Dani takes Furnaxol; Callum gets Dani's Gobbin. A friend tapped with no starter picked does nothing.
+  await tapNew('friend-nolan');
+  await tapNew('starter-furnaxol');
+  await tapNew('friend-dani');
+  expect(await picks()).toEqual({ haydon: 'sprigby', dani: 'furnaxol', callum: 'gobbin', nolan: 'zapail' });
+  await tapNew('confirm');
+  expect(await step()).toBe('lead');
+  expect(await page.evaluate(() => (window as unknown as { __newgame: Ng }).__newgame.leader())).toBe('dani');
+  await tapNew('lead-haydon');
   await tapNew('confirm');
   await page.waitForFunction(() => (window as unknown as { __overworld?: { ready(): boolean } }).__overworld?.ready(), null, { timeout: 60_000 });
   const save = await page.evaluate(() => JSON.parse(localStorage.getItem('patchlings.save.v1')!));
-  expect(save.leader).toBe('dani');
-  expect(save.team[0].species).toBe('gobbin');
+  expect(save.version).toBe(3);
+  expect(save.leader).toBe('haydon');
+  expect(Object.fromEntries(Object.entries(save.teams as Record<string, { species: string }[]>).map(([c, t]) => [c, t.map((m) => m.species)])))
+    .toEqual({ callum: ['gobbin'], nolan: ['zapail'], haydon: ['sprigby'], dani: ['furnaxol'] });
   expect(errors).toEqual([]);
 });
 
 test("the leader's assist is free and once per battle (Callum's Scan)", async ({ page }) => {
   const errors: string[] = [];
   page.on('pageerror', (e) => errors.push(e.message));
-  await page.goto('/?seed=6&foe=gobbin&player=sprigby');
+  await page.goto('/?seed=6&foe=orbitot&player=sprigby');
   await page.waitForFunction(() => window.__battle?.phase() === 'menu', null, { timeout: 60_000 });
   await tap(page, 'assist');
   await page.waitForFunction(() => window.__battle.phase() === 'menu', null, { timeout: 30_000 });
   const log = await page.evaluate(() => window.__battle.log());
-  expect(log).toContain('Callum scanned the wild Gobbin!');
-  expect(log).toContain('Weak to: Plant, Spark.');
-  expect(log).toContain('Bestiary: Gobbin is now Studied.');
-  expect(log.some((l) => l.startsWith('The wild Gobbin used'))).toBe(false);
+  expect(log).toContain('Callum scanned the wild Orbitot!');
+  expect(log.some((l) => l.startsWith('Weak to: '))).toBe(true);
+  expect(log).toContain('Bestiary: Orbitot is now Studied.');
+  expect(log.some((l) => l.startsWith('The wild Orbitot used'))).toBe(false);
   // Used up: the button no longer answers.
   await tap(page, 'assist');
   await page.waitForTimeout(500);

@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import { SCREEN_H, SCREEN_W, ZOOM } from '../config';
 import { SPECIES, TYPES } from '../engine/data';
-import { loreOf, sanctuaryPoints, stageOf, STAGES, TEAM_SIZE, type Progress, type Stage } from '../engine/progress';
+import { CHARACTERS, leaderTeam, loreOf, sanctuaryPoints, SQUAD, stageOf, STAGES, TEAM_SIZE, type CharacterId, type Progress, type Stage } from '../engine/progress';
 import type { Bond } from '../engine/seal';
 import { saveProgress } from '../save';
 import { button, buttonPagePoint, chip, emptySlot, hinge, menuBackdrop, panel, screenBackdrop, tapeLabel } from '../ui/kit';
@@ -16,7 +16,7 @@ const DEX_PER_PAGE = 12;
 const STAGE_NAMES: Record<Stage, string> = { sighted: 'Sighted', tracked: 'Tracked', studied: 'Studied', sealed: 'Sealed', bonded: 'Bonded' };
 const BOND_NAMES: Record<Bond, string> = { strong: 'Strong bond', steady: 'Steady bond', wary: 'Wary' };
 
-/** The team and the bestiary. Top screen: the selected Patchling; bottom screen: the lists. */
+/** The four teams and the bestiary. Top screen: the selected Patchling; bottom screen: the lists. */
 export class JournalScene extends Phaser.Scene {
   private progress!: Progress;
   private foe = 'sprigby';
@@ -24,6 +24,8 @@ export class JournalScene extends Phaser.Scene {
   private top!: Phaser.GameObjects.Container;
   private bottom!: Phaser.GameObjects.Container;
   private selected: string | number | null = null;
+  /** Whose team the TEAM tab shows (the leader's first). */
+  private viewing: CharacterId = 'callum';
   private loreIndex = 0;
   private dexPage = 0;
 
@@ -42,6 +44,7 @@ export class JournalScene extends Phaser.Scene {
   create() {
     this.cameras.main.setOrigin(0, 0).setZoom(ZOOM).setRoundPixels(true);
     this.progress = this.registry.get('progress') as Progress;
+    this.viewing = this.progress.leader;
     menuBackdrop(this);
     panel(this, 6, 8, SCREEN_W - 12, SCREEN_H - 19, 'paper');
     screenBackdrop(this, BOTTOM);
@@ -51,7 +54,8 @@ export class JournalScene extends Phaser.Scene {
     this.render();
     (window as unknown as Record<string, unknown>).__journal = {
       tab: () => this.tab,
-      team: () => this.progress.team.map((m) => m.species),
+      team: () => leaderTeam(this.progress).map((m) => m.species),
+      viewing: () => this.viewing,
       buttonAt: (name: string) => buttonPagePoint(this, this.bottom, name),
     };
   }
@@ -69,24 +73,31 @@ export class JournalScene extends Phaser.Scene {
 
   private renderTeam() {
     const p = this.progress;
+    // Whose team: one tab per friend, the leader marked.
+    SQUAD.forEach((c, i) => {
+      const ch = CHARACTERS[c];
+      this.bottom.add(button(this, 35 + i * 62, 42, 58, 16, c === p.leader ? `${ch.name}*` : ch.name, this.viewing === c ? shade(hexToNum(ch.color), -0.25) : TONES.neutral,
+        () => { this.viewing = c; this.selected = null; this.render(); }, { size: TEXT_SIZE.small, name: `team-${c}`, selected: this.viewing === c }));
+    });
+    const team = p.teams[this.viewing];
     for (let i = 0; i < TEAM_SIZE; i++) {
-      const m = p.team[i];
+      const m = team[i];
       const x = 66 + (i % 2) * 124;
-      const y = 50 + Math.floor(i / 2) * 36;
+      const y = 70 + Math.floor(i / 2) * 29;
       if (!m) {
-        this.bottom.add(emptySlot(this, x, y, 118, 30));
+        this.bottom.add(emptySlot(this, x, y, 118, 24));
         continue;
       }
       const color = shade(hexToNum(TYPES[SPECIES[m.species].types[0]].color), -0.3);
-      this.bottom.add(button(this, x, y, 118, 30, `${SPECIES[m.species].name} Lv${m.level}`, color,
+      this.bottom.add(button(this, x, y, 118, 24, `${SPECIES[m.species].name} Lv${m.level}`, color,
         () => { this.selected = m.uid; this.render(); }, { sub: i === 0 ? 'LEAD' : BOND_NAMES[m.bond], name: `member${i}`, selected: this.selected === m.uid }));
     }
     this.bottom.add(pixelText(this, 128, 154, `Sanctuary: ${p.sanctuary.length} Patchling${p.sanctuary.length === 1 ? '' : 's'}  ${sanctuaryPoints(p)} pts`, { color: TEXT_COLORS.dim, size: TEXT_SIZE.small }).setOrigin(0.5));
-    const sel = p.team.findIndex((m) => m.uid === this.selected);
+    const sel = team.findIndex((m) => m.uid === this.selected);
     if (sel > 0) {
       this.bottom.add(button(this, 190, 172, 120, 28, 'MAKE LEAD', TONES.go, () => {
-        const [m] = p.team.splice(sel, 1);
-        p.team.unshift(m);
+        const [m] = team.splice(sel, 1);
+        team.unshift(m);
         saveProgress(p);
         this.render();
       }, { name: 'lead' }));
@@ -115,9 +126,10 @@ export class JournalScene extends Phaser.Scene {
 
   private renderTop() {
     this.top.removeAll(true);
-    this.top.add(tapeLabel(this, 14, 2, this.tab === 'team' ? 'TEAM' : 'BESTIARY'));
+    this.top.add(tapeLabel(this, 14, 2, this.tab === 'team' ? `${CHARACTERS[this.viewing].name.toUpperCase()}'S TEAM` : 'BESTIARY'));
+    const member = typeof this.selected === 'number' ? this.progress.teams[this.viewing].find((m) => m.uid === this.selected) : undefined;
     const species = typeof this.selected === 'number'
-      ? this.progress.team.find((m) => m.uid === this.selected)?.species
+      ? member?.species
       : this.selected ?? undefined;
     if (!species) {
       const hint = this.tab === 'team' ? 'Tap a Patchling.' : 'Tap an entry to read it.\nTap again for the next page.';
@@ -136,7 +148,6 @@ export class JournalScene extends Phaser.Scene {
     this.top.add(pixelText(this, 100, 18, seen ? sp.name : '???', { size: TEXT_SIZE.heading }));
     this.top.add(pixelText(this, 100, 33, `#${String(sp.dex).padStart(3, '0')}`, { color: TEXT_COLORS.inkSoft, size: TEXT_SIZE.small }));
     if (seen) sp.types.forEach((t, i) => this.top.add(chip(this, 132 + i * 38, 32, TYPES[t].name, shade(hexToNum(TYPES[t].color), -0.2))));
-    const member = typeof this.selected === 'number' ? this.progress.team.find((m) => m.uid === this.selected) : undefined;
     if (member) this.top.add(pixelText(this, 100, 46, `Lv${member.level}  ${BOND_NAMES[member.bond]}`, { color: TEXT_COLORS.rust, size: TEXT_SIZE.small }));
     const lore = loreOf(this.progress, species);
     if (lore.length) {

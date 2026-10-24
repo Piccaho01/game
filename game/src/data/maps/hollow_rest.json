@@ -72,42 +72,6 @@
       "heal": true
     },
     {
-      "id": "nolan",
-      "x": 3,
-      "y": 4,
-      "dir": "down",
-      "sprite": "walk:nolan",
-      "talk": "friend_nolan",
-      "friend": "nolan"
-    },
-    {
-      "id": "haydon",
-      "x": 7,
-      "y": 4,
-      "dir": "left",
-      "sprite": "walk:haydon",
-      "talk": "friend_haydon",
-      "friend": "haydon"
-    },
-    {
-      "id": "dani",
-      "x": 5,
-      "y": 6,
-      "dir": "up",
-      "sprite": "walk:dani",
-      "talk": "friend_dani",
-      "friend": "dani"
-    },
-    {
-      "id": "callum",
-      "x": 3,
-      "y": 3,
-      "dir": "right",
-      "sprite": "walk:callum",
-      "talk": "friend_callum",
-      "friend": "callum"
-    },
-    {
       "id": "elder",
       "x": 10,
       "y": 6,

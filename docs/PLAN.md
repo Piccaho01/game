@@ -228,7 +228,7 @@ neighbour and pond kid are placeholders).
   and supplied the asteroid and jet-bird ideas, so offer bold concepts.
 - **Game code:** `game/` (Phaser 3 + TypeScript). Data in `game/src/data/*.json`; engine (pure,
   unit-tested) in `game/src/engine/`; scenes in `game/src/scenes/`. Saves in localStorage
-  (`game/src/save.ts`, version 2). Test URL params: `?reset`, `?player=<starter>` (skip the pick),
+  (`game/src/save.ts`, version 3: a team per friend). Test URL params: `?reset`, `?player=<starter>` (skip the pick),
   `?foe=`, `?seed=`. E2E hooks: `window.__battle`, `__newgame`, `__journal`.
 - **Checks before every push:** `npm test`, `npm run build`, `npx playwright test` (phone
   viewport) in `game/`. Screenshot new screens at 390x844 and look at them: `e2e/screens.spec.ts`
@@ -243,7 +243,14 @@ sanctuary as a big explorable base that unlocks with the story; recurring NPCs a
 explorable houses. Built in three parallel tracks, one fresh session each, each on its own branch
 and PR (owner approves visuals before they go in):
 
-- **Track A: Squad (code).** Save v3: `teams` per friend (replaces `team`), shared `sanctuary`
+- **Track A: Squad (code)** (built, branch `claude/m4b-squad`, awaiting the owner's look at the
+  screens): save v3 (`teams`, shared `sanctuary`, `leader`; v1/v2 saves migrate on load), new game
+  = leader cards → "who takes which" (tap a starter, then a friend) → who leads first; the three
+  follow in a line (`lineUp`/`followStep` in `engine/overworld.ts`), SWITCH (or Tab) cycles the
+  leader; sanctuary STORAGE tab (deposit/withdraw with the leader's team); Journal tabs per
+  friend. The four friend NPCs left the map (they follow now; `friend_*` lines in
+  `dialogue.json` are free for Track B). All four starters start bonded (20 points), so every
+  wing's cost went up by 20 to keep the same effort. Original brief: Save v3: `teams` per friend (replaces `team`), shared `sanctuary`
   storage any friend can withdraw from, `leader` switchable. New game: "who takes which starter"
   (one each), then who leads. Overworld: the other three follow the leader in a line (walk sheets
   exist for all four); a SWITCH button on the touch screen swaps the leader (the leader's team

@@ -43,14 +43,24 @@ test('screens', async ({ page }) => {
   await tapOn(page, '__newgame', 'char-callum');
   await shot(page, '02-newgame-leader');
   await tapOn(page, '__newgame', 'confirm');
-  await tapOn(page, '__newgame', 'starter-furnaxol');
-  await shot(page, '03-newgame-starter');
+  await page.waitForTimeout(300);
+  await shot(page, '03a-newgame-starters');
+  await tapOn(page, '__newgame', 'starter-gobbin');
+  await page.waitForTimeout(200);
+  await shot(page, '03b-newgame-starter-picked');
+  await tapOn(page, '__newgame', 'friend-callum');
+  await tapOn(page, '__newgame', 'confirm');
+  await page.waitForTimeout(300);
+  await shot(page, '03c-newgame-lead');
   await tapOn(page, '__newgame', 'confirm');
 
   // Overworld: Hollow Rest by the crater, up at the sanctuary, and the town sign by the edge.
   await ready(page);
   await page.waitForTimeout(400);
   await shot(page, '04-overworld');
+  await walkTo(page, 8, 9);
+  await page.waitForTimeout(300);
+  await shot(page, '04a-overworld-squad');
   await walkTo(page, 6, 6);
   await page.waitForTimeout(300);
   await shot(page, '04b-overworld-sanctuary');
@@ -82,6 +92,9 @@ test('screens', async ({ page }) => {
   await page.waitForTimeout(200);
   await tapOn(page, '__journal', 'member0');
   await shot(page, '10-journal-team');
+  await tapOn(page, '__journal', 'team-dani');
+  await page.waitForTimeout(200);
+  await shot(page, '10b-journal-team-dani');
   await tapOn(page, '__journal', 'tab-bestiary');
   await tapOn(page, '__journal', 'dex-next');
   await tapOn(page, '__journal', 'dex-fledjet');
