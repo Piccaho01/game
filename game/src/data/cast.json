@@ -40,6 +40,16 @@
         "y": 17,
         "dir": "right"
       }
+    },
+    "tally_clerk": {
+      "sprite": "placeholder:#5a6070",
+      "talk": "tally_clerk",
+      "home": {
+        "map": "route1",
+        "x": 7,
+        "y": 6,
+        "dir": "right"
+      }
     }
   }
 }

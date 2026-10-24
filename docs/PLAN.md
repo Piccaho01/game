@@ -263,6 +263,30 @@ and PR (owner approves visuals before they go in):
   Art asks for the owner: interior concept + set-piece sheets per house and for the sanctuary
   halls (prompts in `art/LOCATION_STYLE.md`).
 
+### Track C status (branch `claude/m4b-world`)
+- **Interiors engine (built):** a map with `interior` (floor, wall, windows, arches) bakes as a
+  cut-away room (`art/tools/iso_room.py` via `iso_map.py`): floor, two back walls, arches where a
+  warp leaves through a wall, a mat at the open front. Objects get `enter` (walk into the building
+  from its door tile = its room's spawn), `text` (read from any side; per placement too), `heal`.
+  Warps may sit just past a map's edge (walk into an arch or out of the open front) and carry a
+  facing. Layouts and checks: `art/tools/interiors_layout.py` (rebuild, then `iso_map.py <id>`).
+- **Rooms:** Callum's cottage, Dani's casa, Nolan's basement, Haydon's shed, each with its inside
+  jokes in the furniture text. **Placeholder art** (code-drawn floors, walls, furniture boxes)
+  until the owner's interior drafts (LOCATION_STYLE prompts I-1/I-2) are in.
+- **Sanctuary base:** the stone entrance on the hill enters the hall (storage terminal = the
+  SanctuaryScene, four bedrolls that heal, CRT stones); PATCH's workshop through the left arch
+  (cradle, workbench, FIX whiteboard); Root Hall behind rubble that clears once the wing is
+  restored; the Tide Gallery arch stays blocked. Gating: placed objects and NPCs take `when` /
+  `unless` / `until` flags, `'wing:<id>'` or a story flag (`Progress.flags`, `flagsOf`).
+- **Recurring cast:** `data/cast.json`: home spot + visits by flag (the old keeper moves into the
+  hall once Root Hall is restored; the Tally clerk at the salvage booth). Townsfolk moved here.
+- **Route 1 (built, art from the owner's drafts):** `art/tools/route1_kit.py` cuts the pieces
+  sheet; `route1_layout.py` lays it out after the concept (cliff stairs up to Hollow Rest, the
+  Tally salvage booth, two meteor craters, a stream with the bridge and a waterfall off the edge,
+  60 reachable tall grass tiles on both sides) and checks it; maps can name their own `kit`.
+- Left: the owner's interior drafts, then convert them and swap the placeholders; Patchlings
+  roaming the base; PATCH inside the workshop once the story moves him (Track B).
+
 ## M5 Playtest build
 - Bug pass on phones (iOS Safari, Android Chrome), balance pass, the link shared with the
   group, one round of fixes from their feedback.

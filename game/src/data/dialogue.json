@@ -77,6 +77,19 @@
       ]
     }
   },
+  "tally_clerk": {
+    "lines": [
+      { "who": "Tally clerk", "text": "Meteorite salvage needs a licence. Form 7B. The office opens next week." },
+      { "who": "Tally clerk", "text": "Actually, the week after. The Director has rain-checked the week." }
+    ],
+    "byLeader": {
+      "haydon": [
+        { "who": "Haydon", "text": "A licence to pick up rocks? Nah that's cap." },
+        { "who": "Tally clerk", "text": "It's not cap. It's Form 7B. The Director signs them when he gets in." },
+        { "who": "Tally clerk", "text": "He has never got in." }
+      ]
+    }
+  },
   "pond_kid": {
     "lines": [
       { "who": "Kid", "text": "A rock fell out of the sky and now it follows me home." },
