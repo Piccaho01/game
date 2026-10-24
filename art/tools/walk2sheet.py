@@ -140,9 +140,66 @@ def convert(name, cfg, height, k, diag=False):
     print('wrote', path)
 
 
+PX_CELL = (24, 40)
+
+
+def native(sheet, box):
+    """A frame drawn as real pixel art (blocky, ~6 screen px per game pixel): its grid recovered and
+    each block read as one pixel (median colour; clear if mostly background). No resizing."""
+    from pixel2grid import fit_axis
+    rgba = sheet_cut.cutout(sheet, tuple(box))
+    ys, xs = np.where(rgba[..., 3] > 0)
+    rgba = rgba[max(0, ys.min() - 3):ys.max() + 4, max(0, xs.min() - 3):xs.max() + 4]
+    rgb = rgba[..., :3].astype(int).copy()
+    rgb[rgba[..., 3] == 0] = 255
+    px, phx = fit_axis(rgb, 1, 5.6, 7.4)
+    py, phy = fit_axis(rgb, 0, 5.6, 7.4)
+    nx, ny = int((rgb.shape[1] - phx) / px), int((rgb.shape[0] - phy) / py)
+    out = np.zeros((ny, nx, 4), float)
+    for j in range(ny):
+        for i in range(nx):
+            x0, x1 = int(phx + px * i + px * 0.25), int(phx + px * (i + 1) - px * 0.25)
+            y0, y1 = int(phy + py * j + py * 0.25), int(phy + py * (j + 1) - py * 0.25)
+            cell = rgba[y0:max(y1, y0 + 1), x0:max(x1, x0 + 1)].reshape(-1, 4)
+            fg = cell[cell[:, 3] > 0]
+            if len(fg) * 2 >= len(cell):
+                out[j, i, :3] = np.median(fg[:, :3], 0); out[j, i, 3] = 255
+    ys, xs = np.where(out[..., 3] > 0)
+    return out[ys.min():ys.max() + 1, xs.min():xs.max() + 1]
+
+
+def convert_pixel(name, cfg, k):
+    """The owner's pixel-art walk sheet ('pixel'): rows 0 (toward the viewer, facing down-left) and 3
+    (away, facing up-left), rows 1-2 copies of row 0; 24x40 cells. Written as <name>_walk_px.png."""
+    pc = cfg['pixel']
+    path = os.path.join(ROOT, 'concepts', pc['sheet'])
+    boxes = sheet_cut.pieces(path, step=2, gap=1, min_area=800, white=240)
+    sheet = Image.open(path).convert('RGB')
+    frames = {d: [native(sheet, boxes[i]) for i in pc[d]] for d in ('down', 'up')}
+    fg = np.concatenate([f[f[..., 3] > 0][:, :3] for fs in frames.values() for f in fs])
+    pal = kmeans(fg, min(k, len(np.unique(fg, axis=0))))
+    cw, ch = PX_CELL
+    out = Image.new('RGBA', (cw * 3, ch * 4), (0, 0, 0, 0))
+    for row, d in enumerate(['down', 'down', 'down', 'up']):
+        for col, f in enumerate(frames[d]):
+            lab = np.argmin(((f[..., None, :3] - pal[None, None]) ** 2).sum(3), 2)
+            lab[f[..., 3] == 0] = -1
+            g = clean(lab, pal)
+            h, w = g.shape
+            ox, oy = col * cw + (cw - w) // 2, row * ch + ch - h
+            for y in range(h):
+                for x in range(w):
+                    if g[y, x] >= 0 and 0 <= ox + x < (col + 1) * cw and oy + y >= row * ch:
+                        out.putpixel((ox + x, oy + y), (*(int(v) for v in pal[g[y, x]]), 255))
+    p = os.path.join(ROOT, 'trainers', 'out', f'{name}_walk_px.png')
+    out.save(p)
+    print('wrote', p, 'frame', frames['down'][0].shape[:2])
+
+
 if __name__ == '__main__':
     conf = json.load(open(os.path.join(ROOT, 'trainers', 'walk_frames.json')))
     for name in sys.argv[1:] or conf['sheets']:
         c = conf['sheets'][name]
         if 'down' in c: convert(name, c, conf['height'], conf['colours'])
         if 'diag' in c: convert(name, c, conf['height'], conf['colours'], diag=True)
+        if 'pixel' in c: convert_pixel(name, c, 16)
