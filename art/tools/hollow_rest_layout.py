@@ -90,7 +90,7 @@ obj('chalk', -2, 30)
 obj('cat', -4, 31)
 obj('bench', 4, 28)
 obj('crates', 14, 26)
-obj('mailbox', 4, 17)
+obj('mailbox', 5, 17)
 obj('pots', -2, 17)
 obj('pots', -3, 19)
 obj('rock', 14, 22)
@@ -204,6 +204,10 @@ for o in objects:
     if d.get('opens'): need[o['kind'] + ' front'] = (o['x'] + d['wx'] // 2, o['y'] + d['wy'])
 missing = {k: v for k, v in need.items() if v not in R}
 assert not missing, f'not reachable from the spawn: {missing}'
+# people stand on open ground (placed by hand in the map file): never under a prop, a tree or a bush
+covered = [n['id'] for n in json.load(open(MAP))['npcs'] if not walkable(n['x'], n['y'])]
+assert not covered, f'NPCs standing on something solid: {covered}'
+
 
 rows = [''.join(r) for r in K]
 heights = [''.join(str(z) for z in r) for r in Z]

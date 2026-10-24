@@ -12,11 +12,14 @@ character:
 Writes art/trainers/out/<name>_walk.png.
 
 Usage: python3 art/tools/walk2sheet.py [name ...]
+Also writes <name>_walk_diag.png from the isometric walk drafts, for review.
 """
 import json, os, sys
 from collections import Counter
 import numpy as np
-from PIL import Image, ImageDraw
+from PIL import Image
+sys.path.insert(0, os.path.dirname(__file__))
+import sheet_cut  # noqa: E402
 
 ROOT = os.path.join(os.path.dirname(__file__), '..')
 CELL_W, CELL_H = 24, 32
@@ -40,15 +43,13 @@ def kmeans(px, k, it=20, seed=1):
 
 
 def cutout(sheet, box):
-    im = sheet.crop(tuple(box))
-    a = np.asarray(im).astype(float)
-    light = a.sum(2) > 3 * 225
-    m = Image.fromarray(np.where(light, 255, 0).astype(np.uint8)).copy()
-    for seed in ((0, 0), (m.width - 1, 0), (0, m.height - 1), (m.width - 1, m.height - 1)):
-        if m.getpixel(seed) == 255:
-            ImageDraw.floodfill(m, seed, 128)
-    bg = np.asarray(m) == 128
+    """The frame's pixels and background mask, cropped to the figure. Background: white connected
+    to the frame's edge plus enclosed white pockets (between an arm and the body), and the pale
+    fringe round the outline, so no flecks of the sheet's white survive the shrink."""
+    rgba = sheet_cut.cutout(sheet, tuple(box))
+    bg = rgba[..., 3] == 0
     ys, xs = np.where(~bg)
+    a = rgba[..., :3].astype(float)
     return a[ys.min():ys.max() + 1, xs.min():xs.max() + 1], bg[ys.min():ys.max() + 1, xs.min():xs.max() + 1]
 
 
@@ -101,9 +102,21 @@ def clean(g, pal):
     return out
 
 
-def convert(name, cfg, height, k):
-    sheet = Image.open(os.path.join(ROOT, 'concepts', 'trainers', f'{name}.png')).convert('RGB')
-    frames = {d: [cutout(sheet, b) for b in boxes] for d, boxes in cfg.items()}
+def convert(name, cfg, height, k, diag=False):
+    """Rows: 0 walking toward the viewer, 1-2 to the side, 3 walking away (the isometric game uses
+    rows 0 and 3, mirrored for the other diagonals). From the character sheet's straight views, or
+    with diag=True from the owner's isometric walk sheet ('diag': 3/4 views facing down-left and
+    up-left), written as <name>_walk_diag.png for review (the game doesn't load it)."""
+    if diag:
+        dg = cfg['diag']
+        path = os.path.join(ROOT, 'concepts', dg['sheet'])
+        boxes = sheet_cut.pieces(path, step=2, gap=1, min_area=800, white=240)
+        sheet = Image.open(path).convert('RGB')
+        frames = {d: [cutout(sheet, boxes[i]) for i in dg[d]] for d in ('down', 'up')}
+        frames['left'] = frames['down']
+    else:
+        sheet = Image.open(os.path.join(ROOT, 'concepts', 'trainers', f'{name}.png')).convert('RGB')
+        frames = {d: [cutout(sheet, b) for b in boxes] for d, boxes in cfg.items() if d in DIRS}
     fg = np.concatenate([a[~bg] for fs in frames.values() for a, bg in fs])
     pal = kmeans(fg[np.random.default_rng(0).choice(len(fg), min(len(fg), 30000), replace=False)], k)
     out = Image.new('RGBA', (CELL_W * 3, CELL_H * 4), (0, 0, 0, 0))
@@ -122,7 +135,7 @@ def convert(name, cfg, height, k):
                     if g[y, x] >= 0 and 0 <= ox + x < (col + 1) * CELL_W:
                         r, gg, b = (int(v) for v in pal[g[y, x]])
                         out.putpixel((ox + x, oy + y), (r, gg, b, 255))
-    path = os.path.join(ROOT, 'trainers', 'out', f'{name}_walk.png')
+    path = os.path.join(ROOT, 'trainers', 'out', f'{name}_walk{"_diag" if diag else ""}.png')
     out.save(path)
     print('wrote', path)
 
@@ -130,4 +143,6 @@ def convert(name, cfg, height, k):
 if __name__ == '__main__':
     conf = json.load(open(os.path.join(ROOT, 'trainers', 'walk_frames.json')))
     for name in sys.argv[1:] or conf['sheets']:
-        convert(name, conf['sheets'][name], conf['height'], conf['colours'])
+        c = conf['sheets'][name]
+        if 'down' in c: convert(name, c, conf['height'], conf['colours'])
+        if 'diag' in c: convert(name, c, conf['height'], conf['colours'], diag=True)

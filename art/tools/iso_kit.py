@@ -24,7 +24,7 @@ from PIL import Image
 
 HERE = os.path.dirname(__file__)
 sys.path.insert(0, HERE)
-from sheet_cut import pieces  # noqa: E402
+from sheet_cut import pieces, cutout  # noqa: E402
 from walk2sheet import kmeans  # noqa: E402
 
 ROOT = os.path.join(HERE, '..')
@@ -44,39 +44,6 @@ PROPS = {
     'mailbox': (18, ('h', 20), 12), 'pot_0': (19, ('w', 11), 10), 'pot_1': (20, ('w', 11), 10),
     'pot_2': (21, ('w', 11), 10), 'cat': (22, ('w', 12), 10),
 }
-
-
-def cutout(path, box, white=238, hole=60):
-    """The piece's pixels with the white background made clear: near-white connected to the box
-    edge, plus enclosed near-white patches bigger than `hole` pixels (gaps between fence rails,
-    sky through branches); small ones (daisies) stay."""
-    im = Image.open(path).convert('RGB').crop(box)
-    a = np.asarray(im).astype(int)
-    light = a.min(2) > white
-    h, w = light.shape
-    bg = np.zeros_like(light)
-    seen = np.zeros_like(light)
-    for y0 in range(h):
-        for x0 in range(w):
-            if not light[y0, x0] or seen[y0, x0]: continue
-            stack, comp, edge = [(y0, x0)], [], False
-            seen[y0, x0] = True
-            while stack:
-                y, x = stack.pop(); comp.append((y, x))
-                if y in (0, h - 1) or x in (0, w - 1): edge = True
-                for ny, nx in ((y - 1, x), (y + 1, x), (y, x - 1), (y, x + 1)):
-                    if 0 <= ny < h and 0 <= nx < w and light[ny, nx] and not seen[ny, nx]:
-                        seen[ny, nx] = True; stack.append((ny, nx))
-            if edge or len(comp) > hole:
-                ys, xs = zip(*comp); bg[list(ys), list(xs)] = True
-    # the light fringe round the edge (anti-aliasing into the white) goes too
-    pale = a.min(2) > 190
-    for _ in range(3):
-        near = np.zeros_like(bg)
-        near[1:] |= bg[:-1]; near[:-1] |= bg[1:]; near[:, 1:] |= bg[:, :-1]; near[:, :-1] |= bg[:, 1:]
-        bg |= near & pale
-    alpha = np.where(bg, 0, 255).astype(np.uint8)
-    return np.dstack([a.astype(np.uint8), alpha])
 
 
 def shrink(rgba, size):
