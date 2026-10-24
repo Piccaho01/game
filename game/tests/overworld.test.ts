@@ -14,7 +14,8 @@ describe('maps', () => {
         // a warp just past the edge (a room's archway or open front) is walked into, not stood on
         const offMap = w.x < 0 || w.y < 0 || w.x >= map.width || w.y >= map.height;
         if (!offMap) expect(isBlocked(map, w.x, w.y), `${map.id} warp tile`).toBe(false);
-        expect(isBlocked(MAPS[w.to], w.tx, w.ty), `${map.id} -> ${w.to} landing`).toBe(false);
+        // (with every wing restored: you only come back from behind the rubble once it's gone)
+        expect(isBlocked(MAPS[w.to], w.tx, w.ty, () => true), `${map.id} -> ${w.to} landing`).toBe(false);
       }
     }
   });
