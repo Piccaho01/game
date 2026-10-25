@@ -32,7 +32,7 @@ test('walk Hollow Rest with the D-pad and keys, off the island to Route 1, into 
   // Down the path to a patch of tall grass, then a step into it (from its left).
   type P = { pathTo(x: number, y: number): string[] | null; setRate(r: number | null): void };
   let target: [number, number] | null = null;
-  for (const [x, y] of [[13, 11], [12, 15], [3, 4], [11, 16]] as const) {
+  for (const [x, y] of [[14, 11], [13, 15], [4, 4], [12, 16]] as const) {
     const near = await page.evaluate(([tx, ty]) => (window as unknown as { __overworld: P }).__overworld.pathTo(tx, ty), [x - 1, y] as const);
     if (near) { target = [x, y]; break; }
   }
