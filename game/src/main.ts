@@ -1,4 +1,5 @@
 import '@fontsource/press-start-2p/400.css';
+import '@fontsource/pixelify-sans/500.css';
 import Phaser from 'phaser';
 import { SCREEN_W, VIEW_H, ZOOM } from './config';
 import { BootScene } from './scenes/BootScene';
@@ -13,7 +14,7 @@ import { unlockAudio } from './ui/sfx';
 async function start() {
   unlockAudio();
   // Text is drawn to textures, so the pixel font must be ready before the first scene.
-  await document.fonts.load('8px "Press Start 2P"').catch(() => undefined);
+  await Promise.all([document.fonts.load('8px "Press Start 2P"'), document.fonts.load('12px "Pixelify Sans"')]).catch(() => undefined);
   const game = new Phaser.Game({
     type: Phaser.AUTO,
     parent: 'game',

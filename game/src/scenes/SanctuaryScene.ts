@@ -5,7 +5,7 @@ import { CHARACTERS, deposit, leaderTeam, sanctuaryPoints, TEAM_SIZE, withdraw, 
 import { restoreWing, wingState, WINGS, type WingState } from '../engine/sanctuary';
 import { saveProgress } from '../save';
 import { DialogBox } from '../ui/dialog';
-import { button, buttonPagePoint, chip, emptySlot, hinge, menuBackdrop, Meter, panel, patchPortrait, screenBackdrop, tapeLabel } from '../ui/kit';
+import { button, buttonPagePoint, chip, emptySlot, hinge, listRow, monIcon, tabs, menuBackdrop, Meter, panel, patchPortrait, screenBackdrop, tapeLabel } from '../ui/kit';
 import { pixelText } from '../ui/text';
 import { COLORS, hexToNum, shade, TEXT_COLORS, TEXT_SIZE, TONES } from '../ui/theme';
 import { frontKey, idleAnimKey } from './BootScene';
@@ -46,6 +46,8 @@ export class SanctuaryScene extends Phaser.Scene {
 
   create() {
     this.cameras.main.setOrigin(0, 0).setZoom(ZOOM).setRoundPixels(true);
+    // Every screen eases in.
+    this.cameras.main.fadeIn(180, 16, 16, 24);
     this.progress = this.registry.get('progress') as Progress;
     this.busy = false;
     this.selected = (WINGS.find((w) => wingState(this.progress, w.id) !== 'restored') ?? WINGS[WINGS.length - 1]).id;
@@ -75,9 +77,8 @@ export class SanctuaryScene extends Phaser.Scene {
 
   private renderBottom() {
     this.bottom.removeAll(true);
-    const tabBtn = (x: number, t: Tab, label: string) =>
-      button(this, x, 14, 120, 20, label, this.tab === t ? TONES.patch : TONES.neutral, () => { this.tab = t; this.picked = null; this.render(); }, { name: `tab-${t}`, selected: this.tab === t });
-    this.bottom.add([tabBtn(66, 'wings', 'WINGS'), tabBtn(190, 'storage', 'STORAGE')]);
+    this.bottom.add(tabs<Tab>(this, 128, 14, 240, [{ id: 'wings', label: 'WINGS' }, { id: 'storage', label: 'STORAGE' }],
+      this.tab, (t) => { this.tab = t; this.picked = null; this.render(); }, TONES.patch));
     this.bottom.add(button(this, 66, 172, 120, 28, 'BACK', TONES.neutral, () => this.scene.start('overworld'), { name: 'back' }));
     if (this.tab === 'wings') this.renderWings();
     else this.renderStorage();
@@ -90,8 +91,11 @@ export class SanctuaryScene extends Phaser.Scene {
       const state = wingState(this.progress, w.id);
       const sub = state === 'restored' ? 'RESTORED' : state === 'ready' ? 'READY TO RESTORE' : `${Math.min(pts, w.points)}/${w.points} pts`;
       const color = state === 'restored' ? COLORS.go : state === 'ready' ? TONES.patch : COLORS.metalLight;
-      this.bottom.add(button(this, 128, 60 + i * 32, 232, 26, w.name, color, () => { this.selected = w.id; this.render(); },
-        { sub, name: `wing-${w.id}`, selected: this.selected === w.id }));
+      this.bottom.add(listRow(this, 128, 60 + i * 32, 236, 28, {
+        title: w.name, sub, color, icon: { text: ['I', 'II', 'III', 'IV', 'V'][i] ?? String(i + 1) },
+        meter: { frac: state === 'restored' ? 1 : Math.min(1, pts / w.points), color: state === 'locked' ? 0xa6d8ff : 0x7effc8 },
+        onTap: () => { this.selected = w.id; this.render(); }, name: `wing-${w.id}`, selected: this.selected === w.id,
+      }));
     });
     if (wingState(this.progress, this.selected) === 'ready') {
       this.bottom.add(button(this, 190, 172, 120, 28, 'RESTORE', TONES.go, () => void this.restore(), { name: 'restore' }));
@@ -107,9 +111,11 @@ export class SanctuaryScene extends Phaser.Scene {
     const head = { color: TEXT_COLORS.dim, size: TEXT_SIZE.small };
     this.bottom.add(pixelText(this, 66, 30, `${CHARACTERS[p.leader].name}'s team`, head).setOrigin(0.5, 0));
     this.bottom.add(pixelText(this, 190, 30, `Storage (${p.sanctuary.length})`, head).setOrigin(0.5, 0));
-    const slot = (m: Member, x: number, y: number, name: string) => button(this, x, y, 118, 16, `${SPECIES[m.species].name} Lv${m.level}`,
-      shade(hexToNum(TYPES[SPECIES[m.species].types[0]].color), -0.3), () => { this.picked = this.picked === m.uid ? null : m.uid; this.render(); },
-      { size: TEXT_SIZE.small, name, selected: this.picked === m.uid });
+    const slot = (m: Member, x: number, y: number, name: string) => listRow(this, x, y, 118, 18, {
+      title: SPECIES[m.species].name, right: `Lv${m.level}`, color: shade(hexToNum(TYPES[SPECIES[m.species].types[0]].color), -0.3),
+      icon: monIcon(frontKey(m.species), 0.3), onTap: () => { this.picked = this.picked === m.uid ? null : m.uid; this.render(); },
+      name, selected: this.picked === m.uid,
+    });
     for (let i = 0; i < TEAM_SIZE; i++) {
       const y = 50 + i * 20;
       this.bottom.add(team[i] ? slot(team[i], 66, y, `team${i}`) : emptySlotAt(this, 66, y));

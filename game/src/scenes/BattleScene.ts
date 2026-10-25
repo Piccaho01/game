@@ -9,7 +9,7 @@ import { MOVES, SPECIES, TYPES } from '../engine/data';
 import { createRng } from '../engine/rng';
 import { sealPattern, sealWindows, type Bond, type SealResult } from '../engine/seal';
 import { DialogBox } from '../ui/dialog';
-import { button, buttonPagePoint, hinge, pxRect, screenBackdrop } from '../ui/kit';
+import { button, buttonPagePoint, hinge, listRow, monIcon, pxRect, screenBackdrop } from '../ui/kit';
 import { assistBar, assistCutIn, banner, commandButton, gloveDecal, InfoCard, runDecal, scrollDecal, teamDecal } from '../ui/battleKit';
 import { sfx } from '../ui/sfx';
 import { pixelText } from '../ui/text';
@@ -64,6 +64,8 @@ export class BattleScene extends Phaser.Scene {
 
   create() {
     this.cameras.main.setOrigin(0, 0).setZoom(ZOOM).setRoundPixels(true);
+    // Every screen eases in.
+    this.cameras.main.fadeIn(180, 16, 16, 24);
     const seed = this.params.seed ?? Math.floor(Math.random() * 2 ** 31);
     this.progress = this.registry.get('progress') as Progress;
     // The whole team comes along; the lead goes out first. Everyone is healed between battles for now.
@@ -197,8 +199,8 @@ export class BattleScene extends Phaser.Scene {
       // Head and shoulders from their walk sprite.
       this.menu.add(this.add.image(20, 4, walkKey(leaderId), 0).setOrigin(0.5, 0).setCrop(0, 2, 24, 27));
     }
-    this.menu.add(pixelText(this, 41, 10, leader.name.toUpperCase(), { color: TEXT_COLORS.rust, size: TEXT_SIZE.tiny }));
-    this.menu.add(pixelText(this, 41, 19, text, { size: TEXT_SIZE.body }));
+    this.menu.add(pixelText(this, 41, 10, leader.name.toUpperCase(), { color: TEXT_COLORS.rust, size: TEXT_SIZE.tiny, display: true }));
+    this.menu.add(pixelText(this, 41, 17, text, { size: TEXT_SIZE.body }));
   }
 
   private async useAssist() {
@@ -226,9 +228,13 @@ export class BattleScene extends Phaser.Scene {
       const x = 66 + (i % 2) * 124;
       const y = 26 + Math.floor(i / 2) * 44;
       const color = shade(hexToNum(TYPES[b.types[0]].color), -0.3);
-      const sub = i === this.battle.active ? 'IN BATTLE' : b.hp <= 0 ? 'FAINTED' : `HP ${b.hp}/${b.stats.hp}`;
-      this.menu.add(button(this, x, y, 118, 38, `${b.name} Lv${b.level}`, color,
-        ok.has(i) ? () => (forced ? this.sendIn(i) : this.choose({ kind: 'switch', index: i })) : undefined, { sub, name: `member${i}` }));
+      const sub = i === this.battle.active ? 'In battle' : b.hp <= 0 ? 'Fainted' : `HP ${b.hp}/${b.stats.hp}`;
+      const f = b.hp / b.stats.hp;
+      this.menu.add(listRow(this, x, y, 118, 38, {
+        title: b.name, sub, right: `Lv${b.level}`, color, icon: monIcon(frontKey(b.species), 0.6),
+        meter: { frac: f, color: f > 0.5 ? 0x5fe0a8 : f > 0.2 ? 0xf2c14e : 0xff6a5a },
+        onTap: ok.has(i) ? () => (forced ? this.sendIn(i) : this.choose({ kind: 'switch', index: i })) : undefined, name: `member${i}`,
+      }));
     });
     if (!forced) this.menu.add(button(this, 128, 172, 120, 28, 'BACK', TONES.neutral, () => this.showMainMenu(), { name: 'back' }));
   }
@@ -264,9 +270,10 @@ export class BattleScene extends Phaser.Scene {
       // After Scan, moves show how well they land on the foe.
       const mult = this.battle.scanned && m.category !== 'status' ? effectiveness(m.type, this.battle.foe.types) : 1;
       const hint = mult === 1 ? '' : mult === 0 ? '  x0' : mult > 1 ? `  x${mult}` : '  x½';
-      this.menu.add(button(this, x, y, 118, 56, m.name, color, ok ? () => this.choose({ kind: 'move', index: i }) : undefined, {
-        sub: `${m.type ? TYPES[m.type].name : '-'}  PP ${slot.pp}/${slot.maxPp}${hint}`,
-        name: `move${i}`,
+      this.menu.add(listRow(this, x, y, 118, 52, {
+        title: m.name, titleSize: TEXT_SIZE.small, sub: `PP ${slot.pp}/${slot.maxPp}${hint}`, color, icon: { text: m.type ? TYPES[m.type].name.slice(0, 3).toUpperCase() : '-' },
+        meter: { frac: slot.pp / slot.maxPp, color: 0xffffff },
+        onTap: ok ? () => this.choose({ kind: 'move', index: i }) : undefined, name: `move${i}`,
       }));
     });
     if (usable.size === 0) {

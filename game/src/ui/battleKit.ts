@@ -172,7 +172,7 @@ export function commandButton(scene: Phaser.Scene, x: number, y: number, w: numb
   disc.fillStyle(0xffffff, on ? 0.18 : 0.08).fillCircle(l + 15, -1, 9);
   const icon = drawIcon(scene.add.graphics(), o.icon, on ? 0xffffff : 0x9a9cb0).setPosition(l + 15, -1);
   c.add([disc, icon]);
-  c.add(pixelText(scene, l + 30, -9, o.label, { color: on ? TEXT_COLORS.light : TEXT_COLORS.off, size: TEXT_SIZE.body, shadow: on ? '#00000090' : undefined }));
+  c.add(pixelText(scene, l + 30, -9, o.label, { color: on ? TEXT_COLORS.light : TEXT_COLORS.off, size: TEXT_SIZE.body, shadow: on ? '#00000090' : undefined, display: true }));
   c.add(pixelText(scene, l + 30, 3, o.hint, { color: on ? '#f4f0e4' : TEXT_COLORS.off, size: TEXT_SIZE.small }));
   if (on) {
     let fired = false;
@@ -222,7 +222,7 @@ export function assistBar(scene: Phaser.Scene, x: number, y: number, w: number, 
     stripes.setMask(mask);
   }
   c.add(drawIcon(scene.add.graphics(), 'bolt', on ? COLORS.ink : 0x9a9cb0).setPosition(l + 12, -1));
-  const name = pixelText(scene, l + 22, -4, o.name.toUpperCase(), { color: on ? TEXT_COLORS.ink : TEXT_COLORS.off, size: TEXT_SIZE.body });
+  const name = pixelText(scene, l + 22, -4, o.name.toUpperCase(), { color: on ? TEXT_COLORS.ink : TEXT_COLORS.off, size: TEXT_SIZE.body, display: true });
   c.add(name);
   const short = pixelText(scene, name.x + name.width + 6, -3, on ? o.short : 'used this battle', { color: on ? '#3a3020' : TEXT_COLORS.off, size: TEXT_SIZE.small });
   // The hint only if it fits before the badge.
@@ -230,7 +230,7 @@ export function assistBar(scene: Phaser.Scene, x: number, y: number, w: number, 
   if (on) {
     const badge = scene.add.graphics();
     pxRect(badge, l + w - 24, -5, 18, 10, COLORS.ink, 3);
-    c.add([badge, pixelText(scene, l + w - 15, 0, '1x', { color: TEXT_COLORS.gold, size: TEXT_SIZE.small }).setOrigin(0.5)]);
+    c.add([badge, pixelText(scene, l + w - 15, 0, '1x', { color: TEXT_COLORS.gold, size: TEXT_SIZE.small, display: true }).setOrigin(0.5)]);
     c.setSize(w, h).setInteractive({ useHandCursor: true });
     c.on('pointerdown', () => c.setY(y + 2));
     c.on('pointerout', () => c.setY(y));
@@ -286,8 +286,8 @@ export class InfoCard {
     }
     this.root.add(g);
     const left = side === 'foe' ? 8 : 9;
-    this.name = pixelText(scene, left, 5, '', { size: TEXT_SIZE.body });
-    this.level = pixelText(scene, w - (side === 'foe' ? 10 : 8), 6, '', { color: TEXT_COLORS.inkSoft, size: TEXT_SIZE.small }).setOrigin(1, 0);
+    this.name = pixelText(scene, left, 3, '', { size: TEXT_SIZE.body });
+    this.level = pixelText(scene, w - (side === 'foe' ? 10 : 8), 6, '', { color: TEXT_COLORS.inkSoft, size: TEXT_SIZE.small, display: true }).setOrigin(1, 0);
     this.tags = scene.add.container(0, 0);
     this.barX = left;
     this.barW = w - left - (side === 'foe' ? 12 : 10);
@@ -314,7 +314,7 @@ export class InfoCard {
     let tx = this.name.x + this.name.width + 4;
     const limit = this.level.x - this.level.width - 3;
     for (const t of b.types.slice(0, 2)) {
-      const label = pixelText(this.scene, tx + 3, 6, typeName(t).toUpperCase(), { color: TEXT_COLORS.light, size: TEXT_SIZE.tiny });
+      const label = pixelText(this.scene, tx + 3, 6, typeName(t).toUpperCase(), { color: TEXT_COLORS.light, size: TEXT_SIZE.tiny, display: true });
       // Only tags that fit before the level.
       if (tx + label.width + 6 > limit) {
         label.destroy();
@@ -337,7 +337,7 @@ export class InfoCard {
     this.statusEl = undefined;
     if (!status) return;
     const c = this.scene.add.container(this.barX, this.side === 'player' ? 27 : 25);
-    const label = pixelText(this.scene, 3, 1, status.toUpperCase(), { color: TEXT_COLORS.light, size: TEXT_SIZE.tiny });
+    const label = pixelText(this.scene, 3, 1, status.toUpperCase(), { color: TEXT_COLORS.light, size: TEXT_SIZE.tiny, display: true });
     const bg = this.scene.add.graphics();
     pxRect(bg, 0, 0, Math.ceil(label.width) + 6, 8, STATUS_COLORS[status] ?? COLORS.off, 2);
     c.add([bg, label]);
@@ -438,7 +438,7 @@ export async function banner(scene: Phaser.Scene, text: string, y = 70) {
   const g = scene.add.graphics();
   g.fillStyle(COLORS.ink, 0.9).fillRect(0, -9, SCREEN_W, 18);
   g.fillStyle(COLORS.rust).fillRect(0, -9, SCREEN_W, 1).fillRect(0, 8, SCREEN_W, 1);
-  const t = pixelText(scene, SCREEN_W / 2, 0, text, { color: TEXT_COLORS.light, size: TEXT_SIZE.body }).setOrigin(0.5);
+  const t = pixelText(scene, SCREEN_W / 2, 0, text, { color: TEXT_COLORS.light, size: TEXT_SIZE.body, display: true }).setOrigin(0.5);
   g.fillStyle(COLORS.rust).fillRect(SCREEN_W / 2 - t.width / 2 - 24, -1, 16, 2).fillRect(SCREEN_W / 2 + t.width / 2 + 8, -1, 16, 2);
   c.add([g, t]);
   await new Promise<void>((r) => scene.tweens.add({ targets: c, x: 0, duration: 260, ease: 'Cubic.easeOut', onComplete: () => r() }));

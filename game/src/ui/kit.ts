@@ -5,40 +5,47 @@ import { pixelText } from './text';
 import { sfx } from './sfx';
 
 /**
- * The UI kit: every window, button and list is built from these, so a screen only lays things
- * out. Shapes are drawn on the logical pixel grid (stepped corners, 1px stitches) so the menus
- * read as pixel art next to the sprites.
+ * The UI kit ("Workshop A+"): every window, button and list is built from these, so a screen only
+ * lays things out. Sprites and backdrops are pixel art; the UI is drawn crisp at the full screen
+ * resolution (smooth rounded shapes, hairline outlines), like the owner's approved mockup.
  */
 
 type G = Phaser.GameObjects.Graphics;
 
-/** A filled rect with stepped (pixel) corners of radius r. */
+/** A filled rounded rect (smooth corners of radius about r). */
 export function pxRect(g: G, x: number, y: number, w: number, h: number, color: number, r = 2, alpha = 1) {
   g.fillStyle(color, alpha);
-  if (r <= 0 || w < 2 * r || h < 2 * r) {
-    g.fillRect(x, y, w, h);
-    return g;
+  const rr = Math.min(r * 1.25, w / 2, h / 2);
+  if (rr <= 0.5) g.fillRect(x, y, w, h);
+  else g.fillRoundedRect(x, y, w, h, rr);
+  return g;
+}
+
+/** A dashed hairline around a rect (free slots, the seal pad). */
+export function stitches(g: G, x: number, y: number, w: number, h: number, color: number, alpha = 1) {
+  g.fillStyle(color, alpha * 0.8);
+  const t = 0.67;
+  for (let i = 3; i < w - 3; i += 5) {
+    g.fillRect(x + i, y, 2.5, t);
+    g.fillRect(x + i, y + h - t, 2.5, t);
   }
-  g.fillRect(x, y + r, w, h - 2 * r);
-  for (let i = 0; i < r; i++) {
-    const inset = r - i;
-    g.fillRect(x + inset, y + i, w - 2 * inset, 1);
-    g.fillRect(x + inset, y + h - 1 - i, w - 2 * inset, 1);
+  for (let i = 3; i < h - 3; i += 5) {
+    g.fillRect(x, y + i, t, 2.5);
+    g.fillRect(x + w - t, y + i, t, 2.5);
   }
   return g;
 }
 
-/** A dashed 1px line around a rect: the stitching that holds every panel together. */
-export function stitches(g: G, x: number, y: number, w: number, h: number, color: number, alpha = 1) {
-  g.fillStyle(color, alpha);
-  for (let i = 2; i < w - 2; i += 4) {
-    g.fillRect(x + i, y, 2, 1);
-    g.fillRect(x + i, y + h - 1, 2, 1);
-  }
-  for (let i = 2; i < h - 2; i += 4) {
-    g.fillRect(x, y + i, 1, 2);
-    g.fillRect(x + w - 1, y + i, 1, 2);
-  }
+/**
+ * A card: a soft drop shadow, a hairline ink outline, the fill, and a faint light edge along the
+ * top. The building block of panels, buttons and cards.
+ */
+export function card(g: G, x: number, y: number, w: number, h: number, fill: number, r = 5, opts: { lip?: number; shadow?: boolean; outline?: number } = {}) {
+  if (opts.shadow !== false) g.fillStyle(0x000000, 0.28).fillRoundedRect(x, y + 1.5, w, h + (opts.lip ?? 0), r);
+  g.fillStyle(opts.outline ?? COLORS.ink).fillRoundedRect(x - 0.67, y - 0.67, w + 1.33, h + 1.33 + (opts.lip ?? 0), r + 0.6);
+  if (opts.lip) g.fillStyle(shade(fill, -0.32)).fillRoundedRect(x, y, w, h + opts.lip, r);
+  g.fillStyle(fill).fillRoundedRect(x, y, w, h, r);
+  g.fillStyle(0xffffff, 0.14).fillRoundedRect(x + 1, y + 0.67, w - 2, Math.min(h / 2, 8), { tl: r - 1, tr: r - 1, bl: 0, br: 0 });
   return g;
 }
 
@@ -49,13 +56,8 @@ export type PanelTone = 'paper' | 'metal';
  * (dialogue, HP, cards); metal panels frame things on dark screens.
  */
 export function drawPanel(g: G, x: number, y: number, w: number, h: number, tone: PanelTone = 'paper') {
-  const fill = tone === 'paper' ? COLORS.paper : COLORS.metal;
-  const under = tone === 'paper' ? COLORS.paperShade : COLORS.ink;
-  const stitch = tone === 'paper' ? COLORS.stitch : COLORS.metalLight;
-  pxRect(g, x - 1, y - 1, w + 2, h + 4, COLORS.ink, 3);
-  pxRect(g, x, y + 2, w, h, under, 2);
-  pxRect(g, x, y, w, h, fill, 2);
-  stitches(g, x + 3, y + 3, w - 6, h - 6, stitch);
+  const fill = tone === 'paper' ? 0xf8f1de : COLORS.metal;
+  card(g, x, y, w, h, fill, 6, { lip: tone === 'paper' ? 1.5 : 0 });
   return g;
 }
 
@@ -63,21 +65,20 @@ export function panel(scene: Phaser.Scene, x: number, y: number, w: number, h: n
   return drawPanel(scene.add.graphics(), x, y, w, h, tone);
 }
 
-/** A strip of tape stuck across a panel's top edge, carrying a title (or a speaker's name). */
-export function tapeLabel(scene: Phaser.Scene, x: number, y: number, text: string, color: number = COLORS.tape) {
+/**
+ * A label on a panel's top edge: a title, or a speaker's name. A dark pill with a rust tick (the
+ * default) or a pill in `color`.
+ */
+export function tapeLabel(scene: Phaser.Scene, x: number, y: number, text: string, color: number = COLORS.ink) {
   const c = scene.add.container(x, y);
-  const t = pixelText(scene, 6, 3, text, { color: TEXT_COLORS.ink, size: TEXT_SIZE.small });
-  const w = Math.ceil(t.width) + 12;
+  const dark = color === COLORS.ink || color === COLORS.tape;
+  const fill = dark ? COLORS.ink : color;
+  const t = pixelText(scene, 9, 2.5, text, { color: dark ? '#f8f1de' : TEXT_COLORS.light, size: TEXT_SIZE.small, display: true });
+  const w = Math.ceil(t.width) + 14;
   const g = scene.add.graphics();
-  g.fillStyle(COLORS.ink, 0.35).fillRect(1, 2, w, 11);
-  g.fillStyle(color).fillRect(0, 0, w, 11);
-  g.fillStyle(shade(color, 0.4)).fillRect(0, 0, w, 1);
-  // Torn ends.
-  g.fillStyle(shade(color, -0.25));
-  for (let i = 0; i < 11; i += 2) {
-    g.fillRect(0, i, 1, 1);
-    g.fillRect(w - 1, i + 1, 1, 1);
-  }
+  g.fillStyle(0x000000, 0.25).fillRoundedRect(0, 1.5, w, 11, 5.5);
+  g.fillStyle(fill).fillRoundedRect(0, 0, w, 11, 5.5);
+  g.fillStyle(dark ? COLORS.rust : 0xffffff, dark ? 1 : 0.5).fillRoundedRect(4, 3.5, 2.5, 4, 1);
   c.add([g, t]);
   return c;
 }
@@ -85,12 +86,11 @@ export function tapeLabel(scene: Phaser.Scene, x: number, y: number, text: strin
 /** A small coloured tag: types, status, "LEAD". */
 export function chip(scene: Phaser.Scene, x: number, y: number, text: string, color: number) {
   const c = scene.add.container(x, y);
-  const t = pixelText(scene, 4, 2, text.toUpperCase(), { color: TEXT_COLORS.light, size: TEXT_SIZE.tiny, shadow: '#00000080' });
+  const t = pixelText(scene, 4, 2, text.toUpperCase(), { color: TEXT_COLORS.light, size: TEXT_SIZE.tiny, display: true });
   const w = Math.ceil(t.width) + 8;
   const g = scene.add.graphics();
-  pxRect(g, -1, -1, w + 2, 11, COLORS.ink, 1);
-  pxRect(g, 0, 0, w, 9, color, 1);
-  g.fillStyle(shade(color, 0.3)).fillRect(1, 0, w - 2, 1);
+  g.fillStyle(color).fillRoundedRect(0, 0, w, 9, 3);
+  g.fillStyle(0xffffff, 0.18).fillRoundedRect(0.67, 0.5, w - 1.33, 3.5, { tl: 2.5, tr: 2.5, bl: 0, br: 0 });
   c.add([g, t]);
   c.setSize(w, 9);
   return c;
@@ -108,8 +108,9 @@ export interface ButtonOpts {
 }
 
 /**
- * A chunky touch button centred on (x, y). Without onTap it is drawn switched off. It sinks 2px
- * while held, and fires on release.
+ * A touch button centred on (x, y): a rounded card with a lip, the label in the display font and
+ * an optional hint under it in the body font. Without onTap it is drawn switched off. It sinks
+ * while held and pops back on release (with a tap sound); a selected button wears a gold ring.
  */
 export function button(
   scene: Phaser.Scene, x: number, y: number, w: number, h: number, label: string, color: number,
@@ -118,25 +119,30 @@ export function button(
   const c = scene.add.container(x, y);
   if (opts.name) c.setName(opts.name);
   const face = onTap ? color : COLORS.off;
-  const left = -Math.floor(w / 2);
-  const top = -Math.floor(h / 2);
+  const left = -w / 2;
+  const top = -h / 2;
+  const r = Math.min(6, h / 2.6);
   const g = scene.add.graphics();
-  if (opts.selected) pxRect(g, left - 3, top - 3, w + 6, h + 8, COLORS.gold, 4);
-  pxRect(g, left - 1, top - 1, w + 2, h + 4, COLORS.ink, 3);
-  pxRect(g, left, top + 2, w, h, shade(face, -0.35), 2);
-  pxRect(g, left, top, w, h, face, 2);
-  // Light catches the top edge; big buttons get the stitched seam.
-  g.fillStyle(shade(face, 0.35)).fillRect(left + 2, top + 1, w - 4, 1);
-  if (h >= 22 && w >= 40) stitches(g, left + 3, top + 3, w - 6, h - 6, shade(face, 0.25), 0.7);
+  if (opts.selected) {
+    g.fillStyle(COLORS.gold).fillRoundedRect(left - 2.5, top - 2.5, w + 5, h + 7, r + 2.5);
+  }
+  card(g, left, top, w, h - 2, face, r, { lip: 2.5, shadow: !opts.selected });
   c.add(g);
-  const textY = opts.sub ? -5 : 0;
-  c.add(pixelText(scene, 0, textY, label, { color: onTap ? TEXT_COLORS.light : TEXT_COLORS.off, size: opts.size ?? TEXT_SIZE.body, shadow: onTap ? '#00000090' : undefined }).setOrigin(0.5));
-  if (opts.sub) c.add(pixelText(scene, 0, 9, opts.sub, { color: onTap ? '#f4f0e4' : TEXT_COLORS.off, size: TEXT_SIZE.small }).setOrigin(0.5));
+  const textY = opts.sub ? -5 : -1;
+  const size = opts.size ?? (w < 70 ? TEXT_SIZE.small : TEXT_SIZE.body);
+  c.add(pixelText(scene, 0, textY, label, { color: onTap ? TEXT_COLORS.light : TEXT_COLORS.off, size, shadow: onTap ? '#00000070' : undefined, display: true }).setOrigin(0.5));
+  if (opts.sub) c.add(pixelText(scene, 0, 6, opts.sub, { color: onTap ? '#f4f0e4' : TEXT_COLORS.off, size: TEXT_SIZE.small }).setOrigin(0.5));
   if (onTap) {
     c.setSize(w, h).setInteractive({ useHandCursor: true });
-    c.on('pointerdown', () => c.setY(y + 2));
-    c.on('pointerout', () => c.setY(y));
-    c.on('pointerup', () => { c.setY(y); sfx('tap'); onTap(); });
+    c.on('pointerdown', () => { c.setY(y + 1.5); c.setScale(0.97); });
+    c.on('pointerout', () => { c.setY(y); c.setScale(1); });
+    c.on('pointerup', () => {
+      c.setY(y);
+      c.setScale(1);
+      scene.tweens.add({ targets: c, scale: { from: 1.05, to: 1 }, duration: 140, ease: 'Back.easeOut' });
+      sfx('tap');
+      onTap();
+    });
   }
   return c;
 }
@@ -144,7 +150,8 @@ export function button(
 /** An empty slot in a list (a free team place): a dashed outline, nothing to tap. */
 export function emptySlot(scene: Phaser.Scene, x: number, y: number, w: number, h: number) {
   const g = scene.add.graphics();
-  stitches(g, x - Math.floor(w / 2), y - Math.floor(h / 2), w, h, COLORS.metalLight);
+  g.fillStyle(0xffffff, 0.035).fillRoundedRect(x - w / 2, y - h / 2, w, h, 5);
+  stitches(g, x - w / 2, y - h / 2, w, h, COLORS.metalLight);
   return g;
 }
 
@@ -161,12 +168,12 @@ export class Meter {
     const { g, x, y, w, h } = this;
     const f = Math.max(0, Math.min(1, frac));
     g.clear();
-    g.fillStyle(COLORS.ink).fillRect(x - 1, y - 1, w + 2, h + 2);
-    g.fillStyle(COLORS.metal).fillRect(x, y, w, h);
-    const fw = f > 0 ? Math.max(1, Math.ceil(w * f)) : 0;
+    g.fillStyle(COLORS.ink).fillRoundedRect(x - 1, y - 1, w + 2, h + 2, (h + 2) / 2);
+    g.fillStyle(0x2a2c3e).fillRoundedRect(x, y, w, h, h / 2);
+    const fw = f > 0 ? Math.max(h, w * f) : 0;
     if (fw) {
-      g.fillStyle(color).fillRect(x, y, fw, h);
-      g.fillStyle(shade(color, 0.45)).fillRect(x, y, fw, 1);
+      g.fillStyle(color).fillRoundedRect(x, y, fw, h, h / 2);
+      g.fillStyle(0xffffff, 0.3).fillRoundedRect(x + 1, y + 0.4, fw - 2, Math.max(0.8, h / 3), h / 4);
     }
   }
 }
@@ -177,32 +184,61 @@ export class Meter {
  */
 export function screenBackdrop(scene: Phaser.Scene, y = SCREEN_H) {
   const g = scene.add.graphics();
-  g.fillStyle(COLORS.screen).fillRect(0, y, SCREEN_W, SCREEN_H);
-  g.fillStyle(COLORS.screenGrid);
-  for (let gy = 8; gy < SCREEN_H; gy += 16) g.fillRect(0, y + gy, SCREEN_W, 1);
-  for (let gx = 8; gx < SCREEN_W; gx += 16) g.fillRect(gx, y, 1, SCREEN_H);
+  g.fillStyle(0x1e2036).fillRect(0, y, SCREEN_W, SCREEN_H);
+  g.fillStyle(0x2c2f4e);
+  for (let gy = 6; gy < SCREEN_H; gy += 10) {
+    for (let gx = (gy / 10) % 2 ? 6 : 1; gx < SCREEN_W; gx += 10) g.fillCircle(gx, y + gy, 0.6);
+  }
   return g;
 }
 
 /** The bar between the two screens: a gunmetal hinge, bolted on. */
 export function hinge(scene: Phaser.Scene) {
   const g = scene.add.graphics().setDepth(10);
-  const y = SCREEN_H - 2;
-  g.fillStyle(COLORS.ink).fillRect(0, y, SCREEN_W, 4);
-  g.fillStyle(COLORS.metal).fillRect(0, y + 1, SCREEN_W, 2);
-  for (const bx of [6, SCREEN_W - 8]) {
-    g.fillStyle(COLORS.metalLight).fillRect(bx, y + 1, 2, 2);
-  }
+  const y = SCREEN_H - 1.5;
+  g.fillStyle(0x0b0c16).fillRect(0, y, SCREEN_W, 3);
+  g.fillStyle(0x353849).fillRect(0, y + 0.67, SCREEN_W, 1);
   return g;
 }
 
 /** A plain dark top screen for menus, with a soft vignette band at the top. */
-export function menuBackdrop(scene: Phaser.Scene, color: number = COLORS.screen) {
+export function menuBackdrop(scene: Phaser.Scene, color: number = 0x171828) {
   const g = scene.add.graphics();
   g.fillStyle(color).fillRect(0, 0, SCREEN_W, SCREEN_H);
-  g.fillStyle(shade(color, 0.06));
-  for (let y = 0; y < SCREEN_H; y += 4) g.fillRect(0, y, SCREEN_W, 1);
+  g.fillStyle(0xffffff, 0.025);
+  for (let i = -SCREEN_H; i < SCREEN_W; i += 14) g.fillTriangle(i, SCREEN_H, i + 6, SCREEN_H, i + 6 + SCREEN_H, 0).fillTriangle(i, SCREEN_H, i + 6 + SCREEN_H, 0, i + SCREEN_H, 0);
   return g;
+}
+
+/**
+ * Segmented tabs centred on (x, y): a dark track with the active tab as a raised pill. Each tab is
+ * a named container (`tab-<id>`) so tests can tap it.
+ */
+export function tabs<T extends string>(scene: Phaser.Scene, x: number, y: number, w: number, items: { id: T; label: string }[], active: T, onPick: (id: T) => void, color: number = COLORS.rust) {
+  const out: Phaser.GameObjects.GameObject[] = [];
+  const h = 20;
+  const track = scene.add.graphics();
+  track.fillStyle(0x0b0c16, 0.85).fillRoundedRect(x - w / 2, y - h / 2, w, h, h / 2);
+  track.lineStyle(0.67, 0x3a3d5c).strokeRoundedRect(x - w / 2, y - h / 2, w, h, h / 2);
+  out.push(track);
+  const tw = (w - 4) / items.length;
+  items.forEach((it, i) => {
+    const cx = x - w / 2 + 2 + tw * i + tw / 2;
+    const c = scene.add.container(cx, y).setName(`tab-${it.id}`);
+    const on = it.id === active;
+    if (on) {
+      const g = scene.add.graphics();
+      g.fillStyle(0x000000, 0.3).fillRoundedRect(-tw / 2, -h / 2 + 2 + 1, tw, h - 4, (h - 4) / 2);
+      g.fillStyle(color).fillRoundedRect(-tw / 2, -h / 2 + 2, tw, h - 4, (h - 4) / 2);
+      g.fillStyle(0xffffff, 0.18).fillRoundedRect(-tw / 2 + 2, -h / 2 + 2.5, tw - 4, 4, 2);
+      c.add(g);
+    }
+    c.add(pixelText(scene, 0, -0.5, it.label, { color: on ? TEXT_COLORS.light : '#9a9cc0', size: TEXT_SIZE.small, display: true }).setOrigin(0.5));
+    c.setSize(tw, h).setInteractive({ useHandCursor: true });
+    c.on('pointerup', () => { if (!on) { sfx('tap'); onPick(it.id); } });
+    out.push(c);
+  });
+  return out;
 }
 
 /**
@@ -261,30 +297,26 @@ export function isoPad(scene: Phaser.Scene, x: number, y: number, size: number, 
   const off = Math.floor(size * 0.26);
   const arms: Record<PadDir, [number, number]> = { up: [off, -off], right: [off, off], down: [-off, off], left: [-off, -off] };
   /** A diamond (a square on its corner) of radius rr centred on (cx, cy). */
-  const diamond = (cx: number, cy: number, rr: number, col: number, dy = 0) => {
-    g.fillStyle(col);
-    for (let i = -rr; i <= rr; i++) {
-      const w = (rr - Math.abs(i)) * 2;
-      if (w > 0) g.fillRect(cx - w / 2, cy + i + dy, w, 1);
-    }
+  const diamond = (cx: number, cy: number, rr: number, col: number, dy = 0, alpha = 1) => {
+    g.fillStyle(col, alpha).fillPoints([{ x: cx, y: cy - rr + dy }, { x: cx + rr, y: cy + dy }, { x: cx, y: cy + rr + dy }, { x: cx - rr, y: cy + dy }], true);
   };
   const drawPad = (held: PadDir | null) => {
     g.clear();
-    diamond(0, 0, Math.floor(r * 0.8) + 2, COLORS.ink, 2);
-    diamond(0, 0, Math.floor(r * 0.8), shade(COLORS.metalLight, -0.25));
+    // A soft round base under the four arms.
+    g.fillStyle(0x000000, 0.25).fillCircle(0, 2, off + r + 4);
+    g.fillStyle(0x2a2d48).fillCircle(0, 0, off + r + 4);
+    g.lineStyle(0.67, 0x3d4166).strokeCircle(0, 0, off + r + 4);
+    diamond(0, 0, r * 0.7, 0x1a1c30);
     for (const [d, [ax, ay]] of Object.entries(arms) as [PadDir, [number, number]][]) {
-      diamond(ax, ay, r + 2, COLORS.ink, 3);
-      diamond(ax, ay, r, shade(COLORS.metalLight, -0.4), 2);
-      diamond(ax, ay, r, d === held ? shade(COLORS.metalLight, 0.15) : COLORS.metalLight);
-      diamond(ax, ay - Math.floor(r / 2), Math.floor(r / 3), shade(COLORS.metalLight, 0.25));
-      // a triangle in the arm's outer corner, pointing out along the diagonal
+      const on = d === held;
+      diamond(ax, ay, r + 0.8, COLORS.ink, on ? 1 : 2.5);
+      diamond(ax, ay, r, shade(0x5a5f80, -0.35), on ? 1 : 2);
+      diamond(ax, ay, r, on ? COLORS.rust : 0x5a5f80, on ? 1 : 0);
+      diamond(ax, ay - r * 0.35, r * 0.45, 0xffffff, on ? 1 : 0, 0.12);
+      // An arrow pointing out along the diagonal.
       const sx = Math.sign(ax), sy = Math.sign(ay);
-      g.fillStyle(d === held ? COLORS.gold : COLORS.paper);
-      for (let dx = 1; dx <= 4; dx++) {
-        for (let dy = 1; dy <= 4; dy++) {
-          if (dx + dy >= 5) g.fillRect(ax + sx * dx - (sx < 0 ? 1 : 0), ay + sy * dy - (sy < 0 ? 1 : 0) - 1, 1, 1);
-        }
-      }
+      const tx = ax + sx * r * 0.35, ty = ay + sy * r * 0.35 + (on ? 1 : 0);
+      g.fillStyle(on ? 0xffffff : 0xd8d2bd).fillTriangle(tx + sx * 3.5, ty + sy * 3.5, tx - sx * 2.5, ty + sy * 3.5, tx + sx * 3.5, ty - sy * 2.5);
     }
   };
   drawPad(null);
@@ -307,5 +339,132 @@ export function isoPad(scene: Phaser.Scene, x: number, y: number, size: number, 
   c.on('pointermove', (p: Phaser.Input.Pointer) => { if (p.isDown) set(dirAt(p)); });
   c.on('pointerup', () => set(null));
   c.on('pointerout', () => set(null));
+  return c;
+}
+
+export interface RowOpts {
+  name?: string;
+  title: string;
+  sub?: string;
+  /** Text on the right edge (a level, PP, points). */
+  right?: string;
+  color: number;
+  /** A picture in the left box: a texture (with frame, crop and scale), or a short text. */
+  icon?: { key: string; frame?: number; crop?: [number, number, number, number]; scale?: number; dy?: number; silhouette?: boolean } | { text: string };
+  /** A thin bar under the title (HP, progress). */
+  meter?: { frac: number; color: number };
+  selected?: boolean;
+  onTap?: () => void;
+  /** Drawn in full colour though it has no tap (an info card). */
+  passive?: boolean;
+  /** Title size, when the default (by width) is too big for long names. */
+  titleSize?: number;
+}
+
+/**
+ * A list row centred on (x, y): an icon box on the left (a face, a Patchling, a type), the title in
+ * the display font, a hint or a bar under it, and text on the right. Rows are the menus' main
+ * building block (picks, teams, moves, wings).
+ */
+export function listRow(scene: Phaser.Scene, x: number, y: number, w: number, h: number, o: RowOpts) {
+  const c = scene.add.container(x, y);
+  if (o.name) c.setName(o.name);
+  const on = !!o.onTap || !!o.passive;
+  const face = on ? o.color : COLORS.off;
+  const left = -w / 2;
+  const top = -h / 2;
+  const r = Math.min(6, h / 3);
+  const g = scene.add.graphics();
+  if (o.selected) g.fillStyle(COLORS.gold).fillRoundedRect(left - 2.5, top - 2.5, w + 5, h + 6, r + 2.5);
+  card(g, left, top, w, h - 1.5, face, r, { lip: 2, shadow: !o.selected });
+  c.add(g);
+  let tx = left + 7;
+  if (o.icon) {
+    const box = h - 7;
+    const bx = left + 3.5;
+    const by = top + 2.5;
+    const ib = scene.add.graphics();
+    ib.fillStyle(shade(face, -0.3)).fillRoundedRect(bx, by, box, box, r - 1.5);
+    ib.fillStyle(0x000000, 0.15).fillRoundedRect(bx, by + box - 3, box, 3, { tl: 0, tr: 0, bl: r - 1.5, br: r - 1.5 });
+    c.add(ib);
+    if ('text' in o.icon) {
+      c.add(pixelText(scene, bx + box / 2, by + box / 2, o.icon.text, { color: TEXT_COLORS.light, size: TEXT_SIZE.small, display: true }).setOrigin(0.5));
+    } else if (scene.textures.exists(o.icon.key)) {
+      const img = scene.add.image(bx + box / 2, by + box / 2 + (o.icon.dy ?? 0), o.icon.key, o.icon.frame);
+      if (o.icon.crop) img.setCrop(...o.icon.crop);
+      img.setScale(o.icon.scale ?? 1);
+      if (o.icon.silhouette || !on) img.setTintFill(on ? 0x101018 : 0x6a6c80);
+      // Keep the picture inside its box.
+      const mask = scene.make.graphics({}, false);
+      const place = () => {
+        const m = c.getWorldTransformMatrix();
+        mask.clear().fillStyle(0xffffff).fillRoundedRect(m.tx + bx * m.a, m.ty + by * m.d, box * m.a, box * m.d, (r - 1.5) * m.a);
+      };
+      place();
+      scene.events.on('postupdate', place);
+      c.once('destroy', () => { scene.events.off('postupdate', place); mask.destroy(); });
+      img.setMask(mask.createGeometryMask());
+      c.add(img);
+    }
+    tx = bx + box + 6;
+  }
+  const hasLower = !!(o.sub || o.meter);
+  const title = pixelText(scene, tx, hasLower ? -7.5 : -4, o.title, { color: on ? TEXT_COLORS.light : TEXT_COLORS.off, size: o.titleSize ?? (w < 110 ? TEXT_SIZE.small : TEXT_SIZE.body), shadow: on ? '#00000060' : undefined, display: true });
+  c.add(title);
+  if (o.sub) c.add(pixelText(scene, tx, o.meter ? 4.5 : 1.5, o.sub, { color: on ? '#f4f0e4' : TEXT_COLORS.off, size: TEXT_SIZE.small }));
+  if (o.meter) {
+    const mw = w / 2 - 8 - tx;
+    const mg = scene.add.graphics();
+    mg.fillStyle(0x000000, 0.35).fillRoundedRect(tx, 2, mw, 3, 1.5);
+    const f = Math.max(0, Math.min(1, o.meter.frac));
+    if (f > 0) mg.fillStyle(o.meter.color).fillRoundedRect(tx, 2, Math.max(3, mw * f), 3, 1.5);
+    c.add(mg);
+  }
+  if (o.right) c.add(pixelText(scene, -left - 7, hasLower ? -7 : -4, o.right, { color: on ? '#f4f0e4' : TEXT_COLORS.off, size: TEXT_SIZE.small, display: true }).setOrigin(1, 0));
+  if (o.onTap) {
+    c.setSize(w, h).setInteractive({ useHandCursor: true });
+    c.on('pointerdown', () => { c.setY(y + 1.5); c.setScale(0.98); });
+    c.on('pointerout', () => { c.setY(y); c.setScale(1); });
+    c.on('pointerup', () => {
+      c.setY(y);
+      c.setScale(1);
+      scene.tweens.add({ targets: c, scale: { from: 1.04, to: 1 }, duration: 140, ease: 'Back.easeOut' });
+      sfx('tap');
+      o.onTap!();
+    });
+  }
+  return c;
+}
+
+/** A small heading over a group on the touch screen. */
+export function sectionLabel(scene: Phaser.Scene, x: number, y: number, text: string) {
+  return pixelText(scene, x, y, text.toUpperCase(), { color: '#8f93bd', size: TEXT_SIZE.tiny, display: true }).setOrigin(0.5, 0);
+}
+
+/** A friend's face for a row icon: head and shoulders from their walk sheet. */
+export function faceIcon(walkTexture: string) {
+  return { key: walkTexture, frame: 0, crop: [0, 1, 24, 23] as [number, number, number, number], scale: 1.35, dy: 11 };
+}
+
+/** A Patchling for a row icon: its front sprite, small. */
+export function monIcon(frontTexture: string, scale = 0.5, silhouette = false) {
+  // Bodies sit low on the 96px canvas: lift the picture so the body fills the box.
+  return { key: frontTexture, scale, dy: -14 * scale, silhouette };
+}
+
+/** A big round button (A): a disc with a lip, the letter in the middle. */
+export function roundButton(scene: Phaser.Scene, x: number, y: number, radius: number, label: string, color: number, onTap: () => void, name: string) {
+  const c = scene.add.container(x, y).setName(name);
+  const g = scene.add.graphics();
+  g.fillStyle(0x000000, 0.3).fillCircle(0, 3, radius + 1);
+  g.fillStyle(COLORS.ink).fillCircle(0, 1.5, radius + 0.7);
+  g.fillStyle(shade(color, -0.35)).fillCircle(0, 2.5, radius);
+  g.fillStyle(color).fillCircle(0, 0, radius);
+  g.fillStyle(0xffffff, 0.16).fillEllipse(0, -radius * 0.45, radius * 1.3, radius * 0.7);
+  c.add([g, pixelText(scene, 0, -1, label, { color: TEXT_COLORS.light, size: TEXT_SIZE.title, shadow: '#00000080', display: true }).setOrigin(0.5)]);
+  c.setSize(radius * 2, radius * 2).setInteractive({ useHandCursor: true });
+  c.on('pointerdown', () => { c.setY(y + 2); c.setScale(0.95); });
+  c.on('pointerout', () => { c.setY(y); c.setScale(1); });
+  c.on('pointerup', () => { c.setY(y); c.setScale(1); scene.tweens.add({ targets: c, scale: { from: 1.06, to: 1 }, duration: 160, ease: 'Back.easeOut' }); sfx('tap'); onTap(); });
   return c;
 }

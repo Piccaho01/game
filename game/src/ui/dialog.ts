@@ -31,7 +31,7 @@ export class DialogBox {
 
   constructor(private scene: Phaser.Scene, private depth = 5) {
     this.box = drawPanel(scene.add.graphics().setDepth(depth), 4, this.y, SCREEN_W - 8, BOX_H, 'paper');
-    this.text = pixelText(scene, 14, this.y + 9, '', { color: TEXT_COLORS.ink, wrap: SCREEN_W - 32 }).setDepth(depth + 1);
+    this.text = pixelText(scene, 14, this.y + 6, '', { color: TEXT_COLORS.ink, wrap: SCREEN_W - 32 }).setDepth(depth + 1);
     this.arrow = scene.add.graphics().setDepth(depth + 1).setVisible(false);
     this.arrow.fillStyle(COLORS.rust).fillRect(0, 0, 7, 1).fillRect(1, 1, 5, 1).fillRect(2, 2, 3, 1).fillRect(3, 3, 1, 1);
     this.arrow.setPosition(SCREEN_W - 20, this.y + BOX_H - 9);

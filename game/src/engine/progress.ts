@@ -36,6 +36,16 @@ export interface Progress {
   wings: string[];
   /** Where the leader stands in the overworld; missing until they first walk out. */
   pos?: Position;
+  settings?: Settings;
+}
+
+/**
+ * Player options. `party`: 'squad' shows all four friends walking in line; 'solo' shows only the
+ * leader and their Patchling (the others still appear in cutscenes). Missing means the defaults.
+ */
+export interface Settings { party?: 'squad' | 'solo' }
+export function partyMode(p: Progress): 'squad' | 'solo' {
+  return p.settings?.party === 'solo' ? 'solo' : 'squad';
 }
 
 const EMPTY_RECORD: DexRecord = { encounters: 0, defeats: 0, seals: 0, strongBonds: 0, scans: 0 };
@@ -233,6 +243,8 @@ export function parseProgress(raw: unknown): Progress | null {
   const map = p.pos && MAPS[p.pos.map];
   const pos = map && p.pos!.x >= 0 && p.pos!.y >= 0 && p.pos!.x < map.width && p.pos!.y < map.height ? p.pos : undefined;
   const wings = Array.isArray(p.wings) ? p.wings.filter((w): w is string => typeof w === 'string') : [];
-  const { team: _old, ...rest } = p;
-  return { ...rest, version: 3, leader, nextUid, teams, sanctuary: list(p.sanctuary), bestiary: dex, pos, wings };
+  const { team: _old, settings: rawSettings, ...rest } = p;
+  const settings: Settings = {};
+  if (rawSettings?.party === 'solo' || rawSettings?.party === 'squad') settings.party = rawSettings.party;
+  return { ...rest, version: 3, leader, nextUid, teams, sanctuary: list(p.sanctuary), bestiary: dex, pos, wings, ...(Object.keys(settings).length ? { settings } : {}) };
 }

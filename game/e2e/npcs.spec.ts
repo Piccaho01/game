@@ -76,3 +76,33 @@ test('SWITCH hands the lead to the next friend; their team battles', async ({ pa
   expect(await page.evaluate(() => (window as unknown as { __battle: { active(): string } }).__battle.active())).toBe('Zapail');
   expect(errors).toEqual([]);
 });
+
+test('OPTIONS: solo shows just the leader and their Patchling on the map', async ({ page }) => {
+  const errors: string[] = [];
+  page.on('pageerror', (e) => errors.push(e.message));
+  await page.goto('/?reset&player=sprigby&seed=1');
+  await waitReady(page);
+  const tapIn = async (hook: string, name: string) => {
+    const pt = await page.evaluate(([h, n]) => (window as unknown as Record<string, Ow>)[h].buttonAt(n), [hook, name] as const);
+    expect(pt, `button ${name}`).not.toBeNull();
+    await page.touchscreen.tap(pt!.x, pt!.y);
+    await page.waitForTimeout(150);
+  };
+  await tapIn('__overworld', 'journal');
+  await page.waitForFunction(() => !!(window as unknown as { __journal?: unknown }).__journal);
+  await tapIn('__journal', 'tab-options');
+  await tapIn('__journal', 'opt-solo');
+  await page.waitForTimeout(200);
+  await page.screenshot({ path: 'screens/10c-journal-options.png' });
+  await tapIn('__journal', 'back');
+  await waitReady(page);
+  const line = () => page.evaluate(() => (window as unknown as { __overworld: Ow }).__overworld.line());
+  expect((await line()).map((f) => f.id)).toEqual(['sprigby']);
+  const save = await page.evaluate(() => JSON.parse(localStorage.getItem('patchlings.save.v1')!));
+  expect(save.settings).toEqual({ party: 'solo' });
+  // SWITCH still swaps who leads (Nolan, with his Zapail).
+  await tapIn('__overworld', 'switch');
+  await page.waitForTimeout(300);
+  expect((await line()).map((f) => f.id)).toEqual(['zapail']);
+  expect(errors).toEqual([]);
+});

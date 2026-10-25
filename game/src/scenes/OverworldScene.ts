@@ -2,15 +2,15 @@ import Phaser from 'phaser';
 import { SCREEN_H, SCREEN_W, ZOOM } from '../config';
 import { linesFor } from '../engine/dialogue';
 import { facing, findPath, followStep, heightAt, lineUp, MAPS, npcAt, npcsFor, objectAction, rollEncounter, signAt, stairAxis, START, step, type Dir, type Npc, type Position, type Spot } from '../engine/overworld';
-import { CHARACTERS, healTeam, leaderTeam, SQUAD, switchLeader, type CharacterId, type Progress } from '../engine/progress';
+import { CHARACTERS, healTeam, leaderTeam, partyMode, SQUAD, switchLeader, type CharacterId, type Progress } from '../engine/progress';
 import { createRng, type Rng } from '../engine/rng';
 import { MAP_ART, type MapLayout, type MapSprite } from '../assets';
 import { walkerTextures } from '../overworld/tileArt';
 import { saveProgress } from '../save';
 import { DialogBox } from '../ui/dialog';
-import { followKey, groundKey, propKey, standKey, walkKey } from './BootScene';
-import { button, buttonPagePoint, hinge, isoPad, screenBackdrop, tapeLabel } from '../ui/kit';
-import { hexToNum, TONES } from '../ui/theme';
+import { followKey, frontKey, groundKey, propKey, standKey, walkKey } from './BootScene';
+import { buttonPagePoint, faceIcon, hinge, isoPad, listRow, monIcon, roundButton, screenBackdrop, tapeLabel } from '../ui/kit';
+import { hexToNum, shade, TONES } from '../ui/theme';
 import { tweenAsync, wait } from '../ui/widgets';
 
 const STEP_MS = 170;
@@ -71,6 +71,8 @@ export class OverworldScene extends Phaser.Scene {
 
   create() {
     this.cameras.main.setOrigin(0, 0).setZoom(ZOOM).setRoundPixels(true);
+    // Every screen eases in.
+    this.cameras.main.fadeIn(180, 16, 16, 24);
     this.progress = this.registry.get('progress') as Progress;
     this.pos = { ...(this.progress.pos ?? START) };
     const params = new URLSearchParams(location.search);
@@ -131,7 +133,8 @@ export class OverworldScene extends Phaser.Scene {
     const leader = this.progress.leader;
     this.walker = walkerTextures(this, leader, CHARACTERS[leader].color);
     const i = SQUAD.indexOf(leader);
-    const rest: Omit<Follower, 'img' | 'at'>[] = [1, 2, 3].map((k) => ({ id: SQUAD[(i + k) % SQUAD.length] }));
+    // Solo mode (Journal > OPTIONS): just the leader and their Patchling on the map.
+    const rest: Omit<Follower, 'img' | 'at'>[] = partyMode(this.progress) === 'solo' ? [] : [1, 2, 3].map((k) => ({ id: SQUAD[(i + k) % SQUAD.length] }));
     const lead = leaderTeam(this.progress)[0]?.species;
     if (lead && this.textures.exists(followKey(lead))) rest.unshift({ id: lead, mon: true });
     const spots = this.followers.map((f) => f.at);
@@ -260,21 +263,31 @@ export class OverworldScene extends Phaser.Scene {
     screenBackdrop(this, BOTTOM).setDepth(20);
     hinge(this).setDepth(21);
     this.ui = this.add.container(0, BOTTOM).setDepth(22);
-    this.ui.add(isoPad(this, 70, 104, 100, (d) => { this.padDir = d; if (d) this.queued = d; }).setName('dpad'));
+    this.ui.add(isoPad(this, 72, 112, 100, (d) => { this.padDir = d; if (d) this.queued = d; }).setName('dpad'));
     // While someone talks, the tap itself moves the text on (DialogBox), so A only starts things.
-    this.ui.add(button(this, 196, 84, 64, 64, 'A', TONES.act, () => { if (!this.busy) void this.interact(); }, { size: 16, name: 'a' }));
-    this.ui.add(button(this, 196, 160, 96, 30, 'JOURNAL', TONES.seal, () => this.openJournal(), { name: 'journal' }));
+    this.ui.add(roundButton(this, 196, 102, 26, 'A', TONES.act, () => { if (!this.busy) void this.interact(); }, 'a'));
     this.drawLeaderUi();
   }
 
-  /** The leader's name tape and SWITCH (which names who's next). */
+  /** Who leads (face card), SWITCH (with the next friend's face) and JOURNAL (with the lead Patchling). */
   private drawLeaderUi() {
-    this.ui.getByName('leader-tape')?.destroy();
-    this.ui.getByName('switch')?.destroy();
-    const leader = CHARACTERS[this.progress.leader];
-    const next = CHARACTERS[SQUAD[(SQUAD.indexOf(this.progress.leader) + 1) % SQUAD.length]];
-    this.ui.add(tapeLabel(this, 10, 8, `${leader.name.toUpperCase()} LEADS`).setName('leader-tape'));
-    this.ui.add(button(this, 196, 28, 96, 28, 'SWITCH', hexToNum(next.color), () => this.switchLeader(), { sub: `to ${next.name}`, name: 'switch' }));
+    for (const n of ['leader-tape', 'switch', 'journal']) this.ui.getByName(n)?.destroy();
+    const id = this.progress.leader;
+    const leader = CHARACTERS[id];
+    const nextId = SQUAD[(SQUAD.indexOf(id) + 1) % SQUAD.length];
+    const next = CHARACTERS[nextId];
+    const lead = leaderTeam(this.progress)[0];
+    this.ui.add(listRow(this, 66, 24, 120, 32, {
+      title: leader.name, sub: `leads · ${leader.assist.name}`, color: shade(hexToNum(leader.color), -0.2), icon: faceIcon(walkKey(id)), name: 'leader-tape', passive: true,
+    }));
+    this.ui.add(listRow(this, 196, 24, 108, 32, {
+      title: 'SWITCH', sub: `to ${next.name}`, color: shade(hexToNum(next.color), -0.22), icon: faceIcon(walkKey(nextId)),
+      onTap: () => this.switchLeader(), name: 'switch',
+    }));
+    this.ui.add(listRow(this, 196, 164, 108, 30, {
+      title: 'JOURNAL', sub: 'Team & bestiary', color: TONES.seal, icon: lead ? monIcon(frontKey(lead.species), 0.4) : { text: 'J' },
+      onTap: () => this.openJournal(), name: 'journal',
+    }));
   }
 
   private setupKeys() {
