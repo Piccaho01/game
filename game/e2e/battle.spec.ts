@@ -1,3 +1,4 @@
+import { skipCutscene } from './cutscene';
 import { expect, test, type Page } from '@playwright/test';
 
 declare global {
@@ -128,10 +129,14 @@ test('a new game: a leader card, who takes which starter, who leads first, then 
   await tapNew('friend-dani');
   expect(await picks()).toEqual({ haydon: 'sprigby', dani: 'furnaxol', callum: 'gobbin', nolan: 'zapail' });
   await tapNew('confirm');
+  // Each friend's line about the starter they took plays over the pick.
+  await skipCutscene(page, 'starters_picked');
+  await page.waitForFunction(() => (window as unknown as { __newgame: Ng }).__newgame.step() === 'lead');
   expect(await step()).toBe('lead');
   expect(await page.evaluate(() => (window as unknown as { __newgame: Ng }).__newgame.leader())).toBe('dani');
   await tapNew('lead-haydon');
   await tapNew('confirm');
+  await skipCutscene(page, 'first_step');
   await page.waitForFunction(() => (window as unknown as { __overworld?: { ready(): boolean } }).__overworld?.ready(), null, { timeout: 60_000 });
   const save = await page.evaluate(() => JSON.parse(localStorage.getItem('patchlings.save.v1')!));
   expect(save.version).toBe(3);

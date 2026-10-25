@@ -1,0 +1,36 @@
+{
+  "_note": "After 'who takes which starter' (beat 5): a line from each friend about the one they took (step 'reactions' expands to the four, in SWITCH order), then PATCH. Plays over the pick screen.",
+  "id": "starters_picked",
+  "reactions": {
+    "callum": {
+      "furnaxol": "A glassblower. That's a niche hobby. I respect a niche hobby.",
+      "zapail": "A snail with a battery in it. That's rare. I'm calling it rare.",
+      "sprigby": "Haydon wanted this one. That's half the reason I took it.",
+      "gobbin": "It's already been through my pockets. We understand each other."
+    },
+    "nolan": {
+      "furnaxol": "Molten glass. Great. I'll be the one sweeping up after it.",
+      "zapail": "It's nervous, I'm calm. We balance out.",
+      "sprigby": "It's kicking my shins. Okay. We'll work on that.",
+      "gobbin": "It has my ring. I don't own a ring. I'm not asking questions."
+    },
+    "haydon": {
+      "furnaxol": "Fire. Obviously. I was always going to be the fire one.",
+      "zapail": "It's a snail. A fast snail though. Don't laugh.",
+      "sprigby": "Told you. Kicking is a personality.",
+      "gobbin": "A shark that steals stuff. Honestly? Relatable."
+    },
+    "dani": {
+      "furnaxol": "It's very hot. Like the laptop. I don't trust this.",
+      "zapail": "He's shaking. Tranquilo, little guy. Is okay.",
+      "sprigby": "He wants to fight me. I don't fight. I'm a lover.",
+      "gobbin": "Me and the shark. Partners. He can look at the phone. No touching."
+    }
+  },
+  "steps": [
+    { "reactions": true },
+    { "who": "patch", "text": "Good. Four teams. Anything you seal and send back here, any of you can use. Share." },
+    { "who": "callum", "text": "I'm keeping a spreadsheet." },
+    { "who": "patch", "text": "Of course you are." }
+  ]
+}

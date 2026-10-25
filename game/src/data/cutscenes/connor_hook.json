@@ -1,0 +1,22 @@
+{
+  "_note": "Beat 7: THE BOYS group chat pings on the leader's phone at the town sign. Plants Director Connor (bible §10) without showing him. 'chat' lines go on the phone; 'members' is the count in its header. 'sets': flags set when this scene has played ('opening': the whole opening is done).",
+  "id": "connor_hook",
+  "stage": "huddle",
+  "chatTitle": "THE BOYS",
+  "sets": ["opening"],
+  "steps": [
+    { "phone": "open", "members": 4, "sfx": "banner", "title": "THE BOYS" },
+    { "chat": "system", "text": "Connor joined the chat", "members": 5 },
+    { "chat": "connor", "text": "yo" },
+    { "chat": "connor", "text": "where are you guys" },
+    { "chat": "connor", "text": "might be a bit late" },
+    { "who": "haydon", "text": "Connor?? You cancelled the festival. You cancel EVERYTHING." },
+    { "chat": "connor", "text": "ya about that" },
+    { "chat": "connor", "text": "can't really explain rn. something came up" },
+    { "chat": "system", "text": "Connor is typing..." },
+    { "chat": "system", "text": "Connor left the chat", "members": 4 },
+    { "phone": "close" },
+    { "who": "patch", "text": "...That name was in my first draft." },
+    { "who": "patch", "text": "I'm working on a fix." }
+  ]
+}

@@ -4,11 +4,13 @@ import { linesFor } from '../engine/dialogue';
 import { facing, findPath, followStep, heightAt, lineUp, MAPS, npcAt, npcsFor, objectAction, rollEncounter, signAt, stairAxis, START, step, type Dir, type Npc, type Position, type Spot } from '../engine/overworld';
 import { CHARACTERS, healTeam, leaderTeam, partyMode, SQUAD, switchLeader, type CharacterId, type Progress } from '../engine/progress';
 import { createRng, type Rng } from '../engine/rng';
+import { faceToward, huddle, markSeen, sceneFor, SCRIPTS } from '../engine/story';
 import { MAP_ART, type MapLayout, type MapSprite } from '../assets';
 import { walkerTextures } from '../overworld/tileArt';
 import { saveProgress } from '../save';
 import { DialogBox } from '../ui/dialog';
 import { followKey, frontKey, groundKey, propKey, standKey, walkKey } from './BootScene';
+import { playCutscene } from './CutsceneScene';
 import { buttonPagePoint, faceIcon, hinge, isoPad, listRow, monIcon, roundButton, screenBackdrop, tapeLabel } from '../ui/kit';
 import { hexToNum, shade, TONES } from '../ui/theme';
 import { tweenAsync, wait } from '../ui/widgets';
@@ -62,6 +64,8 @@ export class OverworldScene extends Phaser.Scene {
   private rng!: Rng;
   /** Test hook: a forced encounter rate (?rate=1). */
   private rateOverride: number | null = null;
+  /** The story scene playing on the map, if any. */
+  private storyScene: string | null = null;
 
   constructor() { super('overworld'); }
 
@@ -95,7 +99,9 @@ export class OverworldScene extends Phaser.Scene {
     this.setupKeys();
     this.exposeForTests();
     this.showMapName();
+    this.storyScene = null;
     if (this.notice === 'blackout') void this.talk('patch_blackout');
+    else void this.storyCheck('arrive');
   }
 
   // ---------- map ----------
@@ -129,12 +135,12 @@ export class OverworldScene extends Phaser.Scene {
   }
 
   /** The leader's walker, their lead Patchling, and the other three behind in SWITCH order. */
-  private setLeaderLook() {
+  private setLeaderLook(squad = partyMode(this.progress) !== 'solo') {
     const leader = this.progress.leader;
     this.walker = walkerTextures(this, leader, CHARACTERS[leader].color);
     const i = SQUAD.indexOf(leader);
     // Solo mode (Journal > OPTIONS): just the leader and their Patchling on the map.
-    const rest: Omit<Follower, 'img' | 'at'>[] = partyMode(this.progress) === 'solo' ? [] : [1, 2, 3].map((k) => ({ id: SQUAD[(i + k) % SQUAD.length] }));
+    const rest: Omit<Follower, 'img' | 'at'>[] = !squad ? [] : [1, 2, 3].map((k) => ({ id: SQUAD[(i + k) % SQUAD.length] }));
     const lead = leaderTeam(this.progress)[0]?.species;
     if (lead && this.textures.exists(followKey(lead))) rest.unshift({ id: lead, mon: true });
     const spots = this.followers.map((f) => f.at);
@@ -365,6 +371,7 @@ export class OverworldScene extends Phaser.Scene {
     this.sortFollowers();
     this.face(dir, 0);
     this.save();
+    if (await this.storyCheck('step')) { this.moving = false; return; }
     if (res.grass) this.rustle();
     if (res.grass && this.tryEncounter()) return;
     this.moving = false;
@@ -381,6 +388,7 @@ export class OverworldScene extends Phaser.Scene {
     cam.fadeIn(140, 16, 16, 24);
     this.showMapName();
     this.busy = false;
+    await this.storyCheck('arrive');
   }
 
   /** A puff of grass where the leader lands. */
@@ -469,10 +477,64 @@ export class OverworldScene extends Phaser.Scene {
     this.scene.start('journal', { from: 'overworld' });
   }
 
+  // ---------- story (Track B hook: engine/story.ts, scenes/CutsceneScene.ts) ----------
+
+  /** Plays the story scene due here (data/cutscenes/triggers.json), if any. True when one played. */
+  private async storyCheck(event: 'arrive' | 'step') {
+    const id = sceneFor(this.progress, this.pos, event);
+    if (!id) return false;
+    await this.playScene(id);
+    return true;
+  }
+
+  /** A story scene on the map: the four gather round the leader (even in Solo) and talk; then back in line. */
+  async playScene(id: string) {
+    this.busy = true;
+    this.padDir = null;
+    this.queued = null;
+    this.storyScene = id;
+    const huddled = SCRIPTS[id]?.stage === 'huddle';
+    if (huddled) await this.gather();
+    await playCutscene(this, id);
+    markSeen(this.progress, id);
+    this.save();
+    if (huddled) {
+      this.setLeaderLook();
+      this.lineUpFollowers();
+      this.follow();
+    }
+    this.storyScene = null;
+    this.busy = false;
+  }
+
+  /** Everyone walks to a spot round the leader and faces them; the leader turns to the first. */
+  private async gather() {
+    if (partyMode(this.progress) === 'solo') {
+      this.setLeaderLook(true);
+      this.lineUpFollowers();
+    }
+    const spots = huddle(this.pos, this.followers.length, (x, y) => !!npcAt(this.npcs, x, y));
+    await Promise.all(this.followers.map((f, i) => {
+      f.at = spots[i];
+      const p = this.feet(spots[i].x, spots[i].y);
+      this.faceFollower(f, spots[i].dir, 1);
+      return tweenAsync(this, { targets: f.img, x: p.x, y: p.y, duration: STEP_MS * 2 });
+    }));
+    this.followers.forEach((f) => this.faceFollower(f, f.at.dir, 0));
+    const friend = this.followers.find((f) => !f.mon && (f.at.x !== this.pos.x || f.at.y !== this.pos.y));
+    if (friend) this.pos = { ...this.pos, dir: faceToward(this.pos, friend.at) };
+    this.face(this.pos.dir, 0);
+    this.sortFollowers();
+    this.follow();
+    await wait(this, 150);
+  }
+
   private exposeForTests() {
     (window as unknown as Record<string, unknown>).__overworld = {
       pos: () => ({ ...this.pos }),
       ready: () => !this.moving && !this.busy,
+      /** The story scene playing here, or null. */
+      story: () => this.storyScene,
       /** The walk to a tile on this map, as directions (engine/overworld.ts findPath). */
       pathTo: (x: number, y: number) => findPath(this.pos.map, this.pos, { x, y }, (bx, by) => !!npcAt(this.npcs, bx, by)),
       talking: () => this.dialog.open,
