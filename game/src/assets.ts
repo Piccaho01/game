@@ -45,3 +45,18 @@ for (const [path, url] of Object.entries(stills)) {
   if (key.includes('_')) continue; // _flats, _shaded, _sil are pipeline previews
   (SPRITES[key] ??= {}).still = url;
 }
+
+/** Battle backdrops per location (art/battle/out/<id>.png, 256x192): the owner's drafts, converted. */
+const battleBgs = import.meta.glob('../../art/battle/out/*.png', { eager: true, query: '?url', import: 'default' }) as Record<string, string>;
+export const BATTLE_BGS: Record<string, string> = Object.fromEntries(Object.entries(battleBgs).map(([path, url]) => [base(path), url]));
+/** The friends' big pixel figures for the assist cut-ins (art/tools/sheet2battle.py): <id>_battle.png. */
+const trainerBattle = import.meta.glob('../../art/trainers/out/*_battle.png', { eager: true, query: '?url', import: 'default' }) as Record<string, string>;
+export const TRAINER_BATTLE: Record<string, string> = Object.fromEntries(
+  Object.entries(trainerBattle).map(([path, url]) => [base(path).replace(/_battle$/, ''), url]),
+);
+/** Patchlings following in the overworld (art/tools/turnaround2follow.py): 8 angles, FOLLOW_FRAME square. */
+const follows = import.meta.glob('../../art/followers/out/*_follow.png', { eager: true, query: '?url', import: 'default' }) as Record<string, string>;
+export const FOLLOW_SHEETS: Record<string, string> = Object.fromEntries(
+  Object.entries(follows).map(([path, url]) => [base(path).replace(/_follow$/, ''), url]),
+);
+export const FOLLOW_FRAME = 32;

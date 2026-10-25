@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import { MAP_ART, PROP_ART, SPRITES, STANDS, WALK_FRAME, WALK_SHEETS, type SpriteAsset } from '../assets';
+import { BATTLE_BGS, FOLLOW_FRAME, FOLLOW_SHEETS, MAP_ART, PROP_ART, SPRITES, STANDS, TRAINER_BATTLE, WALK_FRAME, WALK_SHEETS, type SpriteAsset } from '../assets';
 import { SPECIES, TYPES } from '../engine/data';
 import { newProgress } from '../engine/progress';
 import { clearProgress, loadProgress, saveProgress } from '../save';
@@ -17,6 +17,12 @@ export const standKey = (id: string) => `stand:${id}`;
 export const groundKey = (id: string) => `ground:${id}`;
 export const propKey = (art: string) => `prop:${art}`;
 export const backIdleAnimKey = (species: string) => `idle:back:${species}`;
+/** A location's battle backdrop (256x192). */
+export const battleBgKey = (id: string) => `battlebg:${id}`;
+/** A friend's big pixel figure for the assist cut-in. */
+export const trainerKey = (id: string) => `trainer:${id}`;
+/** A Patchling's follower frames (8 angles). */
+export const followKey = (species: string) => `follow:${species}`;
 
 export class BootScene extends Phaser.Scene {
   constructor() { super('boot'); }
@@ -33,6 +39,9 @@ export class BootScene extends Phaser.Scene {
     for (const [id, url] of Object.entries(STANDS)) this.load.image(standKey(id), url);
     for (const [id, art] of Object.entries(MAP_ART)) this.load.image(groundKey(id), art.png);
     for (const [id, url] of Object.entries(PROP_ART)) this.load.image(propKey(id), url);
+    for (const [id, url] of Object.entries(BATTLE_BGS)) this.load.image(battleBgKey(id), url);
+    for (const [id, url] of Object.entries(TRAINER_BATTLE)) this.load.image(trainerKey(id), url);
+    for (const [id, url] of Object.entries(FOLLOW_SHEETS)) this.load.spritesheet(followKey(id), url, { frameWidth: FOLLOW_FRAME, frameHeight: FOLLOW_FRAME });
   }
 
   create() {

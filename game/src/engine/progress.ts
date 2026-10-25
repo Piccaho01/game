@@ -14,7 +14,7 @@ export const STAGES = ['sighted', 'tracked', 'studied', 'sealed', 'bonded'] as c
 export type Stage = (typeof STAGES)[number];
 
 export type CharacterId = 'callum' | 'nolan' | 'haydon' | 'dani';
-export interface CharacterData { name: string; role: string; color: string; field: string; assist: { id: AssistId; name: string; short: string; desc: string }; line: string }
+export interface CharacterData { name: string; role: string; color: string; field: string; assist: { id: AssistId; name: string; short: string; desc: string; shout: string; accent: string }; line: string }
 export const CHARACTERS = charactersJson.characters as Record<CharacterId, CharacterData>;
 /** The squad in SWITCH order. */
 export const SQUAD = Object.keys(CHARACTERS) as CharacterId[];

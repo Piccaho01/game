@@ -8,8 +8,10 @@ import { NewGameScene } from './scenes/NewGameScene';
 import { OverworldScene } from './scenes/OverworldScene';
 import { IntroScene } from './scenes/IntroScene';
 import { SanctuaryScene } from './scenes/SanctuaryScene';
+import { unlockAudio } from './ui/sfx';
 
 async function start() {
+  unlockAudio();
   // Text is drawn to textures, so the pixel font must be ready before the first scene.
   await document.fonts.load('8px "Press Start 2P"').catch(() => undefined);
   const game = new Phaser.Game({

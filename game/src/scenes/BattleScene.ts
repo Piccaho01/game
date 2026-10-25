@@ -5,26 +5,30 @@ import { createBattler } from '../engine/battler';
 import { CHARACTERS, healTeam, keepBattleDamage, leaderTeam, recordDefeat, recordEncounter, recordScan, recordSeal, teamBattlers, type DexChange, type Progress } from '../engine/progress';
 import { HEAL_SPOT } from '../engine/overworld';
 import { effectiveness } from '../engine/typeChart';
-import { MOVES, SPECIES, TYPES, type StatusId } from '../engine/data';
+import { MOVES, SPECIES, TYPES } from '../engine/data';
 import { createRng } from '../engine/rng';
 import { sealPattern, sealWindows, type Bond, type SealResult } from '../engine/seal';
 import { DialogBox } from '../ui/dialog';
-import { button, buttonPagePoint, chip, drawPanel, hinge, Meter, screenBackdrop } from '../ui/kit';
+import { button, buttonPagePoint, hinge, pxRect, screenBackdrop } from '../ui/kit';
+import { assistBar, assistCutIn, banner, commandButton, gloveDecal, InfoCard, runDecal, scrollDecal, teamDecal } from '../ui/battleKit';
+import { sfx } from '../ui/sfx';
 import { pixelText } from '../ui/text';
 import { COLORS, hexToNum, shade, TEXT_COLORS, TEXT_SIZE, TONES } from '../ui/theme';
 import { tweenAsync, wait } from '../ui/widgets';
 import { saveProgress } from '../save';
-import { backIdleAnimKey, backKey, frontKey, idleAnimKey } from './BootScene';
+import { backIdleAnimKey, backKey, battleBgKey, frontKey, idleAnimKey, trainerKey, walkKey } from './BootScene';
 import { SealMinigame } from './SealMinigame';
 
-/** `from: 'overworld'`: a wild encounter, which goes back to the same spot when it ends. */
-interface BattleInit { foe: string; seed?: number; level?: number; from?: 'overworld' }
+/**
+ * `from: 'overworld'`: a wild encounter, which goes back to the same spot when it ends.
+ * `bg`: the location's backdrop (the map's `battle`); test battles use Hollow Rest's.
+ */
+interface BattleInit { foe: string; seed?: number; level?: number; from?: 'overworld'; bg?: string }
 type Phase = 'intro' | 'menu' | 'fight' | 'team' | 'switching' | 'playing' | 'sealing' | 'over';
 
 const FOE_LEVEL = 5;
 /** Wild foes the "Next battle" button cycles through: Route 1's commons first, then the starters. */
 const FOE_ROTATION = ['orbitot', 'fledjet', 'sprigby', 'zapail', 'gobbin', 'furnaxol'];
-const STATUS_COLORS: Record<StatusId, number> = { brn: 0xe8603c, par: 0xc89a18, psn: 0x9a4ab8, slp: 0x7a8098 };
 const BOTTOM = SCREEN_H;
 const STAGE_TEXT: Record<string, string> = {
   sighted: 'sighted. New entry!', tracked: 'is now Tracked.', studied: 'is now Studied.', sealed: 'is now Sealed.', bonded: 'is now Bonded!',
@@ -37,7 +41,7 @@ export class BattleScene extends Phaser.Scene {
   private params!: BattleInit;
   private phase: Phase = 'intro';
   private sprites!: Record<Side, Phaser.GameObjects.Sprite>;
-  private hpBoxes!: Record<Side, HpBox>;
+  private hpBoxes!: Record<Side, InfoCard>;
   private message!: DialogBox;
   private menu!: Phaser.GameObjects.Container;
   private log: string[] = [];
@@ -75,9 +79,9 @@ export class BattleScene extends Phaser.Scene {
       foe: this.addBattler('foe', 192, 100),
       player: this.addBattler('player', 66, 158),
     };
-    this.hpBoxes = { foe: new HpBox(this, 6, 10, 'foe'), player: new HpBox(this, 136, 104, 'player') };
-    this.hpBoxes.foe.set(this.battle.foe);
-    this.hpBoxes.player.set(this.battle.player);
+    this.hpBoxes = { foe: new InfoCard(this, 'foe', 10), player: new InfoCard(this, 'player', 102) };
+    this.setCard('foe', this.battle.foe);
+    this.setCard('player', this.battle.player);
     this.message = new DialogBox(this);
     this.drawBottomScreen();
     this.menu = this.add.container(0, BOTTOM);
@@ -88,7 +92,22 @@ export class BattleScene extends Phaser.Scene {
 
   // ---------- top screen ----------
 
+  private setCard(side: Side, b: Parameters<InfoCard['set']>[0]) {
+    this.hpBoxes[side].set(b, (t) => shade(hexToNum(TYPES[t as keyof typeof TYPES].color), -0.15), (t) => TYPES[t as keyof typeof TYPES].name);
+  }
+
+  /** The location's backdrop (the owner's drawings) with soft platforms; plain bands if it has none. */
   private drawBackdrop() {
+    const key = battleBgKey(this.params.bg ?? 'hollow_rest');
+    if (this.textures.exists(key)) {
+      this.add.image(0, 0, key).setOrigin(0, 0);
+      const g = this.add.graphics();
+      g.fillStyle(0x1c1b29, 0.22).fillEllipse(192, 99, 120, 24);
+      g.fillStyle(0xffffff, 0.08).fillEllipse(192, 96, 104, 14);
+      g.fillStyle(0x1c1b29, 0.22).fillEllipse(66, 158, 156, 32);
+      g.fillStyle(0xffffff, 0.08).fillEllipse(66, 154, 136, 18);
+      return;
+    }
     const g = this.add.graphics();
     const bands = [0x78b8e8, 0x88c4ec, 0x9cd0f0, 0xb4dcf0];
     bands.forEach((c, i) => g.fillStyle(c).fillRect(0, i * 18, SCREEN_W, 18));
@@ -132,18 +151,54 @@ export class BattleScene extends Phaser.Scene {
     this.phase = 'menu';
     this.clearMenu();
     const p = this.battle.player;
-    this.message.prompt(`What will ${p.name} do?`);
-    // The leader's assist: once per battle, and free (the Patchling still moves this turn).
-    const leader = CHARACTERS[this.progress.leader];
-    const canAssist = this.battle.canAssist();
-    this.menu.add(button(this, 128, 24, 232, 30, `${leader.name.toUpperCase()}: ${leader.assist.name.toUpperCase()}`, TONES.patch,
-      canAssist ? () => this.useAssist() : undefined, { sub: canAssist ? `${leader.assist.short} (once, free)` : 'used this battle', name: 'assist' }));
-    this.menu.add(button(this, 128, 90, 200, 72, 'FIGHT', TONES.act, () => this.showFightMenu(), { size: TEXT_SIZE.title, name: 'fight' }));
+    // The question moves to the touch screen, next to the leader's face; the top screen stays clear.
+    this.message.hide();
+    const leaderId = this.progress.leader;
+    const leader = CHARACTERS[leaderId];
+    this.drawHeader(leaderId, `What will ${p.name} do?`);
     const canSeal = this.battle.canSeal();
-    this.menu.add(button(this, 44, 160, 76, 40, 'SEAL', TONES.seal, canSeal ? () => this.trySeal() : undefined, { name: 'seal' }));
-    this.menu.add(button(this, 128, 166, 76, 32, 'RUN', TONES.neutral, () => this.choose({ kind: 'run' }), { name: 'run' }));
     const canSwitch = this.battle.canSwitch();
-    this.menu.add(button(this, 212, 160, 76, 40, 'TEAM', TONES.go, canSwitch ? () => this.showTeamMenu(false) : undefined, { name: 'team' }));
+    const ready = this.battle.switchable().length;
+    const moves = this.battle.usableMoves('player').length;
+    this.menu.add(commandButton(this, 66, 64, 116, 36, {
+      label: 'FIGHT', hint: moves ? `${moves} move${moves === 1 ? '' : 's'}` : 'Struggle', color: 0xc94f2c, icon: 'fight', name: 'fight',
+      decal: (sc, w) => gloveDecal(sc, w / 2 - 22, 0), onTap: () => this.showFightMenu(),
+    }));
+    this.menu.add(commandButton(this, 190, 64, 116, 36, {
+      label: 'SEAL', hint: canSeal ? 'Weaken first' : 'Not now', color: 0x7a52b8, icon: 'seal', name: 'seal',
+      decal: (sc, w) => scrollDecal(sc, w / 2 - 20, 0), onTap: canSeal ? () => this.trySeal() : undefined,
+    }));
+    this.menu.add(commandButton(this, 66, 108, 116, 36, {
+      label: 'TEAM', hint: canSwitch ? `${ready} ready` : 'No one else', color: 0x3a78c8, icon: 'team', name: 'team',
+      decal: (sc, w) => teamDecal(sc, w / 2 - 18, 4, this.battle.team.map((b) => frontKey(b.species))),
+      onTap: canSwitch ? () => this.showTeamMenu(false) : undefined,
+    }));
+    this.menu.add(commandButton(this, 190, 108, 116, 36, {
+      label: 'RUN', hint: 'Get away', color: 0x4b4f66, icon: 'run', name: 'run',
+      decal: (sc, w) => runDecal(sc, -w / 2 - 10, w / 2 + 10, 4, frontKey(p.species)), onTap: () => this.choose({ kind: 'run' }),
+    }));
+    // The leader's assist: once per battle, and free (the Patchling still moves this turn).
+    this.menu.add(assistBar(this, 128, 150, 236, 20, {
+      name: leader.assist.name, short: leader.assist.short, onTap: this.battle.canAssist() ? () => this.useAssist() : undefined,
+    }));
+  }
+
+  /** The touch screen's header card: the leader's face, their name, the question. */
+  private drawHeader(leaderId: keyof typeof CHARACTERS, text: string) {
+    const leader = CHARACTERS[leaderId];
+    const g = this.add.graphics();
+    pxRect(g, 5, 5, 246, 30, COLORS.ink, 4);
+    pxRect(g, 6, 6, 244, 27, COLORS.paperShade, 3);
+    pxRect(g, 6, 6, 244, 25, 0xf8f1de, 3);
+    pxRect(g, 6, 6, 28, 25, hexToNum(leader.color), 3);
+    g.fillStyle(COLORS.ink).fillRect(34, 6, 1, 25);
+    this.menu.add(g);
+    if (this.textures.exists(walkKey(leaderId))) {
+      // Head and shoulders from their walk sprite.
+      this.menu.add(this.add.image(20, 4, walkKey(leaderId), 0).setOrigin(0.5, 0).setCrop(0, 2, 24, 27));
+    }
+    this.menu.add(pixelText(this, 41, 10, leader.name.toUpperCase(), { color: TEXT_COLORS.rust, size: TEXT_SIZE.tiny }));
+    this.menu.add(pixelText(this, 41, 19, text, { size: TEXT_SIZE.body }));
   }
 
   private async useAssist() {
@@ -151,6 +206,10 @@ export class BattleScene extends Phaser.Scene {
     this.phase = 'playing';
     this.clearMenu();
     const leader = CHARACTERS[this.progress.leader];
+    await assistCutIn(this, {
+      color: shade(hexToNum(leader.color), -0.1), accent: hexToNum(leader.assist.accent), trainerKey: trainerKey(this.progress.leader),
+      word: `${leader.assist.name}!`, line: leader.assist.shout,
+    });
     await this.playEvents(this.battle.assist(leader.assist.id, leader.name));
     if (leader.assist.id === 'scan') await this.record(recordScan(this.progress, this.battle.foe.species));
     this.showMainMenu();
@@ -161,6 +220,7 @@ export class BattleScene extends Phaser.Scene {
     this.phase = forced ? 'switching' : 'team';
     this.clearMenu();
     if (forced) this.message.prompt('Who will you send in next?');
+    else this.message.prompt(`Who should swap in for ${this.battle.player.name}?`);
     const ok = new Set(this.battle.switchable());
     this.battle.team.forEach((b, i) => {
       const x = 66 + (i % 2) * 124;
@@ -193,6 +253,7 @@ export class BattleScene extends Phaser.Scene {
     this.phase = 'fight';
     this.clearMenu();
     const p = this.battle.player;
+    this.message.prompt(`What will ${p.name} use?`);
     const usable = new Set(this.battle.usableMoves('player'));
     p.moves.forEach((slot, i) => {
       const m = MOVES[slot.id];
@@ -243,6 +304,21 @@ export class BattleScene extends Phaser.Scene {
 
   private async playIntro() {
     this.clearMenu();
+    // Both slide onto their platforms, the cards follow, then the banner sweeps across.
+    const foe = this.sprites.foe;
+    const me = this.sprites.player;
+    const fx = foe.x;
+    const mx = me.x;
+    foe.setX(fx + 170);
+    me.setX(mx - 170);
+    sfx('swish');
+    await Promise.all([
+      tweenAsync(this, { targets: foe, x: fx, duration: 420, ease: 'Cubic.easeOut' }),
+      tweenAsync(this, { targets: me, x: mx, duration: 420, delay: 80, ease: 'Cubic.easeOut' }),
+      this.hpBoxes.foe.slideIn(200),
+      this.hpBoxes.player.slideIn(300),
+    ]);
+    await banner(this, `A WILD ${this.battle.foe.name.toUpperCase()}!`);
     await this.playEvents(this.introEvents);
     await this.record(recordEncounter(this.progress, this.battle.foe.species));
     this.showMainMenu();
@@ -312,6 +388,8 @@ export class BattleScene extends Phaser.Scene {
     for (const e of events) {
       switch (e.kind) {
         case 'text':
+          if (/super effective/i.test(e.text)) this.superFlash();
+          else if (/not very effective/i.test(e.text)) sfx('weak');
           await this.say(e.text);
           break;
         case 'move':
@@ -321,7 +399,7 @@ export class BattleScene extends Phaser.Scene {
           await Promise.all([this.flash(e.side, e.hp < this.hpBoxes[e.side].hp), this.hpBoxes[e.side].animateTo(e.hp, e.maxHp)]);
           break;
         case 'status':
-          this.hpBoxes[e.side].setStatus(e.status);
+          this.hpBoxes[e.side].statusTag(e.status);
           break;
         case 'stat':
           await this.statFlash(e.side, e.delta > 0);
@@ -337,6 +415,7 @@ export class BattleScene extends Phaser.Scene {
           break;
         case 'sealed':
           this.bond = e.bond;
+          sfx('sealed');
           await this.sealAway();
           break;
         case 'end':
@@ -351,9 +430,23 @@ export class BattleScene extends Phaser.Scene {
     return tweenAsync(this, { targets: s, x: s.x + dx, y: s.y + (side === 'player' ? -4 : 4), duration: 90, yoyo: true, ease: 'Quad.easeOut' });
   }
 
+  /** A super-effective hit: the top screen flashes white. */
+  private superFlash() {
+    sfx('super');
+    const f = this.add.rectangle(0, 0, SCREEN_W, SCREEN_H, 0xffffff).setOrigin(0).setDepth(20).setAlpha(0.85);
+    this.tweens.add({ targets: f, alpha: 0, duration: 260, onComplete: () => f.destroy() });
+  }
+
   private async flash(side: Side, hurt: boolean) {
-    if (!hurt) return;
+    if (!hurt) {
+      sfx('heal');
+      return;
+    }
+    sfx('hit');
     const s = this.sprites[side];
+    const x = s.x;
+    // A quick shake as the hit lands.
+    void tweenAsync(this, { targets: s, x: { from: x - 3, to: x + 3 }, duration: 40, yoyo: true, repeat: 2, onComplete: () => s.setX(x) });
     for (let i = 0; i < 3; i++) {
       s.setAlpha(0);
       await wait(this, 60);
@@ -363,6 +456,7 @@ export class BattleScene extends Phaser.Scene {
   }
 
   private async statFlash(side: Side, up: boolean) {
+    sfx(up ? 'statUp' : 'statDown');
     const s = this.sprites[side];
     s.setTintFill(up ? 0x80c0ff : 0xff8080);
     await wait(this, 120);
@@ -381,11 +475,12 @@ export class BattleScene extends Phaser.Scene {
     const scale = s.scaleX;
     s.setScale(0);
     this.sprites.player = s;
-    this.hpBoxes.player.set({ ...b, hp: this.hpBefore[index] ?? b.hp, status: b.status });
+    this.setCard('player', { ...b, hp: this.hpBefore[index] ?? b.hp, status: b.status });
     await tweenAsync(this, { targets: s, scaleX: scale, scaleY: scale, duration: 220, ease: 'Back.easeOut' });
   }
 
   private faint(side: Side) {
+    sfx('faint');
     const s = this.sprites[side];
     s.stop();
     const label = s.getData('label') as Phaser.GameObjects.Text | undefined;
@@ -415,62 +510,5 @@ export class BattleScene extends Phaser.Scene {
       /** Centre of a named bottom-screen button in page (CSS) pixels, for real taps in e2e. */
       buttonAt: (name: string) => buttonPagePoint(this, this.menu, name),
     };
-  }
-}
-
-// ---------- widgets ----------
-
-class HpBox {
-  hp = 0;
-  private maxHp = 1;
-  private meter: Meter;
-  private nums?: Phaser.GameObjects.Text;
-  private name: Phaser.GameObjects.Text;
-  private level: Phaser.GameObjects.Text;
-  private status: Phaser.GameObjects.Container;
-
-  constructor(private scene: Phaser.Scene, x: number, y: number, side: Side) {
-    const w = 114;
-    const h = side === 'player' ? 38 : 30;
-    drawPanel(scene.add.graphics(), x, y, w, h, 'paper');
-    this.name = pixelText(scene, x + 8, y + 6, '');
-    this.level = pixelText(scene, x + w - 7, y + 8, '', { color: TEXT_COLORS.inkSoft, size: TEXT_SIZE.small }).setOrigin(1, 0);
-    const tag = scene.add.graphics();
-    tag.fillStyle(COLORS.ink).fillRect(x + 31, y + 17, 15, 8);
-    pixelText(scene, x + 33, y + 18, 'HP', { color: TEXT_COLORS.gold, size: TEXT_SIZE.tiny });
-    this.meter = new Meter(scene, x + 46, y + 19, w - 54, 4);
-    if (side === 'player') this.nums = pixelText(scene, x + w - 7, y + 27, '', { size: TEXT_SIZE.small }).setOrigin(1, 0);
-    this.status = scene.add.container(x + 7, y + 16);
-  }
-
-  set(b: { name: string; level: number; hp: number; stats: { hp: number }; status: StatusId | null }) {
-    this.name.setText(b.name);
-    this.level.setText(`Lv${b.level}`);
-    this.hp = b.hp;
-    this.maxHp = b.stats.hp;
-    this.draw(b.hp);
-    this.setStatus(b.status);
-  }
-
-  setStatus(status: StatusId | null) {
-    this.status.removeAll(true);
-    if (status) this.status.add(chip(this.scene, 0, 0, status, STATUS_COLORS[status]));
-  }
-
-  animateTo(hp: number, maxHp: number) {
-    this.maxHp = maxHp;
-    const from = this.hp;
-    this.hp = hp;
-    const counter = { v: from };
-    return tweenAsync(this.scene, {
-      targets: counter, v: hp, duration: Math.min(800, 200 + Math.abs(from - hp) * 25),
-      onUpdate: () => this.draw(Math.round(counter.v)),
-    });
-  }
-
-  private draw(hp: number) {
-    const frac = Math.max(0, hp / this.maxHp);
-    this.meter.draw(frac, frac > 0.5 ? 0x48c860 : frac > 0.2 ? 0xf2b630 : 0xe8483a);
-    this.nums?.setText(`${hp}/${this.maxHp}`);
   }
 }

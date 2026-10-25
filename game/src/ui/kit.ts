@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 import { SCREEN_H, SCREEN_W, ZOOM } from '../config';
 import { COLORS, TEXT_COLORS, TEXT_SIZE, shade } from './theme';
 import { pixelText } from './text';
+import { sfx } from './sfx';
 
 /**
  * The UI kit: every window, button and list is built from these, so a screen only lays things
@@ -135,7 +136,7 @@ export function button(
     c.setSize(w, h).setInteractive({ useHandCursor: true });
     c.on('pointerdown', () => c.setY(y + 2));
     c.on('pointerout', () => c.setY(y));
-    c.on('pointerup', () => { c.setY(y); onTap(); });
+    c.on('pointerup', () => { c.setY(y); sfx('tap'); onTap(); });
   }
   return c;
 }

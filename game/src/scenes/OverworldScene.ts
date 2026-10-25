@@ -2,13 +2,13 @@ import Phaser from 'phaser';
 import { SCREEN_H, SCREEN_W, ZOOM } from '../config';
 import { linesFor } from '../engine/dialogue';
 import { facing, findPath, followStep, heightAt, lineUp, MAPS, npcAt, npcsFor, objectAction, rollEncounter, signAt, stairAxis, START, step, type Dir, type Npc, type Position, type Spot } from '../engine/overworld';
-import { CHARACTERS, healTeam, SQUAD, switchLeader, type CharacterId, type Progress } from '../engine/progress';
+import { CHARACTERS, healTeam, leaderTeam, SQUAD, switchLeader, type CharacterId, type Progress } from '../engine/progress';
 import { createRng, type Rng } from '../engine/rng';
 import { MAP_ART, type MapLayout, type MapSprite } from '../assets';
 import { walkerTextures } from '../overworld/tileArt';
 import { saveProgress } from '../save';
 import { DialogBox } from '../ui/dialog';
-import { groundKey, propKey, standKey, walkKey } from './BootScene';
+import { followKey, groundKey, propKey, standKey, walkKey } from './BootScene';
 import { button, buttonPagePoint, hinge, isoPad, screenBackdrop, tapeLabel } from '../ui/kit';
 import { hexToNum, TONES } from '../ui/theme';
 import { tweenAsync, wait } from '../ui/widgets';
@@ -24,6 +24,8 @@ const BOTTOM = SCREEN_H;
 const WALK_VIEW: Record<Dir, { row: number; flip: boolean }> = {
   down: { row: 0, flip: false }, right: { row: 0, flip: true }, left: { row: 3, flip: false }, up: { row: 3, flip: true },
 };
+/** Which of a follower Patchling's 8 angles faces each grid direction (art/followers: front, front-left, left, back-left, back, back-right, right, front-right). */
+const FOLLOW_VIEW: Record<Dir, number> = { down: 1, right: 7, left: 3, up: 5 };
 const OPPOSITE: Record<Dir, Dir> = { up: 'down', down: 'up', left: 'right', right: 'left' };
 const KEYS: Record<string, Dir> = { UP: 'up', DOWN: 'down', LEFT: 'left', RIGHT: 'right', W: 'up', S: 'down', A: 'left', D: 'right' };
 
@@ -31,7 +33,7 @@ const KEYS: Record<string, Dir> = { UP: 'up', DOWN: 'down', LEFT: 'left', RIGHT:
  * The overworld (M4): the map on the top screen following the leader, the D-pad and buttons on
  * the touch screen. Walking is grid-based; tall grass rolls for wild Patchlings, which open the
  * battle scene and come back to the same spot. The other three friends walk behind the leader in
- * a line (bible §6); SWITCH hands the lead to the next one.
+ * a line (bible §6), the leader's lead Patchling right behind them; SWITCH hands the lead to the next one.
  */
 export class OverworldScene extends Phaser.Scene {
   private progress!: Progress;
@@ -41,8 +43,8 @@ export class OverworldScene extends Phaser.Scene {
   /** Buildings and other multi-tile pieces: the leader is drawn in front of or behind each by footprint. */
   private big: { img: Phaser.GameObjects.Image; sp: MapSprite }[] = [];
   private player!: Phaser.GameObjects.Image;
-  /** The other three, in line behind the leader. */
-  private followers: { id: CharacterId; img: Phaser.GameObjects.Image; at: Spot }[] = [];
+  /** In line behind the leader: their lead Patchling (when it has follower art), then the other three. */
+  private followers: Follower[] = [];
   private npcs: Npc[] = [];
   private npcSprites = new Map<string, Phaser.GameObjects.Image>();
   /** Something to say on arrival (after a blackout). */
@@ -124,15 +126,17 @@ export class OverworldScene extends Phaser.Scene {
     this.placePlayer();
   }
 
-  /** The leader's walker, and the other three behind in SWITCH order. */
+  /** The leader's walker, their lead Patchling, and the other three behind in SWITCH order. */
   private setLeaderLook() {
     const leader = this.progress.leader;
     this.walker = walkerTextures(this, leader, CHARACTERS[leader].color);
     const i = SQUAD.indexOf(leader);
-    const rest = [1, 2, 3].map((k) => SQUAD[(i + k) % SQUAD.length]);
+    const rest: Omit<Follower, 'img' | 'at'>[] = [1, 2, 3].map((k) => ({ id: SQUAD[(i + k) % SQUAD.length] }));
+    const lead = leaderTeam(this.progress)[0]?.species;
+    if (lead && this.textures.exists(followKey(lead))) rest.unshift({ id: lead, mon: true });
     const spots = this.followers.map((f) => f.at);
-    for (const f of this.followers) f.img.destroy();
-    this.followers = rest.map((id, k) => ({ id, img: this.add.image(0, 0, '__DEFAULT').setOrigin(0.5, 1), at: spots[k] ?? { ...this.pos } }));
+    for (const f of this.followers) { this.tweens.killTweensOf(f.img); f.img.destroy(); }
+    this.followers = rest.map((f, k) => ({ ...f, img: this.add.image(0, 0, '__DEFAULT').setOrigin(0.5, 1), at: spots[k] ?? { ...this.pos } }));
     if (this.world) for (const f of this.followers) this.world.add(f.img);
     this.face(this.pos.dir, 0);
   }
@@ -168,11 +172,15 @@ export class OverworldScene extends Phaser.Scene {
     });
   }
 
-  private faceFollower(f: { id: CharacterId; img: Phaser.GameObjects.Image }, dir: Dir, step: 0 | 1 | 2) {
+  private faceFollower(f: Follower, dir: Dir, step: 0 | 1 | 2) {
+    if (f.mon) {
+      f.img.setTexture(followKey(f.id), FOLLOW_VIEW[dir]).setFlipX(false);
+      return;
+    }
     const sheet = walkKey(f.id);
     const view = WALK_VIEW[dir];
     if (this.textures.exists(sheet)) f.img.setTexture(sheet, view.row * 3 + step).setFlipX(view.flip);
-    else f.img.setTexture(`${walkerTextures(this, f.id, CHARACTERS[f.id].color)}:${dir}:${step ? 1 : 0}`);
+    else f.img.setTexture(`${walkerTextures(this, f.id, CHARACTERS[f.id as CharacterId].color)}:${dir}:${step ? 1 : 0}`);
   }
 
   /** Where someone standing on a tile has their feet, on the baked map (stairs: halfway up). */
@@ -324,6 +332,15 @@ export class OverworldScene extends Phaser.Scene {
       const moved = trail[i].x !== f.at.x || trail[i].y !== f.at.y;
       this.faceFollower(f, trail[i].dir, moved ? this.stepFrame : 0);
       const p = this.feet(trail[i].x, trail[i].y);
+      if (moved && f.mon) {
+        // Patchlings hop along instead of walking.
+        const from = { x: f.img.x, y: f.img.y };
+        const k = { t: 0 };
+        return tweenAsync(this, {
+          targets: k, t: 1, duration: STEP_MS,
+          onUpdate: () => f.img.setPosition(from.x + (p.x - from.x) * k.t, from.y + (p.y - from.y) * k.t - Math.sin(k.t * Math.PI) * 4),
+        });
+      }
       return moved ? tweenAsync(this, { targets: f.img, x: p.x, y: p.y, duration: STEP_MS }) : Promise.resolve();
     });
     await Promise.all([tweenAsync(this, {
@@ -373,7 +390,7 @@ export class OverworldScene extends Phaser.Scene {
     const cam = this.cameras.main;
     cam.flash(120, 255, 255, 255);
     this.time.delayedCall(240, () => cam.flash(120, 255, 255, 255));
-    this.time.delayedCall(480, () => this.scene.start('battle', { foe: wild.species, level: wild.level, from: 'overworld' }));
+    this.time.delayedCall(480, () => this.scene.start('battle', { foe: wild.species, level: wild.level, from: 'overworld', bg: map.battle }));
     return true;
   }
 
@@ -449,7 +466,11 @@ export class OverworldScene extends Phaser.Scene {
       npcs: () => this.npcs.map((n) => n.id),
       leader: () => this.progress.leader,
       /** The three behind the leader, in order: who and where. */
-      followers: () => this.followers.map((f) => ({ id: f.id, x: f.at.x, y: f.at.y, visible: f.img.visible })),
+      followers: () => this.followers.filter((f) => !f.mon).map((f) => ({ id: f.id, x: f.at.x, y: f.at.y, visible: f.img.visible })),
+      /** The Patchling hopping along behind the leader, if any. */
+      pet: () => this.followers.find((f) => f.mon)?.id ?? null,
+      /** Everyone behind the leader in order, the Patchling included. */
+      line: () => this.followers.map((f) => ({ id: f.id, x: f.at.x, y: f.at.y })),
       buttonAt: (name: string) => buttonPagePoint(this, this.ui, name),
       /** The D-pad's centre in page px, plus how far its arms reach. */
       padAt: () => {
@@ -460,3 +481,6 @@ export class OverworldScene extends Phaser.Scene {
     };
   }
 }
+
+/** Someone in line behind the leader: one of the friends, or (`mon`) the leader's lead Patchling. */
+interface Follower { id: string; mon?: boolean; img: Phaser.GameObjects.Image; at: Spot }

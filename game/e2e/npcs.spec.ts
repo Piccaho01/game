@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 import { ow, ready as waitReady, tapKey, walkTo } from './walk';
 
-type Ow = { ready(): boolean; talking(): boolean; npcs(): string[]; leader(): string; followers(): { id: string; x: number; y: number; visible: boolean }[]; buttonAt(n: string): { x: number; y: number } | null };
+type Ow = { ready(): boolean; talking(): boolean; npcs(): string[]; leader(): string; followers(): { id: string; x: number; y: number; visible: boolean }[]; pet(): string | null; line(): { id: string; x: number; y: number }[]; buttonAt(n: string): { x: number; y: number } | null };
 const ready = () => (window as unknown as { __overworld?: Ow }).__overworld?.ready();
 
 test('the other three follow the leader, and PATCH heals everyone', async ({ page }) => {
@@ -25,11 +25,12 @@ test('the other three follow the leader, and PATCH heals everyone', async ({ pag
 
   // Up the hill to the sanctuary's steps, where PATCH stands guard, and face him.
   await walkTo(page, 5, 5);
-  // After a walk they're strung out behind, each next to the one ahead.
-  const line = await followers();
+  // After a walk they're strung out behind, each next to the one ahead: Callum's Sprigby hops right behind him.
+  const line = await page.evaluate(() => (window as unknown as { __overworld: Ow }).__overworld.line());
+  expect(line.map((f) => f.id)).toEqual(['sprigby', 'nolan', 'haydon', 'dani']);
   const chain = [{ x: 5, y: 5 }, ...line];
   line.forEach((f, i) => expect(Math.abs(f.x - chain[i].x) + Math.abs(f.y - chain[i].y)).toBeLessThanOrEqual(1));
-  expect(line[0].visible).toBe(true);
+  expect((await followers())[0].visible).toBe(true);
   await tapKey(page, 'left');
   expect(await ow(page)).toEqual({ map: 'hollow_rest', x: 5, y: 5, dir: 'left' });
 

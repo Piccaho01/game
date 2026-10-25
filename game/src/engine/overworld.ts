@@ -56,6 +56,8 @@ export interface MapData {
   /** Where you wake up after blacking out (the map with one is the heal spot). */
   healSpot?: { x: number; y: number; dir: Dir };
   encounters?: EncounterTable;
+  /** Battle backdrop for fights here (art/battle/out/<id>.png). */
+  battle?: string;
 }
 
 export interface WorldMap {
@@ -74,6 +76,7 @@ export interface WorldMap {
   objects: PlacedObject[];
   healSpot?: { x: number; y: number; dir: Dir };
   encounters?: EncounterTable;
+  battle?: string;
 }
 
 /** Turns a map file into a grid, failing loudly on typos (unknown legend chars, ragged rows). */
@@ -105,7 +108,7 @@ export function loadMap(raw: MapData): WorldMap {
   }
   return {
     id: raw.id, name: raw.name, width, height: tiles.length, tiles, spawn: raw.spawn, warps: raw.warps ?? [],
-    signs: raw.signs ?? [], npcs: raw.npcs ?? [], z, objects, healSpot: raw.healSpot, encounters: raw.encounters,
+    signs: raw.signs ?? [], npcs: raw.npcs ?? [], z, objects, healSpot: raw.healSpot, encounters: raw.encounters, battle: raw.battle,
   };
 }
 

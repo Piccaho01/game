@@ -270,6 +270,20 @@ and PR (owner approves visuals before they go in):
   Art asks for the owner: interior concept + set-piece sheets per house and for the sanctuary
   halls (prompts in `art/LOCATION_STYLE.md`).
 
+## UI upgrade (owner's direction, 2026-10-25; branch `claude/ui-upgrade`)
+Look "Workshop A+" chosen from the pitch board (cleaner PATCH style with more flare). Built so far,
+on the battle as the sample screen: location backdrops (owner's ChatGPT drafts in
+`art/concepts/battle/`, converted to 256x192 in `art/battle/out/`; maps name theirs in `battle`),
+edge-tucked info cards with type tags and a two-step HP drain, intro slide-ins and a "A WILD X!"
+banner, the touch-screen header with the leader's face, command buttons with faint animated
+decals (glove, scroll, team silhouettes, the active Patchling running) that do a big move on tap,
+the gold assist bar, the leader's cut-in with their big pixel figure (`art/tools/sheet2battle.py`)
+and their line (`characters.json` assist.shout/accent), hit shake, super-effective flash, synthesized
+sound effects (`ui/sfx.ts`, `?mute`). Overworld: the leader's lead Patchling hops behind them
+(follower frames from the owner's turnaround sheet via `art/tools/turnaround2follow.py`).
+Next once the owner approves the sample: roll the look out to every screen (new game, journal,
+sanctuary, overworld touch screen, fight/team menus), seal scrolls as items.
+
 ## M5 Playtest build
 - Bug pass on phones (iOS Safari, Android Chrome), balance pass, the link shared with the
   group, one round of fixes from their feedback.
