@@ -2,7 +2,6 @@ import tilesJson from '../data/tiles.json';
 import objectsJson from '../data/objects.json';
 import type { Rng } from './rng';
 import { SPECIES } from './data';
-import type { CharacterId } from './progress';
 
 /**
  * The overworld as data (M4): grid maps with ground heights, 4-direction steps (on screen the grid
@@ -33,12 +32,12 @@ export interface Sign { x: number; y: number; text?: string; opens?: 'sanctuary'
 /**
  * Someone standing on the map. `sprite`: 'walk:<id>' (a walk sheet), 'patch' (PATCH, big), or
  * 'placeholder:#rrggbb' until their sprite is drawn. `talk`: a data/dialogue.json id. `w`: tiles
- * wide (PATCH takes two). `friend`: one of the four, only there while someone else leads.
- * `heal`: talking heals the team.
+ * wide (PATCH takes two). `heal`: talking heals the team. (The four friends aren't NPCs: they
+ * follow the leader, see `lineUp`.)
  */
 export interface Npc {
   id: string; x: number; y: number; w?: number; dir?: Dir; sprite: string; talk: string;
-  friend?: CharacterId; heal?: boolean;
+  heal?: boolean;
 }
 export interface EncounterTable { rate: number; levels: [number, number]; table: { species: string; weight: number }[] }
 
@@ -240,9 +239,40 @@ export function findPath(mapId: string, from: { x: number; y: number }, to: { x:
   return null;
 }
 
-/** Who is on the map right now: the friend who is leading isn't also waiting around. */
-export function npcsFor(map: WorldMap, leader: CharacterId) {
-  return map.npcs.filter((n) => n.friend !== leader);
+/** Who is on the map right now. */
+export function npcsFor(map: WorldMap) {
+  return [...map.npcs];
+}
+
+/** Where a follower stands, and which way they face. */
+export interface Spot { x: number; y: number; dir: Dir }
+const BACK: Record<Dir, Dir> = { up: 'down', down: 'up', left: 'right', right: 'left' };
+
+/**
+ * The other three in a line behind the leader on arrival (new map, after a battle): back the way
+ * the leader faces while the ground allows, otherwise bunched on the last open tile.
+ */
+export function lineUp(pos: Position, n: number, blocked: (x: number, y: number) => boolean = () => false): Spot[] {
+  const out: Spot[] = [];
+  let at: Position = pos;
+  for (let i = 0; i < n; i++) {
+    const res = step({ ...at, dir: BACK[pos.dir] }, BACK[pos.dir], blocked);
+    if (res.moved && !res.warped) at = { ...res.pos, dir: pos.dir };
+    out.push({ x: at.x, y: at.y, dir: pos.dir });
+  }
+  return out;
+}
+
+/** After the leader steps off `from`: each follower takes the place of the one ahead, facing where they went. */
+export function followStep(trail: Spot[], from: Spot): Spot[] {
+  const ahead = [from, ...trail];
+  return trail.map((s, i) => {
+    const t = ahead[i];
+    const dx = t.x - s.x;
+    const dy = t.y - s.y;
+    const dir: Dir = dx === 0 && dy === 0 ? t.dir : Math.abs(dx) >= Math.abs(dy) ? (dx > 0 ? 'right' : 'left') : (dy > 0 ? 'down' : 'up');
+    return { x: t.x, y: t.y, dir };
+  });
 }
 
 export function npcAt(npcs: Npc[], x: number, y: number) {

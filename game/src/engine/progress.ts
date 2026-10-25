@@ -6,24 +6,30 @@ import type { AssistId } from './battle';
 import { MAPS, type Position } from './overworld';
 import type { Bond } from './seal';
 
-/** The player's progress (bible §7): a team of six, the sanctuary for the rest, and the bestiary. */
+/**
+ * The player's progress (bible §6, §7): each of the four friends has their own team of six, the
+ * sanctuary holds the rest (shared: any friend can withdraw any of them), and the bestiary.
+ */
 export const STAGES = ['sighted', 'tracked', 'studied', 'sealed', 'bonded'] as const;
 export type Stage = (typeof STAGES)[number];
 
 export type CharacterId = 'callum' | 'nolan' | 'haydon' | 'dani';
 export interface CharacterData { name: string; role: string; color: string; field: string; assist: { id: AssistId; name: string; short: string; desc: string }; line: string }
 export const CHARACTERS = charactersJson.characters as Record<CharacterId, CharacterData>;
+/** The squad in SWITCH order. */
+export const SQUAD = Object.keys(CHARACTERS) as CharacterId[];
 
 /** `hp`/`status`: carried between wild battles; missing means full health and no status. */
 export interface Member { uid: number; species: string; level: number; bond: Bond; hp?: number; status?: StatusId | null }
 /** `scans`: Callum's Scan, which counts toward Studied. */
 export interface DexRecord { encounters: number; defeats: number; seals: number; strongBonds: number; scans: number }
 export interface Progress {
-  version: 2;
-  /** The character leading (bible §6); swapping leaders and their own teams come in M4. */
+  version: 3;
+  /** The friend leading (bible §6): the one you walk as, whose team battles and whose assist applies. */
   leader: CharacterId;
   nextUid: number;
-  team: Member[];
+  teams: Record<CharacterId, Member[]>;
+  /** Shared storage. */
   sanctuary: Member[];
   bestiary: Record<string, DexRecord>;
   /** Sanctuary wings restored (engine/sanctuary.ts), in order. */
@@ -36,7 +42,7 @@ const EMPTY_RECORD: DexRecord = { encounters: 0, defeats: 0, seals: 0, strongBon
 
 type Condition = Partial<Record<keyof DexRecord, number>>;
 const RULES = progressJson as unknown as {
-  teamSize: number; starters: string[]; starterLevel: number; starterBond: Bond;
+  teamSize: number; starters: string[]; defaultStarters: Record<CharacterId, string>; starterLevel: number; starterBond: Bond;
   stages: Record<Stage, Condition>;
   bondBoost: Record<Bond, number>;
 };
@@ -44,17 +50,60 @@ export const TEAM_SIZE = RULES.teamSize;
 export const STARTERS = RULES.starters;
 export const BOND_BOOST = RULES.bondBoost;
 
-export function newProgress(starter: string, leader: CharacterId = 'callum'): Progress {
-  if (!SPECIES[starter]) throw new Error(`Unknown Patchling: ${starter}`);
+export const DEFAULT_STARTERS = RULES.defaultStarters;
+
+/** Who takes which starter (one each), keeping the defaults for the rest: `leader` gets `starter`, and whoever had it by default gets the leader's. */
+export function assignStarters(starter: string, leader: CharacterId): Record<CharacterId, string> {
+  const out = { ...DEFAULT_STARTERS };
+  const had = SQUAD.find((c) => out[c] === starter);
+  if (had) out[had] = out[leader];
+  out[leader] = starter;
+  return out;
+}
+
+/** A new game: one starter per friend (`starters`), or a single starter for the leader with the defaults for the rest. */
+export function newProgress(starters: string | Partial<Record<CharacterId, string>>, leader: CharacterId = 'callum'): Progress {
   if (!CHARACTERS[leader]) throw new Error(`Unknown character: ${leader}`);
-  return {
-    version: 2, leader, nextUid: 2,
-    team: [{ uid: 1, species: starter, level: RULES.starterLevel, bond: RULES.starterBond }],
-    sanctuary: [],
-    wings: [],
-    // PATCH hands over the starter already bonded, so its whole entry is open.
-    bestiary: { [starter]: { encounters: 1, defeats: 0, seals: 1, strongBonds: RULES.starterBond === 'strong' ? 1 : 0, scans: 0 } },
-  };
+  const picks = typeof starters === 'string' ? assignStarters(starters, leader) : { ...DEFAULT_STARTERS, ...starters };
+  for (const c of SQUAD) if (!SPECIES[picks[c]]) throw new Error(`Unknown Patchling: ${picks[c]}`);
+  let uid = 1;
+  const teams = Object.fromEntries(SQUAD.map((c) => [c, [{ uid: uid++, species: picks[c], level: RULES.starterLevel, bond: RULES.starterBond }]])) as Record<CharacterId, Member[]>;
+  // PATCH hands over the starters already bonded, so their whole entries are open.
+  const bestiary: Record<string, DexRecord> = {};
+  for (const c of SQUAD) bestiary[picks[c]] = { ...EMPTY_RECORD, encounters: 1, seals: 1, strongBonds: RULES.starterBond === 'strong' ? 1 : 0 };
+  return { version: 3, leader, nextUid: uid, teams, sanctuary: [], wings: [], bestiary };
+}
+
+/** The leader's team: the one that battles. */
+export function leaderTeam(p: Progress) {
+  return p.teams[p.leader];
+}
+
+/** SWITCH: the next friend in the squad takes the lead. */
+export function switchLeader(p: Progress, to?: CharacterId) {
+  p.leader = to ?? SQUAD[(SQUAD.indexOf(p.leader) + 1) % SQUAD.length];
+  return p.leader;
+}
+
+/** Sends one of the leader's team to the sanctuary (PATCH looks after it: back to full). The last one stays. */
+export function deposit(p: Progress, uid: number) {
+  const team = leaderTeam(p);
+  const i = team.findIndex((m) => m.uid === uid);
+  if (i < 0 || team.length <= 1) return false;
+  const [m] = team.splice(i, 1);
+  delete m.hp;
+  delete m.status;
+  p.sanctuary.push(m);
+  return true;
+}
+
+/** Takes any Patchling from the sanctuary onto the leader's team, if there is room. */
+export function withdraw(p: Progress, uid: number) {
+  const team = leaderTeam(p);
+  const i = p.sanctuary.findIndex((m) => m.uid === uid);
+  if (i < 0 || team.length >= TEAM_SIZE) return false;
+  team.push(...p.sanctuary.splice(i, 1));
+  return true;
 }
 
 /** Highest stage reached, or null if never seen. Stages can be skipped (seal on first sight). */
@@ -94,20 +143,20 @@ export function recordEncounter(p: Progress, species: string) { return bump(p, s
 export function recordDefeat(p: Progress, species: string) { return bump(p, species, 'defeats'); }
 export function recordScan(p: Progress, species: string) { return bump(p, species, 'scans'); }
 
-/** A sealed Patchling joins the team, or goes straight to the sanctuary when the team is full. */
+/** A sealed Patchling joins the leader's team, or goes straight to the sanctuary when that team is full. */
 export function recordSeal(p: Progress, species: string, level: number, bond: Bond) {
   const member: Member = { uid: p.nextUid++, species, level, bond };
-  const where: 'team' | 'sanctuary' = p.team.length < TEAM_SIZE ? 'team' : 'sanctuary';
-  p[where].push(member);
+  const where: 'team' | 'sanctuary' = leaderTeam(p).length < TEAM_SIZE ? 'team' : 'sanctuary';
+  (where === 'team' ? leaderTeam(p) : p.sanctuary).push(member);
   const changes = [bump(p, species, 'seals'), bond === 'strong' ? bump(p, species, 'strongBonds') : null].filter((c): c is DexChange => !!c);
   // Two bumps can both move the stage; report the whole move once.
   const change = changes.length ? { species, from: changes[0].from, to: changes[changes.length - 1].to } : null;
   return { member, where, change };
 }
 
-/** The team as battlers, with the HP and status they were left with. */
+/** The leader's team as battlers, with the HP and status they were left with. */
 export function teamBattlers(p: Progress): Battler[] {
-  return p.team.map((m) => {
+  return leaderTeam(p).map((m) => {
     const b = createBattler(m.species, m.level, undefined, m.bond);
     if (m.hp !== undefined) b.hp = Math.max(0, Math.min(b.stats.hp, m.hp));
     b.status = m.status ?? null;
@@ -117,7 +166,7 @@ export function teamBattlers(p: Progress): Battler[] {
 
 /** After a battle: each member keeps the HP and status it ended with (team order is unchanged). */
 export function keepBattleDamage(p: Progress, team: Battler[]) {
-  p.team.forEach((m, i) => {
+  leaderTeam(p).forEach((m, i) => {
     const b = team[i];
     if (!b) return;
     m.hp = b.hp >= b.stats.hp ? undefined : b.hp;
@@ -127,34 +176,63 @@ export function keepBattleDamage(p: Progress, team: Battler[]) {
   });
 }
 
+/** PATCH patches up everyone's team. */
 export function healTeam(p: Progress) {
-  for (const m of p.team) {
+  for (const m of SQUAD.flatMap((c) => p.teams[c])) {
     delete m.hp;
     delete m.status;
   }
 }
 
-/** Can the team fight? (Someone is still standing.) */
+/** Can the leader's team fight? (Someone is still standing.) */
 export function canBattle(p: Progress) {
   return teamBattlers(p).some((b) => b.hp > 0);
 }
 
-/** Loads saved progress, dropping anything that no longer matches the data (renamed species). */
+/**
+ * Loads saved progress, dropping anything that no longer matches the data (renamed species).
+ * Older saves had one team: it goes to its leader, and the other three get the remaining starters.
+ */
 export function parseProgress(raw: unknown): Progress | null {
-  const p = raw as (Omit<Progress, 'version' | 'leader'> & { version: number; leader?: string }) | null;
-  if (!p || (p.version !== 1 && p.version !== 2) || !Array.isArray(p.team) || !Array.isArray(p.sanctuary) || typeof p.bestiary !== 'object') return null;
+  type Raw = Omit<Progress, 'version' | 'leader' | 'teams'> & { version: number; leader?: string; team?: Member[]; teams?: Partial<Record<string, Member[]>> };
+  const p = raw as Raw | null;
+  if (!p || ![1, 2, 3].includes(p.version) || !Array.isArray(p.sanctuary) || typeof p.bestiary !== 'object') return null;
   // Version 1 saves came before the character pick: they belong to Callum.
   const leader = (p.leader && p.leader in CHARACTERS ? p.leader : 'callum') as CharacterId;
   const ok = (m: Member) => !!SPECIES[m?.species] && m.level > 0 && ['strong', 'steady', 'wary'].includes(m.bond)
     && (m.hp === undefined || (typeof m.hp === 'number' && m.hp >= 0));
-  const team = p.team.filter(ok);
-  if (team.length === 0) return null;
+  const list = (ms: unknown) => (Array.isArray(ms) ? (ms as Member[]).filter(ok) : []);
+  let nextUid = typeof p.nextUid === 'number' ? p.nextUid : 1;
+  let teams: Record<CharacterId, Member[]>;
+  let bestiary = p.bestiary as Record<string, Partial<DexRecord>>;
+  if (p.version < 3) {
+    const team = list(p.team);
+    if (team.length === 0) return null;
+    const used = new Set([...team, ...list(p.sanctuary)].map((m) => m.uid));
+    nextUid = Math.max(nextUid, ...used) + 1;
+    const picks = assignStarters(STARTERS.includes(team[0].species) ? team[0].species : DEFAULT_STARTERS[leader], leader);
+    bestiary = { ...bestiary };
+    teams = Object.fromEntries(SQUAD.map((c) => {
+      if (c === leader) return [c, team];
+      // A starter they bring is bonded, like PATCH's handover.
+      bestiary[picks[c]] = { ...EMPTY_RECORD, ...bestiary[picks[c]] };
+      const r = bestiary[picks[c]] as DexRecord;
+      r.encounters = Math.max(1, r.encounters);
+      r.seals = Math.max(1, r.seals);
+      if (RULES.starterBond === 'strong') r.strongBonds = Math.max(1, r.strongBonds);
+      return [c, [{ uid: nextUid++, species: picks[c], level: RULES.starterLevel, bond: RULES.starterBond }]];
+    })) as Record<CharacterId, Member[]>;
+  } else {
+    teams = Object.fromEntries(SQUAD.map((c) => [c, list(p.teams?.[c])])) as Record<CharacterId, Member[]>;
+    if (teams[leader].length === 0) return null;
+  }
   // Records saved before a counter existed get it at 0.
-  const bestiary = Object.fromEntries(Object.entries(p.bestiary).filter(([id]) => SPECIES[id])
-    .map(([id, r]) => [id, { ...EMPTY_RECORD, ...(r as Partial<DexRecord>) }]));
+  const dex = Object.fromEntries(Object.entries(bestiary).filter(([id]) => SPECIES[id])
+    .map(([id, r]) => [id, { ...EMPTY_RECORD, ...r }]));
   // A position on a map that no longer exists (or off its edge) is dropped: the game starts them at the spawn.
   const map = p.pos && MAPS[p.pos.map];
   const pos = map && p.pos!.x >= 0 && p.pos!.y >= 0 && p.pos!.x < map.width && p.pos!.y < map.height ? p.pos : undefined;
   const wings = Array.isArray(p.wings) ? p.wings.filter((w): w is string => typeof w === 'string') : [];
-  return { ...p, version: 2, leader, team, sanctuary: p.sanctuary.filter(ok), bestiary, pos, wings };
+  const { team: _old, ...rest } = p;
+  return { ...rest, version: 3, leader, nextUid, teams, sanctuary: list(p.sanctuary), bestiary: dex, pos, wings };
 }

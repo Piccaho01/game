@@ -2,7 +2,7 @@ import Phaser from 'phaser';
 import { SCREEN_H, SCREEN_W, ZOOM } from '../config';
 import { Battle, type BattleEvent, type PlayerAction, type Side } from '../engine/battle';
 import { createBattler } from '../engine/battler';
-import { CHARACTERS, healTeam, keepBattleDamage, recordDefeat, recordEncounter, recordScan, recordSeal, teamBattlers, type DexChange, type Progress } from '../engine/progress';
+import { CHARACTERS, healTeam, keepBattleDamage, leaderTeam, recordDefeat, recordEncounter, recordScan, recordSeal, teamBattlers, type DexChange, type Progress } from '../engine/progress';
 import { HEAL_SPOT } from '../engine/overworld';
 import { effectiveness } from '../engine/typeChart';
 import { MOVES, SPECIES, TYPES, type StatusId } from '../engine/data';
@@ -66,7 +66,7 @@ export class BattleScene extends Phaser.Scene {
     // Wild battles from the overworld carry HP between fights; test battles (?foe=) start fresh.
     const team = this.params.from === 'overworld'
       ? teamBattlers(this.progress)
-      : this.progress.team.map((m) => createBattler(m.species, m.level, undefined, m.bond));
+      : leaderTeam(this.progress).map((m) => createBattler(m.species, m.level, undefined, m.bond));
     this.battle = new Battle(team, createBattler(this.params.foe, this.params.level ?? FOE_LEVEL), createRng(seed));
     this.introEvents = this.battle.intro();
 

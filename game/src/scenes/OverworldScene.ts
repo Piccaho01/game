@@ -1,8 +1,8 @@
 import Phaser from 'phaser';
 import { SCREEN_H, SCREEN_W, ZOOM } from '../config';
 import { linesFor } from '../engine/dialogue';
-import { facing, findPath, heightAt, MAPS, npcAt, npcsFor, objectAction, rollEncounter, signAt, stairAxis, START, step, type Dir, type Npc, type Position } from '../engine/overworld';
-import { CHARACTERS, healTeam, type Progress } from '../engine/progress';
+import { facing, findPath, followStep, heightAt, lineUp, MAPS, npcAt, npcsFor, objectAction, rollEncounter, signAt, stairAxis, START, step, type Dir, type Npc, type Position, type Spot } from '../engine/overworld';
+import { CHARACTERS, healTeam, SQUAD, switchLeader, type CharacterId, type Progress } from '../engine/progress';
 import { createRng, type Rng } from '../engine/rng';
 import { MAP_ART, type MapLayout, type MapSprite } from '../assets';
 import { walkerTextures } from '../overworld/tileArt';
@@ -10,7 +10,7 @@ import { saveProgress } from '../save';
 import { DialogBox } from '../ui/dialog';
 import { groundKey, propKey, standKey, walkKey } from './BootScene';
 import { button, buttonPagePoint, hinge, isoPad, screenBackdrop, tapeLabel } from '../ui/kit';
-import { TONES } from '../ui/theme';
+import { hexToNum, TONES } from '../ui/theme';
 import { tweenAsync, wait } from '../ui/widgets';
 
 const STEP_MS = 170;
@@ -30,7 +30,8 @@ const KEYS: Record<string, Dir> = { UP: 'up', DOWN: 'down', LEFT: 'left', RIGHT:
 /**
  * The overworld (M4): the map on the top screen following the leader, the D-pad and buttons on
  * the touch screen. Walking is grid-based; tall grass rolls for wild Patchlings, which open the
- * battle scene and come back to the same spot.
+ * battle scene and come back to the same spot. The other three friends walk behind the leader in
+ * a line (bible §6); SWITCH hands the lead to the next one.
  */
 export class OverworldScene extends Phaser.Scene {
   private progress!: Progress;
@@ -40,6 +41,8 @@ export class OverworldScene extends Phaser.Scene {
   /** Buildings and other multi-tile pieces: the leader is drawn in front of or behind each by footprint. */
   private big: { img: Phaser.GameObjects.Image; sp: MapSprite }[] = [];
   private player!: Phaser.GameObjects.Image;
+  /** The other three, in line behind the leader. */
+  private followers: { id: CharacterId; img: Phaser.GameObjects.Image; at: Spot }[] = [];
   private npcs: Npc[] = [];
   private npcSprites = new Map<string, Phaser.GameObjects.Image>();
   /** Something to say on arrival (after a blackout). */
@@ -77,10 +80,9 @@ export class OverworldScene extends Phaser.Scene {
     this.queued = null;
 
     this.world = this.add.container(0, 0).setDepth(0);
-    const leader = CHARACTERS[this.progress.leader];
-    this.walker = walkerTextures(this, this.progress.leader, leader.color);
     this.player = this.add.image(0, 0, '__DEFAULT').setOrigin(0.5, 1);
-    this.face(this.pos.dir, 0);
+    this.followers = [];
+    this.setLeaderLook();
     this.loadMap();
 
     this.dialog = new DialogBox(this, 5);
@@ -98,6 +100,7 @@ export class OverworldScene extends Phaser.Scene {
     const map = MAPS[this.pos.map];
     this.layout = MAP_ART[map.id].layout;
     this.world.remove(this.player);
+    for (const f of this.followers) this.world.remove(f.img);
     this.world.removeAll(true);
     this.world.add(this.add.image(0, 0, groundKey(map.id)).setOrigin(0, 0).setDepth(-100000));
     this.big = [];
@@ -106,7 +109,7 @@ export class OverworldScene extends Phaser.Scene {
       this.world.add(img);
       if (!sp.decal && (sp.wx > 1 || sp.wy > 1)) this.big.push({ img, sp });
     }
-    this.npcs = npcsFor(map, this.progress.leader);
+    this.npcs = npcsFor(map);
     this.npcSprites.clear();
     for (const n of this.npcs) {
       const f = this.feet(n.x, n.y);
@@ -117,7 +120,59 @@ export class OverworldScene extends Phaser.Scene {
       s.setDepth(this.depthAt(s, n));
     }
     this.world.add(this.player);
+    this.lineUpFollowers();
     this.placePlayer();
+  }
+
+  /** The leader's walker, and the other three behind in SWITCH order. */
+  private setLeaderLook() {
+    const leader = this.progress.leader;
+    this.walker = walkerTextures(this, leader, CHARACTERS[leader].color);
+    const i = SQUAD.indexOf(leader);
+    const rest = [1, 2, 3].map((k) => SQUAD[(i + k) % SQUAD.length]);
+    const spots = this.followers.map((f) => f.at);
+    for (const f of this.followers) f.img.destroy();
+    this.followers = rest.map((id, k) => ({ id, img: this.add.image(0, 0, '__DEFAULT').setOrigin(0.5, 1), at: spots[k] ?? { ...this.pos } }));
+    if (this.world) for (const f of this.followers) this.world.add(f.img);
+    this.face(this.pos.dir, 0);
+  }
+
+  /** On arrival the three fall in behind the leader. */
+  private lineUpFollowers() {
+    const line = lineUp(this.pos, this.followers.length, (x, y) => !!npcAt(this.npcs, x, y));
+    this.followers.forEach((f, i) => {
+      f.at = line[i];
+      if (!this.world.exists(f.img)) this.world.add(f.img);
+    });
+    this.placeFollowers();
+  }
+
+  private placeFollowers() {
+    for (const f of this.followers) {
+      const p = this.feet(f.at.x, f.at.y);
+      f.img.setPosition(p.x, p.y);
+      this.faceFollower(f, f.at.dir, 0);
+    }
+    this.sortFollowers();
+  }
+
+  /**
+   * Followers sharing a tile with someone ahead of them are hidden behind them (bunched up).
+   * Mid-step: `spots`/`lead` are where everyone is going, `depthTiles` the tiles they sort by.
+   */
+  private sortFollowers(depthTiles?: Spot[], spots = this.followers.map((f) => f.at), lead: { x: number; y: number } = this.pos) {
+    this.followers.forEach((f, i) => {
+      const ahead = [lead, ...spots.slice(0, i)];
+      f.img.setVisible(!ahead.some((a) => a.x === spots[i].x && a.y === spots[i].y));
+      f.img.setDepth(this.depthAt(f.img, depthTiles?.[i] ?? spots[i]) - 1);
+    });
+  }
+
+  private faceFollower(f: { id: CharacterId; img: Phaser.GameObjects.Image }, dir: Dir, step: 0 | 1 | 2) {
+    const sheet = walkKey(f.id);
+    const view = WALK_VIEW[dir];
+    if (this.textures.exists(sheet)) f.img.setTexture(sheet, view.row * 3 + step).setFlipX(view.flip);
+    else f.img.setTexture(`${walkerTextures(this, f.id, CHARACTERS[f.id].color)}:${dir}:${step ? 1 : 0}`);
   }
 
   /** Where someone standing on a tile has their feet, on the baked map (stairs: halfway up). */
@@ -169,6 +224,7 @@ export class OverworldScene extends Phaser.Scene {
     const sy = clamp(this.player.y - 16 - SCREEN_H / 2, size.h, SCREEN_H);
     this.world.setPosition(-Math.round(sx), -Math.round(sy));
     this.player.setDepth(this.depthAt(this.player, tile));
+    if (this.followers.length && this.followers[0].img.active) this.sortFollowers();
     this.world.sort('depth');
   }
 
@@ -200,8 +256,17 @@ export class OverworldScene extends Phaser.Scene {
     // While someone talks, the tap itself moves the text on (DialogBox), so A only starts things.
     this.ui.add(button(this, 196, 84, 64, 64, 'A', TONES.act, () => { if (!this.busy) void this.interact(); }, { size: 16, name: 'a' }));
     this.ui.add(button(this, 196, 160, 96, 30, 'JOURNAL', TONES.seal, () => this.openJournal(), { name: 'journal' }));
+    this.drawLeaderUi();
+  }
+
+  /** The leader's name tape and SWITCH (which names who's next). */
+  private drawLeaderUi() {
+    this.ui.getByName('leader-tape')?.destroy();
+    this.ui.getByName('switch')?.destroy();
     const leader = CHARACTERS[this.progress.leader];
-    this.ui.add(tapeLabel(this, 10, 8, `${leader.name.toUpperCase()} LEADS`));
+    const next = CHARACTERS[SQUAD[(SQUAD.indexOf(this.progress.leader) + 1) % SQUAD.length]];
+    this.ui.add(tapeLabel(this, 10, 8, `${leader.name.toUpperCase()} LEADS`).setName('leader-tape'));
+    this.ui.add(button(this, 196, 28, 96, 28, 'SWITCH', hexToNum(next.color), () => this.switchLeader(), { sub: `to ${next.name}`, name: 'switch' }));
   }
 
   private setupKeys() {
@@ -213,6 +278,7 @@ export class OverworldScene extends Phaser.Scene {
     kb.on('keydown-SPACE', a);
     kb.on('keydown-ENTER', a);
     kb.on('keydown-M', () => this.openJournal());
+    kb.on('keydown-TAB', (e: KeyboardEvent) => { e.preventDefault(); this.switchLeader(); });
   }
 
   private heldDir(): Dir | null {
@@ -234,7 +300,7 @@ export class OverworldScene extends Phaser.Scene {
     const res = step(this.pos, dir, (x, y) => !!npcAt(this.npcs, x, y));
     if (!res.moved) {
       // Bumped into something: just face it.
-      this.pos = res.pos;
+      this.pos = { ...this.pos, dir };
       this.face(dir, 0);
       await wait(this, TURN_MS);
       this.moving = false;
@@ -249,12 +315,24 @@ export class OverworldScene extends Phaser.Scene {
     this.face(dir, this.stepFrame);
     const to = this.feet(res.pos.x, res.pos.y);
     // Sort by whichever tile is further forward while crossing between them.
-    const ahead = res.pos.x + res.pos.y > this.pos.x + this.pos.y ? res.pos : this.pos;
-    await tweenAsync(this, {
-      targets: this.player, x: to.x, y: to.y,
-      duration: STEP_MS, onUpdate: () => this.follow(ahead),
+    const fwd = <T extends { x: number; y: number }>(a: T, b: T) => (a.x + a.y > b.x + b.y ? a : b);
+    const ahead = fwd(res.pos, this.pos);
+    // The three behind each step into the place of the one ahead, at the same time.
+    const trail = followStep(this.followers.map((f) => f.at), this.pos);
+    const crossing = trail.map((t, i) => ({ ...fwd(t, this.followers[i].at), dir: t.dir }));
+    const moves = this.followers.map((f, i) => {
+      const moved = trail[i].x !== f.at.x || trail[i].y !== f.at.y;
+      this.faceFollower(f, trail[i].dir, moved ? this.stepFrame : 0);
+      const p = this.feet(trail[i].x, trail[i].y);
+      return moved ? tweenAsync(this, { targets: f.img, x: p.x, y: p.y, duration: STEP_MS }) : Promise.resolve();
     });
+    await Promise.all([tweenAsync(this, {
+      targets: this.player, x: to.x, y: to.y,
+      duration: STEP_MS, onUpdate: () => { this.follow(ahead); this.sortFollowers(crossing, trail, res.pos); },
+    }), ...moves]);
     this.pos = res.pos;
+    this.followers.forEach((f, i) => { f.at = trail[i]; this.faceFollower(f, trail[i].dir, 0); });
+    this.sortFollowers();
     this.face(dir, 0);
     this.save();
     if (res.grass) this.rustle();
@@ -343,6 +421,19 @@ export class OverworldScene extends Phaser.Scene {
     this.cameras.main.flash(300, 166, 216, 255);
   }
 
+  /** SWITCH: the next friend takes the lead (their team battles, their assist applies); the line shuffles round. */
+  private switchLeader() {
+    if (this.moving || this.busy) return;
+    switchLeader(this.progress);
+    this.setLeaderLook();
+    this.placeFollowers();
+    this.follow();
+    this.drawLeaderUi();
+    this.save();
+    // A little hop so the change reads.
+    this.tweens.add({ targets: this.player, y: this.player.y - 4, duration: 70, yoyo: true });
+  }
+
   private openJournal() {
     if (this.moving || this.busy) return;
     this.scene.start('journal', { from: 'overworld' });
@@ -356,6 +447,9 @@ export class OverworldScene extends Phaser.Scene {
       pathTo: (x: number, y: number) => findPath(this.pos.map, this.pos, { x, y }, (bx, by) => !!npcAt(this.npcs, bx, by)),
       talking: () => this.dialog.open,
       npcs: () => this.npcs.map((n) => n.id),
+      leader: () => this.progress.leader,
+      /** The three behind the leader, in order: who and where. */
+      followers: () => this.followers.map((f) => ({ id: f.id, x: f.at.x, y: f.at.y, visible: f.img.visible })),
       buttonAt: (name: string) => buttonPagePoint(this, this.ui, name),
       /** The D-pad's centre in page px, plus how far its arms reach. */
       padAt: () => {

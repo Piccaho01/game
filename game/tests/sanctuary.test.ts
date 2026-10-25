@@ -5,7 +5,7 @@ import { restoreWing, wingState, WINGS } from '../src/engine/sanctuary';
 describe('sanctuary wings', () => {
   it('the first wing opens once the bestiary earns its points, and wings go in order', () => {
     const p = newProgress('sprigby');
-    expect(sanctuaryPoints(p)).toBe(5);
+    expect(sanctuaryPoints(p)).toBe(20); // the four bonded starters
     expect(wingState(p, 'root_hall')).toBe('locked');
     expect(restoreWing(p, 'root_hall')).toBe(false);
     recordSeal(p, 'orbitot', 4, 'steady');
