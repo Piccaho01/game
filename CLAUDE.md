@@ -102,6 +102,17 @@ Faces and hair come from the owner's photos; outfits are game designs, one colou
 - Weaken the creature, then perform a **seal**: a short rhythm/timing minigame. Each type has its own seal pattern.
 - Better seal means stronger bond (stat and loyalty boost). A sloppy seal still works but the creature is wary.
 - Rare creatures can't be sealed until their quest is done.
+- **Seal scrolls** are the sealing item (our Poké Balls): you need one to try a seal. They come in rarities and type-matched kinds (better ones make the rhythm easier and the bond stronger). The exact lineup is pitched in the build.
+
+### Field moves: switch to get through (HM-style)
+Each friend has field moves that match their role. Some obstacles only one of them can clear, so the story makes you switch leaders, and the friend you need fights with their own team, which grows all four teams naturally. At an obstacle the game says who can handle it ("Dani could shift this"). Sometimes the story splits the group so one friend solves an area alone.
+- **Callum, Scan:** reveals hidden paths and items, reads old Relic writing (sealed doors in the Draft Archive).
+- **Nolan, Patch Up:** repairs bridges and machines, hooks up power with his patch cable (the Cloud Station gondola).
+- **Haydon, Taunt:** baits guards and Tally officers off their posts, wakes a big sleeping Patchling blocking the road.
+- **Dani, Shield:** pushes boulders, walks through hazards (fire vents, falling rocks, spray), befriends a Patchling that gives rides.
+
+### Experience: shared, no grinding
+Every Patchling on all four teams gets the full experience from each battle; Patchlings resting in sanctuary storage get half. Nobody falls behind when you switch leaders.
 
 ### Battles
 - Core is classic BW2-style turn-based.
