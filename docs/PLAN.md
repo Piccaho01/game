@@ -208,7 +208,7 @@ because every new screen uses it):
    the viewer facing down-left, row 3 away facing up-left; `walk2sheet.py`, `walk_frames.json`
    'pixel'). Still to do: Route 1's own isometric layout (drafts in: `route1_concept.png`,
    `route1_pieces.png`), townsfolk sprites, PATCH walk sheet in the pixel style.
-9. **Story intro** (script draft for approval: `docs/INTRO_SCRIPT.md`): seven beats on the owner's
+9. ~~**Story intro**~~ (done in M4b Track B, branch `claude/m4b-story`; script `docs/INTRO_SCRIPT.md`): seven beats on the owner's
    cutscene cards (`art/concepts/cutscenes/01..05`), PATCH presents the starters, Connor's
    group-chat hook at the town sign.
 
@@ -254,6 +254,15 @@ and PR (owner approves visuals before they go in):
   box, SKIP; and scripted overworld scenes where the four stand together and talk. Build the
   opening from `docs/INTRO_SCRIPT.md` (beats 1–7), using Track A's starter assignment for beat 5.
   All story dialogue is written for the group.
+  **Track B built** (branch `claude/m4b-story`, approved by the owner): scripts in
+  `data/cutscenes.json` (kinds `cards`, `stage`, `chat`; checked by `engine/cutscene.ts` and
+  `tests/cutscene.test.ts`); cards via `art/tools/card2screen.py` -> `art/cutscenes/out/`
+  (256x192, letterboxed if not 4:3); `CutsceneScene` (card on top; the cast row, 3-line text box
+  and SKIP on the touch screen; fx boom/dissolve/flash/shake; spotlight `focus`); stage scenes and
+  the chat (`ui/chat.ts`) play in `OverworldScene`; the save's `story` lists the overworld scenes
+  played (missing = an old save, none play). `?scene=<id>` plays a scene; `?skipintro` and
+  `?player` skip the story. **Hook for Track A:** `handOff()` in `CutsceneScene.ts`: 'starters'
+  should open the starter assignment, then the `starters_done` cards, then 'leader'.
 - **Track C: World (code + owner's art).** Interiors: door tiles warp to interior maps (same
   isometric engine, a room-sized map), the friends' four houses first, full of inside jokes.
   The sanctuary base: the stone entrance warps into a multi-room interior; rooms gated by
