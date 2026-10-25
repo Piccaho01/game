@@ -1,12 +1,15 @@
 import Phaser from 'phaser';
 import { SCREEN_H, SCREEN_W, ZOOM } from '../config';
 import { linesFor } from '../engine/dialogue';
-import { facing, findPath, followStep, heightAt, lineUp, MAPS, npcAt, npcsFor, objectAction, rollEncounter, signAt, stairAxis, START, step, type Dir, type Npc, type Position, type Spot } from '../engine/overworld';
+import { DIRS, facing, findPath, followStep, heightAt, lineUp, MAPS, npcAt, npcsFor, objectAction, rollEncounter, signAt, stairAxis, START, step, type Dir, type Npc, type Position, type Spot } from '../engine/overworld';
 import { CHARACTERS, healTeam, leaderTeam, partyMode, SQUAD, switchLeader, type CharacterId, type Progress } from '../engine/progress';
 import { createRng, type Rng } from '../engine/rng';
 import { MAP_ART, type MapLayout, type MapSprite } from '../assets';
 import { walkerTextures } from '../overworld/tileArt';
 import { saveProgress } from '../save';
+import { refillScrolls } from '../engine/items';
+import { obstacleAt, OBSTACLE_KINDS, obstaclesOn, tryObstacle, type Obstacle } from '../engine/fieldMoves';
+import { sfx } from '../ui/sfx';
 import { DialogBox } from '../ui/dialog';
 import { followKey, frontKey, groundKey, propKey, standKey, walkKey } from './BootScene';
 import { buttonPagePoint, faceIcon, hinge, isoPad, listRow, monIcon, roundButton, screenBackdrop, tapeLabel } from '../ui/kit';
@@ -46,6 +49,9 @@ export class OverworldScene extends Phaser.Scene {
   /** In line behind the leader: their lead Patchling (when it has follower art), then the other three. */
   private followers: Follower[] = [];
   private npcs: Npc[] = [];
+  /** Field-move obstacles still standing here, and their pictures. */
+  private obstacles: Obstacle[] = [];
+  private obstacleSprites = new Map<string, Phaser.GameObjects.Image>();
   private npcSprites = new Map<string, Phaser.GameObjects.Image>();
   /** Something to say on arrival (after a blackout). */
   private notice?: 'blackout';
@@ -123,6 +129,18 @@ export class OverworldScene extends Phaser.Scene {
       this.faceNpc(n, n.dir ?? 'down');
       s.setDepth(this.depthAt(s, n));
     }
+    this.obstacles = obstaclesOn(map.id, this.progress);
+    this.obstacleSprites.clear();
+    for (const o of this.obstacles) {
+      const f = this.feet(o.x, o.y);
+      const key = o.art ? propKey(o.art) : '';
+      // A touch bigger than scenery rocks, so it reads as something to deal with.
+      const img = this.add.image(f.x, f.y + 3, this.textures.exists(key) ? key : '__DEFAULT').setOrigin(0.5, 1).setScale(1.5);
+      if (!this.textures.exists(key)) img.setDisplaySize(16, 14).setTint(0x8a7a6a);
+      img.setDepth(this.depthAt(img, o));
+      this.obstacleSprites.set(o.id, img);
+      this.world.add(img);
+    }
     this.world.add(this.player);
     this.lineUpFollowers();
     this.placePlayer();
@@ -146,7 +164,7 @@ export class OverworldScene extends Phaser.Scene {
 
   /** On arrival the three fall in behind the leader. */
   private lineUpFollowers() {
-    const line = lineUp(this.pos, this.followers.length, (x, y) => !!npcAt(this.npcs, x, y));
+    const line = lineUp(this.pos, this.followers.length, (x, y) => this.blockedAt(x, y));
     this.followers.forEach((f, i) => {
       f.at = line[i];
       if (!this.world.exists(f.img)) this.world.add(f.img);
@@ -285,7 +303,7 @@ export class OverworldScene extends Phaser.Scene {
       onTap: () => this.switchLeader(), name: 'switch',
     }));
     this.ui.add(listRow(this, 196, 164, 108, 30, {
-      title: 'JOURNAL', sub: 'Team & bestiary', color: TONES.seal, icon: lead ? monIcon(frontKey(lead.species)) : { text: 'J' },
+      title: 'JOURNAL', sub: 'Team & bag', color: TONES.seal, icon: lead ? monIcon(frontKey(lead.species)) : { text: 'J' },
       onTap: () => this.openJournal(), name: 'journal',
     }));
   }
@@ -318,7 +336,7 @@ export class OverworldScene extends Phaser.Scene {
 
   private async walk(dir: Dir) {
     this.moving = true;
-    const res = step(this.pos, dir, (x, y) => !!npcAt(this.npcs, x, y));
+    const res = step(this.pos, dir, (x, y) => this.blockedAt(x, y));
     if (!res.moved) {
       // Bumped into something: just face it.
       this.pos = { ...this.pos, dir };
@@ -418,10 +436,16 @@ export class OverworldScene extends Phaser.Scene {
     if (this.moving || this.busy) return;
     const { x, y } = facing(this.pos);
     const npc = npcAt(this.npcs, x, y);
+    const block = obstacleAt(this.obstacles, x, y);
+    if (block) {
+      await this.fieldMove(block);
+      return;
+    }
     if (npc) {
       this.faceNpc(npc, OPPOSITE[this.pos.dir]);
-      if (npc.heal) this.heal();
+      const topped = npc.heal ? this.heal() : 0;
       await this.talk(npc.talk);
+      if (topped) await this.say([{ who: 'PATCH', text: `Also: ${topped} Seal Scroll${topped === 1 ? '' : 's'} for the bag. Try not to waste them.` }]);
       this.faceNpc(npc, npc.dir ?? 'down');
       return;
     }
@@ -429,6 +453,59 @@ export class OverworldScene extends Phaser.Scene {
     const act = sign ?? objectAction(MAPS[this.pos.map], this.pos);
     if (act?.opens) this.scene.start(act.opens);
     else if (act?.text) await this.say([{ text: act.text }]);
+  }
+
+  /** Something blocks this tile: an NPC or a field-move obstacle. */
+  private blockedAt(x: number, y: number) {
+    return !!npcAt(this.npcs, x, y) || !!obstacleAt(this.obstacles, x, y);
+  }
+
+  /**
+   * A field-move obstacle (bible §7): the right friend clears it (their line, the obstacle rolls
+   * away, any reward goes in the bag); anyone else gets a hint, and SWITCH gives a nudge.
+   */
+  private async fieldMove(o: Obstacle) {
+    const r = tryObstacle(this.progress, o);
+    if (!r.cleared) {
+      sfx('error');
+      const sw = this.ui.getByName('switch') as Phaser.GameObjects.Container | null;
+      if (sw) this.tweens.add({ targets: sw, scale: 1.08, duration: 160, yoyo: true, repeat: 2 });
+      await this.say(r.lines.map((text) => ({ text })));
+      return;
+    }
+    saveProgress(this.progress);
+    const kind = OBSTACLE_KINDS[o.kind];
+    this.busy = true;
+    await this.say([{ who: CHARACTERS[this.progress.leader].name, text: kind.shout }]);
+    this.busy = true;
+    // The leader braces, the obstacle shudders and rolls off the way they face, in a puff of dust.
+    const img = this.obstacleSprites.get(o.id);
+    await tweenAsync(this, { targets: this.player, y: this.player.y - 3, duration: 90, yoyo: true });
+    if (img) {
+      sfx('hit');
+      await tweenAsync(this, { targets: img, x: img.x + 1.5, duration: 40, yoyo: true, repeat: 3 });
+      const away = this.feet(o.x + DIRS[this.pos.dir].dx, o.y + DIRS[this.pos.dir].dy);
+      sfx('swish');
+      this.dust(img.x, img.y);
+      await tweenAsync(this, { targets: img, x: away.x, y: away.y + 2, alpha: 0, angle: DIRS[this.pos.dir].dx + DIRS[this.pos.dir].dy > 0 ? 90 : -90, duration: 420, ease: 'Quad.easeIn' });
+      img.destroy();
+    }
+    this.obstacles = this.obstacles.filter((x) => x.id !== o.id);
+    this.obstacleSprites.delete(o.id);
+    const lines = [{ text: r.lines[0] }];
+    if (r.reward) { sfx('confirm'); lines.push({ text: r.reward }); }
+    await this.say(lines);
+    this.drawLeaderUi();
+  }
+
+  /** A puff of dust (field moves). */
+  private dust(x: number, y: number) {
+    for (let i = 0; i < 6; i++) {
+      const p = this.add.circle(x + (i - 2.5) * 3, y - 2, 2 + (i % 2), 0xd8c9a2, 0.9);
+      this.world.add(p);
+      p.setDepth(100000);
+      this.tweens.add({ targets: p, x: p.x + (i - 2.5) * 4, y: p.y - 6 - (i % 3) * 2, alpha: 0, scale: 1.8, duration: 450, onComplete: () => p.destroy() });
+    }
   }
 
   private talk(id: string) {
@@ -444,11 +521,15 @@ export class OverworldScene extends Phaser.Scene {
     this.busy = false;
   }
 
-  /** PATCH patches the whole team: a blue flash, everyone back to full. */
+  /** PATCH patches every team: a blue flash, everyone back to full, Seal Scrolls topped up. */
   private heal() {
     healTeam(this.progress);
+    // He tops the basic scrolls back up while he's at it.
+    const topped = refillScrolls(this.progress);
     saveProgress(this.progress);
     this.cameras.main.flash(300, 166, 216, 255);
+    sfx('heal');
+    return topped;
   }
 
   /** SWITCH: the next friend takes the lead (their team battles, their assist applies); the line shuffles round. */
@@ -474,7 +555,8 @@ export class OverworldScene extends Phaser.Scene {
       pos: () => ({ ...this.pos }),
       ready: () => !this.moving && !this.busy,
       /** The walk to a tile on this map, as directions (engine/overworld.ts findPath). */
-      pathTo: (x: number, y: number) => findPath(this.pos.map, this.pos, { x, y }, (bx, by) => !!npcAt(this.npcs, bx, by)),
+      pathTo: (x: number, y: number) => findPath(this.pos.map, this.pos, { x, y }, (bx, by) => this.blockedAt(bx, by)),
+      obstacles: () => this.obstacles.map((o) => o.id),
       talking: () => this.dialog.open,
       npcs: () => this.npcs.map((n) => n.id),
       leader: () => this.progress.leader,

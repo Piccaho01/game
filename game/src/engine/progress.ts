@@ -5,6 +5,7 @@ import { createBattler, type Battler } from './battler';
 import type { AssistId } from './battle';
 import { MAPS, type Position } from './overworld';
 import type { Bond } from './seal';
+import { parseBag, START_BAG } from './items';
 
 /**
  * The player's progress (bible §6, §7): each of the four friends has their own team of six, the
@@ -19,8 +20,8 @@ export const CHARACTERS = charactersJson.characters as Record<CharacterId, Chara
 /** The squad in SWITCH order. */
 export const SQUAD = Object.keys(CHARACTERS) as CharacterId[];
 
-/** `hp`/`status`: carried between wild battles; missing means full health and no status. */
-export interface Member { uid: number; species: string; level: number; bond: Bond; hp?: number; status?: StatusId | null }
+/** `hp`/`status`: carried between wild battles; missing means full health and no status. `xp`: total experience (missing means the start of its level). */
+export interface Member { uid: number; species: string; level: number; bond: Bond; hp?: number; status?: StatusId | null; xp?: number }
 /** `scans`: Callum's Scan, which counts toward Studied. */
 export interface DexRecord { encounters: number; defeats: number; seals: number; strongBonds: number; scans: number }
 export interface Progress {
@@ -37,6 +38,10 @@ export interface Progress {
   /** Where the leader stands in the overworld; missing until they first walk out. */
   pos?: Position;
   settings?: Settings;
+  /** The bag (shared by the four): item id -> count (engine/items.ts). */
+  items?: Record<string, number>;
+  /** Field-move obstacles already cleared (engine/fieldMoves.ts). */
+  cleared?: string[];
 }
 
 /**
@@ -81,7 +86,7 @@ export function newProgress(starters: string | Partial<Record<CharacterId, strin
   // PATCH hands over the starters already bonded, so their whole entries are open.
   const bestiary: Record<string, DexRecord> = {};
   for (const c of SQUAD) bestiary[picks[c]] = { ...EMPTY_RECORD, encounters: 1, seals: 1, strongBonds: RULES.starterBond === 'strong' ? 1 : 0 };
-  return { version: 3, leader, nextUid: uid, teams, sanctuary: [], wings: [], bestiary };
+  return { version: 3, leader, nextUid: uid, teams, sanctuary: [], wings: [], bestiary, items: { ...START_BAG } };
 }
 
 /** The leader's team: the one that battles. */
@@ -210,7 +215,7 @@ export function parseProgress(raw: unknown): Progress | null {
   // Version 1 saves came before the character pick: they belong to Callum.
   const leader = (p.leader && p.leader in CHARACTERS ? p.leader : 'callum') as CharacterId;
   const ok = (m: Member) => !!SPECIES[m?.species] && m.level > 0 && ['strong', 'steady', 'wary'].includes(m.bond)
-    && (m.hp === undefined || (typeof m.hp === 'number' && m.hp >= 0));
+    && (m.hp === undefined || (typeof m.hp === 'number' && m.hp >= 0)) && (m.xp === undefined || (typeof m.xp === 'number' && m.xp >= 0));
   const list = (ms: unknown) => (Array.isArray(ms) ? (ms as Member[]).filter(ok) : []);
   let nextUid = typeof p.nextUid === 'number' ? p.nextUid : 1;
   let teams: Record<CharacterId, Member[]>;
@@ -243,8 +248,11 @@ export function parseProgress(raw: unknown): Progress | null {
   const map = p.pos && MAPS[p.pos.map];
   const pos = map && p.pos!.x >= 0 && p.pos!.y >= 0 && p.pos!.x < map.width && p.pos!.y < map.height ? p.pos : undefined;
   const wings = Array.isArray(p.wings) ? p.wings.filter((w): w is string => typeof w === 'string') : [];
-  const { team: _old, settings: rawSettings, ...rest } = p;
+  const { team: _old, settings: rawSettings, items: rawItems, cleared: rawCleared, ...rest } = p;
+  const cleared = Array.isArray(rawCleared) ? rawCleared.filter((c): c is string => typeof c === 'string') : [];
+  // Saves from before the bag get the starter pack.
+  const items = parseBag(rawItems) ?? { ...START_BAG };
   const settings: Settings = {};
   if (rawSettings?.party === 'solo' || rawSettings?.party === 'squad') settings.party = rawSettings.party;
-  return { ...rest, version: 3, leader, nextUid, teams, sanctuary: list(p.sanctuary), bestiary: dex, pos, wings, ...(Object.keys(settings).length ? { settings } : {}) };
+  return { ...rest, version: 3, leader, nextUid, teams, sanctuary: list(p.sanctuary), bestiary: dex, pos, wings, items, ...(cleared.length ? { cleared } : {}), ...(Object.keys(settings).length ? { settings } : {}) };
 }

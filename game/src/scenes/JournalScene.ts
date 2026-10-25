@@ -8,10 +8,11 @@ import { button, buttonPagePoint, chip, emptySlot, faceIcon, hinge, listRow, men
 import { createBattler } from '../engine/battler';
 import { pixelText } from '../ui/text';
 import { COLORS, hexToNum, shade, TEXT_COLORS, TEXT_SIZE, TONES } from '../ui/theme';
-import { frontKey, idleAnimKey, walkKey } from './BootScene';
+import { frontKey, idleAnimKey, itemKey, walkKey } from './BootScene';
+import { count, ITEMS, scrollsInBag } from '../engine/items';
 import { isMuted, setMuted } from '../ui/sfx';
 
-type Tab = 'team' | 'bestiary' | 'options';
+type Tab = 'team' | 'bestiary' | 'bag' | 'options';
 const BOTTOM = SCREEN_H;
 /** Bestiary entries per page on the touch screen: 3 columns, 4 rows. */
 const DEX_PER_PAGE = 12;
@@ -67,10 +68,11 @@ export class JournalScene extends Phaser.Scene {
 
   private render() {
     this.bottom.removeAll(true);
-    this.bottom.add(tabs<Tab>(this, 128, 15, 240, [{ id: 'team', label: 'TEAM' }, { id: 'bestiary', label: 'BESTIARY' }, { id: 'options', label: 'OPTIONS' }],
+    this.bottom.add(tabs<Tab>(this, 128, 15, 240, [{ id: 'team', label: 'TEAM' }, { id: 'bestiary', label: 'BESTIARY' }, { id: 'bag', label: 'BAG' }, { id: 'options', label: 'OPTIONS' }],
       this.tab, (t) => { this.tab = t; this.selected = null; this.render(); }, TONES.seal));
     if (this.tab === 'team') this.renderTeam();
     else if (this.tab === 'bestiary') this.renderBestiary();
+    else if (this.tab === 'bag') this.renderBag();
     else this.renderOptions();
     this.bottom.add(button(this, 66, 172, 120, 28, 'BACK', TONES.neutral, () => (this.from === 'overworld' ? this.scene.start('overworld') : this.scene.start('battle', { foe: this.foe })), { name: 'back' }));
     this.renderTop();
@@ -116,6 +118,19 @@ export class JournalScene extends Phaser.Scene {
     }
   }
 
+  /** The bag (shared by the four): seal scrolls with counts; tap one to read it. */
+  private renderBag() {
+    const ids = scrollsInBag(this.progress);
+    if (!ids.length) this.bottom.add(pixelText(this, 128, 80, 'The bag is empty.\nPATCH tops up Seal Scrolls when he heals you.', { color: TEXT_COLORS.dim, size: TEXT_SIZE.small }).setOrigin(0.5).setAlign('center'));
+    ids.slice(0, 10).forEach((id, i) => {
+      const it = ITEMS[id];
+      this.bottom.add(listRow(this, 66 + (i % 2) * 124, 42 + Math.floor(i / 2) * 26, 118, 23, {
+        title: it.name.replace(' Scroll', ''), titleSize: it.name.length > 16 ? TEXT_SIZE.tiny : TEXT_SIZE.small, right: `x${count(this.progress, id)}`, color: shade(hexToNum(it.color), -0.45),
+        icon: { key: itemKey(id) }, onTap: () => { this.selected = id; this.render(); }, name: `item-${id}`, selected: this.selected === id,
+      }));
+    });
+  }
+
   /** Options: who shows on the map (all four or just you), and sound. */
   private renderOptions() {
     const p = this.progress;
@@ -157,7 +172,20 @@ export class JournalScene extends Phaser.Scene {
 
   private renderTop() {
     this.top.removeAll(true);
-    this.top.add(tapeLabel(this, 14, 2, this.tab === 'team' ? `${CHARACTERS[this.viewing].name.toUpperCase()}'S TEAM` : this.tab === 'options' ? 'OPTIONS' : 'BESTIARY'));
+    this.top.add(tapeLabel(this, 14, 2, this.tab === 'team' ? `${CHARACTERS[this.viewing].name.toUpperCase()}'S TEAM` : this.tab === 'options' ? 'OPTIONS' : this.tab === 'bag' ? 'BAG' : 'BESTIARY'));
+    if (this.tab === 'bag') {
+      const it = typeof this.selected === 'string' ? ITEMS[this.selected] : undefined;
+      if (!it) {
+        this.top.add(pixelText(this, 128, 92, 'Seal scrolls: you need one to seal.\nTap one to read it.', { color: TEXT_COLORS.inkSoft }).setOrigin(0.5).setAlign('center'));
+        return;
+      }
+      this.top.add(this.add.image(52, 80, itemKey(this.selected as string)).setScale(3));
+      this.top.add(pixelText(this, 100, 24, it.name, { size: it.name.length > 14 ? TEXT_SIZE.body : TEXT_SIZE.heading, wrap: 145 }));
+      this.top.add(chip(this, 100, 40, it.short, shade(hexToNum(it.color), -0.35)));
+      this.top.add(pixelText(this, 100, 56, it.desc, { size: TEXT_SIZE.small, wrap: 140 }));
+      this.top.add(pixelText(this, 100, 120, `In the bag: ${count(this.progress, this.selected as string)}`, { color: TEXT_COLORS.rust, size: TEXT_SIZE.small }));
+      return;
+    }
     if (this.tab === 'options') {
       const solo = partyMode(this.progress) === 'solo';
       this.top.add(pixelText(this, 18, 24, solo ? 'Solo' : 'Squad', { size: TEXT_SIZE.heading }));

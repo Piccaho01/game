@@ -280,7 +280,13 @@ small, clearly separated hooks, so the PRs merge cleanly.
 - **World** (branch `claude/m4b-world`, own session): `data/maps/*` (new interior maps, Route 1
   isometric), `data/objects.json`, `data/tiles.json`, `art/tools/*` map tools, `art/locations/*`,
   NPC home/visit data. Overworld hooks: warps into interiors.
-- **Systems** (branch `claude/m4b-systems`, the session that did the UI): experience and levels
+- **Systems** (branch `claude/m4b-systems`, the session that did the UI). Built: shared experience
+  (`engine/levels.ts`: level³ curve, foe yield = BST/5 x level / 7, all four teams full, storage half,
+  moves learned on level-up, XP bar on the battle card), seal scrolls (`data/items.json`,
+  `engine/items.ts`: the bag in `progress.items`, scroll picker on SEAL, window/bond/glass/echo/
+  tries/keep-on-fail effects, PATCH tops Seal Scrolls up to 5 when he heals, Journal BAG tab), field
+  moves (`data/obstacles.json`, `engine/fieldMoves.ts`, `progress.cleared`: a boulder in Hollow Rest
+  only Dani can shift, with a Gilded Scroll behind it). Original brief: experience and levels
   (shared by all four teams, half in storage), seal scrolls (items, inventory, shop later), field
   moves and the first obstacle (`engine/fieldMoves.ts`, map `obstacles` data), battle/journal hooks.
 Rules for every track: the owner approves visuals from screenshots before a PR goes to main;

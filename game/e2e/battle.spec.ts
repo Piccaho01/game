@@ -39,6 +39,10 @@ test('boots on a phone and Furnaxol wins the placeholder battle', async ({ page 
 
   expect(await page.evaluate(() => window.__battle.outcome())).toBe('win');
   expect(await page.evaluate(() => window.__battle.log())).toContain('The wild Sprigby fainted!');
+  // Experience for all four teams.
+  expect((await page.evaluate(() => window.__battle.log())).some((l) => /^All four teams gained \d+ XP!$/.test(l))).toBe(true);
+  const teams = await page.evaluate(() => JSON.parse(localStorage.getItem('patchlings.save.v1')!).teams);
+  for (const c of ['callum', 'nolan', 'haydon', 'dani']) expect(teams[c][0].xp).toBeGreaterThan(512);
 
   // The end screen offers the next fight.
   await tap(page, 'next');
@@ -52,16 +56,23 @@ test('boots on a phone and Furnaxol wins the placeholder battle', async ({ page 
   expect(errors).toEqual([]);
 });
 
-test('a seal with no taps breaks, and the wild Patchling gets its turn', async ({ page }) => {
+test('a seal with no taps breaks (a Rain Check scroll survives it), and the wild Patchling gets its turn', async ({ page }) => {
   const errors: string[] = [];
   page.on('pageerror', (e) => errors.push(e.message));
   await page.goto('/?seed=4&foe=zapail&player=furnaxol');
   await page.waitForFunction(() => window.__battle?.phase() === 'menu', null, { timeout: 60_000 });
   await tap(page, 'seal');
+  await page.waitForFunction(() => window.__battle.phase() === 'scrolls');
+  await page.waitForTimeout(200);
+  await page.screenshot({ path: 'screens/08b-battle-scrolls.png' });
+  await tap(page, 'scroll-rain_check_scroll');
   await page.waitForFunction(() => window.__battle.phase() === 'sealing');
   await page.waitForFunction(() => window.__battle.phase() === 'menu', null, { timeout: 30_000 });
   const log = await page.evaluate(() => window.__battle.log());
   expect(log).toContain('Argh! The wild Zapail broke the seal!');
+  expect(log).toContain('The Rain Check Scroll got rescheduled. You still have it.');
+  const bag = await page.evaluate(() => JSON.parse(localStorage.getItem('patchlings.save.v1')!).items);
+  expect(bag.rain_check_scroll).toBe(1);
   expect(log.some((l) => l.startsWith('The wild Zapail used'))).toBe(true);
   expect(await page.evaluate(() => window.__battle.outcome())).toBeNull();
   expect(errors).toEqual([]);

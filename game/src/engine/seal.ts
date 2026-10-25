@@ -49,6 +49,11 @@ export function scoreSeal(grades: Grade[], strays: number, hpFrac = 0): SealResu
   const points = grades.reduce((p, g) => p + (g === 'perfect' ? s.perfect : g === 'good' ? s.good : 0), 0) + strays * s.stray;
   const score = Math.max(0, points / grades.length);
   const sealed = score >= sealAt;
-  const bond: Bond | null = !sealed ? null : score >= s.strongAt ? 'strong' : score >= s.steadyAt ? 'steady' : 'wary';
-  return { grades, strays, score, sealed, bond };
+  return { grades, strays, score, sealed, bond: sealed ? scoreBond(score) : null };
+}
+
+/** The bond a sealed Patchling gets for a score. */
+export function scoreBond(score: number): Bond {
+  const s = DATA.scoring;
+  return score >= s.strongAt ? 'strong' : score >= s.steadyAt ? 'steady' : 'wary';
 }

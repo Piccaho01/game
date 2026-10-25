@@ -1,0 +1,22 @@
+{
+  "_note": "Items (bible §7). Seal scrolls are the sealing item: you need one to try a seal. Effects: window (timing windows x), typeWindow + types (extra x when the foe is one of those types), bond (added to the score for the bond only, not for whether it seals), glass (any miss breaks it; all perfect is a guaranteed strong bond), echo (the beat plays once before you tap), tries (attempts in one use; a failed attempt replays at once), keepOnFail (a failed seal doesn't use it up). 'start' is the bag a new game gets (a starter pack until shops exist); 'refill' is what PATCH tops the Seal Scrolls up to when he heals. Numbers are first guesses.",
+  "start": { "seal_scroll": 5, "echo_scroll": 2, "silk_scroll": 1, "rain_check_scroll": 1, "triple_stack_scroll": 1 },
+  "refill": { "seal_scroll": 5 },
+  "items": {
+    "seal_scroll":       { "name": "Seal Scroll", "kind": "scroll", "color": "#e9d9a8", "short": "Basic", "desc": "The basic seal. Cheap and common.", "effect": {} },
+    "silk_scroll":       { "name": "Silk Scroll", "kind": "scroll", "color": "#f2f2f8", "short": "Wider timing", "desc": "Woven tight: wider timing windows.", "effect": { "window": 1.35 } },
+    "gilded_scroll":     { "name": "Gilded Scroll", "kind": "scroll", "color": "#f2c14e", "short": "Better bond", "desc": "A strong bond is more likely.", "effect": { "bond": 0.12 } },
+    "ember_scroll":      { "name": "Ember Scroll", "kind": "scroll", "color": "#e8603c", "short": "Best on Fire", "desc": "Much easier on Fire Patchlings.", "effect": { "types": ["fire"], "typeWindow": 1.6, "bond": 0.05 } },
+    "tide_scroll":       { "name": "Tide Scroll", "kind": "scroll", "color": "#3a8fd8", "short": "Best on Water", "desc": "Much easier on Water Patchlings.", "effect": { "types": ["water"], "typeWindow": 1.6, "bond": 0.05 } },
+    "root_scroll":       { "name": "Root Scroll", "kind": "scroll", "color": "#4c9a3c", "short": "Best on Plant", "desc": "Much easier on Plant Patchlings.", "effect": { "types": ["plant"], "typeWindow": 1.6, "bond": 0.05 } },
+    "arc_scroll":        { "name": "Arc Scroll", "kind": "scroll", "color": "#e0c020", "short": "Best on Spark", "desc": "Much easier on Spark Patchlings.", "effect": { "types": ["spark"], "typeWindow": 1.6, "bond": 0.05 } },
+    "group_chat_scroll": { "name": "Group Chat Scroll", "kind": "scroll", "color": "#5fd4ff", "short": "Huge windows", "desc": "All four of you tap together: much bigger windows.", "effect": { "window": 1.6 } },
+    "glass_scroll":      { "name": "Glass Scroll", "kind": "scroll", "color": "#a6e8f0", "short": "Perfect or bust", "desc": "Emberwick glass. A perfect seal is a guaranteed strong bond; one miss and it shatters.", "effect": { "glass": true } },
+    "echo_scroll":       { "name": "Echo Scroll", "kind": "scroll", "color": "#b48ce8", "short": "Hear it first", "desc": "Plays the beat once before you tap, so you can learn it.", "effect": { "echo": true } },
+    "nightfall_scroll":  { "name": "Nightfall Scroll", "kind": "scroll", "color": "#3c3470", "short": "For the dark", "desc": "Made for the dark. (Night-time bonus comes with the day/night cycle.)", "effect": { "window": 1.15 } },
+    "draft_scroll":      { "name": "Draft Scroll", "kind": "scroll", "color": "#7effc8", "short": "Glitched Relics", "desc": "From PATCH's scrapped drafts. Glitchy, but it can seal glitched Relic Patchlings.", "effect": { "types": ["relic"], "typeWindow": 1.4 } },
+    "relic_scroll":      { "name": "Relic Scroll", "kind": "scroll", "color": "#c79a4a", "short": "Legendaries", "desc": "Very rare. For legendaries and quest Patchlings.", "effect": { "window": 1.5, "bond": 0.2 } },
+    "rain_check_scroll": { "name": "Rain Check Scroll", "kind": "scroll", "color": "#8a8fa8", "short": "Kept if it fails", "desc": "Sold cheap by the Tally. If the seal fails it's rescheduled: the scroll isn't used up.", "effect": { "keepOnFail": true } },
+    "triple_stack_scroll": { "name": "Triple Stack Scroll", "kind": "scroll", "color": "#d9a520", "short": "Three tries", "desc": "Extra patty, extra cheese, extra tries: three attempts in one scroll. Callum always buys this one.", "effect": { "tries": 3 } }
+  }
+}

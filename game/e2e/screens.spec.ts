@@ -97,6 +97,10 @@ test('screens', async ({ page }) => {
   await tapOn(page, '__journal', 'team-dani');
   await page.waitForTimeout(200);
   await shot(page, '10b-journal-team-dani');
+  await tapOn(page, '__journal', 'tab-bag');
+  await tapOn(page, '__journal', 'item-triple_stack_scroll');
+  await page.waitForTimeout(200);
+  await shot(page, '10d-journal-bag');
   await tapOn(page, '__journal', 'tab-bestiary');
   await tapOn(page, '__journal', 'dex-next');
   await tapOn(page, '__journal', 'dex-fledjet');
