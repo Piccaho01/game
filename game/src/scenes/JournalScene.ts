@@ -99,7 +99,7 @@ export class JournalScene extends Phaser.Scene {
       const max = createBattler(m.species, m.level, undefined, m.bond).stats.hp;
       const hp = m.hp ?? max;
       this.bottom.add(listRow(this, x, y, 118, 26, {
-        title: SPECIES[m.species].name, right: `Lv${m.level}`, color, icon: monIcon(frontKey(m.species), 0.42),
+        title: SPECIES[m.species].name, right: `Lv${m.level}`, color, icon: monIcon(frontKey(m.species)),
         meter: { frac: hp / max, color: hp / max > 0.5 ? 0x5fe0a8 : hp / max > 0.2 ? 0xf2c14e : 0xff6a5a },
         onTap: () => { this.selected = m.uid; this.render(); }, name: `member${i}`, selected: this.selected === m.uid,
       }));
@@ -142,8 +142,8 @@ export class JournalScene extends Phaser.Scene {
       const y = 46 + Math.floor(i / 3) * 28;
       const dex = `#${String(SPECIES[id].dex).padStart(3, '0')}`;
       this.bottom.add(listRow(this, x, y, 78, 25, {
-        title: stage ? SPECIES[id].name : '???', sub: stage ? STAGE_NAMES[stage] : dex, color: stage ? TONES.patch : COLORS.metalLight,
-        icon: monIcon(frontKey(id), 0.4, !stage),
+        title: stage ? SPECIES[id].name : '???', titleSize: TEXT_SIZE.tiny, sub: stage ? STAGE_NAMES[stage] : dex, color: stage ? TONES.patch : COLORS.metalLight,
+        icon: monIcon(frontKey(id), !stage),
         onTap: () => { this.loreIndex = this.selected === id ? this.loreIndex + 1 : 0; this.selected = id; this.render(); },
         name: `dex-${id}`, selected: this.selected === id,
       }));

@@ -112,8 +112,8 @@ export class SanctuaryScene extends Phaser.Scene {
     this.bottom.add(pixelText(this, 66, 30, `${CHARACTERS[p.leader].name}'s team`, head).setOrigin(0.5, 0));
     this.bottom.add(pixelText(this, 190, 30, `Storage (${p.sanctuary.length})`, head).setOrigin(0.5, 0));
     const slot = (m: Member, x: number, y: number, name: string) => listRow(this, x, y, 118, 18, {
-      title: SPECIES[m.species].name, right: `Lv${m.level}`, color: shade(hexToNum(TYPES[SPECIES[m.species].types[0]].color), -0.3),
-      icon: monIcon(frontKey(m.species), 0.3), onTap: () => { this.picked = this.picked === m.uid ? null : m.uid; this.render(); },
+      title: SPECIES[m.species].name, titleSize: TEXT_SIZE.tiny, right: `Lv${m.level}`, color: shade(hexToNum(TYPES[SPECIES[m.species].types[0]].color), -0.3),
+      icon: monIcon(frontKey(m.species)), onTap: () => { this.picked = this.picked === m.uid ? null : m.uid; this.render(); },
       name, selected: this.picked === m.uid,
     });
     for (let i = 0; i < TEAM_SIZE; i++) {

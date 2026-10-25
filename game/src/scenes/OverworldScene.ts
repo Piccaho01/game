@@ -285,7 +285,7 @@ export class OverworldScene extends Phaser.Scene {
       onTap: () => this.switchLeader(), name: 'switch',
     }));
     this.ui.add(listRow(this, 196, 164, 108, 30, {
-      title: 'JOURNAL', sub: 'Team & bestiary', color: TONES.seal, icon: lead ? monIcon(frontKey(lead.species), 0.4) : { text: 'J' },
+      title: 'JOURNAL', sub: 'Team & bestiary', color: TONES.seal, icon: lead ? monIcon(frontKey(lead.species)) : { text: 'J' },
       onTap: () => this.openJournal(), name: 'journal',
     }));
   }

@@ -349,8 +349,8 @@ export interface RowOpts {
   /** Text on the right edge (a level, PP, points). */
   right?: string;
   color: number;
-  /** A picture in the left box: a texture (with frame, crop and scale), or a short text. */
-  icon?: { key: string; frame?: number; crop?: [number, number, number, number]; scale?: number; dy?: number; silhouette?: boolean } | { text: string };
+  /** On the left: a whole sprite (a friend's walk frame, a Patchling), or a short text badge. */
+  icon?: { key: string; frame?: number | string; trainer?: boolean; silhouette?: boolean } | { text: string };
   /** A thin bar under the title (HP, progress). */
   meter?: { frac: number; color: number };
   selected?: boolean;
@@ -379,34 +379,36 @@ export function listRow(scene: Phaser.Scene, x: number, y: number, w: number, h:
   card(g, left, top, w, h - 1.5, face, r, { lip: 2, shadow: !o.selected });
   c.add(g);
   let tx = left + 7;
-  if (o.icon) {
+  if (o.icon && 'text' in o.icon) {
+    // A text badge (a move's type) in a small box.
     const box = h - 7;
     const bx = left + 3.5;
     const by = top + 2.5;
     const ib = scene.add.graphics();
     ib.fillStyle(shade(face, -0.3)).fillRoundedRect(bx, by, box, box, r - 1.5);
     ib.fillStyle(0x000000, 0.15).fillRoundedRect(bx, by + box - 3, box, 3, { tl: 0, tr: 0, bl: r - 1.5, br: r - 1.5 });
-    c.add(ib);
-    if ('text' in o.icon) {
-      c.add(pixelText(scene, bx + box / 2, by + box / 2, o.icon.text, { color: TEXT_COLORS.light, size: TEXT_SIZE.small, display: true }).setOrigin(0.5));
-    } else if (scene.textures.exists(o.icon.key)) {
-      const img = scene.add.image(bx + box / 2, by + box / 2 + (o.icon.dy ?? 0), o.icon.key, o.icon.frame);
-      if (o.icon.crop) img.setCrop(...o.icon.crop);
-      img.setScale(o.icon.scale ?? 1);
-      if (o.icon.silhouette || !on) img.setTintFill(on ? 0x101018 : 0x6a6c80);
-      // Keep the picture inside its box.
-      const mask = scene.make.graphics({}, false);
-      const place = () => {
-        const m = c.getWorldTransformMatrix();
-        mask.clear().fillStyle(0xffffff).fillRoundedRect(m.tx + bx * m.a, m.ty + by * m.d, box * m.a, box * m.d, (r - 1.5) * m.a);
-      };
-      place();
-      scene.events.on('postupdate', place);
-      c.once('destroy', () => { scene.events.off('postupdate', place); mask.destroy(); });
-      img.setMask(mask.createGeometryMask());
-      c.add(img);
-    }
+    c.add([ib, pixelText(scene, bx + box / 2, by + box / 2, o.icon.text, { color: TEXT_COLORS.light, size: TEXT_SIZE.small, display: true }).setOrigin(0.5)]);
     tx = bx + box + 6;
+  } else if (o.icon && scene.textures.exists(o.icon.key)) {
+    // The whole sprite standing in the row (it may poke above the top edge), with a soft drop
+    // shadow behind it and a contact shadow at its feet.
+    const frame = o.icon.frame ?? firstFrame(scene, o.icon.key);
+    const b = spriteBounds(scene, o.icon.key, frame);
+    const target = o.icon.trainer ? h + 3 : h - 1;
+    const scale = Math.min(target / b.h, (h * 1.25) / b.w);
+    const feetY = top + h - 4.5;
+    const cx = left + 6 + (b.w * scale) / 2;
+    const ox = (b.x + b.w / 2) / b.fw;
+    const oy = (b.y + b.h) / b.fh;
+    const shadow = scene.add.graphics();
+    shadow.fillStyle(0x000000, 0.3).fillEllipse(cx, feetY, b.w * scale * 0.95, Math.max(3, h * 0.16));
+    shadow.fillStyle(0x000000, 0.18).fillEllipse(cx, feetY, b.w * scale * 1.3, Math.max(4, h * 0.24));
+    const drop = scene.add.image(cx + 1.5, feetY + 1, o.icon.key, frame).setOrigin(ox, oy).setScale(scale).setTintFill(0x000000).setAlpha(0.3);
+    const img = scene.add.image(cx, feetY, o.icon.key, frame).setOrigin(ox, oy).setScale(scale);
+    if (o.icon.silhouette) img.setTintFill(0x14141e);
+    else if (!on) img.setTint(0x8a8ca0);
+    c.add([shadow, drop, img]);
+    tx = cx + (b.w * scale) / 2 + 6;
   }
   const hasLower = !!(o.sub || o.meter);
   const title = pixelText(scene, tx, hasLower ? -7.5 : -4, o.title, { color: on ? TEXT_COLORS.light : TEXT_COLORS.off, size: o.titleSize ?? (w < 110 ? TEXT_SIZE.small : TEXT_SIZE.body), shadow: on ? '#00000060' : undefined, display: true });
@@ -441,15 +443,55 @@ export function sectionLabel(scene: Phaser.Scene, x: number, y: number, text: st
   return pixelText(scene, x, y, text.toUpperCase(), { color: '#8f93bd', size: TEXT_SIZE.tiny, display: true }).setOrigin(0.5, 0);
 }
 
-/** A friend's face for a row icon: head and shoulders from their walk sheet. */
+/** A friend standing in a row: their whole walk sprite, facing the viewer. */
 export function faceIcon(walkTexture: string) {
-  return { key: walkTexture, frame: 0, crop: [0, 1, 24, 23] as [number, number, number, number], scale: 1.35, dy: 11 };
+  return { key: walkTexture, frame: 0, trainer: true };
 }
 
-/** A Patchling for a row icon: its front sprite, small. */
-export function monIcon(frontTexture: string, scale = 0.5, silhouette = false) {
-  // Bodies sit low on the 96px canvas: lift the picture so the body fills the box.
-  return { key: frontTexture, scale, dy: -14 * scale, silhouette };
+/** A Patchling standing in a row: its whole front sprite (a black silhouette if not seen yet). */
+export function monIcon(frontTexture: string, silhouette = false) {
+  return { key: frontTexture, silhouette };
+}
+
+/** An animated sprite's first frame (pxl atlases name frames <name>_<n>); undefined for a plain image. */
+export function firstFrame(scene: Phaser.Scene, key: string): string | undefined {
+  const names = scene.textures.get(key).getFrameNames();
+  if (names.length < 2) return undefined;
+  return [...names].sort((a, b) => Number(a.split('_').pop()) - Number(b.split('_').pop()))[0];
+}
+
+const boundsCache = new Map<string, { x: number; y: number; w: number; h: number; fw: number; fh: number }>();
+
+/** The opaque part of a texture frame (cached), so a sprite can be sized by its body, not its canvas. */
+export function spriteBounds(scene: Phaser.Scene, key: string, frame?: string | number) {
+  const id = `${key}#${frame ?? ''}`;
+  const hit = boundsCache.get(id);
+  if (hit) return hit;
+  const f = scene.textures.getFrame(key, frame);
+  const fw = f.cutWidth, fh = f.cutHeight;
+  let out = { x: 0, y: 0, w: fw, h: fh, fw, fh };
+  try {
+    const cv = document.createElement('canvas');
+    cv.width = fw;
+    cv.height = fh;
+    const ctx = cv.getContext('2d')!;
+    ctx.drawImage(f.source.image as CanvasImageSource, f.cutX, f.cutY, fw, fh, 0, 0, fw, fh);
+    const d = ctx.getImageData(0, 0, fw, fh).data;
+    let x0 = fw, y0 = fh, x1 = -1, y1 = -1;
+    for (let y = 0; y < fh; y++) {
+      for (let x = 0; x < fw; x++) {
+        if (d[(y * fw + x) * 4 + 3] > 20) {
+          if (x < x0) x0 = x;
+          if (x > x1) x1 = x;
+          if (y < y0) y0 = y;
+          if (y > y1) y1 = y;
+        }
+      }
+    }
+    if (x1 >= 0) out = { x: x0, y: y0, w: x1 - x0 + 1, h: y1 - y0 + 1, fw, fh };
+  } catch { /* unreadable texture: use the whole frame */ }
+  boundsCache.set(id, out);
+  return out;
 }
 
 /** A big round button (A): a disc with a lip, the letter in the middle. */

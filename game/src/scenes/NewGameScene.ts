@@ -112,7 +112,7 @@ export class NewGameScene extends Phaser.Scene {
     STARTERS.forEach((id, i) => {
       const sp = SPECIES[id];
       this.bottom.add(listRow(this, 62, 47 + i * 29, 104, 26, {
-        title: sp.name, color: shade(hexToNum(TYPES[sp.types[0]].color), -0.3), icon: monIcon(frontKey(id), 0.42),
+        title: sp.name, color: shade(hexToNum(TYPES[sp.types[0]].color), -0.3), icon: monIcon(frontKey(id)),
         onTap: () => { this.starter = this.starter === id ? null : id; this.render(); }, name: `starter-${id}`, selected: this.starter === id,
       }));
     });

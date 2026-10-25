@@ -231,7 +231,7 @@ export class BattleScene extends Phaser.Scene {
       const sub = i === this.battle.active ? 'In battle' : b.hp <= 0 ? 'Fainted' : `HP ${b.hp}/${b.stats.hp}`;
       const f = b.hp / b.stats.hp;
       this.menu.add(listRow(this, x, y, 118, 38, {
-        title: b.name, sub, right: `Lv${b.level}`, color, icon: monIcon(frontKey(b.species), 0.6),
+        title: b.name, sub, right: `Lv${b.level}`, color, icon: monIcon(frontKey(b.species)),
         meter: { frac: f, color: f > 0.5 ? 0x5fe0a8 : f > 0.2 ? 0xf2c14e : 0xff6a5a },
         onTap: ok.has(i) ? () => (forced ? this.sendIn(i) : this.choose({ kind: 'switch', index: i })) : undefined, name: `member${i}`,
       }));
