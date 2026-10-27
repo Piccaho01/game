@@ -20,7 +20,7 @@ Rules that keep it efficient:
 - [x] M2 Stage-1 starters (branch `claude/m2-starters`: all four with front, idle, back and back idle in game; see "M2 handoff" below)
 - [x] M3 Core loop (pick a leader and starter → wild battle → seal → team/sanctuary → bestiary stages and sanctuary points, leader assists, switching, saved in the browser)
 - [ ] M4 Characters + world slice (in progress: Hollow Rest isometric with the owner's terrain/props and pixel-art walk sprites on `claude/m4-polish`; left: story intro, Route 1 isometric, townsfolk)
-- [ ] M4b The squad, the base, the story (three tracks, see below)
+- [ ] M4b The squad, the base, the story (three tracks, see below; story done, PR #21)
 - [ ] M5 Playtest build
 - [ ] After the slice: evolutions, Connor, more of Verrow
 
@@ -270,7 +270,11 @@ and PR (owner approves visuals before they go in):
   Art asks for the owner: interior concept + set-piece sheets per house and for the sanctuary
   halls (prompts in `art/LOCATION_STYLE.md`).
 
-## Parallel tracks from 2026-10-25 (read this first in a new session)
+## Parallel tracks from 2026-10-25
+(Superseded for new work by `docs/WORKFLOW.md`: at most two sessions at once, no stacked PRs.)
+**Story track done** (PR #21, merged): cutscenes (`scenes/CutsceneScene.ts`, `data/cutscenes/*.json`,
+`engine/story.ts`), the opening beats 1-7, starter reactions, story `flags` in the save. Next for the
+story: Connor's first "cancelled" boss fight and the house scenes (Triple Cheese, the van, Sergey).
 Base for all new work: `claude/ui-upgrade` (PR #20, which contains the squad PR #19). When those
 merge, merge `main` into your branch. Each track owns its files; touch the others' files only with
 small, clearly separated hooks, so the PRs merge cleanly.
