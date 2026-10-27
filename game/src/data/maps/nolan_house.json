@@ -1,0 +1,91 @@
+{
+  "_note": "Nolan's Basement (bible \u00a77 interiors). A room: art/tools/iso_map.py bakes it as a cut-away (iso_room.py). Written by art/tools/interiors_layout.py: edit there.",
+  "id": "nolan_house",
+  "name": "Nolan's Basement",
+  "legend": {
+    ".": "floor",
+    "m": "mat"
+  },
+  "rows": [
+    ".......",
+    ".......",
+    ".......",
+    ".......",
+    ".......",
+    "...m..."
+  ],
+  "spawn": {
+    "x": 3,
+    "y": 5
+  },
+  "interior": {
+    "floor": "carpet",
+    "floorColor": "#6e6a72",
+    "wall": "foam",
+    "wallH": 40,
+    "decor": [
+      [
+        "r",
+        3,
+        "van",
+        2
+      ],
+      [
+        "l",
+        4,
+        "clock"
+      ]
+    ]
+  },
+  "warps": [
+    {
+      "x": 3,
+      "y": 6,
+      "to": "hollow_rest",
+      "tx": 10,
+      "ty": 5,
+      "dir": "down",
+      "enter": "down"
+    }
+  ],
+  "signs": [
+    {
+      "x": 3,
+      "y": -1,
+      "talk": "nolan_window"
+    },
+    {
+      "x": 4,
+      "y": -1,
+      "talk": "nolan_window"
+    }
+  ],
+  "npcs": [],
+  "objects": [
+    {
+      "kind": "in_studio_desk",
+      "x": 0,
+      "y": 0
+    },
+    {
+      "kind": "in_tv_console",
+      "x": 6,
+      "y": 0
+    },
+    {
+      "kind": "in_couch",
+      "x": 4,
+      "y": 3
+    },
+    {
+      "kind": "in_shelf_bottle",
+      "x": 0,
+      "y": 2
+    },
+    {
+      "kind": "in_plant",
+      "x": 0,
+      "y": 4
+    }
+  ]
+}

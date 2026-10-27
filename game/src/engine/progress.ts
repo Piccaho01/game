@@ -34,6 +34,8 @@ export interface Progress {
   bestiary: Record<string, DexRecord>;
   /** Sanctuary wings restored (engine/sanctuary.ts), in order. */
   wings: string[];
+  /** Story flags set so far (cutscenes, quests); missing means none. Rooms and visitors can wait on them (engine/world.ts). */
+  flags?: string[];
   /** Where the leader stands in the overworld; missing until they first walk out. */
   pos?: Position;
   settings?: Settings;
@@ -243,8 +245,9 @@ export function parseProgress(raw: unknown): Progress | null {
   const map = p.pos && MAPS[p.pos.map];
   const pos = map && p.pos!.x >= 0 && p.pos!.y >= 0 && p.pos!.x < map.width && p.pos!.y < map.height ? p.pos : undefined;
   const wings = Array.isArray(p.wings) ? p.wings.filter((w): w is string => typeof w === 'string') : [];
+  const flags = Array.isArray(p.flags) ? p.flags.filter((f): f is string => typeof f === 'string') : undefined;
   const { team: _old, settings: rawSettings, ...rest } = p;
   const settings: Settings = {};
   if (rawSettings?.party === 'solo' || rawSettings?.party === 'squad') settings.party = rawSettings.party;
-  return { ...rest, version: 3, leader, nextUid, teams, sanctuary: list(p.sanctuary), bestiary: dex, pos, wings, ...(Object.keys(settings).length ? { settings } : {}) };
+  return { ...rest, version: 3, leader, nextUid, teams, sanctuary: list(p.sanctuary), bestiary: dex, pos, wings, ...(flags ? { flags } : {}), ...(Object.keys(settings).length ? { settings } : {}) };
 }

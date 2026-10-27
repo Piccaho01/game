@@ -82,6 +82,10 @@
     "exit": {
       "color": "#edbe84",
       "accent": "#d4a56f"
+    },
+    "mat": {
+      "color": "#c2502f",
+      "accent": "#f2c14e"
     }
   }
 }

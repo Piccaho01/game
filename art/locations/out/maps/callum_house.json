@@ -1,0 +1,94 @@
+{
+ "origin": {
+  "x": 100,
+  "y": 68
+ },
+ "tile": {
+  "w": 32,
+  "h": 16,
+  "z": 16
+ },
+ "size": {
+  "w": 248,
+  "h": 184
+ },
+ "sprites": [
+  {
+   "art": "in_rug",
+   "x": 101,
+   "y": 85,
+   "fx": 2,
+   "fy": 2,
+   "wx": 1,
+   "wy": 1,
+   "key": -1,
+   "decal": true
+  },
+  {
+   "art": "in_shelf_comics",
+   "x": 79,
+   "y": 23,
+   "fx": 0,
+   "fy": 1,
+   "wx": 1,
+   "wy": 1,
+   "key": 16,
+   "decal": false
+  },
+  {
+   "art": "in_crt_tv",
+   "x": 133,
+   "y": 43,
+   "fx": 2,
+   "fy": 0,
+   "wx": 1,
+   "wy": 1,
+   "key": 26,
+   "decal": false
+  },
+  {
+   "art": "in_armchair",
+   "x": 117,
+   "y": 73,
+   "fx": 3,
+   "fy": 2,
+   "wx": 1,
+   "wy": 1,
+   "key": 56,
+   "decal": false
+  },
+  {
+   "art": "in_plant",
+   "x": 197,
+   "y": 83,
+   "fx": 6,
+   "fy": 0,
+   "wx": 1,
+   "wy": 1,
+   "key": 66,
+   "decal": false
+  },
+  {
+   "art": "in_laptop",
+   "x": 181,
+   "y": 96,
+   "fx": 6,
+   "fy": 1,
+   "wx": 1,
+   "wy": 1,
+   "key": 76,
+   "decal": false
+  },
+  {
+   "art": "in_table_bag",
+   "x": 133,
+   "y": 103,
+   "fx": 5,
+   "fy": 3,
+   "wx": 1,
+   "wy": 1,
+   "key": 86,
+   "decal": false
+  }
+ ]
+}

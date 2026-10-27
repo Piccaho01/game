@@ -1,0 +1,103 @@
+{
+  "_note": "Haydon's Shed (bible \u00a77 interiors). A room: art/tools/iso_map.py bakes it as a cut-away (iso_room.py). Written by art/tools/interiors_layout.py: edit there.",
+  "id": "haydon_shed",
+  "name": "Haydon's Shed",
+  "legend": {
+    ".": "floor",
+    "m": "mat"
+  },
+  "rows": [
+    "......",
+    "......",
+    "......",
+    "......",
+    "..m..."
+  ],
+  "spawn": {
+    "x": 2,
+    "y": 4
+  },
+  "interior": {
+    "floor": "plank",
+    "wall": "wood",
+    "wallH": 38,
+    "decor": [
+      [
+        "l",
+        1,
+        "list",
+        2
+      ],
+      [
+        "r",
+        4,
+        "poster",
+        1,
+        "#7a52b8"
+      ],
+      [
+        "r",
+        0,
+        "leds",
+        6
+      ],
+      [
+        "l",
+        0,
+        "leds",
+        5
+      ]
+    ]
+  },
+  "warps": [
+    {
+      "x": 2,
+      "y": 5,
+      "to": "hollow_rest",
+      "tx": 21,
+      "ty": 8,
+      "dir": "right",
+      "enter": "down"
+    }
+  ],
+  "signs": [
+    {
+      "x": -1,
+      "y": 1,
+      "talk": "haydon_list"
+    },
+    {
+      "x": -1,
+      "y": 2,
+      "talk": "haydon_list"
+    },
+    {
+      "x": 4,
+      "y": -1,
+      "talk": "haydon_poster"
+    }
+  ],
+  "npcs": [],
+  "objects": [
+    {
+      "kind": "in_ring_light",
+      "x": 0,
+      "y": 0
+    },
+    {
+      "kind": "in_stream_desk",
+      "x": 2,
+      "y": 0
+    },
+    {
+      "kind": "in_gaming_chair",
+      "x": 3,
+      "y": 1
+    },
+    {
+      "kind": "in_snacks",
+      "x": 5,
+      "y": 2
+    }
+  ]
+}

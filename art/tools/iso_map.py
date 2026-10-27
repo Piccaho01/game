@@ -303,8 +303,55 @@ def village():
     return im.resize((im.width * 2, im.height * 2), Image.NEAREST)
 
 
+def place_sprites(m, data, scr):
+    """Every upright thing (trees, set pieces, props, furniture) with its screen spot and draw order."""
+    for name, im in PROPS.items():
+        im.save(os.path.join(OUT, f'{name}.png'))
+    sprites = []
+    def add(art, img, x, y, wx, wy, z, decal=False, box=False):
+        if wx == 1 and wy == 1 and not box:
+            sx, sy = scr(x, y, z)
+            px, py = sx + 16 - img.width // 2, sy + 12 - img.height
+        else:
+            a = np.asarray(img)[:, :, 3] > 0
+            ys, xs = np.where(a)
+            fx = int(xs[ys == ys.max()].mean())
+            sx, sy = scr(x + wx - 1, y + wy - 1, z)
+            px, py = sx + 16 - fx, sy + TH - img.height + 1
+        sprites.append({'art': art, 'x': int(px), 'y': int(py), 'fx': x, 'fy': y, 'wx': wx, 'wy': wy,
+                        'key': -1 if decal else (x + wx - 1 + y + wy - 1) * 10 + 6, 'decal': decal})
+    for y in range(m.H):
+        for x in range(m.W):
+            k = m.kind(x, y)
+            if k == 'tree':
+                v = (x * 5 + y * 3 + x * y) % 3
+                add(f'tree_{v}', PROPS[f'tree_{v}'], x, y, 1, 1, m.Z[y, x])
+                j = sprites[-1]
+                j['x'] += (x * 7 + y * 11) % 7 - 3
+                j['y'] += (x * 5 + y * 13) % 5 - 2
+            elif k == 'fence':
+                along_x = m.kind(x - 1, y) == 'fence' or m.kind(x + 1, y) == 'fence'
+                ax = 'x' if along_x else 'y'
+                add(f'fence_{ax}', PROPS[f'fence_{ax}'], x, y, 1, 1, m.Z[y, x])
+            elif k == 'bush':
+                v = (x * 3 + y) % 5
+                n = f'bush_{v}' if v < 3 else f'rock_{"sm"[v - 3]}'
+                add(n, PROPS[n], x, y, 1, 1, m.Z[y, x])
+            elif k == 'sign':
+                add('signpost', PROPS['signpost'], x, y, 1, 1, m.Z[y, x])
+    for o in data.get('objects', []):
+        d = OBJ[o['kind']]
+        img = Image.open(os.path.join(OUT, f"{d['art']}.png"))
+        add(d['art'], img, o['x'], o['y'], d['wx'], d['wy'], m.Z[o['y'], o['x']], d.get('decal', False), d.get('box', False))
+        if o.get('until'): sprites[-1]['until'] = o['until']
+    return sprites
+
+
 def bake(map_id, preview=None):
     data = json.load(open(os.path.join(GAME, 'maps', f'{map_id}.json')))
+    if 'interior' in data:
+        from iso_room import bake_room
+        return bake_room(map_id, data, globals(), preview)
     m = Map(data)
     pad_x, pad_top, pad_bot = 40, 80, 120
     W = (m.W + m.H) * TW // 2 + 2 * pad_x
@@ -340,45 +387,7 @@ def bake(map_id, preview=None):
         for py in range(top.shape[0]):
             for px in range(TW):
                 if top[py, px, 3]: put(canvas, sx + px, sy - above + py, top[py, px])
-    # upright things: their screen spot and draw order
-    for name, im in PROPS.items():
-        im.save(os.path.join(OUT, f'{name}.png'))
-    sprites = []
-    def add(art, img, x, y, wx, wy, z, decal=False):
-        if wx == 1 and wy == 1:
-            sx, sy = scr(x, y, z)
-            px, py = sx + 16 - img.width // 2, sy + 12 - img.height
-        else:
-            a = np.asarray(img)[:, :, 3] > 0
-            ys, xs = np.where(a)
-            fx = int(xs[ys == ys.max()].mean())
-            sx, sy = scr(x + wx - 1, y + wy - 1, z)
-            px, py = sx + 16 - fx, sy + TH - img.height + 1
-        sprites.append({'art': art, 'x': int(px), 'y': int(py), 'fx': x, 'fy': y, 'wx': wx, 'wy': wy,
-                        'key': -1 if decal else (x + wx - 1 + y + wy - 1) * 10 + 6, 'decal': decal})
-    for y in range(m.H):
-        for x in range(m.W):
-            k = m.kind(x, y)
-            if k == 'tree':
-                v = (x * 5 + y * 3 + x * y) % 3
-                add(f'tree_{v}', PROPS[f'tree_{v}'], x, y, 1, 1, m.Z[y, x])
-                j = sprites[-1]
-                j['x'] += (x * 7 + y * 11) % 7 - 3
-                j['y'] += (x * 5 + y * 13) % 5 - 2
-            elif k == 'fence':
-                along_x = m.kind(x - 1, y) == 'fence' or m.kind(x + 1, y) == 'fence'
-                ax = 'x' if along_x else 'y'
-                add(f'fence_{ax}', PROPS[f'fence_{ax}'], x, y, 1, 1, m.Z[y, x])
-            elif k == 'bush':
-                v = (x * 3 + y) % 5
-                n = f'bush_{v}' if v < 3 else f'rock_{"sm"[v - 3]}'
-                add(n, PROPS[n], x, y, 1, 1, m.Z[y, x])
-            elif k == 'sign':
-                add('signpost', PROPS['signpost'], x, y, 1, 1, m.Z[y, x])
-    for o in data.get('objects', []):
-        d = OBJ[o['kind']]
-        img = Image.open(os.path.join(OUT, f"{d['art']}.png"))
-        add(d['art'], img, o['x'], o['y'], d['wx'], d['wy'], m.Z[o['y'], o['x']], d.get('decal', False))
+    sprites = place_sprites(m, data, scr)
     sprites.sort(key=lambda s: s['key'])
 
     os.makedirs(os.path.join(OUT, 'maps'), exist_ok=True)

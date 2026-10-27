@@ -1,11 +1,12 @@
 import dialogueJson from '../data/dialogue.json';
+import worldJson from '../data/world_dialogue.json';
 import type { CharacterId } from './progress';
 
-/** Who says what (data/dialogue.json). */
+/** Who says what (data/dialogue.json; furniture and the recurring cast in data/world_dialogue.json). */
 export interface Line { who?: string; text: string }
 interface Entry { lines: Line[]; byLeader?: Partial<Record<CharacterId, Line[]>> }
 
-const DIALOGUE = Object.fromEntries(Object.entries(dialogueJson).filter(([k]) => !k.startsWith('_'))) as Record<string, Entry>;
+const DIALOGUE = Object.fromEntries([...Object.entries(dialogueJson), ...Object.entries(worldJson)].filter(([k]) => !k.startsWith('_'))) as Record<string, Entry>;
 
 /** The lines for a talk, in the leader's version when there is one. */
 export function linesFor(id: string, leader: CharacterId): Line[] {

@@ -1,0 +1,571 @@
+{
+  "_note": "World lines (M4b World track): furniture and props you read with A in the houses and the sanctuary, and the recurring cast (data/cast.json). Same format as dialogue.json ('lines', optional 'byLeader'); merged with it by engine/dialogue.ts. Inside jokes from bible §11, spread thin: one or two per room.",
+  "callum_crt": {
+    "lines": [
+      {
+        "text": "A CRT running an emulator. The save file is called FINAL_final_v2."
+      },
+      {
+        "who": "Callum",
+        "text": "Don't touch it. It's calibrated. To me."
+      }
+    ],
+    "byLeader": {
+      "callum": [
+        {
+          "text": "A CRT running an emulator. The save file is called FINAL_final_v2."
+        },
+        {
+          "who": "Callum",
+          "text": "Two hundred hours in. It's a fishing game. I regret nothing."
+        }
+      ]
+    }
+  },
+  "callum_shelf": {
+    "lines": [
+      {
+        "text": "Comics, boxed retro games, and a binder labelled MISC (ORGANISED)."
+      },
+      {
+        "who": "Nolan",
+        "text": "Every one of these is in a spreadsheet. I've seen the spreadsheet."
+      }
+    ],
+    "byLeader": {
+      "haydon": [
+        {
+          "text": "Comics, boxed retro games, and a binder labelled MISC (ORGANISED)."
+        },
+        {
+          "who": "Haydon",
+          "text": "Bro has a binder for his binders."
+        }
+      ]
+    }
+  },
+  "callum_bag": {
+    "lines": [
+      {
+        "text": "A greasy burger bag. The receipt: double cheeseburger, extra patty, extra cheese."
+      },
+      {
+        "who": "Nolan",
+        "text": "Same order since we were fourteen."
+      },
+      {
+        "who": "Callum",
+        "text": "You don't change a perfect order. That's just science."
+      }
+    ],
+    "byLeader": {
+      "callum": [
+        {
+          "text": "A greasy burger bag. The receipt: double cheeseburger, extra patty, extra cheese."
+        },
+        {
+          "who": "Callum",
+          "text": "The Triple Cheese. Not on the menu. On my heart."
+        },
+        {
+          "who": "Dani",
+          "text": "Bro. Is a cheeseburger."
+        }
+      ]
+    }
+  },
+  "callum_laptop": {
+    "lines": [
+      {
+        "text": "A message on the laptop. Sergey: \"bro i am in trenches. send beat\". Sent four minutes ago."
+      },
+      {
+        "who": "Callum",
+        "text": "We're getting Sergey out of the trenches. Not today. But we are."
+      }
+    ]
+  },
+  "callum_pins": {
+    "lines": [
+      {
+        "text": "A corkboard of Patchling pins. Some of these Patchlings haven't been found yet."
+      },
+      {
+        "who": "Callum",
+        "text": "Yet."
+      }
+    ]
+  },
+  "callum_towel": {
+    "lines": [
+      {
+        "text": "A Scottish flag tea towel. It has never dried a single dish."
+      },
+      {
+        "who": "Callum",
+        "text": "It's from my gran. It's not for drying. It's for heritage."
+      }
+    ]
+  },
+  "nolan_desk": {
+    "lines": [
+      {
+        "text": "A sampler, two monitors, and a project called \"beat 47 (actually good)\"."
+      },
+      {
+        "who": "Haydon",
+        "text": "Play the one with the cowbell."
+      },
+      {
+        "who": "Nolan",
+        "text": "There is no cowbell."
+      },
+      {
+        "who": "Haydon",
+        "text": "Then it's not finished."
+      }
+    ],
+    "byLeader": {
+      "nolan": [
+        {
+          "text": "A sampler, two monitors, and a project called \"beat 47 (actually good)\"."
+        },
+        {
+          "who": "Nolan",
+          "text": "Nobody press anything. That's three weeks of work. Or one good night."
+        }
+      ]
+    }
+  },
+  "nolan_tv": {
+    "lines": [
+      {
+        "text": "NBA 2K22. The disc hasn't left the tray in years."
+      },
+      {
+        "who": "Nolan",
+        "text": "They peaked. I'm not going to pretend they didn't."
+      }
+    ]
+  },
+  "nolan_bottle": {
+    "lines": [
+      {
+        "text": "Cinnamon schnapps with gold flakes in it. A sticky note: NOT FOR HEADSTANDS."
+      },
+      {
+        "who": "Callum",
+        "text": "He's a different breed on the headstands."
+      },
+      {
+        "who": "Nolan",
+        "text": "That was one time."
+      }
+    ],
+    "byLeader": {
+      "nolan": [
+        {
+          "text": "Cinnamon schnapps with gold flakes in it. A sticky note: NOT FOR HEADSTANDS."
+        },
+        {
+          "who": "Nolan",
+          "text": "That note is in my mum's handwriting."
+        },
+        {
+          "who": "Callum",
+          "text": "Different breed."
+        }
+      ]
+    }
+  },
+  "nolan_window": {
+    "lines": [
+      {
+        "text": "Through the high window: the white work van, in the driveway, as always."
+      },
+      {
+        "who": "Callum",
+        "text": "I know that van. That van knows me."
+      }
+    ],
+    "byLeader": {
+      "callum": [
+        {
+          "text": "Through the high window: the white work van, in the driveway, as always."
+        },
+        {
+          "who": "Callum",
+          "text": "I woke up in that van once. Your dad was watching. With a coffee."
+        },
+        {
+          "who": "Nolan",
+          "text": "He still tells people."
+        }
+      ]
+    }
+  },
+  "nolan_dad": {
+    "lines": [
+      {
+        "who": "Nolan's dad",
+        "text": "Morning, boys."
+      },
+      {
+        "who": "Nolan's dad",
+        "text": "Van's still there. Just checking. Old habit."
+      }
+    ],
+    "byLeader": {
+      "callum": [
+        {
+          "who": "Nolan's dad",
+          "text": "Callum! Sleep alright?"
+        },
+        {
+          "who": "Nolan's dad",
+          "text": "Not in the van this time?"
+        },
+        {
+          "who": "Callum",
+          "text": "...Not in the van this time."
+        }
+      ],
+      "nolan": [
+        {
+          "who": "Nolan's dad",
+          "text": "Your friends are here. One of them's looking at the van again."
+        }
+      ]
+    }
+  },
+  "haydon_desk": {
+    "lines": [
+      {
+        "text": "A stream setup. The overlay says: BRB, TRAPPED IN VIDEO GAME."
+      },
+      {
+        "who": "Haydon",
+        "text": "Chat thinks it's a bit. I'm leaning into it."
+      }
+    ]
+  },
+  "haydon_list": {
+    "lines": [
+      {
+        "text": "A whiteboard list. Every name on it is scribbled out."
+      },
+      {
+        "who": "Callum",
+        "text": "Haydon. What is this list."
+      },
+      {
+        "who": "Haydon",
+        "text": "Nah."
+      }
+    ],
+    "byLeader": {
+      "haydon": [
+        {
+          "text": "A whiteboard list. Every name on it is scribbled out."
+        },
+        {
+          "who": "Haydon",
+          "text": "You didn't see that."
+        },
+        {
+          "who": "Nolan",
+          "text": "We've been not seeing that for years."
+        }
+      ]
+    }
+  },
+  "haydon_poster": {
+    "lines": [
+      {
+        "text": "A signed poster of Haydon's favourite streamer."
+      },
+      {
+        "who": "Haydon",
+        "text": "I watch for research."
+      },
+      {
+        "who": "Dani",
+        "text": "Four hundred hours of research."
+      }
+    ]
+  },
+  "haydon_snacks": {
+    "lines": [
+      {
+        "text": "Crisps and energy drinks. A sign on top: DO NOT TOUCH (THIS MEANS DANI)."
+      },
+      {
+        "who": "Dani",
+        "text": "I didn't touch. I ate."
+      }
+    ]
+  },
+  "dani_hammock": {
+    "lines": [
+      {
+        "text": "A hammock in yellow, blue and red. Still warm."
+      },
+      {
+        "who": "Dani",
+        "text": "Five more minutes, then we go."
+      },
+      {
+        "who": "Haydon",
+        "text": "Bro said that in 2019."
+      }
+    ]
+  },
+  "dani_football": {
+    "lines": [
+      {
+        "text": "A football, scuffed from a thousand kickabouts against the wall."
+      },
+      {
+        "who": "Dani",
+        "text": "This is the real football. Not the one with the hands."
+      }
+    ]
+  },
+  "dani_coffee": {
+    "lines": [
+      {
+        "text": "A coffee pot on the stove, still warm. Colombian, obviously."
+      },
+      {
+        "who": "Dani",
+        "text": "You want? Is the best coffee in the world. Is not opinion."
+      }
+    ]
+  },
+  "dani_fridge": {
+    "lines": [
+      {
+        "text": "A tournament bracket on the fridge. CALLUM at the top, crossed out, DANI written over it in marker."
+      },
+      {
+        "who": "Callum",
+        "text": "I won that."
+      },
+      {
+        "who": "Dani",
+        "text": "The fridge says different."
+      }
+    ]
+  },
+  "dani_shoes": {
+    "lines": [
+      {
+        "text": "Dani's shoes by the door, one lace undone. His phone charger next to them."
+      },
+      {
+        "who": "Nolan",
+        "text": "He's been leaving for thirty minutes."
+      },
+      {
+        "who": "Dani",
+        "text": "I'm literally at the door."
+      }
+    ]
+  },
+  "dani_photos": {
+    "lines": [
+      {
+        "text": "Family photos: birthdays, a beach, a lot of cousins."
+      },
+      {
+        "who": "Dani",
+        "text": "That's my cousin. And that one. Also that one. Is a big family, bro."
+      }
+    ]
+  },
+  "dani_mama": {
+    "lines": [
+      {
+        "who": "Dani's mamá",
+        "text": "Ay, his friends! Sit, sit. You didn't eat? You didn't eat."
+      },
+      {
+        "who": "Dani's mamá",
+        "text": "Dani will be ready in five minutes. Don't believe him."
+      }
+    ],
+    "byLeader": {
+      "dani": [
+        {
+          "who": "Dani's mamá",
+          "text": "Mijo. Your friends have been waiting thirty minutes."
+        },
+        {
+          "who": "Dani",
+          "text": "Is ten minutes, Ma."
+        },
+        {
+          "who": "Dani's mamá",
+          "text": "Thirty."
+        }
+      ]
+    }
+  },
+  "sanctuary_rubble": {
+    "lines": [
+      {
+        "text": "Rubble fills the arch. Roots grow through it; somewhere behind it, water drips."
+      },
+      {
+        "text": "A note taped to it, in PATCH's handwriting: ROOT HALL. RESTORE AT THE STONES. THEN I DIG. (P)"
+      }
+    ]
+  },
+  "sanctuary_sealed_tide": {
+    "lines": [
+      {
+        "text": "A stone door, sealed. Blue light leaks from the seam. Carved above it: TIDE GALLERY."
+      },
+      {
+        "who": "Callum",
+        "text": "Something to do with Kettleport. Later."
+      }
+    ]
+  },
+  "sanctuary_sealed_deep": {
+    "lines": [
+      {
+        "text": "A sealed door, deeper in. The carving's worn away. The light behind it flickers like it's thinking."
+      },
+      {
+        "who": "Haydon",
+        "text": "Nah. We're not opening that one today."
+      }
+    ]
+  },
+  "bed_callum": {
+    "lines": [
+      {
+        "text": "A teal bedroll. PATCH's label: CALLUM. DOES NOT NEED A SPREADSHEET OF HIS DREAMS."
+      },
+      {
+        "text": "Everyone lies down for a bit. Every team is patched up."
+      }
+    ]
+  },
+  "bed_nolan": {
+    "lines": [
+      {
+        "text": "A grey bedroll. PATCH's label: NOLAN. WILL BE UP FIRST."
+      },
+      {
+        "text": "Everyone lies down for a bit. Every team is patched up."
+      }
+    ]
+  },
+  "bed_haydon": {
+    "lines": [
+      {
+        "text": "A khaki bedroll. PATCH's label: HAYDON. SAYS HE DOESN'T SLEEP. SNORES."
+      },
+      {
+        "text": "Everyone lies down for a bit. Every team is patched up."
+      }
+    ]
+  },
+  "bed_dani": {
+    "lines": [
+      {
+        "text": "A navy bedroll. PATCH's label: DANI (LATE)."
+      },
+      {
+        "who": "Dani",
+        "text": "Why late? I'm here!"
+      },
+      {
+        "text": "Everyone lies down for a bit. Every team is patched up."
+      }
+    ]
+  },
+  "workshop_bench": {
+    "lines": [
+      {
+        "text": "PATCH's workbench: a vice, rolls of tape, and one bolt labelled IMPORTANT? (CHECK)."
+      },
+      {
+        "who": "Nolan",
+        "text": "He's been checking for a week."
+      }
+    ]
+  },
+  "workshop_cradle": {
+    "lines": [
+      {
+        "text": "A charging cradle the size of a car. Empty: PATCH is outside, working on a fix."
+      },
+      {
+        "who": "Haydon",
+        "text": "He sleeps standing up in this? Respect."
+      }
+    ]
+  },
+  "workshop_fixboard": {
+    "lines": [
+      {
+        "text": "A whiteboard titled FIX. 1. The world. 2. The sanctuary. 3. Callum's spreadsheet (ongoing)."
+      }
+    ],
+    "byLeader": {
+      "callum": [
+        {
+          "text": "A whiteboard titled FIX. 1. The world. 2. The sanctuary. 3. Callum's spreadsheet (ongoing)."
+        },
+        {
+          "who": "Callum",
+          "text": "The spreadsheet is fine."
+        }
+      ]
+    }
+  },
+  "roots_roots": {
+    "lines": [
+      {
+        "text": "Roots older than the hill, curled round the keepers' stones. Under the bark, something glows CRT blue."
+      },
+      {
+        "who": "Callum",
+        "text": "PATCH built this world. So who planted these?"
+      }
+    ]
+  },
+  "roots_pool": {
+    "lines": [
+      {
+        "text": "A still pool. The light under the water pulses slowly, like breathing."
+      },
+      {
+        "who": "Dani",
+        "text": "Is beautiful. Don't touch it. I touched it. Is cold."
+      }
+    ]
+  },
+  "elder_roots": {
+    "lines": [
+      {
+        "who": "Old keeper",
+        "text": "Root Hall, awake again. My grandmother said I'd never see it."
+      },
+      {
+        "who": "Old keeper",
+        "text": "The Hollowfolk will hear of this. Some might even come and look. Don't make it weird."
+      }
+    ]
+  },
+  "roamer": {
+    "lines": [
+      {
+        "text": "It's made itself at home."
+      }
+    ]
+  }
+}
