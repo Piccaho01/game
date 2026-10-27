@@ -14,7 +14,7 @@ A BW2-style creature-collecting RPG where four best friends get trapped inside t
 - Inside jokes are a feature, not decoration. They live in NPCs, items, locations and dialogue.
 
 ## 3. Platform and Tech
-- **How we work** (session start checklist, one milestone per session, Opus leads and Sonnet does chores, images by script, one review per milestone): `docs/WORKFLOW.md`. Follow it every session.
+- **How we work** (session start checklist, one milestone per session, Opus leads and Sonnet does chores, image prompts batched per milestone, one review per milestone): `docs/WORKFLOW.md`. Follow it every session.
 - Built in Claude Code. Eventually playable by the friend group (phone-friendly if possible).
 - Keep systems data-driven (JSON/config for creatures, moves, types, dialogue) so balance and content can be tweaked without code rewrites.
 - **Engine (decided):** browser game in **TypeScript + Phaser 3**. The friends play from a link on their phones or computers with nothing to install; touch controls first. Sprites come from claude-pxl as PNG strips + JSON, which Phaser loads directly.
