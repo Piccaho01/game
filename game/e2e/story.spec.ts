@@ -24,6 +24,8 @@ test('a new game opens on the opening cutscene; SKIP goes to the starter pick', 
 });
 
 test('the whole opening plays through to the pick, then the friends react, then out into Hollow Rest', async ({ page }) => {
+  // Every line of the opening is tapped through, so this one is long (slower still on CI).
+  test.setTimeout(420_000);
   const errors: string[] = [];
   page.on('pageerror', (e) => errors.push(e.message));
   const tapNew = async (name: string) => {
