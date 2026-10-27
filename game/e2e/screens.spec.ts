@@ -74,6 +74,7 @@ test('screens', async ({ page }) => {
   await page.waitForFunction(() => window.__battle?.phase() === 'menu', null, { timeout: 60_000 });
   await shot(page, '06-battle-menu');
   await tapOn(page, '__battle', 'fight');
+    await page.waitForFunction(() => window.__battle.phase() === 'fight');
   await shot(page, '07-battle-fight');
   await tapOn(page, '__battle', 'move2');
   await page.waitForTimeout(400);
@@ -83,6 +84,7 @@ test('screens', async ({ page }) => {
   // Win quickly so the end screen and the Journal are reachable.
   for (let turn = 0; turn < 20 && (await page.evaluate(() => window.__battle.phase())) === 'menu'; turn++) {
     await tapOn(page, '__battle', 'fight');
+    await page.waitForFunction(() => window.__battle.phase() === 'fight');
     await tapOn(page, '__battle', 'move2');
     await page.waitForFunction(() => ['menu', 'over'].includes(window.__battle.phase()), null, { timeout: 30_000 });
   }

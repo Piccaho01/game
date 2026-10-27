@@ -2,6 +2,7 @@
   "_note": "Hollow Rest (bible \u00a79), after the owner's concept art. Isometric (art/tools/iso_map.py bakes the look from this file). 'heights': the ground level per tile (0 = the sky past the island's edge). Built by art/tools/hollow_rest_layout.py; NPCs, signs and warps are placed by hand.",
   "id": "hollow_rest",
   "name": "Hollow Rest",
+  "battle": "hollow_rest",
   "legend": {
     ".": "grass",
     "=": "path",

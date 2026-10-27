@@ -1,22 +1,24 @@
 import Phaser from 'phaser';
 import { SCREEN_H, SCREEN_W, ZOOM } from '../config';
 import { SPECIES, TYPES } from '../engine/data';
-import { CHARACTERS, leaderTeam, loreOf, sanctuaryPoints, SQUAD, stageOf, STAGES, TEAM_SIZE, type CharacterId, type Progress, type Stage } from '../engine/progress';
+import { CHARACTERS, leaderTeam, loreOf, partyMode, sanctuaryPoints, SQUAD, stageOf, STAGES, TEAM_SIZE, type CharacterId, type Progress, type Stage } from '../engine/progress';
 import type { Bond } from '../engine/seal';
 import { saveProgress } from '../save';
-import { button, buttonPagePoint, chip, emptySlot, hinge, menuBackdrop, panel, screenBackdrop, tapeLabel } from '../ui/kit';
+import { button, buttonPagePoint, chip, emptySlot, faceIcon, hinge, listRow, menuBackdrop, monIcon, panel, screenBackdrop, tabs, tapeLabel } from '../ui/kit';
+import { createBattler } from '../engine/battler';
 import { pixelText } from '../ui/text';
 import { COLORS, hexToNum, shade, TEXT_COLORS, TEXT_SIZE, TONES } from '../ui/theme';
-import { frontKey, idleAnimKey } from './BootScene';
+import { frontKey, idleAnimKey, walkKey } from './BootScene';
+import { isMuted, setMuted } from '../ui/sfx';
 
-type Tab = 'team' | 'bestiary';
+type Tab = 'team' | 'bestiary' | 'options';
 const BOTTOM = SCREEN_H;
 /** Bestiary entries per page on the touch screen: 3 columns, 4 rows. */
 const DEX_PER_PAGE = 12;
 const STAGE_NAMES: Record<Stage, string> = { sighted: 'Sighted', tracked: 'Tracked', studied: 'Studied', sealed: 'Sealed', bonded: 'Bonded' };
 const BOND_NAMES: Record<Bond, string> = { strong: 'Strong bond', steady: 'Steady bond', wary: 'Wary' };
 
-/** The four teams and the bestiary. Top screen: the selected Patchling; bottom screen: the lists. */
+/** The four teams, the bestiary and the options. Top screen: the selected Patchling; bottom screen: the lists. */
 export class JournalScene extends Phaser.Scene {
   private progress!: Progress;
   private foe = 'sprigby';
@@ -43,6 +45,8 @@ export class JournalScene extends Phaser.Scene {
 
   create() {
     this.cameras.main.setOrigin(0, 0).setZoom(ZOOM).setRoundPixels(true);
+    // Every screen eases in.
+    this.cameras.main.fadeIn(180, 16, 16, 24);
     this.progress = this.registry.get('progress') as Progress;
     this.viewing = this.progress.leader;
     menuBackdrop(this);
@@ -55,6 +59,7 @@ export class JournalScene extends Phaser.Scene {
     (window as unknown as Record<string, unknown>).__journal = {
       tab: () => this.tab,
       team: () => leaderTeam(this.progress).map((m) => m.species),
+      party: () => partyMode(this.progress),
       viewing: () => this.viewing,
       buttonAt: (name: string) => buttonPagePoint(this, this.bottom, name),
     };
@@ -62,11 +67,11 @@ export class JournalScene extends Phaser.Scene {
 
   private render() {
     this.bottom.removeAll(true);
-    const tabBtn = (x: number, t: Tab, label: string) =>
-      button(this, x, 16, 120, 24, label, this.tab === t ? TONES.seal : TONES.neutral, () => { this.tab = t; this.selected = null; this.render(); }, { name: `tab-${t}`, selected: this.tab === t });
-    this.bottom.add([tabBtn(66, 'team', 'TEAM'), tabBtn(190, 'bestiary', 'BESTIARY')]);
+    this.bottom.add(tabs<Tab>(this, 128, 15, 240, [{ id: 'team', label: 'TEAM' }, { id: 'bestiary', label: 'BESTIARY' }, { id: 'options', label: 'OPTIONS' }],
+      this.tab, (t) => { this.tab = t; this.selected = null; this.render(); }, TONES.seal));
     if (this.tab === 'team') this.renderTeam();
-    else this.renderBestiary();
+    else if (this.tab === 'bestiary') this.renderBestiary();
+    else this.renderOptions();
     this.bottom.add(button(this, 66, 172, 120, 28, 'BACK', TONES.neutral, () => (this.from === 'overworld' ? this.scene.start('overworld') : this.scene.start('battle', { foe: this.foe })), { name: 'back' }));
     this.renderTop();
   }
@@ -76,21 +81,28 @@ export class JournalScene extends Phaser.Scene {
     // Whose team: one tab per friend, the leader marked.
     SQUAD.forEach((c, i) => {
       const ch = CHARACTERS[c];
-      this.bottom.add(button(this, 35 + i * 62, 42, 58, 16, c === p.leader ? `${ch.name}*` : ch.name, this.viewing === c ? shade(hexToNum(ch.color), -0.25) : TONES.neutral,
-        () => { this.viewing = c; this.selected = null; this.render(); }, { size: TEXT_SIZE.small, name: `team-${c}`, selected: this.viewing === c }));
+      this.bottom.add(listRow(this, 35 + i * 62, 42, 58, 20, {
+        title: ch.name, color: this.viewing === c ? shade(hexToNum(ch.color), -0.2) : TONES.neutral, icon: faceIcon(walkKey(c)),
+        onTap: () => { this.viewing = c; this.selected = null; this.render(); }, name: `team-${c}`, selected: this.viewing === c,
+      }));
     });
     const team = p.teams[this.viewing];
     for (let i = 0; i < TEAM_SIZE; i++) {
       const m = team[i];
       const x = 66 + (i % 2) * 124;
-      const y = 70 + Math.floor(i / 2) * 29;
+      const y = 72 + Math.floor(i / 2) * 29;
       if (!m) {
-        this.bottom.add(emptySlot(this, x, y, 118, 24));
+        this.bottom.add(emptySlot(this, x, y, 118, 25));
         continue;
       }
       const color = shade(hexToNum(TYPES[SPECIES[m.species].types[0]].color), -0.3);
-      this.bottom.add(button(this, x, y, 118, 24, `${SPECIES[m.species].name} Lv${m.level}`, color,
-        () => { this.selected = m.uid; this.render(); }, { sub: i === 0 ? 'LEAD' : BOND_NAMES[m.bond], name: `member${i}`, selected: this.selected === m.uid }));
+      const max = createBattler(m.species, m.level, undefined, m.bond).stats.hp;
+      const hp = m.hp ?? max;
+      this.bottom.add(listRow(this, x, y, 118, 26, {
+        title: SPECIES[m.species].name, right: `Lv${m.level}`, color, icon: monIcon(frontKey(m.species)),
+        meter: { frac: hp / max, color: hp / max > 0.5 ? 0x5fe0a8 : hp / max > 0.2 ? 0xf2c14e : 0xff6a5a },
+        onTap: () => { this.selected = m.uid; this.render(); }, name: `member${i}`, selected: this.selected === m.uid,
+      }));
     }
     this.bottom.add(pixelText(this, 128, 154, `Sanctuary: ${p.sanctuary.length} Patchling${p.sanctuary.length === 1 ? '' : 's'}  ${sanctuaryPoints(p)} pts`, { color: TEXT_COLORS.dim, size: TEXT_SIZE.small }).setOrigin(0.5));
     const sel = team.findIndex((m) => m.uid === this.selected);
@@ -104,6 +116,22 @@ export class JournalScene extends Phaser.Scene {
     }
   }
 
+  /** Options: who shows on the map (all four or just you), and sound. */
+  private renderOptions() {
+    const p = this.progress;
+    const party = partyMode(p);
+    const head = { color: TEXT_COLORS.dim, size: TEXT_SIZE.small };
+    this.bottom.add(pixelText(this, 128, 38, 'Who walks with you on the map', head).setOrigin(0.5, 0));
+    const setParty = (m: 'squad' | 'solo') => () => { p.settings = { ...p.settings, party: m }; saveProgress(p); this.render(); };
+    this.bottom.add(button(this, 66, 72, 118, 34, 'SQUAD', party === 'squad' ? TONES.go : TONES.neutral, setParty('squad'), { sub: 'All four friends', name: 'opt-squad', selected: party === 'squad' }));
+    this.bottom.add(button(this, 190, 72, 118, 34, 'SOLO', party === 'solo' ? TONES.go : TONES.neutral, setParty('solo'), { sub: 'You + your Patchling', name: 'opt-solo', selected: party === 'solo' }));
+    this.bottom.add(pixelText(this, 128, 98, 'Sound effects', head).setOrigin(0.5, 0));
+    const muted = isMuted();
+    const setSound = (on: boolean) => () => { setMuted(!on); this.render(); };
+    this.bottom.add(button(this, 66, 128, 118, 28, 'ON', !muted ? TONES.go : TONES.neutral, setSound(true), { name: 'opt-sound-on', selected: !muted }));
+    this.bottom.add(button(this, 190, 128, 118, 28, 'OFF', muted ? TONES.go : TONES.neutral, setSound(false), { name: 'opt-sound-off', selected: muted }));
+  }
+
   private renderBestiary() {
     const ids = Object.keys(SPECIES).sort((a, b) => SPECIES[a].dex - SPECIES[b].dex);
     const pages = Math.ceil(ids.length / DEX_PER_PAGE);
@@ -113,9 +141,12 @@ export class JournalScene extends Phaser.Scene {
       const x = 46 + (i % 3) * 82;
       const y = 46 + Math.floor(i / 3) * 28;
       const dex = `#${String(SPECIES[id].dex).padStart(3, '0')}`;
-      this.bottom.add(button(this, x, y, 78, 24, stage ? SPECIES[id].name : '???', stage ? TONES.patch : COLORS.metalLight,
-        () => { this.loreIndex = this.selected === id ? this.loreIndex + 1 : 0; this.selected = id; this.render(); },
-        { sub: stage ? STAGE_NAMES[stage] : dex, name: `dex-${id}`, selected: this.selected === id }));
+      this.bottom.add(listRow(this, x, y, 78, 25, {
+        title: stage ? SPECIES[id].name : '???', titleSize: TEXT_SIZE.tiny, sub: stage ? STAGE_NAMES[stage] : dex, color: stage ? TONES.patch : COLORS.metalLight,
+        icon: monIcon(frontKey(id), !stage),
+        onTap: () => { this.loreIndex = this.selected === id ? this.loreIndex + 1 : 0; this.selected = id; this.render(); },
+        name: `dex-${id}`, selected: this.selected === id,
+      }));
     });
     const seen = ids.filter((id) => stageOf(this.progress.bestiary[id])).length;
     this.bottom.add(pixelText(this, 128, 154, `${seen}/${ids.length} seen   page ${this.dexPage + 1}/${pages}`, { color: TEXT_COLORS.dim, size: TEXT_SIZE.small }).setOrigin(0.5));
@@ -126,7 +157,15 @@ export class JournalScene extends Phaser.Scene {
 
   private renderTop() {
     this.top.removeAll(true);
-    this.top.add(tapeLabel(this, 14, 2, this.tab === 'team' ? `${CHARACTERS[this.viewing].name.toUpperCase()}'S TEAM` : 'BESTIARY'));
+    this.top.add(tapeLabel(this, 14, 2, this.tab === 'team' ? `${CHARACTERS[this.viewing].name.toUpperCase()}'S TEAM` : this.tab === 'options' ? 'OPTIONS' : 'BESTIARY'));
+    if (this.tab === 'options') {
+      const solo = partyMode(this.progress) === 'solo';
+      this.top.add(pixelText(this, 18, 24, solo ? 'Solo' : 'Squad', { size: TEXT_SIZE.heading }));
+      this.top.add(pixelText(this, 18, 42, solo
+        ? 'Just whoever leads and their lead Patchling walk the map. The others still show up in cutscenes, and SWITCH still swaps who leads.'
+        : 'All four friends walk the map in a line, with the leader\'s Patchling hopping behind them.', { size: TEXT_SIZE.small, wrap: 220 }));
+      return;
+    }
     const member = typeof this.selected === 'number' ? this.progress.teams[this.viewing].find((m) => m.uid === this.selected) : undefined;
     const species = typeof this.selected === 'number'
       ? member?.species

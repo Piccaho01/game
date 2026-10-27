@@ -4,6 +4,7 @@ import { judgeSeal, type Grade, type SealPattern, type SealResult, type SealWind
 import { pxRect, stitches } from '../ui/kit';
 import { COLORS } from '../ui/theme';
 import { pixelText } from '../ui/text';
+import { sfx } from '../ui/sfx';
 
 const COUNT_IN_MS = 1200;
 const TARGET_R = 16;
@@ -93,6 +94,7 @@ export class SealMinigame {
     }
     const grade: Grade = Math.abs(t - beats[i]) <= this.windows.perfect ? 'perfect' : 'good';
     this.live[i] = grade;
+    sfx(grade);
     this.pop(grade.toUpperCase(), GRADE_COLORS[grade]);
   }
 
@@ -100,6 +102,7 @@ export class SealMinigame {
     this.pattern.beats.forEach((b, i) => {
       if (this.live[i] === null && t > b + this.windows.good) {
         this.live[i] = 'miss';
+        sfx('miss');
         this.pop('MISS', GRADE_COLORS.miss);
       }
     });

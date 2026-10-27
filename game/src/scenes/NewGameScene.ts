@@ -3,7 +3,7 @@ import { SCREEN_H, SCREEN_W, ZOOM } from '../config';
 import { SPECIES, TYPES } from '../engine/data';
 import { CHARACTERS, DEFAULT_STARTERS, newProgress, SQUAD, STARTERS, type CharacterId } from '../engine/progress';
 import { saveProgress } from '../save';
-import { button, buttonPagePoint, chip, hinge, menuBackdrop, panel, patchPortrait, pxRect, screenBackdrop, tapeLabel } from '../ui/kit';
+import { button, buttonPagePoint, chip, faceIcon, hinge, listRow, menuBackdrop, monIcon, panel, patchPortrait, pxRect, screenBackdrop, sectionLabel, tapeLabel } from '../ui/kit';
 import { pixelText } from '../ui/text';
 import { COLORS, hexToNum, shade, TEXT_COLORS, TEXT_SIZE, TONES } from '../ui/theme';
 import { frontKey, idleAnimKey, walkKey } from './BootScene';
@@ -33,6 +33,8 @@ export class NewGameScene extends Phaser.Scene {
     this.picks = { ...DEFAULT_STARTERS };
     this.starter = null;
     this.cameras.main.setOrigin(0, 0).setZoom(ZOOM).setRoundPixels(true);
+    // Every screen eases in.
+    this.cameras.main.fadeIn(180, 16, 16, 24);
     menuBackdrop(this);
     panel(this, 6, 8, SCREEN_W - 12, SCREEN_H - 19, 'paper');
     screenBackdrop(this, BOTTOM);
@@ -58,11 +60,14 @@ export class NewGameScene extends Phaser.Scene {
 
   private renderLeader() {
     const ids = Object.keys(CHARACTERS) as CharacterId[];
-    this.bottom.add(pixelText(this, 128, 12, "Who's leading?", { color: TEXT_COLORS.light, size: TEXT_SIZE.heading, shadow: '#000000' }).setOrigin(0.5, 0));
+    this.bottom.add(pixelText(this, 128, 10, "Who's leading?", { color: TEXT_COLORS.light, size: TEXT_SIZE.heading, shadow: '#000000' }).setOrigin(0.5, 0));
+    this.bottom.add(sectionLabel(this, 128, 25, 'Meet the four'));
     ids.forEach((id, i) => {
       const c = CHARACTERS[id];
-      this.bottom.add(button(this, 66 + (i % 2) * 124, 52 + Math.floor(i / 2) * 50, 118, 42, c.name, shade(hexToNum(c.color), -0.25),
-        () => { this.leader = id; this.render(); }, { sub: c.role, name: `char-${id}`, selected: this.leader === id }));
+      this.bottom.add(listRow(this, 66 + (i % 2) * 124, 58 + Math.floor(i / 2) * 46, 118, 40, {
+        title: c.name, sub: c.role, color: shade(hexToNum(c.color), -0.22), icon: faceIcon(walkKey(id)),
+        onTap: () => { this.leader = id; this.render(); }, name: `char-${id}`, selected: this.leader === id,
+      }));
     });
     if (this.leader) this.bottom.add(button(this, 128, 168, 160, 30, 'LEAD THE WAY', TONES.go, () => { this.step = 'starters'; this.render(); }, { name: 'confirm' }));
 
@@ -102,17 +107,21 @@ export class NewGameScene extends Phaser.Scene {
 
   /** Tap a starter, then the friend who takes it; that friend's old starter goes to whoever had this one. */
   private renderStarters() {
-    this.bottom.add(pixelText(this, 128, 8, 'Who takes which?', { color: TEXT_COLORS.light, size: TEXT_SIZE.heading, shadow: '#000000' }).setOrigin(0.5, 0));
-    this.bottom.add(pixelText(this, 128, 22, this.starter ? `Now tap who takes ${SPECIES[this.starter].name}.` : 'Tap a starter, then a friend.', { color: TEXT_COLORS.dim, size: TEXT_SIZE.small }).setOrigin(0.5, 0));
+    this.bottom.add(pixelText(this, 128, 6, 'Who takes which?', { color: TEXT_COLORS.light, size: TEXT_SIZE.heading, shadow: '#000000' }).setOrigin(0.5, 0));
+    this.bottom.add(pixelText(this, 128, 20, this.starter ? `Now tap who takes ${SPECIES[this.starter].name}.` : 'Tap a starter, then a friend.', { color: TEXT_COLORS.dim, size: TEXT_SIZE.small }).setOrigin(0.5, 0));
     STARTERS.forEach((id, i) => {
       const sp = SPECIES[id];
-      this.bottom.add(button(this, 62, 46 + i * 29, 100, 24, sp.name, shade(hexToNum(TYPES[sp.types[0]].color), -0.3),
-        () => { this.starter = this.starter === id ? null : id; this.render(); }, { name: `starter-${id}`, selected: this.starter === id }));
+      this.bottom.add(listRow(this, 62, 47 + i * 29, 104, 26, {
+        title: sp.name, color: shade(hexToNum(TYPES[sp.types[0]].color), -0.3), icon: monIcon(frontKey(id)),
+        onTap: () => { this.starter = this.starter === id ? null : id; this.render(); }, name: `starter-${id}`, selected: this.starter === id,
+      }));
     });
     SQUAD.forEach((c, i) => {
       const ch = CHARACTERS[c];
-      this.bottom.add(button(this, 182, 46 + i * 29, 124, 24, ch.name, shade(hexToNum(ch.color), -0.25), () => this.give(c),
-        { sub: SPECIES[this.picks[c]].name, name: `friend-${c}`, selected: !!this.starter && this.picks[c] === this.starter }));
+      this.bottom.add(listRow(this, 186, 47 + i * 29, 124, 26, {
+        title: ch.name, sub: `has ${SPECIES[this.picks[c]].name}`, color: shade(hexToNum(ch.color), -0.22), icon: faceIcon(walkKey(c)),
+        onTap: () => this.give(c), name: `friend-${c}`, selected: !!this.starter && this.picks[c] === this.starter,
+      }));
     });
     this.bottom.add(button(this, 56, 172, 88, 28, 'BACK', TONES.neutral, () => { this.step = 'leader'; this.starter = null; this.render(); }, { name: 'back' }));
     this.bottom.add(button(this, 170, 172, 140, 28, 'DONE', TONES.go, () => { this.step = 'lead'; this.starter = null; this.render(); }, { name: 'confirm' }));
@@ -152,8 +161,10 @@ export class NewGameScene extends Phaser.Scene {
     this.bottom.add(pixelText(this, 128, 12, 'Who leads first?', { color: TEXT_COLORS.light, size: TEXT_SIZE.heading, shadow: '#000000' }).setOrigin(0.5, 0));
     SQUAD.forEach((c, i) => {
       const ch = CHARACTERS[c];
-      this.bottom.add(button(this, 66 + (i % 2) * 124, 52 + Math.floor(i / 2) * 50, 118, 42, ch.name, shade(hexToNum(ch.color), -0.25),
-        () => { this.leader = c; this.render(); }, { sub: `with ${SPECIES[this.picks[c]].name}`, name: `lead-${c}`, selected: this.leader === c }));
+      this.bottom.add(listRow(this, 66 + (i % 2) * 124, 54 + Math.floor(i / 2) * 46, 118, 40, {
+        title: ch.name, sub: `with ${SPECIES[this.picks[c]].name}`, color: shade(hexToNum(ch.color), -0.22), icon: faceIcon(walkKey(c)),
+        onTap: () => { this.leader = c; this.render(); }, name: `lead-${c}`, selected: this.leader === c,
+      }));
     });
     this.bottom.add(pixelText(this, 128, 142, 'Switch any time with SWITCH.', { color: TEXT_COLORS.dim, size: TEXT_SIZE.small }).setOrigin(0.5));
     this.bottom.add(button(this, 56, 172, 88, 28, 'BACK', TONES.neutral, () => { this.step = 'starters'; this.render(); }, { name: 'back' }));

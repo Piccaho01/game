@@ -270,6 +270,37 @@ and PR (owner approves visuals before they go in):
   Art asks for the owner: interior concept + set-piece sheets per house and for the sanctuary
   halls (prompts in `art/LOCATION_STYLE.md`).
 
+## Parallel tracks from 2026-10-25 (read this first in a new session)
+Base for all new work: `claude/ui-upgrade` (PR #20, which contains the squad PR #19). When those
+merge, merge `main` into your branch. Each track owns its files; touch the others' files only with
+small, clearly separated hooks, so the PRs merge cleanly.
+- **Story** (branch `claude/m4b-story`, own session): `scenes/CutsceneScene.ts` (new), `IntroScene.ts`,
+  `data/intro.json`, `data/cutscenes/*.json` (new), story lines in `data/dialogue.json`. Hook into the
+  overworld only through a small `playScene(id)` call / map `triggers` data.
+- **World** (branch `claude/m4b-world`, own session): `data/maps/*` (new interior maps, Route 1
+  isometric), `data/objects.json`, `data/tiles.json`, `art/tools/*` map tools, `art/locations/*`,
+  NPC home/visit data. Overworld hooks: warps into interiors.
+- **Systems** (branch `claude/m4b-systems`, the session that did the UI): experience and levels
+  (shared by all four teams, half in storage), seal scrolls (items, inventory, shop later), field
+  moves and the first obstacle (`engine/fieldMoves.ts`, map `obstacles` data), battle/journal hooks.
+Rules for every track: the owner approves visuals from screenshots before a PR goes to main;
+use the A+ kit (`ui/kit.ts`: `card`, `button`, `listRow`, `tabs`, `sectionLabel`; `ui/battleKit.ts`)
+for any new screen, never raw rectangles; keep messages to the owner short and plain.
+
+## UI upgrade (owner's direction, 2026-10-25; branch `claude/ui-upgrade`)
+Look "Workshop A+" chosen from the pitch board (cleaner PATCH style with more flare). Built so far,
+on the battle as the sample screen: location backdrops (owner's ChatGPT drafts in
+`art/concepts/battle/`, converted to 256x192 in `art/battle/out/`; maps name theirs in `battle`),
+edge-tucked info cards with type tags and a two-step HP drain, intro slide-ins and a "A WILD X!"
+banner, the touch-screen header with the leader's face, command buttons with faint animated
+decals (glove, scroll, team silhouettes, the active Patchling running) that do a big move on tap,
+the gold assist bar, the leader's cut-in with their big pixel figure (`art/tools/sheet2battle.py`)
+and their line (`characters.json` assist.shout/accent), hit shake, super-effective flash, synthesized
+sound effects (`ui/sfx.ts`, `?mute`). Overworld: the leader's lead Patchling hops behind them
+(follower frames from the owner's turnaround sheet via `art/tools/turnaround2follow.py`).
+Next once the owner approves the sample: roll the look out to every screen (new game, journal,
+sanctuary, overworld touch screen, fight/team menus), seal scrolls as items.
+
 ## M5 Playtest build
 - Bug pass on phones (iOS Safari, Android Chrome), balance pass, the link shared with the
   group, one round of fixes from their feedback.

@@ -2,6 +2,7 @@
   "_note": "Route 1 (bible \u00a715): the hills outside Hollow Rest. Tall grass hides the Route 1 commons. Encounter rate is per step in tall grass (0-1); tune on a phone. Still the old flat layout (every tile at height 1) until it gets its own isometric redesign.",
   "id": "route1",
   "name": "Route 1",
+  "battle": "route1",
   "legend": {
     ".": "grass",
     ",": "tall",

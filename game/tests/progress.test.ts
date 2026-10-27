@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { createBattler } from '../src/engine/battler';
 import {
-  assignStarters, deposit, leaderTeam, loreOf, newProgress, parseProgress, recordDefeat, recordEncounter, recordScan, recordSeal, sanctuaryPoints, stageOf, switchLeader, TEAM_SIZE, withdraw,
+  assignStarters, deposit, leaderTeam, loreOf, newProgress, partyMode, parseProgress, recordDefeat, recordEncounter, recordScan, recordSeal, sanctuaryPoints, stageOf, switchLeader, TEAM_SIZE, withdraw,
 } from '../src/engine/progress';
 
 describe('team and sanctuary', () => {
@@ -175,5 +175,18 @@ describe('the squad', () => {
     const spare = recordSeal(p, 'fledjet', 5, 'wary');
     expect(spare.where).toBe('sanctuary');
     expect(withdraw(p, spare.member.uid)).toBe(false);
+  });
+});
+
+describe('options', () => {
+  it('party mode defaults to squad, saves solo, and drops junk', () => {
+    const p = newProgress('furnaxol');
+    expect(partyMode(p)).toBe('squad');
+    p.settings = { party: 'solo' };
+    const back = parseProgress(JSON.parse(JSON.stringify(p)))!;
+    expect(partyMode(back)).toBe('solo');
+    const junk = { ...JSON.parse(JSON.stringify(p)), settings: { party: 'everyone' } };
+    expect(partyMode(parseProgress(junk)!)).toBe('squad');
+    expect('settings' in parseProgress(junk)!).toBe(false);
   });
 });
