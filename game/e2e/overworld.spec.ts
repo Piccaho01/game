@@ -27,9 +27,9 @@ test('walk Hollow Rest with the D-pad and keys, off the island to Route 1, into 
   await tapKey(page, 'right');
   expect(await ow(page)).toMatchObject({ map: 'route1' });
 
-  // Left along the top row, then down into the tall grass.
-  await walkTo(page, 5, 1);
-  await page.keyboard.press('ArrowDown');
+  // A step along the upper terrace, then left into the tall grass at the island's edge.
+  await walkTo(page, 1, 1);
+  await page.keyboard.press('ArrowLeft');
   await page.waitForFunction(() => window.__battle?.phase() === 'menu', null, { timeout: 60_000 });
   const foe = await page.evaluate(() => (window as unknown as { __battle: { foe(): { species: string; level: number } } }).__battle.foe());
   expect(['orbitot', 'fledjet']).toContain(foe.species);
@@ -49,7 +49,7 @@ test('walk Hollow Rest with the D-pad and keys, off the island to Route 1, into 
   await page.touchscreen.tap(where!.x, where!.y);
   await ready(page);
   const pos = await ow(page);
-  expect(pos).toMatchObject({ map: 'route1', x: 5, y: 2 });
+  expect(pos).toMatchObject({ map: 'route1', x: 0, y: 1 });
 
   // The spot is saved: a reload comes back to it.
   await page.goto('/?seed=1');

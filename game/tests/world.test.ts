@@ -147,3 +147,26 @@ describe('Patchlings living in the sanctuary', () => {
     expect(roamersOn('hollow_rest', stored)).toEqual([]);
   });
 });
+
+describe('Route 1 (isometric)', () => {
+  const r1 = MAPS.route1;
+  it('keeps its tall grass, encounters and battle backdrop; the road runs from Hollow Rest to the closed checkpoint', () => {
+    expect(r1.battle).toBe('route1');
+    expect(r1.encounters?.table.map((t) => t.species).sort()).toEqual(['fledjet', 'orbitot']);
+    const booth = r1.objects.find((o) => o.kind === 'r1_booth')!;
+    const d = OBJECTS.r1_booth;
+    const fronts = [];
+    for (let i = 0; i < d.wx; i++) fronts.push({ x: booth.x + i, y: booth.y + d.wy }, { x: booth.x + i, y: booth.y - 1 });
+    for (let j = 0; j < d.wy; j++) fronts.push({ x: booth.x + d.wx, y: booth.y + j }, { x: booth.x - 1, y: booth.y + j });
+    expect(fronts.some((f) => !isBlocked(r1, f.x, f.y) && findPath('route1', r1.spawn, f))).toBe(true);
+    let grass = 0;
+    for (let y = 0; y < r1.height; y++) for (let x = 0; x < r1.width; x++) if (r1.tiles[y][x] === 'tall' && findPath('route1', r1.spawn, { x, y })) grass++;
+    expect(grass).toBeGreaterThanOrEqual(30);
+  });
+
+  it('the bridge crosses the stream', () => {
+    const bridge = r1.objects.find((o) => o.kind === 'r1_bridge')!;
+    expect(r1.tiles[bridge.y][bridge.x + 1]).toBe('bridge');
+    expect(findPath('route1', { x: bridge.x, y: bridge.y }, { x: bridge.x + 2, y: bridge.y })).toEqual(['right', 'right']);
+  });
+});

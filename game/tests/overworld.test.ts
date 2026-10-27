@@ -37,7 +37,7 @@ describe('maps', () => {
   });
 
   it('a map without heights is flat', () => {
-    expect(heightAt(MAPS.route1, 5, 5)).toBe(1);
+    expect(heightAt(MAPS.callum_house, 2, 2)).toBe(1);
   });
 });
 
@@ -106,10 +106,13 @@ describe('movement', () => {
     const a = step({ ...START }, 'left');
     expect(a.moved).toBe(true);
     expect(a.pos).toMatchObject({ x: START.x - 1, y: START.y, dir: 'left' });
-    const r1: Position = { map: 'route1', x: 1, y: 1, dir: 'down' };
-    const b = step(r1, 'left');
+    // somewhere on Route 1 with something solid to its left
+    const m = MAPS.route1;
+    let r1: Position | null = null;
+    for (let y = 0; y < m.height && !r1; y++) for (let x = 1; x < m.width && !r1; x++) if (!isBlocked(m, x, y) && isBlocked(m, x - 1, y) && !m.warps.some((w) => w.x === x - 1 && w.y === y)) r1 = { map: 'route1', x, y, dir: 'down' };
+    const b = step(r1!, 'left');
     expect(b.moved).toBe(false);
-    expect(b.pos).toEqual({ ...r1, dir: 'left' });
+    expect(b.pos).toEqual({ ...r1!, dir: 'left' });
   });
 
   it('extra blockers (NPCs) stop a step', () => {
@@ -122,13 +125,21 @@ describe('movement', () => {
     const out = step(from, 'right');
     expect(out.warped).toBe(true);
     expect(out.pos).toMatchObject({ map: 'route1', x: exit.tx, y: exit.ty });
-    const back = step({ map: 'route1', x: 10, y: 1, dir: 'up' }, 'up');
+    const back = step({ map: 'route1', ...MAPS.route1.spawn, dir: 'up' }, 'up');
     expect(back.pos).toMatchObject({ map: 'hollow_rest', x: MAPS.route1.warps[0].tx, y: MAPS.route1.warps[0].ty });
   });
 
   it('flags tall grass', () => {
-    const r = step({ map: 'route1', x: 1, y: 2, dir: 'right' }, 'right');
-    expect(r.grass).toBe(true);
+    const r1 = MAPS.route1;
+    let hit = false;
+    for (let y = 0; y < r1.height && !hit; y++) {
+      for (let x = 0; x < r1.width && !hit; x++) {
+        if (r1.tiles[y][x] !== 'tall' || r1.tiles[y][x - 1] !== 'grass') continue;
+        const r = step({ map: 'route1', x: x - 1, y, dir: 'right' }, 'right');
+        if (r.moved) { expect(r.grass).toBe(true); hit = true; }
+      }
+    }
+    expect(hit).toBe(true);
   });
 });
 

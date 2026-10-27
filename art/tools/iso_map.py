@@ -123,7 +123,7 @@ def ground_tile(m, x, y):
     elif k == 'tall': base = TOPS['tall']
     else: base = TOPS[('grass_0', 'grass_2')[h % 2]]
     t = variant(base, h >> 1)
-    kk = {'stairs': 'path', 'exit': 'path'}.get(k, k)
+    kk = {'stairs': 'path', 'exit': 'path', 'bridge': 'water'}.get(k, k)
     if kk in EDGE:
         src, line = EDGE[kk]
         over = variant(TOPS[src], (x * 3 + y * 5) % 4)
@@ -132,7 +132,7 @@ def ground_tile(m, x, y):
             k2 = m.kind(x + dx, y + dy)
             if k2 is None: return True
             if kk == 'path' and k2 in ('stairs', 'sign', 'exit', 'path'): return True
-            return {'stairs': 'path', 'exit': 'path'}.get(k2, k2) == kk
+            return {'stairs': 'path', 'exit': 'path', 'bridge': 'water'}.get(k2, k2) == kk
         sides = {'u': same(0, -1), 'r': same(1, 0), 'd': same(0, 1), 'l': same(-1, 0)}
         corners = {(1, -1): same(1, -1), (1, 1): same(1, 1), (-1, 1): same(-1, 1), (-1, -1): same(-1, -1)}
         rng = np.random.default_rng(x * 97 + y * 31)

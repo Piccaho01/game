@@ -567,5 +567,44 @@
         "text": "It's made itself at home."
       }
     ]
+  },
+  "route1_checkpoint": {
+    "lines": [
+      {
+        "text": "The Tally's checkpoint. The barrier is down. A sign: ROAD CLOSED UNTIL FURTHER NOTICE. FURTHER NOTICE POSTPONED."
+      },
+      {
+        "text": "A ticket is stuck in the window: RAIN CHECK."
+      },
+      {
+        "who": "Haydon",
+        "text": "Who even closes a road. It's a road."
+      }
+    ]
+  },
+  "route1_meteor": {
+    "lines": [
+      {
+        "text": "A chunk of sky, fallen and half buried. Inside, the dark is full of stars."
+      },
+      {
+        "who": "Callum",
+        "text": "That's where the Orbitot come from. Bits of the skybox."
+      },
+      {
+        "text": "A Tally tag on a stake: SALVAGE LICENCE APPLIED FOR."
+      }
+    ]
+  },
+  "route1_crt_stone": {
+    "lines": [
+      {
+        "text": "An old stone with a screen set in it, like the ones at the sanctuary. It flickers when you get close."
+      },
+      {
+        "who": "Nolan",
+        "text": "It's on. Barely. Like PATCH before coffee."
+      }
+    ]
   }
 }

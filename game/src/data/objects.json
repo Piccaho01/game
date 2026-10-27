@@ -356,6 +356,63 @@
       "box": true,
       "decal": true,
       "walkable": true
+    },
+    "r1_booth": {
+      "art": "r1_booth",
+      "wx": 3,
+      "wy": 2,
+      "talk": "route1_checkpoint"
+    },
+    "r1_meteor": {
+      "art": "r1_meteor",
+      "wx": 3,
+      "wy": 3,
+      "talk": "route1_meteor"
+    },
+    "r1_bridge": {
+      "art": "r1_bridge",
+      "wx": 3,
+      "wy": 1,
+      "decal": true,
+      "walkable": true
+    },
+    "r1_oak": {
+      "art": "r1_oak",
+      "wx": 1,
+      "wy": 1
+    },
+    "r1_pine": {
+      "art": "r1_pine",
+      "wx": 1,
+      "wy": 1
+    },
+    "r1_flowerbush": {
+      "art": "r1_flowerbush",
+      "wx": 1,
+      "wy": 1
+    },
+    "r1_flowers": {
+      "art": "r1_flowers",
+      "wx": 1,
+      "wy": 1,
+      "walkable": true
+    },
+    "r1_crt_stone": {
+      "art": "r1_crt_stone",
+      "wx": 1,
+      "wy": 1,
+      "talk": "route1_crt_stone"
+    },
+    "r1_lamp": {
+      "art": "r1_lamp",
+      "wx": 1,
+      "wy": 1
+    },
+    "r1_crate": {
+      "art": "r1_crate",
+      "wx": 1,
+      "wy": 1,
+      "text": "A crate stamped TALLY: SALVAGE, PENDING. It's been pending since it was stamped."
     }
   }
 }

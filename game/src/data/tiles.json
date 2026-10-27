@@ -86,6 +86,10 @@
     "mat": {
       "color": "#c2502f",
       "accent": "#f2c14e"
+    },
+    "bridge": {
+      "color": "#9a6a44",
+      "accent": "#6a4430"
     }
   }
 }
