@@ -1,0 +1,140 @@
+{
+  "_note": "Image batch for the M4 wrap-up (docs/PLAN.md): every draft this milestone needs, in one run. Read by art/tools/gen_image.py (OpenAI image API). 'refs' are images attached to the prompt: repo paths, or the 'id' of an earlier image in this batch (that one is generated first). 'out' is where the draft lands. Run at quality 'medium' for tries, 'high' for the keepers. No real brand logos, no Poké Balls, no text in any image.",
+  "model": "gpt-image-1",
+  "defaults": { "quality": "medium", "background": "opaque" },
+  "styles": {
+    "room": "Isometric 2:1 pixel-art interior for a cozy creature-collecting RPG in the style of Pokemon Black/White 2, a cut-away room seen from the front corner: only the two back walls standing (left and right), no front walls, no ceiling, like a dollhouse. Lived-in, full of small personal details, nothing symmetrical or in rows, BW2-style pixel density, dark coloured outlines, warm golden-hour light, palette with rust red, cream, faded blue and gunmetal accents. No text, no logos, no characters.",
+    "pieces": "From this interior, draw each piece of furniture and each prop separately as isometric pixel art in exactly the same style, scale and palette, evenly spaced on a flat white background, nothing touching, no text, no floor under them, no shadows. Also draw the floor as one seamless isometric floor tile, and each back wall as a straight wall segment (one left wall, one right wall).",
+    "person": "Character sheet for a creature-collecting RPG in exactly the same style and layout as the attached sheet: on the left a full-body anime illustration standing in a relaxed pose; top right a head close-up; middle right a pixel-art battle sprite front and back in Pokemon Black/White 2 style; bottom right small pixel-art overworld walk frames (front, side, back). Flat white background, no text, no logos.",
+    "walk": "Using this character sheet, draw an overworld walking sprite sheet in exactly the same pixel-art style and size as the small walk frames on the sheet, for an isometric game. 2 rows x 3 frames, evenly spaced on a flat white background, no text, no shadows. Row 1: walking toward the viewer, body turned 45 degrees to the LEFT (3/4 front view, facing down-left). Row 2: walking away from the viewer, body turned 45 degrees to the LEFT (3/4 back view, facing up-left). Columns: standing, left foot forward, right foot forward."
+  },
+  "images": [
+    {
+      "id": "room_callum", "style": "room", "size": "1536x1024",
+      "out": "art/concepts/locations/interior_callum.png",
+      "prompt": "The room is Callum's cottage: a Scottish grey-stone cottage living room turned nerd den. Stone walls, worn wooden floor, a tartan rug. Shelves of comics and boxed retro games, a binder shelf, a small CRT TV on a console with a retro game running, a wall covered in collectible pins, a Scottish saltire tea towel hanging by a small kitchen counter, a greasy plain brown burger bag on the coffee table, an armchair, a potted thistle by the window."
+    },
+    {
+      "id": "pieces_callum", "style": "pieces", "size": "1536x1024", "refs": ["room_callum"],
+      "out": "art/concepts/locations/interior_callum_pieces.png",
+      "prompt": "Pieces: comic and game shelf, binder shelf, CRT TV on its console, pin wall board, kitchen counter with tea towel, coffee table with the burger bag, armchair, tartan rug, potted thistle, a small fridge."
+    },
+    {
+      "id": "room_nolan", "style": "room", "size": "1536x1024",
+      "out": "art/concepts/locations/interior_nolan.png",
+      "prompt": "The room is Nolan's house: a Burlington, Ontario basement turned music studio. Carpet floor, grey acoustic foam panels on the walls, a desk with a black sampler drum pad, two studio monitors and a laptop, studio headphones on a hook, a worn couch, a coiled green patch cable, a small high window looking out at a plain white work van in the driveway, a stack of cables, a mini fridge."
+    },
+    {
+      "id": "pieces_nolan", "style": "pieces", "size": "1536x1024", "refs": ["room_nolan"],
+      "out": "art/concepts/locations/interior_nolan_pieces.png",
+      "prompt": "Pieces: studio desk with sampler, monitors and laptop, worn couch, acoustic foam panel, headphone hook, cable pile with the green patch cable, mini fridge, small rug, high window showing the white van (as a wall piece)."
+    },
+    {
+      "id": "room_haydon", "style": "room", "size": "1536x1024",
+      "out": "art/concepts/locations/interior_haydon.png",
+      "prompt": "The room is Haydon's shed: a backyard shed turned streaming room. Plank walls with a strip of acid-green LED lights, a ring light, a black gaming chair, a desk with two screens and a microphone on a boom arm, a whiteboard with a list where every line is scribbled out in black marker (no readable letters), a pile of snacks and energy drink cans without labels, a khaki bomber jacket on a hook, a beanbag."
+    },
+    {
+      "id": "pieces_haydon", "style": "pieces", "size": "1536x1024", "refs": ["room_haydon"],
+      "out": "art/concepts/locations/interior_haydon_pieces.png",
+      "prompt": "Pieces: streaming desk with screens and boom mic, gaming chair, ring light, scribbled-out whiteboard, snack pile, beanbag, jacket hook, LED strip wall segment."
+    },
+    {
+      "id": "room_dani", "style": "room", "size": "1536x1024",
+      "out": "art/concepts/locations/interior_dani.png",
+      "prompt": "The room is Dani's casa: a bright Colombian family living room. Terracotta tiled floor, mint-green plastered walls, a woven striped hammock, a football in the corner, framed family photos, a small kitchen corner with a coffee pot on the stove, a plant in a clay pot, a wooden cross-stitched cushion bench, and by the door a pair of sneakers with one lace untied next to a phone charger (he is still leaving the house)."
+    },
+    {
+      "id": "pieces_dani", "style": "pieces", "size": "1536x1024", "refs": ["room_dani"],
+      "out": "art/concepts/locations/interior_dani_pieces.png",
+      "prompt": "Pieces: hammock on its stand, football, family photo wall cluster, stove with coffee pot, kitchen counter, clay pot plant, wooden bench, sneakers and phone charger by the door, a woven rug."
+    },
+    {
+      "id": "room_sanctuary_hall", "style": "room", "size": "1536x1024",
+      "out": "art/concepts/locations/interior_sanctuary_hall.png",
+      "prompt": "The room is the sanctuary entrance hall inside a hill: ancient carved stone walls and a flagstone floor, tree roots growing through the ceiling and walls, dead CRT screens set into the stone with a faint blue glow, a broken storage terminal patched with tape, rubble blocking an archway that leads deeper, four simple bedrolls in different colours (teal, grey, khaki, navy) along one wall, a stone pillar."
+    },
+    {
+      "id": "pieces_sanctuary_hall", "style": "pieces", "size": "1536x1024", "refs": ["room_sanctuary_hall"],
+      "out": "art/concepts/locations/interior_sanctuary_hall_pieces.png",
+      "prompt": "Pieces: CRT screens set in a stone block (a wall piece), taped storage terminal, rubble pile, stone pillar, hanging roots, the four bedrolls (teal, grey, khaki, navy) each separate, a stone archway."
+    },
+    {
+      "id": "room_workshop", "style": "room", "size": "1536x1024",
+      "out": "art/concepts/locations/interior_workshop.png",
+      "prompt": "The room is PATCH's workshop: a cave room in the sanctuary turned giant-robot garage. Rough stone walls, a dusty floor with oil stains, stacks of spare cream and rust-red metal panels, rolls of tape, a long workbench with tools, a charging cradle the size of a car with thick cables, a whiteboard with one big messy circled word scribble (no readable letters), a blue CRT monitor on a cart, a bucket of bolts."
+    },
+    {
+      "id": "pieces_workshop", "style": "pieces", "size": "1536x1024", "refs": ["room_workshop"],
+      "out": "art/concepts/locations/interior_workshop_pieces.png",
+      "prompt": "Pieces: spare panel stack, tape rolls, workbench, charging cradle with cables, whiteboard, CRT monitor on a cart, bucket of bolts, oil-stained floor mat."
+    },
+    {
+      "id": "room_root_hall", "style": "room", "size": "1536x1024",
+      "out": "art/concepts/locations/interior_root_hall.png",
+      "prompt": "The room is Root Hall, the old sanctuary keepers' hall: ancient stone, thick roots through every wall and across the floor, a still round pool with soft CRT-blue light glowing under the water, worn stone benches, moss, carved spiral marks on the stones, a small cradle-like nest of roots where a creature could sleep."
+    },
+    {
+      "id": "pieces_root_hall", "style": "pieces", "size": "1536x1024", "refs": ["room_root_hall"],
+      "out": "art/concepts/locations/interior_root_hall_pieces.png",
+      "prompt": "Pieces: the glowing pool, worn stone bench, root clusters (three different), carved spiral stone, root nest cradle, moss patch."
+    },
+
+    {
+      "id": "person_elder", "style": "person", "size": "1024x1536", "refs": ["art/concepts/trainers/callum.png"],
+      "out": "art/concepts/trainers/elder.png",
+      "prompt": "The person is the Old Keeper of Hollow Rest, one of the Hollowfolk (descendants of the old sanctuary keepers): a small, stooped old woman with a long white braid, deep-set eyes, a moss-green hooded shawl over a faded rust-red robe with patched elbows, a carved wooden walking staff with a root wound round the top, a ring of old stone keys on her belt. Wary of outsiders but kind underneath. Colourway: moss green, rust red, bone white."
+    },
+    {
+      "id": "walk_elder", "style": "walk", "size": "1536x1024", "refs": ["person_elder"],
+      "out": "art/concepts/walk/elder_diag.png",
+      "prompt": "Walking slowly with the staff."
+    },
+    {
+      "id": "person_neighbour", "style": "person", "size": "1024x1536", "refs": ["art/concepts/trainers/callum.png"],
+      "out": "art/concepts/trainers/neighbour.png",
+      "prompt": "The person is the nosy neighbour of Hollow Rest, a middle-aged man who always holds a coffee mug and watches everything from his window: receding grey-brown hair, a mustard-yellow cardigan over a checked shirt, beige slacks, slippers, reading glasses pushed up on his head, a steaming white mug. Deadpan, curious. Colourway: mustard yellow, beige, brown."
+    },
+    {
+      "id": "walk_neighbour", "style": "walk", "size": "1536x1024", "refs": ["person_neighbour"],
+      "out": "art/concepts/walk/neighbour_diag.png",
+      "prompt": "Holding the coffee mug in every frame."
+    },
+    {
+      "id": "person_pond_kid", "style": "person", "size": "1024x1536", "refs": ["art/concepts/trainers/callum.png"],
+      "out": "art/concepts/trainers/pond_kid.png",
+      "prompt": "The person is a kid from Hollow Rest who hangs around the pond: about ten years old, messy red-orange hair, freckles, a gap-toothed grin, an oversized coral-red rain jacket, rolled-up shorts, green rubber boots, a little fishing net on a stick. Energetic. Colourway: coral red, green, blue."
+    },
+    {
+      "id": "walk_pond_kid", "style": "walk", "size": "1536x1024", "refs": ["person_pond_kid"],
+      "out": "art/concepts/walk/pond_kid_diag.png",
+      "prompt": "Carrying the fishing net over one shoulder."
+    },
+    {
+      "id": "person_nolan_dad", "style": "person", "size": "1024x1536", "refs": ["art/concepts/trainers/callum.png", "art/concepts/trainers/nolan.png"],
+      "out": "art/concepts/trainers/nolan_dad.png",
+      "prompt": "The person is Nolan's dad (the second attached sheet is his son Nolan; give him a family likeness, older): a solid man in his fifties, short greying dark-brown hair, a trimmed grey beard, a calm unreadable face, a slate-blue work jacket over a grey hoodie, work jeans, steel-toe boots, and a steaming coffee mug in one hand. He once found his son's friend asleep in his work van and just watched with his coffee. Colourway: slate blue, grey, denim."
+    },
+    {
+      "id": "walk_nolan_dad", "style": "walk", "size": "1536x1024", "refs": ["person_nolan_dad"],
+      "out": "art/concepts/walk/nolan_dad_diag.png",
+      "prompt": "Holding the coffee mug in every frame."
+    },
+    {
+      "id": "person_dani_mama", "style": "person", "size": "1024x1536", "refs": ["art/concepts/trainers/callum.png", "art/concepts/trainers/dani.png"],
+      "out": "art/concepts/trainers/dani_mama.png",
+      "prompt": "The person is Dani's mamá (the second attached sheet is her son Dani; give her a family likeness): a warm, short Colombian woman in her fifties, dark wavy hair in a low bun, brown eyes, a big smile, small gold earrings, a pink floral blouse, a cream apron, navy trousers, comfortable flats, a wooden spoon in one hand. Protective and welcoming. Colourway: pink, cream, navy."
+    },
+    {
+      "id": "walk_dani_mama", "style": "walk", "size": "1536x1024", "refs": ["person_dani_mama"],
+      "out": "art/concepts/walk/dani_mama_diag.png",
+      "prompt": "Holding the wooden spoon in every frame."
+    },
+
+    {
+      "id": "walk_patch", "style": "walk", "size": "1536x1024", "refs": ["art/concepts/trainers/patch.png", "art/concepts/walk/group_pixel_diag.png"],
+      "out": "art/concepts/walk/patch_diag.png",
+      "prompt": "The first attached sheet is PATCH, a giant boxy patched-together robot about three times the friends' height; the second shows the friends' walk sprites: match their pixel style, outline and pixel size exactly, but draw PATCH three times as tall. Heavy, careful steps; the CRT face stays visible on the front row; the shoulder vent trails a small wisp of smoke."
+    }
+  ]
+}
