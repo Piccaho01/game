@@ -58,8 +58,54 @@
       "x": 18,
       "y": 19,
       "to": "route1",
-      "tx": 10,
-      "ty": 1
+      "tx": 2,
+      "ty": 0,
+      "dir": "down"
+    },
+    {
+      "x": 5,
+      "y": 17,
+      "to": "callum_house",
+      "tx": 3,
+      "ty": 5,
+      "dir": "up",
+      "enter": "left"
+    },
+    {
+      "x": 5,
+      "y": 10,
+      "to": "dani_house",
+      "tx": 3,
+      "ty": 5,
+      "dir": "up",
+      "enter": "up"
+    },
+    {
+      "x": 10,
+      "y": 4,
+      "to": "nolan_house",
+      "tx": 3,
+      "ty": 5,
+      "dir": "up",
+      "enter": "up"
+    },
+    {
+      "x": 20,
+      "y": 8,
+      "to": "haydon_shed",
+      "tx": 2,
+      "ty": 4,
+      "dir": "up",
+      "enter": "left"
+    },
+    {
+      "x": 5,
+      "y": 4,
+      "to": "sanctuary_hall",
+      "tx": 4,
+      "ty": 7,
+      "dir": "up",
+      "enter": "up"
     }
   ],
   "npcs": [
@@ -71,30 +117,6 @@
       "sprite": "patch",
       "talk": "patch_heal",
       "heal": true
-    },
-    {
-      "id": "elder",
-      "x": 10,
-      "y": 6,
-      "dir": "left",
-      "sprite": "placeholder:#7a6a58",
-      "talk": "elder"
-    },
-    {
-      "id": "neighbour",
-      "x": 13,
-      "y": 4,
-      "dir": "left",
-      "sprite": "placeholder:#c8a040",
-      "talk": "neighbour"
-    },
-    {
-      "id": "pond_kid",
-      "x": 12,
-      "y": 17,
-      "dir": "right",
-      "sprite": "placeholder:#e07050",
-      "talk": "pond_kid"
     }
   ],
   "healSpot": {

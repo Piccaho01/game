@@ -20,15 +20,34 @@ export const TILE_IDS = Object.keys(TILES);
 /** Something standing on the map (data/objects.json): a set piece, a tree, a prop. */
 export interface ObjectDef {
   art: string; wx: number; wy: number; decal?: boolean; walkable?: boolean;
-  door?: [number, number]; doorText?: string; opens?: 'sanctuary';
+  door?: [number, number]; doorText?: string; opens?: Opens;
+  /** Read with A while facing any of its tiles (furniture, props): one line, or a dialogue id (`talk`, with per-leader versions). */
+  text?: string; talk?: string;
+  /** A bed: resting on it patches up every team. */
+  rest?: boolean;
+  /** Placed by its footprint's front corner even when 1x1 (the interior placeholder boxes fill their tile). */
+  box?: boolean;
 }
+/** Screens an object opens: the sanctuary's wings (the CRT stones) or its storage (the terminal). */
+export type Opens = 'sanctuary' | 'storage';
 export const OBJECTS = Object.fromEntries(Object.entries(objectsJson.objects)) as Record<string, ObjectDef>;
-/** Placed by its footprint's top corner (the tile with the lowest x and y). */
-export interface PlacedObject { kind: string; x: number; y: number }
+/**
+ * Placed by its footprint's top corner (the tile with the lowest x and y). `until`: it stands only
+ * until that wing is restored or that story flag is set (rubble in a sanctuary archway): see
+ * engine/world.ts. Such objects aren't part of the fixed map (`objectAt` skips them).
+ */
+export interface PlacedObject { kind: string; x: number; y: number; until?: Condition }
+/** A wing restored (engine/sanctuary.ts) and/or a story flag set; every part given must hold. */
+export interface Condition { wing?: string; flag?: string }
 
-export interface Warp { x: number; y: number; to: string; tx: number; ty: number }
-/** Read with the A button while facing it; `opens` a screen instead (the sanctuary's CRT stones). */
-export interface Sign { x: number; y: number; text?: string; opens?: 'sanctuary' }
+/**
+ * Stepping onto (x, y) moves to tx, ty on another map, facing `dir` (or the way you walked).
+ * A warp may sit on a building's door tile (inside its footprint: walk into the door) or just
+ * off a room's edge (walk out through the doorway): either way it's entered from the tile next to it.
+ */
+export interface Warp { x: number; y: number; to: string; tx: number; ty: number; dir?: Dir; /** Only walking this way goes in (a door has one side). */ enter?: Dir }
+/** Read with the A button while facing it (`talk`: a dialogue id); `opens` a screen instead. May sit just off the map (a picture on a room's back wall). */
+export interface Sign { x: number; y: number; text?: string; talk?: string; opens?: Opens }
 /**
  * Someone standing on the map. `sprite`: 'walk:<id>' (a walk sheet), 'patch' (PATCH, big), or
  * 'placeholder:#rrggbb' until their sprite is drawn. `talk`: a data/dialogue.json id. `w`: tiles
@@ -58,6 +77,10 @@ export interface MapData {
   encounters?: EncounterTable;
   /** Battle backdrop for fights here (art/battle/out/<id>.png). */
   battle?: string;
+  /** A room (art/tools/iso_map.py bakes it as a cut-away: floor, two back walls, no sky). */
+  interior?: Record<string, unknown>;
+  /** Where Patchlings living in the sanctuary's storage wander (engine/world.ts roamers). */
+  roam?: { x: number; y: number }[];
 }
 
 export interface WorldMap {
@@ -77,6 +100,8 @@ export interface WorldMap {
   healSpot?: { x: number; y: number; dir: Dir };
   encounters?: EncounterTable;
   battle?: string;
+  interior: boolean;
+  roam: { x: number; y: number }[];
 }
 
 /** Turns a map file into a grid, failing loudly on typos (unknown legend chars, ragged rows). */
@@ -109,6 +134,7 @@ export function loadMap(raw: MapData): WorldMap {
   return {
     id: raw.id, name: raw.name, width, height: tiles.length, tiles, spawn: raw.spawn, warps: raw.warps ?? [],
     signs: raw.signs ?? [], npcs: raw.npcs ?? [], z, objects, healSpot: raw.healSpot, encounters: raw.encounters, battle: raw.battle,
+    interior: !!raw.interior, roam: raw.roam ?? [],
   };
 }
 
@@ -124,9 +150,10 @@ export function heightAt(map: WorldMap, x: number, y: number) {
   return map.z[y]?.[x] ?? 0;
 }
 
-/** The object whose footprint covers this tile, if any. */
+/** The object whose footprint covers this tile, if any (not counting ones that only stand `until` something: engine/world.ts gateAt). */
 export function objectAt(map: WorldMap, x: number, y: number) {
   return map.objects.find((o) => {
+    if (o.until) return false;
     const d = OBJECTS[o.kind];
     return x >= o.x && x < o.x + d.wx && y >= o.y && y < o.y + d.wy;
   }) ?? null;
@@ -180,9 +207,13 @@ export function step(pos: Position, dir: Dir, blocked: (x: number, y: number) =>
   const map = MAPS[pos.map];
   const x = pos.x + DIRS[dir].dx;
   const y = pos.y + DIRS[dir].dy;
-  if (isBlocked(map, x, y) || blocked(x, y) || !canClimb(map, pos.x, pos.y, x, y)) return { moved: false, pos: { ...pos, dir }, warped: false, grass: false };
+  // Into a door, or out through a room's doorway: the warp is checked before what's solid.
   const warp = map.warps.find((w) => w.x === x && w.y === y);
-  if (warp) return { moved: true, pos: { map: warp.to, x: warp.tx, y: warp.ty, dir }, warped: true, grass: false };
+  const inside = x >= 0 && y >= 0 && x < map.width && y < map.height;
+  if (warp && (!warp.enter || warp.enter === dir) && !blocked(x, y) && (!inside || canClimb(map, pos.x, pos.y, x, y))) {
+    return { moved: true, pos: { map: warp.to, x: warp.tx, y: warp.ty, dir: warp.dir ?? dir }, warped: true, grass: false };
+  }
+  if (isBlocked(map, x, y) || blocked(x, y) || !canClimb(map, pos.x, pos.y, x, y)) return { moved: false, pos: { ...pos, dir }, warped: false, grass: false };
   return { moved: true, pos: { map: pos.map, x, y, dir }, warped: false, grass: !!tileAt(map, x, y)?.encounter };
 }
 
@@ -205,13 +236,14 @@ export function signAt(map: WorldMap, x: number, y: number) {
   return map.signs.find((s) => s.x === x && s.y === y) ?? null;
 }
 
-/** What A does facing a building: knock (its door line, from its door tile) or open a screen. */
-export function objectAction(map: WorldMap, pos: Position): { text?: string; opens?: 'sanctuary' } | null {
+/** What A does facing an object: open a screen, read it (furniture), rest (a bed), or knock (its door line, from its door tile). */
+export function objectAction(map: WorldMap, pos: Position): { text?: string; talk?: string; opens?: Opens; rest?: boolean } | null {
   const { x, y } = facing(pos);
   const o = objectAt(map, x, y);
   if (!o) return null;
   const d = OBJECTS[o.kind];
   if (d.opens) return { opens: d.opens };
+  if (d.text || d.talk || d.rest) return { text: d.text, talk: d.talk, rest: d.rest };
   if (d.door && d.doorText && pos.x === o.x + d.door[0] && pos.y === o.y + d.door[1]) return { text: d.doorText };
   return null;
 }

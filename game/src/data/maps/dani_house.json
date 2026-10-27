@@ -1,0 +1,102 @@
+{
+  "_note": "Dani's Casa (bible \u00a77 interiors). A room: art/tools/iso_map.py bakes it as a cut-away (iso_room.py). Written by art/tools/interiors_layout.py: edit there.",
+  "id": "dani_house",
+  "name": "Dani's Casa",
+  "legend": {
+    ".": "floor",
+    "m": "mat"
+  },
+  "rows": [
+    ".......",
+    ".......",
+    ".......",
+    ".......",
+    ".......",
+    "...m..."
+  ],
+  "spawn": {
+    "x": 3,
+    "y": 5
+  },
+  "interior": {
+    "floor": "tile",
+    "wall": "plaster",
+    "wallColor": "#a8dcc4",
+    "wallH": 40,
+    "windows": [
+      [
+        "r",
+        4
+      ]
+    ],
+    "decor": [
+      [
+        "l",
+        1,
+        "photos",
+        2
+      ],
+      [
+        "r",
+        6,
+        "clock"
+      ]
+    ]
+  },
+  "warps": [
+    {
+      "x": 3,
+      "y": 6,
+      "to": "hollow_rest",
+      "tx": 5,
+      "ty": 11,
+      "dir": "down",
+      "enter": "down"
+    }
+  ],
+  "signs": [
+    {
+      "x": -1,
+      "y": 1,
+      "talk": "dani_photos"
+    },
+    {
+      "x": -1,
+      "y": 2,
+      "talk": "dani_photos"
+    }
+  ],
+  "npcs": [],
+  "objects": [
+    {
+      "kind": "in_fridge",
+      "x": 0,
+      "y": 0
+    },
+    {
+      "kind": "in_counter",
+      "x": 1,
+      "y": 0
+    },
+    {
+      "kind": "in_hammock",
+      "x": 4,
+      "y": 3
+    },
+    {
+      "kind": "in_football",
+      "x": 1,
+      "y": 3
+    },
+    {
+      "kind": "in_shoes",
+      "x": 2,
+      "y": 5
+    },
+    {
+      "kind": "in_plant",
+      "x": 0,
+      "y": 4
+    }
+  ]
+}

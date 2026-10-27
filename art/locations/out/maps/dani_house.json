@@ -1,0 +1,83 @@
+{
+ "origin": {
+  "x": 100,
+  "y": 68
+ },
+ "tile": {
+  "w": 32,
+  "h": 16,
+  "z": 16
+ },
+ "size": {
+  "w": 248,
+  "h": 184
+ },
+ "sprites": [
+  {
+   "art": "in_fridge",
+   "x": 98,
+   "y": 13,
+   "fx": 0,
+   "fy": 0,
+   "wx": 1,
+   "wy": 1,
+   "key": 6,
+   "decal": false
+  },
+  {
+   "art": "in_counter",
+   "x": 102,
+   "y": 43,
+   "fx": 1,
+   "fy": 0,
+   "wx": 2,
+   "wy": 1,
+   "key": 26,
+   "decal": false
+  },
+  {
+   "art": "in_football",
+   "x": 68,
+   "y": 83,
+   "fx": 1,
+   "fy": 3,
+   "wx": 1,
+   "wy": 1,
+   "key": 46,
+   "decal": false
+  },
+  {
+   "art": "in_plant",
+   "x": 37,
+   "y": 67,
+   "fx": 0,
+   "fy": 4,
+   "wx": 1,
+   "wy": 1,
+   "key": 46,
+   "decal": false
+  },
+  {
+   "art": "in_shoes",
+   "x": 58,
+   "y": 108,
+   "fx": 2,
+   "fy": 5,
+   "wx": 1,
+   "wy": 1,
+   "key": 76,
+   "decal": false
+  },
+  {
+   "art": "in_hammock",
+   "x": 110,
+   "y": 85,
+   "fx": 4,
+   "fy": 3,
+   "wx": 2,
+   "wy": 1,
+   "key": 86,
+   "decal": false
+  }
+ ]
+}

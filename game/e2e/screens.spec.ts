@@ -138,3 +138,39 @@ test('screens', async ({ page }) => {
   await shot(page, '11-journal-bestiary');
   expect(errors).toEqual([]);
 });
+
+// World track: the houses, the sanctuary base and Route 1 (a save placed in each spot, then a reload).
+test('screens: interiors and Route 1', async ({ page }) => {
+  const errors: string[] = [];
+  page.on('pageerror', (e) => errors.push(e.message));
+  const spots: [string, { map: string; x: number; y: number; dir: string }, string[]][] = [
+    ['20-callum-house', { map: 'callum_house', x: 3, y: 4, dir: 'up' }, []],
+    ['21-nolan-house', { map: 'nolan_house', x: 3, y: 4, dir: 'up' }, []],
+    ['22-haydon-shed', { map: 'haydon_shed', x: 2, y: 3, dir: 'up' }, []],
+    ['23-dani-house', { map: 'dani_house', x: 3, y: 4, dir: 'up' }, []],
+    ['24-sanctuary-hall', { map: 'sanctuary_hall', x: 4, y: 6, dir: 'up' }, []],
+    ['25-sanctuary-workshop', { map: 'sanctuary_workshop', x: 3, y: 4, dir: 'up' }, []],
+    ['26-sanctuary-hall-restored', { map: 'sanctuary_hall', x: 3, y: 5, dir: 'up' }, ['root_hall']],
+    ['27-sanctuary-roots', { map: 'sanctuary_roots', x: 3, y: 5, dir: 'up' }, ['root_hall']],
+    ['28-route1-top', { map: 'route1', x: 4, y: 3, dir: 'down' }, []],
+    ['29-route1-bridge', { map: 'route1', x: 12, y: 9, dir: 'right' }, []],
+    ['30-route1-checkpoint', { map: 'route1', x: 19, y: 15, dir: 'down' }, []],
+  ];
+  for (const [name, pos, wings] of spots) {
+    await page.goto('/?reset&skipintro');
+    await page.evaluate(([p, w]) => localStorage.setItem('patchlings.save.v1', JSON.stringify({
+      version: 3, leader: 'callum', nextUid: 9, wings: w, bestiary: {},
+      teams: {
+        callum: [{ uid: 1, species: 'furnaxol', level: 8, bond: 'strong' }], nolan: [{ uid: 2, species: 'zapail', level: 8, bond: 'strong' }],
+        haydon: [{ uid: 3, species: 'sprigby', level: 8, bond: 'strong' }], dani: [{ uid: 4, species: 'gobbin', level: 8, bond: 'strong' }],
+      },
+      sanctuary: [{ uid: 5, species: 'sprigby', level: 5, bond: 'steady' }, { uid: 6, species: 'gobbin', level: 4, bond: 'wary' }, { uid: 7, species: 'zapail', level: 4, bond: 'wary' }],
+      pos: p,
+    })), [pos, wings] as const);
+    await page.goto('/?seed=1');
+    await ready(page);
+    await page.waitForTimeout(2200);
+    await shot(page, name);
+  }
+  expect(errors).toEqual([]);
+});

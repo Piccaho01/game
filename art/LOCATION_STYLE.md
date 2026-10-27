@@ -153,6 +153,16 @@ Same isometric camera, but a cut-away room: the floor diamond with the two back 
 - **PATCH's workshop:** a cave room in the sanctuary turned robot garage: spare panels, tape
   rolls, a workbench, a charging cradle the size of a car, a whiteboard titled "FIX".
 
+**In the game now (placeholders):** every room above is built and playable with clean placeholder
+furniture (`art/tools/interior_props.py`) and procedural floors and walls (`art/tools/iso_room.py`).
+When a room's I-1 concept and I-2 sheet arrive (save as `art/concepts/locations/interior_<room>.png`
+and `interior_<room>_pieces.png`, rooms: `callum`, `nolan`, `haydon`, `dani`, `sanctuary_hall`,
+`workshop`, `root_hall`), the pieces are cut and converted like Route 1's (`route1_kit.py`) and
+replace the placeholders of the same job; the floor and wall swatches replace the procedural ones.
+Also wanted: **Root Hall** (the old keepers' hall, roots through every stone, a still pool with
+CRT-blue light under the water, worn stone benches) and the townsfolk/family walk sprites (Nolan's
+dad with a coffee, Dani's mamá, the old keeper, the neighbour, the kid).
+
 ### Prompt I-2: furniture/props sheet for that room (with the chosen concept attached)
 > From this interior, draw each piece of furniture and each prop separately as isometric pixel
 > art in the same style and palette, evenly spaced on a flat white background, no text, no floor

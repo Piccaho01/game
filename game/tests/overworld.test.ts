@@ -1,17 +1,22 @@
 import { describe, expect, it } from 'vitest';
 import {
-  canClimb, findPath, heightAt, isBlocked, loadMap, MAPS, objectAction, objectAt, OBJECTS, rollEncounter, stairAxis, START, step, TILES, type Position,
+  canClimb, DIRS, findPath, heightAt, isBlocked, loadMap, MAPS, objectAction, objectAt, OBJECTS, rollEncounter, stairAxis, START, step, TILES, type Position,
 } from '../src/engine/overworld';
 import { createRng } from '../src/engine/rng';
 
 describe('maps', () => {
   it('every map loads, has its spawn on open ground, and its warps land on open ground', () => {
-    expect(Object.keys(MAPS).sort()).toEqual(['hollow_rest', 'route1']);
+    expect(Object.keys(MAPS)).toEqual(expect.arrayContaining(['hollow_rest', 'route1', 'callum_house', 'sanctuary_hall']));
     for (const map of Object.values(MAPS)) {
       expect(isBlocked(map, map.spawn.x, map.spawn.y), `${map.id} spawn`).toBe(false);
       for (const w of map.warps) {
         expect(MAPS[w.to], `${map.id} warp target`).toBeDefined();
-        expect(isBlocked(map, w.x, w.y), `${map.id} warp tile`).toBe(false);
+        // open ground, a door tile in a building's footprint, or just off a room's edge: entered from a neighbour
+        const entries = (['up', 'down', 'left', 'right'] as const).filter((d) => {
+          const from = { x: w.x - DIRS[d].dx, y: w.y - DIRS[d].dy };
+          return !isBlocked(map, from.x, from.y) && step({ map: map.id, ...from, dir: d }, d).warped;
+        });
+        expect(entries.length, `${map.id} -> ${w.to} can be walked into`).toBeGreaterThan(0);
         expect(isBlocked(MAPS[w.to], w.tx, w.ty), `${map.id} -> ${w.to} landing`).toBe(false);
       }
     }
@@ -32,7 +37,7 @@ describe('maps', () => {
   });
 
   it('a map without heights is flat', () => {
-    expect(heightAt(MAPS.route1, 5, 5)).toBe(1);
+    expect(heightAt(MAPS.callum_house, 2, 2)).toBe(1);
   });
 });
 
@@ -85,13 +90,14 @@ describe('Hollow Rest', () => {
     for (const n of town.npcs) expect(isBlocked(town, n.x, n.y), n.id).toBe(false);
   });
 
-  it('A at a door reads its line; at the sanctuary it opens the sanctuary', () => {
+  it('A at a door reads its line; walking in goes inside (the sanctuary too)', () => {
     const casa = town.objects.find((o) => o.kind === 'casa')!;
     // casa's door tile is in front of its +y face: facing up into the casa
     const at: Position = { map: 'hollow_rest', x: casa.x, y: casa.y + 3, dir: 'up' };
     expect(objectAction(town, at)?.text).toMatch(/Dani/);
+    expect(step(at, 'up').pos.map).toBe('dani_house');
     const sanct = town.objects.find((o) => o.kind === 'sanctuary')!;
-    expect(objectAction(town, { map: 'hollow_rest', x: sanct.x + 1, y: sanct.y + 4, dir: 'up' })?.opens).toBe('sanctuary');
+    expect(step({ map: 'hollow_rest', x: sanct.x + 1, y: sanct.y + 4, dir: 'up' }, 'up').pos.map).toBe('sanctuary_hall');
   });
 });
 
@@ -100,10 +106,13 @@ describe('movement', () => {
     const a = step({ ...START }, 'left');
     expect(a.moved).toBe(true);
     expect(a.pos).toMatchObject({ x: START.x - 1, y: START.y, dir: 'left' });
-    const r1: Position = { map: 'route1', x: 1, y: 1, dir: 'down' };
-    const b = step(r1, 'left');
+    // somewhere on Route 1 with something solid to its left
+    const m = MAPS.route1;
+    let r1: Position | null = null;
+    for (let y = 0; y < m.height && !r1; y++) for (let x = 1; x < m.width && !r1; x++) if (!isBlocked(m, x, y) && isBlocked(m, x - 1, y) && !m.warps.some((w) => w.x === x - 1 && w.y === y)) r1 = { map: 'route1', x, y, dir: 'down' };
+    const b = step(r1!, 'left');
     expect(b.moved).toBe(false);
-    expect(b.pos).toEqual({ ...r1, dir: 'left' });
+    expect(b.pos).toEqual({ ...r1!, dir: 'left' });
   });
 
   it('extra blockers (NPCs) stop a step', () => {
@@ -116,13 +125,21 @@ describe('movement', () => {
     const out = step(from, 'right');
     expect(out.warped).toBe(true);
     expect(out.pos).toMatchObject({ map: 'route1', x: exit.tx, y: exit.ty });
-    const back = step({ map: 'route1', x: 10, y: 1, dir: 'up' }, 'up');
+    const back = step({ map: 'route1', ...MAPS.route1.spawn, dir: 'up' }, 'up');
     expect(back.pos).toMatchObject({ map: 'hollow_rest', x: MAPS.route1.warps[0].tx, y: MAPS.route1.warps[0].ty });
   });
 
   it('flags tall grass', () => {
-    const r = step({ map: 'route1', x: 1, y: 2, dir: 'right' }, 'right');
-    expect(r.grass).toBe(true);
+    const r1 = MAPS.route1;
+    let hit = false;
+    for (let y = 0; y < r1.height && !hit; y++) {
+      for (let x = 0; x < r1.width && !hit; x++) {
+        if (r1.tiles[y][x] !== 'tall' || r1.tiles[y][x - 1] !== 'grass') continue;
+        const r = step({ map: 'route1', x: x - 1, y, dir: 'right' }, 'right');
+        if (r.moved) { expect(r.grass).toBe(true); hit = true; }
+      }
+    }
+    expect(hit).toBe(true);
   });
 });
 

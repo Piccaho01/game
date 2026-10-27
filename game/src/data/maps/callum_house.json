@@ -1,0 +1,112 @@
+{
+  "_note": "Callum's Cottage (bible \u00a77 interiors). A room: art/tools/iso_map.py bakes it as a cut-away (iso_room.py). Written by art/tools/interiors_layout.py: edit there.",
+  "id": "callum_house",
+  "name": "Callum's Cottage",
+  "legend": {
+    ".": "floor",
+    "m": "mat"
+  },
+  "rows": [
+    ".......",
+    ".......",
+    ".......",
+    ".......",
+    ".......",
+    "...m..."
+  ],
+  "spawn": {
+    "x": 3,
+    "y": 5
+  },
+  "interior": {
+    "floor": "wood",
+    "wall": "stone",
+    "wallColor": "#a49c90",
+    "wallH": 40,
+    "windows": [
+      [
+        "r",
+        4
+      ]
+    ],
+    "decor": [
+      [
+        "l",
+        3,
+        "pins",
+        2
+      ],
+      [
+        "r",
+        1,
+        "towel"
+      ]
+    ]
+  },
+  "warps": [
+    {
+      "x": 3,
+      "y": 6,
+      "to": "hollow_rest",
+      "tx": 6,
+      "ty": 17,
+      "dir": "right",
+      "enter": "down"
+    }
+  ],
+  "signs": [
+    {
+      "x": -1,
+      "y": 3,
+      "talk": "callum_pins"
+    },
+    {
+      "x": -1,
+      "y": 4,
+      "talk": "callum_pins"
+    },
+    {
+      "x": 1,
+      "y": -1,
+      "talk": "callum_towel"
+    }
+  ],
+  "npcs": [],
+  "objects": [
+    {
+      "kind": "in_shelf_comics",
+      "x": 0,
+      "y": 1
+    },
+    {
+      "kind": "in_crt_tv",
+      "x": 2,
+      "y": 0
+    },
+    {
+      "kind": "in_rug",
+      "x": 2,
+      "y": 2
+    },
+    {
+      "kind": "in_armchair",
+      "x": 3,
+      "y": 2
+    },
+    {
+      "kind": "in_laptop",
+      "x": 6,
+      "y": 1
+    },
+    {
+      "kind": "in_table_bag",
+      "x": 5,
+      "y": 3
+    },
+    {
+      "kind": "in_plant",
+      "x": 6,
+      "y": 0
+    }
+  ]
+}

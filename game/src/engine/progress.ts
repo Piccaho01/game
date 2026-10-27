@@ -35,11 +35,11 @@ export interface Progress {
   bestiary: Record<string, DexRecord>;
   /** Sanctuary wings restored (engine/sanctuary.ts), in order. */
   wings: string[];
+  /** Story flags set so far: scenes seen (engine/story.ts), quests; rooms and visitors can wait on them (engine/world.ts). */
+  flags?: string[];
   /** Where the leader stands in the overworld; missing until they first walk out. */
   pos?: Position;
   settings?: Settings;
-  /** Story scenes seen and other story flags (engine/story.ts). */
-  flags?: string[];
   /** The bag (shared by the four): item id -> count (engine/items.ts). */
   items?: Record<string, number>;
   /** Field-move obstacles already cleared (engine/fieldMoves.ts). */

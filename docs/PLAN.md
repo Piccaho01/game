@@ -284,6 +284,16 @@ small, clearly separated hooks, so the PRs merge cleanly.
 - **World** (branch `claude/m4b-world`, own session): `data/maps/*` (new interior maps, Route 1
   isometric), `data/objects.json`, `data/tiles.json`, `art/tools/*` map tools, `art/locations/*`,
   NPC home/visit data. Overworld hooks: warps into interiors.
+  Built so far (World): interiors (door warps into room maps; `art/tools/interiors_layout.py` writes
+  them, `iso_room.py` bakes the cut-away look, placeholder furniture `interior_props.py`); the four
+  houses with their inside jokes (`data/world_dialogue.json`); the sanctuary base (Entrance Hall:
+  CRT stones = WINGS, terminal = STORAGE, four bedrolls heal; PATCH's Workshop; Root Hall behind
+  rubble until `root_hall`, via `until` on map objects, engine `engine/world.ts`); the recurring
+  cast (`data/cast.json`: home + visits on wings/flags; the old keeper moves to Root Hall); stored
+  Patchlings roam the sanctuary (`roam` spots); `Progress.flags` for story flags; Route 1
+  isometric (`art/tools/route1_layout.py`, owner's pieces via `route1_kit.py`; the Tally
+  checkpoint closes the road on). Rooms are entered by walking into the door; you leave by
+  walking off the room's front edge from the doormat.
 - **Systems** (branch `claude/m4b-systems`, the session that did the UI). Built: shared experience
   (`engine/levels.ts`: level³ curve, foe yield = BST/5 x level / 7, all four teams full, storage half,
   moves learned on level-up, XP bar on the battle card), seal scrolls (`data/items.json`,

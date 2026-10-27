@@ -1,0 +1,92 @@
+{
+  "_note": "PATCH's Workshop (bible \u00a77 interiors). A room: art/tools/iso_map.py bakes it as a cut-away (iso_room.py). Written by art/tools/interiors_layout.py: edit there.",
+  "id": "sanctuary_workshop",
+  "name": "PATCH's Workshop",
+  "legend": {
+    ".": "floor",
+    "m": "mat"
+  },
+  "rows": [
+    ".......",
+    ".......",
+    ".......",
+    ".......",
+    ".......",
+    "...m..."
+  ],
+  "spawn": {
+    "x": 3,
+    "y": 5
+  },
+  "interior": {
+    "floor": "stone",
+    "floorColor": "#7a766e",
+    "wall": "cave",
+    "wallH": 44,
+    "decor": [
+      [
+        "l",
+        3,
+        "fixboard",
+        2
+      ],
+      [
+        "r",
+        5,
+        "screen"
+      ],
+      [
+        "r",
+        3,
+        "roots",
+        1
+      ]
+    ]
+  },
+  "warps": [
+    {
+      "x": 3,
+      "y": 6,
+      "to": "sanctuary_hall",
+      "tx": 0,
+      "ty": 3,
+      "dir": "right",
+      "enter": "down"
+    }
+  ],
+  "signs": [
+    {
+      "x": -1,
+      "y": 3,
+      "talk": "workshop_fixboard"
+    },
+    {
+      "x": -1,
+      "y": 4,
+      "talk": "workshop_fixboard"
+    }
+  ],
+  "npcs": [],
+  "objects": [
+    {
+      "kind": "in_cradle",
+      "x": 0,
+      "y": 0
+    },
+    {
+      "kind": "in_workbench",
+      "x": 3,
+      "y": 0
+    },
+    {
+      "kind": "in_panels",
+      "x": 6,
+      "y": 1
+    },
+    {
+      "kind": "in_panels",
+      "x": 6,
+      "y": 3
+    }
+  ]
+}

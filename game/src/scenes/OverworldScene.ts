@@ -1,7 +1,9 @@
 import Phaser from 'phaser';
 import { SCREEN_H, SCREEN_W, ZOOM } from '../config';
 import { linesFor } from '../engine/dialogue';
-import { DIRS, facing, findPath, followStep, heightAt, lineUp, MAPS, npcAt, npcsFor, objectAction, rollEncounter, signAt, stairAxis, START, step, type Dir, type Npc, type Position, type Spot } from '../engine/overworld';
+import { DIRS, facing, findPath, followStep, heightAt, lineUp, MAPS, npcAt, OBJECTS, objectAction, rollEncounter, signAt, stairAxis, START, step, type Dir, type Npc, type Opens, type Position, type Spot } from '../engine/overworld';
+import { gateAt, met, peopleOn, roamersOn } from '../engine/world';
+import { SPECIES } from '../engine/data';
 import { CHARACTERS, healTeam, leaderTeam, partyMode, SQUAD, switchLeader, type CharacterId, type Progress } from '../engine/progress';
 import { createRng, type Rng } from '../engine/rng';
 import { faceToward, huddle, markSeen, sceneFor, SCRIPTS } from '../engine/story';
@@ -121,11 +123,15 @@ export class OverworldScene extends Phaser.Scene {
     this.world.add(this.add.image(0, 0, groundKey(map.id)).setOrigin(0, 0).setDepth(-100000));
     this.big = [];
     for (const sp of this.layout.sprites) {
+      // Rubble and the like: gone once its wing is restored (engine/world.ts).
+      if (sp.until && met(sp.until, this.progress)) continue;
       const img = this.add.image(sp.x, sp.y, propKey(sp.art)).setOrigin(0, 0).setDepth(sp.decal ? -50000 : sp.key);
       this.world.add(img);
       if (!sp.decal && (sp.wx > 1 || sp.wy > 1)) this.big.push({ img, sp });
     }
-    this.npcs = npcsFor(map);
+    // The map's people, the recurring cast who are here now, and Patchlings living in the sanctuary.
+    this.npcs = [...peopleOn(map, this.progress), ...roamersOn(map.id, this.progress.sanctuary, (sp) => this.textures.exists(followKey(sp)))
+      .map((r): Npc => ({ id: `roam:${r.member.uid}`, x: r.x, y: r.y, dir: 'down', sprite: `mon:${r.member.species}`, talk: 'roamer' }))];
     this.npcSprites.clear();
     for (const n of this.npcs) {
       const f = this.feet(n.x, n.y);
@@ -170,7 +176,7 @@ export class OverworldScene extends Phaser.Scene {
 
   /** On arrival the three fall in behind the leader. */
   private lineUpFollowers() {
-    const line = lineUp(this.pos, this.followers.length, (x, y) => this.blockedAt(x, y));
+    const line = lineUp(this.pos, this.followers.length, this.blocker);
     this.followers.forEach((f, i) => {
       f.at = line[i];
       if (!this.world.exists(f.img)) this.world.add(f.img);
@@ -223,7 +229,9 @@ export class OverworldScene extends Phaser.Scene {
     const s = this.npcSprites.get(n.id)!;
     const view = WALK_VIEW[dir];
     s.setFlipX(false);
-    if (n.sprite.startsWith('walk:') && this.textures.exists(walkKey(n.sprite.slice(5)))) {
+    if (n.sprite.startsWith('mon:')) {
+      s.setTexture(followKey(n.sprite.slice(4)), FOLLOW_VIEW[dir]);
+    } else if (n.sprite.startsWith('walk:') && this.textures.exists(walkKey(n.sprite.slice(5)))) {
       s.setTexture(walkKey(n.sprite.slice(5)), view.row * 3).setFlipX(view.flip);
     } else if (this.textures.exists(standKey(n.sprite))) {
       s.setTexture(standKey(n.sprite));
@@ -342,7 +350,7 @@ export class OverworldScene extends Phaser.Scene {
 
   private async walk(dir: Dir) {
     this.moving = true;
-    const res = step(this.pos, dir, (x, y) => this.blockedAt(x, y));
+    const res = step(this.pos, dir, this.blocker);
     if (!res.moved) {
       // Bumped into something: just face it.
       this.pos = { ...this.pos, dir };
@@ -440,6 +448,10 @@ export class OverworldScene extends Phaser.Scene {
 
   // ---------- buttons ----------
 
+  /** People, Patchlings, and anything still standing until a wing or flag (rubble) are in the way. */
+  private blocker = (x: number, y: number) =>
+    !!npcAt(this.npcs, x, y) || !!obstacleAt(this.obstacles, x, y) || !!gateAt(MAPS[this.pos.map], x, y, this.progress);
+
   private async interact() {
     if (this.moving || this.busy) return;
     const { x, y } = facing(this.pos);
@@ -452,22 +464,25 @@ export class OverworldScene extends Phaser.Scene {
     if (npc) {
       this.faceNpc(npc, OPPOSITE[this.pos.dir]);
       const topped = npc.heal ? this.heal() : 0;
-      await this.talk(npc.talk);
+      if (npc.id.startsWith('roam:')) await this.say([{ text: `${SPECIES[npc.sprite.slice(4)]?.name ?? 'It'} has made itself at home.` }]);
+      else await this.talk(npc.talk);
       if (topped) await this.say([{ who: 'PATCH', text: `Also: ${topped} Seal Scroll${topped === 1 ? '' : 's'} for the bag. Try not to waste them.` }]);
       this.faceNpc(npc, npc.dir ?? 'down');
       return;
     }
-    const sign = signAt(MAPS[this.pos.map], x, y);
-    const act = sign ?? objectAction(MAPS[this.pos.map], this.pos);
-    if (act?.opens) this.scene.start(act.opens);
-    else if (act?.text) await this.say([{ text: act.text }]);
+    const map = MAPS[this.pos.map];
+    const gate = gateAt(map, x, y, this.progress);
+    const act: { text?: string; talk?: string; opens?: Opens; rest?: boolean } | null = gate ? OBJECTS[gate.kind] : signAt(map, x, y) ?? objectAction(map, this.pos);
+    if (act?.opens === 'storage') this.scene.start('sanctuary', { tab: 'storage' });
+    else if (act?.opens) this.scene.start(act.opens);
+    else {
+      if (act?.rest) this.heal();
+      if (act?.talk) await this.talk(act.talk);
+      else if (act?.text) await this.say([{ text: act.text }]);
+    }
   }
 
   /** Something blocks this tile: an NPC or a field-move obstacle. */
-  private blockedAt(x: number, y: number) {
-    return !!npcAt(this.npcs, x, y) || !!obstacleAt(this.obstacles, x, y);
-  }
-
   /**
    * A field-move obstacle (bible §7): the right friend clears it (their line, the obstacle rolls
    * away, any reward goes in the bag); anyone else gets a hint, and SWITCH gives a nudge.
@@ -617,7 +632,7 @@ export class OverworldScene extends Phaser.Scene {
       /** The story scene playing here, or null. */
       story: () => this.storyScene,
       /** The walk to a tile on this map, as directions (engine/overworld.ts findPath). */
-      pathTo: (x: number, y: number) => findPath(this.pos.map, this.pos, { x, y }, (bx, by) => this.blockedAt(bx, by)),
+      pathTo: (x: number, y: number) => findPath(this.pos.map, this.pos, { x, y }, this.blocker),
       obstacles: () => this.obstacles.map((o) => o.id),
       talking: () => this.dialog.open,
       npcs: () => this.npcs.map((n) => n.id),
