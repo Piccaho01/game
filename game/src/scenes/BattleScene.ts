@@ -16,6 +16,9 @@ import { pixelText } from '../ui/text';
 import { COLORS, hexToNum, shade, TEXT_COLORS, TEXT_SIZE, TONES } from '../ui/theme';
 import { tweenAsync, wait } from '../ui/widgets';
 import { saveProgress } from '../save';
+import { applyScroll, count, ITEMS, scrollsInBag, scrollWindows, useItem } from '../engine/items';
+import { awardXp, levelProgress, whose, xpYield } from '../engine/levels';
+import { itemKey } from './BootScene';
 import { backIdleAnimKey, backKey, battleBgKey, frontKey, idleAnimKey, trainerKey, walkKey } from './BootScene';
 import { SealMinigame } from './SealMinigame';
 
@@ -24,7 +27,7 @@ import { SealMinigame } from './SealMinigame';
  * `bg`: the location's backdrop (the map's `battle`); test battles use Hollow Rest's.
  */
 interface BattleInit { foe: string; seed?: number; level?: number; from?: 'overworld'; bg?: string }
-type Phase = 'intro' | 'menu' | 'fight' | 'team' | 'switching' | 'playing' | 'sealing' | 'over';
+type Phase = 'intro' | 'menu' | 'fight' | 'team' | 'scrolls' | 'switching' | 'playing' | 'sealing' | 'over';
 
 const FOE_LEVEL = 5;
 /** Wild foes the "Next battle" button cycles through: Route 1's commons first, then the starters. */
@@ -84,6 +87,7 @@ export class BattleScene extends Phaser.Scene {
     this.hpBoxes = { foe: new InfoCard(this, 'foe', 10), player: new InfoCard(this, 'player', 102) };
     this.setCard('foe', this.battle.foe);
     this.setCard('player', this.battle.player);
+    this.showXp();
     this.message = new DialogBox(this);
     this.drawBottomScreen();
     this.menu = this.add.container(0, BOTTOM);
@@ -93,6 +97,12 @@ export class BattleScene extends Phaser.Scene {
   }
 
   // ---------- top screen ----------
+
+  /** The player card's XP bar for the active Patchling. */
+  private showXp(index = this.battle.active) {
+    const m = leaderTeam(this.progress)[index];
+    this.hpBoxes.player.setXp(m ? levelProgress(m) : 0);
+  }
 
   private setCard(side: Side, b: Parameters<InfoCard['set']>[0]) {
     this.hpBoxes[side].set(b, (t) => shade(hexToNum(TYPES[t as keyof typeof TYPES].color), -0.15), (t) => TYPES[t as keyof typeof TYPES].name);
@@ -158,7 +168,8 @@ export class BattleScene extends Phaser.Scene {
     const leaderId = this.progress.leader;
     const leader = CHARACTERS[leaderId];
     this.drawHeader(leaderId, `What will ${p.name} do?`);
-    const canSeal = this.battle.canSeal();
+    const scrolls = scrollsInBag(this.progress).reduce((n, id) => n + count(this.progress, id), 0);
+    const canSeal = this.battle.canSeal() && scrolls > 0;
     const canSwitch = this.battle.canSwitch();
     const ready = this.battle.switchable().length;
     const moves = this.battle.usableMoves('player').length;
@@ -167,8 +178,8 @@ export class BattleScene extends Phaser.Scene {
       decal: (sc, w) => gloveDecal(sc, w / 2 - 22, 0), onTap: () => this.showFightMenu(),
     }));
     this.menu.add(commandButton(this, 190, 64, 116, 36, {
-      label: 'SEAL', hint: canSeal ? 'Weaken first' : 'Not now', color: 0x7a52b8, icon: 'seal', name: 'seal',
-      decal: (sc, w) => scrollDecal(sc, w / 2 - 20, 0), onTap: canSeal ? () => this.trySeal() : undefined,
+      label: 'SEAL', hint: !this.battle.canSeal() ? 'Not now' : scrolls ? `${scrolls} scroll${scrolls === 1 ? '' : 's'}` : 'No scrolls', color: 0x7a52b8, icon: 'seal', name: 'seal',
+      decal: (sc, w) => scrollDecal(sc, w / 2 - 20, 0), onTap: canSeal ? () => this.showScrollMenu() : undefined,
     }));
     this.menu.add(commandButton(this, 66, 108, 116, 36, {
       label: 'TEAM', hint: canSwitch ? `${ready} ready` : 'No one else', color: 0x3a78c8, icon: 'team', name: 'team',
@@ -359,7 +370,28 @@ export class BattleScene extends Phaser.Scene {
       await this.say(where === 'team' ? `${foe.name} joined your team!` : `Your team is full, so ${foe.name} went to the sanctuary.`);
       await this.record(change);
     }
+    if (this.battle.outcome === 'win' || this.battle.outcome === 'sealed') await this.shareXp(xpYield(foe.species, foe.level));
     this.showEndMenu();
+  }
+
+  /** Experience for everyone (bible §7): the active Patchling's bar fills, level-ups are announced. */
+  private async shareXp(amount: number) {
+    const active = leaderTeam(this.progress)[this.battle.active];
+    const before = active ? levelProgress(active) : 0;
+    const beforeLevel = active?.level ?? 0;
+    const ups = awardXp(this.progress, amount);
+    saveProgress(this.progress);
+    await this.say(`All four teams gained ${amount} XP!`);
+    if (active) await this.hpBoxes.player.animateXp(before, levelProgress(active), active.level - beforeLevel);
+    const mine = ups.filter((u) => u.owner === this.progress.leader);
+    for (const u of mine) {
+      sfx('heal');
+      await this.say(`${whose(u).replace(/^.*'s /, '')} grew to Lv${u.to}!`);
+      for (const m of u.learned) await this.say(`${whose(u).replace(/^.*'s /, '')} learned ${MOVES[m].name}!`);
+    }
+    const others = ups.filter((u) => u.owner !== this.progress.leader);
+    if (others.length === 1) await this.say(`${whose(others[0])} grew to Lv${others[0].to}!`);
+    else if (others.length > 1) await this.say(`${others.length} Patchlings on the other teams levelled up too!`);
   }
 
   private async choose(action: PlayerAction) {
@@ -372,23 +404,71 @@ export class BattleScene extends Phaser.Scene {
     await this.next();
   }
 
-  private async trySeal() {
+  /** Pick a seal scroll from the bag (the SEAL button). */
+  private showScrollMenu() {
     if (this.phase !== 'menu') return;
+    this.phase = 'scrolls';
+    this.clearMenu();
+    this.message.prompt(`Which scroll for ${this.battle.foe.name}?`);
+    const ids = scrollsInBag(this.progress).slice(0, 8);
+    ids.forEach((id, i) => {
+      const it = ITEMS[id];
+      this.menu.add(listRow(this, 66 + (i % 2) * 124, 22 + Math.floor(i / 2) * 34, 118, 30, {
+        title: it.name.replace(' Scroll', ''), titleSize: it.name.length > 16 ? TEXT_SIZE.tiny : TEXT_SIZE.small, sub: it.short, right: `x${count(this.progress, id)}`,
+        color: shade(hexToNum(it.color), -0.45), icon: { key: itemKey(id) }, onTap: () => void this.trySeal(id), name: `scroll-${id}`,
+      }));
+    });
+    this.menu.add(button(this, 128, 172, 120, 28, 'BACK', TONES.neutral, () => this.showMainMenu(), { name: 'back' }));
+  }
+
+  /** The seal with a scroll: its windows, an echo of the beat, extra tries, then its say on the result. */
+  private async trySeal(scrollId: string) {
+    if (this.phase !== 'scrolls') return;
+    const it = ITEMS[scrollId];
+    const fx = it.effect;
     this.phase = 'sealing';
     this.clearMenu();
     const foe = this.battle.foe;
     const hpFrac = foe.hp / foe.stats.hp;
-    this.message.prompt(`Seal ${foe.name}! Tap as each ring lands.`);
+    const pattern = sealPattern(foe.types[0]);
+    const windows = scrollWindows(sealWindows(hpFrac), fx, foe.types);
     const s = this.sprites.foe;
-    const game = new SealMinigame(this, { x: s.x, y: s.y - 26 }, sealPattern(foe.types[0]), sealWindows(hpFrac), hpFrac, TYPES[foe.types[0]].color);
-    this.sealGame = game;
-    const result = await game.play();
-    this.sealGame = undefined;
+    if (fx.echo) await this.echoBeat(pattern.beats);
+    let result: SealResult | null = null;
+    const tries = Math.max(1, fx.tries ?? 1);
+    for (let t = 0; t < tries; t++) {
+      this.message.prompt(t === 0 ? `${it.name}! Tap as each ring lands.` : `Try ${t + 1} of ${tries}!`);
+      const game = new SealMinigame(this, { x: s.x, y: s.y - 26 }, pattern, windows, hpFrac, TYPES[foe.types[0]].color);
+      this.sealGame = game;
+      result = applyScroll(await game.play(), fx, foe.types);
+      this.sealGame = undefined;
+      if (result.sealed) break;
+    }
     this.lastSeal = result;
     this.phase = 'playing';
+    // Used up, unless a Rain Check failed (it's "rescheduled").
+    if (result!.sealed || !fx.keepOnFail) useItem(this.progress, scrollId);
+    saveProgress(this.progress);
+    if (!result!.sealed && fx.glass) await this.say(`The ${it.name} shattered!`);
+    if (!result!.sealed && fx.keepOnFail) await this.say(`The ${it.name} got rescheduled. You still have it.`);
     this.hpBefore = this.battle.team.map((b) => b.hp);
-    await this.playEvents(this.battle.seal(result));
+    await this.playEvents(this.battle.seal(result!));
     await this.next();
+  }
+
+  /** Echo Scroll: the beat plays once, with a pulse on the foe, before the real seal. */
+  private async echoBeat(beats: number[]) {
+    this.message.prompt('Listen to the beat...');
+    const s = this.sprites.foe;
+    const ring = this.add.circle(s.x, s.y - 26, 16).setStrokeStyle(1.5, 0xffffff).setDepth(4).setAlpha(0);
+    for (let i = 0; i < beats.length; i++) {
+      await wait(this, i === 0 ? 400 : beats[i] - beats[i - 1]);
+      sfx('beat');
+      ring.setAlpha(1).setScale(1.4);
+      this.tweens.add({ targets: ring, scale: 1, alpha: 0, duration: 220 });
+    }
+    await wait(this, 600);
+    ring.destroy();
   }
 
   private async playEvents(events: BattleEvent[]) {
@@ -483,6 +563,7 @@ export class BattleScene extends Phaser.Scene {
     s.setScale(0);
     this.sprites.player = s;
     this.setCard('player', { ...b, hp: this.hpBefore[index] ?? b.hp, status: b.status });
+    this.showXp(index);
     await tweenAsync(this, { targets: s, scaleX: scale, scaleY: scale, duration: 220, ease: 'Back.easeOut' });
   }
 

@@ -252,6 +252,8 @@ export class InfoCard {
   private maxHp = 1;
   readonly root: Phaser.GameObjects.Container;
   private bar: G;
+  private xpBar?: G;
+  private xpFrac = 0;
   private ghost: G;
   private ghostFrac = 1;
   private nums?: Phaser.GameObjects.Text;
@@ -298,8 +300,9 @@ export class InfoCard {
     this.bar = scene.add.graphics();
     this.root.add([this.name, this.level, this.tags, track, this.ghost, this.bar]);
     if (side === 'player') {
-      this.nums = pixelText(scene, w - 8, 27, '', { color: TEXT_COLORS.inkSoft, size: TEXT_SIZE.small }).setOrigin(1, 0);
-      this.root.add(this.nums);
+      this.nums = pixelText(scene, w - 8, 24, '', { color: TEXT_COLORS.inkSoft, size: TEXT_SIZE.small }).setOrigin(1, 0);
+      this.xpBar = scene.add.graphics();
+      this.root.add([this.nums, this.xpBar]);
     }
   }
 
@@ -343,6 +346,27 @@ export class InfoCard {
     c.add([bg, label]);
     this.root.add(c);
     this.statusEl = c;
+  }
+
+  /** The thin blue experience bar along the player card's bottom. */
+  setXp(frac: number) {
+    this.xpFrac = Math.max(0, Math.min(1, frac));
+    if (!this.xpBar) return;
+    const y = 35;
+    this.xpBar.clear().fillStyle(0x1c1b29, 0.25).fillRoundedRect(this.barX, y, this.barW, 2.5, 1.2);
+    if (this.xpFrac > 0) this.xpBar.fillStyle(0x3a78c8).fillRoundedRect(this.barX, y, Math.max(2.5, this.barW * this.xpFrac), 2.5, 1.2);
+  }
+
+  /** Fills the XP bar (wrapping round once per level gained). */
+  async animateXp(from: number, to: number, levels: number) {
+    const run = (a: number, b: number) => new Promise<void>((resolve) => {
+      const k = { v: a };
+      this.scene.tweens.add({ targets: k, v: b, duration: 500 * Math.max(0.3, b - a), ease: 'Quad.easeOut', onUpdate: () => this.setXp(k.v), onComplete: () => resolve() });
+    });
+    if (levels <= 0) return run(from, to);
+    await run(from, 1);
+    for (let i = 1; i < levels; i++) await run(0, 1);
+    await run(0, to);
   }
 
   /** Slides in from its screen edge. */
