@@ -11,7 +11,7 @@ import { tweenAsync, wait } from '../ui/widgets';
 import { walkKey } from './BootScene';
 
 /** The owner's cutscene cards, fitted to the top screen (art/tools/card2screen.py): 384x288, shown at 2/3. */
-const cardFiles = import.meta.glob('../../art/cutscenes/out/*.png', { eager: true, query: '?url', import: 'default' }) as Record<string, string>;
+const cardFiles = import.meta.glob('../../../art/cutscenes/out/*.png', { eager: true, query: '?url', import: 'default' }) as Record<string, string>;
 export const CARDS: Record<string, string> = Object.fromEntries(
   Object.entries(cardFiles).map(([path, url]) => [path.split('/').pop()!.replace(/\.png$/, ''), url]),
 );

@@ -12,6 +12,8 @@ test('a new game opens on the opening cutscene; SKIP goes to the starter pick', 
   page.on('pageerror', (e) => errors.push(e.message));
   await page.goto('/?reset');
   await csPlaying(page, 'opening');
+  // The owner's cards load (a wrong path would show the placeholder board instead).
+  expect(await page.evaluate(() => (window as unknown as { __game: { textures: { exists(k: string): boolean } } }).__game.textures.exists('card:01_couch'))).toBe(true);
   // A few taps move it on, line by line.
   const vp = page.viewportSize()!;
   for (let i = 0; i < 4; i++) { await page.touchscreen.tap(vp.width / 2, vp.height * 0.8); await page.waitForTimeout(400); }

@@ -20,6 +20,8 @@ async function tapOn(page: Page, hook: '__battle' | '__newgame' | '__journal' | 
 const shot = (page: Page, name: string) => page.screenshot({ path: `${DIR}/${name}.png` });
 
 test('screens', async ({ page }) => {
+  // The whole opening plays through first, so this run is long.
+  test.setTimeout(420_000);
   const errors: string[] = [];
   page.on('pageerror', (e) => errors.push(e.message));
 
