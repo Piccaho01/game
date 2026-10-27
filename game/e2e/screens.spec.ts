@@ -1,4 +1,5 @@
 import { expect, test, type Page } from '@playwright/test';
+import { csPlaying, skipCutscene, walkUntilStory, type Cs } from './cutscene';
 import { ready, tapKey, walkTo } from './walk';
 
 /**
@@ -19,24 +20,33 @@ async function tapOn(page: Page, hook: '__battle' | '__newgame' | '__journal' | 
 const shot = (page: Page, name: string) => page.screenshot({ path: `${DIR}/${name}.png` });
 
 test('screens', async ({ page }) => {
+  // The whole opening plays through first, so this run is long.
+  test.setTimeout(420_000);
   const errors: string[] = [];
   page.on('pageerror', (e) => errors.push(e.message));
 
-  // The intro: the group chat, then PATCH at the crash site (taps hurry the chat along).
-  type Intro = { part(): string };
-  const part = () => page.evaluate(() => (window as unknown as { __intro?: Intro }).__intro?.part());
+  // The opening cutscene: one shot per card, then PATCH naming a starter (spotlit).
+  const csStep = () => page.evaluate(() => (window as unknown as { __cutscene: Cs }).__cutscene.step());
   await page.goto('/?reset&seed=2');
-  await page.waitForFunction(() => (window as unknown as { __intro?: Intro }).__intro?.part() === 'chat', null, { timeout: 60_000 });
-  await page.waitForTimeout(7000);
-  await shot(page, '00a-intro-chat');
-  for (let i = 0; i < 120 && (await part()) === 'chat'; i++) {
-    await page.touchscreen.tap(195, 300);
-    await page.waitForTimeout(250);
+  await csPlaying(page, 'opening');
+  const vp = page.viewportSize()!;
+  // [step reached, file, ms to let it settle]
+  const shots: [number, string, number][] = [[2, '00a-cut-couch', 1300], [13, '00b-cut-plan', 1300], [23, '00c-cut-blowup', 250], [27, '00d-cut-landing', 1300], [40, '00e-cut-sanctuary', 1500], [49, '00f-cut-starter-spot', 1300]];
+  for (let i = 0; i < 400 && shots.length; i++) {
+    if ((await csStep()) >= shots[0][0]) {
+      const [, file, ms] = shots.shift()!;
+      await page.waitForTimeout(ms);
+      await shot(page, file);
+      continue;
+    }
+    await page.touchscreen.tap(vp.width / 2, vp.height * 0.8);
+    await page.waitForTimeout(200);
   }
-  await page.waitForFunction(() => (window as unknown as { __intro: Intro }).__intro.part() === 'meet', null, { timeout: 30_000 });
-  await page.waitForTimeout(3500);
-  await shot(page, '00b-intro-patch');
-  await tapOn(page, '__intro', 'skip');
+  await skipCutscene(page, 'opening');
+  await page.waitForFunction(() => (window as unknown as { __newgame?: { step(): string } }).__newgame?.step() === 'starters', null, { timeout: 60_000 });
+  await page.waitForTimeout(300);
+  await shot(page, '03a-newgame-starters');
+  await tapOn(page, '__newgame', 'back');
   await page.waitForFunction(() => (window as unknown as { __newgame?: { step(): string } }).__newgame?.step() === 'leader', null, { timeout: 60_000 });
   await page.waitForTimeout(300);
   await shot(page, '01-newgame-patch');
@@ -50,9 +60,19 @@ test('screens', async ({ page }) => {
   await shot(page, '03b-newgame-starter-picked');
   await tapOn(page, '__newgame', 'friend-callum');
   await tapOn(page, '__newgame', 'confirm');
+  await csPlaying(page, 'starters_picked');
+  await page.waitForTimeout(1500);
+  await shot(page, '03b2-story-reactions');
+  await skipCutscene(page, 'starters_picked');
   await page.waitForTimeout(300);
   await shot(page, '03c-newgame-lead');
   await tapOn(page, '__newgame', 'confirm');
+
+  // Beat 6 on the map: the four huddle round the leader and talk.
+  await csPlaying(page, 'first_step');
+  await page.waitForTimeout(1800);
+  await shot(page, '04-story-first-step');
+  await skipCutscene(page, 'first_step');
 
   // Overworld: Hollow Rest by the crater, up at the sanctuary, and the town sign by the edge.
   await ready(page);
@@ -64,6 +84,17 @@ test('screens', async ({ page }) => {
   await walkTo(page, 6, 6);
   await page.waitForTimeout(300);
   await shot(page, '04b-overworld-sanctuary');
+  // Beat 7: Connor in the group chat, at the town sign.
+  await walkUntilStory(page, 14, 17);
+  await csPlaying(page, 'connor_hook');
+  for (let i = 0; i < 40 && (await csStep()) < 5; i++) {
+    await page.touchscreen.tap(vp.width / 2, vp.height * 0.8);
+    await page.waitForTimeout(500);
+  }
+  await page.waitForTimeout(1500);
+  await shot(page, '05a-story-connor-chat');
+  await skipCutscene(page, 'connor_hook');
+  await ready(page);
   await walkTo(page, 14, 17);
   await tapKey(page, 'left');
   await page.keyboard.press('Space');

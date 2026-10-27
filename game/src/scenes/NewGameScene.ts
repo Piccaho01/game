@@ -7,6 +7,7 @@ import { button, buttonPagePoint, chip, faceIcon, hinge, listRow, menuBackdrop, 
 import { pixelText } from '../ui/text';
 import { COLORS, hexToNum, shade, TEXT_COLORS, TEXT_SIZE, TONES } from '../ui/theme';
 import { frontKey, idleAnimKey, walkKey } from './BootScene';
+import { playCutscene } from './CutsceneScene';
 
 type Step = 'leader' | 'starters' | 'lead';
 const BOTTOM = SCREEN_H;
@@ -25,10 +26,17 @@ export class NewGameScene extends Phaser.Scene {
   private top!: Phaser.GameObjects.Container;
   private bottom!: Phaser.GameObjects.Container;
 
+  /** Where to open: the opening cutscene comes straight to 'starters' (beat 5). */
+  private startAt: Step = 'leader';
+
   constructor() { super('newgame'); }
 
+  init(data: { step?: Step }) {
+    this.startAt = data?.step ?? 'leader';
+  }
+
   create() {
-    this.step = 'leader';
+    this.step = this.startAt;
     this.leader = null;
     this.picks = { ...DEFAULT_STARTERS };
     this.starter = null;
@@ -124,7 +132,7 @@ export class NewGameScene extends Phaser.Scene {
       }));
     });
     this.bottom.add(button(this, 56, 172, 88, 28, 'BACK', TONES.neutral, () => { this.step = 'leader'; this.starter = null; this.render(); }, { name: 'back' }));
-    this.bottom.add(button(this, 170, 172, 140, 28, 'DONE', TONES.go, () => { this.step = 'lead'; this.starter = null; this.render(); }, { name: 'confirm' }));
+    this.bottom.add(button(this, 170, 172, 140, 28, 'DONE', TONES.go, () => void this.picked(), { name: 'confirm' }));
 
     // Top screen: the four, each standing under their starter.
     this.top.add(tapeLabel(this, 14, 2, 'STARTERS'));
@@ -153,6 +161,15 @@ export class NewGameScene extends Phaser.Scene {
     this.picks[from] = this.picks[to];
     this.picks[to] = this.starter;
     this.starter = null;
+    this.render();
+  }
+
+  /** Story: each friend's line about the starter they took, PATCH's "share" (data/cutscenes/starters_picked.json), then who leads. */
+  private async picked() {
+    this.starter = null;
+    this.render();
+    await playCutscene(this, 'starters_picked', { picks: { ...this.picks } });
+    this.step = 'lead';
     this.render();
   }
 

@@ -59,6 +59,8 @@ export class BootScene extends Phaser.Scene {
     const starter = params.get('player');
     if (!progress && starter && SPECIES[starter]) {
       progress = newProgress(starter);
+      // A test shortcut: past the opening's story scenes unless ?story.
+      if (!params.has('story')) progress.flags = ['opening'];
       saveProgress(progress);
     }
     if (!progress) {

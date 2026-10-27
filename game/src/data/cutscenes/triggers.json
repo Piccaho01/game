@@ -1,0 +1,7 @@
+{
+  "_note": "When story scenes play in the overworld. 'on': 'arrive' (entering the map, or starting there) or 'area' ([x, y, w, h] tiles: stepping inside). Each scene plays once (its id is saved as a flag); 'after': flags needed first; 'unless': flags that stop it. Saves from before the story have the 'opening' flag.",
+  "triggers": [
+    { "scene": "first_step", "map": "hollow_rest", "on": "arrive", "unless": ["opening"] },
+    { "scene": "connor_hook", "map": "hollow_rest", "on": "area", "area": [12, 15, 9, 7], "after": ["first_step"], "unless": ["opening"] }
+  ]
+}

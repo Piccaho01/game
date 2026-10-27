@@ -37,6 +37,8 @@ export interface Progress {
   /** Where the leader stands in the overworld; missing until they first walk out. */
   pos?: Position;
   settings?: Settings;
+  /** Story scenes seen and other story flags (engine/story.ts). */
+  flags?: string[];
 }
 
 /**
@@ -81,7 +83,7 @@ export function newProgress(starters: string | Partial<Record<CharacterId, strin
   // PATCH hands over the starters already bonded, so their whole entries are open.
   const bestiary: Record<string, DexRecord> = {};
   for (const c of SQUAD) bestiary[picks[c]] = { ...EMPTY_RECORD, encounters: 1, seals: 1, strongBonds: RULES.starterBond === 'strong' ? 1 : 0 };
-  return { version: 3, leader, nextUid: uid, teams, sanctuary: [], wings: [], bestiary };
+  return { version: 3, leader, nextUid: uid, teams, sanctuary: [], wings: [], bestiary, flags: [] };
 }
 
 /** The leader's team: the one that battles. */
@@ -243,8 +245,10 @@ export function parseProgress(raw: unknown): Progress | null {
   const map = p.pos && MAPS[p.pos.map];
   const pos = map && p.pos!.x >= 0 && p.pos!.y >= 0 && p.pos!.x < map.width && p.pos!.y < map.height ? p.pos : undefined;
   const wings = Array.isArray(p.wings) ? p.wings.filter((w): w is string => typeof w === 'string') : [];
+  // Saves from before the story have no flags: they count as past the opening ('opening', engine/story.ts).
+  const flags = Array.isArray(p.flags) ? p.flags.filter((f): f is string => typeof f === 'string') : ['opening'];
   const { team: _old, settings: rawSettings, ...rest } = p;
   const settings: Settings = {};
   if (rawSettings?.party === 'solo' || rawSettings?.party === 'squad') settings.party = rawSettings.party;
-  return { ...rest, version: 3, leader, nextUid, teams, sanctuary: list(p.sanctuary), bestiary: dex, pos, wings, ...(Object.keys(settings).length ? { settings } : {}) };
+  return { ...rest, version: 3, leader, nextUid, teams, sanctuary: list(p.sanctuary), bestiary: dex, pos, wings, flags, ...(Object.keys(settings).length ? { settings } : {}) };
 }

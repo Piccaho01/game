@@ -1,0 +1,14 @@
+{
+  "_note": "Beat 6: the first step out in Hollow Rest. The four stand together on the map ('stage': 'huddle') while they talk, even in Solo.",
+  "id": "first_step",
+  "stage": "huddle",
+  "steps": [
+    { "title": "Morning", "who": "patch", "text": "The way off the island is the stairs at the front. Route 1 is below. Wild Patchlings live in the tall grass." },
+    { "who": "patch", "text": "Weaken one, then seal it. The seal is a rhythm. Stay on the beat." },
+    { "who": "haydon", "text": "Callum's going to miss the beat." },
+    { "who": "callum", "text": "I have rhythm. I make music." },
+    { "who": "nolan", "text": "\"And I picked up a mic and I'm chill.\"" },
+    { "who": "callum", "text": "I will leave you in this world." },
+    { "who": "patch", "text": "If your partners faint, come back to me. I fix things. Mostly." }
+  ]
+}
