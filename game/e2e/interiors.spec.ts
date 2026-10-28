@@ -26,7 +26,7 @@ test('into Callum\'s cottage and back out; into the sanctuary, the storage termi
   await tapKey(page, 'left');
   expect(await ow(page)).toMatchObject({ map: 'callum_house', x: 3, y: 6, dir: 'up' });
   // The Triple Cheese on the table.
-  await walkTo(page, 2, 1);
+  await walkTo(page, 4, 1);
   await tapKey(page, 'down');
   await read(page);
   // Out through the front, back on the doorstep facing away from the door.

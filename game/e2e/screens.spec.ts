@@ -144,10 +144,10 @@ test('screens: interiors and Route 1', async ({ page }) => {
   const errors: string[] = [];
   page.on('pageerror', (e) => errors.push(e.message));
   const spots: [string, { map: string; x: number; y: number; dir: string }, string[]][] = [
-    ['20-callum-house', { map: 'callum_house', x: 3, y: 4, dir: 'up' }, []],
+    ['20-callum-house', { map: 'callum_house', x: 4, y: 4, dir: 'up' }, []],
     ['21-nolan-house', { map: 'nolan_house', x: 5, y: 3, dir: 'up' }, []],
-    ['22-haydon-shed', { map: 'haydon_shed', x: 2, y: 3, dir: 'up' }, []],
-    ['23-dani-house', { map: 'dani_house', x: 3, y: 4, dir: 'up' }, []],
+    ['22-haydon-shed', { map: 'haydon_shed', x: 3, y: 4, dir: 'up' }, []],
+    ['23-dani-house', { map: 'dani_house', x: 4, y: 4, dir: 'up' }, []],
     ['24-sanctuary-hall', { map: 'sanctuary_hall', x: 4, y: 6, dir: 'up' }, []],
     ['25-sanctuary-workshop', { map: 'sanctuary_workshop', x: 3, y: 4, dir: 'up' }, []],
     ['26-sanctuary-hall-restored', { map: 'sanctuary_hall', x: 3, y: 5, dir: 'up' }, ['root_hall']],
