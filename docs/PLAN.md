@@ -324,6 +324,11 @@ Next once the owner approves the sample: roll the look out to every screen (new 
 sanctuary, overworld touch screen, fight/team menus), seal scrolls as items.
 
 ## M5 Playtest build
+- Field moves for the other three (engine and lines exist in `data/obstacles.json`; only Dani's
+  boulder is placed): Haydon's **Taunt** on the Tally guard at the Route 1 checkpoint (opens the
+  road), Nolan's **Patch Up** on a broken plank of Route 1's bridge or the dead storage terminal,
+  Callum's **Scan** on the sealed Tide Gallery door or Route 1's CRT stone. So the playtest makes
+  you switch to every friend. Also check the boulder's spot in Hollow Rest.
 - Bug pass on phones (iOS Safari, Android Chrome), balance pass, the link shared with the
   group, one round of fixes from their feedback.
 
