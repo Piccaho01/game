@@ -356,7 +356,18 @@ sanctuary, overworld touch screen, fight/team menus), seal scrolls as items.
 their feedback in one list; one session fixes it. Real-device checks still owed: iOS Safari and
 Android Chrome (only Chromium phone emulation was tested here).
 
-**Waiting on the owner:** the Tally officer sheet (`art/prompts/m5.md`); when it's in, cut his
+**Playtest round 1 fixes (same branch, PR #26):** rooms at the friends' scale (room_concept
+SCALE 1/8, per-room `scale`; Haydon's shed and the workshop 0.85) with people on the floor (room
+layout z 0) and solid tiles re-fitted from where feet land; exits on open floor with a painted
+doorway shadow; Nolan's door on the porch (a door with `enter` may sit up a step); SETTINGS button
+on the map (Journal OPTIONS: squad/solo, sound); list rows never overlap a name and its level or
+count; townsfolk drawn at 0.9; the owner's Tally officer, LeBron redo and 15 scroll icons
+(`art/tools/scroll_icons.py`) in; bushes/rocks beside paths cleared; Route 1 checkpoint back
+from the edge with the road on its door side, stairs lined up with the path.
+**Owner's rule:** no PRs until the owner is happy with a whole batch; check with screenshots and
+fast tests, full e2e once at the end.
+
+**Waiting on the owner (old note):** the Tally officer sheet (`art/prompts/m5.md`); when it's in, cut his
 stand pose with `art/tools/pose2sprite.py` to `art/trainers/out/tally_officer_stand.png` and set
 the obstacle's `sprite` to `tally_officer` (it is `placeholder:#4a5468` now). The hand-drawn broken
 bridge is optional.
