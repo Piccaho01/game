@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { DIALOGUE_IDS } from '../src/engine/dialogue';
-import { findPath, isBlocked, MAPS, objectAction, OBJECTS, step, type Position } from '../src/engine/overworld';
+import { findPath, isBlocked, MAPS, OBJECTS, signAt, step, type Position } from '../src/engine/overworld';
 import { CAST, gateAt, met, peopleOn, roamersOn, whereIs } from '../src/engine/world';
 
 const HOUSES = ['callum_house', 'nolan_house', 'haydon_shed', 'dani_house'];
@@ -13,10 +13,10 @@ function roundTrip(from: Position, dir: Position['dir']) {
   const into = step(from, dir);
   expect(into.warped, `into from ${from.map} ${from.x},${from.y}`).toBe(true);
   const room = MAPS[into.pos.map];
-  // you arrive on the doormat, facing in; the way out is off the front edge
-  expect(room.tiles[into.pos.y][into.pos.x]).toBe('mat');
-  const out = step(into.pos, 'down');
-  expect(out.warped).toBe(true);
+  // you arrive by the way out (the doormat, or Dani's front door), and one step takes you back
+  const exit = room.warps.find((w) => w.to === from.map)!;
+  const out = step(into.pos, exit.enter!);
+  expect(out.warped, room.id).toBe(true);
   return { room: room.id, back: out.pos };
 }
 
@@ -57,11 +57,13 @@ describe('interiors', () => {
     }
   });
 
-  it('furniture reads its line from any side', () => {
+  it('furniture reads its line from the tile in front', () => {
     const room = MAPS.callum_house;
-    const bag = room.objects.find((o) => o.kind === 'in_table_bag')!;
-    expect(objectAction(room, { map: room.id, x: bag.x - 1, y: bag.y, dir: 'right' })?.talk).toBe('callum_bag');
-    expect(objectAction(room, { map: room.id, x: bag.x, y: bag.y + 1, dir: 'up' })?.talk).toBe('callum_bag');
+    const bag = room.signs.find((g) => g.talk === 'callum_bag')!;
+    expect(isBlocked(room, bag.x, bag.y)).toBe(true);
+    const from = { map: room.id, x: bag.x, y: bag.y - 1, dir: 'down' as const };
+    expect(isBlocked(room, from.x, from.y)).toBe(false);
+    expect(signAt(room, bag.x, bag.y)?.talk).toBe('callum_bag');
   });
 });
 
@@ -70,17 +72,14 @@ describe('the sanctuary base', () => {
   const mat = hall.spawn;
 
   it('the entrance hall has the CRT stones (wings), the storage terminal and four beds, all reachable', () => {
-    const find = (pred: (k: string) => boolean) => hall.objects.filter((o) => pred(o.kind));
-    expect(find((k) => OBJECTS[k].opens === 'sanctuary')).toHaveLength(1);
-    expect(find((k) => OBJECTS[k].opens === 'storage')).toHaveLength(1);
-    expect(find((k) => !!OBJECTS[k].rest)).toHaveLength(4);
     const blocked = (x: number, y: number) => !!gateAt(hall, x, y, fresh);
-    for (const o of find((k) => !!(OBJECTS[k].opens || OBJECTS[k].rest))) {
-      const d = OBJECTS[o.kind];
-      const near = [];
-      for (let y = o.y - 1; y <= o.y + d.wy; y++) for (let x = o.x - 1; x <= o.x + d.wx; x++) near.push({ x, y });
-      expect(near.some((t) => !isBlocked(hall, t.x, t.y) && findPath(hall.id, mat, t, blocked)), o.kind).toBe(true);
-    }
+    const reach = (g: { x: number; y: number }) =>
+      [[0, 1], [0, -1], [1, 0], [-1, 0]].some(([dx, dy]) => !isBlocked(hall, g.x + dx, g.y + dy) && findPath(hall.id, mat, { x: g.x + dx, y: g.y + dy }, blocked));
+    const signs = (pred: (g: (typeof hall.signs)[number]) => boolean) => hall.signs.filter(pred);
+    expect(signs((g) => g.opens === 'sanctuary').some(reach)).toBe(true);
+    expect(signs((g) => g.opens === 'storage').some(reach)).toBe(true);
+    const beds = new Set(signs((g) => !!g.rest && reach(g)).map((g) => g.talk));
+    expect([...beds].sort()).toEqual(['bed_callum', 'bed_dani', 'bed_haydon', 'bed_nolan']);
   });
 
   it('PATCH\'s workshop is open from the start; Root Hall waits behind rubble until its wing is restored', () => {

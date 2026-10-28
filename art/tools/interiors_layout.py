@@ -161,6 +161,9 @@ def check(rid, data):
 
 
 if __name__ == '__main__':
+    # Superseded: every room is now the owner's concept (art/tools/room_concept.py, rooms.json).
+    # Running this would overwrite those maps with the old placeholder rooms.
+    raise SystemExit('interiors_layout.py is superseded by room_concept.py (art/tools/rooms.json)')
     rooms = build()
     for rid, data in rooms.items():
         check(rid, data)

@@ -349,6 +349,8 @@ def place_sprites(m, data, scr):
 
 def bake(map_id, preview=None):
     data = json.load(open(os.path.join(GAME, 'maps', f'{map_id}.json')))
+    if 'concept' in data:
+        raise SystemExit(f'{map_id} is made from a concept: python3 art/tools/room_concept.py <room> (art/tools/rooms.json)')
     if 'interior' in data:
         from iso_room import bake_room
         return bake_room(map_id, data, globals(), preview)

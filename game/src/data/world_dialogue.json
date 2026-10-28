@@ -77,7 +77,7 @@
   "callum_laptop": {
     "lines": [
       {
-        "text": "A message on the laptop. Sergey: \"bro i am in trenches. send beat\". Sent four minutes ago."
+        "text": "A message on Callum's phone, face-up on the table. Sergey: \"bro i am in trenches. send beat\". Sent four minutes ago."
       },
       {
         "who": "Callum",
@@ -345,7 +345,7 @@
   "dani_fridge": {
     "lines": [
       {
-        "text": "A tournament bracket on the fridge. CALLUM at the top, crossed out, DANI written over it in marker."
+        "text": "A tournament bracket taped up by the stove. CALLUM at the top, crossed out, DANI written over it in marker."
       },
       {
         "who": "Callum",
@@ -353,7 +353,7 @@
       },
       {
         "who": "Dani",
-        "text": "The fridge says different."
+        "text": "The bracket says different."
       }
     ]
   },

@@ -1,60 +1,47 @@
 {
-  "_note": "Dani's Casa (bible \u00a77 interiors). A room: art/tools/iso_map.py bakes it as a cut-away (iso_room.py). Written by art/tools/interiors_layout.py: edit there.",
+  "_note": "Dani's Casa (bible §7 interiors): the owner's concept is the room, by art/tools/room_concept.py from art/tools/rooms.json. Edit there.",
   "id": "dani_house",
   "name": "Dani's Casa",
   "legend": {
     ".": "floor",
-    "m": "mat"
+    "m": "mat",
+    "x": "ruin"
   },
   "rows": [
+    "xxxxxx.",
+    "x......",
+    "..xx...",
+    "..xx...",
     ".......",
-    ".......",
-    ".......",
-    ".......",
-    ".......",
-    "...m..."
+    ".xx....",
+    "xxxxx.."
   ],
   "spawn": {
-    "x": 3,
-    "y": 5
-  },
-  "interior": {
-    "floor": "tile",
-    "wall": "plaster",
-    "wallColor": "#a8dcc4",
-    "wallH": 40,
-    "windows": [
-      [
-        "r",
-        4
-      ]
-    ],
-    "decor": [
-      [
-        "l",
-        1,
-        "photos",
-        2
-      ],
-      [
-        "r",
-        6,
-        "clock"
-      ]
-    ]
+    "x": 6,
+    "y": 0
   },
   "warps": [
     {
-      "x": 3,
-      "y": 6,
+      "x": 6,
+      "y": -1,
       "to": "hollow_rest",
       "tx": 5,
       "ty": 11,
       "dir": "down",
-      "enter": "down"
+      "enter": "up"
     }
   ],
   "signs": [
+    {
+      "x": -1,
+      "y": 3,
+      "talk": "dani_hammock"
+    },
+    {
+      "x": -1,
+      "y": 4,
+      "talk": "dani_hammock"
+    },
     {
       "x": -1,
       "y": 1,
@@ -64,39 +51,39 @@
       "x": -1,
       "y": 2,
       "talk": "dani_photos"
+    },
+    {
+      "x": 1,
+      "y": 0,
+      "talk": "dani_coffee"
+    },
+    {
+      "x": 2,
+      "y": 0,
+      "talk": "dani_coffee"
+    },
+    {
+      "x": 3,
+      "y": 0,
+      "talk": "dani_fridge"
+    },
+    {
+      "x": 0,
+      "y": 6,
+      "talk": "dani_football"
+    },
+    {
+      "x": 5,
+      "y": 0,
+      "talk": "dani_shoes"
+    },
+    {
+      "x": 4,
+      "y": 0,
+      "text": "A plant. It's thriving. Nobody here can explain it."
     }
   ],
   "npcs": [],
-  "objects": [
-    {
-      "kind": "in_fridge",
-      "x": 0,
-      "y": 0
-    },
-    {
-      "kind": "in_counter",
-      "x": 1,
-      "y": 0
-    },
-    {
-      "kind": "in_hammock",
-      "x": 4,
-      "y": 3
-    },
-    {
-      "kind": "in_football",
-      "x": 1,
-      "y": 3
-    },
-    {
-      "kind": "in_shoes",
-      "x": 2,
-      "y": 5
-    },
-    {
-      "kind": "in_plant",
-      "x": 0,
-      "y": 4
-    }
-  ]
+  "objects": [],
+  "concept": "dani"
 }

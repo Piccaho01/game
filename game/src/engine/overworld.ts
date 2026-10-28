@@ -47,7 +47,7 @@ export interface Condition { wing?: string; flag?: string }
  */
 export interface Warp { x: number; y: number; to: string; tx: number; ty: number; dir?: Dir; /** Only walking this way goes in (a door has one side). */ enter?: Dir }
 /** Read with the A button while facing it (`talk`: a dialogue id); `opens` a screen instead. May sit just off the map (a picture on a room's back wall). */
-export interface Sign { x: number; y: number; text?: string; talk?: string; opens?: Opens }
+export interface Sign { x: number; y: number; text?: string; talk?: string; opens?: Opens; rest?: boolean }
 /**
  * Someone standing on the map. `sprite`: 'walk:<id>' (a walk sheet), 'patch' (PATCH, big), or
  * 'placeholder:#rrggbb' until their sprite is drawn. `talk`: a data/dialogue.json id. `w`: tiles
@@ -79,6 +79,8 @@ export interface MapData {
   battle?: string;
   /** A room (art/tools/iso_map.py bakes it as a cut-away: floor, two back walls, no sky). */
   interior?: Record<string, unknown>;
+  /** A room painted from the owner's concept (art/tools/room_concept.py): an interior too. */
+  concept?: string;
   /** Where Patchlings living in the sanctuary's storage wander (engine/world.ts roamers). */
   roam?: { x: number; y: number }[];
 }
@@ -134,7 +136,7 @@ export function loadMap(raw: MapData): WorldMap {
   return {
     id: raw.id, name: raw.name, width, height: tiles.length, tiles, spawn: raw.spawn, warps: raw.warps ?? [],
     signs: raw.signs ?? [], npcs: raw.npcs ?? [], z, objects, healSpot: raw.healSpot, encounters: raw.encounters, battle: raw.battle,
-    interior: !!raw.interior, roam: raw.roam ?? [],
+    interior: !!(raw.interior || raw.concept), roam: raw.roam ?? [],
   };
 }
 

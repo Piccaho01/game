@@ -153,7 +153,7 @@ Same isometric camera, but a cut-away room: the floor diamond with the two back 
 - **PATCH's workshop:** a cave room in the sanctuary turned robot garage: spare panels, tape
   rolls, a workbench, a charging cradle the size of a car, a whiteboard titled "FIX".
 
-**In the game now (placeholders):** every room above is built and playable with clean placeholder
+**In the game now:** every room is the owner's I-1 concept, warped onto the grid whole (`art/tools/room_concept.py`, `rooms.json`). The old note, kept for history: **(placeholders):** every room above is built and playable with clean placeholder
 furniture (`art/tools/interior_props.py`) and procedural floors and walls (`art/tools/iso_room.py`).
 When a room's I-1 concept and I-2 sheet arrive (save as `art/concepts/locations/interior_<room>.png`
 and `interior_<room>_pieces.png`, rooms: `callum`, `nolan`, `haydon`, `dani`, `sanctuary_hall`,

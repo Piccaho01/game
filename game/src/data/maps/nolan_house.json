@@ -1,46 +1,29 @@
 {
-  "_note": "Nolan's Basement (bible \u00a77 interiors). A room: art/tools/iso_map.py bakes it as a cut-away (iso_room.py). Written by art/tools/interiors_layout.py: edit there.",
+  "_note": "Nolan's Basement (bible §7 interiors): the owner's concept is the room, by art/tools/room_concept.py from art/tools/rooms.json. Edit there.",
   "id": "nolan_house",
   "name": "Nolan's Basement",
   "legend": {
     ".": "floor",
-    "m": "mat"
+    "m": "mat",
+    "x": "ruin"
   },
   "rows": [
-    ".......",
-    ".......",
-    ".......",
-    ".......",
-    ".......",
-    "...m..."
+    "xxxxxxx",
+    "x......",
+    "x..x...",
+    "x.xxx..",
+    "xxxx...",
+    "xxxxxx.",
+    "x.xxx.m"
   ],
   "spawn": {
-    "x": 3,
-    "y": 5
-  },
-  "interior": {
-    "floor": "carpet",
-    "floorColor": "#6e6a72",
-    "wall": "foam",
-    "wallH": 40,
-    "decor": [
-      [
-        "r",
-        3,
-        "van",
-        2
-      ],
-      [
-        "l",
-        4,
-        "clock"
-      ]
-    ]
+    "x": 6,
+    "y": 6
   },
   "warps": [
     {
-      "x": 3,
-      "y": 6,
+      "x": 6,
+      "y": 7,
       "to": "hollow_rest",
       "tx": 10,
       "ty": 5,
@@ -50,42 +33,47 @@
   ],
   "signs": [
     {
+      "x": 1,
+      "y": 0,
+      "talk": "nolan_desk"
+    },
+    {
+      "x": 2,
+      "y": 0,
+      "talk": "nolan_tv"
+    },
+    {
       "x": 3,
-      "y": -1,
+      "y": 0,
       "talk": "nolan_window"
     },
     {
+      "x": 0,
+      "y": 3,
+      "talk": "nolan_bottle"
+    },
+    {
+      "x": 0,
+      "y": 2,
+      "talk": "nolan_bottle"
+    },
+    {
+      "x": 2,
+      "y": 5,
+      "text": "The couch. Someone has slept on this couch. Several someones. Several times."
+    },
+    {
       "x": 4,
-      "y": -1,
-      "talk": "nolan_window"
+      "y": 5,
+      "text": "The couch. Someone has slept on this couch. Several someones. Several times."
+    },
+    {
+      "x": 4,
+      "y": 0,
+      "text": "A mini fridge with magnets on it. Mostly empty. Mostly."
     }
   ],
   "npcs": [],
-  "objects": [
-    {
-      "kind": "in_studio_desk",
-      "x": 0,
-      "y": 0
-    },
-    {
-      "kind": "in_tv_console",
-      "x": 6,
-      "y": 0
-    },
-    {
-      "kind": "in_couch",
-      "x": 4,
-      "y": 3
-    },
-    {
-      "kind": "in_shelf_bottle",
-      "x": 0,
-      "y": 2
-    },
-    {
-      "kind": "in_plant",
-      "x": 0,
-      "y": 4
-    }
-  ]
+  "objects": [],
+  "concept": "nolan"
 }

@@ -22,7 +22,7 @@ test('in the sanctuary hall, at the CRT stones, the first wing is restored with 
         ...Object.fromEntries(['sprigby', 'furnaxol', 'zapail', 'gobbin'].map((s) => [s, rec({ encounters: 1, seals: 1, strongBonds: 1 })])),
         orbitot: rec({ seals: 1 }), fledjet: rec({ encounters: 1 }),
       },
-      pos: { map: 'sanctuary_hall', x: 4, y: 1, dir: 'up' },
+      pos: { map: 'sanctuary_hall', x: 5, y: 0, dir: 'up' },
     }));
   });
   await page.goto('/?seed=1');
@@ -71,7 +71,7 @@ test('sanctuary storage: Callum deposits, Dani withdraws it onto her team', asyn
         dani: [{ uid: 4, species: 'gobbin', level: 8, bond: 'strong' }],
       },
       sanctuary: [{ uid: 6, species: 'fledjet', level: 4, bond: 'wary' }, { uid: 7, species: 'orbitot', level: 3, bond: 'strong' }],
-      pos: { map: 'sanctuary_hall', x: 4, y: 1, dir: 'up' },
+      pos: { map: 'sanctuary_hall', x: 5, y: 0, dir: 'up' },
     }));
   });
   await page.goto('/?seed=1');

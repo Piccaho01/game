@@ -1,61 +1,16 @@
 {
  "origin": {
-  "x": 84,
-  "y": 66
+  "x": 139.0,
+  "y": 106.0
  },
  "tile": {
-  "w": 32,
-  "h": 16,
+  "w": 42,
+  "h": 15,
   "z": 16
  },
  "size": {
-  "w": 216,
-  "h": 166
+  "w": 316,
+  "h": 223
  },
- "sprites": [
-  {
-   "art": "in_ring_light",
-   "x": 85,
-   "y": 14,
-   "fx": 0,
-   "fy": 0,
-   "wx": 1,
-   "wy": 1,
-   "key": 6,
-   "decal": false
-  },
-  {
-   "art": "in_stream_desk",
-   "x": 117,
-   "y": 44,
-   "fx": 2,
-   "fy": 0,
-   "wx": 2,
-   "wy": 1,
-   "key": 36,
-   "decal": false
-  },
-  {
-   "art": "in_gaming_chair",
-   "x": 117,
-   "y": 58,
-   "fx": 3,
-   "fy": 1,
-   "wx": 1,
-   "wy": 1,
-   "key": 46,
-   "decal": false
-  },
-  {
-   "art": "in_snacks",
-   "x": 132,
-   "y": 105,
-   "fx": 5,
-   "fy": 2,
-   "wx": 1,
-   "wy": 1,
-   "key": 76,
-   "decal": false
-  }
- ]
+ "sprites": []
 }

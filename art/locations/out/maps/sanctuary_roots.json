@@ -1,72 +1,16 @@
 {
  "origin": {
-  "x": 116,
-  "y": 76
+  "x": 149.0,
+  "y": 94.0
  },
  "tile": {
-  "w": 32,
+  "w": 40,
   "h": 16,
   "z": 16
  },
  "size": {
-  "w": 280,
-  "h": 208
+  "w": 320,
+  "h": 230
  },
- "sprites": [
-  {
-   "art": "in_pillar",
-   "x": 117,
-   "y": 19,
-   "fx": 0,
-   "fy": 0,
-   "wx": 1,
-   "wy": 1,
-   "key": 6,
-   "decal": false
-  },
-  {
-   "art": "in_roots",
-   "x": 116,
-   "y": 60,
-   "fx": 2,
-   "fy": 1,
-   "wx": 2,
-   "wy": 2,
-   "key": 56,
-   "decal": false
-  },
-  {
-   "art": "in_keeper_bench",
-   "x": 66,
-   "y": 95,
-   "fx": 1,
-   "fy": 4,
-   "wx": 1,
-   "wy": 1,
-   "key": 56,
-   "decal": false
-  },
-  {
-   "art": "in_keeper_bench",
-   "x": 194,
-   "y": 111,
-   "fx": 6,
-   "fy": 1,
-   "wx": 1,
-   "wy": 1,
-   "key": 76,
-   "decal": false
-  },
-  {
-   "art": "in_pool",
-   "x": 133,
-   "y": 124,
-   "fx": 5,
-   "fy": 3,
-   "wx": 2,
-   "wy": 2,
-   "key": 106,
-   "decal": false
-  }
- ]
+ "sprites": []
 }

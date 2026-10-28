@@ -63,7 +63,7 @@
       "talk": "dani_mama",
       "home": {
         "map": "dani_house",
-        "x": 2,
+        "x": 4,
         "y": 2,
         "dir": "down"
       }

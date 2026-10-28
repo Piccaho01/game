@@ -1,72 +1,16 @@
 {
  "origin": {
-  "x": 100,
-  "y": 68
+  "x": 144.0,
+  "y": 93.0
  },
  "tile": {
-  "w": 32,
+  "w": 44,
   "h": 16,
   "z": 16
  },
  "size": {
-  "w": 248,
-  "h": 184
+  "w": 329,
+  "h": 216
  },
- "sprites": [
-  {
-   "art": "in_studio_desk",
-   "x": 101,
-   "y": 30,
-   "fx": 0,
-   "fy": 0,
-   "wx": 2,
-   "wy": 1,
-   "key": 16,
-   "decal": false
-  },
-  {
-   "art": "in_shelf_bottle",
-   "x": 62,
-   "y": 39,
-   "fx": 0,
-   "fy": 2,
-   "wx": 1,
-   "wy": 1,
-   "key": 26,
-   "decal": false
-  },
-  {
-   "art": "in_plant",
-   "x": 37,
-   "y": 67,
-   "fx": 0,
-   "fy": 4,
-   "wx": 1,
-   "wy": 1,
-   "key": 46,
-   "decal": false
-  },
-  {
-   "art": "in_tv_console",
-   "x": 192,
-   "y": 76,
-   "fx": 6,
-   "fy": 0,
-   "wx": 1,
-   "wy": 1,
-   "key": 66,
-   "decal": false
-  },
-  {
-   "art": "in_couch",
-   "x": 117,
-   "y": 91,
-   "fx": 4,
-   "fy": 3,
-   "wx": 2,
-   "wy": 1,
-   "key": 86,
-   "decal": false
-  }
- ]
+ "sprites": []
 }

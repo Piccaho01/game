@@ -1,73 +1,32 @@
 {
-  "_note": "Sanctuary: Root Hall (bible \u00a77 interiors). A room: art/tools/iso_map.py bakes it as a cut-away (iso_room.py). Written by art/tools/interiors_layout.py: edit there.",
+  "_note": "Sanctuary: Root Hall (bible §7 interiors): the owner's concept is the room, by art/tools/room_concept.py from art/tools/rooms.json. Edit there.",
   "id": "sanctuary_roots",
   "name": "Sanctuary: Root Hall",
   "legend": {
     ".": "floor",
-    "m": "mat"
+    "m": "mat",
+    "x": "ruin"
   },
   "rows": [
-    "........",
-    "........",
-    "........",
-    "........",
-    "........",
-    "........",
-    "...m...."
+    "xxxxxx.",
+    ".......",
+    "..xx...",
+    "xxxx...",
+    "x.x....",
+    ".......",
+    ".......",
+    "...m..."
   ],
   "spawn": {
     "x": 3,
-    "y": 6
-  },
-  "interior": {
-    "floor": "stone",
-    "floorColor": "#86907a",
-    "wall": "cave",
-    "wallH": 48,
-    "doors": [
-      [
-        "r",
-        6,
-        "sealed"
-      ]
-    ],
-    "decor": [
-      [
-        "l",
-        0,
-        "roots",
-        3
-      ],
-      [
-        "r",
-        1,
-        "roots",
-        2
-      ],
-      [
-        "l",
-        4,
-        "screen"
-      ],
-      [
-        "r",
-        4,
-        "screen"
-      ],
-      [
-        "l",
-        5,
-        "roots",
-        2
-      ]
-    ]
+    "y": 7
   },
   "warps": [
     {
       "x": 3,
-      "y": 7,
+      "y": 8,
       "to": "sanctuary_hall",
-      "tx": 2,
+      "tx": 1,
       "ty": 0,
       "dir": "down",
       "enter": "down"
@@ -75,55 +34,80 @@
   ],
   "signs": [
     {
+      "x": 2,
+      "y": 0,
+      "talk": "roots_roots"
+    },
+    {
+      "x": 3,
+      "y": 0,
+      "talk": "roots_roots"
+    },
+    {
+      "x": 2,
+      "y": 3,
+      "talk": "roots_pool"
+    },
+    {
+      "x": 3,
+      "y": 3,
+      "talk": "roots_pool"
+    },
+    {
+      "x": 2,
+      "y": 4,
+      "talk": "roots_pool"
+    },
+    {
+      "x": 3,
+      "y": 2,
+      "talk": "roots_pool"
+    },
+    {
+      "x": 1,
+      "y": 3,
+      "talk": "roots_pool"
+    },
+    {
+      "x": 2,
+      "y": 2,
+      "talk": "roots_pool"
+    },
+    {
+      "x": 0,
+      "y": 4,
+      "text": "A keepers' bench, worn smooth. Someone sat here a long time, waiting for the sanctuary to wake up."
+    },
+    {
+      "x": 4,
+      "y": 0,
+      "text": "A keepers' bench, worn smooth. Someone sat here a long time, waiting for the sanctuary to wake up."
+    },
+    {
       "x": 6,
       "y": -1,
       "talk": "sanctuary_sealed_deep"
     }
   ],
   "npcs": [],
-  "objects": [
-    {
-      "kind": "in_roots",
-      "x": 2,
-      "y": 1
-    },
-    {
-      "kind": "in_pool",
-      "x": 5,
-      "y": 3
-    },
-    {
-      "kind": "in_keeper_bench",
-      "x": 1,
-      "y": 4
-    },
-    {
-      "kind": "in_keeper_bench",
-      "x": 6,
-      "y": 1
-    },
-    {
-      "kind": "in_pillar",
-      "x": 0,
-      "y": 0
-    }
-  ],
+  "objects": [],
   "roam": [
     {
       "x": 1,
+      "y": 5
+    },
+    {
+      "x": 5,
       "y": 2
     },
     {
-      "x": 4,
-      "y": 4
-    },
-    {
-      "x": 7,
-      "y": 3
+      "x": 5,
+      "y": 5
     },
     {
       "x": 2,
-      "y": 5
+      "y": 6
     }
-  ]
+  ],
+  "concept": "root_hall"
 }

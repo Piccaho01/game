@@ -1,61 +1,16 @@
 {
  "origin": {
-  "x": 100,
-  "y": 72
+  "x": 151.0,
+  "y": 90.0
  },
  "tile": {
-  "w": 32,
+  "w": 40,
   "h": 16,
   "z": 16
  },
  "size": {
-  "w": 248,
-  "h": 188
+  "w": 320,
+  "h": 225
  },
- "sprites": [
-  {
-   "art": "in_cradle",
-   "x": 70,
-   "y": 20,
-   "fx": 0,
-   "fy": 0,
-   "wx": 2,
-   "wy": 2,
-   "key": 26,
-   "decal": false
-  },
-  {
-   "art": "in_workbench",
-   "x": 146,
-   "y": 69,
-   "fx": 3,
-   "fy": 0,
-   "wx": 2,
-   "wy": 1,
-   "key": 46,
-   "decal": false
-  },
-  {
-   "art": "in_panels",
-   "x": 179,
-   "y": 90,
-   "fx": 6,
-   "fy": 1,
-   "wx": 1,
-   "wy": 1,
-   "key": 76,
-   "decal": false
-  },
-  {
-   "art": "in_panels",
-   "x": 147,
-   "y": 106,
-   "fx": 6,
-   "fy": 3,
-   "wx": 1,
-   "wy": 1,
-   "key": 96,
-   "decal": false
-  }
- ]
+ "sprites": []
 }
