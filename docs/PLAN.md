@@ -21,7 +21,7 @@ Rules that keep it efficient:
 - [x] M3 Core loop (pick a leader and starter → wild battle → seal → team/sanctuary → bestiary stages and sanctuary points, leader assists, switching, saved in the browser)
 - [ ] M4 Characters + world slice (in progress: Hollow Rest isometric with the owner's terrain/props and pixel-art walk sprites on `claude/m4-polish`; left: story intro, Route 1 isometric, townsfolk)
 - [ ] M4b The squad, the base, the story (three tracks, see below; story done, PR #21)
-- [ ] M4 wrap-up (branch `claude/kind-bell-uvy1u4`): the World and Systems tracks are merged onto `main` there (tests, build, e2e green). Waiting on the owner: the drafts in `art/prompts/m4_wrapup.md` (7 rooms + piece sheets, 5 townsfolk sheets with standing frames); then they replace the placeholders, screenshot sheet, PR.
+- [ ] M4 wrap-up (branch `claude/kind-bell-uvy1u4`): the World and Systems tracks are merged onto `main` there (tests, build, e2e green). Waiting on the owner: the drafts in `art/prompts/m4_wrapup.md` (7 rooms + piece sheets; the 5 townsfolk are in); then they replace the placeholders, screenshot sheet, PR.
 - [ ] M5 Playtest build
 - [ ] After the slice: evolutions, Connor, more of Verrow
 

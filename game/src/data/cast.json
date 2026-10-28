@@ -3,7 +3,7 @@
   "people": {
     "elder": {
       "name": "LeBron",
-      "sprite": "placeholder:#7a6a58",
+      "sprite": "elder",
       "talk": "elder",
       "home": {
         "map": "hollow_rest",
@@ -26,7 +26,7 @@
     },
     "neighbour": {
       "name": "Neighbour",
-      "sprite": "placeholder:#c8a040",
+      "sprite": "neighbour",
       "talk": "neighbour",
       "home": {
         "map": "hollow_rest",
@@ -37,7 +37,7 @@
     },
     "parker": {
       "name": "Parker Colt",
-      "sprite": "placeholder:#e07050",
+      "sprite": "parker",
       "talk": "parker",
       "home": {
         "map": "hollow_rest",
@@ -48,7 +48,7 @@
     },
     "nolan_dad": {
       "name": "Nolan's dad",
-      "sprite": "placeholder:#6a7a8a",
+      "sprite": "nolan_dad",
       "talk": "nolan_dad",
       "home": {
         "map": "nolan_house",
@@ -59,7 +59,7 @@
     },
     "dani_mama": {
       "name": "Dani's mamá",
-      "sprite": "placeholder:#d07890",
+      "sprite": "dani_mama",
       "talk": "dani_mama",
       "home": {
         "map": "dani_house",
