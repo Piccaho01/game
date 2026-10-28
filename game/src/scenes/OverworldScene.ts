@@ -16,7 +16,7 @@ import { sfx } from '../ui/sfx';
 import { DialogBox } from '../ui/dialog';
 import { followKey, frontKey, groundKey, propKey, standKey, walkKey } from './BootScene';
 import { playCutscene } from './CutsceneScene';
-import { buttonPagePoint, faceIcon, hinge, isoPad, listRow, monIcon, roundButton, screenBackdrop, tapeLabel } from '../ui/kit';
+import { button, buttonPagePoint, faceIcon, hinge, isoPad, listRow, monIcon, roundButton, screenBackdrop, tapeLabel } from '../ui/kit';
 import { hexToNum, shade, TONES } from '../ui/theme';
 import { tweenAsync, wait } from '../ui/widgets';
 
@@ -316,7 +316,7 @@ export class OverworldScene extends Phaser.Scene {
 
   /** Who leads (face card), SWITCH (with the next friend's face) and JOURNAL (with the lead Patchling). */
   private drawLeaderUi() {
-    for (const n of ['leader-tape', 'switch', 'journal']) this.ui.getByName(n)?.destroy();
+    for (const n of ['leader-tape', 'switch', 'journal', 'settings']) this.ui.getByName(n)?.destroy();
     const id = this.progress.leader;
     const leader = CHARACTERS[id];
     const nextId = SQUAD[(SQUAD.indexOf(id) + 1) % SQUAD.length];
@@ -333,6 +333,8 @@ export class OverworldScene extends Phaser.Scene {
       title: 'JOURNAL', sub: 'Team & bag', color: TONES.seal, icon: lead ? monIcon(frontKey(lead.species)) : { text: 'J' },
       onTap: () => this.openJournal(), name: 'journal',
     }));
+    // Squad or solo (and anything else that's a preference) lives on the Journal's OPTIONS tab.
+    this.ui.add(button(this, 30, 178, 52, 18, 'SETTINGS', TONES.neutral, () => this.openJournal('options'), { name: 'settings' }));
   }
 
   private setupKeys() {
@@ -652,9 +654,9 @@ export class OverworldScene extends Phaser.Scene {
     this.tweens.add({ targets: this.player, y: this.player.y - 4, duration: 70, yoyo: true });
   }
 
-  private openJournal() {
+  private openJournal(tab?: 'options') {
     if (this.moving || this.busy) return;
-    this.scene.start('journal', { from: 'overworld' });
+    this.scene.start('journal', { from: 'overworld', tab });
   }
 
   // ---------- story (Track B hook: engine/story.ts, scenes/CutsceneScene.ts) ----------
