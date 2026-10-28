@@ -650,14 +650,162 @@
       }
     ]
   },
-  "route1_crt_stone": {
+  "route1_bridge_broken": {
     "lines": [
       {
-        "text": "An old stone with a screen set in it, like the ones at the sanctuary. It flickers when you get close."
+        "text": "The bridge over the stream has no middle planks. A cable hangs there, sparking."
+      },
+      {
+        "text": "A Tally sign: BRIDGE REPAIR SCHEDULED. A ticket under it: RAIN CHECK."
+      },
+      {
+        "who": "Haydon",
+        "text": "Scheduled for when. The heat death of the universe?"
+      },
+      {
+        "who": "Dani",
+        "text": "Is okay. I jump. ...No. I don't jump."
+      }
+    ]
+  },
+  "route1_bridge_fixed": {
+    "lines": [
+      {
+        "who": "Haydon",
+        "text": "Bro fixed a bridge with an aux cord."
       },
       {
         "who": "Nolan",
-        "text": "It's on. Barely. Like PATCH before coffee."
+        "text": "It's a patch cable. Show some respect."
+      }
+    ],
+    "byLeader": {
+      "nolan": [
+        {
+          "who": "Callum",
+          "text": "Nolan, the Tally's had this on the schedule for months. You took four minutes."
+        },
+        {
+          "who": "Nolan",
+          "text": "Four minutes, one cable. Put it on my resume."
+        }
+      ]
+    }
+  },
+  "route1_officer": {
+    "lines": [
+      {
+        "who": "Tally Officer",
+        "text": "Halt. Salvage zone. Licensed staff only."
+      },
+      {
+        "who": "Tally Officer",
+        "text": "Licence office hours have been rescheduled. Indefinitely."
+      },
+      {
+        "who": "Tally Officer",
+        "text": "Fill in Form 27-B. I have never seen one finished."
+      },
+      {
+        "who": "Callum",
+        "text": "So nobody is licensed. Including you."
+      }
+    ],
+    "byLeader": {
+      "dani": [
+        {
+          "who": "Tally Officer",
+          "text": "Halt. Salvage zone. Licensed staff only."
+        },
+        {
+          "who": "Dani",
+          "text": "Hello, friend! We are only walking. Very slow."
+        },
+        {
+          "who": "Tally Officer",
+          "text": "Form 27-B. Office hours rescheduled."
+        },
+        {
+          "who": "Dani",
+          "text": "I fill the form! ...What is a form?"
+        }
+      ]
+    }
+  },
+  "route1_officer_gone": {
+    "lines": [
+      {
+        "text": "The officer is long gone, still yelling about paperwork. The stairs are clear."
+      },
+      {
+        "who": "Haydon",
+        "text": "Dude chased me for two minutes. Never left his clipboard."
+      },
+      {
+        "who": "Nolan",
+        "text": "He dropped his stash. Confiscated rain checks. From us."
+      }
+    ],
+    "byLeader": {
+      "haydon": [
+        {
+          "text": "The officer is long gone, still yelling about paperwork. The stairs are clear."
+        },
+        {
+          "who": "Haydon",
+          "text": "Easy. Man got out-argued by a guy in a hoodie."
+        },
+        {
+          "who": "Nolan",
+          "text": "He dropped the confiscated rain checks. Cardio and loot."
+        }
+      ]
+    }
+  },
+  "route1_stone_read": {
+    "lines": [
+      {
+        "text": "KEEPERS' RELAY 1/4. SANCTUARY SIGNAL: WEAK. AWAITING REPLY."
+      },
+      {
+        "text": "Below it, in tiny letters: FONT: DRAFT_01 (SCRAPPED)."
+      },
+      {
+        "who": "Callum",
+        "text": "That's PATCH's first-draft font. The keepers used his scrapped drafts."
+      },
+      {
+        "who": "Dani",
+        "text": "So PATCH wrote the old people's letters? Is weird, bro."
+      }
+    ],
+    "byLeader": {
+      "callum": [
+        {
+          "text": "KEEPERS' RELAY 1/4. SANCTUARY SIGNAL: WEAK. AWAITING REPLY."
+        },
+        {
+          "text": "Below it, in tiny letters: FONT: DRAFT_01 (SCRAPPED)."
+        },
+        {
+          "who": "Callum",
+          "text": "Draft 01. That's PATCH's very first font. I'd know it anywhere."
+        },
+        {
+          "who": "Nolan",
+          "text": "Ask him. He'll just say he's working on a fix."
+        }
+      ]
+    }
+  },
+  "route1_crt_stone": {
+    "lines": [
+      {
+        "text": "The screen reads KEEPERS' RELAY 1/4. One bar of signal, flickering."
+      },
+      {
+        "who": "Nolan",
+        "text": "One bar. Same as my phone at Callum's place."
       }
     ]
   },

@@ -150,7 +150,9 @@ describe('encounters', () => {
     expect(hits.length / 4000).toBeGreaterThan(0.09);
     expect(hits.length / 4000).toBeLessThan(0.15);
     expect(new Set(hits.map((h) => h.species))).toEqual(new Set(['orbitot', 'fledjet']));
-    expect(hits.every((h) => h.level >= 3 && h.level <= 5)).toBe(true);
+    const [lo, hi] = MAPS.route1.encounters!.levels;
+    expect(hits.every((h) => h.level >= lo && h.level <= hi)).toBe(true);
+    expect(new Set(hits.map((h) => h.level)).size).toBe(hi - lo + 1);
   });
 
   it('a map without an encounter table never rolls one', () => {

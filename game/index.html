@@ -7,7 +7,9 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <title>Patchlings</title>
     <style>
-      html, body { margin: 0; height: 100%; background: #101018; overflow: hidden; touch-action: none; }
+      html, body { margin: 0; height: 100%; background: #101018; overflow: hidden; touch-action: none; overscroll-behavior: none; }
+      /* No long-press menus, text selection or grey tap flashes on phones. */
+      body { -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; -webkit-tap-highlight-color: transparent; }
       #game { position: fixed; inset: 0; }
       canvas { image-rendering: pixelated; }
     </style>

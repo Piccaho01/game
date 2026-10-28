@@ -23,7 +23,7 @@ Rules that keep it efficient:
 - [x] M4b The squad, the base, the story (story PR #21; squad, world and systems in the M4 wrap-up)
 - [x] M4 wrap-up (branch `claude/kind-bell-uvy1u4`): World and Systems tracks merged; townsfolk from the owner's sheets; all seven rooms are the owner's concepts (`art/tools/room_concept.py` + `rooms.json`); new jokes (LeBron, Parker Colt, Strikes, Dani's mamá on the phone).
   **Handoff:** next is M5 (playtest build). Carried over, not blocking: Connor's battle/walk sprites (with his first boss fight), trainer battle portraits for the four, NPCs only have a front pose, the boulder's spot in Hollow Rest is a first guess, rooms are a bit wider than the top screen (camera scrolls). Room piece sheets (`interior_*_pieces.png`) are unused, kept for edits.
-- [ ] M5 Playtest build
+- [ ] M5 Playtest build (branch `claude/peaceful-darwin-3db5u5`): field moves for all four, balance pass, phone fixes done; **left: share the link with the group, one round of fixes from their feedback.** See "M5 handoff".
 - [ ] After the slice: evolutions, Connor, more of Verrow
 
 ## M1 Foundation (code)
@@ -331,6 +331,35 @@ sanctuary, overworld touch screen, fight/team menus), seal scrolls as items.
   you switch to every friend. Also check the boulder's spot in Hollow Rest.
 - Bug pass on phones (iOS Safari, Android Chrome), balance pass, the link shared with the
   group, one round of fixes from their feedback.
+
+### M5 handoff (read this first)
+**Done (this session):**
+- Route 1 now makes you switch to every friend (`data/obstacles.json`): **Nolan** patches the broken
+  bridge (13,9) that cuts off the east bank; **Haydon** taunts the Tally officer off the stairs down
+  to the checkpoint (18,8; drops 2 Rain Check Scrolls); **Callum** scans the Relic writing on the CRT
+  stone (2,8; KEEPERS' RELAY 1/4, 2 Echo Scrolls). Dani's boulder in Hollow Rest checked: on the
+  grass by the sunflowers, reachable, left as is. Lines in `data/world_dialogue.json` (`route1_*`).
+- Engine: obstacles can be a person (`sprite`, `dir`, `leaves`), stand in for a map piece
+  (`replaces`: the broken bridge swaps for the whole one), or be the object on the tile (`onObject`);
+  `blockedTalk`/`clearTalk` dialogue; each kind clears its own way (roll, storm off, sparks, scan).
+  Broken bridge art: `art/tools/broken_bridge.py` (from the owner's bridge).
+- Balance (headless sim: `BALANCE=1 BALANCE_OUT=/tmp/b.txt npx vitest run
+  tests/balance.report.test.ts` in `game/`): Spark -> Rock 0 -> 0.5 (Zapail could not hurt Orbitot at all); Route 1 wilds
+  3-5 -> 3-6 (starters are level 8; fights took 1-2 turns); experience divisor /7 -> /5 (BW's own;
+  level 10 in ~10 wins instead of ~15). Wilds learn their signatures at 8, which is why 7+ is too
+  much for Route 1. Gobbin is still the strongest starter (Water and Dark both hit Orbitot hard).
+- Phones: the D-pad lets go when the phone cancels a touch (system swipe, call, app switch); sound
+  comes back after the phone locks or the tab is hidden (iOS suspends it); no long-press menus,
+  text selection or tap flashes.
+
+**Next:** the owner shares the live link (merge to `main` deploys it) with the group; collect
+their feedback in one list; one session fixes it. Real-device checks still owed: iOS Safari and
+Android Chrome (only Chromium phone emulation was tested here).
+
+**Waiting on the owner:** the Tally officer sheet (`art/prompts/m5.md`); when it's in, cut his
+stand pose with `art/tools/pose2sprite.py` to `art/trainers/out/tally_officer_stand.png` and set
+the obstacle's `sprite` to `tally_officer` (it is `placeholder:#4a5468` now). The hand-drawn broken
+bridge is optional.
 
 ## After the slice
 - Evolutions (8 sprites: Cullet, Vitric, Tesnail, Gauslug, Fernaroo, Scytharoo, Gulpjaw,

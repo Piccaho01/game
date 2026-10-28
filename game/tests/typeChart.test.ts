@@ -29,7 +29,7 @@ describe('type chart', () => {
     expect(effectiveness('fire', ['plant', 'wind'])).toBe(2); // 2 x 1
     expect(effectiveness('ice', ['plant', 'wind'])).toBe(4);
     expect(effectiveness('fire', ['water', 'rock'])).toBe(0.25);
-    expect(effectiveness('spark', ['water', 'rock'])).toBe(0);
+    expect(effectiveness('spark', ['water', 'rock'])).toBe(1); // 2 x 0.5
   });
 
   it('defaults to neutral and treats typeless as neutral', () => {

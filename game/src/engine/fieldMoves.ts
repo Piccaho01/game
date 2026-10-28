@@ -9,7 +9,22 @@ import type { CharacterId, Progress } from './progress';
  */
 export type ObstacleKind = 'boulder' | 'guard' | 'broken' | 'sealed';
 export interface KindData { needs: CharacterId; move: string; blocked: string; hint: string; clear: string; shout: string }
-export interface Obstacle { id: string; map: string; x: number; y: number; kind: ObstacleKind; art?: string; reward?: { item: string; n?: number } }
+export interface Obstacle {
+  id: string; map: string; x: number; y: number; kind: ObstacleKind;
+  /** A prop drawn on the tile (art/locations/out/graded). */
+  art?: string;
+  /** A person standing there instead (an NPC sprite id: a stand pose, or `placeholder:#rrggbb`), facing `dir`. */
+  sprite?: string; dir?: 'up' | 'down' | 'left' | 'right';
+  /** Which way they go once cleared (the officer storms off down the stairs). */
+  leaves?: 'up' | 'down' | 'left' | 'right';
+  /** The art of a map piece this stands in for (the broken bridge): hidden until cleared, `art` drawn in its place. */
+  replaces?: string;
+  /** No picture of its own: it is the map object already on the tile (the CRT stone). */
+  onObject?: boolean;
+  /** Dialogue ids (dialogue.json / world_dialogue.json): said instead of the kind's `blocked` line, and after it's cleared. */
+  blockedTalk?: string; clearTalk?: string;
+  reward?: { item: string; n?: number };
+}
 
 const DATA = obstaclesJson as unknown as { kinds: Record<ObstacleKind, KindData>; obstacles: Obstacle[] };
 export const OBSTACLE_KINDS = DATA.kinds;
@@ -34,9 +49,9 @@ export function needs(o: Obstacle): CharacterId {
  * The leader tries the obstacle: cleared (saved, reward in the bag) if they have the field move,
  * otherwise the hint naming who could. Returns what happened, for the scene to show.
  */
-export function tryObstacle(p: Progress, o: Obstacle): { cleared: boolean; lines: string[]; reward?: string } {
+export function tryObstacle(p: Progress, o: Obstacle): { cleared: boolean; lines: string[]; reward?: string; talk?: string } {
   const k = DATA.kinds[o.kind];
-  if (p.leader !== k.needs) return { cleared: false, lines: [k.blocked, k.hint] };
+  if (p.leader !== k.needs) return { cleared: false, lines: o.blockedTalk ? [k.hint] : [k.blocked, k.hint], talk: o.blockedTalk };
   p.cleared = [...new Set([...(p.cleared ?? []), o.id])];
   let reward: string | undefined;
   if (o.reward) {
@@ -44,5 +59,5 @@ export function tryObstacle(p: Progress, o: Obstacle): { cleared: boolean; lines
     const n = o.reward.n ?? 1;
     reward = `Found ${n > 1 ? `${n} ` : 'a '}${ITEMS[o.reward.item].name}${n > 1 ? 's' : ''}!`;
   }
-  return { cleared: true, lines: [k.clear], reward };
+  return { cleared: true, lines: [k.clear], reward, talk: o.clearTalk };
 }

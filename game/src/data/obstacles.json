@@ -1,12 +1,91 @@
 {
-  "_note": "Field-move obstacles (bible §7 'Field moves'): each needs one friend's field move; the others can't clear it, so the player SWITCHes. Kept apart from the map files (the World track owns those): map + tile. 'art' is a prop from art/locations/out/graded (drawn on the tile). 'reward' is found when it's cleared. Kinds and their lines are in 'kinds'. Positions are first guesses; move them when maps change.",
+  "_note": "Field-move obstacles (bible §7 'Field moves'): each needs one friend's field move; the others can't clear it, so the player SWITCHes. Kept apart from the map files (the World track owns those): map + tile. 'art' is a prop from art/locations/out/graded (drawn on the tile). 'reward' is found when it's cleared. Kinds and their lines are in 'kinds'. Optional: 'sprite'/'dir'/'leaves' (a person in the way), 'replaces' (stands in for a map piece with that art, e.g. the broken bridge), 'onObject' (no picture: it is the object on the tile), 'blockedTalk'/'clearTalk' (dialogue ids said instead of 'blocked' and after clearing). Route 1 order: Nolan's bridge opens the east bank, Haydon's officer guards the stairs down to the checkpoint, Callum's stone is on the west cliff. Positions are first guesses; move them when maps change.",
   "kinds": {
-    "boulder": { "needs": "dani",   "move": "Shield",   "blocked": "A boulder blocks the way. It won't budge.", "hint": "Dani could shift this with the Shield.", "clear": "Dani put a shoulder into it. The boulder rolled clear!", "shout": "Tranquilo. I move it." },
-    "guard":   { "needs": "haydon", "move": "Taunt",    "blocked": "A Tally officer won't let anyone past.", "hint": "Haydon could bait him off his post.", "clear": "The officer stormed off after Haydon. The way is clear!", "shout": "Nah, your form is cap." },
-    "broken":  { "needs": "nolan",  "move": "Patch Up", "blocked": "It's broken. Wires everywhere.", "hint": "Nolan could patch this up.", "clear": "Nolan patched it with his cable. It works!", "shout": "Give me a sec. ...Done." },
-    "sealed":  { "needs": "callum", "move": "Scan",     "blocked": "Old Relic writing covers it. Nobody can read it.", "hint": "Callum could Scan this and read it.", "clear": "Callum scanned the writing. It opened!", "shout": "Hold on, I've seen this font." }
+    "boulder": {
+      "needs": "dani",
+      "move": "Shield",
+      "blocked": "A boulder blocks the way. It won't budge.",
+      "hint": "Dani could shift this with the Shield.",
+      "clear": "Dani put a shoulder into it. The boulder rolled clear!",
+      "shout": "Tranquilo. I move it."
+    },
+    "guard": {
+      "needs": "haydon",
+      "move": "Taunt",
+      "blocked": "A Tally officer won't let anyone past.",
+      "hint": "Haydon could bait him off his post.",
+      "clear": "The officer stormed off after Haydon. The way is clear!",
+      "shout": "Nah, your form is cap."
+    },
+    "broken": {
+      "needs": "nolan",
+      "move": "Patch Up",
+      "blocked": "It's broken. Wires everywhere.",
+      "hint": "Nolan could patch this up.",
+      "clear": "Nolan patched it with his cable. It works!",
+      "shout": "Give me a sec. ...Done."
+    },
+    "sealed": {
+      "needs": "callum",
+      "move": "Scan",
+      "blocked": "Old Relic writing covers it. Nobody can read it.",
+      "hint": "Callum could Scan this and read it.",
+      "clear": "Callum scanned the writing. It opened!",
+      "shout": "Hold on, I've seen this font."
+    }
   },
   "obstacles": [
-    { "id": "hollow_boulder", "map": "hollow_rest", "x": 7, "y": 14, "kind": "boulder", "art": "rock_l", "reward": { "item": "gilded_scroll", "n": 1 } }
+    {
+      "id": "hollow_boulder",
+      "map": "hollow_rest",
+      "x": 7,
+      "y": 14,
+      "kind": "boulder",
+      "art": "rock_l",
+      "reward": {
+        "item": "gilded_scroll",
+        "n": 1
+      }
+    },
+    {
+      "id": "route1_bridge",
+      "map": "route1",
+      "x": 13,
+      "y": 9,
+      "kind": "broken",
+      "art": "r1_bridge_broken",
+      "replaces": "r1_bridge",
+      "blockedTalk": "route1_bridge_broken",
+      "clearTalk": "route1_bridge_fixed"
+    },
+    {
+      "id": "route1_officer",
+      "map": "route1",
+      "x": 18,
+      "y": 8,
+      "kind": "guard",
+      "sprite": "placeholder:#4a5468",
+      "dir": "left",
+      "leaves": "down",
+      "blockedTalk": "route1_officer",
+      "clearTalk": "route1_officer_gone",
+      "reward": {
+        "item": "rain_check_scroll",
+        "n": 2
+      }
+    },
+    {
+      "id": "route1_stone",
+      "map": "route1",
+      "x": 2,
+      "y": 8,
+      "kind": "sealed",
+      "onObject": true,
+      "clearTalk": "route1_stone_read",
+      "reward": {
+        "item": "echo_scroll",
+        "n": 2
+      }
+    }
   ]
 }
