@@ -376,7 +376,7 @@ bridge is optional.
 ### M6 handoff (read this first)
 **Built (branch `claude/m6-game-shell`):**
 - **Title** (`scenes/TitleScene.ts`): Hollow Rest backdrop, the four and PATCH under a taped logo
-  (the owner named the game **Project Patch**: a small PROJECT over a big PATCH), TAP TO START, then
+  (the owner named the game **Project Patch**; the top screen is the owner's PATCH leaning on a runestone, `art/concepts/title/patch_runestone.png` via `art/tools/title_art.py`, with the name carved in code and the four cut at 64 px in front of him), TAP TO START, then
   CONTINUE (leader, points, seen) / NEW GAME (asks before erasing a save) / SETTINGS.
   Boot shows it first; test shortcuts (`?foe ?player ?skipintro ?story ?evolve`) and automated
   browsers (`navigator.webdriver`) skip it, `?title` forces it.

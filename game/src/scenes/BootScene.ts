@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import { BATTLE_BGS, FOLLOW_FRAME, FOLLOW_SHEETS, ITEM_ICONS, MAP_ART, PROP_ART, SPRITES, STANDS, TRAINER_BATTLE, WALK_FRAME, WALK_SHEETS, type SpriteAsset } from '../assets';
+import { TITLE_ART, BATTLE_BGS, FOLLOW_FRAME, FOLLOW_SHEETS, ITEM_ICONS, MAP_ART, PROP_ART, SPRITES, STANDS, TRAINER_BATTLE, WALK_FRAME, WALK_SHEETS, type SpriteAsset } from '../assets';
 import { SPECIES, TYPES } from '../engine/data';
 import { newProgress } from '../engine/progress';
 import { ITEMS } from '../engine/items';
@@ -26,6 +26,8 @@ export const trainerKey = (id: string) => `trainer:${id}`;
 export const followKey = (species: string) => `follow:${species}`;
 /** An item's icon, drawn at boot (a rolled scroll in the item's colour). */
 export const itemKey = (id: string) => `item:${id}`;
+/** Title screen art (TITLE_ART). */
+export const titleKey = (id: string) => `title:${id}`;
 
 export class BootScene extends Phaser.Scene {
   constructor() { super('boot'); }
@@ -45,6 +47,7 @@ export class BootScene extends Phaser.Scene {
     for (const [id, url] of Object.entries(PROP_ART)) this.load.image(propKey(id), url);
     for (const [id, url] of Object.entries(BATTLE_BGS)) this.load.image(battleBgKey(id), url);
     for (const [id, url] of Object.entries(TRAINER_BATTLE)) this.load.image(trainerKey(id), url);
+    for (const [id, url] of Object.entries(TITLE_ART)) this.load.image(titleKey(id), url);
     for (const [id, url] of Object.entries(FOLLOW_SHEETS)) this.load.spritesheet(followKey(id), url, { frameWidth: FOLLOW_FRAME, frameHeight: FOLLOW_FRAME });
   }
 

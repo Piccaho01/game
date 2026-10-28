@@ -4,12 +4,12 @@ import { SPECIES } from '../engine/data';
 import { MAPS, START } from '../engine/overworld';
 import { CHARACTERS, SQUAD, stageOf, type Progress } from '../engine/progress';
 import { clearProgress } from '../save';
-import { button, buttonPagePoint, faceIcon, hinge, listRow, pxRect, screenBackdrop, stitches } from '../ui/kit';
+import { button, buttonPagePoint, faceIcon, hinge, listRow, screenBackdrop } from '../ui/kit';
 import { settingsPanel, speedPreview } from '../ui/settingsPanel';
 import { sfx } from '../ui/sfx';
 import { pixelText } from '../ui/text';
 import { COLORS, hexToNum, shade, TEXT_COLORS, TEXT_SIZE, TONES } from '../ui/theme';
-import { battleBgKey, standKey, trainerKey, walkKey } from './BootScene';
+import { battleBgKey, titleKey, walkKey } from './BootScene';
 
 /** The game's name (owner's pick, 2026-10-28): a small PROJECT over a big PATCH on the logo. */
 export const GAME_TITLE = 'Project Patch';
@@ -49,38 +49,51 @@ export class TitleScene extends Phaser.Scene {
     };
   }
 
-  /** Hollow Rest at golden hour, the logo, and the squad lined up with PATCH in the middle. */
+  /** Hollow Rest at golden hour, PATCH on the title runestone, the squad in front of him. */
   private drawTop() {
     if (this.textures.exists(battleBgKey('hollow_rest'))) this.add.image(0, 0, battleBgKey('hollow_rest')).setOrigin(0, 0);
     const g = this.add.graphics();
     g.fillStyle(0x0d0e1a, 0.35).fillRect(0, 0, SCREEN_W, SCREEN_H);
     g.fillStyle(0x0d0e1a, 0.45).fillRect(0, SCREEN_H - 20, SCREEN_W, 20);
-    if (this.textures.exists(standKey('patch'))) {
-      // PATCH towers over them (bible §6: about three times their height), feet behind the group.
-      const patch = this.add.image(196, SCREEN_H + 8, standKey('patch')).setOrigin(0.5, 1).setScale(3);
-      this.tweens.add({ targets: patch, y: patch.y - 2, duration: 1600, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
-    }
-    const xs = [26, 76, 136, 220];
+    // PATCH leaning on the runestone (the owner's art), the name carved in its panel, his
+    // shoulder vent still smoking; the four stand in front of his legs, a third of his height.
+    const art = this.add.container(4, 0);
+    art.add(this.add.image(0, SCREEN_H + 20, titleKey('patch_runestone')).setOrigin(0, 1));
+    this.carveTitle(art, 59, 127);
+    this.tweens.add({ targets: art, y: -1, duration: 1800, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
+    this.time.addEvent({ delay: 520, loop: true, callback: () => this.puff(art.x + 92, art.y + 18) });
+    const xs = [136, 168, 200, 232];
     SQUAD.forEach((id, i) => {
-      const key = this.textures.exists(trainerKey(id)) ? trainerKey(id) : walkKey(id);
-      const img = this.add.image(xs[i], SCREEN_H - 4, key, key === walkKey(id) ? 0 : undefined).setOrigin(0.5, 1).setFlipX(i >= 2);
-      // Whole-pixel sizes only, so no pixels get dropped.
-      if (key === walkKey(id)) img.setScale(2);
+      const key = this.textures.exists(titleKey(id)) ? titleKey(id) : walkKey(id);
+      this.add.image(xs[i], SCREEN_H - 3, key, key === walkKey(id) ? 0 : undefined).setOrigin(0.5, 1).setFlipX(i >= 2);
     });
-    // The logo: a cream plate, taped and stitched, with the name in rust over ink.
-    const plate = this.add.container(76, 40);
-    const p = this.add.graphics();
-    pxRect(p, -72, -30, 144, 60, COLORS.ink, 5);
-    pxRect(p, -70, -28, 140, 56, COLORS.paper, 4);
-    p.fillStyle(COLORS.paperShade).fillRect(-68, 22, 136, 4);
-    stitches(p, -66, -24, 132, 48, COLORS.stitch);
-    p.fillStyle(COLORS.tape, 0.95).fillRect(-76, -32, 22, 8).fillRect(56, 24, 22, 8);
-    plate.add(p);
-    plate.add(pixelText(this, 0, -15, 'PROJECT', { color: TEXT_COLORS.inkSoft, size: TEXT_SIZE.heading, display: true }).setOrigin(0.5));
-    plate.add(pixelText(this, 1.5, 3.5, 'PATCH', { color: TEXT_COLORS.ink, size: 24, display: true }).setOrigin(0.5));
-    plate.add(pixelText(this, 0, 2, 'PATCH', { color: TEXT_COLORS.rust, size: 24, display: true }).setOrigin(0.5));
-    plate.add(pixelText(this, 0, 19, 'a world nobody wrote on purpose', { color: TEXT_COLORS.inkSoft, size: 4 }).setOrigin(0.5));
-    this.tweens.add({ targets: plate, angle: { from: -1.2, to: 1.2 }, duration: 2600, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
+  }
+
+  /** PROJECT PATCH cut into the stone's blank panel: dark grooves, a pale lower lip, a faint rune glow. */
+  private carveTitle(into: Phaser.GameObjects.Container, cx: number, cy: number) {
+    const line = (text: string, y: number, size: number) => {
+      // A blue halo (the runes' glow) round dark grooves with a pale lower lip.
+      const halo = this.add.container(0, 0).setAlpha(0.5);
+      for (const [dx, dy] of [[-1, 0], [1, 0], [0, -1], [0, 1]]) {
+        halo.add(pixelText(this, cx + dx, y + dy, text, { color: '#7fd0ff', size, display: true }).setOrigin(0.5));
+      }
+      this.tweens.add({ targets: halo, alpha: 1, duration: 1400, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
+      const lip = pixelText(this, cx, y + 1, text, { color: '#d8d4cc', size, display: true }).setOrigin(0.5);
+      const cut = pixelText(this, cx, y, text, { color: '#1f2029', size, display: true }).setOrigin(0.5);
+      into.add([halo, lip, cut]);
+    };
+    line('PROJECT', cy - 14, 6);
+    line('PATCH', cy + 2, 9);
+    const g = this.add.graphics();
+    g.fillStyle(0x3a3c48).fillRect(cx - 16, cy + 14, 32, 1).fillRect(cx - 16, cy - 25, 32, 1);
+    g.fillStyle(0xb9b6b0).fillRect(cx - 16, cy + 15, 32, 1).fillRect(cx - 16, cy - 24, 32, 1);
+    into.add(g);
+  }
+
+  /** A grey puff rising off PATCH's scorched shoulder vent. */
+  private puff(x: number, y: number) {
+    const s = this.add.rectangle(x + Phaser.Math.Between(-1, 1), y, 3, 3, 0xc8c8cc, 0.8);
+    this.tweens.add({ targets: s, y: y - 18, x: s.x + Phaser.Math.Between(-4, 3), scale: 2, alpha: 0, duration: 1600, ease: 'Sine.easeOut', onComplete: () => s.destroy() });
   }
 
   private show(v: View) {

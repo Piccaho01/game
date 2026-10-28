@@ -18,7 +18,9 @@ BOXES = {
 TARGET_H = 96
 
 
-def cut(path, box):
+def cut(path, box, holes=0):
+    """`holes`: also drop enclosed white areas of at least this many source pixels (a gap between
+    an arm and the body that the edge flood can't reach)."""
     a = np.asarray(Image.open(path).convert('RGB').crop(box)).astype(int)
     h, w = a.shape[:2]
     white = a.min(2) > 225
@@ -33,6 +35,24 @@ def cut(path, box):
             if 0 <= ny < h and 0 <= nx < w and white[ny, nx] and not bg[ny, nx]:
                 bg[ny, nx] = True
                 q.append((ny, nx))
+    if holes:
+        seen = bg.copy()
+        for sy, sx in zip(*np.where(white & ~bg)):
+            if seen[sy, sx]:
+                continue
+            comp, q = [], deque([(sy, sx)])
+            seen[sy, sx] = True
+            while q:
+                y, x = q.popleft()
+                comp.append((y, x))
+                for dy, dx in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+                    ny, nx = y + dy, x + dx
+                    if 0 <= ny < h and 0 <= nx < w and white[ny, nx] and not seen[ny, nx]:
+                        seen[ny, nx] = True
+                        q.append((ny, nx))
+            if len(comp) >= holes:
+                for y, x in comp:
+                    bg[y, x] = True
     # Keep the biggest figure only: drop slivers of the neighbouring illustration at the box edges.
     label = np.zeros((h, w), int)
     sizes = {}
