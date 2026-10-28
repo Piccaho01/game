@@ -7,9 +7,10 @@ How it works:
 - The concept's floor corners (left, front, right; the back one follows) are found from the room's
   silhouette minus the floor slab's thickness `t`; an affine map puts them on the game grid's corners.
   The concept's projection is flatter than 2:1, so each room keeps its own tile size (layout.tile).
+- `scale`: per-room size on top of SCALE, for concepts drawn bigger than the rest.
 - Furniture stays painted. Its tiles are solid ('x'); what you can use is a sign on that tile
-  (talk/text/opens/rest). People always draw over the room, so no walkable tile is left behind a
-  tall front piece.
+  (talk/text/opens/rest). People always draw over the room, so no walkable tile is left where
+  someone's feet would land on a piece (check with a feet overlay before changing `solid`).
 - `cutout`: a piece that comes and goes (the rubble in the sanctuary's arch): painted out of the
   room (filled from `fill` boxes) and kept as its own sprite with `until`.
 - `paint`: small additions in game space (a doorway the concept doesn't have).
@@ -29,9 +30,9 @@ from iso_kit import reduce, sharpen  # noqa: E402
 GAME = os.path.join(HERE, '..', '..', 'game', 'src', 'data')
 CONCEPTS = os.path.join(HERE, '..', 'concepts', 'locations')
 OUT = os.path.join(HERE, '..', 'locations', 'out')
-SCALE = 1 / 5          # concept px -> game px
-TILE_W = 42            # target tile width in game px (the count of tiles follows from it)
-BACKDROP = (33, 23, 23, 255)
+SCALE = 1 / 8          # concept px -> game px (rooms at the friends' scale: a bookshelf about one person tall)
+TILE_W = 28            # target tile width in game px (the count of tiles follows from it)
+BACKDROP = (0, 0, 0, 0)       # transparent: the room floats on the screen's own background
 
 ROOMS = json.load(open(os.path.join(HERE, 'rooms.json')))
 
@@ -61,10 +62,11 @@ def build(room, grid=False):
     for k, d in cfg.get('nudge', {}).items():
         {'left': lc, 'front': fc, 'right': rc}[k] += np.array(d, float)
     bk = lc + rc - fc
-    nx = cfg.get('nx') or max(3, round((rc[0] - bk[0]) * SCALE * 2 / TILE_W))
-    ny = cfg.get('ny') or max(3, round((bk[0] - lc[0]) * SCALE * 2 / TILE_W))
-    w = 2 * round(((rc[0] - bk[0]) / nx + (bk[0] - lc[0]) / ny) / 2 * SCALE)
-    h = round(((rc[1] - bk[1]) / nx + (lc[1] - bk[1]) / ny) / 2 * SCALE * 2)
+    scale = SCALE * cfg.get('scale', 1)   # per room: some concepts are drawn bigger than others
+    nx = cfg.get('nx') or max(3, round((rc[0] - bk[0]) * scale * 2 / TILE_W))
+    ny = cfg.get('ny') or max(3, round((bk[0] - lc[0]) * scale * 2 / TILE_W))
+    w = 2 * round(((rc[0] - bk[0]) / nx + (bk[0] - lc[0]) / ny) / 2 * scale)
+    h = round(((rc[1] - bk[1]) / nx + (lc[1] - bk[1]) / ny) / 2 * scale * 2)
     # fixes on the concept before it is warped
     for rc_ in cfg.get('recolor', []):
         x0, y0, x1, y1 = rc_['box']
@@ -133,6 +135,9 @@ def build(room, grid=False):
                         'key': (tx + ty) * 10 + 6, 'decal': False, 'until': cfg['cutout']['until']})
     for p in cfg.get('paint', []):      # doorways etc., in tile terms on a back wall
         paint(canvas, p, ox, oy, w, h)
+    for wp in cfg['warps']:             # the way out through the cut-away front: a shadowed doorway
+        if wp['y'] == ny or wp['x'] == nx:
+            exit_shadow(canvas, wp, nx, ny, ox, oy, w, h, cfg.get('t', 22) * scale)
 
     tile = lambda x, y: (ox + (x - y) * w / 2, oy + (x + y) * h / 2)
     if grid:
@@ -150,11 +155,33 @@ def build(room, grid=False):
     os.makedirs(os.path.join(OUT, 'maps'), exist_ok=True)
     mp = cfg['map']
     Image.fromarray(canvas, 'RGBA').save(os.path.join(OUT, 'maps', f'{mp}.png'))
-    json.dump({'origin': {'x': round(ox, 2), 'y': round(oy, 2)}, 'tile': {'w': w, 'h': h, 'z': 16},
+    # z 0: the floor is painted flat at the origin (the map's floor height of 1 must not lift people).
+    json.dump({'origin': {'x': round(ox, 2), 'y': round(oy, 2)}, 'tile': {'w': w, 'h': h, 'z': 0},
                'size': {'w': W, 'h': H}, 'sprites': sprites},
               open(os.path.join(OUT, 'maps', f'{mp}.json'), 'w'), indent=1)
     print(f'{mp}: {nx}x{ny} tiles of {w}x{h}, {W}x{H} px')
     return canvas
+
+
+def exit_shadow(canvas, wp, nx, ny, ox, oy, w, h, slab):
+    """Where you walk out of a room through its open front: the doormat tile darkens toward the
+    edge and the floor's front lip below it is cut into a dark doorway, so the exit reads at a glance."""
+    H, W = canvas.shape[:2]
+    yy, xx = np.mgrid[0:H, 0:W].astype(float)
+    front_y = wp['y'] == ny
+    tx, ty = (wp['x'], ny - 1) if front_y else (nx - 1, wp['y'])
+    cx, cy = ox + (tx - ty) * w / 2 + w / 2, oy + (tx + ty) * h / 2 + h / 2
+    inside = np.abs(xx + 0.5 - cx) / (w / 2) + np.abs(yy + 0.5 - cy) / (h / 2) <= 1
+    # 0 at the tile's back edge, 1 at the open edge: along +y (front-left) or +x (front-right).
+    u = ((xx + 0.5 - cx) / (w / 2) * (-1 if front_y else 1) + (yy + 0.5 - cy) / (h / 2)) / 2 + 0.5
+    a = 0.5 + np.clip(u, 0, 1) * 0.4
+    # The lip: straight down from the tile's open edge, the slab's depth.
+    ex0, ex1 = (cx - w / 2, cx) if front_y else (cx, cx + w / 2)
+    edge_y = cy + h / 2 - np.abs(xx + 0.5 - cx) * (h / w)       # the diamond's lower edges
+    lip = (xx >= ex0 + 2) & (xx <= ex1 - 2) & (yy >= edge_y) & (yy <= edge_y + slab) & (canvas[..., 3] > 0)
+    sel = inside & (canvas[..., 3] > 0)
+    canvas[sel, :3] = (canvas[sel, :3] * (1 - a[sel, None]) + np.array([18, 12, 14]) * a[sel, None]).astype(np.uint8)
+    canvas[lip, :3] = (18, 12, 14)
 
 
 def paint(canvas, p, ox, oy, w, h):

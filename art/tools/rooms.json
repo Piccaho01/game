@@ -1,54 +1,50 @@
 {
   "_note": "Rooms made from the owner's interior concepts (art/tools/room_concept.py). Tiles: [x, y]; x runs along the right back wall, y along the left one. solid: painted furniture. signs: what A reads there (talk/text/opens/rest); a sign at x or y = -1 is on a wall. warps: the room's exits, in full. town: where the door in the outside map lands. cast: where the recurring cast stands in this room.",
   "callum": {
-    "concept": "callum", "map": "callum_house", "spawn": [3, 6], "mat": [3, 6],
+    "concept": "callum", "nx": 7, "ny": 7, "map": "callum_house", "spawn": [5, 6], "mat": [5, 6],
     "recolor": [{"box": [160, 260, 230, 320], "to": [242, 193, 78]}, {"box": [1080, 400, 1160, 460], "to": [242, 193, 78]}],
-    "solid": [[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[6,0],[0,1],[0,4],[0,5],[0,6],[1,5],[1,3],[1,4],[2,4],[2,2],[3,2],[2,3],[3,3],[3,5],[1,6]],
+    "solid": [[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[6,0],[0,1],[1,1],[0,2],[1,2],[0,3],[1,3],[1,4],[1,5],[2,4],[2,5],[0,4],[0,5],[0,6],[2,2],[2,3],[3,2],[3,3],[3,4],[3,5],[4,2],[4,3],[1,6],[2,6],[2,1],[3,1]],
     "signs": [
-      {"x": 0, "y": 5, "talk": "callum_shelf"}, {"x": 0, "y": 4, "talk": "callum_shelf"},
-      {"x": 1, "y": 0, "talk": "callum_crt"}, {"x": 2, "y": 2, "talk": "callum_bag"}, {"x": 3, "y": 3, "talk": "callum_laptop"},
-      {"x": 1, "y": 3, "text": "A red armchair with a blanket over it. It has a Callum-shaped dent."},
-      {"x": 3, "y": 0, "talk": "callum_pins"}, {"x": 2, "y": 0, "talk": "callum_pins"},
+      {"x": 3, "y": 1, "talk": "callum_shelf"}, {"x": 4, "y": 2, "talk": "callum_bag"}, {"x": 4, "y": 3, "talk": "callum_laptop"},
+      {"x": 3, "y": 5, "text": "A red armchair with a blanket over it. It has a Callum-shaped dent."},
       {"x": 4, "y": 0, "talk": "callum_towel"}, {"x": 5, "y": 0, "talk": "callum_towel"},
       {"x": 6, "y": 0, "text": "A plant. It's thriving. Nobody here can explain it."}
     ],
-    "warps": [{"x": 3, "y": 7, "to": "hollow_rest", "tx": 6, "ty": 17, "dir": "right", "enter": "down"}],
-    "town": {"to": "callum_house", "tx": 3, "ty": 6}
+    "warps": [{"x": 5, "y": 7, "to": "hollow_rest", "tx": 6, "ty": 17, "dir": "right", "enter": "down"}],
+    "town": {"to": "callum_house", "tx": 5, "ty": 6}
   },
   "nolan": {
-    "concept": "nolan", "map": "nolan_house", "spawn": [6, 6], "mat": [6, 6],
-    "solid": [[0,0],[1,0],[2,0],[3,0],[0,1],[4,0],[5,0],[6,0],[0,2],[0,3],[0,5],[0,6],[0,4],[1,4],[1,5],[2,4],[2,5],[2,6],[3,4],[3,5],[3,6],[4,5],[4,6],[5,5],[2,3],[3,2],[3,3],[4,3]],
+    "concept": "nolan", "nx": 7, "ny": 7, "map": "nolan_house", "spawn": [6, 3], "mat": [6, 3],
+    "solid": [[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[6,0],[0,1],[1,1],[2,1],[1,2],[0,2],[0,3],[0,4],[0,5],[0,6],[1,3],[1,4],[1,5],[1,6],[2,2],[2,3],[2,4],[2,5],[2,6],[3,2],[3,3],[3,4],[3,5],[3,6],[4,3],[4,4],[4,5],[4,6],[5,4],[5,5],[5,6]],
     "signs": [
-      {"x": 1, "y": 0, "talk": "nolan_desk"}, {"x": 2, "y": 0, "talk": "nolan_tv"}, {"x": 3, "y": 0, "talk": "nolan_window"},
-      {"x": 0, "y": 3, "talk": "nolan_bottle"}, {"x": 0, "y": 2, "talk": "nolan_bottle"},
-      {"x": 2, "y": 5, "text": "The couch. Someone has slept on this couch. Several someones. Several times."},
-      {"x": 4, "y": 5, "text": "The couch. Someone has slept on this couch. Several someones. Several times."},
+      {"x": 2, "y": 1, "talk": "nolan_desk"}, {"x": 3, "y": 2, "talk": "nolan_tv"}, {"x": 3, "y": 0, "talk": "nolan_window"},
+      {"x": 4, "y": 3, "talk": "nolan_bottle"},
+      {"x": 5, "y": 5, "text": "The couch. Someone has slept on this couch. Several someones. Several times."},
       {"x": 4, "y": 0, "text": "A mini fridge with magnets on it. Mostly empty. Mostly."}
     ],
-    "warps": [{"x": 6, "y": 7, "to": "hollow_rest", "tx": 10, "ty": 5, "dir": "down", "enter": "down"}],
-    "town": {"to": "nolan_house", "tx": 6, "ty": 6},
+    "warps": [{"x": 7, "y": 3, "to": "hollow_rest", "tx": 13, "ty": 5, "dir": "down", "enter": "right"}],
+    "town": {"to": "nolan_house", "tx": 6, "ty": 3, "dir": "left"},
     "cast": {"nolan_dad": [4, 1]}
   },
   "haydon": {
-    "concept": "haydon", "map": "haydon_shed", "spawn": [3, 6], "mat": [3, 6],
-    "solid": [[0,0],[0,1],[0,2],[0,3],[0,4],[0,5],[0,6],[1,2],[1,0],[2,0],[3,0],[4,0],[5,0],[6,0],[5,1]],
+    "concept": "haydon", "nx": 7, "ny": 7, "scale": 0.85, "map": "haydon_shed", "spawn": [3, 6], "mat": [3, 6],
+    "solid": [[0,0],[0,1],[0,2],[0,3],[0,4],[0,5],[0,6],[1,0],[1,1],[1,2],[1,3],[1,4],[1,5],[2,0],[2,1],[2,2],[2,3],[3,0],[4,0],[4,1],[5,0],[6,0],[5,1],[6,1]],
     "signs": [
-      {"x": 0, "y": 2, "talk": "haydon_desk"}, {"x": 0, "y": 1, "talk": "haydon_desk"},
-      {"x": 1, "y": 2, "text": "A gaming chair. It reclines all the way back, which is how Haydon takes criticism."},
-      {"x": 0, "y": 5, "text": "A ring light. It makes everyone look like they're about to announce something."},
-      {"x": 2, "y": 0, "talk": "haydon_list"}, {"x": 3, "y": 0, "talk": "haydon_snacks"},
-      {"x": 4, "y": 0, "talk": "haydon_poster"}
+      {"x": 2, "y": 2, "talk": "haydon_desk"},
+      {"x": 2, "y": 3, "text": "A gaming chair. It reclines all the way back, which is how Haydon takes criticism."},
+      {"x": 1, "y": 5, "text": "A ring light. It makes everyone look like they're about to announce something."},
+      {"x": 3, "y": 0, "talk": "haydon_list"}, {"x": 4, "y": 1, "talk": "haydon_snacks"}
     ],
     "warps": [{"x": 3, "y": 7, "to": "hollow_rest", "tx": 21, "ty": 8, "dir": "right", "enter": "down"}],
     "town": {"to": "haydon_shed", "tx": 3, "ty": 6}
   },
   "dani": {
-    "concept": "dani", "map": "dani_house", "spawn": [6, 0],
-    "solid": [[0,0],[0,1],[1,0],[2,0],[3,0],[4,0],[5,0],[0,6],[1,5],[1,6],[2,5],[2,6],[3,6],[4,6],[2,2],[2,3],[3,2],[3,3]],
+    "concept": "dani", "nx": 7, "ny": 7, "map": "dani_house", "spawn": [6, 0],
+    "solid": [[0,0],[0,1],[0,2],[1,0],[1,2],[2,0],[3,0],[4,0],[5,0],[0,5],[0,6],[1,5],[1,6],[2,5],[2,6],[3,5],[3,6],[4,6],[2,3],[3,2],[3,3],[3,4],[4,3],[0,4],[1,4],[2,4],[2,2]],
     "signs": [
-      {"x": -1, "y": 3, "talk": "dani_hammock"}, {"x": -1, "y": 4, "talk": "dani_hammock"}, {"x": -1, "y": 1, "talk": "dani_photos"}, {"x": -1, "y": 2, "talk": "dani_photos"},
+      {"x": 1, "y": 2, "talk": "dani_hammock"}, {"x": 0, "y": 1, "talk": "dani_photos"},
       {"x": 1, "y": 0, "talk": "dani_coffee"}, {"x": 2, "y": 0, "talk": "dani_coffee"}, {"x": 3, "y": 0, "talk": "dani_fridge"},
-      {"x": 0, "y": 6, "talk": "dani_football"}, {"x": 5, "y": 0, "talk": "dani_shoes"},
+      {"x": 4, "y": 6, "talk": "dani_football"}, {"x": 5, "y": 0, "talk": "dani_shoes"},
       {"x": 4, "y": 0, "text": "A plant. It's thriving. Nobody here can explain it."}
     ],
     "warps": [{"x": 6, "y": -1, "to": "hollow_rest", "tx": 5, "ty": 11, "dir": "down", "enter": "up"}],
@@ -56,10 +52,10 @@
     "cast": {"dani_mama": [4, 2]}
   },
   "hall": {
-    "concept": "sanctuary_hall", "map": "sanctuary_hall", "spawn": [3, 6], "mat": [3, 6],
+    "concept": "sanctuary_hall", "nx": 7, "ny": 7, "map": "sanctuary_hall", "spawn": [3, 6], "mat": [3, 6],
     "cutout": {"art": "hall_rubble", "tile": [1, 0], "until": {"wing": "root_hall"}, "dark": [24, 18, 20],
                "fill": [[815, 300, 1003, 470, null, null], [830, 300, 910, 400, 830, 200], [910, 300, 990, 400, 830, 200], [830, 400, 910, 470, 830, 210], [910, 400, 990, 470, 830, 210], [740, 330, 815, 470, 740, 190], [740, 470, 1010, 522, 900, 530]]},
-    "paint": [{"wall": "l", "at": 1, "h": 30}],
+    "paint": [{"wall": "l", "at": 1, "h": 18}],
     "solid": [[0,0],[0,2],[1,2],[0,3],[1,3],[0,4],[1,4],[0,5],[1,5],[0,6],[1,6],[3,0],[4,0]],
     "objects": [{"kind": "in_rubble", "x": 1, "y": 0, "until": {"wing": "root_hall"}}],
     "signs": [
@@ -79,8 +75,8 @@
     "town": {"to": "sanctuary_hall", "tx": 3, "ty": 6}
   },
   "workshop": {
-    "concept": "workshop", "map": "sanctuary_workshop", "spawn": [3, 7], "mat": [3, 7],
-    "solid": [[0,0],[1,0],[0,1],[2,0],[3,0],[4,0],[5,0],[2,1],[3,1],[4,1],[2,2],[3,2],[4,2],[0,2],[0,3],[0,4],[0,5],[0,6],[6,2],[6,3]],
+    "concept": "workshop", "nx": 7, "ny": 8, "scale": 0.85, "map": "sanctuary_workshop", "spawn": [3, 7], "mat": [3, 7],
+    "solid": [[0,0],[1,0],[0,1],[2,0],[3,0],[4,0],[5,0],[2,1],[3,1],[4,1],[2,2],[3,2],[4,2],[0,2],[0,3],[0,4],[0,5],[0,6],[6,2],[6,3],[4,3]],
     "signs": [
       {"x": 3, "y": 2, "talk": "workshop_cradle"}, {"x": 2, "y": 2, "talk": "workshop_cradle"}, {"x": 4, "y": 2, "talk": "workshop_cradle"},
       {"x": 0, "y": 3, "talk": "workshop_bench"}, {"x": 0, "y": 2, "talk": "workshop_bench"}, {"x": 0, "y": 1, "talk": "workshop_fixboard"},
@@ -91,8 +87,8 @@
     "warps": [{"x": 3, "y": 8, "to": "sanctuary_hall", "tx": 0, "ty": 1, "dir": "right", "enter": "down"}]
   },
   "roots": {
-    "concept": "root_hall", "map": "sanctuary_roots", "spawn": [3, 7], "mat": [3, 7],
-    "solid": [[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[0,3],[0,4],[1,3],[2,2],[2,3],[3,2],[3,3],[2,4]],
+    "concept": "root_hall", "nx": 7, "ny": 8, "map": "sanctuary_roots", "spawn": [3, 7], "mat": [3, 7],
+    "solid": [[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[0,3],[0,4],[1,3],[2,2],[2,3],[3,2],[3,3],[2,4],[6,2]],
     "signs": [
       {"x": 2, "y": 0, "talk": "roots_roots"}, {"x": 3, "y": 0, "talk": "roots_roots"},
       {"x": 2, "y": 3, "talk": "roots_pool"}, {"x": 3, "y": 3, "talk": "roots_pool"}, {"x": 2, "y": 4, "talk": "roots_pool"}, {"x": 3, "y": 2, "talk": "roots_pool"}, {"x": 1, "y": 3, "talk": "roots_pool"}, {"x": 2, "y": 2, "talk": "roots_pool"},

@@ -61,10 +61,10 @@
     {
       "id": "route1_officer",
       "map": "route1",
-      "x": 18,
+      "x": 17,
       "y": 8,
       "kind": "guard",
-      "sprite": "placeholder:#4a5468",
+      "sprite": "tally_officer",
       "dir": "left",
       "leaves": "down",
       "blockedTalk": "route1_officer",

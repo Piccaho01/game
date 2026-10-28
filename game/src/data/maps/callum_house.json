@@ -9,20 +9,20 @@
   },
   "rows": [
     "xxxxxxx",
-    "x......",
-    "..xx...",
-    ".xxx...",
-    "xxx....",
-    "xx.x...",
-    "xx.m..."
+    "xxxx...",
+    "xxxxx..",
+    "xxxxx..",
+    "xxxx...",
+    "xxxx...",
+    "xxx..m."
   ],
   "spawn": {
-    "x": 3,
+    "x": 5,
     "y": 6
   },
   "warps": [
     {
-      "x": 3,
+      "x": 5,
       "y": 7,
       "to": "hollow_rest",
       "tx": 6,
@@ -33,44 +33,24 @@
   ],
   "signs": [
     {
-      "x": 0,
-      "y": 5,
+      "x": 3,
+      "y": 1,
       "talk": "callum_shelf"
     },
     {
-      "x": 0,
-      "y": 4,
-      "talk": "callum_shelf"
-    },
-    {
-      "x": 1,
-      "y": 0,
-      "talk": "callum_crt"
-    },
-    {
-      "x": 2,
+      "x": 4,
       "y": 2,
       "talk": "callum_bag"
     },
     {
-      "x": 3,
+      "x": 4,
       "y": 3,
       "talk": "callum_laptop"
     },
     {
-      "x": 1,
-      "y": 3,
-      "text": "A red armchair with a blanket over it. It has a Callum-shaped dent."
-    },
-    {
       "x": 3,
-      "y": 0,
-      "talk": "callum_pins"
-    },
-    {
-      "x": 2,
-      "y": 0,
-      "talk": "callum_pins"
+      "y": 5,
+      "text": "A red armchair with a blanket over it. It has a Callum-shaped dent."
     },
     {
       "x": 4,

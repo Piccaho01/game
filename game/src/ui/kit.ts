@@ -414,15 +414,28 @@ export function listRow(scene: Phaser.Scene, x: number, y: number, w: number, h:
   const title = pixelText(scene, tx, hasLower ? -7.5 : -4, o.title, { color: on ? TEXT_COLORS.light : TEXT_COLORS.off, size: o.titleSize ?? (w < 110 ? TEXT_SIZE.small : TEXT_SIZE.body), shadow: on ? '#00000060' : undefined, display: true });
   c.add(title);
   if (o.sub) c.add(pixelText(scene, tx, o.meter ? 4.5 : 1.5, o.sub, { color: on ? '#f4f0e4' : TEXT_COLORS.off, size: TEXT_SIZE.small }));
+  // The right-hand text (a level) sits by the title; when a long title would run into it, it drops
+  // to the meter's line and the meter makes room.
+  let rightLow = false;
+  let right: Phaser.GameObjects.Text | null = null;
+  if (o.right) {
+    right = pixelText(scene, -left - 7, hasLower ? -7 : -4, o.right, { color: on ? '#f4f0e4' : TEXT_COLORS.off, size: TEXT_SIZE.small, display: true }).setOrigin(1, 0);
+    c.add(right);
+    if (title.width > right.x - right.width - 3 - tx) {
+      if (o.meter) { rightLow = true; right.setOrigin(1, 0.5).setY(7); }
+      else if (!o.sub) { title.setY(-6); right.setOrigin(1, 0.5).setY(5.5); }   // a count drops to the corner
+      else title.setFontSize(`${TEXT_SIZE.small}px`);
+    }
+  }
   if (o.meter) {
-    const mw = w / 2 - 8 - tx;
+    const mw = w / 2 - 8 - tx - (rightLow && right ? right.width + 4 : 0);
+    const my = rightLow ? 5.5 : 2;
     const mg = scene.add.graphics();
-    mg.fillStyle(0x000000, 0.35).fillRoundedRect(tx, 2, mw, 3, 1.5);
+    mg.fillStyle(0x000000, 0.35).fillRoundedRect(tx, my, mw, 3, 1.5);
     const f = Math.max(0, Math.min(1, o.meter.frac));
-    if (f > 0) mg.fillStyle(o.meter.color).fillRoundedRect(tx, 2, Math.max(3, mw * f), 3, 1.5);
+    if (f > 0) mg.fillStyle(o.meter.color).fillRoundedRect(tx, my, Math.max(3, mw * f), 3, 1.5);
     c.add(mg);
   }
-  if (o.right) c.add(pixelText(scene, -left - 7, hasLower ? -7 : -4, o.right, { color: on ? '#f4f0e4' : TEXT_COLORS.off, size: TEXT_SIZE.small, display: true }).setOrigin(1, 0));
   if (o.onTap) {
     c.setSize(w, h).setInteractive({ useHandCursor: true });
     c.on('pointerdown', () => { c.setY(y + 1.5); c.setScale(0.98); });

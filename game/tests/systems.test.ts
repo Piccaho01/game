@@ -119,7 +119,7 @@ describe('field moves', () => {
     const spawn = MAPS.route1.spawn;
     // The broken bridge cuts the east bank off; the officer guards the only stairs down to the checkpoint.
     expect(findPath('route1', spawn, { x: 16, y: 9 }, blocked)).toBeNull();
-    expect(findPath('route1', spawn, { x: 18, y: 17 }, (x, y) => x === 18 && y === 8)).toBeNull();
+    expect(findPath('route1', spawn, { x: 18, y: 17 }, (x, y) => x === 17 && y === 8)).toBeNull();
     // Each can be reached by walking (from a tile next to it).
     for (const o of list) {
       const next = [[1, 0], [-1, 0], [0, 1], [0, -1]].some(([dx, dy]) => findPath('route1', spawn, { x: o.x + dx, y: o.y + dy }, (x, y) => blocked(x, y) && !(x === 13 && y === 9 && o.id !== 'route1_bridge')));

@@ -30,8 +30,8 @@
       "talk": "neighbour",
       "home": {
         "map": "hollow_rest",
-        "x": 13,
-        "y": 4,
+        "x": 14,
+        "y": 5,
         "dir": "left"
       }
     },

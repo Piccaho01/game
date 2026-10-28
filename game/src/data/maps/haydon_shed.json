@@ -9,11 +9,11 @@
   },
   "rows": [
     "xxxxxxx",
-    "x....x.",
+    "xxx.xxx",
+    "xxx....",
+    "xxx....",
     "xx.....",
-    "x......",
-    "x......",
-    "x......",
+    "xx.....",
     "x..m..."
   ],
   "spawn": {
@@ -33,39 +33,29 @@
   ],
   "signs": [
     {
-      "x": 0,
+      "x": 2,
       "y": 2,
       "talk": "haydon_desk"
     },
     {
-      "x": 0,
-      "y": 1,
-      "talk": "haydon_desk"
-    },
-    {
-      "x": 1,
-      "y": 2,
+      "x": 2,
+      "y": 3,
       "text": "A gaming chair. It reclines all the way back, which is how Haydon takes criticism."
     },
     {
-      "x": 0,
+      "x": 1,
       "y": 5,
       "text": "A ring light. It makes everyone look like they're about to announce something."
     },
     {
-      "x": 2,
+      "x": 3,
       "y": 0,
       "talk": "haydon_list"
     },
     {
-      "x": 3,
-      "y": 0,
-      "talk": "haydon_snacks"
-    },
-    {
       "x": 4,
-      "y": 0,
-      "talk": "haydon_poster"
+      "y": 1,
+      "talk": "haydon_snacks"
     }
   ],
   "npcs": [],

@@ -16,7 +16,7 @@ import { sfx } from '../ui/sfx';
 import { DialogBox } from '../ui/dialog';
 import { followKey, frontKey, groundKey, propKey, standKey, walkKey } from './BootScene';
 import { playCutscene } from './CutsceneScene';
-import { buttonPagePoint, faceIcon, hinge, isoPad, listRow, monIcon, roundButton, screenBackdrop, tapeLabel } from '../ui/kit';
+import { button, buttonPagePoint, faceIcon, hinge, isoPad, listRow, monIcon, roundButton, screenBackdrop, tapeLabel } from '../ui/kit';
 import { hexToNum, shade, TONES } from '../ui/theme';
 import { tweenAsync, wait } from '../ui/widgets';
 
@@ -33,6 +33,8 @@ const WALK_VIEW: Record<Dir, { row: number; flip: boolean }> = {
 };
 /** Which of a follower Patchling's 8 angles faces each grid direction (art/followers: front, front-left, left, back-left, back, back-right, right, front-right). */
 const FOLLOW_VIEW: Record<Dir, number> = { down: 1, right: 7, left: 3, up: 5 };
+/** Townsfolk (stand poses) next to the friends. */
+const NPC_SCALE = 0.9;
 const OPPOSITE: Record<Dir, Dir> = { up: 'down', down: 'up', left: 'right', right: 'left' };
 const KEYS: Record<string, Dir> = { UP: 'up', DOWN: 'down', LEFT: 'left', RIGHT: 'right', W: 'up', S: 'down', A: 'left', D: 'right' };
 
@@ -155,7 +157,7 @@ export class OverworldScene extends Phaser.Scene {
       if (o.sprite) {
         // Someone in the way (the Tally officer): drawn like the townsfolk.
         img = this.add.image(f.x, f.y, '__DEFAULT').setOrigin(0.5, 1);
-        img.setTexture(...this.npcTexture(o.sprite, o.dir ?? 'down'));
+        img.setTexture(...this.npcTexture(o.sprite, o.dir ?? 'down')).setScale(this.textures.exists(standKey(o.sprite)) ? NPC_SCALE : 1);
       } else {
         const key = o.art ? propKey(o.art) : '';
         // A touch bigger than scenery rocks, so it reads as something to deal with.
@@ -234,7 +236,7 @@ export class OverworldScene extends Phaser.Scene {
     const map = MAPS[this.pos.map];
     const { origin, tile } = this.layout;
     const z = heightAt(map, x, y) + (stairAxis(map, x, y) ? 0.5 : 0);
-    return { x: origin.x + (x - y) * tile.w / 2 + tile.w / 2, y: origin.y + (x + y) * tile.h / 2 - z * tile.z + 12 };
+    return { x: origin.x + (x - y) * tile.w / 2 + tile.w / 2, y: origin.y + (x + y) * tile.h / 2 + tile.h / 2 + 4 - z * tile.z };
   }
 
   /** NPC sprites: a walk sheet (turns to face you), a standing pose, or a placeholder figure. */
@@ -243,6 +245,8 @@ export class OverworldScene extends Phaser.Scene {
     const view = WALK_VIEW[dir];
     s.setFlipX(n.sprite.startsWith('walk:') && this.textures.exists(walkKey(n.sprite.slice(5))) && view.flip);
     s.setTexture(...this.npcTexture(n.sprite, dir));
+    // Townsfolk standing poses come off bigger sheets than the friends' walk frames: a touch smaller.
+    s.setScale(this.textures.exists(standKey(n.sprite)) && !n.sprite.startsWith('walk:') ? NPC_SCALE : 1);
   }
 
   /** The texture (and frame) for someone standing on the map: a Patchling, a walk sheet, a stand pose or a placeholder. */
@@ -316,7 +320,7 @@ export class OverworldScene extends Phaser.Scene {
 
   /** Who leads (face card), SWITCH (with the next friend's face) and JOURNAL (with the lead Patchling). */
   private drawLeaderUi() {
-    for (const n of ['leader-tape', 'switch', 'journal']) this.ui.getByName(n)?.destroy();
+    for (const n of ['leader-tape', 'switch', 'journal', 'settings']) this.ui.getByName(n)?.destroy();
     const id = this.progress.leader;
     const leader = CHARACTERS[id];
     const nextId = SQUAD[(SQUAD.indexOf(id) + 1) % SQUAD.length];
@@ -333,6 +337,8 @@ export class OverworldScene extends Phaser.Scene {
       title: 'JOURNAL', sub: 'Team & bag', color: TONES.seal, icon: lead ? monIcon(frontKey(lead.species)) : { text: 'J' },
       onTap: () => this.openJournal(), name: 'journal',
     }));
+    // Squad or solo (and anything else that's a preference) lives on the Journal's OPTIONS tab.
+    this.ui.add(button(this, 30, 178, 52, 18, 'SETTINGS', TONES.neutral, () => this.openJournal('options'), { name: 'settings' }));
   }
 
   private setupKeys() {
@@ -652,9 +658,9 @@ export class OverworldScene extends Phaser.Scene {
     this.tweens.add({ targets: this.player, y: this.player.y - 4, duration: 70, yoyo: true });
   }
 
-  private openJournal() {
+  private openJournal(tab?: 'options') {
     if (this.moving || this.busy) return;
-    this.scene.start('journal', { from: 'overworld' });
+    this.scene.start('journal', { from: 'overworld', tab });
   }
 
   // ---------- story (Track B hook: engine/story.ts, scenes/CutsceneScene.ts) ----------
