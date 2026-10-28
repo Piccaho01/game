@@ -552,12 +552,20 @@
   "elder_roots": {
     "lines": [
       {
-        "who": "Old keeper",
-        "text": "Root Hall, awake again. My grandmother said I'd never see it."
+        "who": "LeBron",
+        "text": "Root Hall, awake again. Took longer than my first ring."
       },
       {
-        "who": "Old keeper",
+        "who": "LeBron",
         "text": "The Hollowfolk will hear of this. Some might even come and look. Don't make it weird."
+      },
+      {
+        "who": "Dani",
+        "text": "Is he famous? He look famous."
+      },
+      {
+        "who": "LeBron",
+        "text": "...Never mind."
       }
     ]
   },

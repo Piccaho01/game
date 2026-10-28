@@ -2,7 +2,7 @@
   "_note": "The recurring cast (bible §7: people met on the journey come back). Everyone has a 'home' (map, tile, facing); a visit whose 'when' holds moves them there (the last one that holds wins: a wing restored and/or a story flag), with its own 'talk' if given. engine/world.ts. Lines in data/dialogue.json or data/world_dialogue.json. 'sprite' as for map NPCs.",
   "people": {
     "elder": {
-      "name": "Old keeper",
+      "name": "LeBron",
       "sprite": "placeholder:#7a6a58",
       "talk": "elder",
       "home": {

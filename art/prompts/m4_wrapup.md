@@ -116,15 +116,14 @@ From this interior, draw each piece of furniture and each prop separately as iso
 - **Attach:** `art/concepts/trainers/callum.png`
 
 ```
-Character sheet for a creature-collecting RPG in exactly the same style and layout as the attached sheet: on the left a full-body anime illustration standing in a relaxed pose; top right a head close-up; middle right a pixel-art battle sprite front and back in Pokemon Black/White 2 style; bottom right small pixel-art overworld walk frames (front, side, back). Flat white background, no text, no logos. The person is the Old Keeper of Hollow Rest, one of the Hollowfolk (descendants of the old sanctuary keepers): a small, stooped old woman with a long white braid, deep-set eyes, a moss-green hooded shawl over a faded rust-red robe with patched elbows, a carved wooden walking staff with a root wound round the top, a ring of old stone keys on her belt. Wary of outsiders but kind underneath. Colourway: moss green, rust red, bone white.
-```
+Character sheet for a creature-collecting RPG in exactly the same style and layout as the attached sheet: on the left a full-body anime illustration standing in a relaxed pose; top right a head close-up; middle right a pixel-art battle sprite front and back in Pokemon Black/White 2 style; bottom right small pixel-art overworld walk frames (front, side, back). Flat white background, no text, no logos. The person is the Keeper of Hollow Rest: a basketball superstar who got pulled into this world years ago out of a basketball sim and stayed to guard the ruined sanctuary. Very tall and broad-shouldered, a man in his mid-fifties, dark skin, a full grey-flecked beard, a calm, knowing, slightly amused face, a white sweatband headband. A moss-green hooded keeper's shawl over a faded rust-red robe with patched elbows, the robe open over an old faded jersey with a big number 23 (no team name, no logos), long shorts, high-top sneakers wrapped in old cloth. A carved wooden staff with a root wound round the top, a ring of old stone keys on his belt, a scuffed, weathered basketball tucked under one arm. Colourway: moss green, rust red, gold.```
 
 ### walk_elder
 - **Save as:** `art/concepts/walk/elder_diag.png`  ·  **Shape:** landscape
 - **Attach:** `art/concepts/trainers/elder.png`
 
 ```
-Using this character sheet, draw an overworld walking sprite sheet in exactly the same pixel-art style and size as the small walk frames on the sheet, for an isometric game. 2 rows x 3 frames, evenly spaced on a flat white background, no text, no shadows. Row 1: walking toward the viewer, body turned 45 degrees to the LEFT (3/4 front view, facing down-left). Row 2: walking away from the viewer, body turned 45 degrees to the LEFT (3/4 back view, facing up-left). Columns: standing, left foot forward, right foot forward. Walking slowly with the staff.
+Using this character sheet, draw an overworld walking sprite sheet in exactly the same pixel-art style and size as the small walk frames on the sheet, for an isometric game. 2 rows x 3 frames, evenly spaced on a flat white background, no text, no shadows. Row 1: walking toward the viewer, body turned 45 degrees to the LEFT (3/4 front view, facing down-left). Row 2: walking away from the viewer, body turned 45 degrees to the LEFT (3/4 back view, facing up-left). Columns: standing, left foot forward, right foot forward. Walking calmly with the staff, the basketball under one arm.
 ```
 
 ### person_neighbour

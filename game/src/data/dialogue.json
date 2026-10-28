@@ -55,9 +55,20 @@
   },
   "elder": {
     "lines": [
-      { "who": "Old keeper", "text": "My grandmother kept this sanctuary. Now a tin giant sleeps in it." },
-      { "who": "Old keeper", "text": "Outsiders. Don't touch the stones." }
-    ]
+      { "who": "LeBron", "text": "The Hollowfolk call me the Keeper. You can call me Bron." },
+      { "who": "LeBron", "text": "Somebody hit \"sim to end of season\" on a MyLeague save. I woke up here. That was years ago." },
+      { "who": "Haydon", "text": "Nah that's cap. That's not LeBron." },
+      { "who": "LeBron", "text": "Ratings froze in 2K22, young fella. Still a 97. Don't touch the stones." }
+    ],
+    "byLeader": {
+      "callum": [
+        { "who": "LeBron", "text": "...You. Scottish kid. Curly hair. I know that face from the loading screen." },
+        { "who": "LeBron", "text": "You're the one who hit \"sim to end of season\"." },
+        { "who": "Callum", "text": "In my defence, the playoffs were taking ages." },
+        { "who": "Nolan", "text": "He's been in here YEARS, Callum." },
+        { "who": "LeBron", "text": "Don't touch the stones. That one's not a request." }
+      ]
+    }
   },
   "neighbour": {
     "lines": [
