@@ -671,7 +671,8 @@ export class OverworldScene extends Phaser.Scene {
     this.save();
     this.scene.launch('pause', {
       save: () => this.save(),
-      resume: () => this.scene.resume(),
+      // Squad/solo may have changed in SETTINGS: redraw who walks.
+      resume: () => { this.scene.resume(); this.setLeaderLook(); this.placeFollowers(); this.follow(); },
       journal: () => { this.scene.resume(); this.openJournal(); },
       title: () => this.scene.start('title'),
     } satisfies PauseData);
