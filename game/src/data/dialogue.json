@@ -29,6 +29,48 @@
     "lines": [
       { "who": "PATCH", "text": "You fainted. I carried you back. Again." },
       { "who": "PATCH", "text": "Your Patchlings are patched. I'm working on a fix." }
+    ],
+    "byLeader": {
+      "callum": [
+        { "who": "PATCH", "text": "Callum. You fainted. I carried all four of you back. In one trip." },
+        { "who": "Haydon", "text": "He held you like a bag of groceries, bro." },
+        { "who": "Callum", "text": "Right. We never speak of this." },
+        { "who": "PATCH", "text": "Logged. Your Patchlings are patched." }
+      ],
+      "nolan": [
+        { "who": "PATCH", "text": "Nolan. You fainted. That's a first. I've framed the log." },
+        { "who": "Callum", "text": "The reliable one went down. We're cooked." },
+        { "who": "Nolan", "text": "One time." },
+        { "who": "PATCH", "text": "Patched. All of them. I'm working on a fix." }
+      ],
+      "haydon": [
+        { "who": "Haydon", "text": "Nah. I didn't faint. That's cap." },
+        { "who": "PATCH", "text": "I carried you up a hill. You were snoring." },
+        { "who": "Dani", "text": "Like a baby, hermano. Very cute." },
+        { "who": "PATCH", "text": "Your Patchlings are patched." }
+      ],
+      "dani": [
+        { "who": "PATCH", "text": "Dani. You fainted. Your phone did not." },
+        { "text": "Dani's phone: 14 missed calls. MAMÁ." },
+        { "who": "Dani", "text": "Ma, I'm fine, I just— ¡ESTOY BIEN, MAMÁ! ¡ME DESMAYÉ UN POQUITO!" },
+        { "who": "PATCH", "text": "Patched. All of them." }
+      ]
+    }
+  },
+  "evolve_react": {
+    "lines": [
+      { "who": "PATCH", "text": "It evolved. I designed that. You're welcome." }
+    ],
+    "byLeader": {
+      "callum": [{ "who": "Callum", "text": "New form, new page. I'm updating the spreadsheet." }],
+      "nolan": [{ "who": "Nolan", "text": "Look at you. Okay. That's actually sick." }],
+      "haydon": [{ "who": "Haydon", "text": "It evolved 'cause it's been around me. Facts." }],
+      "dani": [{ "who": "Dani", "text": "It is bigger now? Okay. Very nice. I still don't care." }]
+    }
+  },
+  "evolve_sanctuary": {
+    "lines": [
+      { "who": "PATCH", "text": "One of yours evolved in storage. I watched. Nobody else did." }
     ]
   },
   "friend_callum": {

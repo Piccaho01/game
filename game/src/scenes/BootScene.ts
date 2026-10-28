@@ -68,12 +68,26 @@ export class BootScene extends Phaser.Scene {
       if (!params.has('story')) progress.flags = ['opening'];
       saveProgress(progress);
     }
+    // ?evolve=<species> previews the evolve scene (touches no save).
+    const evo = params.get('evolve');
+    if (evo && SPECIES[evo]?.evolves) {
+      if (progress) this.registry.set('progress', progress);
+      this.scene.start('evolve', { queue: [{ uid: -1, owner: progress?.leader ?? 'callum', from: evo, to: SPECIES[evo].evolves!.to }], next: { scene: progress ? 'overworld' : 'title' }, preview: true });
+      return;
+    }
+    if (progress) this.registry.set('progress', progress);
+    // The title screen comes first, except for the test shortcuts below; automated browsers
+    // (navigator.webdriver) skip it so the e2e suites boot straight in, unless ?title.
+    const shortcut = ['foe', 'player', 'skipintro', 'story'].some((k) => params.has(k));
+    if (!shortcut && (!navigator.webdriver || params.has('title'))) {
+      this.scene.start('title');
+      return;
+    }
     if (!progress) {
       // A new game opens on the intro (?skipintro goes straight to the pick, for tests).
       this.scene.start(params.has('skipintro') ? 'newgame' : 'intro');
       return;
     }
-    this.registry.set('progress', progress);
     const foe = params.get('foe');
     if (foe && SPECIES[foe]) {
       this.scene.start('battle', { foe, seed: params.has('seed') ? Number(params.get('seed')) : undefined });

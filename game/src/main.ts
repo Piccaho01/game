@@ -10,6 +10,9 @@ import { OverworldScene } from './scenes/OverworldScene';
 import { IntroScene } from './scenes/IntroScene';
 import { CutsceneScene } from './scenes/CutsceneScene';
 import { SanctuaryScene } from './scenes/SanctuaryScene';
+import { TitleScene } from './scenes/TitleScene';
+import { PauseScene } from './scenes/PauseScene';
+import { EvolveScene } from './scenes/EvolveScene';
 import { unlockAudio } from './ui/sfx';
 
 async function start() {
@@ -27,7 +30,7 @@ async function start() {
     fps: { smoothStep: false },
     scale: { mode: Phaser.Scale.FIT, autoCenter: Phaser.Scale.CENTER_BOTH },
     input: { activePointers: 2 },
-    scene: [BootScene, IntroScene, CutsceneScene, NewGameScene, OverworldScene, BattleScene, JournalScene, SanctuaryScene],
+    scene: [BootScene, TitleScene, IntroScene, CutsceneScene, NewGameScene, OverworldScene, BattleScene, EvolveScene, JournalScene, SanctuaryScene, PauseScene],
   });
   (window as unknown as { __game: Phaser.Game }).__game = game;
 }

@@ -8,6 +8,7 @@ import { sfx, type Sfx } from '../ui/sfx';
 import { pixelText } from '../ui/text';
 import { COLORS, css, hexToNum, shade, TEXT_COLORS, TEXT_SIZE, TONES } from '../ui/theme';
 import { tweenAsync, wait } from '../ui/widgets';
+import { HOLD_SCALE, textSpeed } from '../settings';
 import { walkKey } from './BootScene';
 
 /** The owner's cutscene cards, fitted to the top screen (art/tools/card2screen.py): 384x288, shown at 2/3. */
@@ -354,7 +355,7 @@ export class CutsceneScene extends Phaser.Scene {
         dots.add(d);
       }
       this.place(dots, 16);
-      await wait(this, 380 + Math.min(500, text.length * 10));
+      await wait(this, (380 + Math.min(500, text.length * 10)) * HOLD_SCALE[textSpeed()]);
       p.h -= 16;
       dots.destroy();
       if (this.ended) return;

@@ -3,8 +3,8 @@ import { SCREEN_H, SCREEN_W } from '../config';
 import { drawPanel, tapeLabel } from './kit';
 import { pixelText } from './text';
 import { COLORS, TEXT_COLORS } from './theme';
+import { CHAR_MS, HOLD_SCALE, textSpeed } from '../settings';
 
-const CHAR_MS = 18;
 const LINE_HOLD_MS = 700;
 const BOX_H = 38;
 /** Lines that fit in the box; longer text is shown in pages. */
@@ -105,9 +105,10 @@ export class DialogBox {
       this.text.setText('');
       this.arrow.setVisible(false);
       // Driven by elapsed time, not frames, so slow devices skip letters instead of crawling.
+      const speed = textSpeed();
       const counter = { shown: 0 };
       const typer = this.scene.tweens.add({
-        targets: counter, shown: line.length, duration: line.length * CHAR_MS,
+        targets: counter, shown: line.length, duration: line.length * CHAR_MS[speed],
         onUpdate: () => this.text.setText(line.slice(0, Math.floor(counter.shown))),
         onComplete: () => finishTyping(),
       });
@@ -125,7 +126,7 @@ export class DialogBox {
         typer.stop();
         this.text.setText(line);
         this.arrow.setVisible(true);
-        if (!opts.waitForTap) hold = this.scene.time.delayedCall(opts.hold ?? LINE_HOLD_MS, finish);
+        if (!opts.waitForTap) hold = this.scene.time.delayedCall((opts.hold ?? LINE_HOLD_MS) * HOLD_SCALE[speed], finish);
         this.skip = finish;
       };
       this.skip = finishTyping;
