@@ -2,7 +2,7 @@ import Phaser from 'phaser';
 import { SCREEN_H, SCREEN_W, ZOOM } from '../config';
 import { SPECIES } from '../engine/data';
 import { MAPS, START } from '../engine/overworld';
-import { CHARACTERS, SQUAD, stageOf, type Progress } from '../engine/progress';
+import { CHARACTERS, stageOf, type Progress } from '../engine/progress';
 import { clearProgress } from '../save';
 import { button, buttonPagePoint, faceIcon, hinge, listRow, screenBackdrop } from '../ui/kit';
 import { settingsPanel, speedPreview } from '../ui/settingsPanel';
@@ -55,18 +55,13 @@ export class TitleScene extends Phaser.Scene {
     const g = this.add.graphics();
     g.fillStyle(0x0d0e1a, 0.35).fillRect(0, 0, SCREEN_W, SCREEN_H);
     g.fillStyle(0x0d0e1a, 0.45).fillRect(0, SCREEN_H - 20, SCREEN_W, 20);
-    // PATCH leaning on the runestone (the owner's art), the name carved in its panel, his
-    // shoulder vent still smoking; the four stand in front of his legs, a third of his height.
-    const art = this.add.container(4, 0);
-    art.add(this.add.image(0, SCREEN_H + 20, titleKey('patch_runestone')).setOrigin(0, 1));
-    this.carveTitle(art, 59, 127);
-    this.tweens.add({ targets: art, y: -1, duration: 1800, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
-    this.time.addEvent({ delay: 520, loop: true, callback: () => this.puff(art.x + 92, art.y + 18) });
-    const xs = [136, 168, 200, 232];
-    SQUAD.forEach((id, i) => {
-      const key = this.textures.exists(titleKey(id)) ? titleKey(id) : walkKey(id);
-      this.add.image(xs[i], SCREEN_H - 3, key, key === walkKey(id) ? 0 : undefined).setOrigin(0.5, 1).setFlipX(i >= 2);
-    });
+    // The owner's group picture: PATCH on the runestone with the four, the name carved in its panel,
+    // his shoulder vent still smoking.
+    const art = this.add.container(8, SCREEN_H - 4 - 176);
+    art.add(this.add.image(0, 0, titleKey('title_group')).setOrigin(0, 0));
+    this.carveTitle(art, 55, 114);
+    this.tweens.add({ targets: art, y: art.y - 1, duration: 1800, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
+    this.time.addEvent({ delay: 520, loop: true, callback: () => this.puff(art.x + 85, art.y + 12) });
   }
 
   /** PROJECT PATCH cut into the stone's blank panel: dark grooves, a pale lower lip, a faint rune glow. */

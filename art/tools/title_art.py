@@ -13,6 +13,7 @@ from PIL import Image
 
 PATCH_H = 212
 FRIEND_H = 64
+GROUP_H = 176
 OUT = 'art/title/out'
 
 if __name__ == '__main__':
@@ -23,6 +24,13 @@ if __name__ == '__main__':
     im = sb.sample(*sb.cut(src, (0, 0, w, h), holes=40))
     im.save(f'{OUT}/patch_runestone.png')
     print('patch_runestone', im.size)
+    # The owner's whole group in one picture (PATCH, the stone and the four): fits the top screen.
+    sb.TARGET_H = GROUP_H
+    src = 'art/concepts/title/title_group.png'
+    w, h = Image.open(src).size
+    im = sb.sample(*sb.cut(src, (0, 0, w, h), holes=40))
+    im.save(f'{OUT}/title_group.png')
+    print('title_group', im.size)
     sb.TARGET_H = FRIEND_H
     for cid, box in sb.BOXES.items():
         im = sb.sample(*sb.cut(f'art/concepts/trainers/{cid}.png', box))
