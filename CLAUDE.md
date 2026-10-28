@@ -1,4 +1,4 @@
-# GAME BIBLE: [Working Title TBD]
+# GAME BIBLE: Project Patch
 
 > Drop this file in the project root as `CLAUDE.md` (or reference it from one). Claude Code should read it at the start of every session. Lock design here; tune systems (numbers, timing, balance) during the build.
 
@@ -192,7 +192,6 @@ Use these as flavour in NPCs, items, signs, quests and dialogue. Spread them out
 - **Music:** the group makes music; funny lines stick with them. Recording/music minigame or lines in NPC dialogue.
 
 ## 12. Open Questions (resolve during build)
-- Game title.
 - Type matchup chart (Metal and Relic placement).
 - Seal minigame timing and patterns per type.
 - Damage formulas, stats and balance.

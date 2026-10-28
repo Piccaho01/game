@@ -10,8 +10,8 @@ import { pixelText } from '../ui/text';
 import { COLORS, hexToNum, shade, TEXT_COLORS, TEXT_SIZE, TONES } from '../ui/theme';
 import { battleBgKey, standKey, trainerKey, walkKey } from './BootScene';
 
-/** The game's name until the owner picks one (bible §12, open question). */
-export const GAME_TITLE = 'PATCHLINGS';
+/** The game's name (owner's pick, 2026-10-28): a small PROJECT over a big PATCH on the logo. */
+export const GAME_TITLE = 'Project Patch';
 type View = 'press' | 'menu' | 'confirm' | 'settings';
 
 /**
@@ -66,17 +66,18 @@ export class TitleScene extends Phaser.Scene {
       else img.setScale(0.85);
     });
     // The logo: a cream plate, taped and stitched, with the name in rust over ink.
-    const plate = this.add.container(128, 38);
+    const plate = this.add.container(128, 42);
     const p = this.add.graphics();
-    pxRect(p, -96, -22, 192, 44, COLORS.ink, 5);
-    pxRect(p, -94, -20, 188, 40, COLORS.paper, 4);
-    p.fillStyle(COLORS.paperShade).fillRect(-92, 14, 184, 4);
-    stitches(p, -90, -16, 180, 32, COLORS.stitch);
-    p.fillStyle(COLORS.tape, 0.95).fillRect(-100, -24, 22, 8).fillRect(80, 16, 22, 8);
+    pxRect(p, -86, -30, 172, 60, COLORS.ink, 5);
+    pxRect(p, -84, -28, 168, 56, COLORS.paper, 4);
+    p.fillStyle(COLORS.paperShade).fillRect(-82, 22, 164, 4);
+    stitches(p, -80, -24, 160, 48, COLORS.stitch);
+    p.fillStyle(COLORS.tape, 0.95).fillRect(-90, -32, 22, 8).fillRect(70, 24, 22, 8);
     plate.add(p);
-    plate.add(pixelText(this, 1, -3, GAME_TITLE, { color: TEXT_COLORS.ink, size: TEXT_SIZE.title, display: true }).setOrigin(0.5));
-    plate.add(pixelText(this, 0, -4, GAME_TITLE, { color: TEXT_COLORS.rust, size: TEXT_SIZE.title, display: true }).setOrigin(0.5));
-    plate.add(pixelText(this, 0, 11, 'a world nobody wrote on purpose', { color: TEXT_COLORS.inkSoft, size: TEXT_SIZE.tiny }).setOrigin(0.5));
+    plate.add(pixelText(this, 0, -15, 'PROJECT', { color: TEXT_COLORS.inkSoft, size: TEXT_SIZE.heading, display: true }).setOrigin(0.5));
+    plate.add(pixelText(this, 1.5, 3.5, 'PATCH', { color: TEXT_COLORS.ink, size: 24, display: true }).setOrigin(0.5));
+    plate.add(pixelText(this, 0, 2, 'PATCH', { color: TEXT_COLORS.rust, size: 24, display: true }).setOrigin(0.5));
+    plate.add(pixelText(this, 0, 19, 'a world nobody wrote on purpose', { color: TEXT_COLORS.inkSoft, size: TEXT_SIZE.tiny }).setOrigin(0.5));
     this.tweens.add({ targets: plate, angle: { from: -1.2, to: 1.2 }, duration: 2600, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
   }
 

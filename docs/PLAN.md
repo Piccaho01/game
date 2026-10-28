@@ -376,7 +376,7 @@ bridge is optional.
 ### M6 handoff (read this first)
 **Built (branch `claude/m6-game-shell`):**
 - **Title** (`scenes/TitleScene.ts`): Hollow Rest backdrop, the four and PATCH under a taped logo
-  (name `GAME_TITLE` = "PATCHLINGS" until the owner picks one, bible §12), TAP TO START, then
+  (the owner named the game **Project Patch**: a small PROJECT over a big PATCH), TAP TO START, then
   CONTINUE (leader, points, seen) / NEW GAME (asks before erasing a save) / SETTINGS.
   Boot shows it first; test shortcuts (`?foe ?player ?skipintro ?story ?evolve`) and automated
   browsers (`navigator.webdriver`) skip it, `?title` forces it.
@@ -400,7 +400,7 @@ bridge is optional.
 - Tests: `tests/evolution.test.ts`, `tests/settings.test.ts`; e2e `e2e/shell.spec.ts`; screens `20*`.
 
 **Waiting on the owner:** one look at the screenshot sheet and the new lines (blackout, evolve
-reactions, the text-speed samples); the game's name. **Next:** roadmap step 3 (evolution art, whole lines).
+reactions, the text-speed samples). **Next:** roadmap step 3 (evolution art, whole lines).
 
 ## Roadmap after the playtest (proposed 2026-10-28; see WORKFLOW "chapters")
 1. **Playtest fixes**: the group's feedback as one batch.
