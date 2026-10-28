@@ -71,7 +71,35 @@ def sample(a, bg):
                 continue
             out[y, x, :3] = np.median(a[y0:y1, x0:x1][m], axis=0)
             out[y, x, 3] = 255
-    return Image.fromarray(out, 'RGBA')
+    return Image.fromarray(defringe(out), 'RGBA')
+
+
+def defringe(out, passes=3):
+    """Drops the pale grey halo the white sheet leaves round the outline: an edge pixel (next to
+    transparency) that is nearly colourless and either light or much paler than its neighbours. Coloured light pixels (cream sneakers, the
+    sherpa collar) have some warmth and stay."""
+    for _ in range(passes):
+        a = out[..., 3] > 0
+        pad = np.pad(a, 1)
+        edge = a & ~(pad[:-2, 1:-1] & pad[2:, 1:-1] & pad[1:-1, :-2] & pad[1:-1, 2:])
+        rgb = out[..., :3].astype(int)
+        light = rgb.min(2) > 150
+        grey = rgb.max(2) - rgb.min(2) < 24
+        # Or a grey rim much paler than the figure just inside it (on dark trousers, hair).
+        lum = rgb.mean(2) * a
+        pl, pa = np.pad(lum, 1), np.pad(a, 1).astype(int)
+        n = pa[:-2, 1:-1] + pa[2:, 1:-1] + pa[1:-1, :-2] + pa[1:-1, 2:]
+        inner = (pl[:-2, 1:-1] + pl[2:, 1:-1] + pl[1:-1, :-2] + pl[1:-1, 2:]) / np.maximum(n, 1)
+        rim = (rgb.mean(2) - inner > 45) & (n >= 1)
+        # Pure white touching transparency even corner to corner (gaps between the legs).
+        p8 = np.pad(~a, 1)
+        corner = p8[:-2, :-2] | p8[:-2, 2:] | p8[2:, :-2] | p8[2:, 2:]
+        white = (rgb.min(2) > 230) & grey & (corner | edge)
+        drop = (edge & grey & (light | rim)) | (a & white)
+        if not drop.any():
+            break
+        out[drop] = 0
+    return out
 
 
 if __name__ == '__main__':

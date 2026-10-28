@@ -1,7 +1,8 @@
 import Phaser from 'phaser';
 import { SCREEN_H, SCREEN_W, ZOOM } from '../config';
 import { SPECIES } from '../engine/data';
-import { CHARACTERS, sanctuaryPoints, SQUAD, stageOf, type Progress } from '../engine/progress';
+import { MAPS, START } from '../engine/overworld';
+import { CHARACTERS, SQUAD, stageOf, type Progress } from '../engine/progress';
 import { clearProgress } from '../save';
 import { button, buttonPagePoint, faceIcon, hinge, listRow, pxRect, screenBackdrop, stitches } from '../ui/kit';
 import { settingsPanel, speedPreview } from '../ui/settingsPanel';
@@ -58,12 +59,12 @@ export class TitleScene extends Phaser.Scene {
       const patch = this.add.image(128, SCREEN_H - 6, standKey('patch')).setOrigin(0.5, 1).setScale(1.5);
       this.tweens.add({ targets: patch, y: patch.y - 1.5, duration: 1400, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
     }
-    const xs = [30, 78, 178, 226];
+    const xs = [24, 72, 184, 232];
     SQUAD.forEach((id, i) => {
       const key = this.textures.exists(trainerKey(id)) ? trainerKey(id) : walkKey(id);
       const img = this.add.image(xs[i], SCREEN_H - 4, key, key === walkKey(id) ? 0 : undefined).setOrigin(0.5, 1).setFlipX(i >= 2);
+      // Whole-pixel sizes only, so no pixels get dropped.
       if (key === walkKey(id)) img.setScale(2);
-      else img.setScale(0.85);
     });
     // The logo: a cream plate, taped and stitched, with the name in rust over ink.
     const plate = this.add.container(128, 42);
@@ -112,8 +113,9 @@ export class TitleScene extends Phaser.Scene {
     if (p) {
       const lead = CHARACTERS[p.leader];
       const seen = Object.keys(SPECIES).filter((id) => stageOf(p.bestiary[id])).length;
+      const where = (p.pos && MAPS[p.pos.map]?.name) ?? MAPS[START.map].name;
       this.bottom.add(listRow(this, 128, 34, 220, 46, {
-        title: 'CONTINUE', sub: `${lead.name} leads · ${sanctuaryPoints(p)} pts · ${seen} seen`,
+        title: 'CONTINUE', sub: `${lead.name} leads · ${where} · ${seen} seen`,
         color: shade(hexToNum(lead.color), -0.2), icon: faceIcon(walkKey(p.leader)), onTap: () => this.go('overworld'), name: 'continue',
       }));
     }
