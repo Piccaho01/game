@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import { BATTLE_BGS, FOLLOW_FRAME, FOLLOW_SHEETS, MAP_ART, PROP_ART, SPRITES, STANDS, TRAINER_BATTLE, WALK_FRAME, WALK_SHEETS, type SpriteAsset } from '../assets';
+import { BATTLE_BGS, FOLLOW_FRAME, FOLLOW_SHEETS, ITEM_ICONS, MAP_ART, PROP_ART, SPRITES, STANDS, TRAINER_BATTLE, WALK_FRAME, WALK_SHEETS, type SpriteAsset } from '../assets';
 import { SPECIES, TYPES } from '../engine/data';
 import { newProgress } from '../engine/progress';
 import { ITEMS } from '../engine/items';
@@ -40,6 +40,7 @@ export class BootScene extends Phaser.Scene {
       this.load.spritesheet(walkKey(id), url, { frameWidth: WALK_FRAME.w, frameHeight: WALK_FRAME.h });
     }
     for (const [id, url] of Object.entries(STANDS)) this.load.image(standKey(id), url);
+    for (const [id, url] of Object.entries(ITEM_ICONS)) this.load.image(itemKey(id), url);
     for (const [id, art] of Object.entries(MAP_ART)) this.load.image(groundKey(id), art.png);
     for (const [id, url] of Object.entries(PROP_ART)) this.load.image(propKey(id), url);
     for (const [id, url] of Object.entries(BATTLE_BGS)) this.load.image(battleBgKey(id), url);
@@ -100,9 +101,10 @@ export class BootScene extends Phaser.Scene {
     return { frames: sorted.map((frame) => ({ key, frame, duration: json?.frames?.[frame]?.duration ?? 100 })) };
   }
 
-  /** Seal scroll icons: a rolled scroll in each item's colour, 18x22 (pixel art, drawn here). */
+  /** Seal scroll icons: the owner's art (ITEM_ICONS); any item without it gets a rolled scroll in its colour, 18x22. */
   private makeItemIcons() {
     for (const [id, it] of Object.entries(ITEMS)) {
+      if (this.textures.exists(itemKey(id))) continue;
       const c = Phaser.Display.Color.HexStringToColor(it.color).color;
       const dark = Phaser.Display.Color.ValueToColor(c).darken(35).color;
       const light = Phaser.Display.Color.ValueToColor(c).lighten(20).color;

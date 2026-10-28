@@ -423,6 +423,7 @@ export function listRow(scene: Phaser.Scene, x: number, y: number, w: number, h:
     c.add(right);
     if (title.width > right.x - right.width - 3 - tx) {
       if (o.meter) { rightLow = true; right.setOrigin(1, 0.5).setY(7); }
+      else if (!o.sub) { title.setY(-6); right.setOrigin(1, 0.5).setY(5.5); }   // a count drops to the corner
       else title.setFontSize(`${TEXT_SIZE.small}px`);
     }
   }

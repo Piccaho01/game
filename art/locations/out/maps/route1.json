@@ -47,28 +47,6 @@
    "decal": false
   },
   {
-   "art": "rock_m",
-   "x": 320,
-   "y": 64,
-   "fx": 0,
-   "fy": 4,
-   "wx": 1,
-   "wy": 1,
-   "key": 46,
-   "decal": false
-  },
-  {
-   "art": "bush_1",
-   "x": 494,
-   "y": 82,
-   "fx": 7,
-   "fy": 0,
-   "wx": 1,
-   "wy": 1,
-   "key": 76,
-   "decal": false
-  },
-  {
    "art": "bush_2",
    "x": 270,
    "y": 83,
@@ -99,28 +77,6 @@
    "wx": 1,
    "wy": 1,
    "key": 106,
-   "decal": false
-  },
-  {
-   "art": "bush_2",
-   "x": 510,
-   "y": 123,
-   "fx": 10,
-   "fy": 2,
-   "wx": 1,
-   "wy": 1,
-   "key": 126,
-   "decal": false
-  },
-  {
-   "art": "rock_s",
-   "x": 291,
-   "y": 133,
-   "fx": 3,
-   "fy": 9,
-   "wx": 1,
-   "wy": 1,
-   "key": 126,
    "decal": false
   },
   {
@@ -157,17 +113,6 @@
    "decal": false
   },
   {
-   "art": "rock_m",
-   "x": 528,
-   "y": 168,
-   "fx": 12,
-   "fy": 3,
-   "wx": 1,
-   "wy": 1,
-   "key": 156,
-   "decal": false
-  },
-  {
    "art": "r1_flowers",
    "x": 367,
    "y": 162,
@@ -198,50 +143,6 @@
    "wx": 1,
    "wy": 1,
    "key": 186,
-   "decal": false
-  },
-  {
-   "art": "rock_m",
-   "x": 240,
-   "y": 200,
-   "fx": 5,
-   "fy": 14,
-   "wx": 1,
-   "wy": 1,
-   "key": 196,
-   "decal": false
-  },
-  {
-   "art": "bush_0",
-   "x": 542,
-   "y": 203,
-   "fx": 15,
-   "fy": 5,
-   "wx": 1,
-   "wy": 1,
-   "key": 206,
-   "decal": false
-  },
-  {
-   "art": "bush_2",
-   "x": 254,
-   "y": 203,
-   "fx": 6,
-   "fy": 14,
-   "wx": 1,
-   "wy": 1,
-   "key": 206,
-   "decal": false
-  },
-  {
-   "art": "bush_1",
-   "x": 526,
-   "y": 210,
-   "fx": 15,
-   "fy": 6,
-   "wx": 1,
-   "wy": 1,
-   "key": 216,
    "decal": false
   },
   {
@@ -300,28 +201,6 @@
    "decal": false
   },
   {
-   "art": "rock_m",
-   "x": 560,
-   "y": 296,
-   "fx": 20,
-   "fy": 9,
-   "wx": 1,
-   "wy": 1,
-   "key": 296,
-   "decal": false
-  },
-  {
-   "art": "bush_2",
-   "x": 574,
-   "y": 299,
-   "fx": 21,
-   "fy": 9,
-   "wx": 1,
-   "wy": 1,
-   "key": 306,
-   "decal": false
-  },
-  {
    "art": "r1_crate",
    "x": 415,
    "y": 294,
@@ -344,50 +223,6 @@
    "decal": false
   },
   {
-   "art": "rock_s",
-   "x": 243,
-   "y": 317,
-   "fx": 11,
-   "fy": 20,
-   "wx": 1,
-   "wy": 1,
-   "key": 316,
-   "decal": false
-  },
-  {
-   "art": "rock_m",
-   "x": 544,
-   "y": 320,
-   "fx": 21,
-   "fy": 11,
-   "wx": 1,
-   "wy": 1,
-   "key": 326,
-   "decal": false
-  },
-  {
-   "art": "bush_0",
-   "x": 526,
-   "y": 323,
-   "fx": 21,
-   "fy": 12,
-   "wx": 1,
-   "wy": 1,
-   "key": 336,
-   "decal": false
-  },
-  {
-   "art": "bush_1",
-   "x": 510,
-   "y": 330,
-   "fx": 21,
-   "fy": 13,
-   "wx": 1,
-   "wy": 1,
-   "key": 346,
-   "decal": false
-  },
-  {
    "art": "r1_flowerbush",
    "x": 477,
    "y": 326,
@@ -399,28 +234,6 @@
    "decal": false
   },
   {
-   "art": "bush_1",
-   "x": 334,
-   "y": 354,
-   "fx": 17,
-   "fy": 20,
-   "wx": 1,
-   "wy": 1,
-   "key": 376,
-   "decal": false
-  },
-  {
-   "art": "bush_2",
-   "x": 318,
-   "y": 363,
-   "fx": 17,
-   "fy": 21,
-   "wx": 1,
-   "wy": 1,
-   "key": 386,
-   "decal": false
-  },
-  {
    "art": "r1_booth",
    "x": 354,
    "y": 315,
@@ -429,17 +242,6 @@
    "wx": 3,
    "wy": 2,
    "key": 406,
-   "decal": false
-  },
-  {
-   "art": "rock_s",
-   "x": 403,
-   "y": 397,
-   "fx": 21,
-   "fy": 20,
-   "wx": 1,
-   "wy": 1,
-   "key": 416,
    "decal": false
   }
  ]

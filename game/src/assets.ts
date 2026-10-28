@@ -21,6 +21,10 @@ export const STANDS: Record<string, string> = Object.fromEntries(
   Object.entries(stands).map(([path, url]) => [base(path).replace(/_stand$/, ''), url]),
 );
 
+/** Bag icons (art/tools/scroll_icons.py): <item id>.png. */
+const itemIcons = import.meta.glob('../../art/items/out/*.png', { eager: true, query: '?url', import: 'default' }) as Record<string, string>;
+export const ITEM_ICONS: Record<string, string> = Object.fromEntries(Object.entries(itemIcons).map(([path, url]) => [base(path), url]));
+
 /** Isometric maps baked by art/tools/iso_map.py: the ground image and where everything upright stands. */
 /** `until`: drawn only until that wing/flag (engine/world.ts met), like rubble in an archway. */
 export interface MapSprite { art: string; x: number; y: number; fx: number; fy: number; wx: number; wy: number; key: number; decal: boolean; until?: { wing?: string; flag?: string } }

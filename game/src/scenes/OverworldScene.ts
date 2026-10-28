@@ -157,7 +157,7 @@ export class OverworldScene extends Phaser.Scene {
       if (o.sprite) {
         // Someone in the way (the Tally officer): drawn like the townsfolk.
         img = this.add.image(f.x, f.y, '__DEFAULT').setOrigin(0.5, 1);
-        img.setTexture(...this.npcTexture(o.sprite, o.dir ?? 'down'));
+        img.setTexture(...this.npcTexture(o.sprite, o.dir ?? 'down')).setScale(this.textures.exists(standKey(o.sprite)) ? NPC_SCALE : 1);
       } else {
         const key = o.art ? propKey(o.art) : '';
         // A touch bigger than scenery rocks, so it reads as something to deal with.
