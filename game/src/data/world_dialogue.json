@@ -392,6 +392,10 @@
       {
         "who": "Dani's mamá",
         "text": "Dani will be ready in five minutes. Don't believe him."
+      },
+      {
+        "who": "Dani's mamá",
+        "text": "I call him twelve times today. He answers once. To yell."
       }
     ],
     "byLeader": {
@@ -407,6 +411,18 @@
         {
           "who": "Dani's mamá",
           "text": "Thirty."
+        },
+        {
+          "who": "Dani's mamá",
+          "text": "And answer your phone."
+        },
+        {
+          "who": "Dani",
+          "text": "I'm standing right here, Ma."
+        },
+        {
+          "who": "Dani's mamá",
+          "text": "Answer it anyway."
         }
       ]
     }
@@ -481,6 +497,21 @@
       {
         "who": "Dani",
         "text": "Why late? I'm here!"
+      },
+      {
+        "text": "Dani's phone buzzes. MAMÁ (14 missed calls)."
+      },
+      {
+        "who": "Dani",
+        "text": "Yes Ma, I'm good, I'm with the guys, we are just—"
+      },
+      {
+        "who": "Dani",
+        "text": "¡MAMÁ, YA TE DIJE QUE ESTOY BIEN! ¡SÍ, COMÍ! ¡NO, NO SÉ CUÁNDO VUELVO!"
+      },
+      {
+        "who": "Dani",
+        "text": "...She say hi."
       },
       {
         "text": "Everyone lies down for a bit. Every team is patched up."
@@ -587,6 +618,21 @@
       {
         "who": "Haydon",
         "text": "Who even closes a road. It's a road."
+      },
+      {
+        "text": "Dani's phone lights up. MAMÁ: \"donde estas\" \"DONDE ESTAS\" \"contesta mijo\""
+      },
+      {
+        "who": "Dani",
+        "text": "I'm at a road, Ma. Is closed."
+      },
+      {
+        "who": "Dani",
+        "text": "¿CÓMO QUE QUÉ ROAD? ¡UNA CARRETERA, MAMÁ! ¡CERRADA!"
+      },
+      {
+        "who": "Nolan",
+        "text": "Tell her we said hi."
       }
     ]
   },

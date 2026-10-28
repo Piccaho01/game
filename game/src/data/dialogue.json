@@ -19,6 +19,8 @@
       ],
       "dani": [
         { "who": "PATCH", "text": "Dani. You're here. On time. I've logged it." },
+        { "text": "Dani's phone buzzes. MAMÁ is calling. Again." },
+        { "who": "Dani", "text": "Ma, I'm with the robot— ¡NO, MAMÁ, EL ROBOT ES BUENO! ¡SÍ, ME ESTÁ CUIDANDO!" },
         { "who": "PATCH", "text": "Patched. All of them." }
       ]
     }
