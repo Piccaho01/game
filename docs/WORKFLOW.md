@@ -34,6 +34,8 @@ exist to save the owner's time and the token bill: they come from what went wron
   **every prompt for the milestone** (all pieces, front and back) into one paste-ready file,
   `art/prompts/<milestone>.md`, before the code starts: each prompt complete on its own, with the
   images to attach and the path to save the result as. The owner runs them in one sitting.
+- Only ask for what the game uses: walk sheets only for characters who walk (the four, followers).
+  NPCs who stand still get two standing frames on their character sheet, never a walk sheet.
 - Everything else in the art pipeline is unchanged (`art/BW_STYLE.md`, converters, pitch first).
 
 ## Owner reviews: once per milestone

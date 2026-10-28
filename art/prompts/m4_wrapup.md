@@ -109,37 +109,21 @@ Isometric 2:1 pixel-art interior for a cozy creature-collecting RPG in the style
 From this interior, draw each piece of furniture and each prop separately as isometric pixel art in exactly the same style, scale and palette, evenly spaced on a flat white background, nothing touching, no text, no floor under them, no shadows. Also draw the floor as one seamless isometric floor tile, and each back wall as a straight wall segment (one left wall, one right wall). Pieces: the glowing pool, worn stone bench, root clusters (three different), carved spiral stone, root nest cradle, moss patch.
 ```
 
-## Townsfolk (character sheet, then its walk sheet)
+## Townsfolk (one character sheet each; they stand still, so no walk sheet)
 
 ### person_elder
 - **Save as:** `art/concepts/trainers/elder.png`  ·  **Shape:** portrait
 - **Attach:** `art/concepts/trainers/callum.png`
 
 ```
-Character sheet for a creature-collecting RPG in exactly the same style and layout as the attached sheet: on the left a full-body anime illustration standing in a relaxed pose; top right a head close-up; middle right a pixel-art battle sprite front and back in Pokemon Black/White 2 style; bottom right small pixel-art overworld walk frames (front, side, back). Flat white background, no text, no logos. The person is the Keeper of Hollow Rest: a basketball superstar who got pulled into this world years ago out of a basketball sim and stayed to guard the ruined sanctuary. Very tall and broad-shouldered, a man in his mid-fifties, dark skin, a full grey-flecked beard, a calm, knowing, slightly amused face, a white sweatband headband. A moss-green hooded keeper's shawl over a faded rust-red robe with patched elbows, the robe open over an old faded jersey with a big number 23 (no team name, no logos), long shorts, high-top sneakers wrapped in old cloth. A carved wooden staff with a root wound round the top, a ring of old stone keys on his belt, a scuffed, weathered basketball tucked under one arm. Colourway: moss green, rust red, gold.```
-
-### walk_elder
-- **Save as:** `art/concepts/walk/elder_diag.png`  ·  **Shape:** landscape
-- **Attach:** `art/concepts/trainers/elder.png`
-
-```
-Using this character sheet, draw an overworld walking sprite sheet in exactly the same pixel-art style and size as the small walk frames on the sheet, for an isometric game. 2 rows x 3 frames, evenly spaced on a flat white background, no text, no shadows. Row 1: walking toward the viewer, body turned 45 degrees to the LEFT (3/4 front view, facing down-left). Row 2: walking away from the viewer, body turned 45 degrees to the LEFT (3/4 back view, facing up-left). Columns: standing, left foot forward, right foot forward. Walking calmly with the staff, the basketball under one arm.
-```
+Character sheet for a creature-collecting RPG in exactly the same style and layout as the attached sheet: on the left a full-body anime illustration standing in a relaxed pose; top right a head close-up; middle right a pixel-art battle sprite front and back in Pokemon Black/White 2 style; bottom right two small pixel-art overworld sprites, standing still, in exactly the size and pixel style of the small walk frames on the attached sheet: one 3/4 front view facing down-left, one 3/4 back view facing up-left. Flat white background, no text, no logos. The person is the Keeper of Hollow Rest: a basketball superstar who got pulled into this world years ago out of a basketball sim and stayed to guard the ruined sanctuary. Very tall and broad-shouldered, a man in his mid-fifties, dark skin, a full grey-flecked beard, a calm, knowing, slightly amused face, a white sweatband headband. A moss-green hooded keeper's shawl over a faded rust-red robe with patched elbows, the robe open over an old faded jersey with a big number 23 (no team name, no logos), long shorts, high-top sneakers wrapped in old cloth. A carved wooden staff with a root wound round the top, a ring of old stone keys on his belt, a scuffed, weathered basketball tucked under one arm. Colourway: moss green, rust red, gold.```
 
 ### person_neighbour
 - **Save as:** `art/concepts/trainers/neighbour.png`  ·  **Shape:** portrait
 - **Attach:** `art/concepts/trainers/callum.png`
 
 ```
-Character sheet for a creature-collecting RPG in exactly the same style and layout as the attached sheet: on the left a full-body anime illustration standing in a relaxed pose; top right a head close-up; middle right a pixel-art battle sprite front and back in Pokemon Black/White 2 style; bottom right small pixel-art overworld walk frames (front, side, back). Flat white background, no text, no logos. The person is the nosy neighbour of Hollow Rest, a middle-aged man who always holds a coffee mug and watches everything from his window: receding grey-brown hair, a mustard-yellow cardigan over a checked shirt, beige slacks, slippers, reading glasses pushed up on his head, a steaming white mug. Deadpan, curious. Colourway: mustard yellow, beige, brown.
-```
-
-### walk_neighbour
-- **Save as:** `art/concepts/walk/neighbour_diag.png`  ·  **Shape:** landscape
-- **Attach:** `art/concepts/trainers/neighbour.png`
-
-```
-Using this character sheet, draw an overworld walking sprite sheet in exactly the same pixel-art style and size as the small walk frames on the sheet, for an isometric game. 2 rows x 3 frames, evenly spaced on a flat white background, no text, no shadows. Row 1: walking toward the viewer, body turned 45 degrees to the LEFT (3/4 front view, facing down-left). Row 2: walking away from the viewer, body turned 45 degrees to the LEFT (3/4 back view, facing up-left). Columns: standing, left foot forward, right foot forward. Holding the coffee mug in every frame.
+Character sheet for a creature-collecting RPG in exactly the same style and layout as the attached sheet: on the left a full-body anime illustration standing in a relaxed pose; top right a head close-up; middle right a pixel-art battle sprite front and back in Pokemon Black/White 2 style; bottom right two small pixel-art overworld sprites, standing still, in exactly the size and pixel style of the small walk frames on the attached sheet: one 3/4 front view facing down-left, one 3/4 back view facing up-left. Flat white background, no text, no logos. The person is the nosy neighbour of Hollow Rest, a middle-aged man who always holds a coffee mug and watches everything from his window: receding grey-brown hair, a mustard-yellow cardigan over a checked shirt, beige slacks, slippers, reading glasses pushed up on his head, a steaming white mug. Deadpan, curious. Colourway: mustard yellow, beige, brown.
 ```
 
 ### person_pond_kid
@@ -147,15 +131,7 @@ Using this character sheet, draw an overworld walking sprite sheet in exactly th
 - **Attach:** `art/concepts/trainers/callum.png`
 
 ```
-Character sheet for a creature-collecting RPG in exactly the same style and layout as the attached sheet: on the left a full-body anime illustration standing in a relaxed pose; top right a head close-up; middle right a pixel-art battle sprite front and back in Pokemon Black/White 2 style; bottom right small pixel-art overworld walk frames (front, side, back). Flat white background, no text, no logos. The person is a kid from Hollow Rest who hangs around the pond: about ten years old, messy red-orange hair, freckles, a gap-toothed grin, an oversized coral-red rain jacket, rolled-up shorts, green rubber boots, a little fishing net on a stick. Energetic. Colourway: coral red, green, blue.
-```
-
-### walk_pond_kid
-- **Save as:** `art/concepts/walk/pond_kid_diag.png`  ·  **Shape:** landscape
-- **Attach:** `art/concepts/trainers/pond_kid.png`
-
-```
-Using this character sheet, draw an overworld walking sprite sheet in exactly the same pixel-art style and size as the small walk frames on the sheet, for an isometric game. 2 rows x 3 frames, evenly spaced on a flat white background, no text, no shadows. Row 1: walking toward the viewer, body turned 45 degrees to the LEFT (3/4 front view, facing down-left). Row 2: walking away from the viewer, body turned 45 degrees to the LEFT (3/4 back view, facing up-left). Columns: standing, left foot forward, right foot forward. Carrying the fishing net over one shoulder.
+Character sheet for a creature-collecting RPG in exactly the same style and layout as the attached sheet: on the left a full-body anime illustration standing in a relaxed pose; top right a head close-up; middle right a pixel-art battle sprite front and back in Pokemon Black/White 2 style; bottom right two small pixel-art overworld sprites, standing still, in exactly the size and pixel style of the small walk frames on the attached sheet: one 3/4 front view facing down-left, one 3/4 back view facing up-left. Flat white background, no text, no logos. The person is a kid from Hollow Rest who hangs around the pond: about ten years old, messy red-orange hair, freckles, a gap-toothed grin, an oversized coral-red rain jacket, rolled-up shorts, green rubber boots, a little fishing net on a stick. Energetic. Colourway: coral red, green, blue.
 ```
 
 ### person_nolan_dad
@@ -163,15 +139,7 @@ Using this character sheet, draw an overworld walking sprite sheet in exactly th
 - **Attach:** `art/concepts/trainers/callum.png`, `art/concepts/trainers/nolan.png`
 
 ```
-Character sheet for a creature-collecting RPG in exactly the same style and layout as the attached sheet: on the left a full-body anime illustration standing in a relaxed pose; top right a head close-up; middle right a pixel-art battle sprite front and back in Pokemon Black/White 2 style; bottom right small pixel-art overworld walk frames (front, side, back). Flat white background, no text, no logos. The person is Nolan's dad (the second attached sheet is his son Nolan; give him a family likeness, older): a solid man in his fifties, short greying dark-brown hair, a trimmed grey beard, a calm unreadable face, a slate-blue work jacket over a grey hoodie, work jeans, steel-toe boots, and a steaming coffee mug in one hand. He once found his son's friend asleep in his work van and just watched with his coffee. Colourway: slate blue, grey, denim.
-```
-
-### walk_nolan_dad
-- **Save as:** `art/concepts/walk/nolan_dad_diag.png`  ·  **Shape:** landscape
-- **Attach:** `art/concepts/trainers/nolan_dad.png`
-
-```
-Using this character sheet, draw an overworld walking sprite sheet in exactly the same pixel-art style and size as the small walk frames on the sheet, for an isometric game. 2 rows x 3 frames, evenly spaced on a flat white background, no text, no shadows. Row 1: walking toward the viewer, body turned 45 degrees to the LEFT (3/4 front view, facing down-left). Row 2: walking away from the viewer, body turned 45 degrees to the LEFT (3/4 back view, facing up-left). Columns: standing, left foot forward, right foot forward. Holding the coffee mug in every frame.
+Character sheet for a creature-collecting RPG in exactly the same style and layout as the attached sheet: on the left a full-body anime illustration standing in a relaxed pose; top right a head close-up; middle right a pixel-art battle sprite front and back in Pokemon Black/White 2 style; bottom right two small pixel-art overworld sprites, standing still, in exactly the size and pixel style of the small walk frames on the attached sheet: one 3/4 front view facing down-left, one 3/4 back view facing up-left. Flat white background, no text, no logos. The person is Nolan's dad (the second attached sheet is his son Nolan; give him a family likeness, older): a solid man in his fifties, short greying dark-brown hair, a trimmed grey beard, a calm unreadable face, a slate-blue work jacket over a grey hoodie, work jeans, steel-toe boots, and a steaming coffee mug in one hand. He once found his son's friend asleep in his work van and just watched with his coffee. Colourway: slate blue, grey, denim.
 ```
 
 ### person_dani_mama
@@ -179,23 +147,5 @@ Using this character sheet, draw an overworld walking sprite sheet in exactly th
 - **Attach:** `art/concepts/trainers/callum.png`, `art/concepts/trainers/dani.png`
 
 ```
-Character sheet for a creature-collecting RPG in exactly the same style and layout as the attached sheet: on the left a full-body anime illustration standing in a relaxed pose; top right a head close-up; middle right a pixel-art battle sprite front and back in Pokemon Black/White 2 style; bottom right small pixel-art overworld walk frames (front, side, back). Flat white background, no text, no logos. The person is Dani's mamá (the second attached sheet is her son Dani; give her a family likeness): a warm, short Colombian woman in her fifties, dark wavy hair in a low bun, brown eyes, a big smile, small gold earrings, a pink floral blouse, a cream apron, navy trousers, comfortable flats, a wooden spoon in one hand. Protective and welcoming. Colourway: pink, cream, navy.
-```
-
-### walk_dani_mama
-- **Save as:** `art/concepts/walk/dani_mama_diag.png`  ·  **Shape:** landscape
-- **Attach:** `art/concepts/trainers/dani_mama.png`
-
-```
-Using this character sheet, draw an overworld walking sprite sheet in exactly the same pixel-art style and size as the small walk frames on the sheet, for an isometric game. 2 rows x 3 frames, evenly spaced on a flat white background, no text, no shadows. Row 1: walking toward the viewer, body turned 45 degrees to the LEFT (3/4 front view, facing down-left). Row 2: walking away from the viewer, body turned 45 degrees to the LEFT (3/4 back view, facing up-left). Columns: standing, left foot forward, right foot forward. Holding the wooden spoon in every frame.
-```
-
-## PATCH
-
-### walk_patch
-- **Save as:** `art/concepts/walk/patch_diag.png`  ·  **Shape:** landscape
-- **Attach:** `art/concepts/trainers/patch.png`, `art/concepts/walk/group_pixel_diag.png`
-
-```
-Using this character sheet, draw an overworld walking sprite sheet in exactly the same pixel-art style and size as the small walk frames on the sheet, for an isometric game. 2 rows x 3 frames, evenly spaced on a flat white background, no text, no shadows. Row 1: walking toward the viewer, body turned 45 degrees to the LEFT (3/4 front view, facing down-left). Row 2: walking away from the viewer, body turned 45 degrees to the LEFT (3/4 back view, facing up-left). Columns: standing, left foot forward, right foot forward. The first attached sheet is PATCH, a giant boxy patched-together robot about three times the friends' height; the second shows the friends' walk sprites: match their pixel style, outline and pixel size exactly, but draw PATCH three times as tall. Heavy, careful steps; the CRT face stays visible on the front row; the shoulder vent trails a small wisp of smoke.
+Character sheet for a creature-collecting RPG in exactly the same style and layout as the attached sheet: on the left a full-body anime illustration standing in a relaxed pose; top right a head close-up; middle right a pixel-art battle sprite front and back in Pokemon Black/White 2 style; bottom right two small pixel-art overworld sprites, standing still, in exactly the size and pixel style of the small walk frames on the attached sheet: one 3/4 front view facing down-left, one 3/4 back view facing up-left. Flat white background, no text, no logos. The person is Dani's mamá (the second attached sheet is her son Dani; give her a family likeness): a warm, short Colombian woman in her fifties, dark wavy hair in a low bun, brown eyes, a big smile, small gold earrings, a pink floral blouse, a cream apron, navy trousers, comfortable flats, a wooden spoon in one hand. Protective and welcoming. Colourway: pink, cream, navy.
 ```
