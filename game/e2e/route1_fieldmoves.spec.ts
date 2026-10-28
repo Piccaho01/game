@@ -74,7 +74,7 @@ test('Route 1 field moves: stone (Callum), bridge (Nolan), officer (Haydon)', as
   await page.screenshot({ path: 'screens/05d-route1-bridge-fixed.png' });
 
   // 3. Officer: Nolan is blocked, Haydon baits him away.
-  await faceTile(page, 18, 8, [[17, 8, 'right']]);
+  await faceTile(page, 17, 8, [[16, 8, 'right']]);
   expect(await ow(page)).toMatchObject({ x: 17, y: 8 });
   await interact(page);
   await page.screenshot({ path: 'screens/05e-route1-officer.png' });

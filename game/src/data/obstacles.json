@@ -61,7 +61,7 @@
     {
       "id": "route1_officer",
       "map": "route1",
-      "x": 18,
+      "x": 17,
       "y": 8,
       "kind": "guard",
       "sprite": "tally_officer",

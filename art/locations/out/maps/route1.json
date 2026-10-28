@@ -201,17 +201,6 @@
    "decal": false
   },
   {
-   "art": "r1_crate",
-   "x": 415,
-   "y": 294,
-   "fx": 16,
-   "fy": 14,
-   "wx": 1,
-   "wy": 1,
-   "key": 306,
-   "decal": false
-  },
-  {
    "art": "r1_pine",
    "x": 217,
    "y": 256,
@@ -220,6 +209,17 @@
    "wx": 1,
    "wy": 1,
    "key": 306,
+   "decal": false
+  },
+  {
+   "art": "r1_booth",
+   "x": 370,
+   "y": 259,
+   "fx": 15,
+   "fy": 15,
+   "wx": 3,
+   "wy": 2,
+   "key": 336,
    "decal": false
   },
   {
@@ -234,14 +234,14 @@
    "decal": false
   },
   {
-   "art": "r1_booth",
-   "x": 354,
-   "y": 315,
-   "fx": 18,
-   "fy": 19,
-   "wx": 3,
-   "wy": 2,
-   "key": 406,
+   "art": "r1_crate",
+   "x": 399,
+   "y": 350,
+   "fx": 19,
+   "fy": 18,
+   "wx": 1,
+   "wy": 1,
+   "key": 376,
    "decal": false
   }
  ]
