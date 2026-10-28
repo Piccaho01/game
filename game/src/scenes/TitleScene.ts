@@ -58,7 +58,7 @@ export class TitleScene extends Phaser.Scene {
     // The owner's group picture: PATCH on the runestone with the four, the name carved in its panel,
     // his shoulder vent still smoking.
     const art = this.add.container(8, SCREEN_H - 4 - 176);
-    art.add(this.add.image(0, 0, titleKey('title_group')).setOrigin(0, 0));
+    art.add(this.add.image(0, 0, titleKey('title_group')).setOrigin(0, 0).setScale(1 / ZOOM));
     this.carveTitle(art, 55, 114);
     this.tweens.add({ targets: art, y: art.y - 1, duration: 1800, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
     this.time.addEvent({ delay: 520, loop: true, callback: () => this.puff(art.x + 85, art.y + 12) });

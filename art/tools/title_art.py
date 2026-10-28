@@ -13,7 +13,7 @@ from PIL import Image
 
 PATCH_H = 212
 FRIEND_H = 64
-GROUP_H = 176
+GROUP_H = 528  # 3x the top screen's 176 px: drawn at 1/3 scale, one pixel per canvas pixel
 OUT = 'art/title/out'
 
 if __name__ == '__main__':
