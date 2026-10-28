@@ -56,10 +56,11 @@ export class TitleScene extends Phaser.Scene {
     g.fillStyle(0x0d0e1a, 0.35).fillRect(0, 0, SCREEN_W, SCREEN_H);
     g.fillStyle(0x0d0e1a, 0.45).fillRect(0, SCREEN_H - 20, SCREEN_W, 20);
     if (this.textures.exists(standKey('patch'))) {
-      const patch = this.add.image(128, SCREEN_H - 6, standKey('patch')).setOrigin(0.5, 1).setScale(1.5);
-      this.tweens.add({ targets: patch, y: patch.y - 1.5, duration: 1400, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
+      // PATCH towers over them (bible §6: about three times their height), feet behind the group.
+      const patch = this.add.image(196, SCREEN_H + 8, standKey('patch')).setOrigin(0.5, 1).setScale(3);
+      this.tweens.add({ targets: patch, y: patch.y - 2, duration: 1600, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
     }
-    const xs = [24, 72, 184, 232];
+    const xs = [26, 76, 136, 220];
     SQUAD.forEach((id, i) => {
       const key = this.textures.exists(trainerKey(id)) ? trainerKey(id) : walkKey(id);
       const img = this.add.image(xs[i], SCREEN_H - 4, key, key === walkKey(id) ? 0 : undefined).setOrigin(0.5, 1).setFlipX(i >= 2);
@@ -67,18 +68,18 @@ export class TitleScene extends Phaser.Scene {
       if (key === walkKey(id)) img.setScale(2);
     });
     // The logo: a cream plate, taped and stitched, with the name in rust over ink.
-    const plate = this.add.container(128, 42);
+    const plate = this.add.container(76, 40);
     const p = this.add.graphics();
-    pxRect(p, -86, -30, 172, 60, COLORS.ink, 5);
-    pxRect(p, -84, -28, 168, 56, COLORS.paper, 4);
-    p.fillStyle(COLORS.paperShade).fillRect(-82, 22, 164, 4);
-    stitches(p, -80, -24, 160, 48, COLORS.stitch);
-    p.fillStyle(COLORS.tape, 0.95).fillRect(-90, -32, 22, 8).fillRect(70, 24, 22, 8);
+    pxRect(p, -72, -30, 144, 60, COLORS.ink, 5);
+    pxRect(p, -70, -28, 140, 56, COLORS.paper, 4);
+    p.fillStyle(COLORS.paperShade).fillRect(-68, 22, 136, 4);
+    stitches(p, -66, -24, 132, 48, COLORS.stitch);
+    p.fillStyle(COLORS.tape, 0.95).fillRect(-76, -32, 22, 8).fillRect(56, 24, 22, 8);
     plate.add(p);
     plate.add(pixelText(this, 0, -15, 'PROJECT', { color: TEXT_COLORS.inkSoft, size: TEXT_SIZE.heading, display: true }).setOrigin(0.5));
     plate.add(pixelText(this, 1.5, 3.5, 'PATCH', { color: TEXT_COLORS.ink, size: 24, display: true }).setOrigin(0.5));
     plate.add(pixelText(this, 0, 2, 'PATCH', { color: TEXT_COLORS.rust, size: 24, display: true }).setOrigin(0.5));
-    plate.add(pixelText(this, 0, 19, 'a world nobody wrote on purpose', { color: TEXT_COLORS.inkSoft, size: TEXT_SIZE.tiny }).setOrigin(0.5));
+    plate.add(pixelText(this, 0, 19, 'a world nobody wrote on purpose', { color: TEXT_COLORS.inkSoft, size: 4 }).setOrigin(0.5));
     this.tweens.add({ targets: plate, angle: { from: -1.2, to: 1.2 }, duration: 2600, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
   }
 
