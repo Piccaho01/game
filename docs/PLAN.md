@@ -372,6 +372,18 @@ stand pose with `art/tools/pose2sprite.py` to `art/trainers/out/tally_officer_st
 the obstacle's `sprite` to `tally_officer` (it is `placeholder:#4a5468` now). The hand-drawn broken
 bridge is optional.
 
+## Roadmap after the playtest (proposed 2026-10-28; see WORKFLOW "chapters")
+1. **Playtest fixes**: the group's feedback as one batch.
+2. **M6 Game shell**: title screen and main menu (Continue / New Game / Settings), pause menu,
+   settings (sound, text speed, squad/solo), proper blackout, evolution system (level-ups evolve;
+   the evolve scene). Uses existing evolution sprites as they arrive.
+3. **Finish the existing lines** (rule: whole lines): the 4 starter lines (8 sprites), Orbitot
+   and Fledjet lines (4), attack animations (Glassblow first). One art batch.
+4. **Chapter 1**: Kettleport (Water/Metal) + the route to it, Connor's first "cancelled" boss
+   fight, the Tide Gallery wing, its Patchling lines, shop + currency.
+5. Then a chapter at a time: Emberwick, Canopy, Nightmarket, Hush, with the non-town locations
+   slotted in as routes between them.
+
 ## After the slice
 - Evolutions (8 sprites: Cullet, Vitric, Tesnail, Gauslug, Fernaroo, Scytharoo, Gulpjaw,
   Harrowjaw), attack animations (Glassblow first), Connor's "cancelled" first boss fight,
