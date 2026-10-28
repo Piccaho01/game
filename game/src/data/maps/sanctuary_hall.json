@@ -1,0 +1,164 @@
+{
+  "_note": "Sanctuary: Entrance Hall (bible §7 interiors): the owner's concept is the room, by art/tools/room_concept.py from art/tools/rooms.json. Edit there.",
+  "id": "sanctuary_hall",
+  "name": "Sanctuary: Entrance Hall",
+  "legend": {
+    ".": "floor",
+    "m": "mat",
+    "x": "ruin"
+  },
+  "rows": [
+    "x..xx..",
+    ".......",
+    "xx.....",
+    "xx.....",
+    "xx.....",
+    "xx.....",
+    "xx.m..."
+  ],
+  "spawn": {
+    "x": 3,
+    "y": 6
+  },
+  "warps": [
+    {
+      "x": 3,
+      "y": 7,
+      "to": "hollow_rest",
+      "tx": 5,
+      "ty": 5,
+      "dir": "down",
+      "enter": "down"
+    },
+    {
+      "x": 1,
+      "y": -1,
+      "to": "sanctuary_roots",
+      "tx": 3,
+      "ty": 7,
+      "dir": "up",
+      "enter": "up"
+    },
+    {
+      "x": -1,
+      "y": 1,
+      "to": "sanctuary_workshop",
+      "tx": 3,
+      "ty": 7,
+      "dir": "up",
+      "enter": "left"
+    }
+  ],
+  "signs": [
+    {
+      "x": 3,
+      "y": 0,
+      "opens": "storage"
+    },
+    {
+      "x": 5,
+      "y": -1,
+      "opens": "sanctuary"
+    },
+    {
+      "x": 6,
+      "y": -1,
+      "opens": "sanctuary"
+    },
+    {
+      "x": 2,
+      "y": -1,
+      "talk": "sanctuary_sealed_tide"
+    },
+    {
+      "x": 0,
+      "y": 5,
+      "rest": true,
+      "talk": "bed_callum"
+    },
+    {
+      "x": 1,
+      "y": 5,
+      "rest": true,
+      "talk": "bed_callum"
+    },
+    {
+      "x": 0,
+      "y": 6,
+      "rest": true,
+      "talk": "bed_callum"
+    },
+    {
+      "x": 1,
+      "y": 6,
+      "rest": true,
+      "talk": "bed_callum"
+    },
+    {
+      "x": 0,
+      "y": 4,
+      "rest": true,
+      "talk": "bed_nolan"
+    },
+    {
+      "x": 1,
+      "y": 4,
+      "rest": true,
+      "talk": "bed_nolan"
+    },
+    {
+      "x": 0,
+      "y": 3,
+      "rest": true,
+      "talk": "bed_haydon"
+    },
+    {
+      "x": 1,
+      "y": 3,
+      "rest": true,
+      "talk": "bed_haydon"
+    },
+    {
+      "x": 0,
+      "y": 2,
+      "rest": true,
+      "talk": "bed_dani"
+    },
+    {
+      "x": 1,
+      "y": 2,
+      "rest": true,
+      "talk": "bed_dani"
+    }
+  ],
+  "npcs": [],
+  "objects": [
+    {
+      "kind": "in_rubble",
+      "x": 1,
+      "y": 0,
+      "until": {
+        "wing": "root_hall"
+      }
+    }
+  ],
+  "roam": [
+    {
+      "x": 3,
+      "y": 3
+    },
+    {
+      "x": 5,
+      "y": 4
+    },
+    {
+      "x": 3,
+      "y": 5
+    },
+    {
+      "x": 5,
+      "y": 2
+    }
+  ],
+  "concept": "sanctuary_hall"
+}

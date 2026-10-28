@@ -1,5 +1,5 @@
 {
-  "_note": "Things that stand on the overworld (isometric, M4 art pass). 'art': the image in art/locations/out/<art>.png (set pieces converted from the owner's drafts) or a prop drawn by art/tools/iso_map.py. 'wx'/'wy': footprint in tiles along the map's x (down-right on screen) and y (down-left); every footprint tile is solid unless 'walkable'. 'decal': lies flat on the ground (drawn under people). 'door': where you stand to knock (relative to the footprint's top corner; facing the building, A reads 'doorText'). 'opens': facing it and pressing A opens that screen (the sanctuary's CRT stones).",
+  "_note": "Things that stand on the overworld (isometric, M4 art pass). 'art': the image in art/locations/out/<art>.png (set pieces converted from the owner's drafts) or a prop drawn by art/tools/iso_map.py. 'wx'/'wy': footprint in tiles along the map's x (down-right on screen) and y (down-left); every footprint tile is solid unless 'walkable'. 'decal': lies flat on the ground (drawn under people). 'door': where you stand to knock (relative to the footprint's top corner; facing the building, A reads 'doorText'). 'opens': facing it and pressing A opens that screen (the sanctuary's CRT stones). Interiors (art/tools/interiors_layout.py): 'box' places a piece by its footprint's front corner even when 1x1 (the placeholder furniture from art/tools/interior_props.py fills its tile); 'text' or 'talk' (a dialogue id) is read with A from any side; 'rest': a bed that patches up every team; 'opens': 'sanctuary' (the wings) or 'storage' (the storage terminal).",
   "objects": {
     "cottage": {
       "art": "cottage",
@@ -66,7 +66,11 @@
       "art": "sanctuary",
       "wx": 3,
       "wy": 4,
-      "opens": "sanctuary"
+      "doorText": "The sanctuary. Cold air breathes out of the dark. Something in there hums.",
+      "door": [
+        1,
+        4
+      ]
     },
     "tree": {
       "art": "tree",
@@ -92,7 +96,8 @@
     "cat": {
       "art": "cat",
       "wx": 1,
-      "wy": 1
+      "wy": 1,
+      "talk": "strikes"
     },
     "chalk": {
       "art": "chalk",
@@ -110,6 +115,305 @@
       "art": "crates",
       "wx": 1,
       "wy": 1
+    },
+    "in_crt_tv": {
+      "art": "in_crt_tv",
+      "wx": 1,
+      "wy": 1,
+      "box": true,
+      "talk": "callum_crt"
+    },
+    "in_shelf_comics": {
+      "art": "in_shelf_comics",
+      "wx": 1,
+      "wy": 1,
+      "box": true,
+      "talk": "callum_shelf"
+    },
+    "in_table_bag": {
+      "art": "in_table_bag",
+      "wx": 1,
+      "wy": 1,
+      "box": true,
+      "talk": "callum_bag"
+    },
+    "in_armchair": {
+      "art": "in_armchair",
+      "wx": 1,
+      "wy": 1,
+      "box": true,
+      "text": "A tartan armchair. It has a Callum-shaped dent."
+    },
+    "in_laptop": {
+      "art": "in_laptop",
+      "wx": 1,
+      "wy": 1,
+      "box": true,
+      "talk": "callum_laptop"
+    },
+    "in_studio_desk": {
+      "art": "in_studio_desk",
+      "wx": 2,
+      "wy": 1,
+      "box": true,
+      "talk": "nolan_desk"
+    },
+    "in_couch": {
+      "art": "in_couch",
+      "wx": 2,
+      "wy": 1,
+      "box": true,
+      "text": "The couch. Someone has slept on this couch. Several someones. Several times."
+    },
+    "in_tv_console": {
+      "art": "in_tv_console",
+      "wx": 1,
+      "wy": 1,
+      "box": true,
+      "talk": "nolan_tv"
+    },
+    "in_shelf_bottle": {
+      "art": "in_shelf_bottle",
+      "wx": 1,
+      "wy": 1,
+      "box": true,
+      "talk": "nolan_bottle"
+    },
+    "in_ring_light": {
+      "art": "in_ring_light",
+      "wx": 1,
+      "wy": 1,
+      "box": true,
+      "text": "A ring light. It makes everyone look like they're about to announce something."
+    },
+    "in_stream_desk": {
+      "art": "in_stream_desk",
+      "wx": 2,
+      "wy": 1,
+      "box": true,
+      "talk": "haydon_desk"
+    },
+    "in_gaming_chair": {
+      "art": "in_gaming_chair",
+      "wx": 1,
+      "wy": 1,
+      "box": true,
+      "text": "A gaming chair. Acid green. It reclines all the way back, which is how Haydon takes criticism."
+    },
+    "in_snacks": {
+      "art": "in_snacks",
+      "wx": 1,
+      "wy": 1,
+      "box": true,
+      "talk": "haydon_snacks"
+    },
+    "in_hammock": {
+      "art": "in_hammock",
+      "wx": 2,
+      "wy": 1,
+      "box": true,
+      "talk": "dani_hammock"
+    },
+    "in_football": {
+      "art": "in_football",
+      "wx": 1,
+      "wy": 1,
+      "box": true,
+      "talk": "dani_football"
+    },
+    "in_counter": {
+      "art": "in_counter",
+      "wx": 2,
+      "wy": 1,
+      "box": true,
+      "talk": "dani_coffee"
+    },
+    "in_fridge": {
+      "art": "in_fridge",
+      "wx": 1,
+      "wy": 1,
+      "box": true,
+      "talk": "dani_fridge"
+    },
+    "in_shoes": {
+      "art": "in_shoes",
+      "wx": 1,
+      "wy": 1,
+      "box": true,
+      "talk": "dani_shoes"
+    },
+    "in_plant": {
+      "art": "in_plant",
+      "wx": 1,
+      "wy": 1,
+      "box": true,
+      "text": "A plant. It's thriving. Nobody here can explain it."
+    },
+    "in_crt_stones": {
+      "art": "in_crt_stones",
+      "wx": 2,
+      "wy": 1,
+      "box": true,
+      "opens": "sanctuary"
+    },
+    "in_terminal": {
+      "art": "in_terminal",
+      "wx": 1,
+      "wy": 1,
+      "box": true,
+      "opens": "storage"
+    },
+    "in_bedroll_teal": {
+      "art": "in_bedroll_teal",
+      "wx": 1,
+      "wy": 1,
+      "box": true,
+      "rest": true,
+      "talk": "bed_callum"
+    },
+    "in_bedroll_grey": {
+      "art": "in_bedroll_grey",
+      "wx": 1,
+      "wy": 1,
+      "box": true,
+      "rest": true,
+      "talk": "bed_nolan"
+    },
+    "in_bedroll_khaki": {
+      "art": "in_bedroll_khaki",
+      "wx": 1,
+      "wy": 1,
+      "box": true,
+      "rest": true,
+      "talk": "bed_haydon"
+    },
+    "in_bedroll_navy": {
+      "art": "in_bedroll_navy",
+      "wx": 1,
+      "wy": 1,
+      "box": true,
+      "rest": true,
+      "talk": "bed_dani"
+    },
+    "in_rubble": {
+      "art": "in_rubble",
+      "wx": 1,
+      "wy": 1,
+      "box": true,
+      "talk": "sanctuary_rubble"
+    },
+    "in_pillar": {
+      "art": "in_pillar",
+      "wx": 1,
+      "wy": 1,
+      "box": true
+    },
+    "in_workbench": {
+      "art": "in_workbench",
+      "wx": 2,
+      "wy": 1,
+      "box": true,
+      "talk": "workshop_bench"
+    },
+    "in_cradle": {
+      "art": "in_cradle",
+      "wx": 2,
+      "wy": 2,
+      "box": true,
+      "talk": "workshop_cradle"
+    },
+    "in_panels": {
+      "art": "in_panels",
+      "wx": 1,
+      "wy": 1,
+      "box": true,
+      "text": "Spare panels. Cream, rust, blue. PATCH is mostly these now."
+    },
+    "in_roots": {
+      "art": "in_roots",
+      "wx": 2,
+      "wy": 2,
+      "box": true,
+      "talk": "roots_roots"
+    },
+    "in_keeper_bench": {
+      "art": "in_keeper_bench",
+      "wx": 1,
+      "wy": 1,
+      "box": true,
+      "text": "A keepers' bench, worn smooth. Someone sat here a long time, waiting for the sanctuary to wake up."
+    },
+    "in_pool": {
+      "art": "in_pool",
+      "wx": 2,
+      "wy": 2,
+      "box": true,
+      "talk": "roots_pool"
+    },
+    "in_rug": {
+      "art": "in_rug",
+      "wx": 1,
+      "wy": 1,
+      "box": true,
+      "decal": true,
+      "walkable": true
+    },
+    "r1_booth": {
+      "art": "r1_booth",
+      "wx": 3,
+      "wy": 2,
+      "talk": "route1_checkpoint"
+    },
+    "r1_meteor": {
+      "art": "r1_meteor",
+      "wx": 3,
+      "wy": 3,
+      "talk": "route1_meteor"
+    },
+    "r1_bridge": {
+      "art": "r1_bridge",
+      "wx": 3,
+      "wy": 1,
+      "decal": true,
+      "walkable": true
+    },
+    "r1_oak": {
+      "art": "r1_oak",
+      "wx": 1,
+      "wy": 1
+    },
+    "r1_pine": {
+      "art": "r1_pine",
+      "wx": 1,
+      "wy": 1
+    },
+    "r1_flowerbush": {
+      "art": "r1_flowerbush",
+      "wx": 1,
+      "wy": 1
+    },
+    "r1_flowers": {
+      "art": "r1_flowers",
+      "wx": 1,
+      "wy": 1,
+      "walkable": true
+    },
+    "r1_crt_stone": {
+      "art": "r1_crt_stone",
+      "wx": 1,
+      "wy": 1,
+      "talk": "route1_crt_stone"
+    },
+    "r1_lamp": {
+      "art": "r1_lamp",
+      "wx": 1,
+      "wy": 1
+    },
+    "r1_crate": {
+      "art": "r1_crate",
+      "wx": 1,
+      "wy": 1,
+      "text": "A crate stamped TALLY: SALVAGE, PENDING. It's been pending since it was stamped."
     }
   }
 }

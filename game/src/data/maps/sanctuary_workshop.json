@@ -1,0 +1,85 @@
+{
+  "_note": "PATCH's Workshop (bible §7 interiors): the owner's concept is the room, by art/tools/room_concept.py from art/tools/rooms.json. Edit there.",
+  "id": "sanctuary_workshop",
+  "name": "PATCH's Workshop",
+  "legend": {
+    ".": "floor",
+    "m": "mat",
+    "x": "ruin"
+  },
+  "rows": [
+    "xxxxxx.",
+    "x.xxx..",
+    "x.xxx.x",
+    "x.....x",
+    "x......",
+    "x......",
+    "x......",
+    "...m..."
+  ],
+  "spawn": {
+    "x": 3,
+    "y": 7
+  },
+  "warps": [
+    {
+      "x": 3,
+      "y": 8,
+      "to": "sanctuary_hall",
+      "tx": 0,
+      "ty": 1,
+      "dir": "right",
+      "enter": "down"
+    }
+  ],
+  "signs": [
+    {
+      "x": 3,
+      "y": 2,
+      "talk": "workshop_cradle"
+    },
+    {
+      "x": 2,
+      "y": 2,
+      "talk": "workshop_cradle"
+    },
+    {
+      "x": 4,
+      "y": 2,
+      "talk": "workshop_cradle"
+    },
+    {
+      "x": 0,
+      "y": 3,
+      "talk": "workshop_bench"
+    },
+    {
+      "x": 0,
+      "y": 2,
+      "talk": "workshop_bench"
+    },
+    {
+      "x": 0,
+      "y": 1,
+      "talk": "workshop_fixboard"
+    },
+    {
+      "x": 0,
+      "y": 5,
+      "text": "Spare panels. Cream, rust, blue. PATCH is mostly these now."
+    },
+    {
+      "x": 0,
+      "y": 6,
+      "text": "Spare panels. Cream, rust, blue. PATCH is mostly these now."
+    },
+    {
+      "x": 6,
+      "y": 2,
+      "text": "A crate of bolts and tape. Labelled: PATCH (ME)."
+    }
+  ],
+  "npcs": [],
+  "objects": [],
+  "concept": "workshop"
+}

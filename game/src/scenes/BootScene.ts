@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 import { BATTLE_BGS, FOLLOW_FRAME, FOLLOW_SHEETS, MAP_ART, PROP_ART, SPRITES, STANDS, TRAINER_BATTLE, WALK_FRAME, WALK_SHEETS, type SpriteAsset } from '../assets';
 import { SPECIES, TYPES } from '../engine/data';
 import { newProgress } from '../engine/progress';
+import { ITEMS } from '../engine/items';
 import { clearProgress, loadProgress, saveProgress } from '../save';
 
 /** Texture key for a species' battle sprite; always exists after boot (real art or a placeholder). */
@@ -23,6 +24,8 @@ export const battleBgKey = (id: string) => `battlebg:${id}`;
 export const trainerKey = (id: string) => `trainer:${id}`;
 /** A Patchling's follower frames (8 angles). */
 export const followKey = (species: string) => `follow:${species}`;
+/** An item's icon, drawn at boot (a rolled scroll in the item's colour). */
+export const itemKey = (id: string) => `item:${id}`;
 
 export class BootScene extends Phaser.Scene {
   constructor() { super('boot'); }
@@ -51,6 +54,7 @@ export class BootScene extends Phaser.Scene {
       this.makeIdle(key, idleAnimKey(id));
       if (this.textures.exists(backKey(id))) this.makeIdle(backKey(id), backIdleAnimKey(id));
     }
+    this.makeItemIcons();
     const params = new URLSearchParams(location.search);
     // ?reset clears the save. A new game goes to the character and starter pick, unless ?player
     // names a starter (a shortcut for tests and quick checks). ?foe jumps straight into a battle.
@@ -94,6 +98,24 @@ export class BootScene extends Phaser.Scene {
     const sorted = names.sort((a, b) => Number(a.split('_').pop()) - Number(b.split('_').pop()));
     const json = this.cache.json.get(`${key}:json`) as { frames?: Record<string, { duration?: number }> } | undefined;
     return { frames: sorted.map((frame) => ({ key, frame, duration: json?.frames?.[frame]?.duration ?? 100 })) };
+  }
+
+  /** Seal scroll icons: a rolled scroll in each item's colour, 18x22 (pixel art, drawn here). */
+  private makeItemIcons() {
+    for (const [id, it] of Object.entries(ITEMS)) {
+      const c = Phaser.Display.Color.HexStringToColor(it.color).color;
+      const dark = Phaser.Display.Color.ValueToColor(c).darken(35).color;
+      const light = Phaser.Display.Color.ValueToColor(c).lighten(20).color;
+      const g = this.make.graphics({}, false);
+      g.fillStyle(0x1c1b29).fillRect(3, 3, 12, 16).fillRect(1, 1, 16, 5).fillRect(1, 16, 16, 5);
+      g.fillStyle(c).fillRect(4, 5, 10, 12);
+      g.fillStyle(light).fillRect(4, 5, 2, 12);
+      g.fillStyle(dark).fillRect(2, 2, 14, 3).fillRect(2, 17, 14, 3);
+      g.fillStyle(light).fillRect(3, 2, 12, 1).fillRect(3, 17, 12, 1);
+      g.fillStyle(0xc2502f).fillRect(8, 9, 2, 4);
+      g.generateTexture(itemKey(id), 18, 22);
+      g.destroy();
+    }
   }
 
   /** A blobby stand-in in the type colour until the real sprite is approved (M2). */

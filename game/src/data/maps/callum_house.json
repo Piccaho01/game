@@ -1,0 +1,94 @@
+{
+  "_note": "Callum's Cottage (bible §7 interiors): the owner's concept is the room, by art/tools/room_concept.py from art/tools/rooms.json. Edit there.",
+  "id": "callum_house",
+  "name": "Callum's Cottage",
+  "legend": {
+    ".": "floor",
+    "m": "mat",
+    "x": "ruin"
+  },
+  "rows": [
+    "xxxxxxx",
+    "x......",
+    "..xx...",
+    ".xxx...",
+    "xxx....",
+    "xx.x...",
+    "xx.m..."
+  ],
+  "spawn": {
+    "x": 3,
+    "y": 6
+  },
+  "warps": [
+    {
+      "x": 3,
+      "y": 7,
+      "to": "hollow_rest",
+      "tx": 6,
+      "ty": 17,
+      "dir": "right",
+      "enter": "down"
+    }
+  ],
+  "signs": [
+    {
+      "x": 0,
+      "y": 5,
+      "talk": "callum_shelf"
+    },
+    {
+      "x": 0,
+      "y": 4,
+      "talk": "callum_shelf"
+    },
+    {
+      "x": 1,
+      "y": 0,
+      "talk": "callum_crt"
+    },
+    {
+      "x": 2,
+      "y": 2,
+      "talk": "callum_bag"
+    },
+    {
+      "x": 3,
+      "y": 3,
+      "talk": "callum_laptop"
+    },
+    {
+      "x": 1,
+      "y": 3,
+      "text": "A red armchair with a blanket over it. It has a Callum-shaped dent."
+    },
+    {
+      "x": 3,
+      "y": 0,
+      "talk": "callum_pins"
+    },
+    {
+      "x": 2,
+      "y": 0,
+      "talk": "callum_pins"
+    },
+    {
+      "x": 4,
+      "y": 0,
+      "talk": "callum_towel"
+    },
+    {
+      "x": 5,
+      "y": 0,
+      "talk": "callum_towel"
+    },
+    {
+      "x": 6,
+      "y": 0,
+      "text": "A plant. It's thriving. Nobody here can explain it."
+    }
+  ],
+  "npcs": [],
+  "objects": [],
+  "concept": "callum"
+}

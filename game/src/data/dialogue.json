@@ -19,6 +19,8 @@
       ],
       "dani": [
         { "who": "PATCH", "text": "Dani. You're here. On time. I've logged it." },
+        { "text": "Dani's phone buzzes. MAMÁ is calling. Again." },
+        { "who": "Dani", "text": "Ma, I'm with the robot— ¡NO, MAMÁ, EL ROBOT ES BUENO! ¡SÍ, ME ESTÁ CUIDANDO!" },
         { "who": "PATCH", "text": "Patched. All of them." }
       ]
     }
@@ -55,9 +57,20 @@
   },
   "elder": {
     "lines": [
-      { "who": "Old keeper", "text": "My grandmother kept this sanctuary. Now a tin giant sleeps in it." },
-      { "who": "Old keeper", "text": "Outsiders. Don't touch the stones." }
-    ]
+      { "who": "LeBron", "text": "The Hollowfolk call me the Keeper. You can call me Bron." },
+      { "who": "LeBron", "text": "Somebody hit \"sim to end of season\" on a MyLeague save. I woke up here. That was years ago." },
+      { "who": "Haydon", "text": "Nah that's cap. That's not LeBron." },
+      { "who": "LeBron", "text": "Ratings froze in 2K22, young fella. Still a 97. Don't touch the stones." }
+    ],
+    "byLeader": {
+      "callum": [
+        { "who": "LeBron", "text": "...You. Scottish kid. Curly hair. I know that face from the loading screen." },
+        { "who": "LeBron", "text": "You're the one who hit \"sim to end of season\"." },
+        { "who": "Callum", "text": "In my defence, the playoffs were taking ages." },
+        { "who": "Nolan", "text": "He's been in here YEARS, Callum." },
+        { "who": "LeBron", "text": "Don't touch the stones. That one's not a request." }
+      ]
+    }
   },
   "neighbour": {
     "lines": [
@@ -65,10 +78,24 @@
       { "who": "Neighbour", "text": "With a coffee." }
     ]
   },
-  "pond_kid": {
+  "parker": {
     "lines": [
-      { "who": "Kid", "text": "A rock fell out of the sky and now it follows me home." },
-      { "who": "Kid", "text": "Mum says it's \"skybox\" and to stop feeding it." }
-    ]
+      { "who": "Parker Colt", "text": "Parker Colt. You've probably seen the page." },
+      { "who": "Parker Colt", "text": "New post every day at golden hour. The lighting in this world is insane. Follow me." },
+      { "who": "Haydon", "text": "Your name is Noah." },
+      { "who": "Parker Colt", "text": "Noah is a private account." }
+    ],
+    "byLeader": {
+      "callum": [
+        { "who": "Parker Colt", "text": "Callum. You never followed back. Since 2020." },
+        { "who": "Callum", "text": "I followed. I just had notifications off. For six years." },
+        { "who": "Parker Colt", "text": "...Golden hour's at six. Like the post." }
+      ],
+      "dani": [
+        { "who": "Dani", "text": "Bro! I follow you. I like every post." },
+        { "who": "Parker Colt", "text": "You liked one post. In 2021. Three months after I put it up." },
+        { "who": "Dani", "text": "Is still a like." }
+      ]
+    }
   }
 }

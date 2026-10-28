@@ -1,0 +1,31 @@
+{
+ "origin": {
+  "x": 140.0,
+  "y": 81.0
+ },
+ "tile": {
+  "w": 44,
+  "h": 18,
+  "z": 16
+ },
+ "size": {
+  "w": 323,
+  "h": 220
+ },
+ "sprites": [
+  {
+   "art": "hall_rubble",
+   "x": 156,
+   "y": 67,
+   "fx": 1,
+   "fy": 0,
+   "wx": 1,
+   "wy": 1,
+   "key": 16,
+   "decal": false,
+   "until": {
+    "wing": "root_hall"
+   }
+  }
+ ]
+}

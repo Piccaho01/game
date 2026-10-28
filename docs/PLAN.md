@@ -19,8 +19,10 @@ Rules that keep it efficient:
 - [x] M1 Foundation (live once Pages is enabled: Settings → Pages → Source: GitHub Actions)
 - [x] M2 Stage-1 starters (branch `claude/m2-starters`: all four with front, idle, back and back idle in game; see "M2 handoff" below)
 - [x] M3 Core loop (pick a leader and starter → wild battle → seal → team/sanctuary → bestiary stages and sanctuary points, leader assists, switching, saved in the browser)
-- [ ] M4 Characters + world slice (in progress: Hollow Rest isometric with the owner's terrain/props and pixel-art walk sprites on `claude/m4-polish`; left: story intro, Route 1 isometric, townsfolk)
-- [ ] M4b The squad, the base, the story (three tracks, see below; story done, PR #21)
+- [x] M4 Characters + world slice (done with the M4 wrap-up; was: Hollow Rest isometric with the owner's terrain/props and pixel-art walk sprites on `claude/m4-polish`; left: story intro, Route 1 isometric, townsfolk)
+- [x] M4b The squad, the base, the story (story PR #21; squad, world and systems in the M4 wrap-up)
+- [x] M4 wrap-up (branch `claude/kind-bell-uvy1u4`): World and Systems tracks merged; townsfolk from the owner's sheets; all seven rooms are the owner's concepts (`art/tools/room_concept.py` + `rooms.json`); new jokes (LeBron, Parker Colt, Strikes, Dani's mamá on the phone).
+  **Handoff:** next is M5 (playtest build). Carried over, not blocking: Connor's battle/walk sprites (with his first boss fight), trainer battle portraits for the four, NPCs only have a front pose, the boulder's spot in Hollow Rest is a first guess, rooms are a bit wider than the top screen (camera scrolls). Room piece sheets (`interior_*_pieces.png`) are unused, kept for edits.
 - [ ] M5 Playtest build
 - [ ] After the slice: evolutions, Connor, more of Verrow
 
@@ -214,7 +216,7 @@ because every new screen uses it):
 
 Art asks for the owner: the Hollow Rest drafts from `art/LOCATION_STYLE.md` (concept, pixel map,
 set pieces, terrain swatch) into `art/concepts/locations/`; townsfolk NPC sprites (the elder,
-neighbour and pond kid are placeholders).
+neighbour and Parker Colt are placeholders).
 
 ### M4 handoff (read this first in a new session)
 - **Workflow with the owner:** the owner is the ideas side; Claude is the developer and should
@@ -284,7 +286,23 @@ small, clearly separated hooks, so the PRs merge cleanly.
 - **World** (branch `claude/m4b-world`, own session): `data/maps/*` (new interior maps, Route 1
   isometric), `data/objects.json`, `data/tiles.json`, `art/tools/*` map tools, `art/locations/*`,
   NPC home/visit data. Overworld hooks: warps into interiors.
-- **Systems** (branch `claude/m4b-systems`, the session that did the UI): experience and levels
+  Built so far (World): interiors (door warps into room maps; `art/tools/interiors_layout.py` writes
+  them, `iso_room.py` bakes the cut-away look, placeholder furniture `interior_props.py`); the four
+  houses with their inside jokes (`data/world_dialogue.json`); the sanctuary base (Entrance Hall:
+  CRT stones = WINGS, terminal = STORAGE, four bedrolls heal; PATCH's Workshop; Root Hall behind
+  rubble until `root_hall`, via `until` on map objects, engine `engine/world.ts`); the recurring
+  cast (`data/cast.json`: home + visits on wings/flags; the old keeper moves to Root Hall); stored
+  Patchlings roam the sanctuary (`roam` spots); `Progress.flags` for story flags; Route 1
+  isometric (`art/tools/route1_layout.py`, owner's pieces via `route1_kit.py`; the Tally
+  checkpoint closes the road on). Rooms are entered by walking into the door; you leave by
+  walking off the room's front edge from the doormat.
+- **Systems** (branch `claude/m4b-systems`, the session that did the UI). Built: shared experience
+  (`engine/levels.ts`: level³ curve, foe yield = BST/5 x level / 7, all four teams full, storage half,
+  moves learned on level-up, XP bar on the battle card), seal scrolls (`data/items.json`,
+  `engine/items.ts`: the bag in `progress.items`, scroll picker on SEAL, window/bond/glass/echo/
+  tries/keep-on-fail effects, PATCH tops Seal Scrolls up to 5 when he heals, Journal BAG tab), field
+  moves (`data/obstacles.json`, `engine/fieldMoves.ts`, `progress.cleared`: a boulder in Hollow Rest
+  only Dani can shift, with a Gilded Scroll behind it). Original brief: experience and levels
   (shared by all four teams, half in storage), seal scrolls (items, inventory, shop later), field
   moves and the first obstacle (`engine/fieldMoves.ts`, map `obstacles` data), battle/journal hooks.
 Rules for every track: the owner approves visuals from screenshots before a PR goes to main;
@@ -306,6 +324,11 @@ Next once the owner approves the sample: roll the look out to every screen (new 
 sanctuary, overworld touch screen, fight/team menus), seal scrolls as items.
 
 ## M5 Playtest build
+- Field moves for the other three (engine and lines exist in `data/obstacles.json`; only Dani's
+  boulder is placed): Haydon's **Taunt** on the Tally guard at the Route 1 checkpoint (opens the
+  road), Nolan's **Patch Up** on a broken plank of Route 1's bridge or the dead storage terminal,
+  Callum's **Scan** on the sealed Tide Gallery door or Route 1's CRT stone. So the playtest makes
+  you switch to every friend. Also check the boulder's spot in Hollow Rest.
 - Bug pass on phones (iOS Safari, Android Chrome), balance pass, the link shared with the
   group, one round of fixes from their feedback.
 

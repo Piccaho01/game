@@ -1,0 +1,79 @@
+{
+  "_note": "Nolan's Basement (bible §7 interiors): the owner's concept is the room, by art/tools/room_concept.py from art/tools/rooms.json. Edit there.",
+  "id": "nolan_house",
+  "name": "Nolan's Basement",
+  "legend": {
+    ".": "floor",
+    "m": "mat",
+    "x": "ruin"
+  },
+  "rows": [
+    "xxxxxxx",
+    "x......",
+    "x..x...",
+    "x.xxx..",
+    "xxxx...",
+    "xxxxxx.",
+    "x.xxx.m"
+  ],
+  "spawn": {
+    "x": 6,
+    "y": 6
+  },
+  "warps": [
+    {
+      "x": 6,
+      "y": 7,
+      "to": "hollow_rest",
+      "tx": 10,
+      "ty": 5,
+      "dir": "down",
+      "enter": "down"
+    }
+  ],
+  "signs": [
+    {
+      "x": 1,
+      "y": 0,
+      "talk": "nolan_desk"
+    },
+    {
+      "x": 2,
+      "y": 0,
+      "talk": "nolan_tv"
+    },
+    {
+      "x": 3,
+      "y": 0,
+      "talk": "nolan_window"
+    },
+    {
+      "x": 0,
+      "y": 3,
+      "talk": "nolan_bottle"
+    },
+    {
+      "x": 0,
+      "y": 2,
+      "talk": "nolan_bottle"
+    },
+    {
+      "x": 2,
+      "y": 5,
+      "text": "The couch. Someone has slept on this couch. Several someones. Several times."
+    },
+    {
+      "x": 4,
+      "y": 5,
+      "text": "The couch. Someone has slept on this couch. Several someones. Several times."
+    },
+    {
+      "x": 4,
+      "y": 0,
+      "text": "A mini fridge with magnets on it. Mostly empty. Mostly."
+    }
+  ],
+  "npcs": [],
+  "objects": [],
+  "concept": "nolan"
+}

@@ -1,0 +1,72 @@
+{
+  "_note": "The recurring cast (bible §7: people met on the journey come back). Everyone has a 'home' (map, tile, facing); a visit whose 'when' holds moves them there (the last one that holds wins: a wing restored and/or a story flag), with its own 'talk' if given. engine/world.ts. Lines in data/dialogue.json or data/world_dialogue.json. 'sprite' as for map NPCs.",
+  "people": {
+    "elder": {
+      "name": "LeBron",
+      "sprite": "elder",
+      "talk": "elder",
+      "home": {
+        "map": "hollow_rest",
+        "x": 10,
+        "y": 6,
+        "dir": "left"
+      },
+      "visits": [
+        {
+          "map": "sanctuary_roots",
+          "x": 4,
+          "y": 3,
+          "dir": "down",
+          "when": {
+            "wing": "root_hall"
+          },
+          "talk": "elder_roots"
+        }
+      ]
+    },
+    "neighbour": {
+      "name": "Neighbour",
+      "sprite": "neighbour",
+      "talk": "neighbour",
+      "home": {
+        "map": "hollow_rest",
+        "x": 13,
+        "y": 4,
+        "dir": "left"
+      }
+    },
+    "parker": {
+      "name": "Parker Colt",
+      "sprite": "parker",
+      "talk": "parker",
+      "home": {
+        "map": "hollow_rest",
+        "x": 12,
+        "y": 17,
+        "dir": "right"
+      }
+    },
+    "nolan_dad": {
+      "name": "Nolan's dad",
+      "sprite": "nolan_dad",
+      "talk": "nolan_dad",
+      "home": {
+        "map": "nolan_house",
+        "x": 4,
+        "y": 1,
+        "dir": "up"
+      }
+    },
+    "dani_mama": {
+      "name": "Dani's mamá",
+      "sprite": "dani_mama",
+      "talk": "dani_mama",
+      "home": {
+        "map": "dani_house",
+        "x": 4,
+        "y": 2,
+        "dir": "down"
+      }
+    }
+  }
+}
