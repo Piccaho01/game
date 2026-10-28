@@ -4,20 +4,23 @@ import { linesFor } from '../engine/dialogue';
 import { DIRS, facing, findPath, followStep, heightAt, lineUp, MAPS, npcAt, OBJECTS, objectAction, rollEncounter, signAt, stairAxis, START, step, type Dir, type Npc, type Opens, type Position, type Spot } from '../engine/overworld';
 import { gateAt, met, peopleOn, roamersOn } from '../engine/world';
 import { SPECIES } from '../engine/data';
-import { CHARACTERS, healTeam, leaderTeam, partyMode, SQUAD, switchLeader, type CharacterId, type Progress } from '../engine/progress';
+import { CHARACTERS, healTeam, leaderTeam, SQUAD, switchLeader, type CharacterId, type Progress } from '../engine/progress';
 import { createRng, type Rng } from '../engine/rng';
 import { faceToward, huddle, markSeen, sceneFor, SCRIPTS } from '../engine/story';
 import { MAP_ART, type MapLayout, type MapSprite } from '../assets';
 import { walkerTextures } from '../overworld/tileArt';
 import { saveProgress } from '../save';
+import { party } from '../settings';
 import { refillScrolls } from '../engine/items';
 import { obstacleAt, OBSTACLE_KINDS, obstaclesOn, tryObstacle, type Obstacle } from '../engine/fieldMoves';
 import { sfx } from '../ui/sfx';
 import { DialogBox } from '../ui/dialog';
 import { followKey, frontKey, groundKey, propKey, standKey, walkKey } from './BootScene';
 import { playCutscene } from './CutsceneScene';
+import type { PauseData } from './PauseScene';
+import { pixelText } from '../ui/text';
 import { button, buttonPagePoint, faceIcon, hinge, isoPad, listRow, monIcon, roundButton, screenBackdrop, tapeLabel } from '../ui/kit';
-import { hexToNum, shade, TONES } from '../ui/theme';
+import { hexToNum, shade, TEXT_COLORS, TEXT_SIZE, TONES } from '../ui/theme';
 import { tweenAsync, wait } from '../ui/widgets';
 
 const STEP_MS = 170;
@@ -85,8 +88,8 @@ export class OverworldScene extends Phaser.Scene {
 
   create() {
     this.cameras.main.setOrigin(0, 0).setZoom(ZOOM).setRoundPixels(true);
-    // Every screen eases in.
-    this.cameras.main.fadeIn(180, 16, 16, 24);
+    // Every screen eases in (after a blackout, out of black: blackoutWake).
+    if (this.notice !== 'blackout') this.cameras.main.fadeIn(180, 16, 16, 24);
     this.progress = this.registry.get('progress') as Progress;
     this.pos = { ...(this.progress.pos ?? START) };
     const params = new URLSearchParams(location.search);
@@ -110,7 +113,7 @@ export class OverworldScene extends Phaser.Scene {
     this.exposeForTests();
     this.showMapName();
     this.storyScene = null;
-    if (this.notice === 'blackout') void this.talk('patch_blackout');
+    if (this.notice === 'blackout') void this.blackoutWake();
     else void this.storyCheck('arrive');
   }
 
@@ -174,7 +177,7 @@ export class OverworldScene extends Phaser.Scene {
   }
 
   /** The leader's walker, their lead Patchling, and the other three behind in SWITCH order. */
-  private setLeaderLook(squad = partyMode(this.progress) !== 'solo') {
+  private setLeaderLook(squad = party(this.progress) !== 'solo') {
     const leader = this.progress.leader;
     this.walker = walkerTextures(this, leader, CHARACTERS[leader].color);
     const i = SQUAD.indexOf(leader);
@@ -320,7 +323,7 @@ export class OverworldScene extends Phaser.Scene {
 
   /** Who leads (face card), SWITCH (with the next friend's face) and JOURNAL (with the lead Patchling). */
   private drawLeaderUi() {
-    for (const n of ['leader-tape', 'switch', 'journal', 'settings']) this.ui.getByName(n)?.destroy();
+    for (const n of ['leader-tape', 'switch', 'journal', 'menu']) this.ui.getByName(n)?.destroy();
     const id = this.progress.leader;
     const leader = CHARACTERS[id];
     const nextId = SQUAD[(SQUAD.indexOf(id) + 1) % SQUAD.length];
@@ -337,8 +340,8 @@ export class OverworldScene extends Phaser.Scene {
       title: 'JOURNAL', sub: 'Team & bag', color: TONES.seal, icon: lead ? monIcon(frontKey(lead.species)) : { text: 'J' },
       onTap: () => this.openJournal(), name: 'journal',
     }));
-    // Squad or solo (and anything else that's a preference) lives on the Journal's OPTIONS tab.
-    this.ui.add(button(this, 30, 178, 52, 18, 'SETTINGS', TONES.neutral, () => this.openJournal('options'), { name: 'settings' }));
+    // The pause menu: Journal, settings, save, quit to title.
+    this.ui.add(button(this, 30, 178, 52, 18, 'MENU', TONES.neutral, () => this.openPause(), { name: 'menu' }));
   }
 
   private setupKeys() {
@@ -350,6 +353,8 @@ export class OverworldScene extends Phaser.Scene {
     kb.on('keydown-SPACE', a);
     kb.on('keydown-ENTER', a);
     kb.on('keydown-M', () => this.openJournal());
+    kb.on('keydown-ESC', () => this.openPause());
+    kb.on('keydown-P', () => this.openPause());
     kb.on('keydown-TAB', (e: KeyboardEvent) => { e.preventDefault(); this.switchLeader(); });
   }
 
@@ -658,6 +663,43 @@ export class OverworldScene extends Phaser.Scene {
     this.tweens.add({ targets: this.player, y: this.player.y - 4, duration: 70, yoyo: true });
   }
 
+  /** The pause menu (scenes/PauseScene.ts) over the paused map. */
+  private openPause() {
+    if (this.moving || this.busy || this.dialog.open) return;
+    this.padDir = null;
+    this.queued = null;
+    this.save();
+    this.scene.launch('pause', {
+      save: () => this.save(),
+      // Squad/solo may have changed in SETTINGS: redraw who walks.
+      resume: () => { this.scene.resume(); this.setLeaderLook(); this.placeFollowers(); this.follow(); },
+      journal: () => { this.scene.resume(); this.openJournal(); },
+      title: () => this.scene.start('title'),
+    } satisfies PauseData);
+    this.scene.pause();
+  }
+
+  /**
+   * After a blackout (BattleScene): black, a beat, then the map fades up at PATCH's with everyone
+   * patched (the battle already healed them), a blue flash, and his lines with the group's.
+   */
+  private async blackoutWake() {
+    this.busy = true;
+    const cover = this.add.rectangle(0, 0, SCREEN_W, SCREEN_H * 2, 0x000000).setOrigin(0, 0).setDepth(100);
+    const words = party(this.progress) === 'solo' ? 'PATCH carried you back to the sanctuary...' : 'PATCH carried all four of you back...';
+    const line = pixelText(this, SCREEN_W / 2, SCREEN_H / 2, words, { color: TEXT_COLORS.dim, size: TEXT_SIZE.small }).setOrigin(0.5).setDepth(101);
+    await wait(this, 1500);
+    await tweenAsync(this, { targets: line, alpha: 0, duration: 300 });
+    await tweenAsync(this, { targets: cover, alpha: 0, duration: 800 });
+    cover.destroy();
+    line.destroy();
+    this.cameras.main.flash(300, 166, 216, 255);
+    sfx('heal');
+    await wait(this, 350);
+    this.busy = false;
+    await this.talk('patch_blackout');
+  }
+
   private openJournal(tab?: 'options') {
     if (this.moving || this.busy) return;
     this.scene.start('journal', { from: 'overworld', tab });
@@ -695,7 +737,7 @@ export class OverworldScene extends Phaser.Scene {
 
   /** Everyone walks to a spot round the leader and faces them; the leader turns to the first. */
   private async gather() {
-    if (partyMode(this.progress) === 'solo') {
+    if (party(this.progress) === 'solo') {
       this.setLeaderLook(true);
       this.lineUpFollowers();
     }

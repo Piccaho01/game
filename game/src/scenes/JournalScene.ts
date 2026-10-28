@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import { SCREEN_H, SCREEN_W, ZOOM } from '../config';
 import { SPECIES, TYPES } from '../engine/data';
-import { CHARACTERS, leaderTeam, loreOf, partyMode, sanctuaryPoints, SQUAD, stageOf, STAGES, TEAM_SIZE, type CharacterId, type Progress, type Stage } from '../engine/progress';
+import { CHARACTERS, leaderTeam, loreOf, sanctuaryPoints, SQUAD, stageOf, STAGES, TEAM_SIZE, type CharacterId, type Progress, type Stage } from '../engine/progress';
 import type { Bond } from '../engine/seal';
 import { saveProgress } from '../save';
 import { button, buttonPagePoint, chip, emptySlot, faceIcon, hinge, listRow, menuBackdrop, monIcon, panel, screenBackdrop, tabs, tapeLabel } from '../ui/kit';
@@ -10,7 +10,8 @@ import { pixelText } from '../ui/text';
 import { COLORS, hexToNum, shade, TEXT_COLORS, TEXT_SIZE, TONES } from '../ui/theme';
 import { frontKey, idleAnimKey, itemKey, walkKey } from './BootScene';
 import { count, ITEMS, scrollsInBag } from '../engine/items';
-import { isMuted, setMuted } from '../ui/sfx';
+import { settingsPanel, partyBlurb } from '../ui/settingsPanel';
+import { party, soundOn, textSpeed } from '../settings';
 
 type Tab = 'team' | 'bestiary' | 'bag' | 'options';
 const BOTTOM = SCREEN_H;
@@ -60,7 +61,7 @@ export class JournalScene extends Phaser.Scene {
     (window as unknown as Record<string, unknown>).__journal = {
       tab: () => this.tab,
       team: () => leaderTeam(this.progress).map((m) => m.species),
-      party: () => partyMode(this.progress),
+      party: () => party(this.progress),
       viewing: () => this.viewing,
       buttonAt: (name: string) => buttonPagePoint(this, this.bottom, name),
     };
@@ -131,20 +132,9 @@ export class JournalScene extends Phaser.Scene {
     });
   }
 
-  /** Options: who shows on the map (all four or just you), and sound. */
+  /** Options: sound, text speed, and who shows on the map (ui/settingsPanel.ts). */
   private renderOptions() {
-    const p = this.progress;
-    const party = partyMode(p);
-    const head = { color: TEXT_COLORS.dim, size: TEXT_SIZE.small };
-    this.bottom.add(pixelText(this, 128, 38, 'Who walks with you on the map', head).setOrigin(0.5, 0));
-    const setParty = (m: 'squad' | 'solo') => () => { p.settings = { ...p.settings, party: m }; saveProgress(p); this.render(); };
-    this.bottom.add(button(this, 66, 72, 118, 34, 'SQUAD', party === 'squad' ? TONES.go : TONES.neutral, setParty('squad'), { sub: 'All four friends', name: 'opt-squad', selected: party === 'squad' }));
-    this.bottom.add(button(this, 190, 72, 118, 34, 'SOLO', party === 'solo' ? TONES.go : TONES.neutral, setParty('solo'), { sub: 'You + your Patchling', name: 'opt-solo', selected: party === 'solo' }));
-    this.bottom.add(pixelText(this, 128, 98, 'Sound effects', head).setOrigin(0.5, 0));
-    const muted = isMuted();
-    const setSound = (on: boolean) => () => { setMuted(!on); this.render(); };
-    this.bottom.add(button(this, 66, 128, 118, 28, 'ON', !muted ? TONES.go : TONES.neutral, setSound(true), { name: 'opt-sound-on', selected: !muted }));
-    this.bottom.add(button(this, 190, 128, 118, 28, 'OFF', muted ? TONES.go : TONES.neutral, setSound(false), { name: 'opt-sound-off', selected: muted }));
+    settingsPanel(this, this.bottom, 28, this.progress, () => this.render());
   }
 
   private renderBestiary() {
@@ -187,11 +177,9 @@ export class JournalScene extends Phaser.Scene {
       return;
     }
     if (this.tab === 'options') {
-      const solo = partyMode(this.progress) === 'solo';
-      this.top.add(pixelText(this, 18, 24, solo ? 'Solo' : 'Squad', { size: TEXT_SIZE.heading }));
-      this.top.add(pixelText(this, 18, 42, solo
-        ? 'Just whoever leads and their lead Patchling walk the map. The others still show up in cutscenes, and SWITCH still swaps who leads.'
-        : 'All four friends walk the map in a line, with the leader\'s Patchling hopping behind them.', { size: TEXT_SIZE.small, wrap: 220 }));
+      this.top.add(pixelText(this, 18, 24, party(this.progress) === 'solo' ? 'Solo' : 'Squad', { size: TEXT_SIZE.heading }));
+      this.top.add(pixelText(this, 18, 42, partyBlurb(this.progress), { size: TEXT_SIZE.small, wrap: 220 }));
+      this.top.add(pixelText(this, 18, 100, `Text speed: ${textSpeed()}. Sound: ${soundOn() ? 'on' : 'off'}.`, { color: TEXT_COLORS.inkSoft, size: TEXT_SIZE.small, wrap: 220 }));
       return;
     }
     const member = typeof this.selected === 'number' ? this.progress.teams[this.viewing].find((m) => m.uid === this.selected) : undefined;
@@ -215,7 +203,11 @@ export class JournalScene extends Phaser.Scene {
     this.top.add(pixelText(this, 100, 18, seen ? sp.name : '???', { size: TEXT_SIZE.heading }));
     this.top.add(pixelText(this, 100, 33, `#${String(sp.dex).padStart(3, '0')}`, { color: TEXT_COLORS.inkSoft, size: TEXT_SIZE.small }));
     if (seen) sp.types.forEach((t, i) => this.top.add(chip(this, 132 + i * 38, 32, TYPES[t].name, shade(hexToNum(TYPES[t].color), -0.2))));
-    if (member) this.top.add(pixelText(this, 100, 46, `Lv${member.level}  ${BOND_NAMES[member.bond]}`, { color: TEXT_COLORS.rust, size: TEXT_SIZE.small }));
+    if (member) {
+      const evo = sp.evolves && SPECIES[sp.evolves.to];
+      const next = evo ? `  → Lv${sp.evolves!.level}` : '';
+      this.top.add(pixelText(this, 100, 46, `Lv${member.level}  ${BOND_NAMES[member.bond]}${next}`, { color: TEXT_COLORS.rust, size: TEXT_SIZE.small }));
+    }
     const lore = loreOf(this.progress, species);
     if (lore.length) {
       const page = lore[this.loreIndex % lore.length];

@@ -24,7 +24,8 @@ Rules that keep it efficient:
 - [x] M4 wrap-up (branch `claude/kind-bell-uvy1u4`): World and Systems tracks merged; townsfolk from the owner's sheets; all seven rooms are the owner's concepts (`art/tools/room_concept.py` + `rooms.json`); new jokes (LeBron, Parker Colt, Strikes, Dani's mamá on the phone).
   **Handoff:** next is M5 (playtest build). Carried over, not blocking: Connor's battle/walk sprites (with his first boss fight), trainer battle portraits for the four, NPCs only have a front pose, the boulder's spot in Hollow Rest is a first guess, rooms are a bit wider than the top screen (camera scrolls). Room piece sheets (`interior_*_pieces.png`) are unused, kept for edits.
 - [ ] M5 Playtest build (branch `claude/peaceful-darwin-3db5u5`): field moves for all four, balance pass, phone fixes done; **left: share the link with the group, one round of fixes from their feedback.** See "M5 handoff".
-- [ ] After the slice: evolutions, Connor, more of Verrow
+- [ ] M6 Game shell (branch `claude/m6-game-shell`): built, awaiting the owner's look at the screens; no PR until the owner says the batch is right. See "M6 handoff".
+- [ ] After the slice: Connor, more of Verrow (evolution system done in M6; evolution art is roadmap step 3)
 
 ## M1 Foundation (code)
 - Vite + TypeScript + Phaser 3 project in `game/`; touch-first input; scales to phone screens.
@@ -371,6 +372,47 @@ fast tests, full e2e once at the end.
 stand pose with `art/tools/pose2sprite.py` to `art/trainers/out/tally_officer_stand.png` and set
 the obstacle's `sprite` to `tally_officer` (it is `placeholder:#4a5468` now). The hand-drawn broken
 bridge is optional.
+
+### M6 handoff (read this first)
+**Built (branch `claude/m6-game-shell`):**
+- **Title** (`scenes/TitleScene.ts`): Hollow Rest backdrop, the four and PATCH under a taped logo
+  (the owner named the game **Project Patch**; the top screen is the owner's group picture (PATCH on a runestone with the four), `art/concepts/title/title_group.png` via `art/tools/title_art.py`, kept at 3x and drawn one pixel per canvas pixel, with the name carved in code), TAP TO START, then
+  CONTINUE (leader, points, seen) / NEW GAME (asks before erasing a save) / SETTINGS.
+  Boot shows it first; test shortcuts (`?foe ?player ?skipintro ?story ?evolve`) and automated
+  browsers (`navigator.webdriver`) skip it, `?title` forces it.
+- **Settings** (`src/settings.ts`, `ui/settingsPanel.ts`): sound, text speed (slow/normal/fast:
+  `CHAR_MS`, `HOLD_SCALE`, used by the text box and the group-chat typing), squad/solo. Stored per
+  device in localStorage (party also written into the save). One panel shared by the title, the
+  pause menu and the Journal's OPTIONS tab; the top screen previews the text speed with a PATCH line.
+- **Pause** (`scenes/PauseScene.ts`): the map's MENU button (was SETTINGS), Esc or P. Over the
+  paused map: where you are, the leader, their lead Patchling, sanctuary progress; RESUME, JOURNAL,
+  SETTINGS, SAVE, QUIT TO TITLE.
+- **Blackout**: "X has no Patchlings left that can fight! X blacked out!", fade to black, a black
+  card ("PATCH carried all four of you back..."), the map fades up at PATCH's with a heal flash and
+  `patch_blackout` (new group lines per leader in `data/dialogue.json`). Test battles (`?foe`) keep
+  the old end menu.
+- **Evolution** (`engine/evolution.ts`, `scenes/EvolveScene.ts`): after a won battle, anyone on any
+  team (or in storage) at their `evolves.level` evolves, BW style (white flicker speeding up, flash,
+  new form, moves learned, bestiary entry opened as owned, the owner's line `evolve_react`). STOP
+  holds it until the next level (`Member.evoStop`). Forms without art show the type-colour blob
+  placeholder with a note. `?evolve=<species>` previews it without touching the save. The Journal
+  shows each Patchling's evolution level.
+- Tests: `tests/evolution.test.ts`, `tests/settings.test.ts`; e2e `e2e/shell.spec.ts`; screens `20*`.
+
+**Waiting on the owner:** one look at the screenshot sheet and the new lines (blackout, evolve
+reactions, the text-speed samples). **Next:** roadmap step 3 (evolution art, whole lines).
+
+## Roadmap after the playtest (proposed 2026-10-28; see WORKFLOW "chapters")
+1. **Playtest fixes**: the group's feedback as one batch.
+2. **M6 Game shell**: title screen and main menu (Continue / New Game / Settings), pause menu,
+   settings (sound, text speed, squad/solo), proper blackout, evolution system (level-ups evolve;
+   the evolve scene). Uses existing evolution sprites as they arrive.
+3. **Finish the existing lines** (rule: whole lines): the 4 starter lines (8 sprites), Orbitot
+   and Fledjet lines (4), attack animations (Glassblow first). One art batch.
+4. **Chapter 1**: Kettleport (Water/Metal) + the route to it, Connor's first "cancelled" boss
+   fight, the Tide Gallery wing, its Patchling lines, shop + currency.
+5. Then a chapter at a time: Emberwick, Canopy, Nightmarket, Hush, with the non-town locations
+   slotted in as routes between them.
 
 ## After the slice
 - Evolutions (8 sprites: Cullet, Vitric, Tesnail, Gauslug, Fernaroo, Scytharoo, Gulpjaw,

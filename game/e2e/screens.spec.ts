@@ -174,3 +174,103 @@ test('screens: interiors and Route 1', async ({ page }) => {
   }
   expect(errors).toEqual([]);
 });
+
+test('screens: title, pause, evolve, blackout', async ({ page }) => {
+  test.setTimeout(300_000);
+  const errors: string[] = [];
+  page.on('pageerror', (e) => errors.push(e.message));
+  type H = { buttonAt(n: string): { x: number; y: number } | null };
+  type Hk = '__title' | '__pause' | '__evolve' | '__overworld' | '__battle';
+  const tapHook = async (h: Hk, name: string) => {
+    await page.waitForFunction(([k, n]) => !!(window as unknown as Record<string, H | undefined>)[k]?.buttonAt(n), [h, name] as const, { timeout: 30_000 });
+    const pt = await page.evaluate(([k, n]) => (window as unknown as Record<string, H>)[k].buttonAt(n), [h, name] as const);
+    await page.touchscreen.tap(pt!.x, pt!.y);
+    await page.waitForTimeout(250);
+  };
+  const waitView = (h: '__title' | '__pause', v: string) => page.waitForFunction(([k, want]) => (window as unknown as Record<string, { view(): string } | undefined>)[k]?.view() === want, [h, v] as const, { timeout: 30_000 });
+  const waitScene = (key: string) => page.waitForFunction((k) => (window as unknown as { __game?: { scene: { getScenes(a: boolean): { scene: { key: string } }[] } } }).__game?.scene.getScenes(true).some((s) => s.scene.key === k), key, { timeout: 60_000 });
+  const step = () => page.evaluate(() => (window as unknown as { __evolve?: { step(): string } }).__evolve?.step());
+  const vp = page.viewportSize()!;
+
+  // Title.
+  await page.goto('/?reset&player=furnaxol&seed=1');
+  await ready(page);
+  await page.goto('/?title');
+  await waitView('__title', 'press');
+  await page.waitForTimeout(900);
+  await shot(page, '20a-title-press');
+  await page.touchscreen.tap(vp.width / 2, vp.height / 2);
+  await waitView('__title', 'menu');
+  await page.waitForTimeout(300);
+  await shot(page, '20b-title-menu');
+  await tapHook('__title', 'new-game');
+  await waitView('__title', 'confirm');
+  await page.waitForTimeout(300);
+  await shot(page, '20c-title-confirm');
+  await tapHook('__title', 'cancel-new');
+  await tapHook('__title', 'settings');
+  await waitView('__title', 'settings');
+  await page.waitForTimeout(2200);
+  await shot(page, '20d-title-settings');
+  await tapHook('__title', 'back');
+  await tapHook('__title', 'continue');
+  await ready(page);
+
+  // Pause.
+  await page.waitForTimeout(400);
+  await tapHook('__overworld', 'menu');
+  await waitView('__pause', 'menu');
+  await page.waitForTimeout(400);
+  await shot(page, '20e-pause');
+  await tapHook('__pause', 'settings');
+  await waitView('__pause', 'settings');
+  await page.waitForTimeout(2200);
+  await shot(page, '20f-pause-settings');
+
+  // Evolve: Furnaxol into Cullet, mid-flicker and when it's done.
+  await page.goto('/?evolve=furnaxol');
+  for (let i = 0; i < 100 && (await step()) !== 'morph'; i++) {
+    await page.touchscreen.tap(vp.width / 2, vp.height * 0.2);
+    await page.waitForTimeout(150);
+  }
+  expect(await step()).toBe('morph');
+  await page.waitForTimeout(1200);
+  await shot(page, '20g-evolve-morph');
+  for (let i = 0; i < 120 && (await step()) !== 'done'; i++) {
+    await page.touchscreen.tap(vp.width / 2, vp.height * 0.2);
+    await page.waitForTimeout(250);
+  }
+  expect(await step()).toBe('done');
+  await page.waitForTimeout(400);
+  await shot(page, '20h-evolve-done');
+
+  // Blackout: a one-HP team loses its first fight and wakes at PATCH's.
+  await page.goto('/?reset&player=furnaxol&seed=1');
+  await ready(page);
+  await page.evaluate(() => {
+    const s = JSON.parse(localStorage.getItem('patchlings.save.v1')!);
+    for (const m of s.teams[s.leader]) m.hp = 1;
+    localStorage.setItem('patchlings.save.v1', JSON.stringify(s));
+  });
+  await page.goto('/?seed=1&rate=1');
+  await ready(page);
+  await walkTo(page, 17, 19);
+  await tapKey(page, 'right');
+  await walkTo(page, 1, 1);
+  await page.keyboard.press('ArrowLeft');
+  const phase = () => page.evaluate(() => (window as unknown as { __battle: { phase(): string } }).__battle.phase());
+  await page.waitForFunction(() => (window as unknown as { __battle?: { phase(): string } }).__battle?.phase() === 'menu', null, { timeout: 60_000 });
+  for (let i = 0; i < 30 && (await phase()) === 'menu'; i++) {
+    await tapHook('__battle', 'fight');
+    await page.waitForFunction(() => (window as unknown as { __battle: { phase(): string } }).__battle.phase() === 'fight');
+    await tapHook('__battle', 'move0');
+    await page.waitForFunction(() => ['menu', 'over'].includes((window as unknown as { __battle: { phase(): string } }).__battle.phase()), null, { timeout: 30_000 });
+  }
+  await waitScene('overworld');
+  await page.waitForTimeout(500);
+  await shot(page, '20i-blackout-black');
+  await page.waitForFunction(() => (window as unknown as { __overworld: { talking(): boolean } }).__overworld.talking(), null, { timeout: 30_000 });
+  await page.waitForTimeout(1200);
+  await shot(page, '20j-blackout-wake');
+  expect(errors).toEqual([]);
+});

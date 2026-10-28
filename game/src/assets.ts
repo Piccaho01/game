@@ -65,3 +65,7 @@ export const FOLLOW_SHEETS: Record<string, string> = Object.fromEntries(
   Object.entries(follows).map(([path, url]) => [base(path).replace(/_follow$/, ''), url]),
 );
 export const FOLLOW_FRAME = 32;
+
+/** The title screen's art (art/tools/title_art.py): PATCH on the runestone, the four at title size. */
+const titleArt = import.meta.glob('../../art/title/out/*.png', { eager: true, query: '?url', import: 'default' }) as Record<string, string>;
+export const TITLE_ART: Record<string, string> = Object.fromEntries(Object.entries(titleArt).map(([path, url]) => [base(path), url]));

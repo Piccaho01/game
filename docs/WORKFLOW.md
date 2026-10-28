@@ -48,6 +48,25 @@ exist to save the owner's time and the token bill: they come from what went wron
   prompt file, show the lines in chat. No separate approval round.
 - Everything else in the art pipeline is unchanged (`art/BW_STYLE.md`, converters, pitch first).
 
+## Building the game: chapters (from 2026-10-28)
+The game is built in **chapters**, not place by place. A chapter is one playable slice: an area
+(town or route), its story beat (and its Connor/Tally moment), the Patchlings that live there,
+the sanctuary wing it restores and the inside jokes placed in it. One chapter = one cycle:
+1. **Pitch** (one session, short): one doc in `docs/chapters/<n>.md` with the area, the story
+   beats, every Patchling line, the jokes and the art list. The owner approves it in one reply.
+2. **Art prompts**: every image the chapter needs in one file, `art/prompts/<chapter>.md`. The
+   owner makes them in one sitting and sends them back in order.
+3. **Build** (one session): convert the art, code, data, tests, screenshots.
+4. **Review**: one screenshot sheet. Fix rounds stay on the same branch.
+5. **PR only when the owner says the whole batch is right** (owner's rule, 2026-10-28). Check
+   with screenshots and fast tests while fixing; full e2e once at the end.
+Playtest feedback comes back as one list and is fixed in one session, as its own batch.
+
+## Patchlings: whole evolution lines only (owner's rule, 2026-10-28)
+A new Patchling is always pitched, drawn and built as its **full evolution line** (every stage,
+front + back + idle) in one batch: no stage 1 now and evolutions later. The pitch has every stage;
+the prompt file has every stage's concept and sprites.
+
 ## Owner reviews: once per milestone
 - One screenshot sheet (from `e2e/screens.spec.ts`) plus any new written lines, in one short
   message. Approval goes in the PR; then the PR is marked ready and the owner merges.

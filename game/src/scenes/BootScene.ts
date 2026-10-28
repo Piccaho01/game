@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import { BATTLE_BGS, FOLLOW_FRAME, FOLLOW_SHEETS, ITEM_ICONS, MAP_ART, PROP_ART, SPRITES, STANDS, TRAINER_BATTLE, WALK_FRAME, WALK_SHEETS, type SpriteAsset } from '../assets';
+import { TITLE_ART, BATTLE_BGS, FOLLOW_FRAME, FOLLOW_SHEETS, ITEM_ICONS, MAP_ART, PROP_ART, SPRITES, STANDS, TRAINER_BATTLE, WALK_FRAME, WALK_SHEETS, type SpriteAsset } from '../assets';
 import { SPECIES, TYPES } from '../engine/data';
 import { newProgress } from '../engine/progress';
 import { ITEMS } from '../engine/items';
@@ -26,6 +26,8 @@ export const trainerKey = (id: string) => `trainer:${id}`;
 export const followKey = (species: string) => `follow:${species}`;
 /** An item's icon, drawn at boot (a rolled scroll in the item's colour). */
 export const itemKey = (id: string) => `item:${id}`;
+/** Title screen art (TITLE_ART). */
+export const titleKey = (id: string) => `title:${id}`;
 
 export class BootScene extends Phaser.Scene {
   constructor() { super('boot'); }
@@ -45,6 +47,7 @@ export class BootScene extends Phaser.Scene {
     for (const [id, url] of Object.entries(PROP_ART)) this.load.image(propKey(id), url);
     for (const [id, url] of Object.entries(BATTLE_BGS)) this.load.image(battleBgKey(id), url);
     for (const [id, url] of Object.entries(TRAINER_BATTLE)) this.load.image(trainerKey(id), url);
+    for (const [id, url] of Object.entries(TITLE_ART)) this.load.image(titleKey(id), url);
     for (const [id, url] of Object.entries(FOLLOW_SHEETS)) this.load.spritesheet(followKey(id), url, { frameWidth: FOLLOW_FRAME, frameHeight: FOLLOW_FRAME });
   }
 
@@ -68,12 +71,26 @@ export class BootScene extends Phaser.Scene {
       if (!params.has('story')) progress.flags = ['opening'];
       saveProgress(progress);
     }
+    // ?evolve=<species> previews the evolve scene (touches no save).
+    const evo = params.get('evolve');
+    if (evo && SPECIES[evo]?.evolves) {
+      if (progress) this.registry.set('progress', progress);
+      this.scene.start('evolve', { queue: [{ uid: -1, owner: progress?.leader ?? 'callum', from: evo, to: SPECIES[evo].evolves!.to }], next: { scene: progress ? 'overworld' : 'title' }, preview: true });
+      return;
+    }
+    if (progress) this.registry.set('progress', progress);
+    // The title screen comes first, except for the test shortcuts below; automated browsers
+    // (navigator.webdriver) skip it so the e2e suites boot straight in, unless ?title.
+    const shortcut = ['foe', 'player', 'skipintro', 'story'].some((k) => params.has(k));
+    if (!shortcut && (!navigator.webdriver || params.has('title'))) {
+      this.scene.start('title');
+      return;
+    }
     if (!progress) {
       // A new game opens on the intro (?skipintro goes straight to the pick, for tests).
       this.scene.start(params.has('skipintro') ? 'newgame' : 'intro');
       return;
     }
-    this.registry.set('progress', progress);
     const foe = params.get('foe');
     if (foe && SPECIES[foe]) {
       this.scene.start('battle', { foe, seed: params.has('seed') ? Number(params.get('seed')) : undefined });

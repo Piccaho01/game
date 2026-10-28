@@ -21,7 +21,8 @@ export const CHARACTERS = charactersJson.characters as Record<CharacterId, Chara
 export const SQUAD = Object.keys(CHARACTERS) as CharacterId[];
 
 /** `hp`/`status`: carried between wild battles; missing means full health and no status. `xp`: total experience (missing means the start of its level). */
-export interface Member { uid: number; species: string; level: number; bond: Bond; hp?: number; status?: StatusId | null; xp?: number }
+/** `evoStop`: the level at which the player stopped it evolving (engine/evolution.ts); it asks again from the next level. */
+export interface Member { uid: number; species: string; level: number; bond: Bond; hp?: number; status?: StatusId | null; xp?: number; evoStop?: number }
 /** `scans`: Callum's Scan, which counts toward Studied. */
 export interface DexRecord { encounters: number; defeats: number; seals: number; strongBonds: number; scans: number }
 export interface Progress {
@@ -165,10 +166,14 @@ export function recordSeal(p: Progress, species: string, level: number, bond: Bo
   const member: Member = { uid: p.nextUid++, species, level, bond };
   const where: 'team' | 'sanctuary' = leaderTeam(p).length < TEAM_SIZE ? 'team' : 'sanctuary';
   (where === 'team' ? leaderTeam(p) : p.sanctuary).push(member);
-  const changes = [bump(p, species, 'seals'), bond === 'strong' ? bump(p, species, 'strongBonds') : null].filter((c): c is DexChange => !!c);
-  // Two bumps can both move the stage; report the whole move once.
-  const change = changes.length ? { species, from: changes[0].from, to: changes[changes.length - 1].to } : null;
-  return { member, where, change };
+  return { member, where, change: recordOwned(p, species, bond) };
+}
+
+/** A Patchling the player now has (sealed, or evolved into): its entry counts a seal, and a strong bond. */
+export function recordOwned(p: Progress, species: string, bond: Bond, seen = false): DexChange | null {
+  const changes = [seen ? bump(p, species, 'encounters') : null, bump(p, species, 'seals'), bond === 'strong' ? bump(p, species, 'strongBonds') : null].filter((c): c is DexChange => !!c);
+  // Several bumps can each move the stage; report the whole move once.
+  return changes.length ? { species, from: changes[0].from, to: changes[changes.length - 1].to } : null;
 }
 
 /** The leader's team as battlers, with the HP and status they were left with. */
@@ -217,7 +222,7 @@ export function parseProgress(raw: unknown): Progress | null {
   // Version 1 saves came before the character pick: they belong to Callum.
   const leader = (p.leader && p.leader in CHARACTERS ? p.leader : 'callum') as CharacterId;
   const ok = (m: Member) => !!SPECIES[m?.species] && m.level > 0 && ['strong', 'steady', 'wary'].includes(m.bond)
-    && (m.hp === undefined || (typeof m.hp === 'number' && m.hp >= 0)) && (m.xp === undefined || (typeof m.xp === 'number' && m.xp >= 0));
+    && (m.hp === undefined || (typeof m.hp === 'number' && m.hp >= 0)) && (m.xp === undefined || (typeof m.xp === 'number' && m.xp >= 0)) && (m.evoStop === undefined || typeof m.evoStop === 'number');
   const list = (ms: unknown) => (Array.isArray(ms) ? (ms as Member[]).filter(ok) : []);
   let nextUid = typeof p.nextUid === 'number' ? p.nextUid : 1;
   let teams: Record<CharacterId, Member[]>;

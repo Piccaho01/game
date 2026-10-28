@@ -21,6 +21,8 @@ import { awardXp, levelProgress, whose, xpYield } from '../engine/levels';
 import { itemKey } from './BootScene';
 import { backIdleAnimKey, backKey, battleBgKey, frontKey, idleAnimKey, trainerKey, walkKey } from './BootScene';
 import { SealMinigame } from './SealMinigame';
+import type { EvolveData } from './EvolveScene';
+import { pendingEvolutions } from '../engine/evolution';
 
 /**
  * `from: 'overworld'`: a wild encounter, which goes back to the same spot when it ends.
@@ -301,9 +303,7 @@ export class BattleScene extends Phaser.Scene {
     this.menu.add(pixelText(this, 128, 34, title, { color: TEXT_COLORS.light, size: TEXT_SIZE.title, shadow: '#000000' }).setOrigin(0.5));
     if (this.bond) this.menu.add(pixelText(this, 128, 58, BOND_NAMES[this.bond], { color: TEXT_COLORS.gold }).setOrigin(0.5));
     if (this.params.from === 'overworld') {
-      // Blacking out wakes you up at PATCH's, healed.
-      const notice = this.battle.outcome === 'lose' ? 'blackout' : undefined;
-      this.menu.add(button(this, 128, 104, 200, 44, 'CONTINUE', TONES.go, () => this.scene.start('overworld', { notice }), { name: 'continue' }));
+      this.menu.add(button(this, 128, 104, 200, 44, 'CONTINUE', TONES.go, () => this.goOn({ scene: 'overworld' }), { name: 'continue' }));
       this.menu.add(button(this, 128, 160, 120, 32, 'JOURNAL', TONES.seal, () => this.scene.start('journal', { from: 'overworld' }), { name: 'journal' }));
       return;
     }
@@ -315,7 +315,8 @@ export class BattleScene extends Phaser.Scene {
   }
 
   private restart(foe: string) {
-    this.scene.restart({ foe });
+    if (pendingEvolutions(this.progress).length) this.goOn({ scene: 'battle', data: { foe } });
+    else this.scene.restart({ foe });
   }
 
   // ---------- flow ----------
@@ -371,7 +372,33 @@ export class BattleScene extends Phaser.Scene {
       await this.record(change);
     }
     if (this.battle.outcome === 'win' || this.battle.outcome === 'sealed') await this.shareXp(xpYield(foe.species, foe.level));
+    if (this.battle.outcome === 'lose' && this.params.from === 'overworld') return this.blackout();
+    // Anyone who reached their evolution level evolves right after the battle, like BW.
+    if (this.params.from === 'overworld' && pendingEvolutions(this.progress).length) return this.goOn({ scene: 'overworld' });
     this.showEndMenu();
+  }
+
+  /**
+   * Blacking out (M6): the leader's whole team is down. The lines, then everything fades to black
+   * and they wake up at PATCH's (OverworldScene.blackoutWake), the teams already patched.
+   */
+  private async blackout() {
+    this.phase = 'over';
+    this.clearMenu();
+    const name = CHARACTERS[this.progress.leader].name;
+    await this.say(`${name} has no Patchlings left that can fight!`);
+    sfx('faint');
+    await this.say(`${name} blacked out!`);
+    const cam = this.cameras.main;
+    cam.fadeOut(900, 0, 0, 0);
+    cam.once('camerafadeoutcomplete', () => this.scene.start('overworld', { notice: 'blackout' }));
+  }
+
+  /** Leaves the battle for `next`, through the evolve scene first if anyone is ready to evolve. */
+  private goOn(next: { scene: string; data?: object }) {
+    const queue = pendingEvolutions(this.progress);
+    if (queue.length) this.scene.start('evolve', { queue, next } satisfies EvolveData);
+    else this.scene.start(next.scene, next.data);
   }
 
   /** Experience for everyone (bible §7): the active Patchling's bar fills, level-ups are announced. */
