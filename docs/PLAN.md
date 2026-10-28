@@ -19,9 +19,10 @@ Rules that keep it efficient:
 - [x] M1 Foundation (live once Pages is enabled: Settings → Pages → Source: GitHub Actions)
 - [x] M2 Stage-1 starters (branch `claude/m2-starters`: all four with front, idle, back and back idle in game; see "M2 handoff" below)
 - [x] M3 Core loop (pick a leader and starter → wild battle → seal → team/sanctuary → bestiary stages and sanctuary points, leader assists, switching, saved in the browser)
-- [ ] M4 Characters + world slice (in progress: Hollow Rest isometric with the owner's terrain/props and pixel-art walk sprites on `claude/m4-polish`; left: story intro, Route 1 isometric, townsfolk)
-- [ ] M4b The squad, the base, the story (three tracks, see below; story done, PR #21)
-- [ ] M4 wrap-up (branch `claude/kind-bell-uvy1u4`): World and Systems tracks merged onto `main`; the five townsfolk are the owner's sheets (`art/trainers/out/<id>_stand.png`); all seven rooms are the owner's concepts, painted whole (`art/tools/room_concept.py` + `art/tools/rooms.json`: warp, solid furniture tiles, signs, the hall's rubble cut out as a sprite, a doorway painted for the workshop). The piece sheets (`interior_*_pieces.png`) are kept for later edits; nothing uses them yet. Left: owner's look at the screenshot sheet, then the PR.
+- [x] M4 Characters + world slice (done with the M4 wrap-up; was: Hollow Rest isometric with the owner's terrain/props and pixel-art walk sprites on `claude/m4-polish`; left: story intro, Route 1 isometric, townsfolk)
+- [x] M4b The squad, the base, the story (story PR #21; squad, world and systems in the M4 wrap-up)
+- [x] M4 wrap-up (branch `claude/kind-bell-uvy1u4`): World and Systems tracks merged; townsfolk from the owner's sheets; all seven rooms are the owner's concepts (`art/tools/room_concept.py` + `rooms.json`); new jokes (LeBron, Parker Colt, Strikes, Dani's mamá on the phone).
+  **Handoff:** next is M5 (playtest build). Carried over, not blocking: Connor's battle/walk sprites (with his first boss fight), trainer battle portraits for the four, NPCs only have a front pose, the boulder's spot in Hollow Rest is a first guess, rooms are a bit wider than the top screen (camera scrolls). Room piece sheets (`interior_*_pieces.png`) are unused, kept for edits.
 - [ ] M5 Playtest build
 - [ ] After the slice: evolutions, Connor, more of Verrow
 
