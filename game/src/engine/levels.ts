@@ -5,7 +5,8 @@ import { CHARACTERS, SQUAD, type CharacterId, type Member, type Progress } from 
 /**
  * Experience and levels (bible §7, "Experience: shared, no grinding"): every Patchling on all four
  * teams gets the full experience from each battle, and those resting in sanctuary storage get half.
- * Medium-fast curve (level³); a foe is worth a fifth of its base stat total, times its level, over 7.
+ * Medium-fast curve (level³); a foe is worth a fifth of its base stat total, times its level, over 5
+ * (BW's own divisor; was 7 until the M5 balance pass, which made levelling too slow for the slice).
  */
 export const MAX_LEVEL = 100;
 
@@ -28,7 +29,7 @@ export function levelProgress(m: Member) {
 export function xpYield(species: string, level: number) {
   const b = SPECIES[species].base;
   const baseExp = Math.round((b.hp + b.atk + b.def + b.spa + b.spd + b.spe) / 5);
-  return Math.max(1, Math.floor((baseExp * level) / 7));
+  return Math.max(1, Math.floor((baseExp * level) / 5));
 }
 
 export interface LevelUp {

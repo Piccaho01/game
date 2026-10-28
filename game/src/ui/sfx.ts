@@ -41,16 +41,20 @@ let muted = (() => {
   try { return new URLSearchParams(location.search).has('mute') || localStorage.getItem('patchlings.mute') === '1'; } catch { return false; }
 })();
 
-/** Starts audio on the first tap (call once at boot). */
+/**
+ * Starts audio on the first tap (call once at boot). Every later tap and coming back to the tab
+ * resume it too: iOS suspends the context when the phone locks or the app goes to the background.
+ */
 export function unlockAudio() {
   const start = () => {
     try {
       ctx ??= new AudioContext();
-      void ctx.resume();
+      if (ctx.state !== 'running') void ctx.resume();
     } catch { /* no audio on this device */ }
   };
-  window.addEventListener('pointerdown', start, { once: true });
-  window.addEventListener('keydown', start, { once: true });
+  // iOS only counts some events as a user gesture for audio (touchend, not touchstart).
+  for (const ev of ['pointerdown', 'pointerup', 'touchend', 'keydown']) window.addEventListener(ev, start, { passive: true });
+  document.addEventListener('visibilitychange', () => { if (!document.hidden && ctx) start(); });
 }
 
 export function isMuted() { return muted; }

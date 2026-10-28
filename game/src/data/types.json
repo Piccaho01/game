@@ -1,5 +1,5 @@
 {
-  "_note": "First-pass matchup chart (bible §12: finalize in play-testing). chart[attacker][defender] = multiplier; anything not listed is 1. Spark -> Rock is 0 (Rock grounds Spark).",
+  "_note": "First-pass matchup chart (bible §12: finalize in play-testing). chart[attacker][defender] = multiplier; anything not listed is 1. Spark -> Rock was 0 (Rock grounds Spark); M5 balance pass made it 0.5, since Zapail couldn't touch Route 1's Orbitot at all.",
   "types": {
     "fire":  { "name": "Fire",  "color": "#e8603c" },
     "water": { "name": "Water", "color": "#4a8ee8" },
@@ -18,7 +18,7 @@
     "plant": { "water": 2, "rock": 2, "fire": 0.5, "plant": 0.5, "wind": 0.5, "metal": 0.5 },
     "rock":  { "fire": 2, "ice": 2, "wind": 2, "rock": 0.5, "metal": 0.5 },
     "wind":  { "plant": 2, "relic": 2, "rock": 0.5, "metal": 0.5, "spark": 0.5 },
-    "spark": { "water": 2, "wind": 2, "spark": 0.5, "plant": 0.5, "rock": 0 },
+    "spark": { "water": 2, "wind": 2, "spark": 0.5, "plant": 0.5, "rock": 0.5 },
     "ice":   { "plant": 2, "wind": 2, "fire": 0.5, "water": 0.5, "ice": 0.5, "metal": 0.5 },
     "dark":  { "relic": 2, "dark": 2, "metal": 0.5 },
     "metal": { "rock": 2, "ice": 2, "fire": 0.5, "water": 0.5, "spark": 0.5, "metal": 0.5 },

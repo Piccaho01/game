@@ -89,8 +89,8 @@ describe('field moves', () => {
     const { OBSTACLES, obstaclesOn, tryObstacle, needs } = await import('../src/engine/fieldMoves');
     const { isBlocked, MAPS } = await import('../src/engine/overworld');
     const { switchLeader } = await import('../src/engine/progress');
-    // Every obstacle sits on open ground of a real map.
-    for (const o of OBSTACLES) expect(isBlocked(MAPS[o.map], o.x, o.y), o.id).toBe(false);
+    // Every obstacle sits on open ground of a real map (or is the object already on its tile).
+    for (const o of OBSTACLES) expect(isBlocked(MAPS[o.map], o.x, o.y), o.id).toBe(!!o.onObject);
     const p = newProgress('furnaxol');
     const boulder = obstaclesOn('hollow_rest', p).find((o) => o.kind === 'boulder')!;
     expect(needs(boulder)).toBe('dani');
@@ -104,5 +104,31 @@ describe('field moves', () => {
     expect(count(p, 'gilded_scroll')).toBe(1);
     expect(obstaclesOn('hollow_rest', p)).not.toContainEqual(boulder);
     expect(parseProgress(JSON.parse(JSON.stringify(p)))!.cleared).toEqual(['hollow_boulder']);
+  });
+
+  it('Route 1 makes you switch to the other three: Nolan, Haydon and Callum each have one', async () => {
+    const { obstaclesOn, needs, tryObstacle } = await import('../src/engine/fieldMoves');
+    const { findPath, MAPS } = await import('../src/engine/overworld');
+    const { switchLeader } = await import('../src/engine/progress');
+    const { DIALOGUE_IDS } = await import('../src/engine/dialogue');
+    const p = newProgress('furnaxol');
+    const list = obstaclesOn('route1', p);
+    expect(list.map(needs).sort()).toEqual(['callum', 'haydon', 'nolan']);
+    for (const o of list) for (const t of [o.blockedTalk, o.clearTalk]) if (t) expect(DIALOGUE_IDS, t).toContain(t);
+    const blocked = (x: number, y: number) => list.some((o) => o.x === x && o.y === y);
+    const spawn = MAPS.route1.spawn;
+    // The broken bridge cuts the east bank off; the officer guards the only stairs down to the checkpoint.
+    expect(findPath('route1', spawn, { x: 16, y: 9 }, blocked)).toBeNull();
+    expect(findPath('route1', spawn, { x: 18, y: 17 }, (x, y) => x === 18 && y === 8)).toBeNull();
+    // Each can be reached by walking (from a tile next to it).
+    for (const o of list) {
+      const next = [[1, 0], [-1, 0], [0, 1], [0, -1]].some(([dx, dy]) => findPath('route1', spawn, { x: o.x + dx, y: o.y + dy }, (x, y) => blocked(x, y) && !(x === 13 && y === 9 && o.id !== 'route1_bridge')));
+      expect(next, o.id).toBe(true);
+    }
+    const bridge = list.find((o) => o.id === 'route1_bridge')!;
+    expect(tryObstacle(p, bridge).cleared).toBe(false);
+    switchLeader(p, 'nolan');
+    expect(tryObstacle(p, bridge)).toMatchObject({ cleared: true, talk: 'route1_bridge_fixed' });
+    expect(obstaclesOn('route1', p).map((o) => o.id)).not.toContain('route1_bridge');
   });
 });

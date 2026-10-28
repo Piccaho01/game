@@ -122,11 +122,18 @@ export class OverworldScene extends Phaser.Scene {
     this.world.removeAll(true);
     this.world.add(this.add.image(0, 0, groundKey(map.id)).setOrigin(0, 0).setDepth(-100000));
     this.big = [];
+    this.obstacles = obstaclesOn(map.id, this.progress);
+    this.obstacleSprites.clear();
+    const standIns = new Map(this.obstacles.filter((o) => o.replaces).map((o) => [o.replaces!, o]));
     for (const sp of this.layout.sprites) {
       // Rubble and the like: gone once its wing is restored (engine/world.ts).
       if (sp.until && met(sp.until, this.progress)) continue;
-      const img = this.add.image(sp.x, sp.y, propKey(sp.art)).setOrigin(0, 0).setDepth(sp.decal ? -50000 : sp.key);
+      // A field-move obstacle standing in for this piece (the broken bridge) is drawn in its place.
+      const o = standIns.get(sp.art);
+      const art = o?.art ?? sp.art;
+      const img = this.add.image(sp.x, sp.y, propKey(art)).setOrigin(0, 0).setDepth(sp.decal ? -50000 : sp.key);
       this.world.add(img);
+      if (o) { img.setData('fixed', sp.art); this.obstacleSprites.set(o.id, img); }
       if (!sp.decal && (sp.wx > 1 || sp.wy > 1)) this.big.push({ img, sp });
     }
     // The map's people, the recurring cast who are here now, and Patchlings living in the sanctuary.
@@ -141,14 +148,20 @@ export class OverworldScene extends Phaser.Scene {
       this.faceNpc(n, n.dir ?? 'down');
       s.setDepth(this.depthAt(s, n));
     }
-    this.obstacles = obstaclesOn(map.id, this.progress);
-    this.obstacleSprites.clear();
     for (const o of this.obstacles) {
+      if (o.replaces || o.onObject) continue;
       const f = this.feet(o.x, o.y);
-      const key = o.art ? propKey(o.art) : '';
-      // A touch bigger than scenery rocks, so it reads as something to deal with.
-      const img = this.add.image(f.x, f.y + 3, this.textures.exists(key) ? key : '__DEFAULT').setOrigin(0.5, 1).setScale(1.5);
-      if (!this.textures.exists(key)) img.setDisplaySize(16, 14).setTint(0x8a7a6a);
+      let img: Phaser.GameObjects.Image;
+      if (o.sprite) {
+        // Someone in the way (the Tally officer): drawn like the townsfolk.
+        img = this.add.image(f.x, f.y, '__DEFAULT').setOrigin(0.5, 1);
+        img.setTexture(...this.npcTexture(o.sprite, o.dir ?? 'down'));
+      } else {
+        const key = o.art ? propKey(o.art) : '';
+        // A touch bigger than scenery rocks, so it reads as something to deal with.
+        img = this.add.image(f.x, f.y + 3, this.textures.exists(key) ? key : '__DEFAULT').setOrigin(0.5, 1).setScale(1.5);
+        if (!this.textures.exists(key)) img.setDisplaySize(16, 14).setTint(0x8a7a6a);
+      }
       img.setDepth(this.depthAt(img, o));
       this.obstacleSprites.set(o.id, img);
       this.world.add(img);
@@ -228,17 +241,17 @@ export class OverworldScene extends Phaser.Scene {
   private faceNpc(n: Npc, dir: Dir) {
     const s = this.npcSprites.get(n.id)!;
     const view = WALK_VIEW[dir];
-    s.setFlipX(false);
-    if (n.sprite.startsWith('mon:')) {
-      s.setTexture(followKey(n.sprite.slice(4)), FOLLOW_VIEW[dir]);
-    } else if (n.sprite.startsWith('walk:') && this.textures.exists(walkKey(n.sprite.slice(5)))) {
-      s.setTexture(walkKey(n.sprite.slice(5)), view.row * 3).setFlipX(view.flip);
-    } else if (this.textures.exists(standKey(n.sprite))) {
-      s.setTexture(standKey(n.sprite));
-    } else {
-      const colour = n.sprite.startsWith('placeholder:') ? n.sprite.slice(12) : '#888888';
-      s.setTexture(`${walkerTextures(this, `npc${colour}`, colour)}:${dir}:0`);
-    }
+    s.setFlipX(n.sprite.startsWith('walk:') && this.textures.exists(walkKey(n.sprite.slice(5))) && view.flip);
+    s.setTexture(...this.npcTexture(n.sprite, dir));
+  }
+
+  /** The texture (and frame) for someone standing on the map: a Patchling, a walk sheet, a stand pose or a placeholder. */
+  private npcTexture(sprite: string, dir: Dir): [string, (string | number)?] {
+    if (sprite.startsWith('mon:')) return [followKey(sprite.slice(4)), FOLLOW_VIEW[dir]];
+    if (sprite.startsWith('walk:') && this.textures.exists(walkKey(sprite.slice(5)))) return [walkKey(sprite.slice(5)), WALK_VIEW[dir].row * 3];
+    if (this.textures.exists(standKey(sprite))) return [standKey(sprite)];
+    const colour = sprite.startsWith('placeholder:') ? sprite.slice(12) : '#888888';
+    return [`${walkerTextures(this, `npc${colour}`, colour)}:${dir}:0`];
   }
 
   private placePlayer() {
@@ -335,6 +348,9 @@ export class OverworldScene extends Phaser.Scene {
   }
 
   private heldDir(): Dir | null {
+    // A touch the phone cancelled (a system swipe, a call, switching apps) never sends pointerup:
+    // let go of the pad once no finger is down, so the leader doesn't keep walking.
+    if (this.padDir && !this.input.manager.pointers.some((p) => p.isDown)) this.padDir = null;
     if (this.padDir) return this.padDir;
     return this.keys.find((k) => k.key.isDown)?.dir ?? null;
   }
@@ -482,15 +498,16 @@ export class OverworldScene extends Phaser.Scene {
     }
   }
 
-  /** Something blocks this tile: an NPC or a field-move obstacle. */
   /**
-   * A field-move obstacle (bible §7): the right friend clears it (their line, the obstacle rolls
-   * away, any reward goes in the bag); anyone else gets a hint, and SWITCH gives a nudge.
+   * A field-move obstacle (bible §7): the right friend clears it (their line, the obstacle goes in
+   * its own way, any reward goes in the bag, then the group's lines); anyone else gets a hint, and
+   * SWITCH gives a nudge.
    */
   private async fieldMove(o: Obstacle) {
     const r = tryObstacle(this.progress, o);
     if (!r.cleared) {
       sfx('error');
+      if (r.talk) await this.talk(r.talk);
       const sw = this.ui.getByName('switch') as Phaser.GameObjects.Container | null;
       if (sw) this.tweens.add({ targets: sw, scale: 1.08, duration: 160, yoyo: true, repeat: 2 });
       await this.say(r.lines.map((text) => ({ text })));
@@ -501,24 +518,91 @@ export class OverworldScene extends Phaser.Scene {
     this.busy = true;
     await this.say([{ who: CHARACTERS[this.progress.leader].name, text: kind.shout }]);
     this.busy = true;
-    // The leader braces, the obstacle shudders and rolls off the way they face, in a puff of dust.
-    const img = this.obstacleSprites.get(o.id);
     await tweenAsync(this, { targets: this.player, y: this.player.y - 3, duration: 90, yoyo: true });
-    if (img) {
-      sfx('hit');
-      await tweenAsync(this, { targets: img, x: img.x + 1.5, duration: 40, yoyo: true, repeat: 3 });
-      const away = this.feet(o.x + DIRS[this.pos.dir].dx, o.y + DIRS[this.pos.dir].dy);
-      sfx('swish');
-      this.dust(img.x, img.y);
-      await tweenAsync(this, { targets: img, x: away.x, y: away.y + 2, alpha: 0, angle: DIRS[this.pos.dir].dx + DIRS[this.pos.dir].dy > 0 ? 90 : -90, duration: 420, ease: 'Quad.easeIn' });
-      img.destroy();
-    }
+    const img = this.obstacleSprites.get(o.id);
+    if (o.kind === 'broken') await this.fixUp(o, img);
+    else if (o.kind === 'sealed') await this.scanOpen(o);
+    else if (o.kind === 'guard' && img) await this.stormOff(o, img);
+    else if (img) await this.rollAway(o, img);
     this.obstacles = this.obstacles.filter((x) => x.id !== o.id);
     this.obstacleSprites.delete(o.id);
     const lines = [{ text: r.lines[0] }];
     if (r.reward) { sfx('confirm'); lines.push({ text: r.reward }); }
     await this.say(lines);
+    if (r.talk) await this.talk(r.talk);
     this.drawLeaderUi();
+  }
+
+  /** Dani's Shield: the obstacle shudders and rolls off the way the leader faces, in a puff of dust. */
+  private async rollAway(o: Obstacle, img: Phaser.GameObjects.Image) {
+    sfx('hit');
+    await tweenAsync(this, { targets: img, x: img.x + 1.5, duration: 40, yoyo: true, repeat: 3 });
+    const away = this.feet(o.x + DIRS[this.pos.dir].dx, o.y + DIRS[this.pos.dir].dy);
+    sfx('swish');
+    this.dust(img.x, img.y);
+    await tweenAsync(this, { targets: img, x: away.x, y: away.y + 2, alpha: 0, angle: DIRS[this.pos.dir].dx + DIRS[this.pos.dir].dy > 0 ? 90 : -90, duration: 420, ease: 'Quad.easeIn' });
+    img.destroy();
+  }
+
+  /** Haydon's Taunt: the officer jumps, then storms off the way he was facing, chasing an argument. */
+  private async stormOff(o: Obstacle, img: Phaser.GameObjects.Image) {
+    const bang = this.add.text(img.x, img.y - img.displayHeight - 4, '!', { fontFamily: '"Press Start 2P"', fontSize: '8px', color: '#ff5a3c' }).setOrigin(0.5, 1).setDepth(100001);
+    this.world.add(bang);
+    sfx('error');
+    await tweenAsync(this, { targets: img, y: img.y - 4, duration: 90, yoyo: true, repeat: 1 });
+    bang.destroy();
+    sfx('swish');
+    // Off down the road behind him (`leaves`), fading as he goes.
+    const back = DIRS[o.leaves ?? OPPOSITE[o.dir ?? 'down']];
+    const away = this.feet(o.x + back.dx * 3, o.y + back.dy * 3);
+    await tweenAsync(this, { targets: img, x: away.x, y: away.y, alpha: 0, duration: 650, ease: 'Quad.easeIn' });
+    img.destroy();
+  }
+
+  /** Nolan's Patch Up: sparks along his cable, then the piece is whole again. */
+  private async fixUp(o: Obstacle, img?: Phaser.GameObjects.Image) {
+    const f = this.feet(o.x, o.y);
+    for (let i = 0; i < 3; i++) {
+      sfx('hit');
+      this.sparks(f.x, f.y - 6);
+      await wait(this, 220);
+    }
+    if (img?.getData('fixed')) {
+      // The broken piece fades out over a whole one.
+      const whole = this.add.image(img.x, img.y, propKey(img.getData('fixed') as string)).setOrigin(0, 0).setDepth(img.depth).setAlpha(0);
+      this.world.add(whole);
+      sfx('confirm');
+      await tweenAsync(this, { targets: whole, alpha: 1, duration: 380 });
+      img.destroy();
+    } else if (img) {
+      await tweenAsync(this, { targets: img, alpha: 0, duration: 300 });
+      img.destroy();
+    }
+  }
+
+  /** Callum's Scan: a sweep of scanner light over the stone, and its screen wakes up. */
+  private async scanOpen(o: Obstacle) {
+    const f = this.feet(o.x, o.y);
+    const beam = this.add.rectangle(f.x, f.y - 14, 2, 28, 0x5fd4ff, 0.85).setDepth(100001);
+    this.world.add(beam);
+    sfx('swish');
+    await tweenAsync(this, { targets: beam, x: { from: f.x - 12, to: f.x + 12 }, duration: 260, yoyo: true, repeat: 1 });
+    beam.destroy();
+    const glow = this.add.circle(f.x, f.y - 16, 4, 0x5fd4ff, 0.8).setDepth(100001);
+    this.world.add(glow);
+    sfx('confirm');
+    await tweenAsync(this, { targets: glow, scale: 5, alpha: 0, duration: 500, ease: 'Quad.easeOut' });
+    glow.destroy();
+  }
+
+  /** A few sparks jumping off a spot (Nolan's patch cable). */
+  private sparks(x: number, y: number) {
+    for (let i = 0; i < 5; i++) {
+      const p = this.add.rectangle(x, y, 2, 2, i % 2 ? 0xfff27a : 0x7dff8a).setDepth(100000);
+      this.world.add(p);
+      const a = (i / 5) * Math.PI * 2;
+      this.tweens.add({ targets: p, x: x + Math.cos(a) * 9, y: y + Math.sin(a) * 6 - 4, alpha: 0, duration: 260, onComplete: () => p.destroy() });
+    }
   }
 
   /** A puff of dust (field moves). */

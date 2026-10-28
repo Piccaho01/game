@@ -45,10 +45,13 @@ describe('damage', () => {
     expect(calcDamage(sprigby, gobbin, MOVES.jitter_bounce, rng, fixed).damage).toBe(0);
   });
 
-  it('does nothing on immunity and at least 1 otherwise', () => {
+  it('status moves do no damage; a resisted hit still does at least 1', () => {
+    // No type is immune since the M5 balance pass (Spark -> Rock went from 0 to 0.5).
     const zapail = createBattler('zapail', 5);
     const vitric = createBattler('vitric', 50);
-    expect(calcDamage(zapail, vitric, MOVES.zap, rng, fixed)).toEqual({ damage: 0, effectiveness: 0, crit: false });
+    const hit = calcDamage(zapail, vitric, MOVES.zap, rng, fixed);
+    expect(hit.effectiveness).toBe(0.5);
+    expect(hit.damage).toBeGreaterThanOrEqual(1);
     const gobbin = createBattler('gobbin', 2);
     const tank = createBattler('vitric', 100);
     expect(calcDamage(gobbin, tank, MOVES.throat_glow, rng, fixed).damage).toBe(0);
