@@ -36,6 +36,16 @@ exist to save the owner's time and the token bill: they come from what went wron
   images to attach and the path to save the result as. The owner runs them in one sitting.
 - Only ask for what the game uses: walk sheets only for characters who walk (the four, followers).
   NPCs who stand still get two standing frames on their character sheet, never a walk sheet.
+- The owner reads the file on a phone (GitHub app): keep each prompt in its own code block, wrapped
+  to about 38 characters so it reads without scrolling and copies whole; check every block is closed
+  after any edit. The file lives on the working branch, so give the owner the direct link.
+- The owner sends results back in the chat in prompt order (no need to save them in the repo);
+  the lead saves them to the listed paths and converts them in the same session.
+- Use drafts whole when they work: a room concept becomes the room (`art/tools/room_concept.py`),
+  a character sheet's small standing frame becomes the NPC (`art/tools/pose2sprite.py`). Piece
+  sheets are only for when something has to move or come and go.
+- New jokes or people from the owner mid-milestone: write the lines, add them to bible §11 and the
+  prompt file, show the lines in chat. No separate approval round.
 - Everything else in the art pipeline is unchanged (`art/BW_STYLE.md`, converters, pitch first).
 
 ## Owner reviews: once per milestone
