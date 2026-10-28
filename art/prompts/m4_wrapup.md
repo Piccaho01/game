@@ -458,9 +458,9 @@ curious. Colourway: mustard yellow,
 beige, brown.
 ```
 
-### person_pond_kid
-- **Save as:** `art/concepts/trainers/pond_kid.png`  ·  **Shape:** portrait
-- **Attach:** `art/concepts/trainers/callum.png`
+### person_parker
+- **Save as:** `art/concepts/trainers/parker.png`  ·  **Shape:** portrait
+- **Attach:** `art/concepts/trainers/callum.png`, plus your photo of Noah for his face and hair (photo stays out of the repo)
 
 ```
 Character sheet for a
@@ -478,15 +478,24 @@ style of the small walk frames on the
 attached sheet: one 3/4 front view
 facing down-left, one 3/4 back view
 facing up-left. Flat white background,
-no text, no logos. The person is a kid
-from Hollow Rest who hangs around the
-pond: about ten years old, messy
-red-orange hair, freckles, a
-gap-toothed grin, an oversized
-coral-red rain jacket, rolled-up
-shorts, green rubber boots, a little
-fishing net on a stick. Energetic.
-Colourway: coral red, green, blue.
+no text, no logos. The person is
+Parker Colt (real name Noah), a
+self-made influencer from Hollow Rest
+who never stops promoting his page: a
+lanky young man in his early twenties,
+shaggy dark-brown hair in a messy
+mullet with flicks at the sides, dark
+brown eyes, eyebrows up and mouth open
+in an excited "wait, are you filming?"
+face, a thin gold chain. A loud
+sunset-coral short-sleeve shirt worn
+open over a white tank top, light-wash
+jeans, white socks pulled up, chunky
+white sneakers. Holding his phone up
+on a selfie stick with a tiny ring
+light clipped on, striking a pose.
+Funny and harmless. Colourway: sunset
+coral, white, gold.
 ```
 
 ### person_nolan_dad

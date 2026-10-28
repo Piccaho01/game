@@ -614,5 +614,34 @@
         "text": "It's on. Barely. Like PATCH before coffee."
       }
     ]
+  },
+  "strikes": {
+    "lines": [
+      {
+        "text": "Strikes, Nolan's cat. Orange, very old, strictly an outside cat."
+      },
+      {
+        "who": "PATCH",
+        "text": "He was not in the build. I have checked the build. Twice."
+      },
+      {
+        "who": "Nolan",
+        "text": "He's been outside for like fifteen years. He's fine. He's always fine."
+      }
+    ],
+    "byLeader": {
+      "callum": [
+        {
+          "text": "Strikes, Nolan's cat. Orange, very old, strictly an outside cat."
+        },
+        {
+          "who": "Callum",
+          "text": "STRIKES. Who's the best boy? You are. Don't tell the Patchlings."
+        },
+        {
+          "text": "Strikes allows exactly one head scratch, then goes back to staring at the horizon."
+        }
+      ]
+    }
   }
 }

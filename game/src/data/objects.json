@@ -96,7 +96,8 @@
     "cat": {
       "art": "cat",
       "wx": 1,
-      "wy": 1
+      "wy": 1,
+      "talk": "strikes"
     },
     "chalk": {
       "art": "chalk",

@@ -35,10 +35,10 @@
         "dir": "left"
       }
     },
-    "pond_kid": {
-      "name": "Kid",
+    "parker": {
+      "name": "Parker Colt",
       "sprite": "placeholder:#e07050",
-      "talk": "pond_kid",
+      "talk": "parker",
       "home": {
         "map": "hollow_rest",
         "x": 12,

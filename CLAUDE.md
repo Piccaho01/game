@@ -180,6 +180,8 @@ Use these as flavour in NPCs, items, signs, quests and dialogue. Spread them out
 - **"And I picked up a mic and I'm chill":** a corny line Callum said once; the guys never let it go. Recurs as a cringe battle line or NPC taunt.
 - **Sergey:** Callum's 19-year-old Russian producer; side-quest NPC where the group keeps trying to "get Sergey out of the trenches."
 - **LeBron, the Keeper:** the old keeper of Hollow Rest's sanctuary is LeBron James, pulled into Verrow years ago when Callum hit "sim to end of season" on a MyLeague save. The Hollowfolk made him their Keeper; his ratings froze in 2K22 (still a 97). Callum feels a bit guilty; Dani doesn't know who he is. Affectionate parody: no team names or logos.
+- **Parker Colt:** a buddy's (Noah's) 2020 thirst-trap TikTok name. In Hollow Rest, Noah is Parker Colt, an influencer who never stops promoting his page ("Noah is a private account"). Roast, keep it clean.
+- **Strikes:** Nolan's cat: orange, super old, an outside cat everyone loves (Callum most). He lives in Hollow Rest; PATCH swears he wasn't in the build.
 - **Tuffest white boy debate:** Richie Guérin vs Dick Van Arsdale. An arena debate with a title at stake.
 - **Nolan and Goldschlager:** he's a different breed on the headstands. Gag item or minigame.
 - **Haydon and Plaqueboymax:** Haydon is a big fan; streamer-style NPC references.

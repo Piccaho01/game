@@ -215,7 +215,7 @@ because every new screen uses it):
 
 Art asks for the owner: the Hollow Rest drafts from `art/LOCATION_STYLE.md` (concept, pixel map,
 set pieces, terrain swatch) into `art/concepts/locations/`; townsfolk NPC sprites (the elder,
-neighbour and pond kid are placeholders).
+neighbour and Parker Colt are placeholders).
 
 ### M4 handoff (read this first in a new session)
 - **Workflow with the owner:** the owner is the ideas side; Claude is the developer and should

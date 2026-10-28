@@ -76,10 +76,24 @@
       { "who": "Neighbour", "text": "With a coffee." }
     ]
   },
-  "pond_kid": {
+  "parker": {
     "lines": [
-      { "who": "Kid", "text": "A rock fell out of the sky and now it follows me home." },
-      { "who": "Kid", "text": "Mum says it's \"skybox\" and to stop feeding it." }
-    ]
+      { "who": "Parker Colt", "text": "Parker Colt. You've probably seen the page." },
+      { "who": "Parker Colt", "text": "New post every day at golden hour. The lighting in this world is insane. Follow me." },
+      { "who": "Haydon", "text": "Your name is Noah." },
+      { "who": "Parker Colt", "text": "Noah is a private account." }
+    ],
+    "byLeader": {
+      "callum": [
+        { "who": "Parker Colt", "text": "Callum. You never followed back. Since 2020." },
+        { "who": "Callum", "text": "I followed. I just had notifications off. For six years." },
+        { "who": "Parker Colt", "text": "...Golden hour's at six. Like the post." }
+      ],
+      "dani": [
+        { "who": "Dani", "text": "Bro! I follow you. I like every post." },
+        { "who": "Parker Colt", "text": "You liked one post. In 2021. Three months after I put it up." },
+        { "who": "Dani", "text": "Is still a like." }
+      ]
+    }
   }
 }
