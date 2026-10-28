@@ -9,7 +9,7 @@
   },
   "rows": [
     "xxxxxxx",
-    "xx.....",
+    "xxxx...",
     "xxxxx..",
     "xxxxx..",
     "xxxx...",
@@ -33,34 +33,24 @@
   ],
   "signs": [
     {
-      "x": 2,
-      "y": 0,
+      "x": 3,
+      "y": 1,
       "talk": "callum_shelf"
     },
     {
-      "x": 1,
-      "y": 1,
-      "talk": "callum_crt"
-    },
-    {
-      "x": 2,
+      "x": 4,
       "y": 2,
       "talk": "callum_bag"
     },
     {
-      "x": 3,
-      "y": 4,
+      "x": 4,
+      "y": 3,
       "talk": "callum_laptop"
     },
     {
       "x": 3,
       "y": 5,
       "text": "A red armchair with a blanket over it. It has a Callum-shaped dent."
-    },
-    {
-      "x": 3,
-      "y": 0,
-      "talk": "callum_pins"
     },
     {
       "x": 4,

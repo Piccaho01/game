@@ -7,6 +7,7 @@ How it works:
 - The concept's floor corners (left, front, right; the back one follows) are found from the room's
   silhouette minus the floor slab's thickness `t`; an affine map puts them on the game grid's corners.
   The concept's projection is flatter than 2:1, so each room keeps its own tile size (layout.tile).
+- `scale`: per-room size on top of SCALE, for concepts drawn bigger than the rest.
 - Furniture stays painted. Its tiles are solid ('x'); what you can use is a sign on that tile
   (talk/text/opens/rest). People always draw over the room, so no walkable tile is left where
   someone's feet would land on a piece (check with a feet overlay before changing `solid`).
@@ -61,10 +62,11 @@ def build(room, grid=False):
     for k, d in cfg.get('nudge', {}).items():
         {'left': lc, 'front': fc, 'right': rc}[k] += np.array(d, float)
     bk = lc + rc - fc
-    nx = cfg.get('nx') or max(3, round((rc[0] - bk[0]) * SCALE * 2 / TILE_W))
-    ny = cfg.get('ny') or max(3, round((bk[0] - lc[0]) * SCALE * 2 / TILE_W))
-    w = 2 * round(((rc[0] - bk[0]) / nx + (bk[0] - lc[0]) / ny) / 2 * SCALE)
-    h = round(((rc[1] - bk[1]) / nx + (lc[1] - bk[1]) / ny) / 2 * SCALE * 2)
+    scale = SCALE * cfg.get('scale', 1)   # per room: some concepts are drawn bigger than others
+    nx = cfg.get('nx') or max(3, round((rc[0] - bk[0]) * scale * 2 / TILE_W))
+    ny = cfg.get('ny') or max(3, round((bk[0] - lc[0]) * scale * 2 / TILE_W))
+    w = 2 * round(((rc[0] - bk[0]) / nx + (bk[0] - lc[0]) / ny) / 2 * scale)
+    h = round(((rc[1] - bk[1]) / nx + (lc[1] - bk[1]) / ny) / 2 * scale * 2)
     # fixes on the concept before it is warped
     for rc_ in cfg.get('recolor', []):
         x0, y0, x1, y1 = rc_['box']
