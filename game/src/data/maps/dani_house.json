@@ -10,10 +10,10 @@
   "rows": [
     "xxxxxx.",
     "x......",
-    "..xx...",
-    "..xx...",
-    ".......",
-    ".xx....",
+    "xxxx...",
+    "..xxx..",
+    "xxxx...",
+    "xxxx...",
     "xxxxx.."
   ],
   "spawn": {
@@ -33,23 +33,13 @@
   ],
   "signs": [
     {
-      "x": -1,
-      "y": 3,
-      "talk": "dani_hammock"
-    },
-    {
-      "x": -1,
-      "y": 4,
-      "talk": "dani_hammock"
-    },
-    {
-      "x": -1,
-      "y": 1,
-      "talk": "dani_photos"
-    },
-    {
-      "x": -1,
+      "x": 1,
       "y": 2,
+      "talk": "dani_hammock"
+    },
+    {
+      "x": 0,
+      "y": 1,
       "talk": "dani_photos"
     },
     {
@@ -68,7 +58,7 @@
       "talk": "dani_fridge"
     },
     {
-      "x": 0,
+      "x": 4,
       "y": 6,
       "talk": "dani_football"
     },

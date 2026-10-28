@@ -9,12 +9,12 @@
   },
   "rows": [
     "xxxxxxx",
-    "x......",
-    "x..x...",
-    "x.xxx..",
+    "xxx....",
     "xxxx...",
+    "xxxxx..",
     "xxxxxx.",
-    "x.xxx.m"
+    "xxxxxx.",
+    "xxxxxxm"
   ],
   "spawn": {
     "x": 6,
@@ -33,13 +33,13 @@
   ],
   "signs": [
     {
-      "x": 1,
-      "y": 0,
+      "x": 2,
+      "y": 1,
       "talk": "nolan_desk"
     },
     {
-      "x": 2,
-      "y": 0,
+      "x": 3,
+      "y": 2,
       "talk": "nolan_tv"
     },
     {
@@ -48,22 +48,12 @@
       "talk": "nolan_window"
     },
     {
-      "x": 0,
+      "x": 4,
       "y": 3,
       "talk": "nolan_bottle"
     },
     {
-      "x": 0,
-      "y": 2,
-      "talk": "nolan_bottle"
-    },
-    {
-      "x": 2,
-      "y": 5,
-      "text": "The couch. Someone has slept on this couch. Several someones. Several times."
-    },
-    {
-      "x": 4,
+      "x": 5,
       "y": 5,
       "text": "The couch. Someone has slept on this couch. Several someones. Several times."
     },

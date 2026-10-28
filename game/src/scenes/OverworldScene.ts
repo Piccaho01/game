@@ -234,7 +234,7 @@ export class OverworldScene extends Phaser.Scene {
     const map = MAPS[this.pos.map];
     const { origin, tile } = this.layout;
     const z = heightAt(map, x, y) + (stairAxis(map, x, y) ? 0.5 : 0);
-    return { x: origin.x + (x - y) * tile.w / 2 + tile.w / 2, y: origin.y + (x + y) * tile.h / 2 - z * tile.z + 12 };
+    return { x: origin.x + (x - y) * tile.w / 2 + tile.w / 2, y: origin.y + (x + y) * tile.h / 2 + tile.h / 2 + 4 - z * tile.z };
   }
 
   /** NPC sprites: a walk sheet (turns to face you), a standing pose, or a placeholder figure. */

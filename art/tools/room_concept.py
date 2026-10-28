@@ -8,8 +8,8 @@ How it works:
   silhouette minus the floor slab's thickness `t`; an affine map puts them on the game grid's corners.
   The concept's projection is flatter than 2:1, so each room keeps its own tile size (layout.tile).
 - Furniture stays painted. Its tiles are solid ('x'); what you can use is a sign on that tile
-  (talk/text/opens/rest). People always draw over the room, so no walkable tile is left behind a
-  tall front piece.
+  (talk/text/opens/rest). People always draw over the room, so no walkable tile is left where
+  someone's feet would land on a piece (check with a feet overlay before changing `solid`).
 - `cutout`: a piece that comes and goes (the rubble in the sanctuary's arch): painted out of the
   room (filled from `fill` boxes) and kept as its own sprite with `until`.
 - `paint`: small additions in game space (a doorway the concept doesn't have).
@@ -29,9 +29,9 @@ from iso_kit import reduce, sharpen  # noqa: E402
 GAME = os.path.join(HERE, '..', '..', 'game', 'src', 'data')
 CONCEPTS = os.path.join(HERE, '..', 'concepts', 'locations')
 OUT = os.path.join(HERE, '..', 'locations', 'out')
-SCALE = 1 / 5          # concept px -> game px
-TILE_W = 42            # target tile width in game px (the count of tiles follows from it)
-BACKDROP = (33, 23, 23, 255)
+SCALE = 1 / 8          # concept px -> game px (rooms at the friends' scale: a bookshelf about one person tall)
+TILE_W = 28            # target tile width in game px (the count of tiles follows from it)
+BACKDROP = (0, 0, 0, 0)       # transparent: the room floats on the screen's own background
 
 ROOMS = json.load(open(os.path.join(HERE, 'rooms.json')))
 
@@ -150,7 +150,8 @@ def build(room, grid=False):
     os.makedirs(os.path.join(OUT, 'maps'), exist_ok=True)
     mp = cfg['map']
     Image.fromarray(canvas, 'RGBA').save(os.path.join(OUT, 'maps', f'{mp}.png'))
-    json.dump({'origin': {'x': round(ox, 2), 'y': round(oy, 2)}, 'tile': {'w': w, 'h': h, 'z': 16},
+    # z 0: the floor is painted flat at the origin (the map's floor height of 1 must not lift people).
+    json.dump({'origin': {'x': round(ox, 2), 'y': round(oy, 2)}, 'tile': {'w': w, 'h': h, 'z': 0},
                'size': {'w': W, 'h': H}, 'sprites': sprites},
               open(os.path.join(OUT, 'maps', f'{mp}.json'), 'w'), indent=1)
     print(f'{mp}: {nx}x{ny} tiles of {w}x{h}, {W}x{H} px')
