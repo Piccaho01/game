@@ -14,15 +14,15 @@
     "xxxxx..",
     "xxxx...",
     "xxxx...",
-    "xxxm..."
+    "xxx..m."
   ],
   "spawn": {
-    "x": 3,
+    "x": 5,
     "y": 6
   },
   "warps": [
     {
-      "x": 3,
+      "x": 5,
       "y": 7,
       "to": "hollow_rest",
       "tx": 6,

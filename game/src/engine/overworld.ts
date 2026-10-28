@@ -209,10 +209,11 @@ export function step(pos: Position, dir: Dir, blocked: (x: number, y: number) =>
   const map = MAPS[pos.map];
   const x = pos.x + DIRS[dir].dx;
   const y = pos.y + DIRS[dir].dy;
-  // Into a door, or out through a room's doorway: the warp is checked before what's solid.
+  // Into a door, or out through a room's doorway: the warp is checked before what's solid. A door
+  // with its one side (`enter`) can sit up a step from the path (Nolan's porch on its raised lot).
   const warp = map.warps.find((w) => w.x === x && w.y === y);
   const inside = x >= 0 && y >= 0 && x < map.width && y < map.height;
-  if (warp && (!warp.enter || warp.enter === dir) && !blocked(x, y) && (!inside || canClimb(map, pos.x, pos.y, x, y))) {
+  if (warp && (!warp.enter || warp.enter === dir) && !blocked(x, y) && (!inside || warp.enter || canClimb(map, pos.x, pos.y, x, y))) {
     return { moved: true, pos: { map: warp.to, x: warp.tx, y: warp.ty, dir: warp.dir ?? dir }, warped: true, grass: false };
   }
   if (isBlocked(map, x, y) || blocked(x, y) || !canClimb(map, pos.x, pos.y, x, y)) return { moved: false, pos: { ...pos, dir }, warped: false, grass: false };

@@ -135,6 +135,9 @@ def build(room, grid=False):
                         'key': (tx + ty) * 10 + 6, 'decal': False, 'until': cfg['cutout']['until']})
     for p in cfg.get('paint', []):      # doorways etc., in tile terms on a back wall
         paint(canvas, p, ox, oy, w, h)
+    for wp in cfg['warps']:             # the way out through the cut-away front: a shadowed doorway
+        if wp['y'] == ny or wp['x'] == nx:
+            exit_shadow(canvas, wp, nx, ny, ox, oy, w, h, cfg.get('t', 22) * scale)
 
     tile = lambda x, y: (ox + (x - y) * w / 2, oy + (x + y) * h / 2)
     if grid:
@@ -158,6 +161,27 @@ def build(room, grid=False):
               open(os.path.join(OUT, 'maps', f'{mp}.json'), 'w'), indent=1)
     print(f'{mp}: {nx}x{ny} tiles of {w}x{h}, {W}x{H} px')
     return canvas
+
+
+def exit_shadow(canvas, wp, nx, ny, ox, oy, w, h, slab):
+    """Where you walk out of a room through its open front: the doormat tile darkens toward the
+    edge and the floor's front lip below it is cut into a dark doorway, so the exit reads at a glance."""
+    H, W = canvas.shape[:2]
+    yy, xx = np.mgrid[0:H, 0:W].astype(float)
+    front_y = wp['y'] == ny
+    tx, ty = (wp['x'], ny - 1) if front_y else (nx - 1, wp['y'])
+    cx, cy = ox + (tx - ty) * w / 2 + w / 2, oy + (tx + ty) * h / 2 + h / 2
+    inside = np.abs(xx + 0.5 - cx) / (w / 2) + np.abs(yy + 0.5 - cy) / (h / 2) <= 1
+    # 0 at the tile's back edge, 1 at the open edge: along +y (front-left) or +x (front-right).
+    u = ((xx + 0.5 - cx) / (w / 2) * (-1 if front_y else 1) + (yy + 0.5 - cy) / (h / 2)) / 2 + 0.5
+    a = 0.5 + np.clip(u, 0, 1) * 0.4
+    # The lip: straight down from the tile's open edge, the slab's depth.
+    ex0, ex1 = (cx - w / 2, cx) if front_y else (cx, cx + w / 2)
+    edge_y = cy + h / 2 - np.abs(xx + 0.5 - cx) * (h / w)       # the diamond's lower edges
+    lip = (xx >= ex0 + 2) & (xx <= ex1 - 2) & (yy >= edge_y) & (yy <= edge_y + slab) & (canvas[..., 3] > 0)
+    sel = inside & (canvas[..., 3] > 0)
+    canvas[sel, :3] = (canvas[sel, :3] * (1 - a[sel, None]) + np.array([18, 12, 14]) * a[sel, None]).astype(np.uint8)
+    canvas[lip, :3] = (18, 12, 14)
 
 
 def paint(canvas, p, ox, oy, w, h):

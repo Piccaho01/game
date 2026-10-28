@@ -33,6 +33,8 @@ const WALK_VIEW: Record<Dir, { row: number; flip: boolean }> = {
 };
 /** Which of a follower Patchling's 8 angles faces each grid direction (art/followers: front, front-left, left, back-left, back, back-right, right, front-right). */
 const FOLLOW_VIEW: Record<Dir, number> = { down: 1, right: 7, left: 3, up: 5 };
+/** Townsfolk (stand poses) next to the friends. */
+const NPC_SCALE = 0.9;
 const OPPOSITE: Record<Dir, Dir> = { up: 'down', down: 'up', left: 'right', right: 'left' };
 const KEYS: Record<string, Dir> = { UP: 'up', DOWN: 'down', LEFT: 'left', RIGHT: 'right', W: 'up', S: 'down', A: 'left', D: 'right' };
 
@@ -243,6 +245,8 @@ export class OverworldScene extends Phaser.Scene {
     const view = WALK_VIEW[dir];
     s.setFlipX(n.sprite.startsWith('walk:') && this.textures.exists(walkKey(n.sprite.slice(5))) && view.flip);
     s.setTexture(...this.npcTexture(n.sprite, dir));
+    // Townsfolk standing poses come off bigger sheets than the friends' walk frames: a touch smaller.
+    s.setScale(this.textures.exists(standKey(n.sprite)) && !n.sprite.startsWith('walk:') ? NPC_SCALE : 1);
   }
 
   /** The texture (and frame) for someone standing on the map: a Patchling, a walk sheet, a stand pose or a placeholder. */

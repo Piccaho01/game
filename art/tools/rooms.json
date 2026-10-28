@@ -1,7 +1,7 @@
 {
   "_note": "Rooms made from the owner's interior concepts (art/tools/room_concept.py). Tiles: [x, y]; x runs along the right back wall, y along the left one. solid: painted furniture. signs: what A reads there (talk/text/opens/rest); a sign at x or y = -1 is on a wall. warps: the room's exits, in full. town: where the door in the outside map lands. cast: where the recurring cast stands in this room.",
   "callum": {
-    "concept": "callum", "nx": 7, "ny": 7, "map": "callum_house", "spawn": [3, 6], "mat": [3, 6],
+    "concept": "callum", "nx": 7, "ny": 7, "map": "callum_house", "spawn": [5, 6], "mat": [5, 6],
     "recolor": [{"box": [160, 260, 230, 320], "to": [242, 193, 78]}, {"box": [1080, 400, 1160, 460], "to": [242, 193, 78]}],
     "solid": [[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[6,0],[0,1],[1,1],[0,2],[1,2],[0,3],[1,3],[1,4],[1,5],[2,4],[2,5],[0,4],[0,5],[0,6],[2,2],[2,3],[3,2],[3,3],[3,4],[3,5],[4,2],[4,3],[1,6],[2,6],[2,1],[3,1]],
     "signs": [
@@ -10,11 +10,11 @@
       {"x": 4, "y": 0, "talk": "callum_towel"}, {"x": 5, "y": 0, "talk": "callum_towel"},
       {"x": 6, "y": 0, "text": "A plant. It's thriving. Nobody here can explain it."}
     ],
-    "warps": [{"x": 3, "y": 7, "to": "hollow_rest", "tx": 6, "ty": 17, "dir": "right", "enter": "down"}],
-    "town": {"to": "callum_house", "tx": 3, "ty": 6}
+    "warps": [{"x": 5, "y": 7, "to": "hollow_rest", "tx": 6, "ty": 17, "dir": "right", "enter": "down"}],
+    "town": {"to": "callum_house", "tx": 5, "ty": 6}
   },
   "nolan": {
-    "concept": "nolan", "nx": 7, "ny": 7, "map": "nolan_house", "spawn": [6, 6], "mat": [6, 6],
+    "concept": "nolan", "nx": 7, "ny": 7, "map": "nolan_house", "spawn": [6, 3], "mat": [6, 3],
     "solid": [[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[6,0],[0,1],[1,1],[2,1],[1,2],[0,2],[0,3],[0,4],[0,5],[0,6],[1,3],[1,4],[1,5],[1,6],[2,2],[2,3],[2,4],[2,5],[2,6],[3,2],[3,3],[3,4],[3,5],[3,6],[4,3],[4,4],[4,5],[4,6],[5,4],[5,5],[5,6]],
     "signs": [
       {"x": 2, "y": 1, "talk": "nolan_desk"}, {"x": 3, "y": 2, "talk": "nolan_tv"}, {"x": 3, "y": 0, "talk": "nolan_window"},
@@ -22,8 +22,8 @@
       {"x": 5, "y": 5, "text": "The couch. Someone has slept on this couch. Several someones. Several times."},
       {"x": 4, "y": 0, "text": "A mini fridge with magnets on it. Mostly empty. Mostly."}
     ],
-    "warps": [{"x": 6, "y": 7, "to": "hollow_rest", "tx": 10, "ty": 5, "dir": "down", "enter": "down"}],
-    "town": {"to": "nolan_house", "tx": 6, "ty": 6},
+    "warps": [{"x": 7, "y": 3, "to": "hollow_rest", "tx": 13, "ty": 5, "dir": "down", "enter": "right"}],
+    "town": {"to": "nolan_house", "tx": 6, "ty": 3, "dir": "left"},
     "cast": {"nolan_dad": [4, 1]}
   },
   "haydon": {

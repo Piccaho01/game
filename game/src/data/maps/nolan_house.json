@@ -11,24 +11,24 @@
     "xxxxxxx",
     "xxx....",
     "xxxx...",
-    "xxxxx..",
+    "xxxxx.m",
     "xxxxxx.",
     "xxxxxx.",
-    "xxxxxxm"
+    "xxxxxx."
   ],
   "spawn": {
     "x": 6,
-    "y": 6
+    "y": 3
   },
   "warps": [
     {
-      "x": 6,
-      "y": 7,
+      "x": 7,
+      "y": 3,
       "to": "hollow_rest",
-      "tx": 10,
+      "tx": 13,
       "ty": 5,
       "dir": "down",
-      "enter": "down"
+      "enter": "right"
     }
   ],
   "signs": [
