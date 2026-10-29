@@ -86,7 +86,8 @@ export class BattleScene extends Phaser.Scene {
       foe: this.addBattler('foe', 192, 100),
       player: this.addBattler('player', 66, 158),
     };
-    this.hpBoxes = { foe: new InfoCard(this, 'foe', 10), player: new InfoCard(this, 'player', 102) };
+    // Your box on top, the foe's below (owner's call, M7; BW has them the other way round).
+    this.hpBoxes = { foe: new InfoCard(this, 'foe', 112), player: new InfoCard(this, 'player', 8) };
     this.setCard('foe', this.battle.foe);
     this.setCard('player', this.battle.player);
     this.showXp();
