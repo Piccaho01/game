@@ -8,7 +8,7 @@ import { button, buttonPagePoint, chip, emptySlot, faceIcon, hinge, listRow, men
 import { createBattler } from '../engine/battler';
 import { pixelText } from '../ui/text';
 import { COLORS, hexToNum, shade, TEXT_COLORS, TEXT_SIZE, TONES } from '../ui/theme';
-import { frontKey, idleAnimKey, itemKey, walkKey } from './BootScene';
+import { frontKey, idleAnimKey, itemKey, monScale, walkKey } from './BootScene';
 import { count, ITEMS, scrollsInBag } from '../engine/items';
 import { settingsPanel, partyBlurb } from '../ui/settingsPanel';
 import { party, soundOn, textSpeed } from '../settings';
@@ -196,7 +196,7 @@ export class JournalScene extends Phaser.Scene {
     const seen = this.tab === 'team' || !!stage;
     // The Patchling stands on a little metal plinth on the left of the card.
     this.top.add(panel(this, 14, 112, 76, 12, 'metal'));
-    const sprite = this.add.sprite(52, 118, frontKey(species)).setOrigin(0.5, 1);
+    const sprite = this.add.sprite(52, 118, frontKey(species)).setOrigin(0.5, 1).setScale(monScale(this, frontKey(species)));
     if (seen && this.anims.exists(idleAnimKey(species))) sprite.play(idleAnimKey(species));
     if (!seen) sprite.setTintFill(COLORS.ink);
     this.top.add(sprite);

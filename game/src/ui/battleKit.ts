@@ -95,9 +95,12 @@ export function scrollDecal(scene: Phaser.Scene, x: number, y: number): Decal {
 }
 
 /** White silhouettes of Patchlings (front sprites) for TEAM; they bob, and jump on tap. */
+/** Double-res (192) creature art draws at half size; see monScale in BootScene. */
+const halfIfHiRes = (scene: Phaser.Scene, key: string) => (scene.textures.exists(key) && scene.textures.get(key).source[0].height >= 192 ? 0.5 : 1);
+
 export function teamDecal(scene: Phaser.Scene, x: number, y: number, keys: string[]): Decal {
   const sprites = keys.slice(0, 3).map((key, i) => {
-    const s = scene.add.sprite(x - i * 18, y, key).setScale(0.5).setTintFill(0xffffff).setAlpha(DECAL_ALPHA + 0.04);
+    const s = scene.add.sprite(x - i * 18, y, key).setScale(0.5 * halfIfHiRes(scene, key)).setTintFill(0xffffff).setAlpha(DECAL_ALPHA + 0.04);
     scene.tweens.add({ targets: s, y: y - 2, duration: 900, yoyo: true, repeat: -1, ease: 'Sine.easeInOut', delay: i * 250 });
     return s;
   });
@@ -109,7 +112,7 @@ export function teamDecal(scene: Phaser.Scene, x: number, y: number, keys: strin
 
 /** The Patchling that's out, a silhouette hopping across; on tap it sprints off. */
 export function runDecal(scene: Phaser.Scene, x0: number, x1: number, y: number, key: string): Decal {
-  const s = scene.add.sprite(x0, y, key).setScale(0.5).setFlipX(true).setTintFill(0xffffff).setAlpha(0);
+  const s = scene.add.sprite(x0, y, key).setScale(0.5 * halfIfHiRes(scene, key)).setFlipX(true).setTintFill(0xffffff).setAlpha(0);
   const across = scene.tweens.chain({
     targets: s, loop: -1,
     tweens: [
@@ -263,36 +266,40 @@ export class InfoCard {
   private readonly barX: number;
   private readonly barW: number;
   readonly homeX: number;
+  private readonly onLeft: boolean;
 
   constructor(private scene: Phaser.Scene, private side: 'foe' | 'player', y: number) {
     const w = 122;
     const h = side === 'player' ? 40 : 30;
-    this.homeX = side === 'foe' ? 0 : SCREEN_W - w;
+    // Your box sits on the left edge (top), the foe's on the right (bottom): the owner's layout, M7.
+    const onLeft = side === 'player';
+    this.onLeft = onLeft;
+    this.homeX = onLeft ? 0 : SCREEN_W - w;
     this.root = scene.add.container(this.homeX, y).setDepth(3);
     const g = scene.add.graphics();
     // Open on the screen edge: rounded only on the inner side.
-    if (side === 'foe') {
+    if (onLeft) {
       g.fillStyle(COLORS.ink).fillRect(0, -1, w - 3, h + 4);
       pxRect(g, w - 8, -1, 9, h + 4, COLORS.ink, 3);
       g.fillStyle(COLORS.paperShade).fillRect(0, 1, w - 3, h);
       g.fillStyle(0xf8f1de).fillRect(0, 0, w - 4, h - 1);
       pxRect(g, w - 9, 0, 8, h - 1, 0xf8f1de, 3);
-      g.fillStyle(COLORS.rust).fillRect(0, 0, 3, h - 1);
+      g.fillStyle(TONESTRIP).fillRect(0, 0, 3, h - 1);
     } else {
       g.fillStyle(COLORS.ink).fillRect(3, -1, w - 3, h + 4);
       pxRect(g, -1, -1, 9, h + 4, COLORS.ink, 3);
       g.fillStyle(COLORS.paperShade).fillRect(3, 1, w - 3, h);
       g.fillStyle(0xf8f1de).fillRect(4, 0, w - 4, h - 1);
       pxRect(g, 1, 0, 8, h - 1, 0xf8f1de, 3);
-      g.fillStyle(TONESTRIP).fillRect(w - 3, 0, 3, h - 1);
+      g.fillStyle(COLORS.rust).fillRect(w - 3, 0, 3, h - 1);
     }
     this.root.add(g);
-    const left = side === 'foe' ? 8 : 9;
+    const left = onLeft ? 8 : 9;
     this.name = pixelText(scene, left, 3, '', { size: TEXT_SIZE.body });
-    this.level = pixelText(scene, w - (side === 'foe' ? 10 : 8), 6, '', { color: TEXT_COLORS.inkSoft, size: TEXT_SIZE.small, display: true }).setOrigin(1, 0);
+    this.level = pixelText(scene, w - (onLeft ? 10 : 8), 6, '', { color: TEXT_COLORS.inkSoft, size: TEXT_SIZE.small, display: true }).setOrigin(1, 0);
     this.tags = scene.add.container(0, 0);
     this.barX = left;
-    this.barW = w - left - (side === 'foe' ? 12 : 10);
+    this.barW = w - left - (onLeft ? 12 : 10);
     const track = scene.add.graphics();
     pxRect(track, this.barX - 1, 17, this.barW + 2, 7, COLORS.ink, 2);
     pxRect(track, this.barX, 18, this.barW, 5, 0x2a2c3e, 1);
@@ -371,7 +378,7 @@ export class InfoCard {
 
   /** Slides in from its screen edge. */
   slideIn(delay = 0) {
-    const from = this.side === 'foe' ? -130 : SCREEN_W + 10;
+    const from = this.onLeft ? -130 : SCREEN_W + 10;
     this.root.setX(from);
     return new Promise<void>((resolve) => this.scene.tweens.add({ targets: this.root, x: this.homeX, delay, duration: 320, ease: 'Back.easeOut', onComplete: () => resolve() }));
   }

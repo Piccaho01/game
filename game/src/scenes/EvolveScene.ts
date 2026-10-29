@@ -11,11 +11,14 @@ import { sfx } from '../ui/sfx';
 import { pixelText } from '../ui/text';
 import { COLORS, hexToNum, shade, TEXT_COLORS, TEXT_SIZE, TONES } from '../ui/theme';
 import { tweenAsync, wait } from '../ui/widgets';
-import { frontKey, idleAnimKey, walkKey } from './BootScene';
+import { frontKey, idleAnimKey, monScale, walkKey } from './BootScene';
 
 /**
- * The evolve scene (M6), BW style: "What? X is evolving!", the Patchling flickers between its
- * two forms as white silhouettes, faster and faster, then a flash and the new form. STOP (the
+ * The evolve scene (M6; restyled M7 as PATCH "recompiling" the Patchling, the owner's pick):
+ * a dark grid stage with scanlines and a terminal readout, "What? X is evolving!", the Patchling
+ * flickers between its two forms as white silhouettes with RGB-split and slice glitches, faster
+ * and faster while the progress bar fills, breaks into pixels that pull back together, then a
+ * flash and the new form drawn in by a scan line. STOP (the
  * touch screen) holds it back until its next level. Plays each queued evolution in turn, then
  * goes on to `next`. `preview`: a test run on a species that touches no save (?evolve=<species>).
  */
@@ -41,6 +44,11 @@ export class EvolveScene extends Phaser.Scene {
   private dialog!: DialogBox;
   private bottom!: Phaser.GameObjects.Container;
   private glow!: Phaser.GameObjects.Graphics;
+  private ghosts: Phaser.GameObjects.Sprite[] = [];
+  private term!: Phaser.GameObjects.Text;
+  private bar!: Phaser.GameObjects.Graphics;
+  private termLines: string[] = [];
+  private col = 0xffffff;
 
   constructor() { super('evolve'); }
 
@@ -60,8 +68,11 @@ export class EvolveScene extends Phaser.Scene {
       return;
     }
     this.drawBackdrop(due.from);
+    // RGB-split ghosts behind the Patchling, shown while it glitches.
+    this.ghosts = [0xff3df0, 0x3df6ff].map((tint) => this.add.sprite(CENTRE.x, CENTRE.y, frontKey(due.from)).setOrigin(0.5, 1).setTintFill(tint).setAlpha(0).setBlendMode(Phaser.BlendModes.ADD));
     this.mon = this.add.sprite(CENTRE.x, CENTRE.y, frontKey(due.from)).setOrigin(0.5, 1);
     this.playIdle(due.from);
+    this.drawOverlay(due);
     this.dialog = new DialogBox(this, 10);
     screenBackdrop(this, BOTTOM);
     hinge(this);
@@ -71,30 +82,129 @@ export class EvolveScene extends Phaser.Scene {
     void this.run(due);
   }
 
-  /** A dark stage with slow rays in the old form's type colour and drifting sparks. */
+  /** PATCH's render space: a dark sky with stars, a perspective grid floor in the type colour, a halo. */
   private drawBackdrop(species: string) {
     const col = hexToNum(TYPES[SPECIES[species].types[0]].color);
+    this.col = col;
     const g = this.add.graphics();
-    g.fillStyle(0x0d0e1a).fillRect(0, 0, SCREEN_W, SCREEN_H);
-    const rays = this.add.graphics({ x: CENTRE.x, y: CENTRE.y - 40 });
-    for (let i = 0; i < 12; i++) {
-      const a = (i / 12) * Math.PI * 2;
-      rays.fillStyle(i % 2 ? shade(col, -0.55) : shade(col, -0.7), 0.6);
-      rays.fillTriangle(0, 0, Math.cos(a) * 220, Math.sin(a) * 220, Math.cos(a + 0.26) * 220, Math.sin(a + 0.26) * 220);
+    const horizon = 92;
+    for (let y = 0; y < SCREEN_H; y += 4) {
+      const t = y / SCREEN_H;
+      g.fillStyle(Phaser.Display.Color.GetColor(8 + t * 10, 6 + t * 8, 20 + t * 22), 1).fillRect(0, y, SCREEN_W, 4);
     }
-    this.tweens.add({ targets: rays, angle: 360, duration: 24000, repeat: -1 });
-    this.glow = this.add.graphics({ x: CENTRE.x, y: CENTRE.y - 40 }).setAlpha(0);
-    this.glow.fillStyle(0xffffff, 0.12).fillCircle(0, 0, 60).fillStyle(0xffffff, 0.18).fillCircle(0, 0, 40);
-    for (let i = 0; i < 18; i++) {
-      const s = this.add.rectangle(Phaser.Math.Between(10, SCREEN_W - 10), Phaser.Math.Between(10, SCREEN_H - 50), 1, 1, 0xffffff, 0.8);
-      this.tweens.add({ targets: s, y: s.y - 30, alpha: 0, duration: Phaser.Math.Between(1800, 3600), repeat: -1, delay: Phaser.Math.Between(0, 2000) });
+    for (let i = 0; i < 40; i++) {
+      const st = this.add.rectangle(Phaser.Math.Between(2, SCREEN_W - 2), Phaser.Math.Between(2, horizon - 4), 1, 1, 0xffffff, Phaser.Math.FloatBetween(0.3, 0.9));
+      this.tweens.add({ targets: st, alpha: 0.1, duration: Phaser.Math.Between(600, 1800), yoyo: true, repeat: -1, delay: Phaser.Math.Between(0, 1500) });
     }
-    g.fillStyle(0x000000, 0.35).fillEllipse(CENTRE.x, CENTRE.y, 90, 14);
+    // The grid floor: lines fanning from a vanishing point, rows scrolling toward the viewer.
+    const floor = this.add.graphics();
+    floor.lineStyle(1, shade(col, -0.25), 0.55);
+    for (let i = -10; i <= 10; i++) floor.lineBetween(CENTRE.x + i * 6, horizon, CENTRE.x + i * 46, SCREEN_H);
+    floor.lineStyle(1, shade(col, 0.1), 0.8).lineBetween(0, horizon, SCREEN_W, horizon);
+    const rows = this.add.graphics();
+    let phase = 0;
+    this.time.addEvent({ delay: 60, loop: true, callback: () => {
+      phase = (phase + 0.06) % 1;
+      rows.clear().lineStyle(1, shade(col, -0.2), 0.5);
+      for (let k = 0; k < 7; k++) {
+        const t = (k + phase) / 7;
+        const y = horizon + (SCREEN_H - horizon) * t * t;
+        rows.lineBetween(0, y, SCREEN_W, y);
+      }
+    } });
+    this.glow = this.add.graphics({ x: CENTRE.x, y: CENTRE.y - 40 }).setAlpha(0.35);
+    this.glow.fillStyle(col, 0.1).fillCircle(0, 0, 70).fillStyle(col, 0.16).fillCircle(0, 0, 48).fillStyle(0xffffff, 0.08).fillCircle(0, 0, 30);
+    this.tweens.add({ targets: this.glow, scale: 1.08, duration: 1400, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
+    g.fillStyle(0x000000, 0.4).fillEllipse(CENTRE.x, CENTRE.y, 90, 14);
+    // A soft ring on the floor under the Patchling.
+    const ring = this.add.ellipse(CENTRE.x, CENTRE.y, 70, 12).setStrokeStyle(1, shade(col, 0.3), 0.7);
+    this.tweens.add({ targets: ring, scaleX: 1.15, scaleY: 1.15, alpha: 0.3, duration: 1200, yoyo: true, repeat: -1 });
+  }
+
+  /** Scanlines over the stage, and PATCH's terminal readout with a progress bar (top right). */
+  private drawOverlay(due: EvolutionDue) {
+    const lines = this.add.graphics().setDepth(5);
+    for (let y = 0; y < SCREEN_H; y += 2) lines.fillStyle(0x000000, 0.16).fillRect(0, y, SCREEN_W, 1);
+    const sweep = this.add.rectangle(0, 0, SCREEN_W, 10, 0xffffff, 0.035).setOrigin(0, 0).setDepth(5);
+    this.tweens.add({ targets: sweep, y: SCREEN_H, duration: 3200, repeat: -1 });
+    this.term = this.add.text(SCREEN_W - 6, 6, '', { fontFamily: 'monospace', fontSize: '7px', color: '#7dffb0', align: 'right', lineSpacing: 0 })
+      .setOrigin(1, 0).setDepth(6).setResolution(ZOOM).setAlpha(0.85);
+    this.bar = this.add.graphics().setDepth(6);
+    this.termLines = [`PATCH v0.9 :: ${SPECIES[due.from].name.toUpperCase()}.pl`];
+    this.setProgress(0);
+  }
+
+  private log(line: string) {
+    this.termLines = [...this.termLines.slice(-3), line];
+    this.term?.setText(this.termLines.join('\n'));
+  }
+
+  private setProgress(p: number) {
+    if (!this.bar) return;
+    const w = 70;
+    const x = SCREEN_W - 6 - w;
+    const y = 44;
+    this.bar.clear().fillStyle(0x000000, 0.5).fillRect(x - 1, y - 1, w + 2, 5).fillStyle(0x7dffb0, 0.9).fillRect(x, y, Math.round(w * p), 3);
+    this.term?.setText(this.termLines.join('\n'));
+  }
+
+  /** One glitch beat: RGB ghosts jump apart, and a few slices of the sprite tear sideways. */
+  private glitch(power: number) {
+    const key = this.mon.texture.key;
+    const frame = this.mon.frame.name;
+    const sc = this.mon.scaleX;
+    this.ghosts.forEach((gh, i) => {
+      gh.setTexture(key, frame).setScale(sc, this.mon.scaleY).setAlpha(0.55).setPosition(this.mon.x + (i ? 1 : -1) * Phaser.Math.Between(1, 1 + power), this.mon.y);
+      this.tweens.add({ targets: gh, alpha: 0, duration: 120 });
+    });
+    const fw = this.mon.frame.width;
+    const fh = this.mon.frame.height;
+    for (let k = 0; k < 1 + power; k++) {
+      const band = Phaser.Math.Between(2, 6) / sc;
+      const top = Phaser.Math.Between(0, Math.max(0, Math.floor(fh - band)));
+      const sl = this.add.sprite(this.mon.x + Phaser.Math.Between(-4, 4) * (1 + power / 2), this.mon.y, key, frame)
+        .setOrigin(0.5, 1).setScale(sc, this.mon.scaleY).setCrop(0, top, fw, band).setTintFill(k % 2 ? 0x3df6ff : 0xffffff).setDepth(2);
+      this.time.delayedCall(70, () => sl.destroy());
+    }
+  }
+
+  /** The Patchling breaks into pixels that fly out and get pulled back in. */
+  private async scatter() {
+    const b = this.mon.getBounds();
+    const bits: Phaser.GameObjects.Rectangle[] = [];
+    for (let i = 0; i < 70; i++) {
+      const x = Phaser.Math.Between(Math.round(b.left + 4), Math.round(b.right - 4));
+      const y = Phaser.Math.Between(Math.round(b.top + 4), Math.round(b.bottom - 2));
+      bits.push(this.add.rectangle(x, y, 2, 2, i % 4 ? 0xffffff : i % 8 ? this.col : 0x3df6ff).setDepth(3));
+    }
+    this.mon.setAlpha(0);
+    await Promise.all(bits.map((r) => tweenAsync(this, { targets: r, x: r.x + Phaser.Math.Between(-60, 60), y: r.y + Phaser.Math.Between(-50, 30), duration: 380, ease: 'Quad.easeOut' })));
+    await Promise.all(bits.map((r, i) => tweenAsync(this, { targets: r, x: CENTRE.x + Phaser.Math.Between(-3, 3), y: CENTRE.y - 40 + Phaser.Math.Between(-3, 3), duration: 300 + (i % 10) * 12, ease: 'Quad.easeIn' })));
+    bits.forEach((r) => r.destroy());
+  }
+
+  /** The new form drawn top to bottom behind a bright scan line. */
+  private async scanIn() {
+    const fw = this.mon.frame.width;
+    const fh = this.mon.frame.height;
+    const sc = this.mon.scaleY;
+    const top = this.mon.y - fh * sc;
+    const line = this.add.rectangle(CENTRE.x, top, 120, 2, 0xffffff, 0.9).setDepth(4);
+    const glowLine = this.add.rectangle(CENTRE.x, top, 120, 6, this.col, 0.4).setDepth(4);
+    this.mon.setAlpha(1);
+    const o = { t: 0 };
+    await tweenAsync(this, { targets: o, t: 1, duration: 520, ease: 'Sine.easeInOut', onUpdate: () => {
+      this.mon.setCrop(0, 0, fw, fh * o.t);
+      line.y = glowLine.y = top + fh * sc * o.t;
+    } });
+    this.mon.setCrop();
+    line.destroy();
+    glowLine.destroy();
   }
 
   private playIdle(species: string) {
     this.mon.anims.stop();
-    this.mon.setTexture(frontKey(species));
+    this.mon.setTexture(frontKey(species)).setScale(monScale(this, frontKey(species)));
     if (this.anims.exists(idleAnimKey(species))) this.mon.play(idleAnimKey(species));
   }
 
@@ -142,27 +252,43 @@ export class EvolveScene extends Phaser.Scene {
     this.mon.setTintFill(0xffffff);
     this.tweens.add({ targets: this.glow, alpha: 1, duration: 800 });
     this.dialog.prompt(`${fromName} is evolving...`);
-    // The flicker: old and new form swap, each beat shorter, with a rising blip.
+    this.log('> recompiling...');
+    const toKey = SPECIES[due.to].name.toUpperCase();
+    const steps = ['> unpacking sprite', '> patching stats', `> linking ${toKey}`, '> rebuilding bones', '> optimising cuteness', '> do not unplug'];
+    // The flicker: old and new form swap, each beat shorter, with a rising blip and a glitch.
     let gap = 420;
     let showNew = false;
+    let beat = 0;
     while (gap > 34) {
       if (this.stopAsked) return this.stopped(due);
       showNew = !showNew;
-      this.mon.setTexture(frontKey(showNew ? due.to : due.from), this.firstFrame(showNew ? due.to : due.from));
-      this.mon.setScale(showNew ? 1.04 : 1, 1);
+      const sp = showNew ? due.to : due.from;
+      const sc = monScale(this, frontKey(sp));
+      this.mon.setTexture(frontKey(sp), this.firstFrame(sp));
+      this.mon.setScale(sc * (showNew ? 1.04 : 1), sc);
+      this.glitch(Math.min(4, Math.floor(beat / 4)));
+      if (beat % 3 === 0) this.log(steps[Math.floor(beat / 3) % steps.length]);
+      this.setProgress(Math.min(1, (420 - gap) / (420 - 34)));
       sfx('beat');
+      beat++;
       await wait(this, gap);
       gap *= 0.86;
     }
     if (this.stopAsked) return this.stopped(due);
-    // Bang: a flash, the new form, sparkles.
+    // Bang: it breaks into pixels, they pull together, a flash, the new form scans in.
     this.step = 'reveal';
+    this.setProgress(1);
+    this.log('> build OK');
+    await this.scatter();
     this.cameras.main.flash(500, 255, 255, 255);
+    this.cameras.main.shake(180, 0.006);
     sfx('sealed');
-    this.mon.setScale(1).clearTint();
+    this.mon.clearTint();
     this.playIdle(due.to);
     this.burst();
-    void tweenAsync(this, { targets: this.glow, alpha: 0, duration: 900 });
+    void tweenAsync(this, { targets: this.glow, alpha: 0.35, duration: 900 });
+    await this.scanIn();
+    this.log(`> hello, ${SPECIES[due.to].name}`);
     await tweenAsync(this, { targets: this.mon, y: CENTRE.y - 6, duration: 140, yoyo: true, ease: 'Quad.easeOut' });
     const r = this.data0.preview || !this.progress ? null : evolve(this.progress, due.uid);
     if (this.progress && !this.data0.preview) saveProgress(this.progress);
@@ -183,9 +309,10 @@ export class EvolveScene extends Phaser.Scene {
   private async stopped(due: EvolutionDue) {
     this.step = 'reveal';
     this.tweens.killTweensOf(this.glow);
-    this.glow.setAlpha(0);
-    this.mon.setScale(1).clearTint();
+    this.glow.setAlpha(0.35);
+    this.mon.setAlpha(1).clearTint();
     this.playIdle(due.from);
+    this.log('> build cancelled');
     if (this.progress && !this.data0.preview) {
       stopEvolution(this.progress, due.uid);
       saveProgress(this.progress);
@@ -205,7 +332,7 @@ export class EvolveScene extends Phaser.Scene {
   private burst() {
     for (let i = 0; i < 24; i++) {
       const a = (i / 24) * Math.PI * 2;
-      const s = this.add.rectangle(CENTRE.x, CENTRE.y - 40, 2, 2, i % 3 ? 0xffffff : COLORS.gold);
+      const s = this.add.rectangle(CENTRE.x, CENTRE.y - 40, 2, 2, i % 3 ? 0xffffff : i % 2 ? 0x3df6ff : this.col);
       this.tweens.add({ targets: s, x: CENTRE.x + Math.cos(a) * 90, y: CENTRE.y - 40 + Math.sin(a) * 70, alpha: 0, duration: 700, ease: 'Quad.easeOut', onComplete: () => s.destroy() });
     }
   }

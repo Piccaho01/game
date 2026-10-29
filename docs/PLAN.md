@@ -24,8 +24,9 @@ Rules that keep it efficient:
 - [x] M4 wrap-up (branch `claude/kind-bell-uvy1u4`): World and Systems tracks merged; townsfolk from the owner's sheets; all seven rooms are the owner's concepts (`art/tools/room_concept.py` + `rooms.json`); new jokes (LeBron, Parker Colt, Strikes, Dani's mamá on the phone).
   **Handoff:** next is M5 (playtest build). Carried over, not blocking: Connor's battle/walk sprites (with his first boss fight), trainer battle portraits for the four, NPCs only have a front pose, the boulder's spot in Hollow Rest is a first guess, rooms are a bit wider than the top screen (camera scrolls). Room piece sheets (`interior_*_pieces.png`) are unused, kept for edits.
 - [ ] M5 Playtest build (branch `claude/peaceful-darwin-3db5u5`): field moves for all four, balance pass, phone fixes done; **left: share the link with the group, one round of fixes from their feedback.** See "M5 handoff".
-- [ ] M6 Game shell (branch `claude/m6-game-shell`): built, awaiting the owner's look at the screens; no PR until the owner says the batch is right. See "M6 handoff".
-- [ ] After the slice: Connor, more of Verrow (evolution system done in M6; evolution art is roadmap step 3)
+- [x] M6 Game shell (merged, PR #27). See "M6 handoff".
+- [x] M7 Evolution lines (branch `claude/affectionate-wozniak-wh7dgz`): all 12 forms, every creature double-res with its own idle, glitch evolve scene, live attack animations. See "M7 handoff".
+- [ ] Next: Chapter 1, finish Route 1 (roadmap step 4)
 
 ## M1 Foundation (code)
 - Vite + TypeScript + Phaser 3 project in `game/`; touch-first input; scales to phone screens.
@@ -402,6 +403,32 @@ bridge is optional.
 **Waiting on the owner:** one look at the screenshot sheet and the new lines (blackout, evolve
 reactions, the text-speed samples). **Next:** roadmap step 3 (evolution art, whole lines).
 
+### M7 handoff (evolution art, branch `claude/affectionate-wozniak-wh7dgz`)
+- All 12 missing forms drawn by the owner (front+back pairs, prompts `art/prompts/m7.md`), split
+  (`art/creatures/wip/m7/split.py`), converted plain with draft2sprite (`wip/m7/conv.py`), and
+  written as `art/creatures/<name>.px.js` by `wip/m7/make_px.py` (idle: 1px breath, or 1px hover
+  for Craterra, Singulith, Contrailon, Strafalcon). Wired in `patchlings.json`.
+- Owner's calls: the smaller wallaby pair is the **new Sprigby** (old one: `wip/sprigby_v1.px.js`);
+  Gulpjaw has **no throat glow** (Harrowjaw keeps it); Cullet drawn bigger.
+- Screens: `art/creatures/wip/out/_preview/m7_ingame.png`, `m7_evolve.png`.
+- Round 2 (owner's notes): **every creature is double-res now** (192 canvas, `monScale` draws it at
+  half size; all 18 stills from `wip/m7/hi/make_px.py`); Furnaxol, Zapail, Gobbin redrawn from new
+  pairs, Orbitot and Fledjet reconverted (96 versions kept in `art/creatures/wip/*_96.px.js`).
+  Per-creature idles: `art/tools/idle_fx.py` + `art/creatures/idle_fx.json`. Evolve scene restyled
+  as PATCH recompiling (glitch). Battle: your HP box top left, the foe's bottom right; back sprites
+  capped ~120 px tall. Harrowjaw and Gulpjaw face left; Craterra tidied (`wip/m7/hi/tidy.py`).
+- Round 3: attack animations drawn live (`game/src/ui/moveFx.ts`): 9 signature moves with their
+  own (Glassblow, Glass Bell, Molten Marbles, Spark Trail, Rail Shell, Reap Kick, Abyssal Harpoon,
+  Orbit Punch, Afterburner), Sprigby's line blink-strikes, every other move gets its type's
+  particles on a physical / special / status shape; `window.__battle.fx(moveId, side)` previews
+  one. BW-style battle platforms. Band clean-up per material (`wip/m7/hi/bands.py`, palette ramps
+  from `autoramps.py`) on Fernaroo, Scytharoo, Gauslug, Harrowjaw; a blanket de-grain filter was
+  tried and rejected (owner: "looks painted"). Lesson: future sprite prompts ask for crisp,
+  hand-placed pixel clusters, no dithering or noise.
+- e2e locally: the pinned Playwright wants another browser build; run with a config whose
+  `launchOptions.executablePath` is `/opt/pw-browsers/chromium-1243/chrome-linux64/chrome`.
+- **Owner approved the batch** (2026-10-29): PR next.
+
 ## Roadmap after the playtest (proposed 2026-10-28; see WORKFLOW "chapters")
 1. **Playtest fixes**: the group's feedback as one batch.
 2. **M6 Game shell**: title screen and main menu (Continue / New Game / Settings), pause menu,
@@ -409,9 +436,12 @@ reactions, the text-speed samples). **Next:** roadmap step 3 (evolution art, who
    the evolve scene). Uses existing evolution sprites as they arrive.
 3. **Finish the existing lines** (rule: whole lines): the 4 starter lines (8 sprites), Orbitot
    and Fledjet lines (4), attack animations (Glassblow first). One art batch.
-4. **Chapter 1**: Kettleport (Water/Metal) + the route to it, Connor's first "cancelled" boss
+4. **Chapter 1: finish Route 1** (owner's call, 2026-10-29): Route 1 has only two Patchling
+   lines (Orbitot, Fledjet). Pitch more Route 1 lines (whole lines, owner's ideas first), fill the
+   route's encounters, its story beat and Tally moment, and its sanctuary progress.
+5. **Chapter 2**: Kettleport (Water/Metal) + the route to it, Connor's first "cancelled" boss
    fight, the Tide Gallery wing, its Patchling lines, shop + currency.
-5. Then a chapter at a time: Emberwick, Canopy, Nightmarket, Hush, with the non-town locations
+6. Then a chapter at a time: Emberwick, Canopy, Nightmarket, Hush, with the non-town locations
    slotted in as routes between them.
 
 ## After the slice

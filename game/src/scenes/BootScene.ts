@@ -17,6 +17,12 @@ export const standKey = (id: string) => `stand:${id}`;
 /** A baked isometric map's ground, and the upright pieces placed on it. */
 export const groundKey = (id: string) => `ground:${id}`;
 export const propKey = (art: string) => `prop:${art}`;
+/**
+ * Creature art is either the classic 96x96 canvas or double-res 192x192 (M7 on, the owner's call):
+ * the double-res sprites are drawn at half size so both take the same room on screen.
+ */
+export const monScale = (scene: Phaser.Scene, key: string) =>
+  scene.textures.exists(key) && scene.textures.get(key).source[0].height >= 192 ? 0.5 : 1;
 export const backIdleAnimKey = (species: string) => `idle:back:${species}`;
 /** A location's battle backdrop (256x192). */
 export const battleBgKey = (id: string) => `battlebg:${id}`;

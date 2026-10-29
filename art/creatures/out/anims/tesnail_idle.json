@@ -1,0 +1,274 @@
+{
+ "frames": {
+  "tesnail_idle_0": {
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 192
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 192
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 192
+   },
+   "duration": 100
+  },
+  "tesnail_idle_1": {
+   "frame": {
+    "x": 192,
+    "y": 0,
+    "w": 192,
+    "h": 192
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 192
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 192
+   },
+   "duration": 100
+  },
+  "tesnail_idle_2": {
+   "frame": {
+    "x": 384,
+    "y": 0,
+    "w": 192,
+    "h": 192
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 192
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 192
+   },
+   "duration": 100
+  },
+  "tesnail_idle_3": {
+   "frame": {
+    "x": 576,
+    "y": 0,
+    "w": 192,
+    "h": 192
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 192
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 192
+   },
+   "duration": 100
+  },
+  "tesnail_idle_4": {
+   "frame": {
+    "x": 768,
+    "y": 0,
+    "w": 192,
+    "h": 192
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 192
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 192
+   },
+   "duration": 100
+  },
+  "tesnail_idle_5": {
+   "frame": {
+    "x": 960,
+    "y": 0,
+    "w": 192,
+    "h": 192
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 192
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 192
+   },
+   "duration": 100
+  },
+  "tesnail_idle_6": {
+   "frame": {
+    "x": 1152,
+    "y": 0,
+    "w": 192,
+    "h": 192
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 192
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 192
+   },
+   "duration": 100
+  },
+  "tesnail_idle_7": {
+   "frame": {
+    "x": 1344,
+    "y": 0,
+    "w": 192,
+    "h": 192
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 192
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 192
+   },
+   "duration": 100
+  },
+  "tesnail_idle_8": {
+   "frame": {
+    "x": 1536,
+    "y": 0,
+    "w": 192,
+    "h": 192
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 192
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 192
+   },
+   "duration": 100
+  },
+  "tesnail_idle_9": {
+   "frame": {
+    "x": 1728,
+    "y": 0,
+    "w": 192,
+    "h": 192
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 192
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 192
+   },
+   "duration": 100
+  },
+  "tesnail_idle_10": {
+   "frame": {
+    "x": 1920,
+    "y": 0,
+    "w": 192,
+    "h": 192
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 192
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 192
+   },
+   "duration": 100
+  },
+  "tesnail_idle_11": {
+   "frame": {
+    "x": 2112,
+    "y": 0,
+    "w": 192,
+    "h": 192
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 192,
+    "h": 192
+   },
+   "sourceSize": {
+    "w": 192,
+    "h": 192
+   },
+   "duration": 100
+  }
+ },
+ "meta": {
+  "app": "idle_fx.py",
+  "image": "tesnail_idle.png",
+  "size": {
+   "w": 2304,
+   "h": 192
+  },
+  "scale": "1",
+  "format": "RGBA8888",
+  "frameTags": [
+   {
+    "name": "tesnail_idle",
+    "from": 0,
+    "to": 11,
+    "direction": "forward"
+   }
+  ]
+ }
+}

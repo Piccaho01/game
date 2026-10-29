@@ -9,7 +9,8 @@ import { MOVES, SPECIES, TYPES } from '../engine/data';
 import { createRng } from '../engine/rng';
 import { sealPattern, sealWindows, type Bond, type SealResult } from '../engine/seal';
 import { DialogBox } from '../ui/dialog';
-import { button, buttonPagePoint, hinge, listRow, monIcon, pxRect, screenBackdrop } from '../ui/kit';
+import { playMoveFx } from '../ui/moveFx';
+import { button, buttonPagePoint, firstFrame, hinge, listRow, monIcon, pxRect, screenBackdrop, spriteBounds } from '../ui/kit';
 import { assistBar, assistCutIn, banner, commandButton, gloveDecal, InfoCard, runDecal, scrollDecal, teamDecal } from '../ui/battleKit';
 import { sfx } from '../ui/sfx';
 import { pixelText } from '../ui/text';
@@ -19,7 +20,7 @@ import { saveProgress } from '../save';
 import { applyScroll, count, ITEMS, scrollsInBag, scrollWindows, useItem } from '../engine/items';
 import { awardXp, levelProgress, whose, xpYield } from '../engine/levels';
 import { itemKey } from './BootScene';
-import { backIdleAnimKey, backKey, battleBgKey, frontKey, idleAnimKey, trainerKey, walkKey } from './BootScene';
+import { backIdleAnimKey, backKey, battleBgKey, frontKey, idleAnimKey, monScale, trainerKey, walkKey } from './BootScene';
 import { SealMinigame } from './SealMinigame';
 import type { EvolveData } from './EvolveScene';
 import { pendingEvolutions } from '../engine/evolution';
@@ -86,7 +87,8 @@ export class BattleScene extends Phaser.Scene {
       foe: this.addBattler('foe', 192, 100),
       player: this.addBattler('player', 66, 158),
     };
-    this.hpBoxes = { foe: new InfoCard(this, 'foe', 10), player: new InfoCard(this, 'player', 102) };
+    // Your box top left, the foe's bottom right (owner's call, M7; BW has them the other way round).
+    this.hpBoxes = { foe: new InfoCard(this, 'foe', 112), player: new InfoCard(this, 'player', 8) };
     this.setCard('foe', this.battle.foe);
     this.setCard('player', this.battle.player);
     this.showXp();
@@ -116,10 +118,16 @@ export class BattleScene extends Phaser.Scene {
     if (this.textures.exists(key)) {
       this.add.image(0, 0, key).setOrigin(0, 0);
       const g = this.add.graphics();
-      g.fillStyle(0x1c1b29, 0.22).fillEllipse(192, 99, 120, 24);
-      g.fillStyle(0xffffff, 0.08).fillEllipse(192, 96, 104, 14);
-      g.fillStyle(0x1c1b29, 0.22).fillEllipse(66, 158, 156, 32);
-      g.fillStyle(0xffffff, 0.08).fillEllipse(66, 154, 136, 18);
+      // BW-style grass platforms: a shadow, an earthy rim, a lit top with a highlight and an outline.
+      const platform = (x: number, y: number, w: number, h: number) => {
+        g.fillStyle(0x1c1b29, 0.35).fillEllipse(x, y + 4, w + 8, h + 6);
+        g.fillStyle(0x4a5a34, 0.95).fillEllipse(x, y + 2, w, h);
+        g.fillStyle(0x7fae5a, 0.95).fillEllipse(x, y - 1, w - 6, h - 6);
+        g.fillStyle(0xb2d884, 0.55).fillEllipse(x - w * 0.08, y - 3, w * 0.62, h * 0.32);
+        g.lineStyle(1, 0x26301c, 0.8).strokeEllipse(x, y + 2, w, h);
+      };
+      platform(192, 98, 120, 26);
+      platform(66, 156, 156, 32);
       return;
     }
     const g = this.add.graphics();
@@ -139,11 +147,14 @@ export class BattleScene extends Phaser.Scene {
     // BW shows your own Patchling from behind at 2x; species without a back sprite yet use the
     // front one mirrored.
     if (side === 'player' && this.textures.exists(backKey(species))) {
-      const b = this.add.sprite(x, y + 8, backKey(species)).setOrigin(0.5, 1).setScale(2);
+      const key = backKey(species);
+      // At most ~120 px tall on screen, so a big final form doesn't cover the whole top screen.
+      const body = spriteBounds(this, key, firstFrame(this, key)).h * 2 * monScale(this, key);
+      const b = this.add.sprite(x, y + 8, key).setOrigin(0.5, 1).setScale(2 * monScale(this, key) * Math.min(1, 120 / body));
       if (this.anims.exists(backIdleAnimKey(species))) b.play(backIdleAnimKey(species));
       return b;
     }
-    const s = this.add.sprite(x, y, frontKey(species)).setOrigin(0.5, 1);
+    const s = this.add.sprite(x, y, frontKey(species)).setOrigin(0.5, 1).setScale(monScale(this, frontKey(species)));
     if (this.anims.exists(idleAnimKey(species))) s.play(idleAnimKey(species));
     if (side === 'player') s.setFlipX(true);
     if (this.registry.get(`placeholder:${frontKey(species)}`) !== undefined) {
@@ -507,7 +518,7 @@ export class BattleScene extends Phaser.Scene {
           await this.say(e.text);
           break;
         case 'move':
-          await this.lunge(e.side);
+          await this.moveFx(e.side, e.moveId);
           break;
         case 'hp':
           await Promise.all([this.flash(e.side, e.hp < this.hpBoxes[e.side].hp), this.hpBoxes[e.side].animateTo(e.hp, e.maxHp)]);
@@ -536,6 +547,13 @@ export class BattleScene extends Phaser.Scene {
           break;
       }
     }
+  }
+
+  /** The attack animation (ui/moveFx.ts); falls back to the old lunge if a sprite is missing. */
+  private moveFx(side: Side, moveId: string) {
+    const other: Side = side === 'player' ? 'foe' : 'player';
+    if (!this.sprites[side] || !this.sprites[other]) return this.lunge(side);
+    return playMoveFx(this, moveId, this.sprites[side], this.sprites[other], side === 'player');
   }
 
   private lunge(side: Side) {
@@ -613,6 +631,8 @@ export class BattleScene extends Phaser.Scene {
 
   private exposeForTests() {
     (window as unknown as Record<string, unknown>).__battle = {
+      /** Plays a move's animation on its own (tests and previews). */
+      fx: (moveId: string, side: Side = 'player') => this.moveFx(side, moveId),
       phase: () => this.phase,
       outcome: () => this.battle.outcome,
       foe: () => ({ species: this.battle.foe.species, level: this.battle.foe.level }),
