@@ -439,6 +439,9 @@ reactions, the text-speed samples). **Next:** roadmap step 3 (evolution art, who
 4. **Chapter 1: finish Route 1** (owner's call, 2026-10-29): Route 1 has only two Patchling
    lines (Orbitot, Fledjet). Pitch more Route 1 lines (whole lines, owner's ideas first), fill the
    route's encounters, its story beat and Tally moment, and its sanctuary progress.
+   Bible §7 now sets the rules: 6-8 species a route (so Route 1 needs 1-2 more: an uncommon and a
+   rare/quest one), free line shapes (needs item/branch evolution triggers in the engine), shinies
+   (1/512) and Prototypes (1/8192), both cosmetic palette + effect, no new art.
 5. **Chapter 2**: Kettleport (Water/Metal) + the route to it, Connor's first "cancelled" boss
    fight, the Tide Gallery wing, its Patchling lines, shop + currency.
 6. Then a chapter at a time: Emberwick, Canopy, Nightmarket, Hush, with the non-town locations
