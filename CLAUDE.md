@@ -269,3 +269,9 @@ Two common lines for the hills outside Hollow Rest. Stage 1s are drawn for M4; e
 - Story hook: guards the ruined storm-rod on Route 1's hill. Only appears **in rain**, which the Tally has been "rain-checking" for years, so nobody has seen one in ages.
 - Moves: **Horn Bolt** (swings the fallen horn; may paralyse). Voltaurus signature **Severance** (two-handed axe strike, stronger if it was hit earlier in the battle).
 - **Evolves with a Storm Shard** found at the ruins: the first item evolution (needs item triggers in the engine).
+
+### Wardeye (Dark/Relic, single stage): the storm-rod's watchman (Route 1 rare/quest, approved 2026-10-29)
+- A ghostly **brass lantern** drifting on a wispy smoke tail; instead of a flame, **one huge glowing eye** swivels inside the cage. A tattered, half-see-through lighthouse keeper's coat for a cloak, a rusted chain hanging off it like a dragging anchor, two wisp "hands" holding the lantern's handle. Battle pose: 3/4 to the left, the lantern tilted toward the foe, the eye mid-glare.
+- Story hook: it kept watch for storms from the ruined storm-rod on Route 1's hill. When the Tally rain-checked the rain there was nothing left to watch; its eye went dim and it faded to a rumour.
+- **Quest:** bring the storm back (the same storm that lets Voltcalf appear); Wardeye relights and can then be sealed.
+- Signature **Vigil Beam** (a lighthouse sweep of eye-light: never misses, reveals the foe's next move).
