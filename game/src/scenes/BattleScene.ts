@@ -118,10 +118,16 @@ export class BattleScene extends Phaser.Scene {
     if (this.textures.exists(key)) {
       this.add.image(0, 0, key).setOrigin(0, 0);
       const g = this.add.graphics();
-      g.fillStyle(0x1c1b29, 0.22).fillEllipse(192, 99, 120, 24);
-      g.fillStyle(0xffffff, 0.08).fillEllipse(192, 96, 104, 14);
-      g.fillStyle(0x1c1b29, 0.22).fillEllipse(66, 158, 156, 32);
-      g.fillStyle(0xffffff, 0.08).fillEllipse(66, 154, 136, 18);
+      // BW-style grass platforms: a shadow, an earthy rim, a lit top with a highlight and an outline.
+      const platform = (x: number, y: number, w: number, h: number) => {
+        g.fillStyle(0x1c1b29, 0.35).fillEllipse(x, y + 4, w + 8, h + 6);
+        g.fillStyle(0x4a5a34, 0.95).fillEllipse(x, y + 2, w, h);
+        g.fillStyle(0x7fae5a, 0.95).fillEllipse(x, y - 1, w - 6, h - 6);
+        g.fillStyle(0xb2d884, 0.55).fillEllipse(x - w * 0.08, y - 3, w * 0.62, h * 0.32);
+        g.lineStyle(1, 0x26301c, 0.8).strokeEllipse(x, y + 2, w, h);
+      };
+      platform(192, 98, 120, 26);
+      platform(66, 156, 156, 32);
       return;
     }
     const g = this.add.graphics();

@@ -66,6 +66,18 @@ function emit(c: Ctx, x: number, y: number, cfg: Phaser.Types.GameObjects.Partic
 
 /** A ring that bursts out and fades, plus a white core flash. */
 function impact(c: Ctx, x: number, y: number, size = 1) {
+  // The target flashes white for a beat (a hit-stop), and lines burst out from the hit.
+  c.to.setTintFill(0xffffff);
+  c.scene.time.delayedCall(70, () => c.to.clearTint());
+  const lines = c.scene.add.graphics({ x, y }).setDepth(DEPTH);
+  for (let i = 0; i < 10; i++) {
+    const a = (i / 10) * Math.PI * 2 + Math.random() * 0.3;
+    const r0 = 8 * size, r1 = (22 + Math.random() * 12) * size;
+    lines.lineStyle(i % 2 ? 1 : 2, i % 3 ? 0xffffff : c.light, 1).lineBetween(Math.cos(a) * r0, Math.sin(a) * r0, Math.cos(a) * r1, Math.sin(a) * r1);
+  }
+  c.scene.tweens.add({ targets: lines, scale: 1.4, alpha: 0, duration: 220, ease: 'Quad.easeOut', onComplete: () => lines.destroy() });
+  const star = c.scene.add.star(x, y, 4, 3 * size, 14 * size, 0xffffff).setDepth(DEPTH).setRotation(Math.random());
+  c.scene.tweens.add({ targets: star, scale: 1.6, alpha: 0, angle: 45, duration: 200, onComplete: () => star.destroy() });
   const ring = c.scene.add.circle(x, y, 6 * size).setStrokeStyle(2, c.light).setDepth(DEPTH);
   c.scene.tweens.add({ targets: ring, scale: 3, alpha: 0, duration: 320, ease: 'Cubic.easeOut', onComplete: () => ring.destroy() });
   const core = c.scene.add.image(x, y, 'fx:soft').setTint(c.light).setAlpha(0.7).setScale(0.9 * size).setBlendMode(Phaser.BlendModes.ADD).setDepth(DEPTH);
@@ -98,10 +110,13 @@ async function rush(c: Ctx, type: string) {
   const me = body(s, c.dir);
   await tweenAsync(c.scene, { targets: s, x: home.x - c.dir * 6, duration: 140, ease: 'Sine.easeOut' });
   const trail = emit(c, 0, 0, { follow: s, followOffset: { x: me.x - s.x, y: me.y - s.y }, lifespan: 240, scale: { start: 1.2, end: 0 }, alpha: { start: 0.6, end: 0 }, tint: c.col, frequency: 16 }, 'fx:soft');
-  await tweenAsync(c.scene, { targets: s, x: home.x + (t.x - home.x) * 0.35, y: home.y + (t.y - home.y) * 0.25, duration: 130, ease: 'Quad.easeIn' });
+  const ev = afterimages(c, s, 130);
+  await tweenAsync(c.scene, { targets: s, x: home.x + (t.x - home.x) * 0.35, y: home.y + (t.y - home.y) * 0.25, duration: 130, ease: 'Expo.easeIn' });
+  ev.remove();
   trail.stop();
-  impact(c, t.x, t.y);
-  typeBurst(c, type, t.x, t.y);
+  impact(c, t.x, t.y, 1.2);
+  typeBurst(c, type, t.x, t.y, 24);
+  await wait(c.scene, 60);
   await tweenAsync(c.scene, { targets: s, x: home.x, y: home.y, duration: 260, ease: 'Back.easeOut' });
 }
 
@@ -111,7 +126,9 @@ async function shot(c: Ctx, type: string) {
   const t = body(c.to, -c.dir);
   const orb = c.scene.add.container(a.x, a.y).setDepth(DEPTH).setScale(0.2);
   orb.add([c.scene.add.image(0, 0, 'fx:soft').setTint(c.col).setScale(0.9), c.scene.add.circle(0, 0, 4, c.col).setStrokeStyle(1, c.light), c.scene.add.circle(-1, -1, 1.5, 0xffffff)]);
-  emit(c, a.x, a.y, { speed: { min: 20, max: 40 }, angle: { min: 0, max: 360 }, lifespan: 300, scale: { start: 0, end: 1.2 }, tint: [c.light, 0xffffff], blendMode: 'ADD', frequency: 20, emitZone: undefined }, 'fx:px', 260);
+  emit(c, a.x, a.y, { emitZone: { type: 'edge', source: new Phaser.Geom.Circle(0, 0, 26), quantity: 24 } as Phaser.Types.GameObjects.Particles.ParticleEmitterEdgeZoneConfig, moveToX: a.x, moveToY: a.y, lifespan: 280, scale: { start: 1.4, end: 0.3 }, tint: [c.light, 0xffffff, c.col], blendMode: 'ADD', frequency: 12 }, 'fx:px', 280);
+  const charge = c.scene.add.circle(a.x, a.y, 14).setStrokeStyle(1, c.light).setDepth(DEPTH);
+  c.scene.tweens.add({ targets: charge, scale: 0.1, duration: 280, ease: 'Quad.easeIn', onComplete: () => charge.destroy() });
   await tweenAsync(c.scene, { targets: orb, scale: 1, duration: 280, ease: 'Back.easeOut' });
   const trail = emit(c, 0, 0, { follow: orb, lifespan: 260, scale: { start: 1.6, end: 0 }, alpha: { start: 0.9, end: 0 }, tint: [c.col, c.light], frequency: 12 }, 'fx:dot');
   const o = { t: 0 };
@@ -140,6 +157,52 @@ async function aura(c: Ctx, type: string) {
     c.from.clearTint();
     await wait(c.scene, 220);
   }
+}
+
+/** Fading copies of a sprite left behind as it moves. */
+function afterimages(c: Ctx, s: Sprite, ms: number) {
+  const ev = c.scene.time.addEvent({ delay: 30, repeat: Math.floor(ms / 30), callback: () => {
+    const g = c.scene.add.sprite(s.x, s.y, s.texture.key, s.frame.name).setOrigin(s.originX, s.originY).setScale(s.scaleX, s.scaleY).setFlipX(s.flipX).setTintFill(c.light).setAlpha(0.45).setDepth(s.depth - 0.1);
+    c.scene.tweens.add({ targets: g, alpha: 0, duration: 200, onComplete: () => g.destroy() });
+  } });
+  return ev;
+}
+
+/**
+ * Blink strike (Sprigby's line, the owner's call): gone in a puff of leaves, there beside the foe
+ * for one kick, gone again, and back home in a swirl of leaves. The player's own Patchling (seen
+ * from behind) blinks in as its front sprite, turned to face the foe.
+ */
+async function blinkStrike(c: Ctx, type = 'plant') {
+  const s = c.scene;
+  const me = body(c.from, c.dir);
+  const t = body(c.to, -c.dir);
+  const leaves = (x: number, y: number, n = 16) => emit(c, x, y, { speed: { min: 30, max: 90 }, angle: { min: 0, max: 360 }, rotate: { start: 0, end: 540 }, gravityY: 30, lifespan: 600, scale: { start: 1.3, end: 0.5 }, alpha: { start: 1, end: 0 }, tint: [0x5cb84a, 0x9fd86a, 0x2e7a2a, 0xd8f0a0], quantity: n, frequency: -1 }, 'fx:leaf');
+  leaves(me.x, me.y, 20);
+  c.from.setAlpha(0);
+  await wait(s, 110);
+  // The striker beside the foe.
+  const key = c.from.texture.key.startsWith('back:') ? c.from.texture.key.replace('back:', 'front:') : c.from.texture.key;
+  const half = s.textures.get(key).source[0].height >= 192 ? 0.5 : 1;
+  const sc = c.from.texture.key.startsWith('back:') ? half : Math.abs(c.from.scaleX);
+  const sideX = t.x - c.dir * (t.w * 0.5 + 14);
+  const k = s.add.sprite(sideX - c.dir * 10, c.to.y, key).setOrigin(0.5, 1).setScale(sc).setFlipX(c.dir > 0).setDepth(DEPTH - 0.5);
+  leaves(sideX, t.y, 12);
+  const ev = afterimages(c, k, 120);
+  await tweenAsync(s, { targets: k, x: sideX + c.dir * 8, duration: 90, ease: 'Expo.easeIn' });
+  ev.remove();
+  impact(c, t.x, t.y, 1.3);
+  typeBurst(c, type, t.x, t.y, 22);
+  leaves(t.x, t.y, 18);
+  await wait(s, 140);
+  leaves(k.x, t.y, 14);
+  k.destroy();
+  await wait(s, 120);
+  // Back home in a swirl.
+  emit(c, me.x, me.y, { emitZone: { type: 'edge', source: new Phaser.Geom.Circle(0, 0, me.w * 0.6), quantity: 18 } as Phaser.Types.GameObjects.Particles.ParticleEmitterEdgeZoneConfig, moveToX: me.x, moveToY: me.y, lifespan: 260, rotate: { start: 0, end: 360 }, scale: { start: 1.3, end: 0.6 }, tint: [0x5cb84a, 0x9fd86a, 0xd8f0a0], quantity: 18, frequency: -1 }, 'fx:leaf');
+  await wait(s, 200);
+  c.from.setAlpha(1);
+  leaves(me.x, me.y, 10);
 }
 
 // ---------- signature moves ----------
@@ -337,6 +400,10 @@ async function afterburner(c: Ctx) {
 
 const SIGNATURE: Record<string, (c: Ctx) => Promise<void>> = {
   glassblow,
+  sprout_swipe: (c) => blinkStrike(c, 'plant'),
+  springy_hop: (c) => blinkStrike(c, 'wind'),
+  gust_kick: (c) => blinkStrike(c, 'wind'),
+  fern_blade: (c) => blinkStrike(c, 'plant'),
   glass_bell: glassBell,
   molten_marbles: moltenMarbles,
   spark_trail: sparkTrail,
