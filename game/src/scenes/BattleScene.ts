@@ -9,6 +9,7 @@ import { MOVES, SPECIES, TYPES } from '../engine/data';
 import { createRng } from '../engine/rng';
 import { sealPattern, sealWindows, type Bond, type SealResult } from '../engine/seal';
 import { DialogBox } from '../ui/dialog';
+import { playMoveFx } from '../ui/moveFx';
 import { button, buttonPagePoint, firstFrame, hinge, listRow, monIcon, pxRect, screenBackdrop, spriteBounds } from '../ui/kit';
 import { assistBar, assistCutIn, banner, commandButton, gloveDecal, InfoCard, runDecal, scrollDecal, teamDecal } from '../ui/battleKit';
 import { sfx } from '../ui/sfx';
@@ -511,7 +512,7 @@ export class BattleScene extends Phaser.Scene {
           await this.say(e.text);
           break;
         case 'move':
-          await this.lunge(e.side);
+          await this.moveFx(e.side, e.moveId);
           break;
         case 'hp':
           await Promise.all([this.flash(e.side, e.hp < this.hpBoxes[e.side].hp), this.hpBoxes[e.side].animateTo(e.hp, e.maxHp)]);
@@ -540,6 +541,13 @@ export class BattleScene extends Phaser.Scene {
           break;
       }
     }
+  }
+
+  /** The attack animation (ui/moveFx.ts); falls back to the old lunge if a sprite is missing. */
+  private moveFx(side: Side, moveId: string) {
+    const other: Side = side === 'player' ? 'foe' : 'player';
+    if (!this.sprites[side] || !this.sprites[other]) return this.lunge(side);
+    return playMoveFx(this, moveId, this.sprites[side], this.sprites[other], side === 'player');
   }
 
   private lunge(side: Side) {
@@ -617,6 +625,8 @@ export class BattleScene extends Phaser.Scene {
 
   private exposeForTests() {
     (window as unknown as Record<string, unknown>).__battle = {
+      /** Plays a move's animation on its own (tests and previews). */
+      fx: (moveId: string, side: Side = 'player') => this.moveFx(side, moveId),
       phase: () => this.phase,
       outcome: () => this.battle.outcome,
       foe: () => ({ species: this.battle.foe.species, level: this.battle.foe.level }),
