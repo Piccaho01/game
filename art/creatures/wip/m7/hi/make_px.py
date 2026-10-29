@@ -4,10 +4,10 @@
 import sys,os
 D=os.path.dirname(os.path.abspath(__file__))
 INFO={
- 'sprigby':('sprigby','Sprigby (sprig + wallaby), Plant starter stage 1. Redrawn M7 from the owner\'s new ChatGPT pair (the old one is wip/sprigby_v1.px.js).',0),
+ 'sprigby':('sprigby','Sprigby, Plant starter stage 1, redrawn with its line in Chapter 1 (art/concepts/sprigby_line_sprites.png, one shared palette; M7 versions: *_m7.txt).',0),
  'cullet':('cullet','Cullet, Fire starter stage 2 (bible §13).',0),'vitric':('vitric','Vitric, Fire/Rock starter stage 3 (bible §13).',0),
  'tesnail':('tesnail','Tesnail, Spark/Metal starter stage 2 (bible §13).',0),'gauslug':('gauslug','Gauslug, Spark/Metal starter stage 3 (bible §13).',0),
- 'fernaroo':('fernaroo','Fernaroo, Plant/Wind starter stage 2 (bible §13).',0),'scytharoo':('scytharoo','Scytharoo, Plant/Wind starter stage 3 (bible §13).',0),
+ 'fernaroo':('fernaroo','Fernaroo, Plant/Wind starter stage 2, redrawn as one line in Chapter 1 (art/concepts/sprigby_line_sprites.png, one shared palette; Scytharoo\'s back is the M7 drawing in that palette; M7 versions: *_m7.txt)',0),'scytharoo':('scytharoo','Scytharoo, Plant/Wind starter stage 3, redrawn as one line in Chapter 1 (art/concepts/sprigby_line_sprites.png, one shared palette; Scytharoo\'s back is the M7 drawing in that palette; M7 versions: *_m7.txt)',0),
  'gulpjaw':('gulpjaw','Gulpjaw, Water starter stage 2 (bible §13). Throat glow removed by the owner\'s call (kept for Harrowjaw).',0),'harrowjaw':('harrowjaw','Harrowjaw, Water/Dark starter stage 3 (bible §13), converted 25% bigger in Chapter 1 (owner: it read smaller than Gulpjaw; the M7 size is harrowjaw_m7size*.txt), on a wider canvas',0),
  'orbitot':('orbitot','Orbitot, Rock/Dark Route 1 stage 1 (bible §15), redone double-res M7 from its original drafts (96 version: wip/orbitot_96.px.js). Floats.',1),
  'fledjet':('fledjet','Fledjet, Wind Route 1 stage 1 (bible §15), redone double-res M7 from its original drafts (96 version: wip/fledjet_96.px.js). Flies.',1),
