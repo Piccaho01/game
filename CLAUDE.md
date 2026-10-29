@@ -122,6 +122,16 @@ Every Patchling on all four teams gets the full experience from each battle; Pat
   2. **Bond moves:** close-bond creatures get a once-per-battle special tied to their lore.
   3. **Leader assists:** the active character's battle command (see section 6).
 
+### Encounters per route (owner's rule, 2026-10-29)
+- Count **species, not lines**: about **6-8 species** can be met on a route, **3-4 of them new**; later routes bring back 1-2 earlier species.
+- Each route has commons, an **uncommon** (night only, or one patch of grass) and a **rare or quest** Patchling (can't be sealed until its bestiary quest is done).
+- **Line shapes are free:** 3-stage, 2-stage and single-stage Patchlings, branching evolutions and item/other triggers are all allowed. A single-stager is one sprite pair, good for personality and inside-joke creatures.
+
+### Shinies and Prototypes (owner's rule, 2026-10-29)
+- **Shiny:** about **1 in 512**. A second palette per line (picked or approved by the owner), a sparkle when it appears, a star in the bestiary, "shiny sealed" on the entry.
+- **Prototype:** rarer than shiny, about **1 in 8192**: PATCH's scrapped first draft of that creature, still in the code (Draft Archive lore). A washed-out early palette plus a live glitch effect (colour-split edges, scanlines, torn slices), a corrupted entry sound and its own bestiary note. PATCH: "That's... not supposed to exist. Please don't tell anyone about that one." Prototypes may be what the Draft Archive's sealed doors respond to.
+- Both are **cosmetic only** (no stat boost). Neither needs new drawings.
+
 ### Special/legendary creatures
 Rare, unique and legendary creatures are brought back to the sanctuary over the story. No special naming scheme; they are simply the rarest entries. The sanctuary fills as you progress.
 
