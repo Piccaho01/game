@@ -86,7 +86,8 @@ describe('the sanctuary base', () => {
     const toWorkshop = hall.warps.find((w) => w.to === 'sanctuary_workshop')!;
     const toRoots = hall.warps.find((w) => w.to === 'sanctuary_roots')!;
     const blockedNow = (x: number, y: number) => !!gateAt(hall, x, y, fresh);
-    const inFront = (w: { x: number; y: number }) => (w.y < 0 ? { x: w.x, y: 0 } : { x: 0, y: w.y });
+    // the tile you step through it from: a back-wall door, a left-wall door, or an open right side (Chapter 1's hall)
+    const inFront = (w: { x: number; y: number }) => (w.y < 0 ? { x: w.x, y: 0 } : w.x < 0 ? { x: 0, y: w.y } : { x: w.x - 1, y: w.y });
     expect(findPath(hall.id, mat, inFront(toWorkshop), blockedNow)).not.toBeNull();
     // the arch to Root Hall: rubble in front of it until root_hall is restored
     expect(gateAt(hall, inFront(toRoots).x, inFront(toRoots).y, fresh)?.kind).toBe('in_rubble');

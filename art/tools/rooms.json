@@ -52,26 +52,16 @@
     "cast": {"dani_mama": [4, 2]}
   },
   "hall": {
+    "_note": "2026-10-29: the owner's furnished hall (prompt ch1 #8; the old concept is interior_sanctuary_hall_v1.png). Corners nudged from the walls' base lines (the concept is flatter on the right than the left). The whiteboard of plans opens the wings, the CRT TV opens storage, the beds are the friends' (rest). The workshop is out through the open right side.",
     "concept": "sanctuary_hall", "nx": 7, "ny": 7, "map": "sanctuary_hall", "spawn": [3, 6], "mat": [3, 6],
+    "nudge": {"left": [8, 19], "front": [-126, -28], "right": [-20, 68]},
     "cutout": {"art": "hall_rubble", "tile": [1, 0], "until": {"wing": "root_hall"}, "dark": [24, 18, 20],
-               "fill": [[815, 300, 1003, 470, null, null], [830, 300, 910, 400, 830, 200], [910, 300, 990, 400, 830, 200], [830, 400, 910, 470, 830, 210], [910, 400, 990, 470, 830, 210], [740, 330, 815, 470, 740, 190], [740, 470, 1010, 522, 900, 530]]},
-    "paint": [{"wall": "l", "at": 1, "h": 18}],
-    "solid": [[0,0],[0,2],[1,2],[0,3],[1,3],[0,4],[1,4],[0,5],[1,5],[0,6],[1,6],[3,0],[4,0]],
+               "fill": [[785, 200, 975, 335, null, null], [785, 335, 975, 445, 785, 450]]},
+    "solid": [[0,0],[0,1],[0,2],[0,3],[0,4],[0,5],[0,6],[2,0],[3,0],[4,0],[5,0],[6,0],[3,2],[4,2],[4,3],[5,3],[6,4]],
     "objects": [{"kind": "in_rubble", "x": 1, "y": 0, "until": {"wing": "root_hall"}}],
-    "signs": [
-      {"x": 3, "y": 0, "opens": "storage"}, {"x": 5, "y": -1, "opens": "sanctuary"}, {"x": 6, "y": -1, "opens": "sanctuary"},
-      {"x": 2, "y": -1, "talk": "sanctuary_sealed_tide"},
-      {"x": 0, "y": 5, "rest": true, "talk": "bed_callum"}, {"x": 1, "y": 5, "rest": true, "talk": "bed_callum"}, {"x": 0, "y": 6, "rest": true, "talk": "bed_callum"}, {"x": 1, "y": 6, "rest": true, "talk": "bed_callum"},
-      {"x": 0, "y": 4, "rest": true, "talk": "bed_nolan"}, {"x": 1, "y": 4, "rest": true, "talk": "bed_nolan"},
-      {"x": 0, "y": 3, "rest": true, "talk": "bed_haydon"}, {"x": 1, "y": 3, "rest": true, "talk": "bed_haydon"},
-      {"x": 0, "y": 2, "rest": true, "talk": "bed_dani"}, {"x": 1, "y": 2, "rest": true, "talk": "bed_dani"}
-    ],
-    "warps": [
-      {"x": 3, "y": 7, "to": "hollow_rest", "tx": 5, "ty": 5, "dir": "down", "enter": "down"},
-      {"x": 1, "y": -1, "to": "sanctuary_roots", "tx": 3, "ty": 7, "dir": "up", "enter": "up"},
-      {"x": -1, "y": 1, "to": "sanctuary_workshop", "tx": 3, "ty": 7, "dir": "up", "enter": "left"}
-    ],
-    "roam": [{"x": 3, "y": 3}, {"x": 5, "y": 4}, {"x": 3, "y": 5}, {"x": 5, "y": 2}],
+    "signs": [{"x": 2, "y": 0, "opens": "sanctuary"}, {"x": 6, "y": 0, "opens": "storage"}, {"x": 3, "y": 0, "talk": "hall_fridge"}, {"x": 4, "y": 0, "talk": "hall_music"}, {"x": 5, "y": 0, "talk": "hall_music"}, {"x": 3, "y": 2, "talk": "hall_couch"}, {"x": 4, "y": 2, "talk": "hall_couch"}, {"x": 4, "y": 3, "talk": "hall_snacks"}, {"x": 5, "y": 3, "talk": "hall_snacks"}, {"x": 6, "y": 4, "talk": "hall_beanbag"}, {"x": 0, "y": 0, "rest": true, "talk": "bed_dani"}, {"x": 0, "y": 1, "rest": true, "talk": "bed_dani"}, {"x": 0, "y": 2, "rest": true, "talk": "bed_haydon"}, {"x": 0, "y": 3, "rest": true, "talk": "bed_nolan"}, {"x": 0, "y": 4, "rest": true, "talk": "bed_callum"}, {"x": 0, "y": 5, "rest": true, "talk": "bed_callum"}, {"x": 0, "y": 6, "text": "A lantern and a pot plant. Somebody waters it. Nobody admits to it."}],
+    "warps": [{"x": 3, "y": 7, "to": "hollow_rest", "tx": 5, "ty": 5, "dir": "down", "enter": "down"}, {"x": 1, "y": -1, "to": "sanctuary_roots", "tx": 3, "ty": 7, "dir": "up", "enter": "up"}, {"x": 7, "y": 2, "to": "sanctuary_workshop", "tx": 3, "ty": 7, "dir": "up", "enter": "right"}],
+    "roam": [{"x": 2, "y": 3}, {"x": 5, "y": 5}, {"x": 2, "y": 5}, {"x": 5, "y": 1}],
     "town": {"to": "sanctuary_hall", "tx": 3, "ty": 6}
   },
   "workshop": {
@@ -84,7 +74,7 @@
       {"x": 0, "y": 6, "text": "Spare panels. Cream, rust, blue. PATCH is mostly these now."},
       {"x": 6, "y": 2, "text": "A crate of bolts and tape. Labelled: PATCH (ME)."}
     ],
-    "warps": [{"x": 3, "y": 8, "to": "sanctuary_hall", "tx": 0, "ty": 1, "dir": "right", "enter": "down"}]
+    "warps": [{"x": 3, "y": 8, "to": "sanctuary_hall", "tx": 6, "ty": 2, "dir": "left", "enter": "down"}]
   },
   "roots": {
     "concept": "root_hall", "nx": 7, "ny": 8, "map": "sanctuary_roots", "spawn": [3, 7], "mat": [3, 7],

@@ -8,13 +8,13 @@
     "x": "ruin"
   },
   "rows": [
+    "x.xxxxx",
+    "x......",
     "x..xx..",
-    ".......",
-    "xx.....",
-    "xx.....",
-    "xx.....",
-    "xx.....",
-    "xx.m..."
+    "x...xx.",
+    "x.....x",
+    "x......",
+    "x..m..."
   ],
   "spawn": {
     "x": 3,
@@ -40,35 +40,95 @@
       "enter": "up"
     },
     {
-      "x": -1,
-      "y": 1,
+      "x": 7,
+      "y": 2,
       "to": "sanctuary_workshop",
       "tx": 3,
       "ty": 7,
       "dir": "up",
-      "enter": "left"
+      "enter": "right"
     }
   ],
   "signs": [
     {
-      "x": 3,
+      "x": 2,
       "y": 0,
-      "opens": "storage"
-    },
-    {
-      "x": 5,
-      "y": -1,
       "opens": "sanctuary"
     },
     {
       "x": 6,
-      "y": -1,
-      "opens": "sanctuary"
+      "y": 0,
+      "opens": "storage"
     },
     {
-      "x": 2,
-      "y": -1,
-      "talk": "sanctuary_sealed_tide"
+      "x": 3,
+      "y": 0,
+      "talk": "hall_fridge"
+    },
+    {
+      "x": 4,
+      "y": 0,
+      "talk": "hall_music"
+    },
+    {
+      "x": 5,
+      "y": 0,
+      "talk": "hall_music"
+    },
+    {
+      "x": 3,
+      "y": 2,
+      "talk": "hall_couch"
+    },
+    {
+      "x": 4,
+      "y": 2,
+      "talk": "hall_couch"
+    },
+    {
+      "x": 4,
+      "y": 3,
+      "talk": "hall_snacks"
+    },
+    {
+      "x": 5,
+      "y": 3,
+      "talk": "hall_snacks"
+    },
+    {
+      "x": 6,
+      "y": 4,
+      "talk": "hall_beanbag"
+    },
+    {
+      "x": 0,
+      "y": 0,
+      "rest": true,
+      "talk": "bed_dani"
+    },
+    {
+      "x": 0,
+      "y": 1,
+      "rest": true,
+      "talk": "bed_dani"
+    },
+    {
+      "x": 0,
+      "y": 2,
+      "rest": true,
+      "talk": "bed_haydon"
+    },
+    {
+      "x": 0,
+      "y": 3,
+      "rest": true,
+      "talk": "bed_nolan"
+    },
+    {
+      "x": 0,
+      "y": 4,
+      "rest": true,
+      "talk": "bed_callum"
     },
     {
       "x": 0,
@@ -77,58 +137,9 @@
       "talk": "bed_callum"
     },
     {
-      "x": 1,
-      "y": 5,
-      "rest": true,
-      "talk": "bed_callum"
-    },
-    {
       "x": 0,
       "y": 6,
-      "rest": true,
-      "talk": "bed_callum"
-    },
-    {
-      "x": 1,
-      "y": 6,
-      "rest": true,
-      "talk": "bed_callum"
-    },
-    {
-      "x": 0,
-      "y": 4,
-      "rest": true,
-      "talk": "bed_nolan"
-    },
-    {
-      "x": 1,
-      "y": 4,
-      "rest": true,
-      "talk": "bed_nolan"
-    },
-    {
-      "x": 0,
-      "y": 3,
-      "rest": true,
-      "talk": "bed_haydon"
-    },
-    {
-      "x": 1,
-      "y": 3,
-      "rest": true,
-      "talk": "bed_haydon"
-    },
-    {
-      "x": 0,
-      "y": 2,
-      "rest": true,
-      "talk": "bed_dani"
-    },
-    {
-      "x": 1,
-      "y": 2,
-      "rest": true,
-      "talk": "bed_dani"
+      "text": "A lantern and a pot plant. Somebody waters it. Nobody admits to it."
     }
   ],
   "npcs": [],
@@ -144,20 +155,20 @@
   ],
   "roam": [
     {
-      "x": 3,
+      "x": 2,
       "y": 3
     },
     {
       "x": 5,
-      "y": 4
+      "y": 5
     },
     {
-      "x": 3,
+      "x": 2,
       "y": 5
     },
     {
       "x": 5,
-      "y": 2
+      "y": 1
     }
   ],
   "concept": "sanctuary_hall"

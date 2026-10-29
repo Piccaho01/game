@@ -1082,5 +1082,110 @@
         "text": "A heavy rock by the storm-rod. Something under it hums, and the grass around it is singed."
       }
     ]
+  },
+  "hall_fridge": {
+    "lines": [
+      {
+        "text": "A mini fridge. Inside: four energy drinks, a jar of something, and a burger box labelled CALLUM. DO NOT."
+      },
+      {
+        "who": "Callum",
+        "text": "Double cheeseburger, extra patty, extra cheese. It's for later."
+      },
+      {
+        "who": "PATCH",
+        "text": "It has been 'for later' for three days."
+      }
+    ],
+    "byLeader": {
+      "dani": [
+        {
+          "text": "A mini fridge. Inside: four energy drinks and a burger box labelled CALLUM. DO NOT."
+        },
+        {
+          "who": "Dani",
+          "text": "I don't touch. ...I look a little bit."
+        }
+      ]
+    }
+  },
+  "hall_music": {
+    "lines": [
+      {
+        "text": "A keyboard and a drum pad on stands, cables everywhere. Nolan's setup, mostly."
+      },
+      {
+        "who": "Nolan",
+        "text": "Don't touch the levels."
+      },
+      {
+        "who": "Haydon",
+        "text": "And I picked up a mic and I'm chill."
+      },
+      {
+        "who": "Nolan",
+        "text": "...Every time."
+      }
+    ],
+    "byLeader": {
+      "nolan": [
+        {
+          "text": "Your keyboard and drum pad, cables everywhere. The levels are exactly where you left them."
+        },
+        {
+          "who": "Nolan",
+          "text": "Someone's been on the pad. The kick's in the wrong place."
+        },
+        {
+          "who": "Callum",
+          "text": "Wasn't me."
+        },
+        {
+          "who": "Dani",
+          "text": "Wasn't me also."
+        }
+      ]
+    }
+  },
+  "hall_couch": {
+    "lines": [
+      {
+        "text": "A couch made of crates and every blanket in the sanctuary. Sagging in exactly four places."
+      },
+      {
+        "who": "Haydon",
+        "text": "Middle seat's mine. That's not up for debate."
+      }
+    ]
+  },
+  "hall_snacks": {
+    "lines": [
+      {
+        "text": "The table: wrappers, a burger box, four tangled controllers. Someone has been playing Smash on the old TV."
+      },
+      {
+        "who": "Callum",
+        "text": "I'm undefeated on this couch."
+      },
+      {
+        "who": "Dani",
+        "text": "No. No, bro. I win two times. Two!"
+      },
+      {
+        "who": "Callum",
+        "text": "Those were exhibition matches."
+      }
+    ]
+  },
+  "hall_beanbag": {
+    "lines": [
+      {
+        "text": "A navy beanbag with a Dani-shaped dent in it."
+      },
+      {
+        "who": "Dani",
+        "text": "Is the best seat. Don't tell them."
+      }
+    ]
   }
 }

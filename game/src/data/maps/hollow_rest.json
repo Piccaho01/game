@@ -3,7 +3,12 @@
   "id": "hollow_rest",
   "name": "Hollow Rest",
   "battle": "hollow_rest",
-  "weather": { "kind": "rain", "chance": 0.3, "minutes": 5, "wing": "lantern_loft" },
+  "weather": {
+    "kind": "rain",
+    "chance": 0.3,
+    "minutes": 5,
+    "wing": "lantern_loft"
+  },
   "legend": {
     ".": "grass",
     "=": "path",
