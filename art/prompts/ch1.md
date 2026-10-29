@@ -340,3 +340,47 @@ middle of the floor.
 Flat white background, no text, no
 letters, no logos, no people.
 ```
+
+## Sprigby line redo (one image, all three stages)
+
+### 9. Sprigby → Fernaroo → Scytharoo sprites (front + back)
+- **Save as:** `art/concepts/sprigby_line_sprites.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/line_wallaby.png`, `art/concepts/voltaurus_sprites.png`
+
+```
+Redraw the three creatures in the
+first attached image as Pokemon
+Black/White 2 battle sprites, in
+exactly the pixel size, outline
+weight and shading of the second
+attached image. Crisp hand-placed
+pixel clusters, flat colour areas
+with clean 2-3 step shading, no
+dithering, no noise, no grain, no
+blur. ONE shared palette of at most
+15 colours for all three, so they
+read as one family: the same greens,
+the same browns, the same outline.
+Two rows. TOP ROW: the three front
+sprites, 3/4 view facing left, small
+to big, left to right: Sprigby (tough
+little lime-green joey, leaf crest,
+leaf plaster on one cheek, chewing a
+grass sprig, vine-taped fists up in a
+guard), Fernaroo (lanky teen brawler
+mid-hop, bark patches on shoulders
+and thighs, serrated fern-blade tail,
+scar on the nose, still chewing the
+sprig), Scytharoo (armoured kickboxing
+champion mid high-kick, dark forest
+green with bark armour, huge leaf
+crest, thorny vine wraps, scythe
+grass-blade tail). Each stage clearly
+bigger than the last. BOTTOM ROW: the
+SAME three in the SAME poses with the
+camera moved behind them, as Black/
+White 2 shows your own Pokemon, each
+directly under its front sprite.
+Clear white gaps, flat white
+background, no text, no shadows.
+```
