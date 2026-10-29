@@ -3,12 +3,13 @@ import type { TypeId } from './data';
 import type { Progress } from './progress';
 import { scoreBond, type SealResult, type SealWindows } from './seal';
 
-/** Items (data/items.json): seal scrolls for now. The bag is shared by the four friends. */
+/** Items (data/items.json): seal scrolls and evolution items. The bag is shared by the four friends. */
 export interface ScrollEffect {
   window?: number; types?: TypeId[]; typeWindow?: number; bond?: number;
   glass?: boolean; echo?: boolean; tries?: number; keepOnFail?: boolean;
 }
-export interface ItemData { name: string; kind: 'scroll'; color: string; short: string; desc: string; effect: ScrollEffect }
+/** `kind`: a seal scroll, or an evolution item (used on a Patchling from the bag: engine/evolution.ts). */
+export interface ItemData { name: string; kind: 'scroll' | 'evolution'; color: string; short: string; desc: string; effect: ScrollEffect }
 
 const DATA = itemsJson as unknown as { start: Record<string, number>; refill: Record<string, number>; items: Record<string, ItemData> };
 export const ITEMS = DATA.items;
@@ -22,6 +23,11 @@ export function count(p: Progress, id: string) {
 /** The scrolls in the bag, in the data's order. */
 export function scrollsInBag(p: Progress) {
   return ITEM_IDS.filter((id) => ITEMS[id].kind === 'scroll' && count(p, id) > 0);
+}
+
+/** Everything in the bag, in the data's order (scrolls first, then the rest). */
+export function itemsInBag(p: Progress) {
+  return [...scrollsInBag(p), ...ITEM_IDS.filter((id) => ITEMS[id].kind !== 'scroll' && count(p, id) > 0)];
 }
 
 export function addItem(p: Progress, id: string, n = 1) {

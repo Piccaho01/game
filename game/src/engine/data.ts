@@ -30,11 +30,22 @@ export interface MoveData {
   hits?: [number, number];
   effects?: MoveEffect[];
   onMiss?: MoveEffect[];
-  flags?: { contact?: boolean; kick?: boolean; bite?: boolean; charge?: boolean; ignoresProtect?: boolean; recoil?: number; critIfSlowed?: boolean };
+  /** hitBoost: x1.5 power if the user was hit earlier this battle (Severance). reveal: shows the foe's next move (Vigil Beam). */
+  flags?: { contact?: boolean; kick?: boolean; bite?: boolean; charge?: boolean; ignoresProtect?: boolean; recoil?: number; critIfSlowed?: boolean; hitBoost?: boolean; reveal?: boolean };
   desc: string;
 }
 
 export interface AbilityData { name: string; desc: string }
+
+/** Weather (Chapter 1): rain for now. Maps roll it (engine/weather.ts); battles and evolutions read it. */
+export type Weather = 'rain';
+
+/**
+ * One way a species evolves (bible §7 'line shapes are free'): at a `level`, or when an `item` is
+ * used on it from the bag; `weather`, `bond` and `flag` are extra conditions. A species with more
+ * than one trigger branches.
+ */
+export interface EvoTrigger { to: string; level?: number; item?: string; weather?: Weather; bond?: 'strong' | 'steady'; flag?: string }
 
 export interface SpeciesData {
   dex: number;
@@ -44,7 +55,9 @@ export interface SpeciesData {
   sprite?: string;
   base: Stats;
   learnset: [number, string][];
-  evolves?: { to: string; level: number };
+  evolves?: EvoTrigger | EvoTrigger[];
+  /** A rare Patchling's bestiary quest (data/quests.json): its page stays incomplete until it's done. */
+  quest?: string;
 }
 
 export interface BestiaryEntry { sighted: string; tracked: string; studied: string; sealed: string; bonded: string }
@@ -64,3 +77,9 @@ export const MOVES: Record<string, MoveData> = {
     flags: { contact: true, recoil: 0.25 }, desc: 'Used only when out of PP. Hurts the user.',
   },
 };
+
+/** A species' evolution triggers as a list (the data allows one object or a list). */
+export function evoTriggers(species: string): EvoTrigger[] {
+  const e = SPECIES[species]?.evolves;
+  return !e ? [] : Array.isArray(e) ? e : [e];
+}

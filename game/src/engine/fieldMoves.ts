@@ -24,6 +24,12 @@ export interface Obstacle {
   /** Dialogue ids (dialogue.json / world_dialogue.json): said instead of the kind's `blocked` line, and after it's cleared. */
   blockedTalk?: string; clearTalk?: string;
   reward?: { item: string; n?: number };
+  /** Obstacle ids that must be cleared first (a quest's steps in order); until then `waitTalk` is said. */
+  after?: string[]; waitTalk?: string;
+  /** Story flags set when it's cleared, and a story scene played after (data/cutscenes). */
+  sets?: string[]; scene?: string;
+  /** Looking at it counts as sighting this Patchling (Wardeye's dim lantern). */
+  sights?: string;
 }
 
 const DATA = obstaclesJson as unknown as { kinds: Record<ObstacleKind, KindData>; obstacles: Obstacle[] };
@@ -49,10 +55,14 @@ export function needs(o: Obstacle): CharacterId {
  * The leader tries the obstacle: cleared (saved, reward in the bag) if they have the field move,
  * otherwise the hint naming who could. Returns what happened, for the scene to show.
  */
-export function tryObstacle(p: Progress, o: Obstacle): { cleared: boolean; lines: string[]; reward?: string; talk?: string } {
+export function tryObstacle(p: Progress, o: Obstacle): { cleared: boolean; lines: string[]; reward?: string; talk?: string; waiting?: boolean } {
   const k = DATA.kinds[o.kind];
+  const done = new Set(p.cleared ?? []);
+  // A later step of a quest: its line until the earlier ones are done (whoever leads).
+  if (o.after?.some((id) => !done.has(id))) return { cleared: false, lines: [], talk: o.waitTalk ?? o.blockedTalk, waiting: true };
   if (p.leader !== k.needs) return { cleared: false, lines: o.blockedTalk ? [k.hint] : [k.blocked, k.hint], talk: o.blockedTalk };
   p.cleared = [...new Set([...(p.cleared ?? []), o.id])];
+  if (o.sets) p.flags = [...new Set([...(p.flags ?? []), ...o.sets])];
   let reward: string | undefined;
   if (o.reward) {
     addItem(p, o.reward.item, o.reward.n ?? 1);

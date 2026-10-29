@@ -24,12 +24,19 @@ import { backIdleAnimKey, backKey, battleBgKey, frontKey, idleAnimKey, monScale,
 import { SealMinigame } from './SealMinigame';
 import type { EvolveData } from './EvolveScene';
 import { pendingEvolutions } from '../engine/evolution';
+import type { Weather } from '../engine/data';
+import type { Variant } from '../engine/progress';
+import { markBeaten } from '../engine/weather';
+import { rainLayer } from '../ui/weatherFx';
+import { corruptedSound, glitch, sparkle, variantLook } from '../ui/variantFx';
 
 /**
  * `from: 'overworld'`: a wild encounter, which goes back to the same spot when it ends.
  * `bg`: the location's backdrop (the map's `battle`); test battles use Hollow Rest's.
+ * `weather`: the map's sky (rain). `variant`: a shiny or Prototype foe. `staticId`: a Patchling
+ * met by talking to it (Wardeye); beaten, it's gone until the weather turns.
  */
-interface BattleInit { foe: string; seed?: number; level?: number; from?: 'overworld'; bg?: string }
+export interface BattleInit { foe: string; seed?: number; level?: number; from?: 'overworld'; bg?: string; weather?: Weather | null; variant?: Variant; staticId?: string; map?: string }
 type Phase = 'intro' | 'menu' | 'fight' | 'team' | 'scrolls' | 'switching' | 'playing' | 'sealing' | 'over';
 
 const FOE_LEVEL = 5;
@@ -79,7 +86,7 @@ export class BattleScene extends Phaser.Scene {
     const team = this.params.from === 'overworld'
       ? teamBattlers(this.progress)
       : leaderTeam(this.progress).map((m) => createBattler(m.species, m.level, undefined, m.bond));
-    this.battle = new Battle(team, createBattler(this.params.foe, this.params.level ?? FOE_LEVEL), createRng(seed));
+    this.battle = new Battle(team, createBattler(this.params.foe, this.params.level ?? FOE_LEVEL), createRng(seed), true, { weather: this.params.weather });
     this.introEvents = this.battle.intro();
 
     this.drawBackdrop();
@@ -87,6 +94,8 @@ export class BattleScene extends Phaser.Scene {
       foe: this.addBattler('foe', 192, 100),
       player: this.addBattler('player', 66, 158),
     };
+    if (this.params.variant === 'prototype') glitch(this, this.sprites.foe);
+    if (this.params.weather === 'rain') rainLayer(this, { x: 0, y: 0, w: SCREEN_W, h: SCREEN_H }, 2);
     // Your box top left, the foe's bottom right (owner's call, M7; BW has them the other way round).
     this.hpBoxes = { foe: new InfoCard(this, 'foe', 112), player: new InfoCard(this, 'player', 8) };
     this.setCard('foe', this.battle.foe);
@@ -143,19 +152,27 @@ export class BattleScene extends Phaser.Scene {
     g.fillStyle(0x6ca858).fillEllipse(66, 153, 140, 26);
   }
 
-  private addBattler(side: Side, x: number, y: number, species = this.battle.sides[side].species) {
+  /** A side's variant: the wild foe's, or the player's active Patchling's (its saved member). */
+  private variantOf(side: Side, index = this.battle.active): Variant | undefined {
+    return side === 'foe' ? this.params.variant : leaderTeam(this.progress)[index]?.variant;
+  }
+
+  private addBattler(side: Side, x: number, y: number, species = this.battle.sides[side].species, variant = this.variantOf(side)) {
     // BW shows your own Patchling from behind at 2x; species without a back sprite yet use the
     // front one mirrored.
     if (side === 'player' && this.textures.exists(backKey(species))) {
       const key = backKey(species);
+      const look = variantLook(this, species, key, backIdleAnimKey(species), variant);
       // At most ~120 px tall on screen, so a big final form doesn't cover the whole top screen.
       const body = spriteBounds(this, key, firstFrame(this, key)).h * 2 * monScale(this, key);
-      const b = this.add.sprite(x, y + 8, key).setOrigin(0.5, 1).setScale(2 * monScale(this, key) * Math.min(1, 120 / body));
-      if (this.anims.exists(backIdleAnimKey(species))) b.play(backIdleAnimKey(species));
+      const b = this.add.sprite(x, y + 8, look.key).setOrigin(0.5, 1).setScale(2 * monScale(this, key) * Math.min(1, 120 / body));
+      if (look.anim) b.play(look.anim);
+      if (variant === 'prototype') glitch(this, b);
       return b;
     }
-    const s = this.add.sprite(x, y, frontKey(species)).setOrigin(0.5, 1).setScale(monScale(this, frontKey(species)));
-    if (this.anims.exists(idleAnimKey(species))) s.play(idleAnimKey(species));
+    const look = variantLook(this, species, frontKey(species), idleAnimKey(species), variant);
+    const s = this.add.sprite(x, y, look.key).setOrigin(0.5, 1).setScale(monScale(this, frontKey(species)));
+    if (look.anim) s.play(look.anim);
     if (side === 'player') s.setFlipX(true);
     if (this.registry.get(`placeholder:${frontKey(species)}`) !== undefined) {
       s.setData('label', pixelText(this, x, y - 14, 'placeholder', { color: '#ffffff', size: 6, shadow: '#000000' }).setOrigin(0.5, 0).setDepth(1));
@@ -326,7 +343,7 @@ export class BattleScene extends Phaser.Scene {
   }
 
   private restart(foe: string) {
-    if (pendingEvolutions(this.progress).length) this.goOn({ scene: 'battle', data: { foe } });
+    if (pendingEvolutions(this.progress, this.evoContext()).length) this.goOn({ scene: 'battle', data: { foe } });
     else this.scene.restart({ foe });
   }
 
@@ -349,7 +366,14 @@ export class BattleScene extends Phaser.Scene {
       this.hpBoxes.player.slideIn(300),
     ]);
     await banner(this, `A WILD ${this.battle.foe.name.toUpperCase()}!`);
+    if (this.params.variant === 'shiny') sparkle(this, this.sprites.foe);
+    if (this.params.variant === 'prototype') corruptedSound();
     await this.playEvents(this.introEvents);
+    if (this.params.variant === 'shiny') await this.say(`Whoa! This ${this.battle.foe.name} is a different colour!`);
+    if (this.params.variant === 'prototype') {
+      await this.say(`This ${this.battle.foe.name} is... flickering?`);
+      await this.say(`PATCH (on the phone): That's... not supposed to exist. Please don't tell anyone about that one.`);
+    }
     await this.record(recordEncounter(this.progress, this.battle.foe.species));
     this.showMainMenu();
   }
@@ -377,15 +401,20 @@ export class BattleScene extends Phaser.Scene {
     }
     const foe = this.battle.foe;
     if (this.battle.outcome === 'win') await this.record(recordDefeat(this.progress, foe.species));
+    // A static Patchling beaten (not sealed) is gone until the weather turns.
+    if (this.battle.outcome === 'win' && this.params.staticId && this.params.map) {
+      markBeaten(this.progress, this.params.map, this.params.staticId);
+      saveProgress(this.progress);
+    }
     if (this.battle.outcome === 'sealed' && this.bond) {
-      const { where, change } = recordSeal(this.progress, foe.species, foe.level, this.bond);
+      const { where, change } = recordSeal(this.progress, foe.species, foe.level, this.bond, this.params.variant);
       await this.say(where === 'team' ? `${foe.name} joined your team!` : `Your team is full, so ${foe.name} went to the sanctuary.`);
       await this.record(change);
     }
     if (this.battle.outcome === 'win' || this.battle.outcome === 'sealed') await this.shareXp(xpYield(foe.species, foe.level));
     if (this.battle.outcome === 'lose' && this.params.from === 'overworld') return this.blackout();
     // Anyone who reached their evolution level evolves right after the battle, like BW.
-    if (this.params.from === 'overworld' && pendingEvolutions(this.progress).length) return this.goOn({ scene: 'overworld' });
+    if (this.params.from === 'overworld' && pendingEvolutions(this.progress, this.evoContext()).length) return this.goOn({ scene: 'overworld' });
     this.showEndMenu();
   }
 
@@ -405,9 +434,14 @@ export class BattleScene extends Phaser.Scene {
     cam.once('camerafadeoutcomplete', () => this.scene.start('overworld', { notice: 'blackout' }));
   }
 
+  /** What evolution conditions are checked against: the battle's weather and the story flags. */
+  private evoContext() {
+    return { weather: this.params.weather ?? null, flags: this.progress.flags };
+  }
+
   /** Leaves the battle for `next`, through the evolve scene first if anyone is ready to evolve. */
   private goOn(next: { scene: string; data?: object }) {
-    const queue = pendingEvolutions(this.progress);
+    const queue = pendingEvolutions(this.progress, this.evoContext());
     if (queue.length) this.scene.start('evolve', { queue, next } satisfies EvolveData);
     else this.scene.start(next.scene, next.data);
   }
@@ -603,7 +637,7 @@ export class BattleScene extends Phaser.Scene {
     (old.getData('label') as Phaser.GameObjects.Text | undefined)?.destroy();
     old.destroy();
     const b = this.battle.team[index];
-    const s = this.addBattler('player', 66, 158, b.species);
+    const s = this.addBattler('player', 66, 158, b.species, this.variantOf('player', index));
     const scale = s.scaleX;
     s.setScale(0);
     this.sprites.player = s;
@@ -635,7 +669,8 @@ export class BattleScene extends Phaser.Scene {
       fx: (moveId: string, side: Side = 'player') => this.moveFx(side, moveId),
       phase: () => this.phase,
       outcome: () => this.battle.outcome,
-      foe: () => ({ species: this.battle.foe.species, level: this.battle.foe.level }),
+      foe: () => ({ species: this.battle.foe.species, level: this.battle.foe.level, variant: this.params.variant ?? null }),
+      weather: () => this.battle.weather,
       bond: () => this.bond,
       active: () => this.battle.player.name,
       sealBeatsIn: () => this.sealGame?.msToBeats() ?? null,

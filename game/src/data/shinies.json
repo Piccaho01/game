@@ -1,0 +1,14 @@
+{
+  "_note": "Shiny palettes per evolution line (bible §7: picked or approved by the owner). Each option is a colour shift (engine/variants.ts Recolor): hue turned in degrees, saturation and lightness scaled, 'keep' colours untouched. 'pick' is the one in the game (0 until the owner chooses on the review sheet). 'prototype': PATCH's scrapped first draft, washed out toward the draft green, plus the live glitch.",
+  "lines": {
+    "furnaxol":  { "pick": 0, "options": [{ "hue": 190 }, { "hue": -40, "sat": 0.8 }, { "hue": 100, "sat": 1.1 }] },
+    "zapail":    { "pick": 0, "options": [{ "hue": 150 }, { "hue": 270 }, { "hue": 40, "sat": 0.7, "light": 1.08 }] },
+    "sprigby":   { "pick": 0, "options": [{ "hue": -80 }, { "hue": 160 }, { "hue": 60, "sat": 0.9 }] },
+    "gobbin":    { "pick": 0, "options": [{ "hue": 120 }, { "hue": 200, "sat": 1.2 }, { "hue": 40 }] },
+    "orbitot":   { "pick": 0, "options": [{ "hue": 120 }, { "hue": -100 }, { "hue": 180, "sat": 1.2 }] },
+    "fledjet":   { "pick": 0, "options": [{ "hue": 150 }, { "hue": -160 }, { "hue": 90, "sat": 1.2 }] },
+    "voltcalf":  { "pick": 0, "options": [{ "hue": 160 }, { "hue": -60, "sat": 1.1 }, { "hue": 110 }] },
+    "wardeye":   { "pick": 0, "options": [{ "hue": 150 }, { "hue": -110 }, { "hue": 60, "sat": 1.2 }] }
+  },
+  "prototype": { "hue": 0, "sat": 0.35, "light": 1.08, "tint": "#7effc8", "mix": 0.18 }
+}

@@ -1,11 +1,11 @@
-import { effectiveStat, type Battler } from './battler';
+import type { Battler } from './battler';
 import { calcDamage } from './damage';
 import { MOVES, STRUGGLE_ID, type MoveData, type MoveEffect, type StageStat, type StatusId } from './data';
 import type { Rng } from './rng';
 import type { Bond, SealResult } from './seal';
-import { orderActions, type Action } from './turnOrder';
+import { battleSpeed, orderActions, type Action } from './turnOrder';
 import { effectiveness, effectivenessText } from './typeChart';
-import { TYPES, type TypeId } from './data';
+import { TYPES, type TypeId, type Weather } from './data';
 
 export type Side = 'player' | 'foe';
 export type Outcome = 'win' | 'lose' | 'fled' | 'sealed';
@@ -49,9 +49,14 @@ export class Battle {
   scanned = false;
   outcome: Outcome | null = null;
   turn = 0;
+  /** The weather over the battle (the map's sky when it started): rain powers Water and dampens Fire. */
+  readonly weather: Weather | null;
+  /** Vigil Beam showed the foe's next move: it uses this one. */
+  foePlanned: string | null = null;
   private events: BattleEvent[] = [];
 
-  constructor(player: Battler | Battler[], foe: Battler, private rng: Rng, private wild = true) {
+  constructor(player: Battler | Battler[], foe: Battler, private rng: Rng, private wild = true, opts: { weather?: Weather | null } = {}) {
+    this.weather = opts.weather ?? null;
     this.team = Array.isArray(player) ? player : [player];
     if (this.team.length === 0) throw new Error('Empty team');
     this.sides = { player: this.team[0], foe };
@@ -75,7 +80,10 @@ export class Battle {
     // Lead with the first Patchling that can still fight.
     const first = this.team.findIndex((b) => b.hp > 0);
     if (first > 0) { this.active = first; this.sides.player = this.team[first]; }
-    return [{ kind: 'text', text: `A wild ${this.foe.name} appeared!` }, { kind: 'text', text: `Go! ${this.player.name}!` }];
+    const out: BattleEvent[] = [{ kind: 'text', text: `A wild ${this.foe.name} appeared!` }];
+    if (this.weather === 'rain') out.push({ kind: 'text', text: 'Rain is falling.' });
+    out.push({ kind: 'text', text: `Go! ${this.player.name}!` });
+    return out;
   }
 
   /** Move ids the player can pick right now (indexes into battler.moves). */
@@ -87,6 +95,10 @@ export class Battle {
   chooseFoeMove(): string {
     const b = this.foe;
     if (b.volatile.chargingMove) return b.volatile.chargingMove;
+    // Vigil Beam already showed what it's about to do.
+    const planned = this.foePlanned;
+    this.foePlanned = null;
+    if (planned && b.moves.some((m) => m.id === planned && m.pp > 0)) return planned;
     const usable = this.usableMoves('foe');
     if (usable.length === 0) return STRUGGLE_ID;
     if (this.rng.chance(30)) return b.moves[usable[this.rng.int(0, usable.length - 1)]].id;
@@ -131,7 +143,7 @@ export class Battle {
       { side: 'player', battler: this.player, moveId: this.playerMoveId(action.index) },
       { side: 'foe', battler: this.foe, moveId: this.chooseFoeMove() },
     ];
-    for (const act of orderActions(actions, this.rng)) {
+    for (const act of orderActions(actions, this.rng, this.weather)) {
       if (this.outcome || this.needsSwitch) break;
       if (act.battler.hp <= 0) continue;
       this.act(act.side, act.moveId);
@@ -245,7 +257,7 @@ export class Battle {
     const out = this.player;
     // Leaving the field clears stat changes and charges (status stays), as in BW.
     out.stages = { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 };
-    out.volatile = { charged: false, chargingMove: null, hardened: false, shielded: false, turnsOut: 0 };
+    out.volatile = { charged: false, chargingMove: null, hardened: false, shielded: false, turnsOut: 0, wasHit: false };
     if (recall) this.say(`Come back, ${out.name}!`);
     this.active = index;
     this.sides.player = next;
@@ -343,6 +355,7 @@ export class Battle {
         crit: move.flags?.critIfSlowed && target.stages.spe < 0 ? true : undefined,
       });
       target.volatile.hardened = false;
+      target.volatile.wasHit = true;
       if (target.volatile.shielded) {
         target.volatile.shielded = false;
         this.say(`The shield took the edge off!`);
@@ -368,12 +381,27 @@ export class Battle {
     }
     if (move.type === 'fire' && user.ability === 'kiln_heart') user.volatile.hardened = true;
     if (dealt > 0) this.applyEffects(side, move.effects ?? []);
+    if (dealt > 0 && move.flags?.reveal && target.hp > 0) this.reveal(side);
+  }
+
+  /** Vigil Beam: the player sees the foe's next move (it's locked in); the foe's beam just stares. */
+  private reveal(side: Side) {
+    if (side === 'foe') {
+      this.say(`${this.label('foe')} is watching your every move...`);
+      return;
+    }
+    this.foePlanned = this.chooseFoeMove();
+    this.foePlanned = this.foePlanned === STRUGGLE_ID ? null : this.foePlanned;
+    if (this.foePlanned) this.say(`The beam lit up ${this.label('foe').replace(/^The/, 'the')}: it's going to use ${MOVES[this.foePlanned].name}!`);
   }
 
   private powerMod(user: Battler, move: MoveData): number {
     let mod = 1;
     if (move.type === 'spark' && user.volatile.charged) mod *= 2;
     if (user.ability === 'ambush_jaw' && move.flags?.bite && user.volatile.turnsOut === 0) mod *= 1.5;
+    if (move.flags?.hitBoost && user.volatile.wasHit) mod *= 1.5;
+    if (this.weather === 'rain' && move.type === 'water') mod *= 1.5;
+    if (this.weather === 'rain' && move.type === 'fire') mod *= 0.5;
     return mod;
   }
 
@@ -438,7 +466,8 @@ export class Battle {
     const immune =
       (status === 'brn' && b.types.includes('fire')) ||
       (status === 'par' && b.types.includes('spark')) ||
-      (status === 'psn' && b.types.includes('metal'));
+      (status === 'psn' && b.types.includes('metal')) ||
+      (b.ability === 'unblinking' && (status === 'par' || status === 'slp'));
     if (b.status || immune) {
       if (announceFail) this.say('But it failed!');
       return;
@@ -486,5 +515,5 @@ export class Battle {
   private push(e: BattleEvent) { this.events.push(e); }
 
   /** Effective Speed, exposed for UI hints and tests. */
-  speedOf(side: Side) { return effectiveStat(this.sides[side], 'spe'); }
+  speedOf(side: Side) { return battleSpeed(this.sides[side], this.weather); }
 }

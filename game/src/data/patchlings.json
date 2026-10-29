@@ -70,6 +70,16 @@
       "evolves": { "to": "strafalcon", "level": 36 } },
     "strafalcon": { "dex": 18, "name": "Strafalcon", "types": ["wind", "metal"], "ability": "slipstream", "sprite": "strafalcon",
       "base": { "hp": 75, "atk": 115, "def": 80, "spa": 75, "spd": 65, "spe": 125 },
-      "learnset": [[1, "beak_jab"], [1, "exhaust_puff"], [4, "barrel_roll"], [8, "afterburner"], [13, "jet_stream"]] }
+      "learnset": [[1, "beak_jab"], [1, "exhaust_puff"], [4, "barrel_roll"], [8, "afterburner"], [13, "jet_stream"]] },
+    "voltcalf": { "dex": 19, "name": "Voltcalf", "types": ["spark"], "ability": "thunderhead", "sprite": "voltcalf",
+      "base": { "hp": 55, "atk": 72, "def": 55, "spa": 35, "spd": 45, "spe": 58 },
+      "learnset": [[1, "hoof_stomp"], [1, "snort"], [4, "horn_bolt"], [9, "stump_spark"], [13, "stampede"]],
+      "evolves": { "to": "voltaurus", "item": "storm_shard" } },
+    "voltaurus": { "dex": 20, "name": "Voltaurus", "types": ["spark"], "ability": "thunderhead", "sprite": "voltaurus",
+      "base": { "hp": 85, "atk": 120, "def": 80, "spa": 50, "spd": 65, "spe": 85 },
+      "learnset": [[1, "hoof_stomp"], [1, "snort"], [1, "horn_bolt"], [1, "severance"], [9, "stump_spark"], [13, "stampede"], [20, "copper_ring"]] },
+    "wardeye": { "dex": 21, "name": "Wardeye", "types": ["dark", "relic"], "ability": "unblinking", "sprite": "wardeye", "quest": "wardeye_storm",
+      "base": { "hp": 70, "atk": 40, "def": 75, "spa": 105, "spd": 100, "spe": 70 },
+      "learnset": [[1, "lantern_swing"], [1, "eerie_glare"], [5, "anchor_drag"], [8, "vigil_beam"]] }
   }
 }

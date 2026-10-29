@@ -9,6 +9,7 @@ Effects (boxes are fractions of the sprite's opaque bounding box: [x0, y0, x1, y
   {"hover": 3}                        whole sprite floats up and down
   {"bounce": 4}                       boxer bounce (fast, abs sine)
   {"bob": [box], "px": 3, "phase": 0.25, "axis": "y"}   one region moves on its own
+                                                      ("keep": true leaves the original under it)
   {"glow": ["#rrggbb", ...], "amt": 0.35}               those colours pulse brighter
   {"flicker": ["#rrggbb", ...], "off": [2, 3, 7]}       those colours vanish on those frames
   {"blink": [box], "frames": [8], "colour": "#rrggbb"}  eyes in the box close (filled with colour)
@@ -26,11 +27,12 @@ CFG = json.load(open(os.path.join(ROOT, 'idle_fx.json')))
 def hexrgb(h): return np.array([int(h[i:i + 2], 16) for i in (1, 3, 5)])
 
 
-def shift(a, dx, dy, mask=None):
-    """Move the pixels in mask (or all) by dx, dy; what they leave behind is transparent."""
+def shift(a, dx, dy, mask=None, keep=False):
+    """Move the pixels in mask (or all) by dx, dy; what they leave behind is transparent, or with
+    keep the original pixels stay underneath (no seam where a part cuts through a solid area)."""
     if mask is None: mask = a[..., 3] > 0
     part = np.where(mask[..., None], a, 0)
-    rest = np.where(mask[..., None], 0, a)
+    rest = a if keep else np.where(mask[..., None], 0, a)
     moved = np.roll(np.roll(part, dy, 0), dx, 1)
     return np.where(moved[..., 3:4] > 0, moved, rest)
 
@@ -52,7 +54,7 @@ def frame(base, fx, t, n, box):
             a = shift(a, 0, -round(abs(math.sin(2 * math.pi * t / n)) * e['bounce']))
         elif 'bob' in e:
             v = round(math.sin(2 * math.pi * (t / n + e.get('phase', 0))) * e.get('px', 2))
-            a = shift(a, v if e.get('axis') == 'x' else 0, v if e.get('axis', 'y') == 'y' else 0, region(e['bob']))
+            a = shift(a, v if e.get('axis') == 'x' else 0, v if e.get('axis', 'y') == 'y' else 0, region(e['bob']), e.get('keep', False))
         elif 'glow' in e:
             k = (1 + s) / 2 * e.get('amt', 0.3)
             for h in e['glow']:

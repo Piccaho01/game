@@ -1,16 +1,16 @@
 import { describe, expect, it } from 'vitest';
 import { Battle } from '../src/engine/battle';
 import { createBattler, movesAtLevel } from '../src/engine/battler';
-import { ABILITIES, BESTIARY, MOVES, SPECIES } from '../src/engine/data';
+import { ABILITIES, BESTIARY, evoTriggers, MOVES, SPECIES } from '../src/engine/data';
 import { createRng } from '../src/engine/rng';
 
 describe('data', () => {
   it('every species references real moves, abilities, evolutions and lore', () => {
-    expect(Object.keys(SPECIES)).toHaveLength(18);
+    expect(Object.keys(SPECIES)).toHaveLength(21);
     for (const [id, sp] of Object.entries(SPECIES)) {
       expect(ABILITIES[sp.ability], `${id} ability`).toBeDefined();
       for (const [, m] of sp.learnset) expect(MOVES[m], `${id} move ${m}`).toBeDefined();
-      if (sp.evolves) expect(SPECIES[sp.evolves.to]).toBeDefined();
+      for (const t of evoTriggers(id)) expect(SPECIES[t.to], `${id} evolves into ${t.to}`).toBeDefined();
       expect(BESTIARY[id], `${id} lore`).toBeDefined();
     }
   });

@@ -9,6 +9,9 @@
     "ambush_jaw": { "name": "Ambush Jaw", "desc": "On its first turn out, its bite moves deal 1.5x damage." },
 
     "gravity_well": { "name": "Gravity Well", "desc": "Foes can't run from it." },
-    "slipstream": { "name": "Slipstream", "desc": "On its first turn out, all its moves gain +1 priority." }
+    "slipstream": { "name": "Slipstream", "desc": "On its first turn out, all its moves gain +1 priority." },
+
+    "thunderhead": { "name": "Thunderhead", "desc": "In rain, its Speed is 1.5x." },
+    "unblinking": { "name": "Unblinking", "desc": "It can't be put to sleep or paralysed." }
   }
 }

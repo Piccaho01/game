@@ -1,9 +1,10 @@
 import Phaser from 'phaser';
 import { TITLE_ART, BATTLE_BGS, FOLLOW_FRAME, FOLLOW_SHEETS, ITEM_ICONS, MAP_ART, PROP_ART, SPRITES, STANDS, TRAINER_BATTLE, WALK_FRAME, WALK_SHEETS, type SpriteAsset } from '../assets';
-import { SPECIES, TYPES } from '../engine/data';
+import { evoTriggers, SPECIES, TYPES } from '../engine/data';
 import { newProgress } from '../engine/progress';
 import { ITEMS } from '../engine/items';
 import { clearProgress, loadProgress, saveProgress } from '../save';
+import type { BattleInit } from './BattleScene';
 
 /** Texture key for a species' battle sprite; always exists after boot (real art or a placeholder). */
 export const frontKey = (species: string) => `front:${species}`;
@@ -79,9 +80,9 @@ export class BootScene extends Phaser.Scene {
     }
     // ?evolve=<species> previews the evolve scene (touches no save).
     const evo = params.get('evolve');
-    if (evo && SPECIES[evo]?.evolves) {
+    if (evo && evoTriggers(evo).length) {
       if (progress) this.registry.set('progress', progress);
-      this.scene.start('evolve', { queue: [{ uid: -1, owner: progress?.leader ?? 'callum', from: evo, to: SPECIES[evo].evolves!.to }], next: { scene: progress ? 'overworld' : 'title' }, preview: true });
+      this.scene.start('evolve', { queue: [{ uid: -1, owner: progress?.leader ?? 'callum', from: evo, to: evoTriggers(evo)[0].to }], next: { scene: progress ? 'overworld' : 'title' }, preview: true });
       return;
     }
     if (progress) this.registry.set('progress', progress);
@@ -99,7 +100,12 @@ export class BootScene extends Phaser.Scene {
     }
     const foe = params.get('foe');
     if (foe && SPECIES[foe]) {
-      this.scene.start('battle', { foe, seed: params.has('seed') ? Number(params.get('seed')) : undefined });
+      // ?weather=rain and ?variant=shiny|prototype try those out (tests, the review sheet).
+      const variant = params.get('variant');
+      this.scene.start('battle', {
+        foe, seed: params.has('seed') ? Number(params.get('seed')) : undefined, level: params.has('level') ? Number(params.get('level')) : undefined,
+        weather: params.get('weather') === 'rain' ? 'rain' : null, variant: variant === 'shiny' || variant === 'prototype' ? variant : undefined,
+      } satisfies BattleInit);
       return;
     }
     this.scene.start('overworld');

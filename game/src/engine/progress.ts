@@ -6,6 +6,7 @@ import type { AssistId } from './battle';
 import { MAPS, type Position } from './overworld';
 import type { Bond } from './seal';
 import { parseBag, START_BAG } from './items';
+import { parseWeather, type Sky } from './weather';
 
 /**
  * The player's progress (bible §6, §7): each of the four friends has their own team of six, the
@@ -22,9 +23,11 @@ export const SQUAD = Object.keys(CHARACTERS) as CharacterId[];
 
 /** `hp`/`status`: carried between wild battles; missing means full health and no status. `xp`: total experience (missing means the start of its level). */
 /** `evoStop`: the level at which the player stopped it evolving (engine/evolution.ts); it asks again from the next level. */
-export interface Member { uid: number; species: string; level: number; bond: Bond; hp?: number; status?: StatusId | null; xp?: number; evoStop?: number }
-/** `scans`: Callum's Scan, which counts toward Studied. */
-export interface DexRecord { encounters: number; defeats: number; seals: number; strongBonds: number; scans: number }
+/** `variant`: a shiny (1/512) or a Prototype (1/8192), cosmetic only (bible §7, engine/variants.ts). */
+export interface Member { uid: number; species: string; level: number; bond: Bond; hp?: number; status?: StatusId | null; xp?: number; evoStop?: number; variant?: Variant }
+export type Variant = 'shiny' | 'prototype';
+/** `scans`: Callum's Scan, which counts toward Studied. `shiny`/`prototype`: how many of those were sealed (the bestiary's star and note). */
+export interface DexRecord { encounters: number; defeats: number; seals: number; strongBonds: number; scans: number; shiny?: number; prototype?: number }
 export interface Progress {
   version: 3;
   /** The friend leading (bible §6): the one you walk as, whose team battles and whose assist applies. */
@@ -45,6 +48,8 @@ export interface Progress {
   items?: Record<string, number>;
   /** Field-move obstacles already cleared (engine/fieldMoves.ts). */
   cleared?: string[];
+  /** Each map's current sky (engine/weather.ts). */
+  weather?: Record<string, Sky>;
 }
 
 /**
@@ -129,7 +134,7 @@ export function stageOf(r: DexRecord | undefined): Stage | null {
   if (!r) return null;
   let best: Stage | null = null;
   for (const s of STAGES) {
-    if (Object.entries(RULES.stages[s]).some(([k, n]) => r[k as keyof DexRecord] >= (n as number))) best = s;
+    if (Object.entries(RULES.stages[s]).some(([k, n]) => (r[k as keyof DexRecord] ?? 0) >= (n as number))) best = s;
   }
   return best;
 }
@@ -162,11 +167,13 @@ export function recordDefeat(p: Progress, species: string) { return bump(p, spec
 export function recordScan(p: Progress, species: string) { return bump(p, species, 'scans'); }
 
 /** A sealed Patchling joins the leader's team, or goes straight to the sanctuary when that team is full. */
-export function recordSeal(p: Progress, species: string, level: number, bond: Bond) {
-  const member: Member = { uid: p.nextUid++, species, level, bond };
+export function recordSeal(p: Progress, species: string, level: number, bond: Bond, variant?: Variant) {
+  const member: Member = { uid: p.nextUid++, species, level, bond, ...(variant ? { variant } : {}) };
   const where: 'team' | 'sanctuary' = leaderTeam(p).length < TEAM_SIZE ? 'team' : 'sanctuary';
   (where === 'team' ? leaderTeam(p) : p.sanctuary).push(member);
-  return { member, where, change: recordOwned(p, species, bond) };
+  const change = recordOwned(p, species, bond);
+  if (variant) { const r = (p.bestiary[species] ??= { ...EMPTY_RECORD }); r[variant] = (r[variant] ?? 0) + 1; }
+  return { member, where, change };
 }
 
 /** A Patchling the player now has (sealed, or evolved into): its entry counts a seal, and a strong bond. */
@@ -222,7 +229,8 @@ export function parseProgress(raw: unknown): Progress | null {
   // Version 1 saves came before the character pick: they belong to Callum.
   const leader = (p.leader && p.leader in CHARACTERS ? p.leader : 'callum') as CharacterId;
   const ok = (m: Member) => !!SPECIES[m?.species] && m.level > 0 && ['strong', 'steady', 'wary'].includes(m.bond)
-    && (m.hp === undefined || (typeof m.hp === 'number' && m.hp >= 0)) && (m.xp === undefined || (typeof m.xp === 'number' && m.xp >= 0)) && (m.evoStop === undefined || typeof m.evoStop === 'number');
+    && (m.hp === undefined || (typeof m.hp === 'number' && m.hp >= 0)) && (m.xp === undefined || (typeof m.xp === 'number' && m.xp >= 0)) && (m.evoStop === undefined || typeof m.evoStop === 'number')
+    && (m.variant === undefined || m.variant === 'shiny' || m.variant === 'prototype');
   const list = (ms: unknown) => (Array.isArray(ms) ? (ms as Member[]).filter(ok) : []);
   let nextUid = typeof p.nextUid === 'number' ? p.nextUid : 1;
   let teams: Record<CharacterId, Member[]>;
@@ -257,11 +265,12 @@ export function parseProgress(raw: unknown): Progress | null {
   const wings = Array.isArray(p.wings) ? p.wings.filter((w): w is string => typeof w === 'string') : [];
   // Saves from before the story have no flags: they count as past the opening ('opening', engine/story.ts).
   const flags = Array.isArray(p.flags) ? p.flags.filter((f): f is string => typeof f === 'string') : ['opening'];
-  const { team: _old, settings: rawSettings, items: rawItems, cleared: rawCleared, ...rest } = p;
+  const { team: _old, settings: rawSettings, items: rawItems, cleared: rawCleared, weather: rawWeather, ...rest } = p;
+  const weather = parseWeather(rawWeather);
   const cleared = Array.isArray(rawCleared) ? rawCleared.filter((c): c is string => typeof c === 'string') : [];
   // Saves from before the bag get the starter pack.
   const items = parseBag(rawItems) ?? { ...START_BAG };
   const settings: Settings = {};
   if (rawSettings?.party === 'solo' || rawSettings?.party === 'squad') settings.party = rawSettings.party;
-  return { ...rest, version: 3, leader, nextUid, teams, sanctuary: list(p.sanctuary), bestiary: dex, pos, wings, flags, items, ...(cleared.length ? { cleared } : {}), ...(Object.keys(settings).length ? { settings } : {}) };
+  return { ...rest, version: 3, leader, nextUid, teams, sanctuary: list(p.sanctuary), bestiary: dex, pos, wings, flags, items, ...(cleared.length ? { cleared } : {}), ...(Object.keys(settings).length ? { settings } : {}), ...(weather && Object.keys(weather).length ? { weather } : {}) };
 }

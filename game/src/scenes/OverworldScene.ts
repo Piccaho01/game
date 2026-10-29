@@ -1,10 +1,14 @@
 import Phaser from 'phaser';
 import { SCREEN_H, SCREEN_W, ZOOM } from '../config';
 import { linesFor } from '../engine/dialogue';
-import { DIRS, facing, findPath, followStep, heightAt, lineUp, MAPS, npcAt, OBJECTS, objectAction, rollEncounter, signAt, stairAxis, START, step, type Dir, type Npc, type Opens, type Position, type Spot } from '../engine/overworld';
+import { DIRS, facing, findPath, followStep, heightAt, lineUp, MAPS, npcAt, OBJECTS, objectAction, rollEncounter, signAt, stairAxis, START, staticAt, step, type Dir, type Npc, type Opens, type Position, type Spot } from '../engine/overworld';
+import { skyOn, type Sky } from '../engine/weather';
+import { rollVariant } from '../engine/variants';
+import { rainLayer, type RainLayer } from '../ui/weatherFx';
+import type { BattleInit } from './BattleScene';
 import { gateAt, met, peopleOn, roamersOn } from '../engine/world';
 import { SPECIES } from '../engine/data';
-import { CHARACTERS, healTeam, leaderTeam, SQUAD, switchLeader, type CharacterId, type Progress } from '../engine/progress';
+import { CHARACTERS, healTeam, leaderTeam, recordEncounter, SQUAD, switchLeader, type CharacterId, type Progress } from '../engine/progress';
 import { createRng, type Rng } from '../engine/rng';
 import { faceToward, huddle, markSeen, sceneFor, SCRIPTS } from '../engine/story';
 import { MAP_ART, type MapLayout, type MapSprite } from '../assets';
@@ -79,6 +83,9 @@ export class OverworldScene extends Phaser.Scene {
   private rateOverride: number | null = null;
   /** The story scene playing on the map, if any. */
   private storyScene: string | null = null;
+  /** This map's sky (engine/weather.ts) and its rain, if it's raining. */
+  private sky: Sky = { kind: null, until: Infinity };
+  private rain?: RainLayer;
 
   constructor() { super('overworld'); }
 
@@ -113,6 +120,8 @@ export class OverworldScene extends Phaser.Scene {
     this.exposeForTests();
     this.showMapName();
     this.storyScene = null;
+    // The sky is re-rolled while you're out walking, too.
+    this.time.addEvent({ delay: 15_000, loop: true, callback: () => { if (!this.busy) this.updateSky(); } });
     if (this.notice === 'blackout') void this.blackoutWake();
     else void this.storyCheck('arrive');
   }
@@ -174,6 +183,22 @@ export class OverworldScene extends Phaser.Scene {
     this.world.add(this.player);
     this.lineUpFollowers();
     this.placePlayer();
+    this.updateSky();
+  }
+
+  /** Rolls this map's weather when it's due and shows or clears the rain to match. */
+  private updateSky() {
+    this.sky = skyOn(this.progress, this.pos.map, MAPS[this.pos.map].weather, this.rng);
+    const raining = this.sky.kind === 'rain';
+    if (raining && !this.rain) this.rain = rainLayer(this, { x: 0, y: 0, w: SCREEN_W, h: SCREEN_H }, 4);
+    else if (!raining && this.rain) { void this.rain.stop(); this.rain = undefined; }
+  }
+
+  /** Starts the rain now (the storm coming back), for this many minutes. */
+  startRain(minutes = 6) {
+    this.progress.weather = { ...this.progress.weather, [this.pos.map]: { kind: 'rain', until: Date.now() + minutes * 60_000 } };
+    this.updateSky();
+    return this.rain;
   }
 
   /** The leader's walker, their lead Patchling, and the other three behind in SWITCH order. */
@@ -457,15 +482,26 @@ export class OverworldScene extends Phaser.Scene {
   private tryEncounter() {
     const map = MAPS[this.pos.map];
     const table = map.encounters && this.rateOverride !== null ? { ...map, encounters: { ...map.encounters, rate: this.rateOverride } } : map;
-    const wild = rollEncounter(table, this.rng);
+    const wild = rollEncounter(table, this.rng, this.sky.kind);
     if (!wild) return false;
+    this.startBattle({ foe: wild.species, level: wild.level, variant: this.forcedVariant() ?? rollVariant(this.rng) });
+    return true;
+  }
+
+  /** ?variant=shiny|prototype makes every wild one that (tests, the review sheet). */
+  private forcedVariant() {
+    const v = new URLSearchParams(location.search).get('variant');
+    return v === 'shiny' || v === 'prototype' ? v : undefined;
+  }
+
+  /** Two quick flashes, then into battle (under this map's sky). */
+  private startBattle(init: Pick<BattleInit, 'foe' | 'level' | 'variant' | 'staticId'>) {
     this.busy = true;
-    // Two quick flashes, then into battle.
+    const map = MAPS[this.pos.map];
     const cam = this.cameras.main;
     cam.flash(120, 255, 255, 255);
     this.time.delayedCall(240, () => cam.flash(120, 255, 255, 255));
-    this.time.delayedCall(480, () => this.scene.start('battle', { foe: wild.species, level: wild.level, from: 'overworld', bg: map.battle }));
-    return true;
+    this.time.delayedCall(480, () => this.scene.start('battle', { ...init, from: 'overworld', bg: map.battle, weather: this.sky.kind, map: map.id } satisfies BattleInit));
   }
 
   private save() {
@@ -498,6 +534,14 @@ export class OverworldScene extends Phaser.Scene {
       return;
     }
     const map = MAPS[this.pos.map];
+    // A Patchling waiting on this tile (Wardeye at the storm-rod, in the rain).
+    this.updateSky();
+    const st = staticAt(map, x, y, this.progress);
+    if (st) {
+      if (st.talk) await this.talk(st.talk);
+      this.startBattle({ foe: st.species, level: st.level, staticId: st.id });
+      return;
+    }
     const gate = gateAt(map, x, y, this.progress);
     const act: { text?: string; talk?: string; opens?: Opens; rest?: boolean } | null = gate ? OBJECTS[gate.kind] : signAt(map, x, y) ?? objectAction(map, this.pos);
     if (act?.opens === 'storage') this.scene.start('sanctuary', { tab: 'storage' });
@@ -516,9 +560,22 @@ export class OverworldScene extends Phaser.Scene {
    */
   private async fieldMove(o: Obstacle) {
     const r = tryObstacle(this.progress, o);
+    let talked = false;
+    // Looking at it the first time sights its Patchling (Wardeye's dim lantern on the storm-rod).
+    if (o.sights && !this.progress.bestiary[o.sights]?.encounters && !r.cleared) {
+      const change = recordEncounter(this.progress, o.sights);
+      saveProgress(this.progress);
+      if (r.talk) await this.talk(r.talk);
+      talked = true;
+      if (change) await this.say([{ text: `Bestiary: ${SPECIES[o.sights].name} sighted. New entry!` }]);
+    }
+    if (r.waiting) {
+      if (r.talk && !talked) await this.talk(r.talk);
+      return;
+    }
     if (!r.cleared) {
       sfx('error');
-      if (r.talk) await this.talk(r.talk);
+      if (r.talk && !talked) await this.talk(r.talk);
       const sw = this.ui.getByName('switch') as Phaser.GameObjects.Container | null;
       if (sw) this.tweens.add({ targets: sw, scale: 1.08, duration: 160, yoyo: true, repeat: 2 });
       await this.say(r.lines.map((text) => ({ text })));
@@ -542,6 +599,7 @@ export class OverworldScene extends Phaser.Scene {
     await this.say(lines);
     if (r.talk) await this.talk(r.talk);
     this.drawLeaderUi();
+    if (o.scene) await this.playScene(o.scene);
   }
 
   /** Dani's Shield: the obstacle shudders and rolls off the way the leader faces, in a puff of dust. */
@@ -766,6 +824,7 @@ export class OverworldScene extends Phaser.Scene {
       /** The walk to a tile on this map, as directions (engine/overworld.ts findPath). */
       pathTo: (x: number, y: number) => findPath(this.pos.map, this.pos, { x, y }, this.blocker),
       obstacles: () => this.obstacles.map((o) => o.id),
+      weather: () => this.sky.kind,
       talking: () => this.dialog.open,
       npcs: () => this.npcs.map((n) => n.id),
       leader: () => this.progress.leader,

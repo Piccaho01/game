@@ -1,7 +1,8 @@
 import tilesJson from '../data/tiles.json';
 import objectsJson from '../data/objects.json';
 import type { Rng } from './rng';
-import { SPECIES } from './data';
+import { SPECIES, type Weather } from './data';
+import type { WeatherRule } from './weather';
 
 /**
  * The overworld as data (M4): grid maps with ground heights, 4-direction steps (on screen the grid
@@ -58,7 +59,17 @@ export interface Npc {
   id: string; x: number; y: number; w?: number; dir?: Dir; sprite: string; talk: string;
   heal?: boolean;
 }
-export interface EncounterTable { rate: number; levels: [number, number]; table: { species: string; weight: number }[] }
+/** One row of a table; `levels` overrides the table's (the uncommon comes in a bit higher). */
+export interface EncounterRow { species: string; weight: number; levels?: [number, number] }
+/** Tall-grass encounters; `weather` swaps in another table while that weather is on (rain brings Voltcalf). */
+export interface EncounterTable { rate: number; levels: [number, number]; table: EncounterRow[]; weather?: Partial<Record<Weather, { table: EncounterRow[] }>> }
+
+/**
+ * A Patchling standing on a map tile that you talk to for a battle (Wardeye at the storm-rod): it
+ * shows once its story `after` flags are set, only in its `weather`, and not after it's sealed.
+ * Beaten, it's gone until the weather is rolled again (engine/weather.ts markBeaten).
+ */
+export interface StaticEncounter { id: string; x: number; y: number; species: string; level: number; after?: string[]; weather?: Weather; talk?: string }
 
 export interface MapData {
   id: string;
@@ -75,6 +86,9 @@ export interface MapData {
   /** Where you wake up after blacking out (the map with one is the heal spot). */
   healSpot?: { x: number; y: number; dir: Dir };
   encounters?: EncounterTable;
+  /** Its weather (engine/weather.ts). */
+  weather?: WeatherRule;
+  statics?: StaticEncounter[];
   /** Battle backdrop for fights here (art/battle/out/<id>.png). */
   battle?: string;
   /** A room (art/tools/iso_map.py bakes it as a cut-away: floor, two back walls, no sky). */
@@ -101,6 +115,8 @@ export interface WorldMap {
   objects: PlacedObject[];
   healSpot?: { x: number; y: number; dir: Dir };
   encounters?: EncounterTable;
+  weather?: WeatherRule;
+  statics: StaticEncounter[];
   battle?: string;
   interior: boolean;
   roam: { x: number; y: number }[];
@@ -117,7 +133,7 @@ export function loadMap(raw: MapData): WorldMap {
       return kind;
     });
   });
-  for (const e of raw.encounters?.table ?? []) {
+  for (const e of [...raw.encounters?.table ?? [], ...Object.values(raw.encounters?.weather ?? {}).flatMap((w) => w?.table ?? []), ...raw.statics ?? []]) {
     if (!SPECIES[e.species]) throw new Error(`${raw.id}: unknown Patchling ${e.species} in encounters`);
   }
   const z = raw.heights
@@ -135,7 +151,7 @@ export function loadMap(raw: MapData): WorldMap {
   }
   return {
     id: raw.id, name: raw.name, width, height: tiles.length, tiles, spawn: raw.spawn, warps: raw.warps ?? [],
-    signs: raw.signs ?? [], npcs: raw.npcs ?? [], z, objects, healSpot: raw.healSpot, encounters: raw.encounters, battle: raw.battle,
+    signs: raw.signs ?? [], npcs: raw.npcs ?? [], z, objects, healSpot: raw.healSpot, encounters: raw.encounters, weather: raw.weather, statics: raw.statics ?? [], battle: raw.battle,
     interior: !!(raw.interior || raw.concept), roam: raw.roam ?? [],
   };
 }
@@ -220,14 +236,27 @@ export function step(pos: Position, dir: Dir, blocked: (x: number, y: number) =>
   return { moved: true, pos: { map: pos.map, x, y, dir }, warped: false, grass: !!tileAt(map, x, y)?.encounter };
 }
 
-/** After a step into tall grass: a wild Patchling, or null. */
-export function rollEncounter(map: WorldMap, rng: Rng): { species: string; level: number } | null {
+/** After a step into tall grass: a wild Patchling, or null. The weather picks the table. */
+export function rollEncounter(map: WorldMap, rng: Rng, weather: Weather | null = null): { species: string; level: number } | null {
   const e = map.encounters;
-  if (!e || e.table.length === 0 || rng.next() >= e.rate) return null;
-  const total = e.table.reduce((n, t) => n + t.weight, 0);
+  const table = (weather && e?.weather?.[weather]?.table) || e?.table;
+  if (!e || !table || table.length === 0 || rng.next() >= e.rate) return null;
+  const total = table.reduce((n, t) => n + t.weight, 0);
   let roll = rng.next() * total;
-  const pick = e.table.find((t) => (roll -= t.weight) < 0) ?? e.table[e.table.length - 1];
-  return { species: pick.species, level: rng.int(e.levels[0], e.levels[1]) };
+  const pick = table.find((t) => (roll -= t.weight) < 0) ?? table[table.length - 1];
+  const [lo, hi] = pick.levels ?? e.levels;
+  return { species: pick.species, level: rng.int(lo, hi) };
+}
+
+/** The static Patchling showing on this tile now, if any (story flags, weather, not sealed, not beaten under this sky). */
+export function staticAt(map: WorldMap, x: number, y: number, p: { flags?: string[]; bestiary: Record<string, { seals: number }>; weather?: Record<string, { kind: Weather | null; until: number; beaten?: string[] }> }, now = Date.now()) {
+  const sky = p.weather?.[map.id];
+  const weather = sky && sky.until > now ? sky.kind : null;
+  return map.statics.find((s) => s.x === x && s.y === y
+    && (s.after ?? []).every((f) => p.flags?.includes(f))
+    && (!s.weather || s.weather === weather)
+    && !(p.bestiary[s.species]?.seals > 0)
+    && !sky?.beaten?.includes(s.id)) ?? null;
 }
 
 /** The tile in front of the player (what the A button reads or talks to). */

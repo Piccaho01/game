@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 import { SCREEN_H, SCREEN_W, ZOOM } from '../config';
-import { SPECIES, TYPES } from '../engine/data';
+import { evoTriggers, SPECIES, TYPES } from '../engine/data';
 import { CHARACTERS, leaderTeam, loreOf, sanctuaryPoints, SQUAD, stageOf, STAGES, TEAM_SIZE, type CharacterId, type Progress, type Stage } from '../engine/progress';
 import type { Bond } from '../engine/seal';
 import { saveProgress } from '../save';
@@ -9,7 +9,12 @@ import { createBattler } from '../engine/battler';
 import { pixelText } from '../ui/text';
 import { COLORS, hexToNum, shade, TEXT_COLORS, TEXT_SIZE, TONES } from '../ui/theme';
 import { frontKey, idleAnimKey, itemKey, monScale, walkKey } from './BootScene';
-import { count, ITEMS, scrollsInBag } from '../engine/items';
+import { count, ITEMS, itemsInBag } from '../engine/items';
+import { itemEvolution, useEvolutionItem } from '../engine/evolution';
+import { questOf } from '../engine/quests';
+import { weatherHere } from '../engine/weather';
+import { variantLook } from '../ui/variantFx';
+import type { EvolveData } from './EvolveScene';
 import { settingsPanel, partyBlurb } from '../ui/settingsPanel';
 import { party, soundOn, textSpeed } from '../settings';
 
@@ -32,6 +37,8 @@ export class JournalScene extends Phaser.Scene {
   private viewing: CharacterId = 'callum';
   private loreIndex = 0;
   private dexPage = 0;
+  /** An evolution item picked to USE: the bag shows who it can go on. */
+  private using: string | null = null;
 
   constructor() { super('journal'); }
 
@@ -43,6 +50,7 @@ export class JournalScene extends Phaser.Scene {
     this.from = data.from ?? 'battle';
     this.tab = data.tab ?? 'team';
     this.selected = null;
+    this.using = null;
   }
 
   create() {
@@ -70,7 +78,7 @@ export class JournalScene extends Phaser.Scene {
   private render() {
     this.bottom.removeAll(true);
     this.bottom.add(tabs<Tab>(this, 128, 15, 240, [{ id: 'team', label: 'TEAM' }, { id: 'bestiary', label: 'BESTIARY' }, { id: 'bag', label: 'BAG' }, { id: 'options', label: 'OPTIONS' }],
-      this.tab, (t) => { this.tab = t; this.selected = null; this.render(); }, TONES.seal));
+      this.tab, (t) => { this.tab = t; this.selected = null; this.using = null; this.render(); }, TONES.seal));
     if (this.tab === 'team') this.renderTeam();
     else if (this.tab === 'bestiary') this.renderBestiary();
     else if (this.tab === 'bag') this.renderBag();
@@ -119,10 +127,16 @@ export class JournalScene extends Phaser.Scene {
     }
   }
 
-  /** The bag (shared by the four): seal scrolls with counts; tap one to read it. */
+  /** The bag (shared by the four): seal scrolls and evolution items with counts; tap one to read it, USE an evolution item. */
   private renderBag() {
-    const ids = scrollsInBag(this.progress);
+    if (this.using) return this.renderUse(this.using);
+    const ids = itemsInBag(this.progress);
     if (!ids.length) this.bottom.add(pixelText(this, 128, 80, 'The bag is empty.\nPATCH tops up Seal Scrolls when he heals you.', { color: TEXT_COLORS.dim, size: TEXT_SIZE.small }).setOrigin(0.5).setAlign('center'));
+    const sel = typeof this.selected === 'string' ? ITEMS[this.selected] : undefined;
+    if (sel?.kind === 'evolution' && this.from === 'overworld') {
+      const id = this.selected as string;
+      this.bottom.add(button(this, 190, 172, 120, 28, 'USE', TONES.go, () => { this.using = id; this.render(); }, { name: 'use' }));
+    }
     ids.slice(0, 10).forEach((id, i) => {
       const it = ITEMS[id];
       this.bottom.add(listRow(this, 66 + (i % 2) * 124, 42 + Math.floor(i / 2) * 26, 118, 23, {
@@ -130,6 +144,34 @@ export class JournalScene extends Phaser.Scene {
         icon: { key: itemKey(id) }, onTap: () => { this.selected = id; this.render(); }, name: `item-${id}`, selected: this.selected === id,
       }));
     });
+  }
+
+  /** USE an evolution item: each friend's team, the ones it works on lit; tapping one starts the evolve scene. */
+  private renderUse(item: string) {
+    const p = this.progress;
+    const ctx = { weather: weatherHere(p), flags: p.flags };
+    SQUAD.forEach((c, i) => {
+      const ch = CHARACTERS[c];
+      this.bottom.add(listRow(this, 35 + i * 62, 42, 58, 20, {
+        title: ch.name, color: this.viewing === c ? shade(hexToNum(ch.color), -0.2) : TONES.neutral, icon: faceIcon(walkKey(c)),
+        onTap: () => { this.viewing = c; this.render(); }, name: `team-${c}`, selected: this.viewing === c,
+      }));
+    });
+    p.teams[this.viewing].forEach((m, i) => {
+      const to = itemEvolution(m, item, ctx);
+      this.bottom.add(listRow(this, 66 + (i % 2) * 124, 72 + Math.floor(i / 2) * 29, 118, 26, {
+        title: SPECIES[m.species].name, sub: to ? 'Able!' : 'No effect', right: `Lv${m.level}`,
+        color: shade(hexToNum(TYPES[SPECIES[m.species].types[0]].color), -0.3), icon: monIcon(frontKey(m.species)),
+        onTap: to ? () => this.useOn(item, m.uid) : undefined, name: `use-${i}`,
+      }));
+    });
+    this.bottom.add(button(this, 190, 172, 120, 28, 'CANCEL', TONES.neutral, () => { this.using = null; this.render(); }, { name: 'cancel' }));
+  }
+
+  private useOn(item: string, uid: number) {
+    const due = useEvolutionItem(this.progress, uid, item, { weather: weatherHere(this.progress), flags: this.progress.flags });
+    if (!due) return;
+    this.scene.start('evolve', { queue: [due], next: { scene: 'journal', data: { tab: 'bag', from: 'overworld' } } } satisfies EvolveData);
   }
 
   /** Options: sound, text speed, and who shows on the map (ui/settingsPanel.ts). */
@@ -146,6 +188,9 @@ export class JournalScene extends Phaser.Scene {
       const x = 46 + (i % 3) * 82;
       const y = 46 + Math.floor(i / 3) * 28;
       const dex = `#${String(SPECIES[id].dex).padStart(3, '0')}`;
+      const rec = this.progress.bestiary[id];
+      // A gold star once a shiny has been sealed; a green one for a Prototype.
+      if (rec?.shiny || rec?.prototype) this.bottom.add(star(this, x + 34, y - 8, rec.prototype ? 0x7effc8 : 0xf2c14e).setDepth(1));
       this.bottom.add(listRow(this, x, y, 78, 25, {
         title: stage ? SPECIES[id].name : '???', titleSize: TEXT_SIZE.tiny, sub: stage ? STAGE_NAMES[stage] : dex, color: stage ? TONES.patch : COLORS.metalLight,
         icon: monIcon(frontKey(id), !stage),
@@ -166,7 +211,7 @@ export class JournalScene extends Phaser.Scene {
     if (this.tab === 'bag') {
       const it = typeof this.selected === 'string' ? ITEMS[this.selected] : undefined;
       if (!it) {
-        this.top.add(pixelText(this, 128, 92, 'Seal scrolls: you need one to seal.\nTap one to read it.', { color: TEXT_COLORS.inkSoft }).setOrigin(0.5).setAlign('center'));
+        this.top.add(pixelText(this, 128, 92, this.using ? `Use the ${ITEMS[this.using].name} on who?` : 'Seal scrolls: you need one to seal.\nTap one to read it.', { color: TEXT_COLORS.inkSoft }).setOrigin(0.5).setAlign('center'));
         return;
       }
       this.top.add(this.add.image(52, 80, itemKey(this.selected as string)).setScale(3));
@@ -196,22 +241,31 @@ export class JournalScene extends Phaser.Scene {
     const seen = this.tab === 'team' || !!stage;
     // The Patchling stands on a little metal plinth on the left of the card.
     this.top.add(panel(this, 14, 112, 76, 12, 'metal'));
-    const sprite = this.add.sprite(52, 118, frontKey(species)).setOrigin(0.5, 1).setScale(monScale(this, frontKey(species)));
-    if (seen && this.anims.exists(idleAnimKey(species))) sprite.play(idleAnimKey(species));
+    const look = variantLook(this, species, frontKey(species), idleAnimKey(species), member?.variant);
+    const sprite = this.add.sprite(52, 118, look.key).setOrigin(0.5, 1).setScale(monScale(this, frontKey(species)));
+    if (seen && look.anim) sprite.play(look.anim);
     if (!seen) sprite.setTintFill(COLORS.ink);
     this.top.add(sprite);
     this.top.add(pixelText(this, 100, 18, seen ? sp.name : '???', { size: TEXT_SIZE.heading }));
     this.top.add(pixelText(this, 100, 33, `#${String(sp.dex).padStart(3, '0')}`, { color: TEXT_COLORS.inkSoft, size: TEXT_SIZE.small }));
     if (seen) sp.types.forEach((t, i) => this.top.add(chip(this, 132 + i * 38, 32, TYPES[t].name, shade(hexToNum(TYPES[t].color), -0.2))));
     if (member) {
-      const evo = sp.evolves && SPECIES[sp.evolves.to];
-      const next = evo ? `  → Lv${sp.evolves!.level}` : '';
-      this.top.add(pixelText(this, 100, 46, `Lv${member.level}  ${BOND_NAMES[member.bond]}${next}`, { color: TEXT_COLORS.rust, size: TEXT_SIZE.small }));
+      // The next form's trigger: a level, or the item it needs.
+      const t = evoTriggers(species)[0];
+      const next = !t ? '' : t.level !== undefined ? `  → Lv${t.level}` : t.item ? `  → ${ITEMS[t.item]?.name ?? t.item}` : '';
+      const tag = member.variant === 'shiny' ? '  Shiny!' : member.variant === 'prototype' ? '  Prototype' : '';
+      this.top.add(pixelText(this, 100, 46, `Lv${member.level}  ${BOND_NAMES[member.bond]}${next}${tag}`, { color: TEXT_COLORS.rust, size: TEXT_SIZE.small }));
     }
-    const lore = loreOf(this.progress, species);
+    const lore: { title: string; text: string }[] = loreOf(this.progress, species).map((l) => ({ title: STAGE_NAMES[l.stage], text: l.text }));
+    // A quest entry gets its quest as a page, steps ticked; its variants get a note.
+    const quest = seen ? questOf(this.progress, species) : null;
+    if (quest) lore.push({ title: quest.done ? 'Quest: done' : 'Quest', text: `${quest.name}\n${quest.steps.map((s) => `${s.done ? '[x]' : '[ ]'} ${s.text}`).join('\n')}` });
+    const rec = this.progress.bestiary[species];
+    if (rec?.shiny) lore.push({ title: 'Shiny sealed', text: `${rec.shiny > 1 ? `${rec.shiny} sealed in` : 'Sealed in'} a different colour. Callum has screenshotted it eleven times.` });
+    if (rec?.prototype) lore.push({ title: 'Prototype', text: 'DRAFT_01 DATA. This one is from PATCH\'s scrapped first draft. PATCH: "That\'s... not supposed to exist. Please don\'t tell anyone about that one."' });
     if (lore.length) {
       const page = lore[this.loreIndex % lore.length];
-      this.top.add(pixelText(this, 100, 60, `${STAGE_NAMES[page.stage]} (${(this.loreIndex % lore.length) + 1}/${lore.length})`, { color: TEXT_COLORS.rust, size: TEXT_SIZE.small }));
+      this.top.add(pixelText(this, 100, 60, `${page.title} (${(this.loreIndex % lore.length) + 1}/${lore.length})`, { color: TEXT_COLORS.rust, size: TEXT_SIZE.small }));
       this.top.add(pixelText(this, 100, 74, page.text, { size: TEXT_SIZE.small, wrap: 140 }));
     } else {
       this.top.add(pixelText(this, 100, 74, seen ? 'No entry yet.' : 'Not seen yet.', { color: TEXT_COLORS.inkSoft, size: TEXT_SIZE.small, wrap: 140 }));
@@ -226,4 +280,13 @@ export class JournalScene extends Phaser.Scene {
     });
     this.top.add(pixelText(this, 15, 147, stage ? STAGE_NAMES[stage] : 'Not seen', { color: TEXT_COLORS.inkSoft, size: TEXT_SIZE.tiny }));
   }
+}
+
+/** A small four-point star (the bestiary's shiny mark). */
+function star(scene: Phaser.Scene, x: number, y: number, color: number) {
+  const g = scene.add.graphics();
+  g.fillStyle(0x1c1b29).fillRect(x - 2, y - 5, 4, 10).fillRect(x - 5, y - 2, 10, 4);
+  g.fillStyle(color).fillRect(x - 1, y - 4, 2, 8).fillRect(x - 4, y - 1, 8, 2);
+  g.fillStyle(0xffffff).fillRect(x - 1, y - 1, 1, 1);
+  return g;
 }
