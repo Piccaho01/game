@@ -95,9 +95,12 @@ export function scrollDecal(scene: Phaser.Scene, x: number, y: number): Decal {
 }
 
 /** White silhouettes of Patchlings (front sprites) for TEAM; they bob, and jump on tap. */
+/** Double-res (192) creature art draws at half size; see monScale in BootScene. */
+const halfIfHiRes = (scene: Phaser.Scene, key: string) => (scene.textures.exists(key) && scene.textures.get(key).source[0].height >= 192 ? 0.5 : 1);
+
 export function teamDecal(scene: Phaser.Scene, x: number, y: number, keys: string[]): Decal {
   const sprites = keys.slice(0, 3).map((key, i) => {
-    const s = scene.add.sprite(x - i * 18, y, key).setScale(0.5).setTintFill(0xffffff).setAlpha(DECAL_ALPHA + 0.04);
+    const s = scene.add.sprite(x - i * 18, y, key).setScale(0.5 * halfIfHiRes(scene, key)).setTintFill(0xffffff).setAlpha(DECAL_ALPHA + 0.04);
     scene.tweens.add({ targets: s, y: y - 2, duration: 900, yoyo: true, repeat: -1, ease: 'Sine.easeInOut', delay: i * 250 });
     return s;
   });
@@ -109,7 +112,7 @@ export function teamDecal(scene: Phaser.Scene, x: number, y: number, keys: strin
 
 /** The Patchling that's out, a silhouette hopping across; on tap it sprints off. */
 export function runDecal(scene: Phaser.Scene, x0: number, x1: number, y: number, key: string): Decal {
-  const s = scene.add.sprite(x0, y, key).setScale(0.5).setFlipX(true).setTintFill(0xffffff).setAlpha(0);
+  const s = scene.add.sprite(x0, y, key).setScale(0.5 * halfIfHiRes(scene, key)).setFlipX(true).setTintFill(0xffffff).setAlpha(0);
   const across = scene.tweens.chain({
     targets: s, loop: -1,
     tweens: [

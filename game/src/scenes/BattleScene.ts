@@ -9,7 +9,7 @@ import { MOVES, SPECIES, TYPES } from '../engine/data';
 import { createRng } from '../engine/rng';
 import { sealPattern, sealWindows, type Bond, type SealResult } from '../engine/seal';
 import { DialogBox } from '../ui/dialog';
-import { button, buttonPagePoint, hinge, listRow, monIcon, pxRect, screenBackdrop } from '../ui/kit';
+import { button, buttonPagePoint, firstFrame, hinge, listRow, monIcon, pxRect, screenBackdrop, spriteBounds } from '../ui/kit';
 import { assistBar, assistCutIn, banner, commandButton, gloveDecal, InfoCard, runDecal, scrollDecal, teamDecal } from '../ui/battleKit';
 import { sfx } from '../ui/sfx';
 import { pixelText } from '../ui/text';
@@ -19,7 +19,7 @@ import { saveProgress } from '../save';
 import { applyScroll, count, ITEMS, scrollsInBag, scrollWindows, useItem } from '../engine/items';
 import { awardXp, levelProgress, whose, xpYield } from '../engine/levels';
 import { itemKey } from './BootScene';
-import { backIdleAnimKey, backKey, battleBgKey, frontKey, idleAnimKey, trainerKey, walkKey } from './BootScene';
+import { backIdleAnimKey, backKey, battleBgKey, frontKey, idleAnimKey, monScale, trainerKey, walkKey } from './BootScene';
 import { SealMinigame } from './SealMinigame';
 import type { EvolveData } from './EvolveScene';
 import { pendingEvolutions } from '../engine/evolution';
@@ -139,11 +139,14 @@ export class BattleScene extends Phaser.Scene {
     // BW shows your own Patchling from behind at 2x; species without a back sprite yet use the
     // front one mirrored.
     if (side === 'player' && this.textures.exists(backKey(species))) {
-      const b = this.add.sprite(x, y + 8, backKey(species)).setOrigin(0.5, 1).setScale(2);
+      const key = backKey(species);
+      // At most ~120 px tall on screen, so a big final form doesn't cover the whole top screen.
+      const body = spriteBounds(this, key, firstFrame(this, key)).h * 2 * monScale(this, key);
+      const b = this.add.sprite(x, y + 8, key).setOrigin(0.5, 1).setScale(2 * monScale(this, key) * Math.min(1, 120 / body));
       if (this.anims.exists(backIdleAnimKey(species))) b.play(backIdleAnimKey(species));
       return b;
     }
-    const s = this.add.sprite(x, y, frontKey(species)).setOrigin(0.5, 1);
+    const s = this.add.sprite(x, y, frontKey(species)).setOrigin(0.5, 1).setScale(monScale(this, frontKey(species)));
     if (this.anims.exists(idleAnimKey(species))) s.play(idleAnimKey(species));
     if (side === 'player') s.setFlipX(true);
     if (this.registry.get(`placeholder:${frontKey(species)}`) !== undefined) {

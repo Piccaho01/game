@@ -8,7 +8,7 @@ import { DialogBox } from '../ui/dialog';
 import { button, buttonPagePoint, chip, emptySlot, hinge, listRow, monIcon, tabs, menuBackdrop, Meter, panel, patchPortrait, screenBackdrop, tapeLabel } from '../ui/kit';
 import { pixelText } from '../ui/text';
 import { COLORS, hexToNum, shade, TEXT_COLORS, TEXT_SIZE, TONES } from '../ui/theme';
-import { frontKey, idleAnimKey } from './BootScene';
+import { frontKey, idleAnimKey, monScale } from './BootScene';
 
 const BOTTOM = SCREEN_H;
 type Tab = 'wings' | 'storage';
@@ -195,7 +195,7 @@ export class SanctuaryScene extends Phaser.Scene {
     }
     const sp = SPECIES[m.species];
     this.top.add(panel(this, 14, 112, 76, 12, 'metal'));
-    const s = this.add.sprite(52, 118, frontKey(m.species)).setOrigin(0.5, 1);
+    const s = this.add.sprite(52, 118, frontKey(m.species)).setOrigin(0.5, 1).setScale(monScale(this, frontKey(m.species)));
     if (this.anims.exists(idleAnimKey(m.species))) s.play(idleAnimKey(m.species));
     this.top.add(s);
     this.top.add(pixelText(this, 100, 18, sp.name, { size: TEXT_SIZE.heading }));

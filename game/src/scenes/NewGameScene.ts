@@ -6,7 +6,7 @@ import { saveProgress } from '../save';
 import { button, buttonPagePoint, chip, faceIcon, hinge, listRow, menuBackdrop, monIcon, panel, patchPortrait, pxRect, screenBackdrop, sectionLabel, tapeLabel } from '../ui/kit';
 import { pixelText } from '../ui/text';
 import { COLORS, hexToNum, shade, TEXT_COLORS, TEXT_SIZE, TONES } from '../ui/theme';
-import { frontKey, idleAnimKey, walkKey } from './BootScene';
+import { frontKey, idleAnimKey, monScale, walkKey } from './BootScene';
 import { playCutscene } from './CutsceneScene';
 
 type Step = 'leader' | 'starters' | 'lead';
@@ -147,7 +147,7 @@ export class NewGameScene extends Phaser.Scene {
       }
       this.top.add(pixelText(this, cx, 22, CHARACTERS[c].name, { size: TEXT_SIZE.small }).setOrigin(0.5, 0));
       this.top.add(pixelText(this, cx, 32, SPECIES[sp].name, { color: TEXT_COLORS.rust, size: TEXT_SIZE.tiny }).setOrigin(0.5, 0));
-      const s = this.add.sprite(cx, 100, frontKey(sp)).setOrigin(0.5, 1);
+      const s = this.add.sprite(cx, 100, frontKey(sp)).setOrigin(0.5, 1).setScale(monScale(this, frontKey(sp)));
       if (this.anims.exists(idleAnimKey(sp))) s.play(idleAnimKey(sp));
       this.top.add(s);
       if (this.textures.exists(walkKey(c))) this.top.add(this.add.image(cx, 178, walkKey(c), 0).setOrigin(0.5, 1).setScale(2));
@@ -194,7 +194,7 @@ export class NewGameScene extends Phaser.Scene {
     // The quote makes room for the starter in the corner.
     this.renderCard(id, 'LEADS FIRST', 156);
     const sp = this.picks[id];
-    const s = this.add.sprite(212, 184, frontKey(sp)).setOrigin(0.5, 1).setFlipX(true);
+    const s = this.add.sprite(212, 184, frontKey(sp)).setOrigin(0.5, 1).setFlipX(true).setScale(monScale(this, frontKey(sp)));
     if (this.anims.exists(idleAnimKey(sp))) s.play(idleAnimKey(sp));
     this.top.add(s);
   }
