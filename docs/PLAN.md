@@ -445,7 +445,14 @@ reactions, the text-speed samples). **Next:** roadmap step 3 (evolution art, who
 - Test URLs: `?foe=voltcalf&weather=rain`, `?variant=shiny|prototype`, `?level=20`, `?evolve=voltcalf`.
 - **Review sheet:** `docs/ch1_review.png`; shiny options `docs/ch1_shinies.png` (owner picks one per line:
   set `pick` in `data/shinies.json`).
-- **Left:** owner's review round; then screens in `e2e/screens.spec.ts` for Chapter 1, full e2e, PR.
+- **Owner's round 1 (done):** Prototypes are a colourway now (dark stone + pulsing sanctuary blue, approved);
+  wings open through the story (Root Hall: first wild seal; Lantern Loft: the storm); shinies picked for
+  Voltcalf and Wardeye, options out for the other six lines (`docs/ch1_shinies_round2.png`,
+  `docs/ch1_shinies_sprigby.png`); Harrowjaw converted 25% bigger on a 224-wide canvas (M7 size kept as
+  `wip/m7/hi/harrowjaw_m7size*.txt`); new idles have their own motion; battle menu silhouettes fit;
+  walking sheets for every stage of every line: prompts in `art/prompts/followers.md` (owner to run).
+- **Left:** the owner's shiny picks; the walking sheets (convert per line with a turnaround2follow.py
+  per-line mode); then screens in `e2e/screens.spec.ts` for Chapter 1, full e2e, PR.
   Not done: Wardeye roaming the sanctuary (no follower art); Lantern Loft's room and its inside-joke
   paintings (brainstorm with the owner, then one room prompt); the Tide Gallery hint sign dropped from
   the hall (the old terminal is gone from the new concept).

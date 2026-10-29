@@ -6,10 +6,11 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from palette_pitch import line, shiny, apply, load, D
 out, roots = sys.argv[1], sys.argv[2:]
 CW, RH = 300, 150
-sheet = Image.new('RGBA', (110 + CW * 5, 40 + RH * len(roots)), (236, 232, 220, 255))
+NOPT = max(len(D['lines'][r]['options']) for r in roots)
+sheet = Image.new('RGBA', (110 + CW * (NOPT + 1), 40 + RH * len(roots)), (236, 232, 220, 255))
 d = ImageDraw.Draw(sheet)
 F = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf', 15)
-for j, t in enumerate(['normal', 'option 1', 'option 2', 'option 3', 'option 4']): d.text((110 + j * CW + 110, 10), t, fill=(40, 40, 40), font=F)
+for j, t in enumerate(['normal'] + [f'option {k + 1}' for k in range(NOPT)]): d.text((110 + j * CW + 110, 10), t, fill=(40, 40, 40), font=F)
 for i, root in enumerate(roots):
     ims = [load(n) for n in line(root)]
     cols = [ims] + [[apply(im, lambda c, o=o: shiny(c, o)) for im in ims] for o in D['lines'][root]['options']]
