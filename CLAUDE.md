@@ -262,3 +262,10 @@ Two common lines for the hills outside Hollow Rest. Stage 1s are drawn for M4; e
 - Story hook: nests under the Cloud Station's turbines and races the gondolas; Wayfarers use grown ones as couriers. The Tally runs "air traffic control" and grounds every flight with rain checks. Bestiary: "Has been cleared for takeoff 0 times. Takes off anyway."
 - Signature **Afterburner** (Wind, physical: hits hard, raises Speed, lowers its own Defense). Ability **Slipstream** (its first move each battle goes first).
 - Each stage is more aircraft, less bird. **Contrailon**: sleek, wing panels growing in, chest plates, canopy-like crest, contrails off the wingtips. **Strafalcon**: nearly a fighter jet (plated hull, swept wings, twin tail fins, glowing exhaust) with a falcon head and talons as landing gear.
+
+### Voltcalf → Voltaurus (Spark): the one-horned storm minotaur (Route 1 uncommon, approved 2026-10-29)
+- **Voltcalf**: a stocky little minotaur calf, charcoal-blue hide with a yellow lightning-streak blaze. **One horn shaped like a jagged lightning bolt; the other is a snapped, scorched stump** that still sparks. It carries its **fallen horn** as a club almost its own size, still charged. Won't put it down, even to eat or sleep; touchy about the stump. Bestiary: "Lost its horn to the first storm it ever met. Kept it. Has not stopped swinging it."
+- **Voltaurus**: hulking bull-man; the remaining bolt-horn huge and branching with arcs jumping off it; the fallen horn has grown with it into a **lightning-bolt labrys** (double axe) patched with copper bands; the stump capped in a copper ring (a battle scar). Battle pose: both hands on the axe mid-swing, horn and axe sparking at each other.
+- Story hook: guards the ruined storm-rod on Route 1's hill. Only appears **in rain**, which the Tally has been "rain-checking" for years, so nobody has seen one in ages.
+- Moves: **Horn Bolt** (swings the fallen horn; may paralyse). Voltaurus signature **Severance** (two-handed axe strike, stronger if it was hit earlier in the battle).
+- **Evolves with a Storm Shard** found at the ruins: the first item evolution (needs item triggers in the engine).
