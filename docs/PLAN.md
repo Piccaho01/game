@@ -442,6 +442,12 @@ reactions, the text-speed samples). **Next:** roadmap step 3 (evolution art, who
    Bible §7 now sets the rules: 6-8 species a route (so Route 1 needs 1-2 more: an uncommon and a
    rare/quest one), free line shapes (needs item/branch evolution triggers in the engine), shinies
    (1/512) and Prototypes (1/8192), both cosmetic palette + effect, no new art.
+   **Route 1 lineup approved** (bible §15): Orbitot and Fledjet lines (commons), Voltcalf →
+   Voltaurus (uncommon, rain only, Storm Shard evolution), Wardeye (rare quest: bring the storm
+   back). **Art is in** (prompts `art/prompts/ch1.md`): `art/concepts/line_minotaur.png`,
+   `voltcalf_sprites.png`, `voltaurus_sprites.png`, `wardeye_concept.png`, `wardeye_sprites.png`
+   (front left, back right; convert with `art/creatures/wip/m7/hi/conv2x.py`-style double-res,
+   split with `wip/m7/split.py`, then `make_px.py`, `idle_fx.json`).
 5. **Chapter 2**: Kettleport (Water/Metal) + the route to it, Connor's first "cancelled" boss
    fight, the Tide Gallery wing, its Patchling lines, shop + currency.
 6. Then a chapter at a time: Emberwick, Canopy, Nightmarket, Hush, with the non-town locations
