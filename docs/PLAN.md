@@ -402,6 +402,17 @@ bridge is optional.
 **Waiting on the owner:** one look at the screenshot sheet and the new lines (blackout, evolve
 reactions, the text-speed samples). **Next:** roadmap step 3 (evolution art, whole lines).
 
+### M7 handoff (evolution art, branch `claude/affectionate-wozniak-wh7dgz`)
+- All 12 missing forms drawn by the owner (front+back pairs, prompts `art/prompts/m7.md`), split
+  (`art/creatures/wip/m7/split.py`), converted plain with draft2sprite (`wip/m7/conv.py`), and
+  written as `art/creatures/<name>.px.js` by `wip/m7/make_px.py` (idle: 1px breath, or 1px hover
+  for Craterra, Singulith, Contrailon, Strafalcon). Wired in `patchlings.json`.
+- Owner's calls: the smaller wallaby pair is the **new Sprigby** (old one: `wip/sprigby_v1.px.js`);
+  Gulpjaw has **no throat glow** (Harrowjaw keeps it); Cullet drawn bigger.
+- Screens: `art/creatures/wip/out/_preview/m7_ingame.png`, `m7_evolve.png`.
+- **Waiting on the owner:** says the batch is right, then PR. Attack animations (Glassblow first)
+  are still to do.
+
 ## Roadmap after the playtest (proposed 2026-10-28; see WORKFLOW "chapters")
 1. **Playtest fixes**: the group's feedback as one batch.
 2. **M6 Game shell**: title screen and main menu (Continue / New Game / Settings), pause menu,
