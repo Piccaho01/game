@@ -1,6 +1,6 @@
 # Chapter 1 (finish Route 1): image prompts (paste into ChatGPT)
 
-Voltcalf and Voltaurus first (Route 1's uncommon, bible §15). The rare/quest Patchling's prompts get added here once it's pitched. **Attach** the listed images, run them in order, send the results back in the chat. No text, logos or Poké Balls.
+Voltcalf and Voltaurus first (Route 1's uncommon, bible §15). Then Wardeye (Route 1's rare quest Patchling). **Attach** the listed images, run them in order, send the results back in the chat. No text, logos or Poké Balls.
 
 ## Voltcalf → Voltaurus (Spark)
 
@@ -147,6 +147,86 @@ big double-headed labrys axe shaped
 like a lightning bolt, bound with
 copper bands. Hooves leave small
 scorch marks.
+At most 15 colours shared by both,
+clear white gap between the two, flat
+white background, no text, no shadow.
+```
+
+## Wardeye (Dark/Relic, single stage)
+
+### 4. Wardeye concept
+- **Save as:** `art/concepts/wardeye_concept.png`  ·  **Shape:** square
+- **Attach:** `art/concepts/line_wallaby.png`
+
+```
+Official artwork of an original
+creature for a creature-collecting
+RPG, in the same clean anime style as
+the attached sheet (crisp linework,
+cel shading, soft highlights). Full
+body, flat white background, no text,
+no logos.
+Wardeye: a ghost creature that is a
+weathered brass lantern drifting on a
+wispy pale-teal smoke tail. Instead of
+a flame, inside the lantern's glass
+cage there is ONE huge glowing eye
+with a golden iris that swivels. It
+wears a tattered, half-see-through
+dark navy lighthouse keeper's coat as
+a cloak around the lantern, a rusted
+chain hangs off it like a dragging
+anchor, and two wispy ghost hands hold
+the lantern's ring handle. Eerie but
+likeable, not gory.
+Pose: 3/4 view facing left, the
+lantern tilted toward the viewer's
+left, the eye mid-glare, the coat and
+smoke tail streaming behind.
+Keep it original, not any existing
+Pokemon.
+```
+
+### 5. Wardeye sprites (front + back)
+- **Save as:** `art/concepts/wardeye_sprites.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/wardeye_concept.png`, `art/concepts/fernaroo_front.png`
+
+```
+Redraw the creature in the first
+attached image as a pair of Pokemon
+Black/White 2 battle sprites side by
+side in ONE image, in exactly the
+pixel size, outline weight and shading
+of the second attached image. Crisp
+hand-placed pixel clusters, flat
+colour areas with clean 2-3 step
+shading, no dithering, no noise, no
+blur.
+LEFT: the front sprite, 3/4 view
+facing left, the lantern tilted toward
+the foe, the eye mid-glare.
+RIGHT: the back sprite, the SAME
+creature in the SAME pose with the
+camera moved behind it, as Black/White
+2 shows your own Pokemon: it faces up
+and to the right. Show the back of the
+coat, the lantern's back with the
+eye's glow leaking through the glass,
+the chain and the smoke tail.
+Keep its design exactly as in the
+first image: Wardeye: a ghost creature
+that is a weathered brass lantern
+drifting on a wispy pale-teal smoke
+tail. Instead of a flame, inside the
+lantern's glass cage there is ONE huge
+glowing eye with a golden iris that
+swivels. It wears a tattered, half-
+see-through dark navy lighthouse
+keeper's coat as a cloak around the
+lantern, a rusted chain hangs off it
+like a dragging anchor, and two wispy
+ghost hands hold the lantern's ring
+handle. Eerie but likeable, not gory.
 At most 15 colours shared by both,
 clear white gap between the two, flat
 white background, no text, no shadow.
