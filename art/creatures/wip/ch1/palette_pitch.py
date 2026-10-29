@@ -17,6 +17,9 @@ def line(n):
         e = SP[out[-1]]['evolves']; out.append((e[0] if isinstance(e, list) else e)['to'])
     return out
 def shiny(px, o):
+    for gr in o.get('groups', []):   # two- or three-tone shinies: these colours take their own shift
+        if any(sum(abs(int(c[i:i + 2], 16) - px[k]) for k, i in enumerate((1, 3, 5))) < 6 for c in gr['colours']):
+            return shiny(px, gr)
     r, g, b = [v / 255 for v in px[:3]]
     h, l, s = colorsys.rgb_to_hls(r, g, b)
     if l < 0.17: return px

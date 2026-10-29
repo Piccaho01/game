@@ -19,8 +19,13 @@ export function rollVariant(rng: Rng): Variant | undefined {
   return undefined;
 }
 
-/** A colour shift: hue turned by `hue` degrees, saturation and lightness scaled; `keep` colours (eyes, outlines) stay. */
-export interface Recolor { hue?: number; sat?: number; light?: number; keep?: string[] }
+/**
+ * A colour shift: hue turned by `hue` degrees, saturation and lightness scaled; `keep` colours
+ * (eyes, outlines) stay. `groups`: colours that take their own shift (a shiny in two or three
+ * tones: body, leaves, bark), the rest take the top-level one.
+ */
+export interface Shift { hue?: number; sat?: number; light?: number }
+export interface Recolor extends Shift { keep?: string[]; groups?: (Shift & { colours: string[] })[] }
 interface ShinyLine { options: Recolor[]; pick: number }
 /** The Prototype colourway: stone (hue, saturation, lightness = base + l x scale) and the blue its accents turn. */
 export interface PrototypeLook { stone: { hue: number; sat: number; base: number; scale: number }; blue: { hue: number; sat: number }; accents: number; glow: string }
@@ -107,7 +112,10 @@ const hex = (c: string) => [1, 3, 5].map((i) => parseInt(c.slice(i, i + 2), 16))
 
 /** One colour through a shiny recolour (outlines, near-black and greys under 12% saturation stay put). */
 export function recolorPixel(r: number, g: number, b: number, rc: Recolor): [number, number, number] {
-  if (rc.keep?.some((k) => { const [kr, kg, kb] = hex(k); return Math.abs(kr - r) + Math.abs(kg - g) + Math.abs(kb - b) < 6; })) return [r, g, b];
+  const near = (k: string) => { const [kr, kg, kb] = hex(k); return Math.abs(kr - r) + Math.abs(kg - g) + Math.abs(kb - b) < 6; };
+  if (rc.keep?.some(near)) return [r, g, b];
+  const group = rc.groups?.find((gr) => gr.colours.some(near));
+  if (group) return recolorPixel(r, g, b, { hue: group.hue, sat: group.sat, light: group.light });
   let [h, s, l] = rgbToHsl(r, g, b);
   if (l < 0.17) return [r, g, b];
   if (s > 0.12) {
