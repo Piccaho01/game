@@ -56,27 +56,28 @@ def apply(im, f):
 def load(n):
     im = Image.open(os.path.join(ROOT, f'art/creatures/out/sprites/{n}.png')).convert('RGBA')
     return im.crop(im.getbbox())
-rows = []
-for root in D['lines']:
-    ims = [load(n) for n in line(root)]
-    o = D['lines'][root]['options'][PICK[root]]
-    protos = []
-    for i in ims:
-        ACC.clear(); ACC.update(accents(i)); protos.append(apply(i, proto))
-    rows.append((root, PICK[root] + 1, [ims, [apply(i, lambda c: shiny(c, o)) for i in ims], protos]))
-CW, RH = 330, 150
-sheet = Image.new('RGBA', (120 + CW * 3, 40 + RH * len(rows)), (236, 232, 220, 255))
-d = ImageDraw.Draw(sheet)
-try: F = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf', 15)
-except Exception: F = None
-for j, t in enumerate(['normal', 'shiny (pick)', 'Prototype']): d.text((120 + j * CW + 110, 10), t, fill=(40, 40, 40), font=F)
-for i, (root, k, cols) in enumerate(rows):
-    y0 = 40 + i * RH
-    d.text((8, y0 + 60), f'{root}\nshiny opt {k}', fill=(40, 40, 40), font=F)
-    for j, ims in enumerate(cols):
-        x = 120 + j * CW + 4
-        for im in ims:
-            s = min(1, (RH - 14) / im.height, 105 / im.width)
-            im2 = im.resize((max(1, round(im.width * s)), max(1, round(im.height * s))), Image.NEAREST)
-            sheet.alpha_composite(im2, (x, y0 + RH - 8 - im2.height)); x += im2.width + 3
-sheet.save(sys.argv[1])
+if __name__ == '__main__':
+    rows = []
+    for root in D['lines']:
+        ims = [load(n) for n in line(root)]
+        o = D['lines'][root]['options'][PICK[root]]
+        protos = []
+        for i in ims:
+            ACC.clear(); ACC.update(accents(i)); protos.append(apply(i, proto))
+        rows.append((root, PICK[root] + 1, [ims, [apply(i, lambda c: shiny(c, o)) for i in ims], protos]))
+    CW, RH = 330, 150
+    sheet = Image.new('RGBA', (120 + CW * 3, 40 + RH * len(rows)), (236, 232, 220, 255))
+    d = ImageDraw.Draw(sheet)
+    try: F = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf', 15)
+    except Exception: F = None
+    for j, t in enumerate(['normal', 'shiny (pick)', 'Prototype']): d.text((120 + j * CW + 110, 10), t, fill=(40, 40, 40), font=F)
+    for i, (root, k, cols) in enumerate(rows):
+        y0 = 40 + i * RH
+        d.text((8, y0 + 60), f'{root}\nshiny opt {k}', fill=(40, 40, 40), font=F)
+        for j, ims in enumerate(cols):
+            x = 120 + j * CW + 4
+            for im in ims:
+                s = min(1, (RH - 14) / im.height, 105 / im.width)
+                im2 = im.resize((max(1, round(im.width * s)), max(1, round(im.height * s))), Image.NEAREST)
+                sheet.alpha_composite(im2, (x, y0 + RH - 8 - im2.height)); x += im2.width + 3
+    sheet.save(sys.argv[1])

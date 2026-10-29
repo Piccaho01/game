@@ -13,7 +13,7 @@ import { count, ITEMS, itemsInBag } from '../engine/items';
 import { itemEvolution, useEvolutionItem } from '../engine/evolution';
 import { questOf } from '../engine/quests';
 import { weatherHere } from '../engine/weather';
-import { variantLook } from '../ui/variantFx';
+import { pulse, variantLook } from '../ui/variantFx';
 import type { EvolveData } from './EvolveScene';
 import { settingsPanel, partyBlurb } from '../ui/settingsPanel';
 import { party, soundOn, textSpeed } from '../settings';
@@ -244,6 +244,7 @@ export class JournalScene extends Phaser.Scene {
     const look = variantLook(this, species, frontKey(species), idleAnimKey(species), member?.variant);
     const sprite = this.add.sprite(52, 118, look.key).setOrigin(0.5, 1).setScale(monScale(this, frontKey(species)));
     if (seen && look.anim) sprite.play(look.anim);
+    if (seen && look.glow) pulse(this, sprite, look.glow);
     if (!seen) sprite.setTintFill(COLORS.ink);
     this.top.add(sprite);
     this.top.add(pixelText(this, 100, 18, seen ? sp.name : '???', { size: TEXT_SIZE.heading }));

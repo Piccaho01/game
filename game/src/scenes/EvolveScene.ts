@@ -4,7 +4,7 @@ import { evoTriggers, MOVES, SPECIES, TYPES } from '../engine/data';
 import { linesFor } from '../engine/dialogue';
 import { evolve, findMember, stopEvolution, type EvolutionDue } from '../engine/evolution';
 import { useItem } from '../engine/items';
-import { variantLook } from '../ui/variantFx';
+import { pulse, variantLook } from '../ui/variantFx';
 import { CHARACTERS, type Progress } from '../engine/progress';
 import { saveProgress } from '../save';
 import { DialogBox } from '../ui/dialog';
@@ -204,6 +204,9 @@ export class EvolveScene extends Phaser.Scene {
     glowLine.destroy();
   }
 
+  /** A Prototype's pulse on the evolving Patchling (restarted when its form changes). */
+  private stopPulse?: () => void;
+
   private playIdle(species: string) {
     this.mon.anims.stop();
     // A shiny or Prototype evolves into its new form's shiny or Prototype look.
@@ -212,6 +215,8 @@ export class EvolveScene extends Phaser.Scene {
     const look = variantLook(this, species, frontKey(species), idleAnimKey(species), m?.variant);
     this.mon.setTexture(look.key).setScale(monScale(this, frontKey(species)));
     if (look.anim) this.mon.play(look.anim);
+    this.stopPulse?.();
+    this.stopPulse = look.glow ? pulse(this, this.mon, look.glow) : undefined;
   }
 
   /** Whose Patchling it is, and STOP while it changes. */

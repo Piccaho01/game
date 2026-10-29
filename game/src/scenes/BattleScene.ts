@@ -28,7 +28,7 @@ import type { Weather } from '../engine/data';
 import type { Variant } from '../engine/progress';
 import { markBeaten } from '../engine/weather';
 import { rainLayer } from '../ui/weatherFx';
-import { corruptedSound, glitch, sparkle, variantLook } from '../ui/variantFx';
+import { corruptedSound, pulse, sparkle, variantLook } from '../ui/variantFx';
 
 /**
  * `from: 'overworld'`: a wild encounter, which goes back to the same spot when it ends.
@@ -94,7 +94,6 @@ export class BattleScene extends Phaser.Scene {
       foe: this.addBattler('foe', 192, 100),
       player: this.addBattler('player', 66, 158),
     };
-    if (this.params.variant === 'prototype') glitch(this, this.sprites.foe);
     if (this.params.weather === 'rain') rainLayer(this, { x: 0, y: 0, w: SCREEN_W, h: SCREEN_H }, 2);
     // Your box top left, the foe's bottom right (owner's call, M7; BW has them the other way round).
     this.hpBoxes = { foe: new InfoCard(this, 'foe', 112), player: new InfoCard(this, 'player', 8) };
@@ -167,12 +166,13 @@ export class BattleScene extends Phaser.Scene {
       const body = spriteBounds(this, key, firstFrame(this, key)).h * 2 * monScale(this, key);
       const b = this.add.sprite(x, y + 8, look.key).setOrigin(0.5, 1).setScale(2 * monScale(this, key) * Math.min(1, 120 / body));
       if (look.anim) b.play(look.anim);
-      if (variant === 'prototype') glitch(this, b);
+      if (look.glow) pulse(this, b, look.glow);
       return b;
     }
     const look = variantLook(this, species, frontKey(species), idleAnimKey(species), variant);
     const s = this.add.sprite(x, y, look.key).setOrigin(0.5, 1).setScale(monScale(this, frontKey(species)));
     if (look.anim) s.play(look.anim);
+    if (look.glow) pulse(this, s, look.glow);
     if (side === 'player') s.setFlipX(true);
     if (this.registry.get(`placeholder:${frontKey(species)}`) !== undefined) {
       s.setData('label', pixelText(this, x, y - 14, 'placeholder', { color: '#ffffff', size: 6, shadow: '#000000' }).setOrigin(0.5, 0).setDepth(1));
@@ -371,7 +371,7 @@ export class BattleScene extends Phaser.Scene {
     await this.playEvents(this.introEvents);
     if (this.params.variant === 'shiny') await this.say(`Whoa! This ${this.battle.foe.name} is a different colour!`);
     if (this.params.variant === 'prototype') {
-      await this.say(`This ${this.battle.foe.name} is... flickering?`);
+      await this.say(`This ${this.battle.foe.name} is made of... stone? It's humming.`);
       await this.say(`PATCH (on the phone): That's... not supposed to exist. Please don't tell anyone about that one.`);
     }
     await this.record(recordEncounter(this.progress, this.battle.foe.species));

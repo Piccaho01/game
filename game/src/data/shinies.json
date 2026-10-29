@@ -1,14 +1,14 @@
 {
-  "_note": "Shiny palettes per evolution line (bible §7: picked or approved by the owner). Each option is a colour shift (engine/variants.ts Recolor): hue turned in degrees, saturation and lightness scaled, 'keep' colours untouched. 'pick' is the one in the game (0 until the owner chooses on the review sheet). 'prototype': PATCH's scrapped first draft, washed out toward the draft green, plus the live glitch.",
+  "_note": "Shiny palettes per evolution line (bible \u00a77: picked or approved by the owner). Each option is a colour shift (engine/variants.ts Recolor): hue turned in degrees, saturation and lightness scaled, 'keep' colours untouched. 'pick' is the one in the game (owner picked Sprigby, Voltcalf and Wardeye; the rest are a second round of options). 'prototype' (owner's call, Chapter 1): PATCH's scrapped first draft as a colourway, no glitch: the sanctuary's dark stone by lightness, and the sprite's brightest colours ('accents': that share of its pixels, glows and eyes and markings) in its vibrant screen blue, pulsing in game.",
   "lines": {
-    "furnaxol":  { "pick": 0, "options": [{ "hue": 190 }, { "hue": -40, "sat": 0.8 }, { "hue": 100, "sat": 1.1 }] },
-    "zapail":    { "pick": 0, "options": [{ "hue": 150 }, { "hue": 270 }, { "hue": 40, "sat": 0.7, "light": 1.08 }] },
+    "furnaxol":  { "pick": 0, "options": [{ "hue": 200, "sat": 0.6, "light": 1.1 }, { "hue": 120, "sat": 0.8 }, { "hue": -60 }, { "hue": 25, "sat": 0.45, "light": 1.15 }] },
+    "zapail":    { "pick": 0, "options": [{ "hue": -150 }, { "hue": 110 }, { "hue": 200, "sat": 0.5, "light": 1.05 }, { "hue": 60, "sat": 1.2 }] },
     "sprigby":   { "pick": 0, "options": [{ "hue": -80 }, { "hue": 160 }, { "hue": 25, "sat": 0.55, "light": 1.1 }] },
-    "gobbin":    { "pick": 0, "options": [{ "hue": 120 }, { "hue": 200, "sat": 1.2 }, { "hue": 40 }] },
-    "orbitot":   { "pick": 0, "options": [{ "hue": 120 }, { "hue": -100 }, { "hue": 180, "sat": 1.2 }] },
-    "fledjet":   { "pick": 0, "options": [{ "hue": 150 }, { "hue": -160 }, { "hue": 90, "sat": 1.2 }] },
-    "voltcalf":  { "pick": 0, "options": [{ "hue": 160 }, { "hue": -60, "sat": 1.1 }, { "hue": 110 }] },
-    "wardeye":   { "pick": 0, "options": [{ "hue": 150 }, { "hue": -110 }, { "hue": 60, "sat": 1.2 }] }
+    "gobbin":    { "pick": 0, "options": [{ "hue": 180, "sat": 1.6 }, { "hue": -100, "sat": 1.8 }, { "hue": 40, "sat": 2.0 }, { "hue": 0, "sat": 0.2, "light": 1.15 }] },
+    "orbitot":   { "pick": 0, "options": [{ "hue": 60 }, { "hue": 150 }, { "hue": -60, "sat": 1.2 }, { "hue": 200, "sat": 1.1 }] },
+    "fledjet":   { "pick": 0, "options": [{ "hue": 180 }, { "hue": 120 }, { "hue": -80 }, { "hue": 0, "sat": 0.2, "light": 1.1 }] },
+    "voltcalf":  { "pick": 1, "options": [{ "hue": 160 }, { "hue": -60, "sat": 1.1 }, { "hue": 110 }] },
+    "wardeye":   { "pick": 1, "options": [{ "hue": 150 }, { "hue": -110 }, { "hue": 60, "sat": 1.2 }] }
   },
-  "prototype": { "hue": 0, "sat": 0.35, "light": 1.08, "tint": "#7effc8", "mix": 0.18 }
+  "prototype": { "stone": { "hue": 32, "sat": 0.1, "base": 0.07, "scale": 0.74 }, "blue": { "hue": 205, "sat": 0.95 }, "accents": 0.2, "glow": "#1e8cff" }
 }

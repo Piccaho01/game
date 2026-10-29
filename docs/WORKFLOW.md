@@ -65,7 +65,10 @@ Playtest feedback comes back as one list and is fixed in one session, as its own
 ## Patchlings: whole evolution lines only (owner's rule, 2026-10-28)
 A new Patchling is always pitched, drawn and built as its **full evolution line** (every stage,
 front + back + idle) in one batch: no stage 1 now and evolutions later. The pitch has every stage;
-the prompt file has every stage's concept and sprites.
+the prompt file has every stage's concept and sprites, **and the line's walking sheet** (every stage,
+8 views; owner's rule 2026-10-29, see `art/prompts/followers.md`). Every stage gets an idle of its
+own (its own motion, not just a breath and a glow), and its shiny and Prototype colours are pitched
+on a sheet for the owner to pick before they're official.
 
 ## Owner reviews: once per milestone
 - One screenshot sheet (from `e2e/screens.spec.ts`) plus any new written lines, in one short

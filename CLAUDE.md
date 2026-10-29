@@ -89,7 +89,7 @@ Faces and hair come from the owner's photos; outfits are game designs, one colou
 ### Progression: the Bestiary
 - Every creature has an entry with stages: **Sighted → Tracked → Studied → Sealed → Bonded**. Each stage unlocks lore.
 - Rare and unique creatures have **quest entries**: their page stays incomplete until the player does something tied to the world (help a faction, fix a habitat, uncover history).
-- Filling entries restores **sanctuary wings**, which unlock areas, abilities and story beats.
+- **Sanctuary wings open through the story** (owner's call, 2026-10-29): each chapter's quest opens its wing (the Lantern Loft when the storm comes back to Route 1), which unlocks areas, abilities and story beats. Bestiary points go on filling the rooms in over time (decor, residents, visitors), not on wings.
 
 ### The Sanctuary (home base)
 - The stone entrance on the hill in Hollow Rest opens into a **huge explorable base** inside the hill: halls, wings and chambers that **unlock as the story progresses** (restored wings, quests, story beats). It's where Patchlings are stored, where the friends sleep, and where PATCH works.
@@ -128,8 +128,8 @@ Every Patchling on all four teams gets the full experience from each battle; Pat
 - **Line shapes are free:** 3-stage, 2-stage and single-stage Patchlings, branching evolutions and item/other triggers are all allowed. A single-stager is one sprite pair, good for personality and inside-joke creatures.
 
 ### Shinies and Prototypes (owner's rule, 2026-10-29)
-- **Shiny:** about **1 in 512**. A second palette per line (picked or approved by the owner), a sparkle when it appears, a star in the bestiary, "shiny sealed" on the entry.
-- **Prototype:** rarer than shiny, about **1 in 8192**: PATCH's scrapped first draft of that creature, still in the code (Draft Archive lore). A washed-out early palette plus a live glitch effect (colour-split edges, scanlines, torn slices), a corrupted entry sound and its own bestiary note. PATCH: "That's... not supposed to exist. Please don't tell anyone about that one." Prototypes may be what the Draft Archive's sealed doors respond to.
+- **Shiny:** about **1 in 512**. A second palette per line (picked by the owner from options; `data/shinies.json`), a sparkle when it appears, a star in the bestiary, "shiny sealed" on the entry.
+- **Prototype:** rarer than shiny, about **1 in 8192**: PATCH's scrapped first draft of that creature, still in the code (Draft Archive lore). A colourway, no glitch (owner's call): the sanctuary's dark stone, with its brightest colours (glows, eyes, markings) in the sanctuary's vibrant screen blue, pulsing. A corrupted entry sound and its own bestiary note. PATCH: "That's... not supposed to exist. Please don't tell anyone about that one." Prototypes may be what the Draft Archive's sealed doors respond to.
 - Both are **cosmetic only** (no stat boost). Neither needs new drawings.
 
 ### Special/legendary creatures
