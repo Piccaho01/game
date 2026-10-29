@@ -2,8 +2,8 @@ import sanctuaryJson from '../data/sanctuary.json';
 import type { Line } from './dialogue';
 import { sanctuaryPoints, type Progress } from './progress';
 
-/** Sanctuary wings (data/sanctuary.json): restored with sanctuary points, in order. */
-export interface Wing { id: string; name: string; points: number; desc: string; patch: Line[] }
+/** Sanctuary wings (data/sanctuary.json): restored with sanctuary points, in order; `after`: story flags needed too (`waiting`: PATCH's hint until then). */
+export interface Wing { id: string; name: string; points: number; desc: string; patch: Line[]; after?: string[]; waiting?: string }
 export const WINGS = sanctuaryJson.wings as Wing[];
 
 export type WingState = 'restored' | 'ready' | 'locked';
@@ -14,7 +14,8 @@ export function wingState(p: Progress, id: string): WingState {
   if (i < 0) throw new Error(`Unknown wing: ${id}`);
   if (p.wings.includes(id)) return 'restored';
   const before = WINGS.slice(0, i).every((w) => p.wings.includes(w.id));
-  return before && sanctuaryPoints(p) >= WINGS[i].points ? 'ready' : 'locked';
+  const story = (WINGS[i].after ?? []).every((f) => p.flags?.includes(f));
+  return before && story && sanctuaryPoints(p) >= WINGS[i].points ? 'ready' : 'locked';
 }
 
 /** Restores a ready wing; returns false if it isn't ready. */

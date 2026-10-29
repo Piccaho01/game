@@ -76,7 +76,7 @@ const hex = (c: string) => [1, 3, 5].map((i) => parseInt(c.slice(i, i + 2), 16))
 export function recolorPixel(r: number, g: number, b: number, rc: Recolor & { tint?: string; mix?: number }): [number, number, number] {
   if (rc.keep?.some((k) => { const [kr, kg, kb] = hex(k); return Math.abs(kr - r) + Math.abs(kg - g) + Math.abs(kb - b) < 6; })) return [r, g, b];
   let [h, s, l] = rgbToHsl(r, g, b);
-  if (l < 0.13 && !rc.tint) return [r, g, b];
+  if (l < 0.17 && !rc.tint) return [r, g, b];
   if (s > 0.12 || rc.tint) {
     h += rc.hue ?? 0;
     s = Math.min(1, s * (rc.sat ?? 1));

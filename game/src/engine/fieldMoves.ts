@@ -30,6 +30,10 @@ export interface Obstacle {
   sets?: string[]; scene?: string;
   /** Looking at it counts as sighting this Patchling (Wardeye's dim lantern). */
   sights?: string;
+  /** Said instead of the kind's `clear` line (the rod isn't a door that opens). */
+  clearLine?: string;
+  /** A map event played once it's cleared, before `scene` (the storm coming back: scenes/OverworldScene.ts). */
+  event?: 'storm';
 }
 
 const DATA = obstaclesJson as unknown as { kinds: Record<ObstacleKind, KindData>; obstacles: Obstacle[] };
@@ -69,5 +73,5 @@ export function tryObstacle(p: Progress, o: Obstacle): { cleared: boolean; lines
     const n = o.reward.n ?? 1;
     reward = `Found ${n > 1 ? `${n} ` : 'a '}${ITEMS[o.reward.item].name}${n > 1 ? 's' : ''}!`;
   }
-  return { cleared: true, lines: [k.clear], reward, talk: o.clearTalk };
+  return { cleared: true, lines: [o.clearLine ?? k.clear], reward, talk: o.clearTalk };
 }

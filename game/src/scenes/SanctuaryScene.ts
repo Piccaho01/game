@@ -175,6 +175,7 @@ export class SanctuaryScene extends Phaser.Scene {
       : state === 'ready' ? 'Enough points. Tap RESTORE. I\'ll hold the torch.'
       : WINGS.indexOf(w) > 0 && wingState(this.progress, WINGS[WINGS.indexOf(w) - 1].id) !== 'restored'
         ? 'One wing at a time. I\'m a robot, not a miracle.'
+        : w.waiting && !(w.after ?? []).every((f) => this.progress.flags?.includes(f)) ? w.waiting
         : 'Fill the bestiary to earn points. Every stage counts.';
     this.top.add(pixelText(this, 72, 124, hint, { color: TEXT_COLORS.inkSoft, size: TEXT_SIZE.small, wrap: 166 }));
   }

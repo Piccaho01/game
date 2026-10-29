@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import { SCREEN_H, SCREEN_W, ZOOM } from '../config';
 import { linesFor } from '../engine/dialogue';
-import { DIRS, facing, findPath, followStep, heightAt, lineUp, MAPS, npcAt, OBJECTS, objectAction, rollEncounter, signAt, stairAxis, START, staticAt, step, type Dir, type Npc, type Opens, type Position, type Spot } from '../engine/overworld';
+import { DIRS, facing, findPath, followStep, heightAt, lineUp, MAPS, npcAt, OBJECTS, objectAction, objectAt, rollEncounter, signAt, stairAxis, START, staticAt, step, type Dir, type Npc, type Opens, type Position, type Spot } from '../engine/overworld';
 import { skyOn, type Sky } from '../engine/weather';
 import { rollVariant } from '../engine/variants';
 import { rainLayer, type RainLayer } from '../ui/weatherFx';
@@ -15,7 +15,7 @@ import { MAP_ART, type MapLayout, type MapSprite } from '../assets';
 import { walkerTextures } from '../overworld/tileArt';
 import { saveProgress } from '../save';
 import { party } from '../settings';
-import { refillScrolls } from '../engine/items';
+import { addItem, refillScrolls } from '../engine/items';
 import { obstacleAt, OBSTACLE_KINDS, obstaclesOn, tryObstacle, type Obstacle } from '../engine/fieldMoves';
 import { sfx } from '../ui/sfx';
 import { DialogBox } from '../ui/dialog';
@@ -86,6 +86,9 @@ export class OverworldScene extends Phaser.Scene {
   /** This map's sky (engine/weather.ts) and its rain, if it's raining. */
   private sky: Sky = { kind: null, until: Infinity };
   private rain?: RainLayer;
+  /** Map pieces by art (the storm-rod swaps to its relit art), and a Patchling's lantern hung on one. */
+  private pieces = new Map<string, Phaser.GameObjects.Image>();
+  private lantern?: { img: Phaser.GameObjects.Image; glow: Phaser.GameObjects.Arc; sp: MapSprite };
 
   constructor() { super('overworld'); }
 
@@ -136,19 +139,25 @@ export class OverworldScene extends Phaser.Scene {
     this.world.removeAll(true);
     this.world.add(this.add.image(0, 0, groundKey(map.id)).setOrigin(0, 0).setDepth(-100000));
     this.big = [];
+    this.pieces.clear();
+    this.lantern = undefined;
     this.obstacles = obstaclesOn(map.id, this.progress);
     this.obstacleSprites.clear();
     const standIns = new Map(this.obstacles.filter((o) => o.replaces).map((o) => [o.replaces!, o]));
     for (const sp of this.layout.sprites) {
       // Rubble and the like: gone once its wing is restored (engine/world.ts).
       if (sp.until && met(sp.until, this.progress)) continue;
-      // A field-move obstacle standing in for this piece (the broken bridge) is drawn in its place.
+      // A field-move obstacle standing in for this piece (the broken bridge) is drawn in its place;
+      // a piece that changes with the story (the relit storm-rod) shows its later art.
       const o = standIns.get(sp.art);
-      const art = o?.art ?? sp.art;
+      const later = Object.values(OBJECTS).find((d) => d.art === sp.art && d.later?.art && met(d.later.when, this.progress))?.later?.art;
+      const art = o?.art ?? later ?? sp.art;
       const img = this.add.image(sp.x, sp.y, propKey(art)).setOrigin(0, 0).setDepth(sp.decal ? -50000 : sp.key);
       this.world.add(img);
       if (o) { img.setData('fixed', sp.art); this.obstacleSprites.set(o.id, img); }
       if (!sp.decal && (sp.wx > 1 || sp.wy > 1)) this.big.push({ img, sp });
+      this.pieces.set(sp.art, img);
+      this.hangLantern(sp);
     }
     // The map's people, the recurring cast who are here now, and Patchlings living in the sanctuary.
     this.npcs = [...peopleOn(map, this.progress), ...roamersOn(map.id, this.progress.sanctuary, (sp) => this.textures.exists(followKey(sp)))
@@ -184,6 +193,76 @@ export class OverworldScene extends Phaser.Scene {
     this.lineUpFollowers();
     this.placePlayer();
     this.updateSky();
+  }
+
+  /**
+   * A Patchling's lantern on its piece (Wardeye on the storm-rod), until it's sealed: dim with the
+   * eye half shut, then lit and glowing once the piece's `later` holds (the storm is back).
+   */
+  private hangLantern(sp: MapSprite) {
+    const def = Object.values(OBJECTS).find((d) => d.art === sp.art && d.lantern);
+    const l = def?.lantern;
+    if (!def || !l || (this.progress.bestiary[l.species]?.seals ?? 0) > 0) return;
+    const lit = !!def.later && met(def.later.when, this.progress);
+    const x = sp.x + (lit ? l.litDx ?? l.dx : l.dx);
+    const y = sp.y + (lit ? l.litDy ?? l.dy : l.dy);
+    const glow = this.add.circle(x, y + 6, 9, 0xf9da69, lit ? 0.22 : 0).setDepth(sp.key + 0.4).setBlendMode(Phaser.BlendModes.ADD);
+    const img = this.add.image(x, y, lanternTexture(this, lit)).setOrigin(0.5, 0).setDepth(sp.key + 0.5);
+    this.world.add([glow, img]);
+    if (lit) this.tweens.add({ targets: glow, fillAlpha: 0.4, scale: 1.2, duration: 900, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
+    this.lantern = { img, glow, sp };
+  }
+
+  /**
+   * The storm comes back (Chapter 1, after Nolan frees the storm-rod): the sky goes dark, thunder,
+   * a bolt comes down onto the rod, which relights with its lantern, and the rain starts.
+   */
+  private async stormReturns() {
+    this.busy = true;
+    const rod = this.pieces.get('r1_storm_rod');
+    const cam = this.cameras.main;
+    const dark = this.add.rectangle(0, 0, SCREEN_W, SCREEN_H, 0x101828, 0).setOrigin(0).setDepth(3);
+    await tweenAsync(this, { targets: dark, fillAlpha: 0.45, duration: 900 });
+    sfx('thunder');
+    cam.shake(300, 0.004);
+    await wait(this, 500);
+    // The bolt: a jagged line from the top of the screen to the rod's tip, then the flash.
+    if (rod) {
+      const top = rod.getTopCenter();
+      const tx = top.x + this.world.x;
+      const ty = top.y + this.world.y;
+      const g = this.add.graphics().setDepth(5);
+      let x = tx + 18;
+      let y = 0;
+      const pts: [number, number][] = [[x, y]];
+      while (y < ty - 6) { y = Math.min(ty, y + 10 + Math.random() * 8); x += (Math.random() - 0.5) * 16; pts.push([x, y]); }
+      pts.push([tx, ty]);
+      for (const [w, c] of [[5, 0xfff6c8], [2, 0xffffff]] as const) {
+        g.lineStyle(w, c, 1);
+        g.beginPath();
+        g.moveTo(...pts[0]);
+        for (const p of pts.slice(1)) g.lineTo(...p);
+        g.strokePath();
+      }
+      sfx('thunder');
+      cam.flash(260, 255, 255, 240);
+      cam.shake(420, 0.01);
+      await wait(this, 160);
+      g.destroy();
+      rod.setTexture(propKey('r1_storm_rod_lit'));
+      this.pieces.set('r1_storm_rod_lit', rod);
+      if (this.lantern) {
+        this.lantern.img.destroy();
+        this.lantern.glow.destroy();
+        this.hangLantern({ ...this.lantern.sp });
+      }
+      this.sparks(rod.x + rod.width / 2, rod.y + 10);
+    }
+    await wait(this, 400);
+    this.startRain(6);
+    await tweenAsync(this, { targets: dark, fillAlpha: 0, duration: 1400 });
+    dark.destroy();
+    this.busy = false;
   }
 
   /** Rolls this map's weather when it's due and shows or clears the rain to match. */
@@ -543,7 +622,13 @@ export class OverworldScene extends Phaser.Scene {
       return;
     }
     const gate = gateAt(map, x, y, this.progress);
-    const act: { text?: string; talk?: string; opens?: Opens; rest?: boolean } | null = gate ? OBJECTS[gate.kind] : signAt(map, x, y) ?? objectAction(map, this.pos);
+    let act: { text?: string; talk?: string; opens?: Opens; rest?: boolean } | null = gate ? OBJECTS[gate.kind] : signAt(map, x, y) ?? objectAction(map, this.pos);
+    // A piece that has changed with the story reads its later lines.
+    const later = !gate && objectAt(map, x, y) ? OBJECTS[objectAt(map, x, y)!.kind].later : undefined;
+    if (later && met(later.when, this.progress)) {
+      const sealed = later.sealed && (this.progress.bestiary[later.sealed]?.seals ?? 0) > 0;
+      act = { text: later.text, talk: sealed ? later.sealedTalk : later.talk };
+    }
     if (act?.opens === 'storage') this.scene.start('sanctuary', { tab: 'storage' });
     else if (act?.opens) this.scene.start(act.opens);
     else {
@@ -599,7 +684,15 @@ export class OverworldScene extends Phaser.Scene {
     await this.say(lines);
     if (r.talk) await this.talk(r.talk);
     this.drawLeaderUi();
+    if (o.event === 'storm') await this.stormReturns();
     if (o.scene) await this.playScene(o.scene);
+    if (o.event === 'storm') {
+      // Lightning left a shard at the foot of the rod.
+      addItem(this.progress, 'storm_shard');
+      saveProgress(this.progress);
+      sfx('confirm');
+      await this.say([{ text: 'Found a Storm Shard at the foot of the storm-rod! It hums.' }]);
+    }
   }
 
   /** Dani's Shield: the obstacle shudders and rolls off the way the leader faces, in a puff of dust. */
@@ -847,3 +940,26 @@ export class OverworldScene extends Phaser.Scene {
 
 /** Someone in line behind the leader: one of the friends, or (`mon`) the leader's lead Patchling. */
 interface Follower { id: string; mon?: boolean; img: Phaser.GameObjects.Image; at: Spot }
+
+/** A small brass lantern (Wardeye before it's sealed), drawn once: the eye half shut (dim) or wide and gold (lit). */
+function lanternTexture(scene: Phaser.Scene, lit: boolean) {
+  const key = `lantern:${lit ? 'lit' : 'dim'}`;
+  if (scene.textures.exists(key)) return key;
+  const g = scene.make.graphics({}, false);
+  const ink = 0x1c1b29;
+  g.fillStyle(ink).fillRect(2, 0, 5, 3).fillRect(1, 2, 7, 10).fillRect(0, 4, 9, 6);
+  g.fillStyle(0x8a6a3a).fillRect(3, 1, 3, 1).fillRect(2, 3, 5, 1).fillRect(2, 10, 5, 1);
+  g.fillStyle(lit ? 0xf9da69 : 0x4a4038).fillRect(1, 4, 7, 6);
+  g.fillStyle(0x8a6a3a).fillRect(4, 4, 1, 6);
+  if (lit) {
+    g.fillStyle(0xe99633).fillRect(2, 5, 5, 4);
+    g.fillStyle(0xfff6c8).fillRect(3, 6, 1, 1);
+    g.fillStyle(ink).fillRect(4, 6, 2, 2);
+  } else {
+    g.fillStyle(0xc89e66).fillRect(2, 7, 5, 1);
+  }
+  g.generateTexture(key, 9, 12);
+  g.destroy();
+  return key;
+}
+

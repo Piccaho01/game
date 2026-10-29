@@ -10,6 +10,15 @@
       ]
     },
     {
+      "id": "lantern_loft", "name": "Lantern Loft", "points": 40, "after": ["storm_returned"],
+      "waiting": "The keepers watched for storms from up there. No storms, no point. Route 1 hasn't had one in years.",
+      "desc": "The keepers' lookout above Root Hall: a round room of windows and old paintings. Restoring it lets the storms reach Hollow Rest again.",
+      "patch": [
+        { "who": "PATCH", "text": "Lantern Loft: restored. The weather can find Hollow Rest again." },
+        { "who": "PATCH", "text": "The paintings were already up there. I did not paint them. I would remember." }
+      ]
+    },
+    {
       "id": "tide_gallery", "name": "Tide Gallery", "points": 55,
       "desc": "Flooded halls of shell and glass. Something in Kettleport's harbour remembers them.",
       "patch": [{ "who": "PATCH", "text": "Tide Gallery: restored. Kettleport's water is behaving again." }]

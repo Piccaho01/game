@@ -24,10 +24,23 @@ describe('sanctuary wings', () => {
   it('a later wing stays locked until the ones before it are restored, whatever the points', () => {
     const p = newProgress('sprigby');
     for (const id of ['orbitot', 'fledjet', 'zapail', 'gobbin', 'furnaxol', 'craterra', 'contrailon', 'cullet', 'tesnail', 'fernaroo']) recordSeal(p, id, 5, 'strong');
-    expect(sanctuaryPoints(p)).toBeGreaterThanOrEqual(WINGS[1].points);
+    p.flags = [...(p.flags ?? []), 'storm_returned'];
+    expect(sanctuaryPoints(p)).toBeGreaterThanOrEqual(WINGS.find((w) => w.id === 'tide_gallery')!.points);
     expect(wingState(p, 'tide_gallery')).toBe('locked');
     restoreWing(p, 'root_hall');
+    expect(wingState(p, 'tide_gallery')).toBe('locked');
+    expect(restoreWing(p, 'lantern_loft')).toBe(true);
     expect(wingState(p, 'tide_gallery')).toBe('ready');
+  });
+
+  it('the Lantern Loft also needs the storm back on Route 1 (Chapter 1)', () => {
+    const p = newProgress('sprigby');
+    for (const id of ['orbitot', 'fledjet', 'craterra', 'contrailon', 'voltcalf']) recordSeal(p, id, 5, 'strong');
+    restoreWing(p, 'root_hall');
+    expect(sanctuaryPoints(p)).toBeGreaterThanOrEqual(WINGS.find((w) => w.id === 'lantern_loft')!.points);
+    expect(wingState(p, 'lantern_loft')).toBe('locked');
+    p.flags = [...(p.flags ?? []), 'storm_returned'];
+    expect(wingState(p, 'lantern_loft')).toBe('ready');
   });
 
   it('old saves without wings load with none restored', () => {

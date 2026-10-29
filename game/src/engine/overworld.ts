@@ -28,6 +28,10 @@ export interface ObjectDef {
   rest?: boolean;
   /** Placed by its footprint's front corner even when 1x1 (the interior placeholder boxes fill their tile). */
   box?: boolean;
+  /** How it looks and reads once a condition holds (the storm-rod relit after the storm); `sealedTalk` once `sealed` is in the bag. */
+  later?: { when: Condition; art?: string; text?: string; talk?: string; sealed?: string; sealedTalk?: string };
+  /** A Patchling's lantern hangs on it (Wardeye on the storm-rod) until that species is sealed: dim, lit once `later` holds. */
+  lantern?: { species: string; dx: number; dy: number; litDx?: number; litDy?: number };
 }
 /** Screens an object opens: the sanctuary's wings (the CRT stones) or its storage (the terminal). */
 export type Opens = 'sanctuary' | 'storage';

@@ -36,6 +36,17 @@
    "decal": false
   },
   {
+   "art": "r1_cloud_clamp",
+   "x": 354,
+   "y": 22,
+   "fx": 1,
+   "fy": 2,
+   "wx": 1,
+   "wy": 1,
+   "key": 36,
+   "decal": false
+  },
+  {
    "art": "signpost",
    "x": 449,
    "y": 52,
@@ -55,6 +66,17 @@
    "wx": 1,
    "wy": 1,
    "key": 46,
+   "decal": false
+  },
+  {
+   "art": "r1_storm_rod",
+   "x": 308,
+   "y": 32,
+   "fx": 1,
+   "fy": 5,
+   "wx": 1,
+   "wy": 1,
+   "key": 66,
    "decal": false
   },
   {

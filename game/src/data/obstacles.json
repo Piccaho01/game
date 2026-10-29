@@ -1,5 +1,5 @@
 {
-  "_note": "Field-move obstacles (bible §7 'Field moves'): each needs one friend's field move; the others can't clear it, so the player SWITCHes. Kept apart from the map files (the World track owns those): map + tile. 'art' is a prop from art/locations/out/graded (drawn on the tile). 'reward' is found when it's cleared. Kinds and their lines are in 'kinds'. Optional: 'sprite'/'dir'/'leaves' (a person in the way), 'replaces' (stands in for a map piece with that art, e.g. the broken bridge), 'onObject' (no picture: it is the object on the tile), 'blockedTalk'/'clearTalk' (dialogue ids said instead of 'blocked' and after clearing). Route 1 order: Nolan's bridge opens the east bank, Haydon's officer guards the stairs down to the checkpoint, Callum's stone is on the west cliff. Positions are first guesses; move them when maps change.",
+  "_note": "Field-move obstacles (bible §7 'Field moves'): each needs one friend's field move; the others can't clear it, so the player SWITCHes. Kept apart from the map files (the World track owns those): map + tile. 'art' is a prop from art/locations/out/graded (drawn on the tile). 'reward' is found when it's cleared. Kinds and their lines are in 'kinds'. Optional: 'sprite'/'dir'/'leaves' (a person in the way), 'replaces' (stands in for a map piece with that art, e.g. the broken bridge), 'onObject' (no picture: it is the object on the tile), 'blockedTalk'/'clearTalk' (dialogue ids said instead of 'blocked' and after clearing). Route 1 order: Nolan's bridge opens the east bank, Haydon's officer guards the stairs down to the checkpoint, Callum's stone is on the west cliff. Positions are first guesses; move them when maps change. Chapter 1's storm quest on Route 1's west hill: Callum scans the storm-rod's plate (r1_rod_plate, sights Wardeye), Haydon taunts the clerk off the Cloud Clamp (r1_clerk), then Nolan unsplices the rod's cable from the Clamp (r1_clamp: 'after' both, sets storm_returned, plays the storm). Dani's rock by the rod hides the second Storm Shard.",
   "kinds": {
     "boulder": {
       "needs": "dani",
@@ -85,6 +85,65 @@
       "reward": {
         "item": "echo_scroll",
         "n": 2
+      }
+    },
+    {
+      "id": "r1_rod_plate",
+      "map": "route1",
+      "x": 1,
+      "y": 5,
+      "kind": "sealed",
+      "onObject": true,
+      "sights": "wardeye",
+      "blockedTalk": "storm_rod",
+      "clearTalk": "storm_rod_read",
+      "clearLine": "Callum scanned the plate. The keepers' writing lit up, one rune at a time."
+    },
+    {
+      "id": "r1_clerk",
+      "map": "route1",
+      "x": 2,
+      "y": 3,
+      "kind": "guard",
+      "sprite": "tally_officer",
+      "dir": "right",
+      "leaves": "down",
+      "blockedTalk": "clerk",
+      "clearTalk": "clerk_gone",
+      "clearLine": "The clerk stormed off after Haydon, waving Form 12-R. The Clamp is unguarded!"
+    },
+    {
+      "id": "r1_clamp",
+      "map": "route1",
+      "x": 1,
+      "y": 2,
+      "kind": "broken",
+      "onObject": true,
+      "after": [
+        "r1_rod_plate",
+        "r1_clerk"
+      ],
+      "waitTalk": "cloud_clamp",
+      "blockedTalk": "cloud_clamp_ready",
+      "clearTalk": "clamp_unspliced",
+      "sets": [
+        "storm_returned"
+      ],
+      "event": "storm",
+      "scene": "storm_returns",
+      "clearLine": "Nolan pulled the Tally's cable off the rod and patched the rod back into the ground line."
+    },
+    {
+      "id": "r1_shard_rock",
+      "map": "route1",
+      "x": 0,
+      "y": 6,
+      "kind": "boulder",
+      "art": "rock_l",
+      "blockedTalk": "shard_rock",
+      "reward": {
+        "item": "storm_shard",
+        "n": 1
       }
     }
   ]
