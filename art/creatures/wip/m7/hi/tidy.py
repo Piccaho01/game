@@ -27,9 +27,10 @@ for side in ('','_back'):
                 c=g[y][x]
                 if c in '.'+dark: continue
                 nb=[g[y+dy][x+dx] for dy in (-1,0,1) for dx in (-1,0,1) if dy or dx]
-                if nb.count(c)<=1:
-                    m=Counter(v for v in nb if v!='.').most_common(1)
-                    if m and m[0][1]>=4: n[y][x]=m[0][0]
+                same=nb.count(c)
+                m=Counter(v for v in nb if v!='.' and v!=c).most_common(1)
+                # grain: a pixel with at most one twin, or two twins inside a solid area of another colour
+                if m and ((same<=1 and m[0][1]>=4) or (same==2 and m[0][1]>=5)): n[y][x]=m[0][0]
         g=n
     if mirror: g=[r[::-1] for r in g]
     rows=[''.join(r) for r in g]
