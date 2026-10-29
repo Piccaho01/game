@@ -8,6 +8,7 @@ The Patchling that walks behind the leader in the overworld (and the ones that r
 
 - **Save as:** `art/concepts/followers/furnaxol_line_turnaround.png`  ·  **Shape:** landscape
 - **Attach:** `art/concepts/followers/starters_turnaround.png`, `art/concepts/furnaxol_v2_front.png`, `art/concepts/cullet_front.png`, `art/concepts/vitric_front.png`
+- **Downloads:** [starters_turnaround.png](https://github.com/Piccaho01/game/raw/claude/ch1-route1/art/concepts/followers/starters_turnaround.png) · [furnaxol_v2_front.png](https://github.com/Piccaho01/game/raw/claude/ch1-route1/art/concepts/furnaxol_v2_front.png) · [cullet_front.png](https://github.com/Piccaho01/game/raw/claude/ch1-route1/art/concepts/cullet_front.png) · [vitric_front.png](https://github.com/Piccaho01/game/raw/claude/ch1-route1/art/concepts/vitric_front.png)
 
 ```
 Pixel-art overworld follower sprites
@@ -46,6 +47,7 @@ white background, no text, no shadows.
 
 - **Save as:** `art/concepts/followers/zapail_line_turnaround.png`  ·  **Shape:** landscape
 - **Attach:** `art/concepts/followers/starters_turnaround.png`, `art/concepts/zapail_v2_front.png`, `art/concepts/tesnail_front.png`, `art/concepts/gauslug_front.png`
+- **Downloads:** [starters_turnaround.png](https://github.com/Piccaho01/game/raw/claude/ch1-route1/art/concepts/followers/starters_turnaround.png) · [zapail_v2_front.png](https://github.com/Piccaho01/game/raw/claude/ch1-route1/art/concepts/zapail_v2_front.png) · [tesnail_front.png](https://github.com/Piccaho01/game/raw/claude/ch1-route1/art/concepts/tesnail_front.png) · [gauslug_front.png](https://github.com/Piccaho01/game/raw/claude/ch1-route1/art/concepts/gauslug_front.png)
 
 ```
 Pixel-art overworld follower sprites
@@ -84,6 +86,7 @@ no text, no shadows.
 
 - **Save as:** `art/concepts/followers/sprigby_line_turnaround.png`  ·  **Shape:** landscape
 - **Attach:** `art/concepts/followers/starters_turnaround.png`, `art/concepts/sprigby_v3_front.png`, `art/concepts/fernaroo_v3_front.png`, `art/concepts/scytharoo_v3_front.png`
+- **Downloads:** [starters_turnaround.png](https://github.com/Piccaho01/game/raw/claude/ch1-route1/art/concepts/followers/starters_turnaround.png) · [sprigby_v3_front.png](https://github.com/Piccaho01/game/raw/claude/ch1-route1/art/concepts/sprigby_v3_front.png) · [fernaroo_v3_front.png](https://github.com/Piccaho01/game/raw/claude/ch1-route1/art/concepts/fernaroo_v3_front.png) · [scytharoo_v3_front.png](https://github.com/Piccaho01/game/raw/claude/ch1-route1/art/concepts/scytharoo_v3_front.png)
 
 ```
 Pixel-art overworld follower sprites
@@ -123,6 +126,7 @@ shadows.
 
 - **Save as:** `art/concepts/followers/gobbin_line_turnaround.png`  ·  **Shape:** landscape
 - **Attach:** `art/concepts/followers/starters_turnaround.png`, `art/concepts/gobbin_v2_front.png`, `art/concepts/gulpjaw_front.png`, `art/concepts/harrowjaw_front.png`
+- **Downloads:** [starters_turnaround.png](https://github.com/Piccaho01/game/raw/claude/ch1-route1/art/concepts/followers/starters_turnaround.png) · [gobbin_v2_front.png](https://github.com/Piccaho01/game/raw/claude/ch1-route1/art/concepts/gobbin_v2_front.png) · [gulpjaw_front.png](https://github.com/Piccaho01/game/raw/claude/ch1-route1/art/concepts/gulpjaw_front.png) · [harrowjaw_front.png](https://github.com/Piccaho01/game/raw/claude/ch1-route1/art/concepts/harrowjaw_front.png)
 
 ```
 Pixel-art overworld follower sprites
@@ -162,6 +166,7 @@ shadows.
 
 - **Save as:** `art/concepts/followers/orbitot_line_turnaround.png`  ·  **Shape:** landscape
 - **Attach:** `art/concepts/followers/starters_turnaround.png`, `art/concepts/orbitot.png`, `art/concepts/craterra_front.png`, `art/concepts/singulith_front.png`
+- **Downloads:** [starters_turnaround.png](https://github.com/Piccaho01/game/raw/claude/ch1-route1/art/concepts/followers/starters_turnaround.png) · [orbitot.png](https://github.com/Piccaho01/game/raw/claude/ch1-route1/art/concepts/orbitot.png) · [craterra_front.png](https://github.com/Piccaho01/game/raw/claude/ch1-route1/art/concepts/craterra_front.png) · [singulith_front.png](https://github.com/Piccaho01/game/raw/claude/ch1-route1/art/concepts/singulith_front.png)
 
 ```
 Pixel-art overworld follower sprites
@@ -201,6 +206,7 @@ no text, no shadows.
 
 - **Save as:** `art/concepts/followers/fledjet_line_turnaround.png`  ·  **Shape:** landscape
 - **Attach:** `art/concepts/followers/starters_turnaround.png`, `art/concepts/fledjet.png`, `art/concepts/contrailon_front.png`, `art/concepts/strafalcon_front.png`
+- **Downloads:** [starters_turnaround.png](https://github.com/Piccaho01/game/raw/claude/ch1-route1/art/concepts/followers/starters_turnaround.png) · [fledjet.png](https://github.com/Piccaho01/game/raw/claude/ch1-route1/art/concepts/fledjet.png) · [contrailon_front.png](https://github.com/Piccaho01/game/raw/claude/ch1-route1/art/concepts/contrailon_front.png) · [strafalcon_front.png](https://github.com/Piccaho01/game/raw/claude/ch1-route1/art/concepts/strafalcon_front.png)
 
 ```
 Pixel-art overworld follower sprites
@@ -239,6 +245,7 @@ shadows.
 
 - **Save as:** `art/concepts/followers/voltcalf_line_turnaround.png`  ·  **Shape:** landscape
 - **Attach:** `art/concepts/followers/starters_turnaround.png`, `art/concepts/voltcalf_front.png`, `art/concepts/voltaurus_front.png`
+- **Downloads:** [starters_turnaround.png](https://github.com/Piccaho01/game/raw/claude/ch1-route1/art/concepts/followers/starters_turnaround.png) · [voltcalf_front.png](https://github.com/Piccaho01/game/raw/claude/ch1-route1/art/concepts/voltcalf_front.png) · [voltaurus_front.png](https://github.com/Piccaho01/game/raw/claude/ch1-route1/art/concepts/voltaurus_front.png)
 
 ```
 Pixel-art overworld follower sprites
@@ -277,6 +284,7 @@ shadows.
 
 - **Save as:** `art/concepts/followers/wardeye_line_turnaround.png`  ·  **Shape:** landscape
 - **Attach:** `art/concepts/followers/starters_turnaround.png`, `art/concepts/wardeye_front.png`
+- **Downloads:** [starters_turnaround.png](https://github.com/Piccaho01/game/raw/claude/ch1-route1/art/concepts/followers/starters_turnaround.png) · [wardeye_front.png](https://github.com/Piccaho01/game/raw/claude/ch1-route1/art/concepts/wardeye_front.png)
 
 ```
 Pixel-art overworld follower sprites
