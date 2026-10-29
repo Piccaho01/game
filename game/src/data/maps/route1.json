@@ -1,5 +1,5 @@
 {
-  "_note": "Route 1 (bible \u00a715): the hills below Hollow Rest, after the owner's concept art. Isometric (art/tools/iso_map.py bakes it). Built by art/tools/route1_layout.py: edit there. Tall grass hides the Route 1 commons; the encounter rate is per step in tall grass (0-1); tune on a phone. Chapter 1 (added by hand, after the layout script): the storm-rod and the Cloud Clamp on the west hill (the storm quest, data/obstacles.json r1_*); once the storm is back it rains 40% of the time (Voltcalf in the rain table, Wardeye waiting at the rod).",
+  "_note": "Route 1 (bible \u00a715): the hills below Hollow Rest, after the owner's concept art. Isometric (art/tools/iso_map.py bakes it). Built by art/tools/route1_layout.py: edit there. Tall grass hides the Route 1 commons; the encounter rate is per step in tall grass (0-1); tune on a phone. Chapter 1 (added by hand, after the layout script): the storm-rod and the Cloud Clamp on the west hill (the oak that stood there is gone so the rod stands against the sky) (the storm quest, data/obstacles.json r1_*); once the storm is back it rains 40% of the time (Voltcalf in the rain table, Wardeye waiting at the rod).",
   "id": "route1",
   "name": "Route 1",
   "battle": "route1",
@@ -185,11 +185,6 @@
       "kind": "r1_pine",
       "x": 10,
       "y": 20
-    },
-    {
-      "kind": "r1_oak",
-      "x": 0,
-      "y": 3
     },
     {
       "kind": "r1_oak",

@@ -26,7 +26,7 @@ Rules that keep it efficient:
 - [ ] M5 Playtest build (branch `claude/peaceful-darwin-3db5u5`): field moves for all four, balance pass, phone fixes done; **left: share the link with the group, one round of fixes from their feedback.** See "M5 handoff".
 - [x] M6 Game shell (merged, PR #27). See "M6 handoff".
 - [x] M7 Evolution lines (branch `claude/affectionate-wozniak-wh7dgz`): all 12 forms, every creature double-res with its own idle, glitch evolve scene, live attack animations. See "M7 handoff".
-- [ ] Next: Chapter 1, finish Route 1 (roadmap step 4)
+- [ ] Chapter 1, finish Route 1 (branch `claude/ch1-route1`): built, waiting on the owner's review. See "Chapter 1 handoff".
 
 ## M1 Foundation (code)
 - Vite + TypeScript + Phaser 3 project in `game/`; touch-first input; scales to phone screens.
@@ -428,6 +428,27 @@ reactions, the text-speed samples). **Next:** roadmap step 3 (evolution art, who
 - e2e locally: the pinned Playwright wants another browser build; run with a config whose
   `launchOptions.executablePath` is `/opt/pw-browsers/chromium-1243/chrome-linux64/chrome`.
 - **Owner approved the batch** (2026-10-29): PR next.
+
+### Chapter 1 handoff (branch `claude/ch1-route1`, pitch `docs/chapters/1.md`)
+- **Built:** Voltcalf, Voltaurus, Wardeye (double-res, plain conversions + `wip/ch1/holes.py` for white
+  pockets, idles; `idle_fx` `keep` option stops seams); evolution triggers (`evolves` = level or item,
+  weather/bond/flag conditions, lists branch); Storm Shard used from the bag (no STOP, used up);
+  weather (`engine/weather.ts`: per-map rule, rolled and saved, rain overlay `ui/weatherFx.ts`, rain
+  Water x1.5 / Fire x0.5, Thunderhead, Unblinking, Severance, Vigil Beam reveal); static encounters
+  (Wardeye at the rod in the rain); quest pages (`data/quests.json`); shinies 1/512 and Prototypes
+  1/8192 (`engine/variants.ts`, `ui/variantFx.ts`, palettes in `data/shinies.json`, bestiary star);
+  the storm quest on Route 1 (props from the owner's drafts, `art/tools/ch1_props.py`; obstacles with
+  `after`/`sets`/`event`; the storm on the map + `storm_returns` scene with Connor's chat); Lantern
+  Loft wing (40 pts + the storm; then Hollow Rest rains too); the owner's furnished Entrance Hall
+  (rooms.json `hall`, workshop door moved to the open right side); attack animations Horn Bolt,
+  Severance, Vigil Beam; `tests/chapter1.test.ts`.
+- Test URLs: `?foe=voltcalf&weather=rain`, `?variant=shiny|prototype`, `?level=20`, `?evolve=voltcalf`.
+- **Review sheet:** `docs/ch1_review.png`; shiny options `docs/ch1_shinies.png` (owner picks one per line:
+  set `pick` in `data/shinies.json`).
+- **Left:** owner's review round; then screens in `e2e/screens.spec.ts` for Chapter 1, full e2e, PR.
+  Not done: Wardeye roaming the sanctuary (no follower art); Lantern Loft's room and its inside-joke
+  paintings (brainstorm with the owner, then one room prompt); the Tide Gallery hint sign dropped from
+  the hall (the old terminal is gone from the new concept).
 
 ## Roadmap after the playtest (proposed 2026-10-28; see WORKFLOW "chapters")
 1. **Playtest fixes**: the group's feedback as one batch.

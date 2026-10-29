@@ -130,7 +130,7 @@ export class BootScene extends Phaser.Scene {
     return { frames: sorted.map((frame) => ({ key, frame, duration: json?.frames?.[frame]?.duration ?? 100 })) };
   }
 
-  /** Seal scroll icons: the owner's art (ITEM_ICONS); any item without it gets a rolled scroll in its colour, 18x22. */
+  /** Item icons: the owner's art (ITEM_ICONS); a scroll without it gets a rolled scroll in its colour, an evolution item a crystal, 18x22. */
   private makeItemIcons() {
     for (const [id, it] of Object.entries(ITEMS)) {
       if (this.textures.exists(itemKey(id))) continue;
@@ -138,6 +138,18 @@ export class BootScene extends Phaser.Scene {
       const dark = Phaser.Display.Color.ValueToColor(c).darken(35).color;
       const light = Phaser.Display.Color.ValueToColor(c).lighten(20).color;
       const g = this.make.graphics({}, false);
+      if (it.kind === 'evolution') {
+        // An evolution item is a jagged crystal shard in its colour (the Storm Shard), 18x22.
+        const ink = 0x1c1b29;
+        g.fillStyle(ink).fillPoints([{ x: 9, y: 0 }, { x: 15, y: 7 }, { x: 12, y: 12 }, { x: 16, y: 21 }, { x: 4, y: 21 }, { x: 7, y: 13 }, { x: 3, y: 7 }], true);
+        g.fillStyle(dark).fillPoints([{ x: 9, y: 2 }, { x: 13, y: 7 }, { x: 10, y: 12 }, { x: 14, y: 20 }, { x: 6, y: 20 }, { x: 9, y: 13 }, { x: 5, y: 7 }], true);
+        g.fillStyle(c).fillPoints([{ x: 9, y: 2 }, { x: 11, y: 7 }, { x: 8, y: 12 }, { x: 11, y: 20 }, { x: 6, y: 20 }, { x: 9, y: 13 }, { x: 5, y: 7 }], true);
+        g.fillStyle(light).fillRect(7, 5, 2, 3).fillRect(8, 15, 1, 3);
+        g.fillStyle(0xffffff).fillRect(7, 5, 1, 1);
+        g.generateTexture(itemKey(id), 18, 22);
+        g.destroy();
+        continue;
+      }
       g.fillStyle(0x1c1b29).fillRect(3, 3, 12, 16).fillRect(1, 1, 16, 5).fillRect(1, 16, 16, 5);
       g.fillStyle(c).fillRect(4, 5, 10, 12);
       g.fillStyle(light).fillRect(4, 5, 2, 12);

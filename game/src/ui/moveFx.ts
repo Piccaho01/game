@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import { MOVES, TYPES } from '../engine/data';
+import { SCREEN_H, SCREEN_W } from '../config';
 import { spriteBounds } from './kit';
 import { hexToNum, shade } from './theme';
 import { tweenAsync, wait } from './widgets';
@@ -398,7 +399,130 @@ async function afterburner(c: Ctx) {
   fire.stop();
 }
 
+/** A jagged lightning line between two points (redrawn each call, so it flickers). */
+function bolt(g: Phaser.GameObjects.Graphics, x0: number, y0: number, x1: number, y1: number, jag = 6, w = 2, col = 0xfff27a) {
+  const n = Math.max(3, Math.round(Math.hypot(x1 - x0, y1 - y0) / 8));
+  const pts: [number, number][] = [[x0, y0]];
+  for (let k = 1; k < n; k++) pts.push([x0 + (x1 - x0) * (k / n) + (Math.random() - 0.5) * jag, y0 + (y1 - y0) * (k / n) + (Math.random() - 0.5) * jag]);
+  pts.push([x1, y1]);
+  for (const [lw, lc] of [[w + 3, col], [w, 0xffffff]] as const) {
+    g.lineStyle(lw, lc, lw > w ? 0.55 : 1).beginPath().moveTo(...pts[0]);
+    for (const p of pts.slice(1)) g.lineTo(...p);
+    g.strokePath();
+  }
+}
+
+/** Horn Bolt (Voltcalf): rears back with the fallen horn, charges in, and the swing lands with a bolt off the club. */
+async function hornBolt(c: Ctx) {
+  const s = c.from;
+  const home = { x: s.x, y: s.y };
+  const t = body(c.to, -c.dir);
+  // Wind-up: leans back, the horn crackling over its shoulder.
+  const arcs = c.scene.add.graphics().setDepth(DEPTH).setBlendMode(Phaser.BlendModes.ADD);
+  const crackle = c.scene.time.addEvent({ delay: 50, loop: true, callback: () => {
+    const h = body(s, c.dir);
+    arcs.clear();
+    for (let i = 0; i < 2; i++) bolt(arcs, h.x - c.dir * h.w * 0.3, h.y - h.h * 0.45, h.x - c.dir * h.w * (0.1 + Math.random() * 0.4), h.y - h.h * (0.1 + Math.random() * 0.4), 8, 1);
+  } });
+  await tweenAsync(c.scene, { targets: s, x: home.x - c.dir * 8, angle: -c.dir * 6, duration: 220, ease: 'Sine.easeOut' });
+  const ev = afterimages(c, s, 120);
+  await tweenAsync(c.scene, { targets: s, x: home.x + (t.x - home.x) * 0.38, y: home.y + (t.y - home.y) * 0.25, angle: c.dir * 8, duration: 120, ease: 'Expo.easeIn' });
+  ev.remove();
+  crackle.remove();
+  arcs.clear();
+  // The swing: an arc of light across the foe, then a bolt jumps off the club into it.
+  const swing = c.scene.add.graphics().setDepth(DEPTH).setBlendMode(Phaser.BlendModes.ADD);
+  swing.lineStyle(4, 0xfff27a, 0.8).beginPath().arc(t.x - c.dir * 6, t.y, 22, Phaser.Math.DegToRad(-120), Phaser.Math.DegToRad(30)).strokePath();
+  bolt(arcs, t.x, t.y - t.h * 0.6, t.x + c.dir * 4, t.y + t.h * 0.2, 10, 2);
+  impact(c, t.x, t.y, 1.3);
+  typeBurst(c, 'spark', t.x, t.y, 26);
+  await wait(c.scene, 90);
+  await Promise.all([
+    tweenAsync(c.scene, { targets: [swing, arcs], alpha: 0, duration: 260 }),
+    tweenAsync(c.scene, { targets: s, x: home.x, y: home.y, angle: 0, duration: 280, ease: 'Back.easeOut' }),
+  ]);
+  swing.destroy();
+  arcs.destroy();
+}
+
+/** Severance (Voltaurus): lifts the labrys overhead as horn and axe arc at each other, then one diagonal cut splits the screen. */
+async function severance(c: Ctx) {
+  const s = c.from;
+  const home = { x: s.x, y: s.y };
+  const t = body(c.to, -c.dir);
+  const arcs = c.scene.add.graphics().setDepth(DEPTH).setBlendMode(Phaser.BlendModes.ADD);
+  // Horn and axe spark at each other while it rises.
+  const crackle = c.scene.time.addEvent({ delay: 45, loop: true, callback: () => {
+    const h = body(s, c.dir);
+    arcs.clear();
+    bolt(arcs, h.x - h.w * 0.35, h.y - h.h * 0.45, h.x + h.w * 0.15, h.y - h.h * 0.5, 10, 1);
+    bolt(arcs, h.x + c.dir * h.w * 0.1, h.y - h.h * 0.5, h.x + c.dir * h.w * 0.45, h.y - h.h * 0.15, 10, 1);
+  } });
+  await tweenAsync(c.scene, { targets: s, y: home.y - 8, scaleX: s.scaleX * 1.04, scaleY: s.scaleY * 1.04, duration: 380, ease: 'Sine.easeOut' });
+  crackle.remove();
+  arcs.clear();
+  // The cut: a white diagonal slash across the foe, the screen darkens behind it.
+  // Only the top screen darkens (the touch screen below stays readable).
+  const dim = c.scene.add.rectangle(0, 0, SCREEN_W, SCREEN_H, 0x0b0c18, 0.45).setOrigin(0).setDepth(DEPTH - 0.5);
+  const slash = c.scene.add.graphics().setDepth(DEPTH).setBlendMode(Phaser.BlendModes.ADD);
+  const L = 70;
+  const o = { t: 0 };
+  await tweenAsync(c.scene, { targets: o, t: 1, duration: 120, ease: 'Expo.easeIn', onUpdate: () => {
+    const x0 = t.x - L * 0.6, y0 = t.y - L * 0.6;
+    slash.clear().lineStyle(6, 0xfff27a, 0.6).lineBetween(x0, y0, x0 + L * 1.2 * o.t, y0 + L * 1.2 * o.t).lineStyle(2, 0xffffff, 1).lineBetween(x0, y0, x0 + L * 1.2 * o.t, y0 + L * 1.2 * o.t);
+  } });
+  c.scene.cameras.main.shake(180, 0.008);
+  c.scene.cameras.main.flash(90, 255, 250, 210);
+  for (let i = 0; i < 3; i++) bolt(arcs, t.x + (Math.random() - 0.5) * 30, t.y - t.h * 0.5, t.x + (Math.random() - 0.5) * 30, t.y + t.h * 0.4, 12, 1);
+  impact(c, t.x, t.y, 1.8);
+  typeBurst(c, 'spark', t.x, t.y, 34);
+  await wait(c.scene, 120);
+  await Promise.all([
+    tweenAsync(c.scene, { targets: [slash, arcs, dim], alpha: 0, duration: 320 }),
+    tweenAsync(c.scene, { targets: s, y: home.y, scaleX: s.scaleX / 1.04, scaleY: s.scaleY / 1.04, duration: 260, ease: 'Back.easeOut' }),
+  ]);
+  [slash, arcs, dim].forEach((g) => g.destroy());
+}
+
+/** Vigil Beam (Wardeye): the eye opens wide and a lighthouse beam sweeps across the foe, then holds on it. */
+async function vigilBeam(c: Ctx) {
+  const a = body(c.from, c.dir);
+  const t = body(c.to, -c.dir);
+  const eye = { x: a.x - c.dir * a.w * 0.15, y: a.y };
+  const glow = c.scene.add.image(eye.x, eye.y, 'fx:soft').setTint(0xf9da69).setBlendMode(Phaser.BlendModes.ADD).setScale(0.3).setDepth(DEPTH);
+  await tweenAsync(c.scene, { targets: glow, scale: 1.4, duration: 300, ease: 'Quad.easeOut' });
+  // The beam: a cone from the eye, swinging past the foe and back onto it.
+  const beam = c.scene.add.graphics().setDepth(DEPTH).setBlendMode(Phaser.BlendModes.ADD);
+  const dist = Math.hypot(t.x - eye.x, t.y - eye.y) + 30;
+  const base = Math.atan2(t.y - eye.y, t.x - eye.x);
+  const draw = (ang: number) => {
+    beam.clear();
+    for (const [spread, alpha] of [[0.16, 0.18], [0.09, 0.3], [0.035, 0.6]] as const) {
+      beam.fillStyle(0xfff3b0, alpha).fillTriangle(eye.x, eye.y,
+        eye.x + Math.cos(ang - spread) * dist, eye.y + Math.sin(ang - spread) * dist,
+        eye.x + Math.cos(ang + spread) * dist, eye.y + Math.sin(ang + spread) * dist);
+    }
+  };
+  const o = { a: base - 0.55 };
+  await tweenAsync(c.scene, { targets: o, a: base + 0.25, duration: 360, ease: 'Sine.easeInOut', onUpdate: () => draw(o.a) });
+  await tweenAsync(c.scene, { targets: o, a: base, duration: 220, ease: 'Back.easeOut', onUpdate: () => draw(o.a) });
+  // Caught in the light: the foe lights up and a ring of light marks it.
+  c.to.setTintFill(0xfff3b0);
+  c.scene.time.delayedCall(120, () => c.to.clearTint());
+  const ring = c.scene.add.circle(t.x, t.y, 6).setStrokeStyle(2, 0xfff3b0).setDepth(DEPTH);
+  c.scene.tweens.add({ targets: ring, radius: 30, alpha: 0, duration: 420, onComplete: () => ring.destroy() });
+  impact(c, t.x, t.y, 1.1);
+  typeBurst(c, 'relic', t.x, t.y, 18);
+  await wait(c.scene, 200);
+  await tweenAsync(c.scene, { targets: [beam, glow], alpha: 0, duration: 320 });
+  beam.destroy();
+  glow.destroy();
+}
+
 const SIGNATURE: Record<string, (c: Ctx) => Promise<void>> = {
+  horn_bolt: hornBolt,
+  severance,
+  vigil_beam: vigilBeam,
   glassblow,
   sprout_swipe: (c) => blinkStrike(c, 'plant'),
   springy_hop: (c) => blinkStrike(c, 'wind'),

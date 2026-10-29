@@ -25,17 +25,6 @@
    "decal": true
   },
   {
-   "art": "r1_oak",
-   "x": 321,
-   "y": 10,
-   "fx": 0,
-   "fy": 3,
-   "wx": 1,
-   "wy": 1,
-   "key": 36,
-   "decal": false
-  },
-  {
    "art": "r1_cloud_clamp",
    "x": 354,
    "y": 22,

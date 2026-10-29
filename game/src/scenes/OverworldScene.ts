@@ -206,10 +206,10 @@ export class OverworldScene extends Phaser.Scene {
     const lit = !!def.later && met(def.later.when, this.progress);
     const x = sp.x + (lit ? l.litDx ?? l.dx : l.dx);
     const y = sp.y + (lit ? l.litDy ?? l.dy : l.dy);
-    const glow = this.add.circle(x, y + 6, 9, 0xf9da69, lit ? 0.22 : 0).setDepth(sp.key + 0.4).setBlendMode(Phaser.BlendModes.ADD);
+    const glow = this.add.circle(x, y + 6, 7, 0xf9da69, lit ? 0.14 : 0).setDepth(sp.key + 0.4).setBlendMode(Phaser.BlendModes.ADD);
     const img = this.add.image(x, y, lanternTexture(this, lit)).setOrigin(0.5, 0).setDepth(sp.key + 0.5);
     this.world.add([glow, img]);
-    if (lit) this.tweens.add({ targets: glow, fillAlpha: 0.4, scale: 1.2, duration: 900, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
+    if (lit) this.tweens.add({ targets: glow, fillAlpha: 0.26, scale: 1.15, duration: 900, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
     this.lantern = { img, glow, sp };
   }
 
@@ -644,23 +644,24 @@ export class OverworldScene extends Phaser.Scene {
    * SWITCH gives a nudge.
    */
   private async fieldMove(o: Obstacle) {
-    const r = tryObstacle(this.progress, o);
-    let talked = false;
-    // Looking at it the first time sights its Patchling (Wardeye's dim lantern on the storm-rod).
-    if (o.sights && !this.progress.bestiary[o.sights]?.encounters && !r.cleared) {
+    // Looking at it the first time (whoever leads) sights its Patchling: Wardeye's dim lantern on
+    // the storm-rod. The field move works from the next look.
+    if (o.sights && !this.progress.bestiary[o.sights]?.encounters) {
       const change = recordEncounter(this.progress, o.sights);
       saveProgress(this.progress);
-      if (r.talk) await this.talk(r.talk);
-      talked = true;
+      if (o.blockedTalk) await this.talk(o.blockedTalk);
       if (change) await this.say([{ text: `Bestiary: ${SPECIES[o.sights].name} sighted. New entry!` }]);
+      if (this.progress.leader !== OBSTACLE_KINDS[o.kind].needs) await this.say([{ text: OBSTACLE_KINDS[o.kind].hint }]);
+      return;
     }
+    const r = tryObstacle(this.progress, o);
     if (r.waiting) {
-      if (r.talk && !talked) await this.talk(r.talk);
+      if (r.talk) await this.talk(r.talk);
       return;
     }
     if (!r.cleared) {
       sfx('error');
-      if (r.talk && !talked) await this.talk(r.talk);
+      if (r.talk) await this.talk(r.talk);
       const sw = this.ui.getByName('switch') as Phaser.GameObjects.Container | null;
       if (sw) this.tweens.add({ targets: sw, scale: 1.08, duration: 160, yoyo: true, repeat: 2 });
       await this.say(r.lines.map((text) => ({ text })));

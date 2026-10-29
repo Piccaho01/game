@@ -3,7 +3,7 @@
   "lines": {
     "furnaxol":  { "pick": 0, "options": [{ "hue": 190 }, { "hue": -40, "sat": 0.8 }, { "hue": 100, "sat": 1.1 }] },
     "zapail":    { "pick": 0, "options": [{ "hue": 150 }, { "hue": 270 }, { "hue": 40, "sat": 0.7, "light": 1.08 }] },
-    "sprigby":   { "pick": 0, "options": [{ "hue": -80 }, { "hue": 160 }, { "hue": 60, "sat": 0.9 }] },
+    "sprigby":   { "pick": 0, "options": [{ "hue": -80 }, { "hue": 160 }, { "hue": 25, "sat": 0.55, "light": 1.1 }] },
     "gobbin":    { "pick": 0, "options": [{ "hue": 120 }, { "hue": 200, "sat": 1.2 }, { "hue": 40 }] },
     "orbitot":   { "pick": 0, "options": [{ "hue": 120 }, { "hue": -100 }, { "hue": 180, "sat": 1.2 }] },
     "fledjet":   { "pick": 0, "options": [{ "hue": 150 }, { "hue": -160 }, { "hue": 90, "sat": 1.2 }] },

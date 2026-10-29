@@ -188,15 +188,15 @@ export class JournalScene extends Phaser.Scene {
       const x = 46 + (i % 3) * 82;
       const y = 46 + Math.floor(i / 3) * 28;
       const dex = `#${String(SPECIES[id].dex).padStart(3, '0')}`;
-      const rec = this.progress.bestiary[id];
-      // A gold star once a shiny has been sealed; a green one for a Prototype.
-      if (rec?.shiny || rec?.prototype) this.bottom.add(star(this, x + 34, y - 8, rec.prototype ? 0x7effc8 : 0xf2c14e).setDepth(1));
       this.bottom.add(listRow(this, x, y, 78, 25, {
         title: stage ? SPECIES[id].name : '???', titleSize: TEXT_SIZE.tiny, sub: stage ? STAGE_NAMES[stage] : dex, color: stage ? TONES.patch : COLORS.metalLight,
         icon: monIcon(frontKey(id), !stage),
         onTap: () => { this.loreIndex = this.selected === id ? this.loreIndex + 1 : 0; this.selected = id; this.render(); },
         name: `dex-${id}`, selected: this.selected === id,
       }));
+      const rec = this.progress.bestiary[id];
+      // A gold star once a shiny has been sealed; a green one for a Prototype.
+      if (rec?.shiny || rec?.prototype) this.bottom.add(star(this, x + 34, y - 8, rec.prototype ? 0x7effc8 : 0xf2c14e));
     });
     const seen = ids.filter((id) => stageOf(this.progress.bestiary[id])).length;
     this.bottom.add(pixelText(this, 128, 154, `${seen}/${ids.length} seen   page ${this.dexPage + 1}/${pages}`, { color: TEXT_COLORS.dim, size: TEXT_SIZE.small }).setOrigin(0.5));

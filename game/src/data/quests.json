@@ -4,11 +4,26 @@
     "wardeye_storm": {
       "name": "Bring the storm back",
       "steps": [
-        { "text": "Find the dim lantern on Route 1's storm-rod.", "sighted": "wardeye" },
-        { "text": "Read the storm-rod's plate (Callum's Scan).", "cleared": "r1_rod_plate" },
-        { "text": "Get the clerk off the Cloud Clamp (Haydon's Taunt).", "cleared": "r1_clerk" },
-        { "text": "Reconnect the rod's cable (Nolan's Patch Up).", "cleared": "r1_clamp" },
-        { "text": "The storm is back. Wardeye waits at the rod in the rain.", "flag": "storm_returned" }
+        {
+          "text": "Find the dim lantern on the storm-rod.",
+          "sighted": "wardeye"
+        },
+        {
+          "text": "Read the rod's plate (Callum).",
+          "cleared": "r1_rod_plate"
+        },
+        {
+          "text": "Get the clerk off the Clamp (Haydon).",
+          "cleared": "r1_clerk"
+        },
+        {
+          "text": "Free the rod's cable (Nolan).",
+          "cleared": "r1_clamp"
+        },
+        {
+          "text": "Wardeye waits at the rod in the rain.",
+          "flag": "storm_returned"
+        }
       ]
     }
   }
