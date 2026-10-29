@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 import { SCREEN_W } from '../config';
-import { pxRect } from './kit';
+import { firstFrame, pxRect, spriteBounds } from './kit';
 import { sfx } from './sfx';
 import { pixelText } from './text';
 import { COLORS, TEXT_COLORS, TEXT_SIZE, shade } from './theme';
@@ -96,11 +96,22 @@ export function scrollDecal(scene: Phaser.Scene, x: number, y: number): Decal {
 
 /** White silhouettes of Patchlings (front sprites) for TEAM; they bob, and jump on tap. */
 /** Double-res (192) creature art draws at half size; see monScale in BootScene. */
-const halfIfHiRes = (scene: Phaser.Scene, key: string) => (scene.textures.exists(key) && scene.textures.get(key).source[0].height >= 192 ? 0.5 : 1);
+/**
+ * A Patchling silhouette sized to sit inside a command button: its body (not its canvas, which is
+ * mostly empty) at most `maxH` tall and `maxW` wide, centred on (x, y).
+ */
+function fitSilhouette(scene: Phaser.Scene, x: number, y: number, key: string, maxH = 24, maxW = 34) {
+  const s = scene.add.sprite(x, y, key);
+  if (!scene.textures.exists(key)) return s;
+  const b = spriteBounds(scene, key, firstFrame(scene, key));
+  s.setScale(Math.min(maxH / b.h, maxW / b.w, 0.5));
+  s.setOrigin((b.x + b.w / 2) / b.fw, (b.y + b.h / 2) / b.fh);
+  return s;
+}
 
 export function teamDecal(scene: Phaser.Scene, x: number, y: number, keys: string[]): Decal {
   const sprites = keys.slice(0, 3).map((key, i) => {
-    const s = scene.add.sprite(x - i * 18, y, key).setScale(0.5 * halfIfHiRes(scene, key)).setTintFill(0xffffff).setAlpha(DECAL_ALPHA + 0.04);
+    const s = fitSilhouette(scene, x - i * 18, y, key).setTintFill(0xffffff).setAlpha(DECAL_ALPHA + 0.04);
     scene.tweens.add({ targets: s, y: y - 2, duration: 900, yoyo: true, repeat: -1, ease: 'Sine.easeInOut', delay: i * 250 });
     return s;
   });
@@ -112,7 +123,7 @@ export function teamDecal(scene: Phaser.Scene, x: number, y: number, keys: strin
 
 /** The Patchling that's out, a silhouette hopping across; on tap it sprints off. */
 export function runDecal(scene: Phaser.Scene, x0: number, x1: number, y: number, key: string): Decal {
-  const s = scene.add.sprite(x0, y, key).setScale(0.5 * halfIfHiRes(scene, key)).setFlipX(true).setTintFill(0xffffff).setAlpha(0);
+  const s = fitSilhouette(scene, x0, y, key).setFlipX(true).setTintFill(0xffffff).setAlpha(0);
   const across = scene.tweens.chain({
     targets: s, loop: -1,
     tweens: [
