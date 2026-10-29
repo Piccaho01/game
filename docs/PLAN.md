@@ -410,8 +410,14 @@ reactions, the text-speed samples). **Next:** roadmap step 3 (evolution art, who
 - Owner's calls: the smaller wallaby pair is the **new Sprigby** (old one: `wip/sprigby_v1.px.js`);
   Gulpjaw has **no throat glow** (Harrowjaw keeps it); Cullet drawn bigger.
 - Screens: `art/creatures/wip/out/_preview/m7_ingame.png`, `m7_evolve.png`.
-- **Waiting on the owner:** says the batch is right, then PR. Attack animations (Glassblow first)
-  are still to do.
+- Round 2 (owner's notes): **every creature is double-res now** (192 canvas, `monScale` draws it at
+  half size; all 18 stills from `wip/m7/hi/make_px.py`); Furnaxol, Zapail, Gobbin redrawn from new
+  pairs, Orbitot and Fledjet reconverted (96 versions kept in `art/creatures/wip/*_96.px.js`).
+  Per-creature idles: `art/tools/idle_fx.py` + `art/creatures/idle_fx.json`. Evolve scene restyled
+  as PATCH recompiling (glitch). Battle: your HP box top left, the foe's bottom right; back sprites
+  capped ~120 px tall. Harrowjaw and Gulpjaw face left; Craterra tidied (`wip/m7/hi/tidy.py`).
+- **Waiting on the owner:** says the batch is right, then full e2e and PR. Attack animations
+  (Glassblow first) are still to do.
 
 ## Roadmap after the playtest (proposed 2026-10-28; see WORKFLOW "chapters")
 1. **Playtest fixes**: the group's feedback as one batch.
