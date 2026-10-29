@@ -15,10 +15,12 @@ for i, root in enumerate(roots):
     cols = [ims] + [[apply(im, lambda c, o=o: shiny(c, o)) for im in ims] for o in D['lines'][root]['options']]
     y0 = 40 + i * RH
     d.text((8, y0 + 65), root, fill=(40, 40, 40), font=F)
+    # One scale for the whole row, so the stages keep their real sizes against each other.
+    rs = min(1, *[(RH - 14) / im.height for im in ims], (CW - 10) / sum(im.width + 3 for im in ims))
     for j, col in enumerate(cols):
         x = 110 + j * CW + 4
         for im in col:
-            s = min(1, (RH - 14) / im.height, 95 / im.width)
+            s = rs
             im2 = im.resize((max(1, round(im.width * s)), max(1, round(im.height * s))), Image.NEAREST)
             sheet.alpha_composite(im2, (x, y0 + RH - 8 - im2.height)); x += im2.width + 3
 sheet.save(out)

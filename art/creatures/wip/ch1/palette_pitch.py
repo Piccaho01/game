@@ -74,10 +74,11 @@ if __name__ == '__main__':
     for i, (root, k, cols) in enumerate(rows):
         y0 = 40 + i * RH
         d.text((8, y0 + 60), f'{root}\nshiny opt {k}', fill=(40, 40, 40), font=F)
+        rs = min(1, *[(RH - 14) / im.height for im in cols[0]], (CW - 10) / sum(im.width + 3 for im in cols[0]))
         for j, ims in enumerate(cols):
             x = 120 + j * CW + 4
             for im in ims:
-                s = min(1, (RH - 14) / im.height, 105 / im.width)
+                s = rs
                 im2 = im.resize((max(1, round(im.width * s)), max(1, round(im.height * s))), Image.NEAREST)
                 sheet.alpha_composite(im2, (x, y0 + RH - 8 - im2.height)); x += im2.width + 3
     sheet.save(sys.argv[1])
