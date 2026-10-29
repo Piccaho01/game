@@ -83,7 +83,7 @@ no text, no shadows.
 ## 3. Sprigby → Fernaroo → Scytharoo
 
 - **Save as:** `art/concepts/followers/sprigby_line_turnaround.png`  ·  **Shape:** landscape
-- **Attach:** `art/concepts/followers/starters_turnaround.png`, `art/concepts/sprigby_v2_front.png`, `art/concepts/fernaroo_front.png`, `art/concepts/scytharoo_front.png`
+- **Attach:** `art/concepts/followers/starters_turnaround.png`, `art/concepts/sprigby_v3_front.png`, `art/concepts/fernaroo_v3_front.png`, `art/concepts/scytharoo_v3_front.png`
 
 ```
 Pixel-art overworld follower sprites
