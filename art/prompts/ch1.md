@@ -292,37 +292,51 @@ no text, nothing else in the picture.
 
 ## Sanctuary upgrade
 
-### 8. Entrance Hall with real beds (replaces the bedrolls)
+### 8. Entrance Hall, lived in (fuller room, real beds)
 - **Save as:** `art/concepts/locations/interior_sanctuary_hall.png` (replaces the old one)  ·  **Shape:** landscape
 - **Attach:** `art/concepts/locations/interior_sanctuary_hall.png`
 
 ```
 Redraw this exact pixel-art room in
-exactly the same style, angle, size,
-walls, archway, rubble, terminal,
-screens, roots and floor. Keep every
-wall and the open floor where they
-are. Change ONLY the four sleeping
-bags along the left wall: replace them
-with four proper built-in beds in the
-same spots, side by side, each a low
-wooden bed frame on a stone plinth
-with a thick mattress, a pillow and a
-rumpled quilt, and a small shelf or
-crate at the head with personal items.
-From front to back:
-1. teal and orange quilt, a stack of
-comics and a chunky retro handheld;
-2. grey quilt with a green stripe,
-studio headphones and a drum pad;
-3. khaki quilt with acid-green trim,
-a phone on a little stand and a ring
-light;
-4. navy quilt with yellow and red, a
-round navy backpack with a red
-stripe, one sneaker with its lace
-untied, a phone plugged in charging.
-Cosy, lived-in, a bit messy. Flat
-white background, no text, no logos,
-no people.
+exactly the same style, angle, size
+and lighting. Keep the walls, the
+rubble-filled archway at the back,
+the old terminal on the right wall,
+the glowing wall screens and the
+roots. Keep a clear walking path of
+open floor from the front edge
+straight to the back wall, and along
+the back wall.
+Make it look like four best friends
+have moved in and made it home: cosy,
+crowded, a bit messy, warm light.
+LEFT WALL: replace the four sleeping
+bags with four proper low beds side
+by side on stone plinths, thick
+mattresses, pillows, rumpled quilts:
+teal-and-orange, grey with a green
+stripe, khaki with acid-green trim,
+navy with yellow and red. Between the
+beds small crates as bedside tables
+with comics, headphones, a phone on a
+stand, a round navy backpack.
+FRONT RIGHT: a hangout corner on a big
+worn patterned rug: a saggy couch made
+of crates and cushions, a beanbag, an
+old CRT TV on a crate with a game
+console and four tangled controllers,
+a low table with snack wrappers and
+burger boxes.
+RIGHT WALL, under the screens: a mini
+fridge, a shelf of mismatched mugs,
+a small music setup (a keyboard and a
+drum pad on a stand).
+EVERYWHERE: warm string lights along
+the top of the walls, a couple of
+potted plants, a lantern on a crate,
+a whiteboard leaning on the wall with
+scribbled plans, a sneaker left in the
+middle of the floor.
+Flat white background, no text, no
+letters, no logos, no people.
 ```
