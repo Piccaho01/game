@@ -231,3 +231,61 @@ At most 15 colours shared by both,
 clear white gap between the two, flat
 white background, no text, no shadow.
 ```
+
+## Route 1 props (the storm quest)
+
+### 6. The storm-rod (ruined + relit)
+- **Save as:** `art/concepts/locations/r1_storm_rod.png`  ·  **Shape:** landscape
+- **Attach:** `art/locations/out/graded/r1_crt_stone.png`
+
+```
+Two pixel-art overworld props side by
+side in ONE image, in exactly the
+pixel size, angle (isometric 3/4 from
+above), outline and palette style of
+the attached stone. Crisp hand-placed
+pixel clusters, no dithering, no blur.
+Both are the same object: an ancient
+lightning rod on a mossy stone base
+with carved runes, a tall rusted iron
+mast about three times as tall as the
+base, a crooked copper crossbar near
+the top, and a small hook where a
+lantern hangs.
+LEFT: ruined and dead: the mast bent,
+the copper green and dull, a grey
+Tally cable spliced onto its base and
+running off to the right edge, the
+runes dark.
+RIGHT: relit: the mast straight, the
+copper bright, small yellow sparks
+crawling up it, the runes glowing
+pale yellow, the cable gone.
+No lantern on either (it's added in
+the game). Flat white background, no
+text, clear gap between the two.
+```
+
+### 7. The Cloud Clamp (the Tally's machine)
+- **Save as:** `art/concepts/locations/r1_cloud_clamp.png`  ·  **Shape:** square
+- **Attach:** `art/locations/out/graded/r1_booth.png`
+
+```
+One pixel-art overworld prop in
+exactly the pixel size, angle
+(isometric 3/4 from above), outline
+and palette of the attached booth:
+the Tally's Cloud Clamp, a squat
+slate-grey metal box on four bolted
+legs, about the size of a vending
+machine, with a gold badge of four
+slashed tally marks, a big stamping
+arm on top pointing at the sky
+holding a rubber stamp, a paper
+ticket roll spilling out of a slot
+(blank tickets), a red warning lamp,
+and a grey cable snaking out of the
+side. Bureaucratic, slightly silly,
+not menacing. Flat white background,
+no text, nothing else in the picture.
+```
