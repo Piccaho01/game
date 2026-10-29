@@ -289,3 +289,40 @@ side. Bureaucratic, slightly silly,
 not menacing. Flat white background,
 no text, nothing else in the picture.
 ```
+
+## Sanctuary upgrade
+
+### 8. Entrance Hall with real beds (replaces the bedrolls)
+- **Save as:** `art/concepts/locations/interior_sanctuary_hall.png` (replaces the old one)  ·  **Shape:** landscape
+- **Attach:** `art/concepts/locations/interior_sanctuary_hall.png`
+
+```
+Redraw this exact pixel-art room in
+exactly the same style, angle, size,
+walls, archway, rubble, terminal,
+screens, roots and floor. Keep every
+wall and the open floor where they
+are. Change ONLY the four sleeping
+bags along the left wall: replace them
+with four proper built-in beds in the
+same spots, side by side, each a low
+wooden bed frame on a stone plinth
+with a thick mattress, a pillow and a
+rumpled quilt, and a small shelf or
+crate at the head with personal items.
+From front to back:
+1. teal and orange quilt, a stack of
+comics and a chunky retro handheld;
+2. grey quilt with a green stripe,
+studio headphones and a drum pad;
+3. khaki quilt with acid-green trim,
+a phone on a little stand and a ring
+light;
+4. navy quilt with yellow and red, a
+round navy backpack with a red
+stripe, one sneaker with its lace
+untied, a phone plugged in charging.
+Cosy, lived-in, a bit messy. Flat
+white background, no text, no logos,
+no people.
+```
