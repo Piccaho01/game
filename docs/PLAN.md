@@ -26,7 +26,7 @@ Rules that keep it efficient:
 - [ ] M5 Playtest build (branch `claude/peaceful-darwin-3db5u5`): field moves for all four, balance pass, phone fixes done; **left: share the link with the group, one round of fixes from their feedback.** See "M5 handoff".
 - [x] M6 Game shell (merged, PR #27). See "M6 handoff".
 - [x] M7 Evolution lines (branch `claude/affectionate-wozniak-wh7dgz`): all 12 forms, every creature double-res with its own idle, glitch evolve scene, live attack animations. See "M7 handoff".
-- [ ] Chapter 1, finish Route 1 (branch `claude/ch1-route1`): built, waiting on the owner's review. See "Chapter 1 handoff".
+- [x] Chapter 1, finish Route 1 (PR #29, branch `claude/ch1-route1`). See "Chapter 1 handoff".
 
 ## M1 Foundation (code)
 - Vite + TypeScript + Phaser 3 project in `game/`; touch-first input; scales to phone screens.
@@ -451,11 +451,12 @@ reactions, the text-speed samples). **Next:** roadmap step 3 (evolution art, who
   `docs/ch1_shinies_sprigby.png`); Harrowjaw converted 25% bigger on a 224-wide canvas (M7 size kept as
   `wip/m7/hi/harrowjaw_m7size*.txt`); new idles have their own motion; battle menu silhouettes fit;
   walking sheets for every stage of every line: prompts in `art/prompts/followers.md` (owner to run).
-- **Left:** the owner's shiny picks; the walking sheets (convert per line with a turnaround2follow.py
-  per-line mode); then screens in `e2e/screens.spec.ts` for Chapter 1, full e2e, PR.
-  Not done: Wardeye roaming the sanctuary (no follower art); Lantern Loft's room and its inside-joke
-  paintings (brainstorm with the owner, then one room prompt); the Tide Gallery hint sign dropped from
-  the hall (the old terminal is gone from the new concept).
+- **Done (round 2):** shiny picks for every line (Sprigby: two-tone autumn); the Sprigby line redrawn as one
+  family; walking sprites for every stage of all 8 lines (64px frames on the drafts' pixel grid,
+  `turnaround2follow.py SHEET stage...`); e2e 31/31, unit 201; PR #29.
+- **Carried over to the next session:** Zapail's eyestalk spark is a white blob in two walking views (hand
+  touch-up); the Lantern Loft's room and its inside-joke paintings (brainstorm with the owner, one room
+  prompt); offer two-tone shiny versions for the lines picked as one-colour shifts (owner hasn't answered).
 
 ## Roadmap after the playtest (proposed 2026-10-28; see WORKFLOW "chapters")
 1. **Playtest fixes**: the group's feedback as one batch.
