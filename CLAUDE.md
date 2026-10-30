@@ -97,7 +97,7 @@ Faces and hair come from the owner's photos; outfits are game designs, one colou
 
 ### Interiors
 - **Houses and buildings are explorable** (the friends' houses in Hollow Rest first). Interiors are full of personal detail and inside jokes (bible §11).
-- No gyms/league formula.
+- No gyms/league formula. The boss ladder is **Connor's 8 Generals** (owner's call, 2026-10-30; §10).
 
 ### Capture: the Seal
 - Weaken the creature, then perform a **seal**: a short rhythm/timing minigame. Each type has its own seal pattern.
@@ -175,7 +175,8 @@ The sanctuary once regulated the whole ecosystem. Without it, habitats drift and
 - **Look:** very tall and lanky, flat strawberry-blonde hair in a middle part, green-ish eyes, a Director's coat that's too big for him.
 - **Mastermind with salt:** elaborate plans that collapse because he bails on his own steps. Henchmen wait an hour at the meeting point, then get "rain check."
 - **Heart of the villain:** isolated, hiding that he's trapped; the Tally is his way of keeping people from leaving. Gives the final confrontation some weight under the jokes.
-- **Deputy Reliable:** second-in-command, the only Tally employee who shows up on time; competent and exhausted from covering for his boss.
+- **Deputy Reliable:** second-in-command, the only Tally employee who shows up on time; competent and exhausted from covering for his boss. He is **Parker Colt** (§11): the account itself, dumped in Verrow when Noah deleted it; on time because he still keeps a posting schedule.
+- **The 8 Generals** (owner's call, 2026-10-30): Connor's boss ladder, one per chapter/location, all people the group knows or finds familiar (no random OCs). Each fight gets Connor's chat hint first. So far: 1 Parker Colt (Route 1 checkpoint), 2 Chris Hansen ("To Catch a Sealer", Kettleport), 3 Micheal Xu (a friend: the chillest guy alive until he eats a Canopy mushroom, then feral), 4 Raul "Chiwi" Rojas (UFC fighter; goofy, lowkey an idiot, means well). 5-8 open.
 - **Boss fights:** the first attempt gets cancelled ("something came up"), so the player reschedules. Before each fight he sends a group-chat message ("might be a bit late guys") that doubles as the fight's tutorial/hint. The real fight has him showing up late and unprepared.
 - **Final twist:** he finally shows up on time to his own defeat, the one plan he ever committed to. (Alt ending: he skips his own defeat.)
 - **Festival cameo:** a ticket stand where he refuses to sell you a ticket.
@@ -190,7 +191,7 @@ Use these as flavour in NPCs, items, signs, quests and dialogue. Spread them out
 - **"And I picked up a mic and I'm chill":** a corny line Callum said once; the guys never let it go. Recurs as a cringe battle line or NPC taunt.
 - **Sergey:** Callum's 19-year-old Russian producer; side-quest NPC where the group keeps trying to "get Sergey out of the trenches."
 - **LeBron, the Keeper:** the old keeper of Hollow Rest's sanctuary is LeBron James, pulled into Verrow years ago when Callum hit "sim to end of season" on a MyLeague save. The Hollowfolk made him their Keeper; his ratings froze in 2K22 (still a 97). Callum feels a bit guilty; Dani doesn't know who he is. Affectionate parody: no team names or logos.
-- **Parker Colt:** a buddy's (Noah's) 2020 thirst-trap TikTok name. In Hollow Rest, Noah is Parker Colt, an influencer who never stops promoting his page ("Noah is a private account"). Roast, keep it clean.
+- **Parker Colt:** a buddy's (Noah's) 2020 thirst-trap TikTok name. Parker Colt is the account itself, dumped in Verrow when Noah deleted it: an influencer who never stops promoting a page that doesn't exist ("Noah is a private account"). In Chapter 2 he becomes Deputy Reliable (§10). Roast, keep it clean.
 - **Strikes:** Nolan's cat: orange, super old, an outside cat everyone loves (Callum most). He lives in Hollow Rest; PATCH swears he wasn't in the build.
 - **Dani's mamá on the phone:** she is always calling and texting him asking where he is ("donde estas"). He answers in calm English, then suddenly yells in Spanish. Recurs wherever the group goes.
 - **Tuffest white boy debate:** Richie Guérin vs Dick Van Arsdale. An arena debate with a title at stake.
