@@ -86,6 +86,29 @@ def sample(a, bg):
     return Image.fromarray(out, 'RGBA')
 
 
+def keep_largest(im):
+    """Only the frame's main figure: its biggest connected piece (a sliver of the next view goes)."""
+    a = np.asarray(im).copy()
+    on = a[:, :, 3] > 0
+    lab = np.zeros(on.shape, int)
+    sizes = [0]
+    for sy, sx in zip(*np.where(on)):
+        if lab[sy, sx]: continue
+        sizes.append(0); n = len(sizes) - 1
+        q = deque([(sy, sx)]); lab[sy, sx] = n
+        while q:
+            y, x = q.popleft(); sizes[n] += 1
+            for dy in (-1, 0, 1):
+                for dx in (-1, 0, 1):
+                    ny, nx = y + dy, x + dx
+                    if 0 <= ny < on.shape[0] and 0 <= nx < on.shape[1] and on[ny, nx] and not lab[ny, nx]:
+                        lab[ny, nx] = n; q.append((ny, nx))
+    if len(sizes) > 2:
+        big = int(np.argmax(sizes))
+        a[(lab != big) & on & (np.array(sizes)[lab] < sizes[big] * 0.15), 3] = 0
+    return Image.fromarray(a, 'RGBA')
+
+
 def bands(ink, axis, min_gap):
     """Runs of ink along one axis (rows of frames, or frames in a row), split at gaps of min_gap+."""
     prof = ink.any(axis=axis)
@@ -117,6 +140,10 @@ def line_sheet(path, names):
         while len(cols) > COLS:
             k = min(range(len(cols) - 1), key=lambda j: cols[j + 1][0] - cols[j][1])
             cols[k:k + 2] = [(cols[k][0], cols[k + 1][1])]
+        if len(cols) < COLS:
+            # frames touching (a tail into the next view): cut the row's width into 8 even cells
+            lo, hi = cols[0][0], cols[-1][1]
+            cols = [(lo + (hi - lo) * k // COLS, lo + (hi - lo) * (k + 1) // COLS) for k in range(COLS)]
         assert len(cols) == COLS, f'{path}: row has {len(cols)} frames'
         cells.append([(y0, y1, x0, x1) for x0, x1 in cols])
     tallest = max(y1 - y0 for row in cells for y0, y1, _, _ in row)
@@ -127,7 +154,8 @@ def line_sheet(path, names):
         for c, (y0, y1, x0, x1) in enumerate(row):
             pad = 6
             cell = sheet[max(0, y0 - pad):y1 + pad, max(0, x0 - pad):x1 + pad].astype(np.uint8)
-            im = despeck(sample(*figure(cell)))
+            im = keep_largest(despeck(sample(*figure(cell))))
+            im = im.crop(im.getbbox()) if im.getbbox() else im
             if im.width > FRAME or im.height > FRAME:
                 im.thumbnail((FRAME, FRAME), Image.NEAREST)
             strip.alpha_composite(im, (c * FRAME + (FRAME - im.width) // 2, FRAME - im.height))
