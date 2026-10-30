@@ -3,8 +3,11 @@
 angles) and samples each back to its pixel grid.
 
     python3 art/tools/turnaround2follow.py
+    python3 art/tools/turnaround2follow.py art/concepts/followers/<line>_line_turnaround.png stage1 stage2 ...
+      (a per-line sheet, every stage: one row each)
 writes art/followers/out/<species>_follow.png: one row of 8 frames, FRAME x FRAME, feet at the bottom.
 """
+import sys
 from collections import deque
 import numpy as np
 from PIL import Image
@@ -83,9 +86,61 @@ def sample(a, bg):
     return Image.fromarray(out, 'RGBA')
 
 
+def bands(ink, axis, min_gap):
+    """Runs of ink along one axis (rows of frames, or frames in a row), split at gaps of min_gap+."""
+    prof = ink.any(axis=axis)
+    out, start, gap = [], None, 0
+    for k, v in enumerate(prof):
+        if v:
+            if start is None: start = k
+            gap = 0
+        elif start is not None:
+            gap += 1
+            if gap >= min_gap:
+                out.append((start, k - gap + 1)); start = None
+    if start is not None: out.append((start, len(prof)))
+    return out
+
+
+def line_sheet(path, names):
+    """A per-line sheet (art/prompts/followers.md): one row per stage, 8 views each, any spacing.
+    One scale for the whole sheet (its tallest frame fills FRAME), so the stages keep their sizes."""
+    global SCALE
+    sheet = np.asarray(Image.open(path).convert('RGB')).astype(int)
+    ink = sheet.min(2) < 225
+    rows = [r for r in bands(ink, 1, 12) if r[1] - r[0] > 20]
+    assert len(rows) == len(names), f'{path}: {len(rows)} rows for {names}'
+    cells = []
+    for y0, y1 in rows:
+        cols = [c for c in bands(ink[y0:y1], 0, 8) if c[1] - c[0] > 10]
+        # merge loose bits (sparks, smoke) into the nearest frame until there are 8
+        while len(cols) > COLS:
+            k = min(range(len(cols) - 1), key=lambda j: cols[j + 1][0] - cols[j][1])
+            cols[k:k + 2] = [(cols[k][0], cols[k + 1][1])]
+        assert len(cols) == COLS, f'{path}: row has {len(cols)} frames'
+        cells.append([(y0, y1, x0, x1) for x0, x1 in cols])
+    tallest = max(y1 - y0 for row in cells for y0, y1, _, _ in row)
+    widest = max(x1 - x0 for row in cells for _, _, x0, x1 in row)
+    SCALE = max(tallest / (FRAME - 1), widest / (FRAME - 1))
+    for sp, row in zip(names, cells):
+        strip = Image.new('RGBA', (FRAME * COLS, FRAME), (0, 0, 0, 0))
+        for c, (y0, y1, x0, x1) in enumerate(row):
+            pad = 6
+            cell = sheet[max(0, y0 - pad):y1 + pad, max(0, x0 - pad):x1 + pad].astype(np.uint8)
+            im = despeck(sample(*figure(cell)))
+            if im.width > FRAME or im.height > FRAME:
+                im.thumbnail((FRAME, FRAME), Image.NEAREST)
+            strip.alpha_composite(im, (c * FRAME + (FRAME - im.width) // 2, FRAME - im.height))
+        strip.save(f'art/followers/out/{sp}_follow.png')
+        print(sp, 'ok', f'scale {SCALE:.1f}')
+
+
 if __name__ == '__main__':
     import os
     os.makedirs('art/followers/out', exist_ok=True)
+    if len(sys.argv) > 2:   # python3 art/tools/turnaround2follow.py SHEET stage1 stage2 ...
+        line_sheet(sys.argv[1], sys.argv[2:])
+        raise SystemExit
     sheet = np.asarray(Image.open(SHEET).convert('RGB'))
     ch, cw = sheet.shape[0] // len(ROWS), sheet.shape[1] // COLS
     for r, sp in enumerate(ROWS):
