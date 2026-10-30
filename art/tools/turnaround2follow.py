@@ -17,7 +17,7 @@ ROWS = ['furnaxol', 'sprigby', 'zapail', 'gobbin']
 COLS = 8
 # Source pixels per art pixel (the drafts' pixel size).
 SCALE = 6.0
-FRAME = 32
+FRAME = 64   # Chapter 1: the drafts' own pixel grid fits 64 (the friends are 40 tall)
 # Species with no white of their own: white enclosed by the figure (between Zapail's eyestalks) is background too.
 NO_WHITE = {'zapail'}
 
@@ -142,17 +142,30 @@ def line_sheet(path, names):
             cols[k:k + 2] = [(cols[k][0], cols[k + 1][1])]
         if len(cols) < COLS:
             # frames touching (a tail into the next view): cut the row's width into 8 even cells
+            # frames touching (a tail into the next view): cut near each even boundary, at the
+            # column with the least ink, so a tail or snout isn't sliced through
             lo, hi = cols[0][0], cols[-1][1]
-            cols = [(lo + (hi - lo) * k // COLS, lo + (hi - lo) * (k + 1) // COLS) for k in range(COLS)]
+            prof = ink[y0:y1].sum(0)
+            cuts = [lo]
+            for k in range(1, COLS):
+                t = lo + (hi - lo) * k // COLS
+                w = (hi - lo) // (COLS * 4)
+                cuts.append(t - w + int(np.argmin(prof[t - w:t + w])))
+            cuts.append(hi)
+            cols = list(zip(cuts[:-1], cuts[1:]))
         assert len(cols) == COLS, f'{path}: row has {len(cols)} frames'
         cells.append([(y0, y1, x0, x1) for x0, x1 in cols])
+    # Sample on the draft's own pixel grid (1:1 with its pixels: shrinking further turns busy
+    # designs like Harrowjaw to mush); only a figure too big for the frame is shrunk to fit.
+    from pixel2grid import fit_axis
+    pitch = (fit_axis(sheet, 1, 4, 12)[0] + fit_axis(sheet, 0, 4, 12)[0]) / 2
     tallest = max(y1 - y0 for row in cells for y0, y1, _, _ in row)
     widest = max(x1 - x0 for row in cells for _, _, x0, x1 in row)
-    SCALE = max(tallest / (FRAME - 1), widest / (FRAME - 1))
+    SCALE = max(pitch, tallest / (FRAME - 1), widest / (FRAME - 1))
     for sp, row in zip(names, cells):
         strip = Image.new('RGBA', (FRAME * COLS, FRAME), (0, 0, 0, 0))
         for c, (y0, y1, x0, x1) in enumerate(row):
-            pad = 6
+            pad = 6 if len(bands(ink[y0:y1], 0, 8)) >= COLS else 0
             cell = sheet[max(0, y0 - pad):y1 + pad, max(0, x0 - pad):x1 + pad].astype(np.uint8)
             im = keep_largest(despeck(sample(*figure(cell))))
             im = im.crop(im.getbbox()) if im.getbbox() else im

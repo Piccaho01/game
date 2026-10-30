@@ -64,7 +64,7 @@ const follows = import.meta.glob('../../art/followers/out/*_follow.png', { eager
 export const FOLLOW_SHEETS: Record<string, string> = Object.fromEntries(
   Object.entries(follows).map(([path, url]) => [base(path).replace(/_follow$/, ''), url]),
 );
-export const FOLLOW_FRAME = 32;
+export const FOLLOW_FRAME = 64;
 
 /** The title screen's art (art/tools/title_art.py): PATCH on the runestone, the four at title size. */
 const titleArt = import.meta.glob('../../art/title/out/*.png', { eager: true, query: '?url', import: 'default' }) as Record<string, string>;
