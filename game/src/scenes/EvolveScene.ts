@@ -1,8 +1,10 @@
 import Phaser from 'phaser';
 import { SCREEN_H, SCREEN_W, ZOOM } from '../config';
-import { MOVES, SPECIES, TYPES } from '../engine/data';
+import { evoTriggers, MOVES, SPECIES, TYPES } from '../engine/data';
 import { linesFor } from '../engine/dialogue';
-import { evolve, stopEvolution, type EvolutionDue } from '../engine/evolution';
+import { evolve, findMember, stopEvolution, type EvolutionDue } from '../engine/evolution';
+import { useItem } from '../engine/items';
+import { pulse, variantLook } from '../ui/variantFx';
 import { CHARACTERS, type Progress } from '../engine/progress';
 import { saveProgress } from '../save';
 import { DialogBox } from '../ui/dialog';
@@ -202,10 +204,19 @@ export class EvolveScene extends Phaser.Scene {
     glowLine.destroy();
   }
 
+  /** A Prototype's pulse on the evolving Patchling (restarted when its form changes). */
+  private stopPulse?: () => void;
+
   private playIdle(species: string) {
     this.mon.anims.stop();
-    this.mon.setTexture(frontKey(species)).setScale(monScale(this, frontKey(species)));
-    if (this.anims.exists(idleAnimKey(species))) this.mon.play(idleAnimKey(species));
+    // A shiny or Prototype evolves into its new form's shiny or Prototype look.
+    const due = this.data0.queue[0];
+    const m = this.progress && due ? findMember(this.progress, due.uid) : undefined;
+    const look = variantLook(this, species, frontKey(species), idleAnimKey(species), m?.variant);
+    this.mon.setTexture(look.key).setScale(monScale(this, frontKey(species)));
+    if (look.anim) this.mon.play(look.anim);
+    this.stopPulse?.();
+    this.stopPulse = look.glow ? pulse(this, this.mon, look.glow) : undefined;
   }
 
   /** Whose Patchling it is, and STOP while it changes. */
@@ -219,7 +230,8 @@ export class EvolveScene extends Phaser.Scene {
       color: who ? shade(hexToNum(who.color), -0.2) : TONES.patch,
       icon: due.owner ? faceIcon(walkKey(due.owner)) : monIcon(frontKey(evolved ? due.to : due.from)), passive: true, name: 'owner',
     }));
-    if (this.step === 'intro' || this.step === 'morph') {
+    // An item evolution can't be stopped (the item is already in use, like BW's stones).
+    if ((this.step === 'intro' || this.step === 'morph') && !due.item) {
       this.bottom.add(pixelText(this, 128, 74, 'Not ready for it?', { color: TEXT_COLORS.dim, size: TEXT_SIZE.small }).setOrigin(0.5));
       this.bottom.add(button(this, 128, 108, 160, 44, 'STOP', TONES.act, () => { this.stopAsked = true; sfx('back'); }, { sub: 'It asks again next level', name: 'stop' }));
     } else if (this.step === 'done' || this.step === 'stopped') {
@@ -232,7 +244,7 @@ export class EvolveScene extends Phaser.Scene {
   }
 
   private level(due: EvolutionDue) {
-    if (this.data0.preview || !this.progress) return SPECIES[due.from].evolves?.level ?? 1;
+    if (this.data0.preview || !this.progress) return evoTriggers(due.from).find((t) => t.to === due.to)?.level ?? 1;
     const m = [...Object.values(this.progress.teams).flat(), ...this.progress.sanctuary].find((x) => x.uid === due.uid);
     return m?.level ?? 1;
   }
@@ -290,7 +302,8 @@ export class EvolveScene extends Phaser.Scene {
     await this.scanIn();
     this.log(`> hello, ${SPECIES[due.to].name}`);
     await tweenAsync(this, { targets: this.mon, y: CENTRE.y - 6, duration: 140, yoyo: true, ease: 'Quad.easeOut' });
-    const r = this.data0.preview || !this.progress ? null : evolve(this.progress, due.uid);
+    const r = this.data0.preview || !this.progress ? null : evolve(this.progress, due.uid, due.to);
+    if (r && due.item && this.progress) useItem(this.progress, due.item);
     if (this.progress && !this.data0.preview) saveProgress(this.progress);
     this.drawBottom(due);
     this.addTag(toName);

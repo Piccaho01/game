@@ -27,6 +27,8 @@ export interface Battler {
     shielded: boolean;
     /** Turns this battler has been in battle (0 on its first turn). */
     turnsOut: number;
+    /** It has taken a hit since it came in (Severance hits harder). */
+    wasHit: boolean;
   };
 }
 
@@ -60,7 +62,7 @@ export function createBattler(speciesId: string, level: number, moveIds?: string
     moves: ids.map((id) => ({ id, pp: MOVES[id].pp, maxPp: MOVES[id].pp })),
     status: null, sleepTurns: 0,
     stages: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
-    volatile: { charged: false, chargingMove: null, hardened: false, shielded: false, turnsOut: 0 },
+    volatile: { charged: false, chargingMove: null, hardened: false, shielded: false, turnsOut: 0, wasHit: false },
   };
 }
 

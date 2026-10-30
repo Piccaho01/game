@@ -127,6 +127,27 @@
       "studied": "Lands on its talons like landing gear. Has been seen doing a victory roll after every landing.",
       "sealed": "The Tally finally cleared one for takeoff. It had already left.",
       "bonded": "Lets you ride on its back over the mist. PATCH asks you to keep your arms inside the vehicle."
+    },
+    "voltcalf": {
+      "sighted": "A stocky little calf, charcoal-blue with a lightning streak down its face. One horn. It is carrying the other one.",
+      "tracked": "Only comes out in the rain. Nobody on Route 1 had seen one in years, because nobody on Route 1 had seen rain in years.",
+      "studied": "Lost its horn to the first storm it ever met. Kept it. Has not stopped swinging it. Do not mention the stump.",
+      "sealed": "Sleeps holding the horn. Eats holding the horn. [Callum: \"It won't put it down. Respect.\"]",
+      "bonded": "Lets you hold the horn for exactly one second. That is the highest honour a Voltcalf gives."
+    },
+    "voltaurus": {
+      "sighted": "A hulking bull-man with a branching bolt for a horn and a lightning axe in both hands.",
+      "tracked": "The old horn grew with it into a double axe, patched with copper bands. The stump wears a copper ring like a medal.",
+      "studied": "Its horn and its axe spark at each other when it's angry. It is often angry. Mostly at weather forecasts.",
+      "sealed": "Hollowfolk say the storms over the hills were louder when Voltaurus herds walked them. The Tally rain-checked both.",
+      "bonded": "Holds the axe over you when it rains, like an umbrella. It is a terrible umbrella. It does it anyway."
+    },
+    "wardeye": {
+      "sighted": "A dim brass lantern hanging off the old storm-rod. There is an eye inside. It is barely open.",
+      "tracked": "It kept watch for storms from Route 1's hill. When the Tally rain-checked the rain there was nothing left to watch.",
+      "studied": "Wears a lighthouse keeper's coat with nobody in it. The chain drags like an anchor that never found the bottom.",
+      "sealed": "It relit the night the storm came back. PATCH: \"I did not have weather on the list. I'm adding it to the list.\"",
+      "bonded": "Floats by your bed at night with its light turned low, watching the door. [Haydon: \"Don't point that at my phone.\"]"
     }
   },
   "redacted": {

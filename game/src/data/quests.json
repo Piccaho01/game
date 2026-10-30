@@ -1,0 +1,30 @@
+{
+  "_note": "Bestiary quests (bible §7): a rare Patchling's page stays incomplete, and it can't be sealed, until its world task is done. Each step is done when its obstacle is cleared ('cleared', engine/fieldMoves.ts) or its story flag is set ('flag'). Shown as a page in the Journal's bestiary entry.",
+  "quests": {
+    "wardeye_storm": {
+      "name": "Bring the storm back",
+      "steps": [
+        {
+          "text": "Find the dim lantern on the storm-rod.",
+          "sighted": "wardeye"
+        },
+        {
+          "text": "Read the rod's plate (Callum).",
+          "cleared": "r1_rod_plate"
+        },
+        {
+          "text": "Get the clerk off the Clamp (Haydon).",
+          "cleared": "r1_clerk"
+        },
+        {
+          "text": "Free the rod's cable (Nolan).",
+          "cleared": "r1_clamp"
+        },
+        {
+          "text": "Wardeye waits at the rod in the rain.",
+          "flag": "storm_returned"
+        }
+      ]
+    }
+  }
+}

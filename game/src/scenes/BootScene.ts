@@ -1,9 +1,10 @@
 import Phaser from 'phaser';
 import { TITLE_ART, BATTLE_BGS, FOLLOW_FRAME, FOLLOW_SHEETS, ITEM_ICONS, MAP_ART, PROP_ART, SPRITES, STANDS, TRAINER_BATTLE, WALK_FRAME, WALK_SHEETS, type SpriteAsset } from '../assets';
-import { SPECIES, TYPES } from '../engine/data';
+import { evoTriggers, SPECIES, TYPES } from '../engine/data';
 import { newProgress } from '../engine/progress';
 import { ITEMS } from '../engine/items';
 import { clearProgress, loadProgress, saveProgress } from '../save';
+import type { BattleInit } from './BattleScene';
 
 /** Texture key for a species' battle sprite; always exists after boot (real art or a placeholder). */
 export const frontKey = (species: string) => `front:${species}`;
@@ -79,9 +80,9 @@ export class BootScene extends Phaser.Scene {
     }
     // ?evolve=<species> previews the evolve scene (touches no save).
     const evo = params.get('evolve');
-    if (evo && SPECIES[evo]?.evolves) {
+    if (evo && evoTriggers(evo).length) {
       if (progress) this.registry.set('progress', progress);
-      this.scene.start('evolve', { queue: [{ uid: -1, owner: progress?.leader ?? 'callum', from: evo, to: SPECIES[evo].evolves!.to }], next: { scene: progress ? 'overworld' : 'title' }, preview: true });
+      this.scene.start('evolve', { queue: [{ uid: -1, owner: progress?.leader ?? 'callum', from: evo, to: evoTriggers(evo)[0].to }], next: { scene: progress ? 'overworld' : 'title' }, preview: true });
       return;
     }
     if (progress) this.registry.set('progress', progress);
@@ -99,7 +100,12 @@ export class BootScene extends Phaser.Scene {
     }
     const foe = params.get('foe');
     if (foe && SPECIES[foe]) {
-      this.scene.start('battle', { foe, seed: params.has('seed') ? Number(params.get('seed')) : undefined });
+      // ?weather=rain and ?variant=shiny|prototype try those out (tests, the review sheet).
+      const variant = params.get('variant');
+      this.scene.start('battle', {
+        foe, seed: params.has('seed') ? Number(params.get('seed')) : undefined, level: params.has('level') ? Number(params.get('level')) : undefined,
+        weather: params.get('weather') === 'rain' ? 'rain' : null, variant: variant === 'shiny' || variant === 'prototype' ? variant : undefined,
+      } satisfies BattleInit);
       return;
     }
     this.scene.start('overworld');
@@ -124,7 +130,7 @@ export class BootScene extends Phaser.Scene {
     return { frames: sorted.map((frame) => ({ key, frame, duration: json?.frames?.[frame]?.duration ?? 100 })) };
   }
 
-  /** Seal scroll icons: the owner's art (ITEM_ICONS); any item without it gets a rolled scroll in its colour, 18x22. */
+  /** Item icons: the owner's art (ITEM_ICONS); a scroll without it gets a rolled scroll in its colour, an evolution item a crystal, 18x22. */
   private makeItemIcons() {
     for (const [id, it] of Object.entries(ITEMS)) {
       if (this.textures.exists(itemKey(id))) continue;
@@ -132,6 +138,18 @@ export class BootScene extends Phaser.Scene {
       const dark = Phaser.Display.Color.ValueToColor(c).darken(35).color;
       const light = Phaser.Display.Color.ValueToColor(c).lighten(20).color;
       const g = this.make.graphics({}, false);
+      if (it.kind === 'evolution') {
+        // An evolution item is a jagged crystal shard in its colour (the Storm Shard), 18x22.
+        const ink = 0x1c1b29;
+        g.fillStyle(ink).fillPoints([{ x: 9, y: 0 }, { x: 15, y: 7 }, { x: 12, y: 12 }, { x: 16, y: 21 }, { x: 4, y: 21 }, { x: 7, y: 13 }, { x: 3, y: 7 }], true);
+        g.fillStyle(dark).fillPoints([{ x: 9, y: 2 }, { x: 13, y: 7 }, { x: 10, y: 12 }, { x: 14, y: 20 }, { x: 6, y: 20 }, { x: 9, y: 13 }, { x: 5, y: 7 }], true);
+        g.fillStyle(c).fillPoints([{ x: 9, y: 2 }, { x: 11, y: 7 }, { x: 8, y: 12 }, { x: 11, y: 20 }, { x: 6, y: 20 }, { x: 9, y: 13 }, { x: 5, y: 7 }], true);
+        g.fillStyle(light).fillRect(7, 5, 2, 3).fillRect(8, 15, 1, 3);
+        g.fillStyle(0xffffff).fillRect(7, 5, 1, 1);
+        g.generateTexture(itemKey(id), 18, 22);
+        g.destroy();
+        continue;
+      }
       g.fillStyle(0x1c1b29).fillRect(3, 3, 12, 16).fillRect(1, 1, 16, 5).fillRect(1, 16, 16, 5);
       g.fillStyle(c).fillRect(4, 5, 10, 12);
       g.fillStyle(light).fillRect(4, 5, 2, 12);

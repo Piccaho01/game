@@ -8,7 +8,7 @@ const CARDS = readdirSync(new URL('../../art/cutscenes/out', import.meta.url)).m
 
 describe('cutscene scripts', () => {
   it('every script checks out: known speakers, real cards, no empty lines', () => {
-    expect(Object.keys(SCRIPTS).sort()).toEqual(['connor_hook', 'first_step', 'opening', 'starters_picked']);
+    expect(Object.keys(SCRIPTS).sort()).toEqual(['connor_hook', 'first_step', 'opening', 'starters_picked', 'storm_returns']);
     for (const s of Object.values(SCRIPTS)) expect(checkScript(s, CARDS)).toEqual([]);
   });
 

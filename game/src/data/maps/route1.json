@@ -1,5 +1,5 @@
 {
-  "_note": "Route 1 (bible §15): the hills below Hollow Rest, after the owner's concept art. Isometric (art/tools/iso_map.py bakes it). Built by art/tools/route1_layout.py: edit there. Tall grass hides the Route 1 commons; the encounter rate is per step in tall grass (0-1); tune on a phone.",
+  "_note": "Route 1 (bible \u00a715): the hills below Hollow Rest, after the owner's concept art. Isometric (art/tools/iso_map.py bakes it). Built by art/tools/route1_layout.py: edit there. Tall grass hides the Route 1 commons; the encounter rate is per step in tall grass (0-1); tune on a phone. Chapter 1 (added by hand, after the layout script): the storm-rod and the Cloud Clamp on the west hill (the oak that stood there is gone so the rod stands against the sky) (the storm quest, data/obstacles.json r1_*); once the storm is back it rains 40% of the time (Voltcalf in the rain table, Wardeye waiting at the rod).",
   "id": "route1",
   "name": "Route 1",
   "battle": "route1",
@@ -77,7 +77,29 @@
         "species": "fledjet",
         "weight": 50
       }
-    ]
+    ],
+    "weather": {
+      "rain": {
+        "table": [
+          {
+            "species": "orbitot",
+            "weight": 40
+          },
+          {
+            "species": "fledjet",
+            "weight": 35
+          },
+          {
+            "species": "voltcalf",
+            "weight": 25,
+            "levels": [
+              4,
+              7
+            ]
+          }
+        ]
+      }
+    }
   },
   "heights": [
     "0333333330000000000000",
@@ -166,11 +188,6 @@
     },
     {
       "kind": "r1_oak",
-      "x": 0,
-      "y": 3
-    },
-    {
-      "kind": "r1_oak",
       "x": 14,
       "y": 4
     },
@@ -178,6 +195,38 @@
       "kind": "r1_oak",
       "x": 15,
       "y": 12
+    },
+    {
+      "kind": "r1_storm_rod",
+      "x": 1,
+      "y": 5
+    },
+    {
+      "kind": "r1_cloud_clamp",
+      "x": 1,
+      "y": 2
+    }
+  ],
+  "weather": {
+    "kind": "rain",
+    "chance": 0.4,
+    "minutes": 4,
+    "after": [
+      "storm_returned"
+    ]
+  },
+  "statics": [
+    {
+      "id": "wardeye",
+      "x": 1,
+      "y": 5,
+      "species": "wardeye",
+      "level": 9,
+      "after": [
+        "storm_returned"
+      ],
+      "weather": "rain",
+      "talk": "wardeye_wakes"
     }
   ]
 }

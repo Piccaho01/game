@@ -25,11 +25,11 @@
    "decal": true
   },
   {
-   "art": "r1_oak",
-   "x": 321,
-   "y": 10,
-   "fx": 0,
-   "fy": 3,
+   "art": "r1_cloud_clamp",
+   "x": 354,
+   "y": 22,
+   "fx": 1,
+   "fy": 2,
    "wx": 1,
    "wy": 1,
    "key": 36,
@@ -55,6 +55,17 @@
    "wx": 1,
    "wy": 1,
    "key": 46,
+   "decal": false
+  },
+  {
+   "art": "r1_storm_rod",
+   "x": 308,
+   "y": 32,
+   "fx": 1,
+   "fy": 5,
+   "wx": 1,
+   "wy": 1,
+   "key": 66,
    "decal": false
   },
   {

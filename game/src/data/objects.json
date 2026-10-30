@@ -414,6 +414,21 @@
       "wx": 1,
       "wy": 1,
       "text": "A crate stamped TALLY: SALVAGE, PENDING. It's been pending since it was stamped."
+    },
+    "r1_storm_rod": {
+      "art": "r1_storm_rod",
+      "wx": 1,
+      "wy": 1,
+      "talk": "storm_rod",
+      "later": { "when": { "flag": "storm_returned" }, "art": "r1_storm_rod_lit", "talk": "storm_rod_lit", "sealed": "wardeye", "sealedTalk": "storm_rod_quiet" },
+      "lantern": { "species": "wardeye", "dx": 28, "dy": 14, "litDx": 26, "litDy": 15 }
+    },
+    "r1_cloud_clamp": {
+      "art": "r1_cloud_clamp",
+      "wx": 1,
+      "wy": 1,
+      "talk": "cloud_clamp",
+      "later": { "when": { "flag": "storm_returned" }, "talk": "cloud_clamp_jammed" }
     }
   }
 }

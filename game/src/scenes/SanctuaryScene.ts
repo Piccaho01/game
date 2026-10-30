@@ -1,11 +1,11 @@
 import Phaser from 'phaser';
 import { SCREEN_H, SCREEN_W, ZOOM } from '../config';
 import { SPECIES, TYPES } from '../engine/data';
-import { CHARACTERS, deposit, leaderTeam, sanctuaryPoints, TEAM_SIZE, withdraw, type Member, type Progress } from '../engine/progress';
+import { CHARACTERS, deposit, leaderTeam, TEAM_SIZE, withdraw, type Member, type Progress } from '../engine/progress';
 import { restoreWing, wingState, WINGS, type WingState } from '../engine/sanctuary';
 import { saveProgress } from '../save';
 import { DialogBox } from '../ui/dialog';
-import { button, buttonPagePoint, chip, emptySlot, hinge, listRow, monIcon, tabs, menuBackdrop, Meter, panel, patchPortrait, screenBackdrop, tapeLabel } from '../ui/kit';
+import { button, buttonPagePoint, chip, emptySlot, hinge, listRow, monIcon, tabs, menuBackdrop, panel, patchPortrait, screenBackdrop, tapeLabel } from '../ui/kit';
 import { pixelText } from '../ui/text';
 import { COLORS, hexToNum, shade, TEXT_COLORS, TEXT_SIZE, TONES } from '../ui/theme';
 import { frontKey, idleAnimKey, monScale } from './BootScene';
@@ -85,15 +85,13 @@ export class SanctuaryScene extends Phaser.Scene {
   }
 
   private renderWings() {
-    const pts = sanctuaryPoints(this.progress);
-    this.bottom.add(pixelText(this, 128, 32, `Sanctuary points: ${pts}`, { color: TEXT_COLORS.light, size: TEXT_SIZE.small, shadow: '#000000' }).setOrigin(0.5, 0));
+    this.bottom.add(pixelText(this, 128, 32, 'Wings open as the story goes on.', { color: TEXT_COLORS.light, size: TEXT_SIZE.small, shadow: '#000000' }).setOrigin(0.5, 0));
     WINGS.forEach((w, i) => {
       const state = wingState(this.progress, w.id);
-      const sub = state === 'restored' ? 'RESTORED' : state === 'ready' ? 'READY TO RESTORE' : `${Math.min(pts, w.points)}/${w.points} pts`;
+      const sub = state === 'restored' ? 'RESTORED' : state === 'ready' ? 'READY TO RESTORE' : 'LOCKED';
       const color = state === 'restored' ? COLORS.go : state === 'ready' ? TONES.patch : COLORS.metalLight;
       this.bottom.add(listRow(this, 128, 60 + i * 32, 236, 28, {
         title: w.name, sub, color, icon: { text: ['I', 'II', 'III', 'IV', 'V'][i] ?? String(i + 1) },
-        meter: { frac: state === 'restored' ? 1 : Math.min(1, pts / w.points), color: state === 'locked' ? 0xa6d8ff : 0x7effc8 },
         onTap: () => { this.selected = w.id; this.render(); }, name: `wing-${w.id}`, selected: this.selected === w.id,
       }));
     });
@@ -158,16 +156,10 @@ export class SanctuaryScene extends Phaser.Scene {
     }
     const w = WINGS.find((x) => x.id === this.selected)!;
     const state = wingState(this.progress, w.id);
-    const pts = sanctuaryPoints(this.progress);
     this.top.add(tapeLabel(this, 14, 2, 'SANCTUARY'));
     this.top.add(pixelText(this, 18, 20, w.name, { size: TEXT_SIZE.heading }));
     const [label, color] = STATE_CHIP[state];
     this.top.add(chip(this, 18, 36, label, color));
-    // How close it is: points against the wing's cost.
-    const meter = new Meter(this, 18, 52, 150, 5);
-    meter.draw(state === 'restored' ? 1 : Math.min(1, pts / w.points), state === 'locked' ? COLORS.crt : COLORS.go);
-    this.top.add(meter.graphics);
-    this.top.add(pixelText(this, 174, 51, state === 'restored' ? 'done' : `${Math.min(pts, w.points)}/${w.points}`, { color: TEXT_COLORS.inkSoft, size: TEXT_SIZE.small }));
     this.top.add(pixelText(this, 18, 66, w.desc, { size: TEXT_SIZE.small, wrap: 220 }));
     // PATCH weighs in at the bottom of the card.
     this.top.add(patchPortrait(this, 40, 140));
@@ -175,7 +167,7 @@ export class SanctuaryScene extends Phaser.Scene {
       : state === 'ready' ? 'Enough points. Tap RESTORE. I\'ll hold the torch.'
       : WINGS.indexOf(w) > 0 && wingState(this.progress, WINGS[WINGS.indexOf(w) - 1].id) !== 'restored'
         ? 'One wing at a time. I\'m a robot, not a miracle.'
-        : 'Fill the bestiary to earn points. Every stage counts.';
+        : w.needs;
     this.top.add(pixelText(this, 72, 124, hint, { color: TEXT_COLORS.inkSoft, size: TEXT_SIZE.small, wrap: 166 }));
   }
 

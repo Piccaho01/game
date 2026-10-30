@@ -112,7 +112,8 @@ describe('field moves', () => {
     const { switchLeader } = await import('../src/engine/progress');
     const { DIALOGUE_IDS } = await import('../src/engine/dialogue');
     const p = newProgress('furnaxol');
-    const list = obstaclesOn('route1', p);
+    // M5's three (Chapter 1's storm quest has its own test, tests/chapter1.test.ts).
+    const list = obstaclesOn('route1', p).filter((o) => o.id.startsWith('route1_'));
     expect(list.map(needs).sort()).toEqual(['callum', 'haydon', 'nolan']);
     for (const o of list) for (const t of [o.blockedTalk, o.clearTalk]) if (t) expect(DIALOGUE_IDS, t).toContain(t);
     const blocked = (x: number, y: number) => list.some((o) => o.x === x && o.y === y);

@@ -89,7 +89,7 @@ Faces and hair come from the owner's photos; outfits are game designs, one colou
 ### Progression: the Bestiary
 - Every creature has an entry with stages: **Sighted → Tracked → Studied → Sealed → Bonded**. Each stage unlocks lore.
 - Rare and unique creatures have **quest entries**: their page stays incomplete until the player does something tied to the world (help a faction, fix a habitat, uncover history).
-- Filling entries restores **sanctuary wings**, which unlock areas, abilities and story beats.
+- **Sanctuary wings open through the story** (owner's call, 2026-10-29): each chapter's quest opens its wing (the Lantern Loft when the storm comes back to Route 1), which unlocks areas, abilities and story beats. Bestiary points go on filling the rooms in over time (decor, residents, visitors), not on wings.
 
 ### The Sanctuary (home base)
 - The stone entrance on the hill in Hollow Rest opens into a **huge explorable base** inside the hill: halls, wings and chambers that **unlock as the story progresses** (restored wings, quests, story beats). It's where Patchlings are stored, where the friends sleep, and where PATCH works.
@@ -121,6 +121,16 @@ Every Patchling on all four teams gets the full experience from each battle; Pat
   1. **Habitat effects:** terrain and time of day alter moves.
   2. **Bond moves:** close-bond creatures get a once-per-battle special tied to their lore.
   3. **Leader assists:** the active character's battle command (see section 6).
+
+### Encounters per route (owner's rule, 2026-10-29)
+- Count **species, not lines**: about **6-8 species** can be met on a route, **3-4 of them new**; later routes bring back 1-2 earlier species.
+- Each route has commons, an **uncommon** (night only, or one patch of grass) and a **rare or quest** Patchling (can't be sealed until its bestiary quest is done).
+- **Line shapes are free:** 3-stage, 2-stage and single-stage Patchlings, branching evolutions and item/other triggers are all allowed. A single-stager is one sprite pair, good for personality and inside-joke creatures.
+
+### Shinies and Prototypes (owner's rule, 2026-10-29)
+- **Shiny:** about **1 in 512**. A second palette per line (picked by the owner from options; `data/shinies.json`), a sparkle when it appears, a star in the bestiary, "shiny sealed" on the entry.
+- **Prototype:** rarer than shiny, about **1 in 8192**: PATCH's scrapped first draft of that creature, still in the code (Draft Archive lore). A colourway, no glitch (owner's call): the sanctuary's dark stone, with its brightest colours (glows, eyes, markings) in the sanctuary's vibrant screen blue, pulsing. A corrupted entry sound and its own bestiary note. PATCH: "That's... not supposed to exist. Please don't tell anyone about that one." Prototypes may be what the Draft Archive's sealed doors respond to.
+- Both are **cosmetic only** (no stat boost). Neither needs new drawings.
 
 ### Special/legendary creatures
 Rare, unique and legendary creatures are brought back to the sanctuary over the story. No special naming scheme; they are simply the rarest entries. The sanctuary fills as you progress.
@@ -252,3 +262,16 @@ Two common lines for the hills outside Hollow Rest. Stage 1s are drawn for M4; e
 - Story hook: nests under the Cloud Station's turbines and races the gondolas; Wayfarers use grown ones as couriers. The Tally runs "air traffic control" and grounds every flight with rain checks. Bestiary: "Has been cleared for takeoff 0 times. Takes off anyway."
 - Signature **Afterburner** (Wind, physical: hits hard, raises Speed, lowers its own Defense). Ability **Slipstream** (its first move each battle goes first).
 - Each stage is more aircraft, less bird. **Contrailon**: sleek, wing panels growing in, chest plates, canopy-like crest, contrails off the wingtips. **Strafalcon**: nearly a fighter jet (plated hull, swept wings, twin tail fins, glowing exhaust) with a falcon head and talons as landing gear.
+
+### Voltcalf → Voltaurus (Spark): the one-horned storm minotaur (Route 1 uncommon, approved 2026-10-29)
+- **Voltcalf**: a stocky little minotaur calf, charcoal-blue hide with a yellow lightning-streak blaze. **One horn shaped like a jagged lightning bolt; the other is a snapped, scorched stump** that still sparks. It carries its **fallen horn** as a club almost its own size, still charged. Won't put it down, even to eat or sleep; touchy about the stump. Bestiary: "Lost its horn to the first storm it ever met. Kept it. Has not stopped swinging it."
+- **Voltaurus**: hulking bull-man; the remaining bolt-horn huge and branching with arcs jumping off it; the fallen horn has grown with it into a **lightning-bolt labrys** (double axe) patched with copper bands; the stump capped in a copper ring (a battle scar). Battle pose: both hands on the axe mid-swing, horn and axe sparking at each other.
+- Story hook: guards the ruined storm-rod on Route 1's hill. Only appears **in rain**, which the Tally has been "rain-checking" for years, so nobody has seen one in ages.
+- Moves: **Horn Bolt** (swings the fallen horn; may paralyse). Voltaurus signature **Severance** (two-handed axe strike, stronger if it was hit earlier in the battle).
+- **Evolves with a Storm Shard** found at the ruins: the first item evolution (needs item triggers in the engine).
+
+### Wardeye (Dark/Relic, single stage): the storm-rod's watchman (Route 1 rare/quest, approved 2026-10-29)
+- A ghostly **brass lantern** drifting on a wispy smoke tail; instead of a flame, **one huge glowing eye** swivels inside the cage. A tattered, half-see-through lighthouse keeper's coat for a cloak, a rusted chain hanging off it like a dragging anchor, two wisp "hands" holding the lantern's handle. Battle pose: 3/4 to the left, the lantern tilted toward the foe, the eye mid-glare.
+- Story hook: it kept watch for storms from the ruined storm-rod on Route 1's hill. When the Tally rain-checked the rain there was nothing left to watch; its eye went dim and it faded to a rumour.
+- **Quest:** bring the storm back (the same storm that lets Voltcalf appear); Wardeye relights and can then be sealed.
+- Signature **Vigil Beam** (a lighthouse sweep of eye-light: never misses, reveals the foe's next move).

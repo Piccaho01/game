@@ -17,6 +17,7 @@
     "draft_scroll":      { "name": "Draft Scroll", "kind": "scroll", "color": "#7effc8", "short": "Glitched Relics", "desc": "From PATCH's scrapped drafts. Glitchy, but it can seal glitched Relic Patchlings.", "effect": { "types": ["relic"], "typeWindow": 1.4 } },
     "relic_scroll":      { "name": "Relic Scroll", "kind": "scroll", "color": "#c79a4a", "short": "Legendaries", "desc": "Very rare. For legendaries and quest Patchlings.", "effect": { "window": 1.5, "bond": 0.2 } },
     "rain_check_scroll": { "name": "Rain Check Scroll", "kind": "scroll", "color": "#8a8fa8", "short": "Kept if it fails", "desc": "Sold cheap by the Tally. If the seal fails it's rescheduled: the scroll isn't used up.", "effect": { "keepOnFail": true } },
-    "triple_stack_scroll": { "name": "Triple Stack Scroll", "kind": "scroll", "color": "#d9a520", "short": "Three tries", "desc": "Extra patty, extra cheese, extra tries: three attempts in one scroll. Callum always buys this one.", "effect": { "tries": 3 } }
+    "triple_stack_scroll": { "name": "Triple Stack Scroll", "kind": "scroll", "color": "#d9a520", "short": "Three tries", "desc": "Extra patty, extra cheese, extra tries: three attempts in one scroll. Callum always buys this one.", "effect": { "tries": 3 } },
+    "storm_shard": { "name": "Storm Shard", "kind": "evolution", "color": "#fbd55a", "short": "Evolves Voltcalf", "desc": "A jagged yellow crystal that hums when it's about to rain. Use it on a Voltcalf.", "effect": {} }
   }
 }

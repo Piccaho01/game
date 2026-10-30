@@ -1,5 +1,5 @@
 import { effectiveStat, type Battler } from './battler';
-import { MOVES } from './data';
+import { MOVES, type Weather } from './data';
 import type { Rng } from './rng';
 
 export interface Action { side: 'player' | 'foe'; battler: Battler; moveId: string; priority?: number }
@@ -14,12 +14,18 @@ export function movePriority(b: Battler, moveId: string): number {
   return p;
 }
 
+/** Speed in battle: the stat with its stages, and Thunderhead's 1.5x in rain. */
+export function battleSpeed(b: Battler, weather: Weather | null = null): number {
+  const s = effectiveStat(b, 'spe');
+  return b.ability === 'thunderhead' && weather === 'rain' ? Math.floor(s * 1.5) : s;
+}
+
 /** Higher priority first, then higher effective Speed, then a coin flip. */
-export function orderActions(actions: Action[], rng: Rng): Action[] {
+export function orderActions(actions: Action[], rng: Rng, weather: Weather | null = null): Action[] {
   const keyed = actions.map((a) => ({
     a,
     p: a.priority ?? movePriority(a.battler, a.moveId),
-    s: effectiveStat(a.battler, 'spe'),
+    s: battleSpeed(a.battler, weather),
     tie: rng.next(),
   }));
   keyed.sort((x, y) => y.p - x.p || y.s - x.s || x.tie - y.tie);

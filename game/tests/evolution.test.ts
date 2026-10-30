@@ -1,7 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import { evolutionOf, evolve, findMember, pendingEvolutions, stopEvolution } from '../src/engine/evolution';
 import { createBattler, movesAtLevel } from '../src/engine/battler';
-import { SPECIES } from '../src/engine/data';
+import { evoTriggers, SPECIES } from '../src/engine/data';
+import { ITEMS } from '../src/engine/items';
 import { gainXp, xpForLevel } from '../src/engine/levels';
 import { leaderTeam, newProgress, parseProgress, recordSeal, SQUAD, type Member } from '../src/engine/progress';
 
@@ -174,17 +175,19 @@ describe('saving evoStop', () => {
 });
 
 describe('evolution data', () => {
-  const chains = Object.entries(SPECIES).filter(([, s]) => s.evolves);
+  const chains = Object.keys(SPECIES).flatMap((id) => evoTriggers(id).map((t) => [id, t] as const));
 
-  it('has evolutions and every target exists at a sensible level', () => {
+  it('has evolutions and every target exists, at a sensible level or with a real item', () => {
     expect(chains.length).toBeGreaterThan(0);
-    for (const [id, s] of chains) {
-      expect(SPECIES[s.evolves!.to], id).toBeDefined();
-      expect(s.evolves!.level, id).toBeGreaterThan(1);
+    for (const [id, t] of chains) {
+      expect(SPECIES[t.to], id).toBeDefined();
+      if (t.level !== undefined) expect(t.level, id).toBeGreaterThan(1);
+      if (t.item) expect(ITEMS[t.item], `${id} item`).toBeDefined();
+      expect(t.level !== undefined || !!t.item, `${id} has a trigger`).toBe(true);
     }
   });
 
   it('keeps the dex order going forward', () => {
-    for (const [id, s] of chains) expect(SPECIES[s.evolves!.to].dex, id).toBeGreaterThan(s.dex);
+    for (const [id, t] of chains) expect(SPECIES[t.to].dex, id).toBeGreaterThan(SPECIES[id].dex);
   });
 });

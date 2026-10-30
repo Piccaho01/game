@@ -837,5 +837,355 @@
         }
       ]
     }
+  },
+  "storm_rod": {
+    "lines": [
+      {
+        "text": "An old lightning rod on a mossy stone, bent like it lost an argument. Runes on the base, all dark."
+      },
+      {
+        "text": "A grey Tally cable is spliced onto it and runs off to that machine. A tag: PROPERTY OF THE TALLY. WEATHER DIVISION."
+      },
+      {
+        "text": "A brass lantern hangs off the hook. Inside, where the flame should be, there's an eye. It's barely open."
+      },
+      {
+        "who": "Haydon",
+        "text": "Nah. Nah. The lamp is looking at me."
+      },
+      {
+        "who": "Callum",
+        "text": "It's a Patchling. It's just... dim. Like it ran out of something."
+      }
+    ],
+    "byLeader": {
+      "callum": [
+        {
+          "text": "An old lightning rod on a mossy stone, bent like it lost an argument. Runes on the base, all dark."
+        },
+        {
+          "text": "A grey Tally cable is spliced onto it and runs off to that machine."
+        },
+        {
+          "text": "A brass lantern hangs off the hook. Inside, where the flame should be, there's an eye. It's barely open."
+        },
+        {
+          "who": "Callum",
+          "text": "That's a Patchling. A dim one. And that plate's the keepers' writing. I can read that."
+        }
+      ]
+    }
+  },
+  "storm_rod_read": {
+    "lines": [
+      {
+        "text": "KEEPERS' RELAY 2/4. STORM-ROD. CALLS THE STORM THE HILLS NEED."
+      },
+      {
+        "text": "Under it, scratched in later: DO NOT CLAMP."
+      },
+      {
+        "who": "Callum",
+        "text": "They clamped it. The Tally spliced the rod into their machine. That's why it never rains here."
+      },
+      {
+        "who": "Nolan",
+        "text": "So they rain-checked the actual rain."
+      },
+      {
+        "who": "Haydon",
+        "text": "Bro. They rescheduled weather."
+      },
+      {
+        "who": "Dani",
+        "text": "The lamp guy is sad because no storm? ...Same. I like storms. Good for sleeping."
+      }
+    ]
+  },
+  "clerk": {
+    "lines": [
+      {
+        "who": "Tally Clerk",
+        "text": "Weather Division. Step away from the Cloud Clamp."
+      },
+      {
+        "who": "Tally Clerk",
+        "text": "All precipitation on Route 1 has been rain-checked until further notice. Further notice: also rain-checked."
+      },
+      {
+        "who": "Tally Clerk",
+        "text": "To request weather, fill in Form 12-R. In triplicate. Nobody has ever finished one."
+      },
+      {
+        "who": "Nolan",
+        "text": "How long is the form?"
+      },
+      {
+        "who": "Tally Clerk",
+        "text": "Nobody knows. Nobody has reached the end."
+      }
+    ],
+    "byLeader": {
+      "haydon": [
+        {
+          "who": "Tally Clerk",
+          "text": "Weather Division. Step away from the Cloud Clamp."
+        },
+        {
+          "who": "Tally Clerk",
+          "text": "All precipitation is rain-checked. To request weather, fill in Form 12-R."
+        },
+        {
+          "who": "Haydon",
+          "text": "Bro's form has a form."
+        },
+        {
+          "who": "Tally Clerk",
+          "text": "Form 12-R-1. It's very important."
+        }
+      ],
+      "dani": [
+        {
+          "who": "Tally Clerk",
+          "text": "Weather Division. Step away from the Cloud Clamp."
+        },
+        {
+          "who": "Dani",
+          "text": "Hello! We only want a little rain. Small one."
+        },
+        {
+          "who": "Tally Clerk",
+          "text": "Form 12-R. In triplicate."
+        },
+        {
+          "who": "Dani",
+          "text": "What is triplicate. ...Is three? Three forms? No. I go home."
+        }
+      ]
+    }
+  },
+  "clerk_gone": {
+    "lines": [
+      {
+        "who": "Haydon",
+        "text": "I told him his stamp was crooked. He's going to fix it. It'll take him all day."
+      },
+      {
+        "who": "Callum",
+        "text": "Clamp's open. Nolan, you're up."
+      }
+    ],
+    "byLeader": {
+      "haydon": [
+        {
+          "who": "Haydon",
+          "text": "Told him his stamp was crooked. He's re-stamping everything. Back in a week."
+        },
+        {
+          "who": "Nolan",
+          "text": "That's evil. Nice."
+        }
+      ]
+    }
+  },
+  "cloud_clamp": {
+    "lines": [
+      {
+        "text": "The Cloud Clamp. Every time a cloud drifts over, the arm swings up and stamps it: RAIN CHECK. The cloud gives up and leaves."
+      },
+      {
+        "text": "The storm-rod's cable runs into its side."
+      },
+      {
+        "who": "Nolan",
+        "text": "I could pull that cable. But someone's guarding it, and I want to know what the rod even does first."
+      }
+    ]
+  },
+  "cloud_clamp_ready": {
+    "lines": [
+      {
+        "text": "The Clamp stamps another cloud. The storm-rod's cable runs into its side, spliced with tape."
+      },
+      {
+        "who": "Callum",
+        "text": "Someone needs to get that cable off and patch the rod back in. That's a Nolan job."
+      }
+    ]
+  },
+  "clamp_unspliced": {
+    "lines": [
+      {
+        "who": "Nolan",
+        "text": "Tally cable off, rod back on the ground line. Should hold."
+      },
+      {
+        "text": "The Clamp's arm swings up for the next cloud... and stops. Something above it is very, very big."
+      }
+    ]
+  },
+  "cloud_clamp_jammed": {
+    "lines": [
+      {
+        "text": "The Cloud Clamp is jammed, arm up, stamp half-pressed into a rain cloud that didn't care."
+      },
+      {
+        "text": "A ticket hangs out of the slot: RAIN CHECK... DECLINED."
+      }
+    ]
+  },
+  "storm_rod_lit": {
+    "lines": [
+      {
+        "text": "The storm-rod hums. The runes glow. The lantern on the hook is lit, the eye wide open, watching the sky."
+      },
+      {
+        "who": "Callum",
+        "text": "It's waiting for the next storm. It only comes down when it rains."
+      }
+    ]
+  },
+  "storm_rod_quiet": {
+    "lines": [
+      {
+        "text": "The storm-rod hums. The runes glow. The hook is empty now: Wardeye went with you."
+      }
+    ]
+  },
+  "wardeye_wakes": {
+    "lines": [
+      {
+        "text": "Rain hits the lantern. The eye inside turns, slowly, and locks onto you."
+      },
+      {
+        "text": "The lantern lifts off the hook on a curl of smoke!"
+      }
+    ],
+    "byLeader": {
+      "haydon": [
+        {
+          "text": "Rain hits the lantern. The eye inside turns, slowly, and locks onto Haydon."
+        },
+        {
+          "who": "Haydon",
+          "text": "Don't point that at my phone. I said DON'T—"
+        },
+        {
+          "text": "The lantern lifts off the hook on a curl of smoke!"
+        }
+      ]
+    }
+  },
+  "shard_rock": {
+    "lines": [
+      {
+        "text": "A heavy rock by the storm-rod. Something under it hums, and the grass around it is singed."
+      }
+    ]
+  },
+  "hall_fridge": {
+    "lines": [
+      {
+        "text": "A mini fridge. Inside: four energy drinks, a jar of something, and a burger box labelled CALLUM. DO NOT."
+      },
+      {
+        "who": "Callum",
+        "text": "Double cheeseburger, extra patty, extra cheese. It's for later."
+      },
+      {
+        "who": "PATCH",
+        "text": "It has been 'for later' for three days."
+      }
+    ],
+    "byLeader": {
+      "dani": [
+        {
+          "text": "A mini fridge. Inside: four energy drinks and a burger box labelled CALLUM. DO NOT."
+        },
+        {
+          "who": "Dani",
+          "text": "I don't touch. ...I look a little bit."
+        }
+      ]
+    }
+  },
+  "hall_music": {
+    "lines": [
+      {
+        "text": "A keyboard and a drum pad on stands, cables everywhere. Nolan's setup, mostly."
+      },
+      {
+        "who": "Nolan",
+        "text": "Don't touch the levels."
+      },
+      {
+        "who": "Haydon",
+        "text": "And I picked up a mic and I'm chill."
+      },
+      {
+        "who": "Nolan",
+        "text": "...Every time."
+      }
+    ],
+    "byLeader": {
+      "nolan": [
+        {
+          "text": "Your keyboard and drum pad, cables everywhere. The levels are exactly where you left them."
+        },
+        {
+          "who": "Nolan",
+          "text": "Someone's been on the pad. The kick's in the wrong place."
+        },
+        {
+          "who": "Callum",
+          "text": "Wasn't me."
+        },
+        {
+          "who": "Dani",
+          "text": "Wasn't me also."
+        }
+      ]
+    }
+  },
+  "hall_couch": {
+    "lines": [
+      {
+        "text": "A couch made of crates and every blanket in the sanctuary. Sagging in exactly four places."
+      },
+      {
+        "who": "Haydon",
+        "text": "Middle seat's mine. That's not up for debate."
+      }
+    ]
+  },
+  "hall_snacks": {
+    "lines": [
+      {
+        "text": "The table: wrappers, a burger box, four tangled controllers. Someone has been playing Smash on the old TV."
+      },
+      {
+        "who": "Callum",
+        "text": "I'm undefeated on this couch."
+      },
+      {
+        "who": "Dani",
+        "text": "No. No, bro. I win two times. Two!"
+      },
+      {
+        "who": "Callum",
+        "text": "Those were exhibition matches."
+      }
+    ]
+  },
+  "hall_beanbag": {
+    "lines": [
+      {
+        "text": "A navy beanbag with a Dani-shaped dent in it."
+      },
+      {
+        "who": "Dani",
+        "text": "Is the best seat. Don't tell them."
+      }
+    ]
   }
 }

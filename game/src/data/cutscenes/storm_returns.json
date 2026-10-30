@@ -1,0 +1,30 @@
+{
+  "_note": "Chapter 1: the storm comes back to Route 1 (after Nolan unsplices the storm-rod from the Cloud Clamp; the thunder, lightning and rain are played on the map first, OverworldScene.stormReturns). The four huddle in the first rain in years; Connor pings the group chat about his clamp (bible §10: group chat before his moments). Sets storm_returned's follow-on flag.",
+  "id": "storm_returns",
+  "stage": "huddle",
+  "chatTitle": "THE BOYS",
+  "steps": [
+    { "title": "THE STORM IS BACK", "who": "narration", "text": "The first rain on Route 1 in years. The lantern on the storm-rod is lit, and the eye inside is wide open." },
+    { "who": "patch", "text": "Weather: restored. I did not have weather on the list." },
+    { "who": "patch", "text": "I'm adding it to the list." },
+    { "who": "haydon", "text": "Chat, we're LIVE. Actual rain. In a video game. This is crazy." },
+    { "who": "nolan", "text": "Who are you talking to." },
+    { "who": "haydon", "text": "The chat." },
+    { "who": "nolan", "text": "There is no chat." },
+    { "who": "dani", "text": "Mamá is calling. ...Hola, Mamá. Is raining." },
+    { "who": "dani", "text": "No. No, I don't have the jacket. ¡NO TENGO CHAQUETA, MAMÁ! ¡ES UN VIDEOJUEGO!" },
+    { "phone": "open", "members": 4, "sfx": "banner" },
+    { "chat": "system", "text": "Connor joined the chat", "members": 5 },
+    { "chat": "connor", "text": "yo who touched the cloud clamp" },
+    { "chat": "connor", "text": "that was approved" },
+    { "chat": "connor", "text": "it has to stay dry for the festival. festival vibes" },
+    { "who": "callum", "text": "You CANCELLED the festival." },
+    { "chat": "connor", "text": "rescheduled" },
+    { "chat": "connor", "text": "anyway i'll come look at it. might be a bit late" },
+    { "chat": "system", "text": "Connor left the chat", "members": 4 },
+    { "phone": "close" },
+    { "who": "callum", "text": "He runs the Tally. Connor is the guy who rain-checked the rain." },
+    { "who": "nolan", "text": "Honestly the most Connor thing I've ever heard." },
+    { "who": "patch", "text": "Something under the rod is humming. I'd pick that up. Carefully. With gloves. You don't have gloves." }
+  ]
+}

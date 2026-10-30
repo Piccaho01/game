@@ -142,12 +142,24 @@ def build(room, grid=False):
     tile = lambda x, y: (ox + (x - y) * w / 2, oy + (x + y) * h / 2)
     if grid:
         g = Image.fromarray(canvas, 'RGBA').resize((W * 4, H * 4), Image.NEAREST)
+        over = Image.new('RGBA', g.size, (0, 0, 0, 0))
+        d = ImageDraw.Draw(over)
+        solid = {tuple(t) for t in cfg.get('solid', [])}
+        signs = {(s['x'], s['y']) for s in cfg.get('signs', [])}
+        for y in range(-1, ny + 1):
+            for x in range(-1, nx + 1):
+                sx, sy = tile(x, y)
+                q = [(sx + w / 2, sy), (sx + w, sy + h / 2), (sx + w / 2, sy + h), (sx, sy + h / 2)]
+                inside = 0 <= x < nx and 0 <= y < ny
+                if (x, y) in solid: d.polygon([(px * 4, py * 4) for px, py in q], fill=(255, 40, 40, 90))
+                if (x, y) in signs: d.polygon([(px * 4, py * 4) for px, py in q], outline=(255, 230, 0), width=3)
+                if any(wp['x'] == x and wp['y'] == y for wp in cfg['warps']): d.polygon([(px * 4, py * 4) for px, py in q], fill=(40, 255, 80, 110))
+                if inside: d.polygon([(px * 4, py * 4) for px, py in q], outline=(0, 255, 255))
+        g = Image.alpha_composite(g, over)
         d = ImageDraw.Draw(g)
         for y in range(ny):
             for x in range(nx):
                 sx, sy = tile(x, y)
-                q = [(sx + w / 2, sy), (sx + w, sy + h / 2), (sx + w / 2, sy + h), (sx, sy + h / 2)]
-                d.polygon([(px * 4, py * 4) for px, py in q], outline=(0, 255, 255))
                 d.text(((sx + w / 2) * 4 - 10, (sy + h / 2) * 4 - 6), f'{x},{y}', fill=(255, 255, 0))
         return g, (nx, ny, w, h)
 

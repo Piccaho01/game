@@ -6,7 +6,7 @@
 export type Sfx =
   | 'tap' | 'back' | 'confirm' | 'error' | 'text'
   | 'hit' | 'super' | 'weak' | 'faint' | 'heal' | 'statUp' | 'statDown'
-  | 'swish' | 'cutin' | 'banner'
+  | 'swish' | 'cutin' | 'banner' | 'shiny' | 'corrupt' | 'thunder'
   | 'beat' | 'perfect' | 'good' | 'miss' | 'sealed';
 
 type Wave = OscillatorType;
@@ -33,6 +33,9 @@ const SOUNDS: Record<Sfx, Tone[] | 'noise'> = {
   perfect: [{ wave: 'square', from: 1046, dur: 0.05, vol: 0.12 }, { wave: 'square', from: 1568, dur: 0.08, at: 0.05, vol: 0.12 }],
   good: [{ wave: 'square', from: 784, dur: 0.07, vol: 0.1 }],
   miss: [{ wave: 'square', from: 180, to: 120, dur: 0.1, vol: 0.1 }],
+  shiny: [0, 1, 2].map((i) => ({ wave: 'triangle' as Wave, from: [1568, 2093, 2637][i], dur: 0.12, at: i * 0.09, vol: 0.1 })),
+  corrupt: [{ wave: 'sawtooth', from: 90, to: 1400, dur: 0.08, vol: 0.08 }, { wave: 'square', from: 220, to: 110, dur: 0.12, at: 0.1, vol: 0.1 }, { wave: 'sawtooth', from: 1600, to: 60, dur: 0.1, at: 0.24, vol: 0.08 }],
+  thunder: [{ wave: 'sawtooth', from: 70, to: 30, dur: 0.9, vol: 0.2 }, { wave: 'square', from: 50, to: 25, dur: 0.6, at: 0.1, vol: 0.12 }],
   sealed: [0, 1, 2, 3, 4].map((i) => ({ wave: 'square' as Wave, from: [523, 659, 784, 1046, 1318][i], dur: i === 4 ? 0.3 : 0.08, at: i * 0.08, vol: 0.11 })),
 };
 

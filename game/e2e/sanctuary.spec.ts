@@ -2,10 +2,10 @@ import { expect, test } from '@playwright/test';
 
 type S = { wings(): string[]; busy(): boolean; buttonAt(n: string): { x: number; y: number } | null };
 
-test('in the sanctuary hall, at the CRT stones, the first wing is restored with the bestiary points', async ({ page }) => {
+test('in the sanctuary hall, at the whiteboard of plans, Root Hall is restored once a wild Patchling is sealed', async ({ page }) => {
   const errors: string[] = [];
   page.on('pageerror', (e) => errors.push(e.message));
-  // 25 points: the four bonded starters (20), a sealed Orbitot (4), a sighted Fledjet (1). Standing at the stones.
+  // A sealed Orbitot besides the four starters opens Root Hall (Chapter 1: wings open through the story). Standing at the whiteboard.
   await page.addInitScript(() => {
     if (sessionStorage.getItem('seeded')) return;
     sessionStorage.setItem('seeded', '1');
@@ -22,7 +22,7 @@ test('in the sanctuary hall, at the CRT stones, the first wing is restored with 
         ...Object.fromEntries(['sprigby', 'furnaxol', 'zapail', 'gobbin'].map((s) => [s, rec({ encounters: 1, seals: 1, strongBonds: 1 })])),
         orbitot: rec({ seals: 1 }), fledjet: rec({ encounters: 1 }),
       },
-      pos: { map: 'sanctuary_hall', x: 5, y: 0, dir: 'up' },
+      pos: { map: 'sanctuary_hall', x: 2, y: 1, dir: 'up' },
     }));
   });
   await page.goto('/?seed=1');
@@ -45,7 +45,7 @@ test('in the sanctuary hall, at the CRT stones, the first wing is restored with 
   expect(errors).toEqual([]);
 });
 
-test('sanctuary storage: Callum deposits, Dani withdraws it onto her team', async ({ page }) => {
+test('sanctuary storage: Callum deposits, Dani withdraws it onto his team', async ({ page }) => {
   const errors: string[] = [];
   page.on('pageerror', (e) => errors.push(e.message));
   type St = S & { tab(): string; team(): string[]; storage(): string[] };
@@ -71,7 +71,7 @@ test('sanctuary storage: Callum deposits, Dani withdraws it onto her team', asyn
         dani: [{ uid: 4, species: 'gobbin', level: 8, bond: 'strong' }],
       },
       sanctuary: [{ uid: 6, species: 'fledjet', level: 4, bond: 'wary' }, { uid: 7, species: 'orbitot', level: 3, bond: 'strong' }],
-      pos: { map: 'sanctuary_hall', x: 5, y: 0, dir: 'up' },
+      pos: { map: 'sanctuary_hall', x: 2, y: 1, dir: 'up' },
     }));
   });
   await page.goto('/?seed=1');

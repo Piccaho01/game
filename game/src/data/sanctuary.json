@@ -1,8 +1,9 @@
 {
-  "_note": "Sanctuary wings (bible §7, §9): restoring one costs sanctuary points (the bestiary's stages, engine/progress.ts sanctuaryPoints), fixes part of Verrow's ecology and pushes back the Tally. Only the first is reachable in the slice; the others show what's coming. 'patch': what PATCH says when it's restored. Each cost includes the 20 points the four bonded starters bring (5 each). Points are first guesses: tune in play-testing.",
+  "_note": "Sanctuary wings (bible §7, §9): each opens through the story (owner's call, Chapter 1): its chapter's quest sets the flags in 'after' (and 'owned': Patchlings the four have between them). 'needs' is what PATCH says it waits on. Restoring one fixes part of Verrow's ecology and pushes back the Tally. Bestiary points (engine/progress.ts sanctuaryPoints) are for filling the rooms in over time, not for wings. 'patch': what PATCH says when it's restored.",
   "wings": [
     {
-      "id": "root_hall", "name": "Root Hall", "points": 25,
+      "id": "root_hall", "name": "Root Hall", "owned": 5,
+      "needs": "Seal your first wild Patchling. The roots only wake up for a keeper who's actually kept something.",
       "desc": "The old keepers' hall, roots through every stone. Restoring it settles the hills around Hollow Rest.",
       "patch": [
         { "who": "PATCH", "text": "Root Hall: restored. The hills feel less... drafty." },
@@ -10,12 +11,23 @@
       ]
     },
     {
-      "id": "tide_gallery", "name": "Tide Gallery", "points": 55,
+      "id": "lantern_loft", "name": "Lantern Loft", "after": ["storm_returned"],
+      "needs": "The keepers watched for storms from up there. No storms, no point. Route 1 hasn't had one in years.",
+      "desc": "The keepers' lookout above Root Hall: a round room of windows and old paintings. Restoring it lets the storms reach Hollow Rest again.",
+      "patch": [
+        { "who": "PATCH", "text": "Lantern Loft: restored. The weather can find Hollow Rest again." },
+        { "who": "PATCH", "text": "The paintings were already up there. I did not paint them. I would remember." }
+      ]
+    },
+    {
+      "id": "tide_gallery", "name": "Tide Gallery", "after": ["tide_gallery_open"],
+      "needs": "Something in Kettleport's harbour remembers these halls. That's Chapter 2.",
       "desc": "Flooded halls of shell and glass. Something in Kettleport's harbour remembers them.",
       "patch": [{ "who": "PATCH", "text": "Tide Gallery: restored. Kettleport's water is behaving again." }]
     },
     {
-      "id": "ember_vault", "name": "Ember Vault", "points": 95,
+      "id": "ember_vault", "name": "Ember Vault", "after": ["ember_vault_open"],
+      "needs": "Cold for a hundred years. Emberwick's glassblowers want it lit. Later chapter.",
       "desc": "A kiln under the sanctuary, cold for a hundred years. Emberwick's glassblowers want it lit.",
       "patch": [{ "who": "PATCH", "text": "Ember Vault: restored. It's warm. I'm choosing to take that as a compliment." }]
     }

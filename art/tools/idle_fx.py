@@ -9,9 +9,13 @@ Effects (boxes are fractions of the sprite's opaque bounding box: [x0, y0, x1, y
   {"hover": 3}                        whole sprite floats up and down
   {"bounce": 4}                       boxer bounce (fast, abs sine)
   {"bob": [box], "px": 3, "phase": 0.25, "axis": "y"}   one region moves on its own
+                                                      ("keep": true leaves the original under it)
   {"glow": ["#rrggbb", ...], "amt": 0.35}               those colours pulse brighter
   {"flicker": ["#rrggbb", ...], "off": [2, 3, 7]}       those colours vanish on those frames
   {"blink": [box], "frames": [8], "colour": "#rrggbb"}  eyes in the box close (filled with colour)
+  {"arcs": [x0, y0, x1, y1], "frames": [1, 5], "colour": "#rrggbb", "n": 2}  1px lightning arcs jump
+                                                      between those two points (fractions of the box)
+  "blink" with "only": ["#rrggbb", ...] closes just those colours (the eye, not the lantern round it)
 Frames: 12 at 100 ms unless "frames"/"ms" are set on the creature.
 Usage: python3 idle_fx.py NAME [NAME...]   (or "all")
 """
@@ -26,11 +30,12 @@ CFG = json.load(open(os.path.join(ROOT, 'idle_fx.json')))
 def hexrgb(h): return np.array([int(h[i:i + 2], 16) for i in (1, 3, 5)])
 
 
-def shift(a, dx, dy, mask=None):
-    """Move the pixels in mask (or all) by dx, dy; what they leave behind is transparent."""
+def shift(a, dx, dy, mask=None, keep=False):
+    """Move the pixels in mask (or all) by dx, dy; what they leave behind is transparent, or with
+    keep the original pixels stay underneath (no seam where a part cuts through a solid area)."""
     if mask is None: mask = a[..., 3] > 0
     part = np.where(mask[..., None], a, 0)
-    rest = np.where(mask[..., None], 0, a)
+    rest = a if keep else np.where(mask[..., None], 0, a)
     moved = np.roll(np.roll(part, dy, 0), dx, 1)
     return np.where(moved[..., 3:4] > 0, moved, rest)
 
@@ -52,7 +57,7 @@ def frame(base, fx, t, n, box):
             a = shift(a, 0, -round(abs(math.sin(2 * math.pi * t / n)) * e['bounce']))
         elif 'bob' in e:
             v = round(math.sin(2 * math.pi * (t / n + e.get('phase', 0))) * e.get('px', 2))
-            a = shift(a, v if e.get('axis') == 'x' else 0, v if e.get('axis', 'y') == 'y' else 0, region(e['bob']))
+            a = shift(a, v if e.get('axis') == 'x' else 0, v if e.get('axis', 'y') == 'y' else 0, region(e['bob']), e.get('keep', False))
         elif 'glow' in e:
             k = (1 + s) / 2 * e.get('amt', 0.3)
             for h in e['glow']:
@@ -63,10 +68,31 @@ def frame(base, fx, t, n, box):
                 for h in e['flicker']:
                     m = (np.abs(a[..., :3].astype(int) - hexrgb(h)).sum(2) < 4)
                     a[m] = 0
+        elif 'arcs' in e:
+            if t in e.get('frames', [1, 5]):
+                rng = np.random.default_rng(t * 7 + 3)
+                ax, ay = x0 + e['arcs'][0] * W, y0 + e['arcs'][1] * H
+                bx, by = x0 + e['arcs'][2] * W, y0 + e['arcs'][3] * H
+                col = np.array(list(hexrgb(e.get('colour', '#fff6c8'))) + [255])
+                for _ in range(e.get('n', 2)):
+                    # a jagged 1px line between the two points (each moved a little), a pixel at a time
+                    px, py = ax + rng.uniform(-3, 3), ay + rng.uniform(-3, 3)
+                    qx, qy = bx + rng.uniform(-3, 3), by + rng.uniform(-3, 3)
+                    steps = int(max(abs(qx - px), abs(qy - py))) + 1
+                    jit = 0.0
+                    for k in range(steps + 1):
+                        jit = max(-2, min(2, jit + rng.choice([-1, 0, 1])))
+                        cx = int(round(px + (qx - px) * k / steps + (jit if abs(qy - py) > abs(qx - px) else 0)))
+                        cy = int(round(py + (qy - py) * k / steps + (0 if abs(qy - py) > abs(qx - px) else jit)))
+                        if 0 <= cy < a.shape[0] and 0 <= cx < a.shape[1]: a[cy, cx] = col
         elif 'blink' in e:
             if t in e.get('frames', [8]):
                 m = region(e['blink'])
-                bright = a[..., :3].astype(int).sum(2) > 3 * 150
+                if 'only' in e:
+                    bright = np.zeros(m.shape, bool)
+                    for h in e['only']: bright |= np.abs(a[..., :3].astype(int) - hexrgb(h)).sum(2) < 4
+                else:
+                    bright = a[..., :3].astype(int).sum(2) > 3 * 150
                 a[m & bright, :3] = hexrgb(e['colour'])
     return a
 

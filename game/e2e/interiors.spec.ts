@@ -38,25 +38,25 @@ test('into Callum\'s cottage and back out; into the sanctuary, the storage termi
   await walkTo(page, 5, 5);
   await tapKey(page, 'up');
   expect(await ow(page)).toMatchObject({ map: 'sanctuary_hall', x: 3, y: 6 });
-  // The storage terminal opens the sanctuary's STORAGE tab; BACK returns here.
-  await walkTo(page, 3, 1);
+  // The old TV opens the sanctuary's STORAGE tab; BACK returns here.
+  await walkTo(page, 6, 1);
   await tapKey(page, 'up');
   await page.keyboard.press('Space');
   await page.waitForFunction(() => (window as unknown as { __sanctuary?: { tab(): string } }).__sanctuary?.tab() === 'storage', null, { timeout: 30_000 });
   const back = await page.evaluate(() => (window as unknown as { __sanctuary: { buttonAt(n: string): { x: number; y: number } | null } }).__sanctuary.buttonAt('back'));
   await page.touchscreen.tap(back!.x, back!.y);
   await ready(page);
-  expect(await ow(page)).toMatchObject({ map: 'sanctuary_hall', x: 3, y: 1 });
+  expect(await ow(page)).toMatchObject({ map: 'sanctuary_hall', x: 6, y: 1 });
   // Root Hall is behind rubble: walking at it doesn't go anywhere.
   await walkTo(page, 1, 1);
   await tapKey(page, 'up');
   expect(await ow(page)).toMatchObject({ map: 'sanctuary_hall', x: 1, y: 1 });
-  // PATCH's workshop, through the doorway in the left wall, and back.
-  await walkTo(page, 0, 1);
-  await tapKey(page, 'left');
+  // PATCH's workshop, out through the hall's open right side, and back.
+  await walkTo(page, 6, 2);
+  await tapKey(page, 'right');
   expect(await ow(page)).toMatchObject({ map: 'sanctuary_workshop' });
   await tapKey(page, 'down');
-  expect(await ow(page)).toMatchObject({ map: 'sanctuary_hall', x: 0, y: 1 });
+  expect(await ow(page)).toMatchObject({ map: 'sanctuary_hall', x: 6, y: 2 });
   // And out into Hollow Rest, by PATCH.
   await walkTo(page, 3, 6);
   await tapKey(page, 'down');

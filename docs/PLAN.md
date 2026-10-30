@@ -26,7 +26,7 @@ Rules that keep it efficient:
 - [ ] M5 Playtest build (branch `claude/peaceful-darwin-3db5u5`): field moves for all four, balance pass, phone fixes done; **left: share the link with the group, one round of fixes from their feedback.** See "M5 handoff".
 - [x] M6 Game shell (merged, PR #27). See "M6 handoff".
 - [x] M7 Evolution lines (branch `claude/affectionate-wozniak-wh7dgz`): all 12 forms, every creature double-res with its own idle, glitch evolve scene, live attack animations. See "M7 handoff".
-- [ ] Next: Chapter 1, finish Route 1 (roadmap step 4)
+- [ ] Chapter 1, finish Route 1 (branch `claude/ch1-route1`): built, waiting on the owner's review. See "Chapter 1 handoff".
 
 ## M1 Foundation (code)
 - Vite + TypeScript + Phaser 3 project in `game/`; touch-first input; scales to phone screens.
@@ -429,6 +429,34 @@ reactions, the text-speed samples). **Next:** roadmap step 3 (evolution art, who
   `launchOptions.executablePath` is `/opt/pw-browsers/chromium-1243/chrome-linux64/chrome`.
 - **Owner approved the batch** (2026-10-29): PR next.
 
+### Chapter 1 handoff (branch `claude/ch1-route1`, pitch `docs/chapters/1.md`)
+- **Built:** Voltcalf, Voltaurus, Wardeye (double-res, plain conversions + `wip/ch1/holes.py` for white
+  pockets, idles; `idle_fx` `keep` option stops seams); evolution triggers (`evolves` = level or item,
+  weather/bond/flag conditions, lists branch); Storm Shard used from the bag (no STOP, used up);
+  weather (`engine/weather.ts`: per-map rule, rolled and saved, rain overlay `ui/weatherFx.ts`, rain
+  Water x1.5 / Fire x0.5, Thunderhead, Unblinking, Severance, Vigil Beam reveal); static encounters
+  (Wardeye at the rod in the rain); quest pages (`data/quests.json`); shinies 1/512 and Prototypes
+  1/8192 (`engine/variants.ts`, `ui/variantFx.ts`, palettes in `data/shinies.json`, bestiary star);
+  the storm quest on Route 1 (props from the owner's drafts, `art/tools/ch1_props.py`; obstacles with
+  `after`/`sets`/`event`; the storm on the map + `storm_returns` scene with Connor's chat); Lantern
+  Loft wing (40 pts + the storm; then Hollow Rest rains too); the owner's furnished Entrance Hall
+  (rooms.json `hall`, workshop door moved to the open right side); attack animations Horn Bolt,
+  Severance, Vigil Beam; `tests/chapter1.test.ts`.
+- Test URLs: `?foe=voltcalf&weather=rain`, `?variant=shiny|prototype`, `?level=20`, `?evolve=voltcalf`.
+- **Review sheet:** `docs/ch1_review.png`; shiny options `docs/ch1_shinies.png` (owner picks one per line:
+  set `pick` in `data/shinies.json`).
+- **Owner's round 1 (done):** Prototypes are a colourway now (dark stone + pulsing sanctuary blue, approved);
+  wings open through the story (Root Hall: first wild seal; Lantern Loft: the storm); shinies picked for
+  Voltcalf and Wardeye, options out for the other six lines (`docs/ch1_shinies_round2.png`,
+  `docs/ch1_shinies_sprigby.png`); Harrowjaw converted 25% bigger on a 224-wide canvas (M7 size kept as
+  `wip/m7/hi/harrowjaw_m7size*.txt`); new idles have their own motion; battle menu silhouettes fit;
+  walking sheets for every stage of every line: prompts in `art/prompts/followers.md` (owner to run).
+- **Left:** the owner's shiny picks; the walking sheets (convert per line with a turnaround2follow.py
+  per-line mode); then screens in `e2e/screens.spec.ts` for Chapter 1, full e2e, PR.
+  Not done: Wardeye roaming the sanctuary (no follower art); Lantern Loft's room and its inside-joke
+  paintings (brainstorm with the owner, then one room prompt); the Tide Gallery hint sign dropped from
+  the hall (the old terminal is gone from the new concept).
+
 ## Roadmap after the playtest (proposed 2026-10-28; see WORKFLOW "chapters")
 1. **Playtest fixes**: the group's feedback as one batch.
 2. **M6 Game shell**: title screen and main menu (Continue / New Game / Settings), pause menu,
@@ -439,6 +467,15 @@ reactions, the text-speed samples). **Next:** roadmap step 3 (evolution art, who
 4. **Chapter 1: finish Route 1** (owner's call, 2026-10-29): Route 1 has only two Patchling
    lines (Orbitot, Fledjet). Pitch more Route 1 lines (whole lines, owner's ideas first), fill the
    route's encounters, its story beat and Tally moment, and its sanctuary progress.
+   Bible §7 now sets the rules: 6-8 species a route (so Route 1 needs 1-2 more: an uncommon and a
+   rare/quest one), free line shapes (needs item/branch evolution triggers in the engine), shinies
+   (1/512) and Prototypes (1/8192), both cosmetic palette + effect, no new art.
+   **Route 1 lineup approved** (bible §15): Orbitot and Fledjet lines (commons), Voltcalf →
+   Voltaurus (uncommon, rain only, Storm Shard evolution), Wardeye (rare quest: bring the storm
+   back). **Art is in** (prompts `art/prompts/ch1.md`): `art/concepts/line_minotaur.png`,
+   `voltcalf_sprites.png`, `voltaurus_sprites.png`, `wardeye_concept.png`, `wardeye_sprites.png`
+   (front left, back right; convert with `art/creatures/wip/m7/hi/conv2x.py`-style double-res,
+   split with `wip/m7/split.py`, then `make_px.py`, `idle_fx.json`).
 5. **Chapter 2**: Kettleport (Water/Metal) + the route to it, Connor's first "cancelled" boss
    fight, the Tide Gallery wing, its Patchling lines, shop + currency.
 6. Then a chapter at a time: Emberwick, Canopy, Nightmarket, Hush, with the non-town locations
