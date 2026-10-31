@@ -1,46 +1,67 @@
-# Easter eggs: media the group loves (brainstorm, owner's call 2026-10-31)
+# Easter eggs: media the group loves (owner's call 2026-10-31)
 
-Characters from media the four love turn up around Verrow, one or two per place. Each one is a
-**trainer battle**, and some give a **quest for a special Patchling** inspired by them. The special
-Patchlings are our own original designs, inspired by the character or franchise, never a copy of an
-existing creature. Real names are fine (the game is private to the group). A first guess at where
-each one goes:
+Characters from the group's favourite media turn up around Verrow. **Rules (owner's):**
+- Each Easter-egg character is a **trainer battle**, and comes with **2-3 Patchlings inspired by
+  them or their franchise**, which you can catch afterwards (their quest unlocks them). The
+  Patchlings are our own original designs, inspired by the character, never copies.
+- Some get a **hidden location**: a place from their franchise rebuilt inside Verrow, where the
+  characters hang out (e.g. the Sanctum Sanctorum, the Batcave, Konoha, Shibuya).
+- Real names are fine (the game is private to the group). No real brand logos (bible §6).
+- One or two eggs per area so they stay a surprise; each one is pitched with its chapter.
 
 | Media | Who's into it |
 |---|---|
 | Marvel / DC | Callum (huge), Nolan; Dani if it looks cool; Haydon couldn't care less |
-| Anime | Callum, Dani, Haydon |
+| Anime: Naruto, Dragon Ball, Jujutsu Kaisen | Callum, Dani, Haydon |
+| Anime: Hunter x Hunter | Haydon's pick |
 | Underground rap | all four (the music thread, bible §11) |
 
-## Marvel / DC
-| Who | Where | Bit | Special Patchling (quest) |
+## Hidden locations (first guesses)
+| Place | Franchise | Where in Verrow | Who hangs out there |
 |---|---|---|---|
-| Doctor Doom | Draft Archive | General #8 (bible §10) | |
-| Deadpool | anywhere, keeps turning up | knows it's a game, talks to PATCH, comments on the save menu | **a glitchy red Relic** that breaks the fourth wall (its bestiary entry edits itself) |
-| Spider-Man | Canopy | swings on the rope bridges; "friendly neighbourhood" Wayfarer | **a web-slinging spider** for the treetops |
-| Batman | Nightmarket | rooftops, only at night, never says where he went | **a bat (Dark)** that only shows up when you're not looking |
-| Wolverine | Hush | grumpy Canadian loner in the snow (Burlington flavour) | **a claw-bladed wolverine (Ice/Metal)** |
-| Hulk | the Sunken Court | too angry for the arena's "no smashing" rule | |
-| Superman | the Cloud Station | above the mist, too polite to fight properly | |
+| **Sanctum Sanctorum** | Marvel | a door in the Draft Archive that's bigger inside | Doctor Strange; Marvel heroes chilling between missions |
+| **The Batcave** | DC | under Nightmarket's last station | Batman (never there when you turn round) |
+| **Konoha** | Naruto | a hidden village behind Canopy's lowest falls | Naruto and co. |
+| **Shibuya** | Jujutsu Kaisen | a neon station on the Nightmarket line, only at night | Gojo, Sukuna |
+| **Kame House** | Dragon Ball | an islet off Kettleport, by ferry (**Chapter 2**) | Master Roshi |
+| **Heaven's Arena** | Hunter x Hunter | a tower over the Sunken Court, a floor per win | Gon, Killua, Hisoka |
 
-## Anime (which shows? owner to list)
-| Who | Where | Bit | Special Patchling (quest) |
-|---|---|---|---|
-| a rubber-armed straw-hat pirate (One Piece) | Kettleport ferry dock (**Chapter 2**) | "I'm gonna be king of the Patchlings"; trainer battle | later: **a stretchy sea creature** |
-| a fire-breathing swordsman (Demon Slayer) | Emberwick | | |
-| a spiky-haired fighter who powers up for 3 turns (Dragon Ball) | Saltline Speedway | his "power-up" takes the whole battle | |
-| a ninja (Naruto) | Hush | the one person in Hush who won't stop shouting | |
+## Characters and their Patchlings (2-3 each, first ideas)
+### Marvel / DC
+- **Doctor Doom** (General #8, Draft Archive): an iron-masked armour Patchling (Metal/Relic); a
+  green-cloaked spell-tome familiar.
+- **Doctor Strange** (Sanctum): a floating cloak Patchling (Relic/Wind); a mystic eye amulet (Relic).
+- **Deadpool** (turns up everywhere, knows it's a game): a glitchy red Relic whose bestiary entry
+  edits itself; a katana-tailed regenerating gecko.
+- **Spider-Man** (Canopy): a web-slinging spider line (Plant/Wind, 3 stages).
+- **Batman** (Batcave): a bat line that only appears when you're not looking (Dark, 3 stages); a
+  gadget-belt raccoon.
+- **Wolverine** (Hush, the grumpy Canadian): a claw-bladed wolverine (Ice/Metal), a healing-factor pup.
+- **Hulk** (Sunken Court) and **Superman** (Cloud Station): one or two each, pitched later.
 
-## Underground rap
-| Who | Where | Bit | Special Patchling (quest) |
-|---|---|---|---|
-| Ken Carson, Destroy Lonely | Nightmarket | all-black, an all-night set on the market train | **a black-and-red X-eyed Patchling (Dark)** |
-| slayr | Dead Drive-In | (owner to fill in his bit) | |
-| Travis Scott | Emberwick | a cactus garden in the caldera; "it's lit" | **a cactus Patchling (Plant/Fire)** |
-| Kanye West | the Cloud Station | interrupts your battle ("I'mma let you finish"); a bear mascot | **a bear Patchling in a dropout hoodie** |
-| Drake, the 6 God | Hush | started from the bottom of the mountain, now he's here; Toronto is right next door to Burlington | **an owl Patchling** |
+### Anime
+- **Master Roshi** (Kame House, Chapter 2): a sea turtle with a shell like a training weight
+  (Water/Rock); a cloud-riding Patchling (Wind, the flying nimbus idea).
+- **A Saiyan-style fighter** (Saltline Speedway, powers up for the whole battle): a spiky-haired
+  monkey line whose hair goes gold at full HP.
+- **Naruto** (Konoha, the one guy who won't stop shouting in Hush too): a nine-tailed fox line
+  (Fire/Dark); a toad (Water); a shadow-clone Patchling that copies itself.
+- **Gojo / Sukuna** (Shibuya): a blindfolded cursed-energy cat (Relic); a four-armed cursed finger
+  creature (Dark).
+- **Gon / Killua / Hisoka** (Heaven's Arena, Haydon's pick): a fishing-rod frog (Water); a
+  lightning cat (Spark); a playing-card jester (Dark).
 
-## Rules
-- One or two per place, so the egg is still a surprise when you find it.
-- Every egg is pitched with its chapter (its battle, quest and Patchling line), like any other content.
-- No real brand logos (bible §6): suggest the outfit or the shape, never the logo.
+### Underground rap
+- **slayr** (Dead Drive-In): underground rapper blowing up for insane lyrics and production, like
+  a young Kanye. Everyone calls him a burger (the bit is he dresses bad), so **he wears a burger as
+  his outfit**. Patchlings: a burger Patchling (it meets the Triple Cheese at last); a beat-pad crab.
+- **Ken Carson, Destroy Lonely** (Nightmarket's all-night train set): an X-eyed black-and-red
+  Patchling (Dark); a studded-leather vampire bat.
+- **Travis Scott** (Emberwick's cactus garden, "it's lit"): a cactus line (Plant/Fire).
+- **Kanye West** (Cloud Station, "I'mma let you finish" mid-battle): a dropout-hoodie bear; a
+  glowing-shutter-shades owl... (pitched later).
+- **Drake, the 6 God** (Hush; Toronto is next door to Burlington): an owl line (Wind/Dark).
+
+## Scope note
+About 20 characters × 2-3 Patchlings is 40-60 new Patchlings (each a whole line with art). They
+come chapter by chapter with their areas, not all at once.
