@@ -51,8 +51,8 @@ Characters from the group's favourite media turn up around Verrow. **Rules (owne
   (Fire/Dark); a toad (Water); a shadow-clone Patchling that copies itself.
 - **Gojo / Sukuna** (Shibuya): a blindfolded cursed-energy cat (Relic); a four-armed cursed finger
   creature (Dark).
-- **Gon / Killua / Hisoka** (Haydon's pick; place to pitch later): a fishing-rod frog (Water); a
-  lightning cat (Spark); a playing-card jester (Dark).
+- **Gon / Killua** (Haydon's pick; place to pitch later): a fishing-rod frog (Water); a
+  lightning cat (Spark).
 
 ### Underground rap
 - **slayr** (Dead Drive-In): underground rapper blowing up for insane lyrics and production, like
