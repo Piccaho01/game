@@ -464,7 +464,13 @@ reactions, the text-speed samples). **Next:** roadmap step 3 (evolution art, who
   (6 paintings), Sprigby/Gobbin two-tone shinies, Zapail's walk spark.
 - Also settled: the 8 Generals (bible §10), media Easter eggs (`docs/EASTER_EGGS.md`, 2-3 Patchlings each,
   hidden locations, they can move into the sanctuary or the houses).
-- **Next:** `art/prompts/ch2.md` (every image in one file), then the build session.
+- **Prompts written** (2026-10-31): `art/prompts/ch2.md`, 52 images in one file: the four lines + Tidemark
+  (concepts, sprites, walking sheets), Kame House's Patchlings (**pitched in the file: Kettleback Water/Rock,
+  Nimbuddy Wind, both single-stage; owner approves before prompts 16-19**), 12 people (trainers get a big
+  battle sprite on their sheet; Roshi added: he battles), coast terrain + Saltway/Kettleport concepts and
+  pieces, Hollow Rest jetty, Kame islet pieces, 3 battle backdrops (Saltway, Kettleport, the sting), 8 rooms
+  + a close-up sheet of the 6 Lantern Loft paintings.
+- **Next:** the owner runs the prompts and sends results in order; then the build session.
 
 ## Roadmap after the playtest (proposed 2026-10-28; see WORKFLOW "chapters")
 1. **Playtest fixes**: the group's feedback as one batch.
