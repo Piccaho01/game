@@ -457,6 +457,15 @@ reactions, the text-speed samples). **Next:** roadmap step 3 (evolution art, who
   paintings (brainstorm with the owner, then one room prompt); the Tide Gallery hint sign dropped from
   the hall (the old terminal is gone from the new concept).
 
+### Chapter 2 handoff (branch `claude/ch2-kettleport`, pitch `docs/chapters/2.md`)
+- **Pitch approved** (2026-10-31): the Saltway + Kettleport, Parker Colt as Deputy Reliable (General #1),
+  Hansen's sting (General #2), Sergey, the crane puzzle, the Backlog, Tidemark, Tide Gallery, Kame House
+  (Easter egg), money (Bits), shops, trainer battles, day/night, ferries. Carried over: Lantern Loft room
+  (6 paintings), Sprigby/Gobbin two-tone shinies, Zapail's walk spark.
+- Also settled: the 8 Generals (bible §10), media Easter eggs (`docs/EASTER_EGGS.md`, 2-3 Patchlings each,
+  hidden locations, they can move into the sanctuary or the houses).
+- **Next:** `art/prompts/ch2.md` (every image in one file), then the build session.
+
 ## Roadmap after the playtest (proposed 2026-10-28; see WORKFLOW "chapters")
 1. **Playtest fixes**: the group's feedback as one batch.
 2. **M6 Game shell**: title screen and main menu (Continue / New Game / Settings), pause menu,

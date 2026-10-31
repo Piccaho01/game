@@ -7,6 +7,8 @@ Characters from the group's favourite media turn up around Verrow. **Rules (owne
 - Some get a **hidden location**: a place from their franchise rebuilt inside Verrow, where the
   characters hang out (e.g. the Sanctum Sanctorum, the Batcave, Konoha, Shibuya).
 - Real names are fine (the game is private to the group). No real brand logos (bible §6).
+- **They come home:** once you've beaten or helped them, Easter-egg characters can move into or visit the sanctuary or the four's houses (bible §7, people come back).
+- Each character is written properly, personality first, when their chapter is pitched.
 - One or two eggs per area so they stay a surprise; each one is pitched with its chapter.
 
 | Media | Who's into it |
@@ -24,7 +26,8 @@ Characters from the group's favourite media turn up around Verrow. **Rules (owne
 | **Konoha** | Naruto | a hidden village behind Canopy's lowest falls | Naruto and co. |
 | **Shibuya** | Jujutsu Kaisen | a neon station on the Nightmarket line, only at night | Gojo, Sukuna |
 | **Kame House** | Dragon Ball | an islet off Kettleport, by ferry (**Chapter 2**) | Master Roshi |
-| **Heaven's Arena** | Hunter x Hunter | a tower over the Sunken Court, a floor per win | Gon, Killua, Hisoka |
+| **Justice League tower** | DC | a satellite tower above the Cloud Station | Superman, Batman's off-shift, the League |
+| **Spider-Verse lobby** | Marvel | a glitchy hub inside the Draft Archive, a portal per Spider | Spider-Man and every other Spider |
 
 ## Characters and their Patchlings (2-3 each, first ideas)
 ### Marvel / DC
@@ -48,7 +51,7 @@ Characters from the group's favourite media turn up around Verrow. **Rules (owne
   (Fire/Dark); a toad (Water); a shadow-clone Patchling that copies itself.
 - **Gojo / Sukuna** (Shibuya): a blindfolded cursed-energy cat (Relic); a four-armed cursed finger
   creature (Dark).
-- **Gon / Killua / Hisoka** (Heaven's Arena, Haydon's pick): a fishing-rod frog (Water); a
+- **Gon / Killua / Hisoka** (Haydon's pick; place to pitch later): a fishing-rod frog (Water); a
   lightning cat (Spark); a playing-card jester (Dark).
 
 ### Underground rap
