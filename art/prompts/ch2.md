@@ -1797,43 +1797,144 @@ gaps between frames, flat white
 background, no text, no shadows.
 ```
 
-### 26. The Galley cook (diner)
+### 26. Big Sal, the Galley cook
 - **Save as:** `art/concepts/trainers/galley_cook.png`  ·  **Shape:** landscape
-- **Attach:** `art/concepts/trainers/callum.png`
-- **Downloads:** [callum.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/trainers/callum.png)
+- **Attach:** `art/concepts/trainers/sergey.png`
+- **Downloads:** [sergey.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/trainers/sergey.png)
 
 ```
 Character sheet for a creature-
 collecting RPG in exactly the same
 style and layout as the attached
 sheet: on the left a full-body anime
-illustration standing in a relaxed
-pose; top right a head close-up;
-middle right a pixel-art battle sprite
-front and back in Pokemon Black/White
-2 style; bottom right two small pixel-
-art overworld sprites, standing still,
-in exactly the size and pixel style of
-the small walk frames on the attached
-sheet: one 3/4 front view facing down-
-left, one 3/4 back view facing up-
-left. Flat white background, no text,
-no logos.
-The person is the cook at the Galley,
-a harbour diner in a container: a big,
-broad man in his fifties with a shaved
-head, a thick black beard flecked with
-grey and forearm tattoos of anchors
-and fish, a white paper cook's hat, a
-white short-sleeved shirt, a greasy
-red-and-white striped apron, chequered
-trousers, kitchen clogs. A spatula in
-one hand and a plate with a tall
-triple-patty cheeseburger in the other
-(plain bun, no logo). Gruff,
-unimpressed, secretly proud of his
-burger. Colourway: white, red,
+illustration; top right a head close-
+up; bottom right four small pixel-art
+overworld sprites, standing still, in
+exactly the size and pixel style of
+the small sprites on the attached
+sheet: 3/4 front view facing down-
+left, 3/4 back view facing up-left,
+and the same two again. Flat white
+background, no text, no logos.
+The person is Big Sal, the cook at the
+Galley, a harbour diner in a shipping
+container: a huge, broad man in his
+fifties, a shaved head, a thick black
+beard going grey, heavy eyebrows, a
+gruff unimpressed face, forearm
+tattoos of anchors and fish. A white
+paper cook's hat, a white short-
+sleeved shirt, a greasy red-and-white
+striped apron, chequered trousers,
+black kitchen clogs, a tea towel over
+one shoulder. A spatula in one hand
+and a plate with a tall triple-patty
+cheeseburger with extra cheese in the
+other (plain bun, no logo). Full-body
+pose: arms out holding the spatula and
+the plate, glaring like daring you to
+complain. Colourway: white, red,
 mustard.
+```
+
+### C1. Griddlebug concept (Sal's Patchling)
+- **Save as:** `art/concepts/griddlebug_concept.png`  ·  **Shape:** square
+- **Attach:** `art/concepts/medvodka_concept.png`
+- **Downloads:** [medvodka_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/medvodka_concept.png)
+
+```
+Official artwork of an original
+creature for a creature-collecting
+RPG, in the same clean anime style as
+the attached image (crisp linework,
+cel shading, soft highlights). Full
+body, flat white background, no text,
+no logos.
+Griddlebug: a chunky little beetle
+whose shell is a black cast-iron
+griddle with raised grill ridges,
+glowing orange-hot underneath, little
+wisps of steam and sizzling grease
+spatters on top, a flat steel horn
+shaped like a spatula, six stubby
+legs, a red underside, small
+determined eyes under a heavy brow.
+Tough, hardworking, proud of its
+cooking.
+Pose: 3/4 view facing left, rearing up
+on its back legs, the spatula horn
+scooping upward mid-flip, a tiny
+burger patty flying in the air above
+it.
+Keep it original, not any existing
+Pokemon.
+```
+
+### C2. Griddlebug sprites (front + back)
+- **Save as:** `art/concepts/griddlebug_sprites.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/griddlebug_concept.png` (made above), `art/concepts/medvodka_sprites.png`
+- **Downloads:** [medvodka_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/medvodka_sprites.png)
+
+```
+Redraw the creature in the first
+attached image as a pair of Pokemon
+Black/White 2 battle sprites side by
+side in ONE image, in exactly the
+pixel size, outline weight and shading
+of the second attached image. Crisp
+hand-placed pixel clusters, flat
+colour areas with clean 2-3 step
+shading, no dithering, no noise, no
+blur.
+LEFT: the front sprite, 3/4 view
+facing left, rearing up, the spatula
+horn scooping upward mid-flip.
+RIGHT: the back sprite, the SAME
+creature in the SAME pose with the
+camera moved behind it, as Black/White
+2 shows your own Pokemon: we see the
+griddle shell with its grill ridges
+and steam from behind and it faces up
+and to the right.
+Keep its design exactly as in the
+first image: a chunky beetle with a
+black cast-iron griddle shell glowing
+orange underneath, steam and grease, a
+flat steel spatula horn, a red
+underside, six stubby legs. Leave out
+the flying patty.
+A small creature, at most 15 colours
+shared by both, clear white gap
+between the two, flat white
+background, no text, no shadow.
+```
+
+### C3. Griddlebug walking sheet
+- **Save as:** `art/concepts/followers/griddlebug_turnaround.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/followers/medvodka_turnaround.png`, `art/concepts/griddlebug_sprites.png` (made above)
+- **Downloads:** [medvodka_turnaround.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/followers/medvodka_turnaround.png)
+
+```
+Pixel-art overworld follower sprites
+for a creature-collecting RPG, in
+exactly the style and pixel size of
+the FIRST attached sheet: small chibi
+walkers about 32 pixels tall, thick
+dark outline, flat colours with 2-step
+shading, crisp hand-placed pixels, no
+dithering, no blur. ONE row of 8 views
+of Griddlebug standing, left to right:
+front, front-left, left, back-left,
+back, back-right, right, front-right:
+a chunky beetle with a black cast-iron
+griddle shell glowing orange
+underneath and a spatula horn (the
+LEFT sprite of attached image 2). Keep
+the design exactly as in the battle
+sprite, simplified to this small size,
+every frame the same size. Clear white
+gaps between frames, flat white
+background, no text, no shadows.
 ```
 
 ### 27. Trainer: Wayfarer courier
