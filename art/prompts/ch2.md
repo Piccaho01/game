@@ -1699,6 +1699,104 @@ gaps between frames, flat white
 background, no text, no shadows.
 ```
 
+### J1. Barnacaptain concept (the Hollow Rest jetty)
+- **Save as:** `art/concepts/barnacaptain_concept.png`  ·  **Shape:** square
+- **Attach:** `art/concepts/medvodka_concept.png`
+- **Downloads:** [medvodka_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/medvodka_concept.png)
+
+```
+Official artwork of an original
+creature for a creature-collecting
+RPG, in the same clean anime style as
+the attached image (crisp linework,
+cel shading, soft highlights). Full
+body, flat white background, no text,
+no logos.
+Barnacaptain: a cluster of grey-white
+barnacles that has grown into the
+shape of a tiny, stout old sea
+captain: a lumpy barnacle body with
+little shell-plate openings, stubby
+rock arms, a bushy beard of dark green
+kelp, a captain's cap made from a
+single ridged limpet shell, two small
+stern eyes peering out between
+barnacles, a few mussels and a
+starfish stuck on its side, seaweed
+trailing. Grumpy, stubborn, proud.
+Pose: 3/4 view facing left, clinging
+to a broken piece of wooden ship hull
+with one arm, the other arm pointing
+forward like giving an order.
+Keep it original, not any existing
+Pokemon.
+```
+
+### J2. Barnacaptain sprites (front + back)
+- **Save as:** `art/concepts/barnacaptain_sprites.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/barnacaptain_concept.png` (made above), `art/concepts/medvodka_sprites.png`
+- **Downloads:** [medvodka_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/medvodka_sprites.png)
+
+```
+Redraw the creature in the first
+attached image as a pair of Pokemon
+Black/White 2 battle sprites side by
+side in ONE image, in exactly the
+pixel size, outline weight and shading
+of the second attached image. Crisp
+hand-placed pixel clusters, flat
+colour areas with clean 2-3 step
+shading, no dithering, no noise, no
+blur.
+LEFT: the front sprite, 3/4 view
+facing left, clinging to the piece of
+hull, pointing forward.
+RIGHT: the back sprite, the SAME
+creature in the SAME pose with the
+camera moved behind it, as Black/White
+2 shows your own Pokemon: we see its
+lumpy barnacle back and the limpet cap
+and it faces up and to the right.
+Keep its design exactly as in the
+first image: a stout barnacle cluster
+shaped like a little sea captain, a
+kelp beard, a limpet-shell cap, small
+stern eyes, mussels and a starfish on
+its side.
+A small creature, at most 15 colours
+shared by both, clear white gap
+between the two, flat white
+background, no text, no shadow.
+```
+
+### J3. Barnacaptain walking sheet
+- **Save as:** `art/concepts/followers/barnacaptain_turnaround.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/followers/medvodka_turnaround.png`, `art/concepts/barnacaptain_sprites.png` (made above)
+- **Downloads:** [medvodka_turnaround.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/followers/medvodka_turnaround.png)
+
+```
+Pixel-art overworld follower sprites
+for a creature-collecting RPG, in
+exactly the style and pixel size of
+the FIRST attached sheet: small chibi
+walkers about 32 pixels tall, thick
+dark outline, flat colours with 2-step
+shading, crisp hand-placed pixels, no
+dithering, no blur. ONE row of 8 views
+of Barnacaptain standing, left to
+right: front, front-left, left, back-
+left, back, back-right, right, front-
+right: a stout barnacle cluster shaped
+like a little sea captain with a kelp
+beard and a limpet-shell cap (the LEFT
+sprite of attached image 2). Keep the
+design exactly as in the battle
+sprite, simplified to this small size,
+every frame the same size. Clear white
+gaps between frames, flat white
+background, no text, no shadows.
+```
+
 ### 26. The Galley cook (diner)
 - **Save as:** `art/concepts/trainers/galley_cook.png`  ·  **Shape:** landscape
 - **Attach:** `art/concepts/trainers/callum.png`
