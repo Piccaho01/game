@@ -1720,7 +1720,7 @@ Pokemon.
 ### N3. Thrillghoul sprites + walking sheet (one image)
 - **Save as:** `art/concepts/thrillghoul_sprites.png`  ·  **Shape:** landscape
 - **Attach:** `art/concepts/thrillghoul_concept.png` (made above), `art/concepts/etiger_sprites.png`
-- **Downloads:** [etiger_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/etiger_sprites.png)
+- **Downloads:** [thrillghoul_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/thrillghoul_concept.png) · [etiger_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/etiger_sprites.png)
 
 ```
 Redraw the creature in the first
@@ -1767,6 +1767,224 @@ trousers, white socks, black loafers,
 one sparkly white glove, graveyard
 mist. Clear white gaps between all
 sprites.
+```
+
+### Z1. Doctor Doom, General #8
+- **Save as:** `art/concepts/trainers/doom.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/trainers/mj.png`
+- **Downloads:** [mj.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/trainers/mj.png)
+
+```
+Character sheet for a creature-
+collecting RPG in exactly the same
+style and layout as the attached
+sheet: on the left a full-body anime
+illustration; top right a head close-
+up; middle right a big pixel-art
+trainer battle sprite in Pokemon
+Black/White 2 style, front only, full
+body, 3/4 view facing left, in a
+battle pose; bottom right two small
+pixel-art overworld sprites, standing
+still, in exactly the size and pixel
+style of the small sprites on the
+attached sheet: one 3/4 front view
+facing down-left, one 3/4 back view
+facing up-left. Flat white background,
+no text, no logos.
+The person is a grand, theatrical
+armoured sorcerer-king villain: a
+riveted dull-silver iron mask with
+narrow eye slits and a grim mouth
+slot, full green-grey plate armour
+with rivets, a long dark green hooded
+cloak and tunic with a gold belt
+clasp, heavy armoured gauntlets
+crackling with green energy, glowing
+green lines of computer code swirling
+around him, a small gold pin of four
+slashed tally marks on his belt that
+he clearly finds beneath him.
+Imperious, dramatic, a bit ridiculous
+in how seriously he takes himself.
+Full-body pose: standing tall, one
+gauntlet raised to the sky summoning
+green code, cloak sweeping. Battle
+pose: one gauntlet pointed at the
+viewer, crackling with green
+lightning. Colourway: iron grey,
+forest green, gold.
+```
+
+### Z2. Chronarch concept (Doom's ace)
+- **Save as:** `art/concepts/chronarch_concept.png`  ·  **Shape:** square
+- **Attach:** `art/concepts/thrillghoul_concept.png`
+- **Downloads:** [thrillghoul_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/thrillghoul_concept.png)
+
+```
+Official artwork of an original
+creature for a creature-collecting
+RPG, in the same clean anime style as
+the attached image (crisp linework,
+cel shading, soft highlights). Full
+body, flat white background, no text,
+no logos.
+Chronarch: a huge floating iron crown,
+bigger than a person, ancient and
+riveted, its spikes tipped with
+glowing green rune light. Suspended
+inside the crown is a small masked
+face: a tiny dull-silver iron mask
+with narrow glowing green eye slits.
+It is not wearing the crown, the crown
+is wearing it. Giant brass clock hands
+orbit around the crown, a long
+tattered dark green cape hangs down
+from its rim and trails away, and
+faint green afterimages of itself
+flicker beside it like a future
+version that has already won.
+Majestic, cold, menacing, a final
+boss.
+Pose: 3/4 view facing left, the crown
+tilted down toward the viewer, the
+clock hands sweeping, the cape
+billowing, green energy crackling
+between the spikes.
+Keep it original, not any existing
+Pokemon.
+```
+
+### Z3. Chronarch sprites + walking sheet (one image)
+- **Save as:** `art/concepts/chronarch_sprites.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/chronarch_concept.png` (made above), `art/concepts/thrillghoul_sprites.png`
+- **Downloads:** [thrillghoul_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/thrillghoul_sprites.png)
+
+```
+Redraw the creature in the first
+attached image as pixel-art game
+sprites in ONE image, two rows, in
+exactly the layout, pixel size,
+outline weight and shading of the
+second attached image (a big fully
+evolved boss creature). Flat white
+background, no text, no shadow. Crisp
+hand-placed pixel clusters, flat
+colour areas with clean 2-3 step
+shading, no dithering, no noise, no
+blur. At most 15 colours shared by
+everything.
+TOP ROW: a pair of big Pokemon
+Black/White 2 battle sprites. LEFT:
+the front sprite, 3/4 view facing
+left, the crown tilted toward the
+viewer, the masked face glaring, clock
+hands sweeping, the cape billowing.
+RIGHT: the back sprite, the SAME
+creature in the SAME pose with the
+camera moved behind it, as Black/White
+2 shows your own Pokemon: we see the
+back of the crown, the cape hanging
+from its rim and the clock hands, and
+it faces up and to the right.
+BOTTOM ROW: 8 overworld follower
+sprites in the same chibi style with
+thick dark outlines, the creature
+floating, left to right: front, front-
+left, left, back-left, back, back-
+right, right, front-right, every frame
+the same size.
+Keep its design exactly as in the
+first image: a huge floating riveted
+iron crown with green-glowing spikes,
+a tiny iron mask with green eye slits
+inside it, orbiting brass clock hands,
+a tattered dark green cape. Clear
+white gaps between all sprites.
+```
+
+### Z4. Vicariant concept (Doom's opener)
+- **Save as:** `art/concepts/vicariant_concept.png`  ·  **Shape:** square
+- **Attach:** `art/concepts/thrillghoul_concept.png`
+- **Downloads:** [thrillghoul_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/thrillghoul_concept.png)
+
+```
+Official artwork of an original
+creature for a creature-collecting
+RPG, in the same clean anime style as
+the attached image (crisp linework,
+cel shading, soft highlights). Full
+body, flat white background, no text,
+no logos.
+Vicariant: what looks like one tall
+armoured knight, but its armour is
+made of dozens of tiny brass-and-green
+robot drones (each a little masked
+robot with a green eye) clinging
+together in formation, with small gaps
+where you can see them holding on. Its
+face is a flat black screen showing a
+simple glowing green iron-mask face. A
+short tattered green cape, a round
+brass shield made of drones. A few
+drones hover off its shoulders, and
+one tiny drone at its feet stands
+proudly, pointing at itself as if it
+is the real one. Clever, smug, a bit
+silly but dangerous.
+Pose: 3/4 view facing left, one arm
+raised giving an order, drones peeling
+off its arm and flying toward the
+viewer.
+Keep it original, not any existing
+Pokemon.
+```
+
+### Z5. Vicariant sprites + walking sheet (one image)
+- **Save as:** `art/concepts/vicariant_sprites.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/vicariant_concept.png` (made above), `art/concepts/thrillghoul_sprites.png`
+- **Downloads:** [thrillghoul_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/thrillghoul_sprites.png)
+
+```
+Redraw the creature in the first
+attached image as pixel-art game
+sprites in ONE image, two rows, in
+exactly the layout, pixel size,
+outline weight and shading of the
+second attached image. Flat white
+background, no text, no shadow. Crisp
+hand-placed pixel clusters, flat
+colour areas with clean 2-3 step
+shading, no dithering, no noise, no
+blur. At most 15 colours shared by
+everything.
+TOP ROW: a pair of big Pokemon
+Black/White 2 battle sprites. LEFT:
+the front sprite, 3/4 view facing
+left, one arm raised giving an order,
+drones peeling off toward the viewer.
+RIGHT: the back sprite, the SAME
+creature in the SAME pose with the
+camera moved behind it, as Black/White
+2 shows your own Pokemon: we see its
+back made of tiny clinging drones and
+the short green cape, and it faces up
+and to the right.
+BOTTOM ROW: 8 overworld follower
+sprites in the same chibi style with
+thick dark outlines, the creature
+standing, left to right: front, front-
+left, left, back-left, back, back-
+right, right, front-right, every frame
+the same size.
+Keep its design exactly as in the
+first image: a tall knight made of
+dozens of tiny brass-and-green masked
+robot drones, a black screen face with
+a green mask, a short tattered green
+cape, a drone shield. Leave out the
+single drone at its feet. Clear white
+gaps between all sprites.
 ```
 
 ## People
