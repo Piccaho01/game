@@ -1168,7 +1168,7 @@ Pokemon.
 ### S2. Medvodka sprites (front + back)
 - **Save as:** `art/concepts/medvodka_sprites.png`  ·  **Shape:** landscape
 - **Attach:** `art/concepts/medvodka_concept.png` (made above), `art/concepts/voltcalf_sprites.png`
-- **Downloads:** [voltcalf_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/voltcalf_sprites.png)
+- **Downloads:** [medvodka_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/medvodka_concept.png) · [voltcalf_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/voltcalf_sprites.png)
 
 ```
 Redraw the creature in the first
@@ -1207,7 +1207,7 @@ white background, no text, no shadow.
 ### S3. Medvodka walking sheet
 - **Save as:** `art/concepts/followers/medvodka_turnaround.png`  ·  **Shape:** landscape
 - **Attach:** `art/concepts/followers/generals_1_2_turnaround.png`, `art/concepts/medvodka_sprites.png` (made above)
-- **Downloads:** [generals_1_2_turnaround.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/followers/generals_1_2_turnaround.png)
+- **Downloads:** [generals_1_2_turnaround.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/followers/generals_1_2_turnaround.png) · [medvodka_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/medvodka_sprites.png)
 
 ```
 Pixel-art overworld follower sprites
@@ -1232,44 +1232,145 @@ Clear white gaps between frames, flat
 white background, no text, no shadows.
 ```
 
-### 24. The Swap Box trader (Wayfarer shop)
+### 24. Marge, the Swap Box trader (Wayfarer shop)
 - **Save as:** `art/concepts/trainers/swap_trader.png`  ·  **Shape:** landscape
-- **Attach:** `art/concepts/trainers/callum.png`
-- **Downloads:** [callum.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/trainers/callum.png)
+- **Attach:** `art/concepts/trainers/sergey.png`
+- **Downloads:** [sergey.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/trainers/sergey.png)
 
 ```
 Character sheet for a creature-
 collecting RPG in exactly the same
 style and layout as the attached
 sheet: on the left a full-body anime
-illustration standing in a relaxed
-pose; top right a head close-up;
-middle right a pixel-art battle sprite
-front and back in Pokemon Black/White
-2 style; bottom right two small pixel-
-art overworld sprites, standing still,
-in exactly the size and pixel style of
-the small walk frames on the attached
-sheet: one 3/4 front view facing down-
-left, one 3/4 back view facing up-
-left. Flat white background, no text,
-no logos.
-The person runs the Swap Box, a
-Wayfarer trading post in a shipping
-container: a cheerful, sharp-eyed
-woman in her forties, sun-weathered
-skin, curly auburn hair tied up in a
-scarf, a pencil behind one ear. A long
-mustard-yellow traveller's coat
-covered in pockets with rolled-up
-scrolls poking out, a teal scarf,
-fingerless gloves, sturdy boots, a
-measuring tape round her neck and a
+illustration; top right a head close-
+up; bottom right four small pixel-art
+overworld sprites, standing still, in
+exactly the size and pixel style of
+the small sprites on the attached
+sheet: 3/4 front view facing down-
+left, 3/4 back view facing up-left,
+and the same two again. Flat white
+background, no text, no logos.
+The person is Marge, who runs the Swap
+Box, a Wayfarer trading post in a
+shipping container: a cheerful, sharp-
+eyed, fast-talking woman in her
+forties, sun-weathered skin, freckles,
+curly auburn hair tied up in a teal
+scarf, a pencil behind one ear, a sly
+deal-making grin. A long mustard-
+yellow traveller's coat covered in
+pockets with rolled-up scrolls poking
+out, blank paper swap tags tied all
+over it on string, fingerless gloves,
+rolled-up sleeves, sturdy brown boots,
+a measuring tape round her neck and a
 brass hand scale hanging from her
-belt, blank paper swap tags tied to
-her coat. Leaning on her counter with
-a deal-making grin. Colourway:
-mustard, teal, brown.
+belt. Full-body pose: leaning forward
+with one hand out, rubbing her fingers
+together like naming a price.
+Colourway: mustard, teal, brown.
+```
+
+### M1. Haggler concept (Marge's Patchling)
+- **Save as:** `art/concepts/haggler_concept.png`  ·  **Shape:** square
+- **Attach:** `art/concepts/medvodka_concept.png`
+- **Downloads:** [medvodka_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/medvodka_concept.png)
+
+```
+Official artwork of an original
+creature for a creature-collecting
+RPG, in the same clean anime style as
+the attached image (crisp linework,
+cel shading, soft highlights). Full
+body, flat white background, no text,
+no logos.
+Haggler: a sly little magpie merchant:
+glossy black and white feathers with a
+blue-green metallic sheen on its wings
+and long tail, a round brass monocle
+over one eye, a tiny brown leather
+merchant's satchel across its chest
+stuffed with shiny junk (bottle caps,
+a key, a button, a bit of sea glass),
+a bottle cap held in its beak like a
+coin, sharp grey feet. Smug, shifty,
+always making a deal.
+Pose: 3/4 view facing left, perched on
+one foot, one wing held out as if
+offering a trade, the other tucked
+behind its back hiding something
+shiny.
+Keep it original, not any existing
+Pokemon.
+```
+
+### M2. Haggler sprites (front + back)
+- **Save as:** `art/concepts/haggler_sprites.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/haggler_concept.png` (made above), `art/concepts/medvodka_sprites.png`
+- **Downloads:** [medvodka_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/medvodka_sprites.png)
+
+```
+Redraw the creature in the first
+attached image as a pair of Pokemon
+Black/White 2 battle sprites side by
+side in ONE image, in exactly the
+pixel size, outline weight and shading
+of the second attached image. Crisp
+hand-placed pixel clusters, flat
+colour areas with clean 2-3 step
+shading, no dithering, no noise, no
+blur.
+LEFT: the front sprite, 3/4 view
+facing left, perched on one foot, one
+wing out offering a trade, a bottle
+cap in its beak.
+RIGHT: the back sprite, the SAME
+creature in the SAME pose with the
+camera moved behind it, as Black/White
+2 shows your own Pokemon: we see its
+back, the satchel strap and the long
+tail, the shiny thing hidden behind
+its back now visible, and it faces up
+and to the right.
+Keep its design exactly as in the
+first image: a black-and-white magpie
+with a blue-green sheen on its wings
+and tail, a brass monocle, a tiny
+leather satchel of shiny junk, a
+bottle cap in its beak.
+A small creature, at most 15 colours
+shared by both, clear white gap
+between the two, flat white
+background, no text, no shadow.
+```
+
+### M3. Haggler walking sheet
+- **Save as:** `art/concepts/followers/haggler_turnaround.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/followers/medvodka_turnaround.png`, `art/concepts/haggler_sprites.png` (made above)
+- **Downloads:** [medvodka_turnaround.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/followers/medvodka_turnaround.png)
+
+```
+Pixel-art overworld follower sprites
+for a creature-collecting RPG, in
+exactly the style and pixel size of
+the FIRST attached sheet: small chibi
+walkers about 32 pixels tall, thick
+dark outline, flat colours with 2-step
+shading, crisp hand-placed pixels, no
+dithering, no blur. ONE row of 8 views
+of Haggler standing, left to right:
+front, front-left, left, back-left,
+back, back-right, right, front-right:
+a black-and-white magpie with a blue-
+green sheen, a brass monocle, a little
+satchel and a bottle cap in its beak
+(the LEFT sprite of attached image 2).
+Keep the design exactly as in the
+battle sprite, simplified to this
+small size, every frame the same size.
+Clear white gaps between frames, flat
+white background, no text, no shadows.
 ```
 
 ### 25. The ferry master
