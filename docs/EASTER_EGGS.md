@@ -91,8 +91,12 @@ Characters from the group's favourite media turn up around Verrow. **Rules (owne
 8. **Juice WRLD**: they all loved him; Nolan is the ultimate fan (knows every song, unreleased too).
 9. **Young Thug**: YSL's "slime reaper"; the boss over Ø Way.
 10. **Frank Ocean**.
-Cut from the old list (owner's call): Travis Scott, Kanye West, Drake, Nettspend, OsamaSon.
-Juice WRLD idea to confirm: a tribute, not a joke fight (a quiet Nolan moment, unlocked with Nolan leading).
+11. **Travis Scott** (Emberwick's cactus garden).
+12. **Kanye West** (Cloud Station).
+13. **Drake** (Hush; Toronto is next door to Burlington).
+Cut: Nettspend, OsamaSon.
+Juice WRLD (owner's call): a real trainer fight that is a tribute throughout, plus a Nolan-only Easter egg
+(an interaction, item or Patchling when Nolan leads).
 
 ## Scope note
 About 20 characters × 2-3 Patchlings is 40-60 new Patchlings (each a whole line with art). They
