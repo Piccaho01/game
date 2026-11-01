@@ -836,7 +836,7 @@ Pokemon.
 ### G2. Zoesow sprites (front + back)
 - **Save as:** `art/concepts/zoesow_sprites.png`  ·  **Shape:** landscape
 - **Attach:** `art/concepts/zoesow_concept.png` (made above), `art/concepts/voltcalf_sprites.png`
-- **Downloads:** [voltcalf_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/voltcalf_sprites.png)
+- **Downloads:** [zoesow_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/zoesow_concept.png) · [voltcalf_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/voltcalf_sprites.png)
 
 ```
 Redraw the creature in the first
@@ -953,7 +953,7 @@ background, no text, no shadow.
 ### G5. Walking sheet: Zoesow, Paparatchi
 - **Save as:** `art/concepts/followers/generals_1_2_turnaround.png`  ·  **Shape:** landscape
 - **Attach:** `art/concepts/followers/starters_turnaround.png`, `art/concepts/zoesow_sprites.png`, `art/concepts/paparatchi_sprites.png` (both made above)
-- **Downloads:** [starters_turnaround.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/followers/starters_turnaround.png)
+- **Downloads:** [starters_turnaround.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/followers/starters_turnaround.png) · [zoesow_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/zoesow_sprites.png)
 
 ```
 Pixel-art overworld follower sprites
@@ -1044,49 +1044,49 @@ grey, white, gold, red.
 
 ### 22. Chris Hansen, General of Licensing (General #2)
 - **Save as:** `art/concepts/trainers/hansen.png`  ·  **Shape:** landscape
-- **Attach:** `art/concepts/trainers/callum.png`, `art/concepts/trainers/tally_officer.png`
-- **Downloads:** [callum.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/trainers/callum.png) · [tally_officer.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/trainers/tally_officer.png)
+- **Attach:** `art/concepts/trainers/parker_deputy.png`
+- **Downloads:** [parker_deputy.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/trainers/parker_deputy.png)
 
 ```
 Character sheet for a creature-
 collecting RPG in exactly the same
-style and layout as the first attached
+style and layout as the attached
 sheet: on the left a full-body anime
 illustration; top right a head close-
 up; middle right a big pixel-art
 trainer battle sprite in Pokemon
 Black/White 2 style, front only, full
-body, about twice the height of the
-small sprites, 3/4 view facing left,
-in a battle pose; bottom right two
-small pixel-art overworld sprites,
-standing still, in exactly the size
-and pixel style of the small frames on
-the first sheet: one 3/4 front view
+body, 3/4 view facing left, in a
+battle pose; bottom right two small
+pixel-art overworld sprites, standing
+still, in exactly the size and pixel
+style of the small sprites on the
+attached sheet: one 3/4 front view
 facing down-left, one 3/4 back view
 facing up-left. Flat white background,
 no text, no logos.
 The person is a calm, serious TV
 investigative host in his early
 sixties who now works for the Tally
-(the bureaucracy on the second sheet)
-as its General of Licensing: neatly
-combed silver-grey hair, a composed,
-knowing, unblinking face, slight
-frown. A sharp dark navy suit, white
-shirt, a muted tie, a small gold lapel
-pin of four slashed tally marks, a
-slate-grey sash with gold trim over
+(the bureaucracy whose gold crest is
+on the attached sheet's jacket) as its
+General of Licensing: neatly combed
+silver-grey hair, a composed, knowing,
+unblinking face, one eyebrow slightly
+raised. A sharp dark navy suit, white
+shirt, a muted navy tie, a small gold
+lapel pin of four slashed tally marks,
+a slate-grey sash with gold trim over
 one shoulder like a general's,
-polished shoes. A thick manila case
-file under one arm, papers sticking
-out. Full-body pose: one open hand
-gesturing to the side as if saying
-"why don't you have a seat right over
-there". Battle pose: the case file
-held up open toward the viewer, the
-other hand pointing to an unseen
-chair. Composed, never angry; funny
+polished black shoes. A thick manila
+case file under one arm, papers
+sticking out. Full-body pose: one open
+hand gesturing to the side as if
+saying "why don't you have a seat
+right over there". Battle pose: the
+case file held up open toward the
+viewer, the other hand pointing to an
+unseen chair. Never angry; funny
 because he is so calm. Colourway:
 navy, silver, gold.
 ```
@@ -1439,7 +1439,7 @@ Pokemon.
 ### R2. Sproot sprites (front + back)
 - **Save as:** `art/concepts/sproot_sprites.png`  ·  **Shape:** landscape
 - **Attach:** `art/concepts/line_sproot.png` (made above), `art/concepts/medvodka_sprites.png`
-- **Downloads:** [medvodka_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/medvodka_sprites.png)
+- **Downloads:** [line_sproot.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/line_sproot.png) · [medvodka_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/medvodka_sprites.png)
 
 ```
 Redraw the LEFT creature on the first
@@ -1476,6 +1476,7 @@ white background, no text, no shadow.
 ### R3. Barkhand sprites (front + back)
 - **Save as:** `art/concepts/barkhand_sprites.png`  ·  **Shape:** landscape
 - **Attach:** `art/concepts/line_sproot.png` (made above), `art/concepts/sproot_sprites.png` (made above)
+- **Downloads:** [line_sproot.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/line_sproot.png) · [sproot_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/sproot_sprites.png)
 
 ```
 Redraw the MIDDLE creature on the
@@ -1512,6 +1513,7 @@ white background, no text, no shadow.
 ### R4. Timbreon sprites (front + back)
 - **Save as:** `art/concepts/timbreon_sprites.png`  ·  **Shape:** landscape
 - **Attach:** `art/concepts/line_sproot.png` (made above), `art/concepts/barkhand_sprites.png` (made above)
+- **Downloads:** [line_sproot.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/line_sproot.png) · [barkhand_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/barkhand_sprites.png)
 
 ```
 Redraw the RIGHT creature on the first
@@ -1547,7 +1549,7 @@ white background, no text, no shadow.
 ### R5. Sproot line walking sheet
 - **Save as:** `art/concepts/followers/sproot_line_turnaround.png`  ·  **Shape:** landscape
 - **Attach:** `art/concepts/followers/medvodka_turnaround.png`, `art/concepts/sproot_sprites.png`, `art/concepts/barkhand_sprites.png`, `art/concepts/timbreon_sprites.png` (all made above but the first)
-- **Downloads:** [medvodka_turnaround.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/followers/medvodka_turnaround.png)
+- **Downloads:** [medvodka_turnaround.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/followers/medvodka_turnaround.png) · [sproot_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/sproot_sprites.png) · [barkhand_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/barkhand_sprites.png) · [timbreon_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/timbreon_sprites.png)
 
 ```
 Pixel-art overworld follower sprites
@@ -1614,7 +1616,7 @@ Pokemon.
 ### R7. Quillord sprites + walking sheet (one image)
 - **Save as:** `art/concepts/quillord_sprites.png`  ·  **Shape:** landscape
 - **Attach:** `art/concepts/quillord_concept.png` (made above), `art/concepts/medvodka_sprites.png`, `art/concepts/followers/medvodka_turnaround.png`
-- **Downloads:** [medvodka_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/medvodka_sprites.png) · [medvodka_turnaround.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/followers/medvodka_turnaround.png)
+- **Downloads:** [quillord_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/quillord_concept.png) · [medvodka_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/medvodka_sprites.png) · [medvodka_turnaround.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/followers/medvodka_turnaround.png)
 
 ```
 Redraw the creature in the first
