@@ -34,8 +34,20 @@ Characters from the group's favourite media turn up around Verrow. **Rules (owne
 - **Doctor Doom** (General #8, Draft Archive): an iron-masked armour Patchling (Metal/Relic); a
   green-cloaked spell-tome familiar.
 - **Doctor Strange** (Sanctum): a floating cloak Patchling (Relic/Wind); a mystic eye amulet (Relic).
-- **Deadpool** (turns up everywhere, knows it's a game): a glitchy red Relic whose bestiary entry
-  edits itself; a katana-tailed regenerating gecko.
+- **Deadpool** (designed 2026-11-01): turns up once per chapter where he shouldn't be, talks to the
+  real player, skips his own cutscenes, shoves his HP bar; a trainer fight after the Generals (cheats
+  with items, his team regenerates); then hangs around PATCH's workshop. Lines: "Oh hey, you're playing
+  on a phone? Bold." / to PATCH: "Working on a fix? Buddy, you ARE the bug." / Dani: "Who is the red
+  man?" "Your biggest fan, Dani."
+  - **Fourthwall** (Relic/Dark, big, ace): a red-and-black masked creature tearing out of the screen,
+    katana blades on its back; its sprite climbs over the battle frame. Ability **Meta** (its bestiary
+    entry rewrites itself). Signature **Break the Wall** (Relic special: ignores the foe's boosts and
+    ability).
+  - **Wirewolf** (Metal/Spark, big; inspired by Cable): a grizzled upright wolf soldier from the
+    future, one glowing eye, a techno-organic metal arm, a huge rifle, a time-travel belt. Ability
+    **Techno-Organic** (Metal moves heal it a little). Signature **Time Jump** (Spark: vanishes this
+    turn, returns next turn moving first with a heavy hit). Bestiary: "Came back from the future to stop
+    one thing. Keeps getting distracted by its partner." 
 - **Spider-Man** (Canopy): a web-slinging spider line (Plant/Wind, 3 stages).
 - **Batman** (Batcave): a bat line that only appears when you're not looking (Dark, 3 stages); a
   gadget-belt raccoon.

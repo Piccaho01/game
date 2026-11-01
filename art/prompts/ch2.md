@@ -2211,7 +2211,7 @@ Pokemon.
 ### L3. Witnyx sprites + walking sheet (one image)
 - **Save as:** `art/concepts/witnyx_sprites.png`  ·  **Shape:** landscape
 - **Attach:** `art/concepts/witnyx_concept.png` (made above), `art/concepts/chronarch_sprites.png`
-- **Downloads:** [chronarch_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/chronarch_sprites.png)
+- **Downloads:** [witnyx_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/witnyx_concept.png) · [chronarch_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/chronarch_sprites.png)
 
 ```
 Redraw the creature in the first
@@ -2254,6 +2254,209 @@ eyes, a floating golden crown-halo,
 glowing blue eyes, a white sweatband
 on one foreleg. Clear white gaps
 between all sprites.
+```
+
+### P1. Deadpool (Easter egg trainer)
+- **Save as:** `art/concepts/trainers/deadpool.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/trainers/lebron_boss.png`
+- **Downloads:** [lebron_boss.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/trainers/lebron_boss.png)
+
+```
+Character sheet for a creature-
+collecting RPG in exactly the same
+style and layout as the attached
+sheet: on the left a full-body anime
+illustration; top right a head close-
+up; middle right a big pixel-art
+trainer battle sprite in Pokemon
+Black/White 2 style, front only, full
+body, 3/4 view facing left, in a
+battle pose; bottom right two small
+pixel-art overworld sprites, standing
+still, in exactly the size and pixel
+style of the small sprites on the
+attached sheet: one 3/4 front view
+facing down-left, one 3/4 back view
+facing up-left. Flat white background,
+no text, no logos.
+The person is a wisecracking red-
+suited mercenary antihero who knows he
+is in a video game: a full red-and-
+black tactical bodysuit and full face
+mask with large white eye patches, two
+katanas crossed on his back, utility
+belts with pouches, holsters, gloves,
+combat boots. Expressive mask, cheeky
+body language. Full-body pose: sitting
+on an invisible ledge, legs dangling,
+waving at the viewer like he knows
+you're there. Battle pose: one hand on
+a katana hilt, the other giving a
+cheeky finger-gun at the viewer, head
+tilted. Colourway: red, black, silver.
+```
+
+### P2. Fourthwall concept (Deadpool's ace)
+- **Save as:** `art/concepts/fourthwall_concept.png`  ·  **Shape:** square
+- **Attach:** `art/concepts/witnyx_concept.png`
+- **Downloads:** [witnyx_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/witnyx_concept.png)
+
+```
+Official artwork of an original
+creature for a creature-collecting
+RPG, in the same clean anime style as
+the attached image (crisp linework,
+cel shading, soft highlights). Full
+body, flat white background, no text,
+no logos.
+Fourthwall: a big, wiry, agile red-
+and-black creature with a ninja-like
+masked face and large white eye
+patches, two katana-like blades
+growing out of its back, sharp claws,
+a long whip tail. Half of its body is
+breaking apart into torn square pixels
+and glitch static, as if it is tearing
+its way out of a screen. A cheeky,
+chaotic, dangerous grin under the
+mask. Chaotic, funny, unsettling.
+Pose: 3/4 view facing left, climbing
+out of a cracked rectangular frame
+like a broken screen, one clawed hand
+gripping the edge, the other pointing
+at the viewer.
+Keep it original, not any existing
+Pokemon.
+```
+
+### P3. Fourthwall sprites + walking sheet (one image)
+- **Save as:** `art/concepts/fourthwall_sprites.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/fourthwall_concept.png` (made above), `art/concepts/witnyx_sprites.png`
+- **Downloads:** [witnyx_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/witnyx_sprites.png)
+
+```
+Redraw the creature in the first
+attached image as pixel-art game
+sprites in ONE image, two rows, in
+exactly the layout, pixel size,
+outline weight and shading of the
+second attached image (a big boss
+creature). Flat white background, no
+text, no shadow. Crisp hand-placed
+pixel clusters, flat colour areas with
+clean 2-3 step shading, no dithering,
+no noise, no blur. At most 15 colours
+shared by everything. Leave out the
+broken frame.
+TOP ROW: a pair of big Pokemon
+Black/White 2 battle sprites. LEFT:
+the front sprite, 3/4 view facing
+left, crouched to leap, one clawed
+hand pointing at the viewer. RIGHT:
+the back sprite, the SAME creature in
+the SAME pose with the camera moved
+behind it, as Black/White 2 shows your
+own Pokemon: we see the two back
+blades, the glitching half and the
+whip tail, and it faces up and to the
+right.
+BOTTOM ROW: 8 overworld follower
+sprites in the same chibi style with
+thick dark outlines, the creature
+standing, left to right: front, front-
+left, left, back-left, back, back-
+right, right, front-right, every frame
+the same size.
+Keep its design exactly as in the
+first image: a wiry red-and-black
+masked creature, white eye patches,
+two katana blades on its back, claws,
+a whip tail, half its body breaking
+into square pixels. Clear white gaps
+between all sprites.
+```
+
+### P4. Wirewolf concept (Deadpool's partner, inspired by his best friend)
+- **Save as:** `art/concepts/wirewolf_concept.png`  ·  **Shape:** square
+- **Attach:** `art/concepts/witnyx_concept.png`
+- **Downloads:** [witnyx_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/witnyx_concept.png)
+
+```
+Official artwork of an original
+creature for a creature-collecting
+RPG, in the same clean anime style as
+the attached image (crisp linework,
+cel shading, soft highlights). Full
+body, flat white background, no text,
+no logos.
+Wirewolf: a big, grizzled, battle-
+scarred grey wolf soldier from the
+future, standing upright: short white-
+grey fur, a scarred muzzle, one eye
+glowing bright orange-gold. Its left
+arm and shoulder are a techno-organic
+metal limb, silver and gunmetal with
+glowing orange circuit lines spreading
+into the fur. Bulky shoulder armour
+with straps and pouches, a huge
+oversized futuristic rifle held in one
+hand, a glowing time-travel device on
+its belt. Stoic, serious, the grumpy
+straight man to a chaotic partner.
+Pose: 3/4 view facing left, standing
+tall, the huge rifle braced on its
+shoulder, the metal hand clenched, the
+glowing eye fixed on the viewer.
+Keep it original, not any existing
+Pokemon.
+```
+
+### P5. Wirewolf sprites + walking sheet (one image)
+- **Save as:** `art/concepts/wirewolf_sprites.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/wirewolf_concept.png` (made above), `art/concepts/witnyx_sprites.png`
+- **Downloads:** [witnyx_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/witnyx_sprites.png)
+
+```
+Redraw the creature in the first
+attached image as pixel-art game
+sprites in ONE image, two rows, in
+exactly the layout, pixel size,
+outline weight and shading of the
+second attached image. Flat white
+background, no text, no shadow. Crisp
+hand-placed pixel clusters, flat
+colour areas with clean 2-3 step
+shading, no dithering, no noise, no
+blur. At most 15 colours shared by
+everything.
+TOP ROW: a pair of big Pokemon
+Black/White 2 battle sprites. LEFT:
+the front sprite, 3/4 view facing
+left, standing tall, the huge rifle
+braced on its shoulder, the glowing
+eye on the viewer. RIGHT: the back
+sprite, the SAME creature in the SAME
+pose with the camera moved behind it,
+as Black/White 2 shows your own
+Pokemon: we see its armoured back, the
+metal arm and the rifle, and it faces
+up and to the right.
+BOTTOM ROW: 8 overworld follower
+sprites in the same chibi style with
+thick dark outlines, the creature
+standing, left to right: front, front-
+left, left, back-left, back, back-
+right, right, front-right, every frame
+the same size.
+Keep its design exactly as in the
+first image: a grizzled upright grey
+wolf soldier, one glowing orange-gold
+eye, a techno-organic silver metal
+left arm with glowing orange circuit
+lines, bulky shoulder armour, a huge
+futuristic rifle, a glowing belt
+device. Clear white gaps between all
+sprites.
 ```
 
 ## People
