@@ -470,7 +470,12 @@ reactions, the text-speed samples). **Next:** roadmap step 3 (evolution art, who
   battle sprite on their sheet; Roshi added: he battles), coast terrain + Saltway/Kettleport concepts and
   pieces, Hollow Rest jetty, Kame islet pieces, 3 battle backdrops (Saltway, Kettleport, the sting), 8 rooms
   + a close-up sheet of the 6 Lantern Loft paintings.
-- **Next:** the owner runs the prompts and sends results in order; then the build session.
+- **Working one character at a time** (owner's call 2026-11-01): pitch, owner's input, prompts, art.
+  **Art in:** Parker Deputy, Paparatchi (sheet), Zoesow+Paparatchi walking sheet, Sergey, Medvodka (all 3),
+  Rocket, Sproot line (all 5), Quillord (all 3).
+  **Art still owed (remind the owner):** Zoesow concept + sprites (G1, G2); Hansen sheet (22); Marge (24) +
+  Haggler (M1, M2); Big Sal (26) + Griddlebug (C1, C2); Barnacaptain (J1, J2); then the rest of the file.
+- **Next:** Generals 3-8 designed with the owner (Micheal Xu next), then the build session.
 
 ## Roadmap after the playtest (proposed 2026-10-28; see WORKFLOW "chapters")
 1. **Playtest fixes**: the group's feedback as one batch.
