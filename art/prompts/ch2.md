@@ -2,7 +2,7 @@
 
 Every image Chapter 2 needs, in one sitting (`docs/chapters/2.md` art list, plus Kame House's two Patchlings and the Lantern Loft). **Attach** the listed images first (a path in the repo, or one you made earlier in this list: "made above"), run them in order, and send the results back in the chat in the same order. No text, logos or Poké Balls in any image.
 
-52 prompts: Patchlings 1-20, people 21-32, maps 33-40, battle backdrops 41-43, rooms 44-52.
+57 prompts: Patchlings 1-20, Generals' Patchlings G1-G5, people 21-32, maps 33-40, battle backdrops 41-43, rooms 44-52.
 
 **Coded, no drawing:** shiny/Prototype sheets, the crane puzzle pieces, night tint, the tide, item icons, the Bits icon, posters and the ferry board's words. **Reused:** the harbour clerk and the toll officer are the Tally officer's sheet; Strikes is his existing sprite; Connor is chat only.
 
@@ -796,6 +796,192 @@ size, every frame in a row the same
 size. Clear white gaps between frames,
 flat white background, no text, no
 shadows.
+```
+
+## Generals' Patchlings
+
+### G1. Zoesow concept (Parker's ace)
+- **Save as:** `art/concepts/zoesow_concept.png`  ·  **Shape:** square
+- **Attach:** `art/concepts/wardeye_concept.png`
+- **Downloads:** [wardeye_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/wardeye_concept.png)
+
+```
+Official artwork of an original
+creature for a creature-collecting
+RPG, in the same clean anime style as
+the attached image (crisp linework,
+cel shading, soft highlights). Full
+body, flat white background, no text,
+no logos.
+Zoesow: a pampered spa pig, clearly a
+girl: a round, glossy pink piglet with
+long dark eyelashes, a pink satin bow
+on one ear, a heart-shaped snout, rosy
+cheeks. Two cucumber slices pushed up
+on her forehead like sunglasses, a
+smear of grey-green clay mud mask on
+her cheeks, a fluffy white spa robe
+with the belt tied in a bow, little
+hooves with pink polish, a curly tail,
+a tiny phone held in one trotter.
+Glamorous, a little vain, very cute.
+Pose: 3/4 view facing left, one hip
+popped, blowing a kiss toward the
+viewer, the phone held up in the other
+trotter.
+Keep it original, not any existing
+Pokemon.
+```
+
+### G2. Zoesow sprites (front + back)
+- **Save as:** `art/concepts/zoesow_sprites.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/zoesow_concept.png` (made above), `art/concepts/voltcalf_sprites.png`
+- **Downloads:** [voltcalf_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/voltcalf_sprites.png)
+
+```
+Redraw the creature in the first
+attached image as a pair of Pokemon
+Black/White 2 battle sprites side by
+side in ONE image, in exactly the
+pixel size, outline weight and shading
+of the second attached image. Crisp
+hand-placed pixel clusters, flat
+colour areas with clean 2-3 step
+shading, no dithering, no noise, no
+blur.
+LEFT: the front sprite, 3/4 view
+facing left, one hip popped, blowing a
+kiss, phone held up.
+RIGHT: the back sprite, the SAME
+creature in the SAME pose with the
+camera moved behind it, as Black/White
+2 shows your own Pokemon: we see the
+back of the robe, the bow and the
+curly tail, and she faces up and to
+the right.
+Keep her design exactly as in the
+first image: a round glossy pink
+piglet, long lashes, a pink bow on one
+ear, heart-shaped snout, cucumber
+slices on her forehead, clay mud mask
+on her cheeks, a fluffy white spa
+robe, pink-polished hooves, a curly
+tail, a tiny phone.
+At most 15 colours shared by both,
+clear white gap between the two, flat
+white background, no text, no shadow.
+```
+
+### G3. Paparatchi concept (Hansen's ace)
+- **Save as:** `art/concepts/paparatchi_concept.png`  ·  **Shape:** square
+- **Attach:** `art/concepts/wardeye_concept.png`
+- **Downloads:** [wardeye_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/wardeye_concept.png)
+
+```
+Official artwork of an original
+creature for a creature-collecting
+RPG, in the same clean anime style as
+the attached image (crisp linework,
+cel shading, soft highlights). Full
+body, flat white background, no text,
+no logos.
+Paparatchi: a tiny chibi moth-boy,
+about a foot tall: a big round fuzzy
+head, two oversized round camera-lens
+eyes with glinting glass, a soft
+cream-and-grey moth body, stubby arms
+and legs, a miniature tan trench coat
+far too big for him with the collar
+turned up and the sleeves rolled. Two
+feathery antennae tipped with little
+flashbulbs. Wings like strips of dark
+film negative with tiny frames. He
+holds a tiny clipboard with a camera
+built into it, and a small red
+recording light on his chest glows
+when he's excited. Polite, squeaky,
+completely harmless-looking, which is
+the point.
+Pose: 3/4 view facing left, leaning in
+on tiptoe, the clipboard-camera raised
+toward the viewer, the red light on, a
+polite little smile.
+Keep it original, not any existing
+Pokemon.
+```
+
+### G4. Paparatchi sprites (front + back)
+- **Save as:** `art/concepts/paparatchi_sprites.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/paparatchi_concept.png` (made above), `art/concepts/voltcalf_sprites.png`
+- **Downloads:** [voltcalf_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/voltcalf_sprites.png)
+
+```
+Redraw the creature in the first
+attached image as a pair of Pokemon
+Black/White 2 battle sprites side by
+side in ONE image, in exactly the
+pixel size, outline weight and shading
+of the second attached image. Crisp
+hand-placed pixel clusters, flat
+colour areas with clean 2-3 step
+shading, no dithering, no noise, no
+blur.
+LEFT: the front sprite, 3/4 view
+facing left, on tiptoe, the clipboard-
+camera raised, the red light on.
+RIGHT: the back sprite, the SAME
+creature in the SAME pose with the
+camera moved behind it, as Black/White
+2 shows your own Pokemon: we see the
+back of the trench coat and the film-
+strip wings, the flashbulb antennae,
+and he faces up and to the right.
+Keep his design exactly as in the
+first image: a tiny chibi moth-boy,
+big fuzzy round head, huge camera-lens
+eyes, cream-and-grey body, an
+oversized tan trench coat, flashbulb
+antennae, film-negative wings, a tiny
+clipboard-camera, a red recording
+light.
+A small creature, at most 15 colours
+shared by both, clear white gap
+between the two, flat white
+background, no text, no shadow.
+```
+
+### G5. Walking sheet: Zoesow, Paparatchi
+- **Save as:** `art/concepts/followers/generals_1_2_turnaround.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/followers/starters_turnaround.png`, `art/concepts/zoesow_sprites.png`, `art/concepts/paparatchi_sprites.png` (both made above)
+- **Downloads:** [starters_turnaround.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/followers/starters_turnaround.png)
+
+```
+Pixel-art overworld follower sprites
+for a creature-collecting RPG, in
+exactly the style, pixel size and
+layout of the FIRST attached sheet:
+small chibi walkers about 32 pixels
+tall, thick dark outline, flat colours
+with 2-step shading, crisp hand-placed
+pixels, no dithering, no blur. TWO
+rows, one creature per row, top to
+bottom. ROW 1: Zoesow, a glossy pink
+spa piglet with a bow, a white robe
+and cucumber slices on her forehead
+(the LEFT sprite of attached image 2).
+ROW 2: Paparatchi, a tiny moth-boy
+with camera-lens eyes, a big trench
+coat and flashbulb antennae (the LEFT
+sprite of attached image 3). Each row
+has 8 views of that creature standing,
+left to right: front, front-left,
+left, back-left, back, back-right,
+right, front-right. Keep each design
+exactly as in its attached battle
+sprite, simplified to this small size,
+every frame in a row the same size.
+Clear white gaps between frames, flat
+white background, no text, no shadows.
 ```
 
 ## People
