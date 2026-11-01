@@ -1684,26 +1684,32 @@ the attached image (crisp linework,
 cel shading, soft highlights). Full
 body, flat white background, no text,
 no logos.
-Thrillghoul: a huge, towering zombie
-dancer creature, twice a person's
-height: grey-green rotting skin with
-patches of exposed bone, hollow
-glowing yellow eyes, a wide grin of
-crooked teeth, long lanky limbs, a
-ripped and tattered red zip-up leather
-jacket with V-shaped panels, torn
-black trousers cut short, white socks,
-cracked black loafers, ONE sparkly
-white glove on a bony clawed hand,
-grave dirt falling off it, wisps of
-purple-green graveyard mist curling
-around its feet. Creepy but fun, a
-horror-movie dance number.
-Pose: 3/4 view facing left, mid zombie
-dance move: shoulders hunched, both
-clawed hands raised to one side like
-claws, one knee up, head tilted,
-glaring at the viewer.
+Thrillghoul: a very tall, impossibly
+thin and lanky zombie dancer, twice a
+person's height, all long limbs and
+sharp angles: grey-green rotting skin
+with patches of exposed bone, hollow
+glowing yellow eyes under the brim of
+a tilted black fedora, a sly menacing
+grin of crooked teeth, a long black
+curly mane of dead hair. It wears a
+slim-fit red zip-up leather jacket
+with V-shaped panels, torn but still
+sharp, narrow black trousers cut short
+above the ankle, bright white socks
+and shiny black loafers, ONE sparkly
+white sequinned glove on a long bony
+clawed hand. Purple-green graveyard
+mist curls around its feet. Smooth,
+stylish and cool like a pop legend,
+but genuinely menacing: a predator
+that dances.
+Pose: 3/4 view facing left, up on the
+tips of its toes, one hand holding the
+fedora brim low over its glowing eyes,
+the gloved clawed hand reaching toward
+the viewer, its long body leaning
+forward at an impossible angle.
 Keep it original, not any existing
 Pokemon.
 ```
@@ -1730,15 +1736,16 @@ everything.
 TOP ROW: a pair of big Pokemon
 Black/White 2 battle sprites. LEFT:
 the front sprite, 3/4 view facing
-left, mid zombie dance move, clawed
-hands raised to one side, one knee up.
+left, up on its toes, holding the
+fedora brim low, the gloved clawed
+hand reaching out, leaning forward.
 RIGHT: the back sprite, the SAME
 creature in the SAME pose with the
 camera moved behind it, as Black/White
 2 shows your own Pokemon: we see the
-back of the ripped red jacket and its
-hunched shoulders, and it faces up and
-to the right.
+back of the red jacket, the fedora and
+the long lanky limbs, and it faces up
+and to the right.
 BOTTOM ROW: 8 overworld follower
 sprites in the same chibi style with
 thick dark outlines, the creature
@@ -1747,13 +1754,16 @@ left, left, back-left, back, back-
 right, right, front-right, every frame
 the same size.
 Keep its design exactly as in the
-first image: a towering grey-green
-zombie dancer, glowing yellow eyes,
-crooked grin, a ripped red zip-up
-leather jacket, short black trousers,
-white socks, black loafers, one
-sparkly white glove, graveyard mist.
-Clear white gaps between all sprites.
+first image: a very tall, thin, lanky
+grey-green zombie dancer, glowing
+yellow eyes under a tilted black
+fedora, long dead curly hair, a
+crooked menacing grin, a slim red zip-
+up leather jacket, short black
+trousers, white socks, black loafers,
+one sparkly white glove, graveyard
+mist. Clear white gaps between all
+sprites.
 ```
 
 ## People
