@@ -1093,7 +1093,7 @@ navy, silver, gold.
 
 ### 23. Sergey (the crane operator)
 - **Save as:** `art/concepts/trainers/sergey.png`  ·  **Shape:** landscape
-- **Attach:** `art/concepts/trainers/callum.png`, plus your photo of Sergey for his face and hair if you want it (the photo stays out of the repo)
+- **Attach:** `art/concepts/trainers/callum.png`, plus your photo of Sergey if you want his face (the photo stays out of the repo)
 - **Downloads:** [callum.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/trainers/callum.png)
 
 ```
@@ -1101,35 +1101,135 @@ Character sheet for a creature-
 collecting RPG in exactly the same
 style and layout as the first attached
 sheet: on the left a full-body anime
-illustration standing in a relaxed
-pose; top right a head close-up;
-middle right a pixel-art battle sprite
-front and back in Pokemon Black/White
-2 style; bottom right two small pixel-
-art overworld sprites, standing still,
-in exactly the size and pixel style of
-the small walk frames on the first
-sheet: one 3/4 front view facing down-
-left, one 3/4 back view facing up-
-left. Flat white background, no text,
-no logos.
+illustration; top right a head close-
+up; middle right a pixel-art battle
+sprite front and back in Pokemon
+Black/White 2 style; bottom right two
+small pixel-art overworld sprites,
+standing still, in exactly the size
+and pixel style of the small walk
+frames on the first sheet: one 3/4
+front view facing down-left, one 3/4
+back view facing up-left. Flat white
+background, no text, no logos.
 The person is Sergey, a 19-year-old
 Russian music producer stuck on his
 400th night shift as a harbour crane
-operator: pale, very tired, dark
-circles under his eyes, deadpan face,
-short messy hair under a black knit
-beanie. A bright orange hi-vis vest
-with reflective stripes over a plain
-black tracksuit (no stripes, no
-logos), big over-ear studio headphones
-round his neck, fingerless gloves,
-worn black trainers. A small MIDI
-keyboard tucked under one arm, an
-energy drink can in the other hand, a
-lanyard with a crane key. Squinting
-like daylight hurts. Colourway: hi-vis
-orange, black, a little silver.
+operator: a buzz cut, thin rectangular
+glasses with a faint blue screen glow
+on the lenses, very pale, dark circles
+under his eyes, a deadpan face. A
+bright orange hi-vis vest with
+reflective stripes over a plain black
+tracksuit (no stripes, no logos), big
+over-ear studio headphones round his
+neck, worn black trainers. A small
+MIDI keyboard under one arm, an energy
+drink can in the other hand, a lanyard
+with a crane key. Full-body pose:
+squinting into bright daylight,
+glasses glinting, like it hurts.
+Colourway: hi-vis orange, black,
+silver.
+```
+
+### S1. Medvodka concept (Sergey's Patchling)
+- **Save as:** `art/concepts/medvodka_concept.png`  ·  **Shape:** square
+- **Attach:** `art/concepts/wardeye_concept.png`
+- **Downloads:** [wardeye_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/wardeye_concept.png)
+
+```
+Official artwork of an original
+creature for a creature-collecting
+RPG, in the same clean anime style as
+the attached image (crisp linework,
+cel shading, soft highlights). Full
+body, flat white background, no text,
+no logos.
+Medvodka: a stocky brown bear cub
+squatting on its heels in a too-small
+black tracksuit, a fluffy grey ushanka
+fur hat with one ear-flap up, rosy
+drunk cheeks, one missing tooth, a
+wild happy grin, little wisps of flame
+and frost on its breath. It hugs a big
+frosty bottle of vodka almost as tall
+as itself: clear glass, a red cap, a
+plain blank label with no writing.
+Loud, unhinged, everyone's best
+friend.
+Pose: 3/4 view facing left, squatting,
+raising the vodka bottle high in a
+toast, mouth open mid-shout.
+Keep it original, not any existing
+Pokemon.
+```
+
+### S2. Medvodka sprites (front + back)
+- **Save as:** `art/concepts/medvodka_sprites.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/medvodka_concept.png` (made above), `art/concepts/voltcalf_sprites.png`
+- **Downloads:** [voltcalf_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/voltcalf_sprites.png)
+
+```
+Redraw the creature in the first
+attached image as a pair of Pokemon
+Black/White 2 battle sprites side by
+side in ONE image, in exactly the
+pixel size, outline weight and shading
+of the second attached image. Crisp
+hand-placed pixel clusters, flat
+colour areas with clean 2-3 step
+shading, no dithering, no noise, no
+blur.
+LEFT: the front sprite, 3/4 view
+facing left, squatting, the vodka
+bottle raised in a toast, mouth open
+mid-shout.
+RIGHT: the back sprite, the SAME
+creature in the SAME pose with the
+camera moved behind it, as Black/White
+2 shows your own Pokemon: we see the
+back of the tracksuit and the ushanka,
+the bottle raised over its shoulder,
+and it faces up and to the right.
+Keep its design exactly as in the
+first image: a stocky brown bear cub
+in a too-small black tracksuit, a grey
+ushanka with one flap up, rosy cheeks,
+a missing tooth, a big clear vodka
+bottle with a red cap and a blank
+label.
+At most 15 colours shared by both,
+clear white gap between the two, flat
+white background, no text, no shadow.
+```
+
+### S3. Medvodka walking sheet
+- **Save as:** `art/concepts/followers/medvodka_turnaround.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/followers/generals_1_2_turnaround.png`, `art/concepts/medvodka_sprites.png` (made above)
+- **Downloads:** [generals_1_2_turnaround.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/followers/generals_1_2_turnaround.png)
+
+```
+Pixel-art overworld follower sprites
+for a creature-collecting RPG, in
+exactly the style and pixel size of
+the FIRST attached sheet: small chibi
+walkers about 32 pixels tall, thick
+dark outline, flat colours with 2-step
+shading, crisp hand-placed pixels, no
+dithering, no blur. ONE row of 8 views
+of Medvodka standing, left to right:
+front, front-left, left, back-left,
+back, back-right, right, front-right:
+a stocky brown bear cub in a black
+tracksuit and a grey ushanka, hugging
+a clear vodka bottle with a red cap
+(the LEFT sprite of attached image 2).
+Keep the design exactly as in the
+battle sprite, simplified to this
+small size, every frame the same size.
+Clear white gaps between frames, flat
+white background, no text, no shadows.
 ```
 
 ### 24. The Swap Box trader (Wayfarer shop)
