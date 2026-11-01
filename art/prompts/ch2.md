@@ -1348,47 +1348,65 @@ chains swinging. Colourway: black,
 gold, neon green buttons.
 ```
 
-### F2. Monsta concept (Cuffem's Patchling)
-- **Save as:** `art/concepts/monsta_concept.png`  ·  **Shape:** square
-- **Attach:** `art/concepts/smokkuri_concept.png`
-- **Downloads:** [smokkuri_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/smokkuri_concept.png)
+### F2. Monsta line concept (Monsta → Monstrobass, Cuffem's ace)
+- **Save as:** `art/concepts/line_monsta.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/line_minotaur.png`
+- **Downloads:** [line_minotaur.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/line_minotaur.png)
 
 ```
-Official artwork of an original
-creature for a creature-collecting
-RPG, in the same clean anime style as
-the attached image (crisp linework,
-cel shading, soft highlights). Full
-body, flat white background, no text,
-no logos.
-Monsta: a chubby, ugly-cute little
-gremlin: patchy dark grey fur, a round
-belly that is a black boombox with two
-big speaker cones, two brass air horns
-sticking up out of its shoulders, a
-lopsided toothy grin with gaps,
-glowing neon-green speaker-cone eyes,
-a tiny gaming headset with a boom mic,
-stubby legs, little clawed hands.
-Loud, obnoxious, lovable.
-Pose: 3/4 view facing left, bouncing
-mid-yell, mouth wide open, sound waves
-blasting from its belly speakers and
-air horns.
-Keep it original, not any existing
+Official artwork of an original two-
+stage creature evolution line for a
+creature-collecting RPG, in the same
+clean anime style and layout as the
+attached sheet (crisp linework, cel
+shading, soft highlights): the two
+creatures side by side, small stage on
+the left, evolved stage on the right
+and MUCH bigger, full body, flat white
+background, no text, no logos, no
+arrows.
+LEFT: Monsta: a chubby, ugly-cute
+little gremlin: patchy dark grey fur,
+a round belly that is a black boombox
+with two speaker cones, two small
+brass air horns sticking up out of its
+shoulders, a lopsided gappy toothy
+grin, glowing neon-green speaker-cone
+eyes, a tiny gaming headset with a
+boom mic, stubby legs. Pose: 3/4 view
+facing left, bouncing mid-yell, mouth
+wide open.
+RIGHT: Monstrobass: the SAME creature
+grown into a hulking, menacing, chubby
+ogre-gorilla: its body a stack of
+black speaker cabinets fused with
+patchy grey fur, held together with
+chains and duct tape, a huge subwoofer
+in its belly, the shoulder air horns
+grown into two big brass horn cannons,
+toxic-green LED eyes, a wide mouth of
+jagged teeth, a cracked headset far
+too small for its head, heavy chains,
+huge knuckles. Truly intimidating, a
+final boss creature. Pose: 3/4 view
+facing left, reared up roaring, fists
+raised, sound waves bursting from
+every speaker, the ground cracking
+under it.
+Keep them original, not any existing
 Pokemon.
 ```
 
 ### F3. Monsta sprites + walking sheet (one image)
 - **Save as:** `art/concepts/monsta_sprites.png`  ·  **Shape:** landscape
-- **Attach:** `art/concepts/monsta_concept.png` (made above), `art/concepts/notorechaun_sprites.png`
+- **Attach:** `art/concepts/line_monsta.png` (made above), `art/concepts/notorechaun_sprites.png`
 - **Downloads:** [notorechaun_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/notorechaun_sprites.png)
 
 ```
-Redraw the creature in the first
-attached image as pixel-art game
-sprites in ONE image, two rows, in
-exactly the layout, pixel size,
+Redraw the LEFT creature in the first
+attached image (Monsta) as pixel-art
+game sprites in ONE image, two rows,
+in exactly the layout, pixel size,
 outline weight and shading of the
 second attached image. Flat white
 background, no text, no shadow. Crisp
@@ -1400,14 +1418,13 @@ everything.
 TOP ROW: a pair of Pokemon Black/White
 2 battle sprites. LEFT: the front
 sprite, 3/4 view facing left, bouncing
-mid-yell, mouth open, small sound
-waves. RIGHT: the back sprite, the
-SAME creature in the SAME pose with
-the camera moved behind it, as
-Black/White 2 shows your own Pokemon:
-we see its patchy furry back, the air
-horns and the headset, and it faces up
-and to the right.
+mid-yell, mouth open. RIGHT: the back
+sprite, the SAME creature in the SAME
+pose with the camera moved behind it,
+as Black/White 2 shows your own
+Pokemon: we see its patchy furry back,
+the air horns and the headset, and it
+faces up and to the right.
 BOTTOM ROW: 8 small overworld follower
 sprites (chibi walkers about 32 pixels
 tall, thick dark outline), the
@@ -1415,13 +1432,64 @@ creature standing, left to right:
 front, front-left, left, back-left,
 back, back-right, right, front-right,
 every frame the same size.
-Keep its design exactly as in the
-first image: a chubby patchy-furred
-gremlin with a boombox belly, two
-brass air horns on its shoulders, a
-gappy grin, glowing green speaker-cone
-eyes, a tiny headset. Clear white gaps
-between all sprites.
+Keep its design exactly as on the
+sheet: a chubby patchy-furred gremlin
+with a boombox belly, two brass air
+horns on its shoulders, a gappy grin,
+glowing green speaker-cone eyes, a
+tiny headset. Clear white gaps between
+all sprites.
+```
+
+### F4. Monstrobass sprites + walking sheet (one image)
+- **Save as:** `art/concepts/monstrobass_sprites.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/line_monsta.png` (made above), `art/concepts/monsta_sprites.png` (made above)
+
+```
+Redraw the RIGHT creature in the first
+attached image (Monstrobass) as pixel-
+art game sprites in ONE image, two
+rows, in exactly the layout, pixel
+size, outline weight and shading of
+the second attached image (its earlier
+stage), but the battle sprites MUCH
+bigger and heavier, since it is a
+fully evolved boss creature. Flat
+white background, no text, no shadow.
+Crisp hand-placed pixel clusters, flat
+colour areas with clean 2-3 step
+shading, no dithering, no noise, no
+blur. At most 15 colours shared by
+everything.
+TOP ROW: a pair of Pokemon Black/White
+2 battle sprites. LEFT: the front
+sprite, 3/4 view facing left, reared
+up roaring, fists raised, sound waves
+from its speakers. RIGHT: the back
+sprite, the SAME creature in the SAME
+pose with the camera moved behind it,
+as Black/White 2 shows your own
+Pokemon: we see its huge back of
+stacked speaker cabinets, chains and
+the horn cannons, and it faces up and
+to the right.
+BOTTOM ROW: 8 overworld follower
+sprites, a little bigger than the
+earlier stage's but in the same chibi
+style with thick dark outlines, the
+creature standing, left to right:
+front, front-left, left, back-left,
+back, back-right, right, front-right,
+every frame the same size.
+Keep its design exactly as on the
+sheet: a hulking chubby ogre-gorilla
+made of black speaker cabinets and
+patchy grey fur, chains and duct tape,
+a subwoofer belly, two brass horn
+cannons on its shoulders, toxic-green
+LED eyes, jagged teeth, a cracked tiny
+headset. Clear white gaps between all
+sprites.
 ```
 
 ## People
