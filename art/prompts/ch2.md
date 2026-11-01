@@ -1373,41 +1373,330 @@ Clear white gaps between frames, flat
 white background, no text, no shadows.
 ```
 
-### 25. The ferry master
-- **Save as:** `art/concepts/trainers/ferry_master.png`  ·  **Shape:** landscape
-- **Attach:** `art/concepts/trainers/callum.png`
-- **Downloads:** [callum.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/trainers/callum.png)
+### 25. Rocket, ferry master (Easter egg trainer)
+- **Save as:** `art/concepts/trainers/rocket.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/trainers/parker_deputy.png`
+- **Downloads:** [parker_deputy.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/trainers/parker_deputy.png)
 
 ```
 Character sheet for a creature-
 collecting RPG in exactly the same
 style and layout as the attached
 sheet: on the left a full-body anime
-illustration standing in a relaxed
-pose; top right a head close-up;
-middle right a pixel-art battle sprite
-front and back in Pokemon Black/White
-2 style; bottom right two small pixel-
-art overworld sprites, standing still,
-in exactly the size and pixel style of
-the small walk frames on the attached
-sheet: one 3/4 front view facing down-
-left, one 3/4 back view facing up-
-left. Flat white background, no text,
+illustration; top right a head close-
+up; middle right a big pixel-art
+trainer battle sprite in Pokemon
+Black/White 2 style, front only, full
+body, 3/4 view facing left, in a
+battle pose; bottom right two small
+pixel-art overworld sprites, standing
+still, in exactly the size and pixel
+style of the small sprites on the
+attached sheet: one 3/4 front view
+facing down-left, one 3/4 back view
+facing up-left. Flat white background,
+no text, no logos.
+The character is a small, scrappy,
+sarcastic genius raccoon who walks
+upright and now works as a harbour
+ferry master: grey-brown fur, a dark
+mask around sharp eyes, a ringed tail,
+a smug, annoyed scowl. An orange-and-
+navy flight jumpsuit with a utility
+belt full of tools and gadgets, a navy
+ship captain's cap jammed between his
+ears, a brass pocket watch on a chain,
+and a huge oversized sci-fi gun slung
+across his back. Full-body pose: arms
+crossed, tapping his foot, checking
+the pocket watch. Battle pose: hefting
+the huge gun at the viewer with a
+wicked grin. Colourway: orange, navy,
+grey, brass.
+```
+
+### R1. Sproot line concept sheet (Rocket's Patchling, three stages)
+- **Save as:** `art/concepts/line_sproot.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/line_wallaby.png`
+- **Downloads:** [line_wallaby.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/line_wallaby.png)
+
+```
+Official artwork of an original three-
+stage creature evolution line for a
+creature-collecting RPG, in the same
+clean anime style and layout as the
+attached sheet (crisp linework, cel
+shading, soft highlights): the three
+creatures side by side, small to big,
+left to right, full body, flat white
+background, no text, no logos, no
+arrows. One family of living tree
+creatures with brown bark skin, a
+carved-looking bark face, warm amber
+eyes and little green leaves.
+LEFT: Sproot: a tiny sapling creature
+growing out of a small cracked clay
+pot, a round bark face with big amber
+eyes, two twig arms, a few leaves
+sprouting from its head, swaying mid-
+dance, happy and innocent.
+MIDDLE: Barkhand: a lanky moody
+teenage tree creature out of the pot
+now, root feet, twiggy limbs, leaves
+hanging over its eyes like a fringe,
+slouching, bored and grumpy, arms
+folded.
+RIGHT: Timbreon: a towering gentle
+tree guardian, thick bark armour,
+broad shoulders, long branching arms,
+moss and small glowing spores, a calm
+kind face. Pose: arms spread wide,
+branches growing out to shield someone
+behind it.
+Keep them original, not any existing
+Pokemon.
+```
+
+### R2. Sproot sprites (front + back)
+- **Save as:** `art/concepts/sproot_sprites.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/line_sproot.png` (made above), `art/concepts/medvodka_sprites.png`
+- **Downloads:** [medvodka_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/medvodka_sprites.png)
+
+```
+Redraw the LEFT creature on the first
+attached sheet (Sproot) as a pair of
+Pokemon Black/White 2 battle sprites
+side by side in ONE image, in exactly
+the pixel size, outline weight and
+shading of the second attached image,
+but smaller, since it is a tiny first
+stage. Crisp hand-placed pixel
+clusters, flat colour areas with clean
+2-3 step shading, no dithering, no
+noise, no blur.
+LEFT: the front sprite, 3/4 view
+facing left, swaying mid-dance in its
+pot.
+RIGHT: the back sprite, the SAME
+creature in the SAME pose with the
+camera moved behind it, as Black/White
+2 shows your own Pokemon: we see the
+back of its bark head and leaves and
+the pot, and it faces up and to the
+right.
+Keep its design exactly as on the
+sheet: a tiny bark sapling in a small
+cracked clay pot, round bark face, big
+amber eyes, twig arms, leaves on its
+head.
+At most 15 colours shared by both,
+clear white gap between the two, flat
+white background, no text, no shadow.
+```
+
+### R3. Barkhand sprites (front + back)
+- **Save as:** `art/concepts/barkhand_sprites.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/line_sproot.png` (made above), `art/concepts/sproot_sprites.png` (made above)
+
+```
+Redraw the MIDDLE creature on the
+first attached sheet (Barkhand) as a
+pair of Pokemon Black/White 2 battle
+sprites side by side in ONE image, in
+exactly the pixel size, outline weight
+and shading of the second attached
+image (its earlier stage), but bigger,
+since it is the evolved form. Crisp
+hand-placed pixel clusters, flat
+colour areas with clean 2-3 step
+shading, no dithering, no noise, no
+blur.
+LEFT: the front sprite, 3/4 view
+facing left, slouching, arms folded,
+leaves over its eyes.
+RIGHT: the back sprite, the SAME
+creature in the SAME pose with the
+camera moved behind it, as Black/White
+2 shows your own Pokemon: we see its
+bark back and leafy head and it faces
+up and to the right.
+Keep its design exactly as on the
+sheet: a lanky moody teenage tree
+creature, root feet, twiggy limbs, a
+fringe of leaves over its eyes, amber
+eyes.
+At most 15 colours shared by both,
+clear white gap between the two, flat
+white background, no text, no shadow.
+```
+
+### R4. Timbreon sprites (front + back)
+- **Save as:** `art/concepts/timbreon_sprites.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/line_sproot.png` (made above), `art/concepts/barkhand_sprites.png` (made above)
+
+```
+Redraw the RIGHT creature on the first
+attached sheet (Timbreon) as a pair of
+Pokemon Black/White 2 battle sprites
+side by side in ONE image, in exactly
+the pixel size, outline weight and
+shading of the second attached image
+(its earlier stage), but bigger, since
+it is the final form. Crisp hand-
+placed pixel clusters, flat colour
+areas with clean 2-3 step shading, no
+dithering, no noise, no blur.
+LEFT: the front sprite, 3/4 view
+facing left, arms spread wide,
+branches growing out like a shield.
+RIGHT: the back sprite, the SAME
+creature in the SAME pose with the
+camera moved behind it, as Black/White
+2 shows your own Pokemon: we see its
+broad mossy bark back and branching
+arms and it faces up and to the right.
+Keep its design exactly as on the
+sheet: a towering gentle tree
+guardian, thick bark armour, long
+branching arms, moss and small glowing
+spores, amber eyes, a calm kind face.
+At most 15 colours shared by both,
+clear white gap between the two, flat
+white background, no text, no shadow.
+```
+
+### R5. Sproot line walking sheet
+- **Save as:** `art/concepts/followers/sproot_line_turnaround.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/followers/medvodka_turnaround.png`, `art/concepts/sproot_sprites.png`, `art/concepts/barkhand_sprites.png`, `art/concepts/timbreon_sprites.png` (all made above but the first)
+- **Downloads:** [medvodka_turnaround.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/followers/medvodka_turnaround.png)
+
+```
+Pixel-art overworld follower sprites
+for a creature-collecting RPG, in
+exactly the style and pixel size of
+the FIRST attached sheet: small chibi
+walkers about 32 pixels tall, thick
+dark outline, flat colours with 2-step
+shading, crisp hand-placed pixels, no
+dithering, no blur. THREE rows, one
+creature per row, top to bottom. ROW
+1: Sproot, a tiny bark sapling in a
+clay pot (the LEFT sprite of attached
+image 2). ROW 2: Barkhand, a lanky
+moody teen tree with leaves over its
+eyes (the LEFT sprite of attached
+image 3). ROW 3: Timbreon, a big mossy
+tree guardian with branching arms (the
+LEFT sprite of attached image 4). Each
+row has 8 views of that creature
+standing, left to right: front, front-
+left, left, back-left, back, back-
+right, right, front-right. Keep each
+design exactly as in its battle
+sprite, simplified to this small size.
+Bigger stages may be a little bigger,
+but every frame in a row the same
+size. Clear white gaps between frames,
+flat white background, no text, no
+shadows.
+```
+
+### R6. Quillord concept (Rocket's Patchling)
+- **Save as:** `art/concepts/quillord_concept.png`  ·  **Shape:** square
+- **Attach:** `art/concepts/medvodka_concept.png`
+- **Downloads:** [medvodka_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/medvodka_concept.png)
+
+```
+Official artwork of an original
+creature for a creature-collecting
+RPG, in the same clean anime style as
+the attached image (crisp linework,
+cel shading, soft highlights). Full
+body, flat white background, no text,
 no logos.
-The person is Kettleport's ferry
-master: a short, round old sailor in
-his seventies with a huge bushy white
-moustache and a red nose, a navy
-captain's cap with a brass badge, a
-navy double-breasted pea coat with
-brass buttons over a striped white-
-and-navy shirt, rolled trousers,
-rubber boots. A brass pocket watch on
-a chain he keeps checking, a coil of
-rope over one shoulder, a whistle.
-Impatient but kind, mid-sigh.
-Colourway: navy, white, brass.
+Quillord: a tiny round porcupine space
+outlaw: brown quills swept back like a
+cool hairstyle, a chrome helmet-mask
+over its face with two glowing red
+eyes, a long red-brown leather coat
+dragging on the ground, small chunky
+jet boots, orange cassette-player
+headphones round its neck, and two
+little chunky retro sci-fi blasters,
+one in each paw. Cocky, dramatic,
+thinks it's a legend.
+Pose: 3/4 view facing left, mid dance
+move, one hip out, both blasters
+pointed at the viewer.
+Keep it original, not any existing
+Pokemon.
+```
+
+### R7. Quillord sprites (front + back)
+- **Save as:** `art/concepts/quillord_sprites.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/quillord_concept.png` (made above), `art/concepts/medvodka_sprites.png`
+- **Downloads:** [medvodka_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/medvodka_sprites.png)
+
+```
+Redraw the creature in the first
+attached image as a pair of Pokemon
+Black/White 2 battle sprites side by
+side in ONE image, in exactly the
+pixel size, outline weight and shading
+of the second attached image. Crisp
+hand-placed pixel clusters, flat
+colour areas with clean 2-3 step
+shading, no dithering, no noise, no
+blur.
+LEFT: the front sprite, 3/4 view
+facing left, mid dance move, both
+blasters pointed forward.
+RIGHT: the back sprite, the SAME
+creature in the SAME pose with the
+camera moved behind it, as Black/White
+2 shows your own Pokemon: we see the
+swept-back quills and the long coat
+and it faces up and to the right,
+blasters out to the sides.
+Keep its design exactly as in the
+first image: a tiny round porcupine,
+swept-back quills, a chrome helmet-
+mask with red eyes, a long red-brown
+leather coat, jet boots, orange
+cassette headphones, two chunky
+blasters.
+A small creature, at most 15 colours
+shared by both, clear white gap
+between the two, flat white
+background, no text, no shadow.
+```
+
+### R8. Quillord walking sheet
+- **Save as:** `art/concepts/followers/quillord_turnaround.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/followers/medvodka_turnaround.png`, `art/concepts/quillord_sprites.png` (made above)
+- **Downloads:** [medvodka_turnaround.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/followers/medvodka_turnaround.png)
+
+```
+Pixel-art overworld follower sprites
+for a creature-collecting RPG, in
+exactly the style and pixel size of
+the FIRST attached sheet: small chibi
+walkers about 32 pixels tall, thick
+dark outline, flat colours with 2-step
+shading, crisp hand-placed pixels, no
+dithering, no blur. ONE row of 8 views
+of Quillord standing, left to right:
+front, front-left, left, back-left,
+back, back-right, right, front-right:
+a tiny porcupine in a chrome mask with
+red eyes, a long red-brown coat,
+headphones and two blasters (the LEFT
+sprite of attached image 2). Keep the
+design exactly as in the battle
+sprite, simplified to this small size,
+every frame the same size. Clear white
+gaps between frames, flat white
+background, no text, no shadows.
 ```
 
 ### 26. The Galley cook (diner)

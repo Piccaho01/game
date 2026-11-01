@@ -40,6 +40,8 @@ Characters from the group's favourite media turn up around Verrow. **Rules (owne
 - **Batman** (Batcave): a bat line that only appears when you're not looking (Dark, 3 stages); a
   gadget-belt raccoon.
 - **Wolverine** (Hush, the grumpy Canadian): a claw-bladed wolverine (Ice/Metal), a healing-factor pup.
+- **Rocket** (Kettleport's ferry master, **Chapter 2**): Sproot → Barkhand → Timbreon (Plant, the
+  Groot one); Quillord (Spark/Wind, the Star-Lord one). Details in `docs/chapters/2.md`.
 - **Hulk** (Sunken Court) and **Superman** (Cloud Station): one or two each, pitched later.
 
 ### Anime
