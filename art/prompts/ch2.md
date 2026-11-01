@@ -1302,6 +1302,128 @@ on its belt. Clear white gaps between
 all sprites.
 ```
 
+### F1. Cuffem, General #5
+- **Save as:** `art/concepts/trainers/cuffem.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/trainers/mcgregor.png`, plus a screenshot of Cuffem for his face if you want it (it stays out of the repo)
+- **Downloads:** [mcgregor.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/trainers/mcgregor.png)
+
+```
+Character sheet for a creature-
+collecting RPG in exactly the same
+style and layout as the attached
+sheet: on the left a full-body anime
+illustration; top right a head close-
+up; middle right a big pixel-art
+trainer battle sprite in Pokemon
+Black/White 2 style, front only, full
+body, 3/4 view facing left, in a
+battle pose; bottom right two small
+pixel-art overworld sprites, standing
+still, in exactly the size and pixel
+style of the small sprites on the
+attached sheet: one 3/4 front view
+facing down-left, one 3/4 back view
+facing up-left. Flat white background,
+no text, no logos.
+The person is Cuffem, a loud chaotic
+livestreamer who plays a gang-leader
+act on stream: a chubby young man,
+comically rough-looking, patchy chin
+hair, a squinty scrunched "monsta"
+face, mouth wide open mid-yell, a
+black durag. An oversized black hoodie
+stretched over his belly, baggy
+sweatpants, slides with socks, stacked
+chunky chains, a gaming headset with a
+boom mic, a phone on a chest-mount
+harness pointed at his face, and a
+small soundboard pad strapped to his
+forearm like a gauntlet with glowing
+buttons. Full-body pose: leaning back
+yelling at his phone, one hand
+slamming a button on the soundboard.
+Battle pose: leaning toward the
+viewer, both arms out wide, screaming,
+chains swinging. Colourway: black,
+gold, neon green buttons.
+```
+
+### F2. Monsta concept (Cuffem's Patchling)
+- **Save as:** `art/concepts/monsta_concept.png`  ·  **Shape:** square
+- **Attach:** `art/concepts/smokkuri_concept.png`
+- **Downloads:** [smokkuri_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/smokkuri_concept.png)
+
+```
+Official artwork of an original
+creature for a creature-collecting
+RPG, in the same clean anime style as
+the attached image (crisp linework,
+cel shading, soft highlights). Full
+body, flat white background, no text,
+no logos.
+Monsta: a chubby, ugly-cute little
+gremlin: patchy dark grey fur, a round
+belly that is a black boombox with two
+big speaker cones, two brass air horns
+sticking up out of its shoulders, a
+lopsided toothy grin with gaps,
+glowing neon-green speaker-cone eyes,
+a tiny gaming headset with a boom mic,
+stubby legs, little clawed hands.
+Loud, obnoxious, lovable.
+Pose: 3/4 view facing left, bouncing
+mid-yell, mouth wide open, sound waves
+blasting from its belly speakers and
+air horns.
+Keep it original, not any existing
+Pokemon.
+```
+
+### F3. Monsta sprites + walking sheet (one image)
+- **Save as:** `art/concepts/monsta_sprites.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/monsta_concept.png` (made above), `art/concepts/notorechaun_sprites.png`
+- **Downloads:** [notorechaun_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/notorechaun_sprites.png)
+
+```
+Redraw the creature in the first
+attached image as pixel-art game
+sprites in ONE image, two rows, in
+exactly the layout, pixel size,
+outline weight and shading of the
+second attached image. Flat white
+background, no text, no shadow. Crisp
+hand-placed pixel clusters, flat
+colour areas with clean 2-3 step
+shading, no dithering, no noise, no
+blur. At most 15 colours shared by
+everything.
+TOP ROW: a pair of Pokemon Black/White
+2 battle sprites. LEFT: the front
+sprite, 3/4 view facing left, bouncing
+mid-yell, mouth open, small sound
+waves. RIGHT: the back sprite, the
+SAME creature in the SAME pose with
+the camera moved behind it, as
+Black/White 2 shows your own Pokemon:
+we see its patchy furry back, the air
+horns and the headset, and it faces up
+and to the right.
+BOTTOM ROW: 8 small overworld follower
+sprites (chibi walkers about 32 pixels
+tall, thick dark outline), the
+creature standing, left to right:
+front, front-left, left, back-left,
+back, back-right, right, front-right,
+every frame the same size.
+Keep its design exactly as in the
+first image: a chubby patchy-furred
+gremlin with a boombox belly, two
+brass air horns on its shoulders, a
+gappy grin, glowing green speaker-cone
+eyes, a tiny headset. Clear white gaps
+between all sprites.
+```
+
 ## People
 Townsfolk get the usual sheet (they stand still: two standing frames, no walk sheet). Trainers get the same sheet with a big battle sprite in the middle (cut out for battles).
 
