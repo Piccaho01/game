@@ -1581,7 +1581,7 @@ Pokemon.
 ### D3. Etiger sprites + walking sheet (one image)
 - **Save as:** `art/concepts/etiger_sprites.png`  ·  **Shape:** landscape
 - **Attach:** `art/concepts/etiger_concept.png` (made above), `art/concepts/monstrobass_sprites.png`
-- **Downloads:** [monstrobass_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/monstrobass_sprites.png)
+- **Downloads:** [etiger_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/etiger_concept.png) · [monstrobass_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/monstrobass_sprites.png)
 
 ```
 Redraw the creature in the first
@@ -1626,6 +1626,134 @@ delivery box on its back venting cold,
 wheels on its heels, a phone-mount
 gauntlet. Clear white gaps between all
 sprites.
+```
+
+### N1. Michael Jackson, General #7
+- **Save as:** `art/concepts/trainers/mj.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/trainers/garnesh.png`
+- **Downloads:** [garnesh.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/trainers/garnesh.png)
+
+```
+Character sheet for a creature-
+collecting RPG in exactly the same
+style and layout as the attached
+sheet: on the left a full-body anime
+illustration; top right a head close-
+up; middle right a big pixel-art
+trainer battle sprite in Pokemon
+Black/White 2 style, front only, full
+body, 3/4 view facing left, in a
+battle pose; bottom right two small
+pixel-art overworld sprites, standing
+still, in exactly the size and pixel
+style of the small sprites on the
+attached sheet: one 3/4 front view
+facing down-left, one 3/4 back view
+facing up-left. Flat white background,
+no text, no logos.
+The person is the King of Pop as a
+General of a night-time market town:
+slim, graceful, long black curly hair,
+a soft confident smile. A red leather
+jacket covered in zips and V-shaped
+panels, black trousers cut short above
+the ankle, bright white socks, shiny
+black loafers, a black fedora, ONE
+sparkly white sequinned glove, a small
+gold pin of four slashed tally marks
+worn on the jacket like a medal. Full-
+body pose: up on his toes mid-spin,
+one hand holding the fedora brim, the
+gloved hand out. Battle pose: one leg
+kicked out to the side, the gloved
+hand pointing up to the sky, mid "hee-
+hee". Colourway: red, black, white,
+gold.
+```
+
+### N2. Thrillghoul concept (MJ's ace)
+- **Save as:** `art/concepts/thrillghoul_concept.png`  ·  **Shape:** square
+- **Attach:** `art/concepts/etiger_concept.png`
+- **Downloads:** [etiger_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/etiger_concept.png)
+
+```
+Official artwork of an original
+creature for a creature-collecting
+RPG, in the same clean anime style as
+the attached image (crisp linework,
+cel shading, soft highlights). Full
+body, flat white background, no text,
+no logos.
+Thrillghoul: a huge, towering zombie
+dancer creature, twice a person's
+height: grey-green rotting skin with
+patches of exposed bone, hollow
+glowing yellow eyes, a wide grin of
+crooked teeth, long lanky limbs, a
+ripped and tattered red zip-up leather
+jacket with V-shaped panels, torn
+black trousers cut short, white socks,
+cracked black loafers, ONE sparkly
+white glove on a bony clawed hand,
+grave dirt falling off it, wisps of
+purple-green graveyard mist curling
+around its feet. Creepy but fun, a
+horror-movie dance number.
+Pose: 3/4 view facing left, mid zombie
+dance move: shoulders hunched, both
+clawed hands raised to one side like
+claws, one knee up, head tilted,
+glaring at the viewer.
+Keep it original, not any existing
+Pokemon.
+```
+
+### N3. Thrillghoul sprites + walking sheet (one image)
+- **Save as:** `art/concepts/thrillghoul_sprites.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/thrillghoul_concept.png` (made above), `art/concepts/etiger_sprites.png`
+- **Downloads:** [etiger_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/etiger_sprites.png)
+
+```
+Redraw the creature in the first
+attached image as pixel-art game
+sprites in ONE image, two rows, in
+exactly the layout, pixel size,
+outline weight and shading of the
+second attached image (a big fully
+evolved boss creature). Flat white
+background, no text, no shadow. Crisp
+hand-placed pixel clusters, flat
+colour areas with clean 2-3 step
+shading, no dithering, no noise, no
+blur. At most 15 colours shared by
+everything.
+TOP ROW: a pair of big Pokemon
+Black/White 2 battle sprites. LEFT:
+the front sprite, 3/4 view facing
+left, mid zombie dance move, clawed
+hands raised to one side, one knee up.
+RIGHT: the back sprite, the SAME
+creature in the SAME pose with the
+camera moved behind it, as Black/White
+2 shows your own Pokemon: we see the
+back of the ripped red jacket and its
+hunched shoulders, and it faces up and
+to the right.
+BOTTOM ROW: 8 overworld follower
+sprites in the same chibi style with
+thick dark outlines, the creature
+standing, left to right: front, front-
+left, left, back-left, back, back-
+right, right, front-right, every frame
+the same size.
+Keep its design exactly as in the
+first image: a towering grey-green
+zombie dancer, glowing yellow eyes,
+crooked grin, a ripped red zip-up
+leather jacket, short black trousers,
+white socks, black loafers, one
+sparkly white glove, graveyard mist.
+Clear white gaps between all sprites.
 ```
 
 ## People
