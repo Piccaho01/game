@@ -79,6 +79,17 @@ Characters from the group's favourite media turn up around Verrow. **Rules (owne
   glowing-shutter-shades owl... (pitched later).
 - **Drake, the 6 God** (Hush; Toronto is next door to Burlington): an owl line (Wind/Dark).
 
+## Rappers (owner's list, 2026-11-01; designed one at a time)
+1. **Tezzus group battle**: tezzus with rexv2 diamond, sk8star and pz (a 4-trainer group fight).
+2. **Opium vamp gang**: Playboi Carti, Destroy Lonely, Ken Carson (Nightmarket).
+3. **Yeat**: loves Furnaxol's final evolution; gets his own custom Patchling.
+4. **Lil Uzi Vert**: era to pick.
+5. **Che, "the bass god"**.
+6. **SoFaygo**: Callum, Nolan and Haydon's all-time favourite; they saw him at the start of 2026.
+7. **slayr**: the burger rapper; at his show a chubby guy let Callum try Chinese cigarettes ("they were fire").
+8. **Juice WRLD**: they all loved him; Nolan is the ultimate fan (knows every song, unreleased too).
+Still on the old list, to keep or cut: Travis Scott, Kanye West, Drake, Nettspend, OsamaSon.
+
 ## Scope note
 About 20 characters × 2-3 Patchlings is 40-60 new Patchlings (each a whole line with art). They
 come chapter by chapter with their areas, not all at once.
