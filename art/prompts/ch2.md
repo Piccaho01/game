@@ -1088,7 +1088,7 @@ Pokemon.
 ### X3. Smokkuri sprites + walking sheet (one image)
 - **Save as:** `art/concepts/smokkuri_sprites.png`  ·  **Shape:** landscape
 - **Attach:** `art/concepts/smokkuri_concept.png` (made above), `art/concepts/medvodka_sprites.png`, `art/concepts/followers/medvodka_turnaround.png`
-- **Downloads:** [medvodka_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/medvodka_sprites.png) · [medvodka_turnaround.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/followers/medvodka_turnaround.png)
+- **Downloads:** [smokkuri_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/smokkuri_concept.png) · [medvodka_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/medvodka_sprites.png) · [medvodka_turnaround.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/followers/medvodka_turnaround.png)
 
 ```
 Redraw the LEFT creature in the first
@@ -1135,6 +1135,7 @@ Clear white gaps between all sprites.
 ### X4. Smokkuri off the yams sprites (battle only)
 - **Save as:** `art/concepts/smokkuri_yams_sprites.png`  ·  **Shape:** landscape
 - **Attach:** `art/concepts/smokkuri_concept.png` (made above), `art/concepts/smokkuri_sprites.png` (made above)
+- **Downloads:** [smokkuri_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/smokkuri_concept.png) · [smokkuri_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/smokkuri_sprites.png)
 
 ```
 Redraw the RIGHT creature in the first
@@ -1171,6 +1172,134 @@ a cracked cup hat.
 At most 15 colours shared by both,
 clear white gap between the two, flat
 white background, no text, no shadow.
+```
+
+### K1. Conor McGregor, General #4
+- **Save as:** `art/concepts/trainers/mcgregor.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/trainers/hansen.png`
+- **Downloads:** [hansen.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/trainers/hansen.png)
+
+```
+Character sheet for a creature-
+collecting RPG in exactly the same
+style and layout as the attached
+sheet: on the left a full-body anime
+illustration; top right a head close-
+up; middle right a big pixel-art
+trainer battle sprite in Pokemon
+Black/White 2 style, front only, full
+body, 3/4 view facing left, in a
+battle pose; bottom right two small
+pixel-art overworld sprites, standing
+still, in exactly the size and pixel
+style of the small sprites on the
+attached sheet: one 3/4 front view
+facing down-left, one 3/4 back view
+facing up-left. Flat white background,
+no text, no logos.
+The person is a cocky Irish MMA
+champion who is now a General of the
+Tally: short dark hair with a sharp
+side part, a thick well-groomed
+ginger-brown beard, a smug confident
+grin, chin up. A sharp tailored three-
+piece suit in a loud check pattern
+with the jacket slung over one
+shoulder, the waistcoat open over a
+white shirt with rolled sleeves
+showing heavily tattooed forearms, a
+flat cap, a gold chain, a small gold
+pin of four slashed tally marks on the
+waistcoat, polished brown shoes. A
+glass of whiskey in one hand (no
+bottle, no label). Full-body pose: the
+famous strut, arms swinging wide,
+chest out, chin up. Battle pose: shirt
+sleeves up, fists raised in a southpaw
+fighting stance, grinning and trash-
+talking. Colourway: check grey-blue,
+white, gold, ginger.
+```
+
+### K2. Notorechaun concept (Conor's Patchling)
+- **Save as:** `art/concepts/notorechaun_concept.png`  ·  **Shape:** square
+- **Attach:** `art/concepts/smokkuri_concept.png`
+- **Downloads:** [smokkuri_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/smokkuri_concept.png)
+
+```
+Official artwork of an original
+creature for a creature-collecting
+RPG, in the same clean anime style as
+the attached image (crisp linework,
+cel shading, soft highlights). Full
+body, flat white background, no text,
+no logos.
+Notorechaun: a small but stocky
+leprechaun-like creature with a mix of
+Celtic warrior: a huge bushy ginger
+beard, pointed ears, a big cocky grin,
+blue woad Celtic knot tattoos swirling
+down both bare arms, a gold torc round
+its neck, a green flat cap, a tweed
+waistcoat over a bare hairy chest,
+fists wrapped in cloth with gold
+knotwork, a knobbly wooden shillelagh
+tucked in its belt, a small pot of
+gold hanging from its belt spilling
+coins, little buckled boots. Tiny
+body, enormous ego.
+Pose: 3/4 view facing left, mid-strut,
+chin up, arms swung out wide like it
+owns the place.
+Keep it original, not any existing
+Pokemon.
+```
+
+### K3. Notorechaun sprites + walking sheet (one image)
+- **Save as:** `art/concepts/notorechaun_sprites.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/notorechaun_concept.png` (made above), `art/concepts/smokkuri_sprites.png`
+- **Downloads:** [smokkuri_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/smokkuri_sprites.png)
+
+```
+Redraw the creature in the first
+attached image as pixel-art game
+sprites in ONE image, two rows, in
+exactly the layout, pixel size,
+outline weight and shading of the
+second attached image. Flat white
+background, no text, no shadow. Crisp
+hand-placed pixel clusters, flat
+colour areas with clean 2-3 step
+shading, no dithering, no noise, no
+blur. At most 15 colours shared by
+everything.
+TOP ROW: a pair of Pokemon Black/White
+2 battle sprites. LEFT: the front
+sprite, 3/4 view facing left, mid-
+strut, chin up, arms swung wide.
+RIGHT: the back sprite, the SAME
+creature in the SAME pose with the
+camera moved behind it, as Black/White
+2 shows your own Pokemon: we see the
+back of the cap and waistcoat, the
+tattooed arms and the pot of gold on
+its belt, and it faces up and to the
+right.
+BOTTOM ROW: 8 small overworld follower
+sprites (chibi walkers about 32 pixels
+tall, thick dark outline), the
+creature standing, left to right:
+front, front-left, left, back-left,
+back, back-right, right, front-right,
+every frame the same size.
+Keep its design exactly as in the
+first image: a small stocky leprechaun
+warrior, huge ginger beard, blue woad
+knot tattoos, a gold torc, a green
+flat cap, a tweed waistcoat, wrapped
+fists, a shillelagh and a pot of gold
+on its belt. Clear white gaps between
+all sprites.
 ```
 
 ## People
