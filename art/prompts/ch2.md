@@ -1305,72 +1305,51 @@ Keep it original, not any existing
 Pokemon.
 ```
 
-### M2. Haggler sprites (front + back)
+### M2. Haggler sprites + walking sheet (one image)
 - **Save as:** `art/concepts/haggler_sprites.png`  ·  **Shape:** landscape
-- **Attach:** `art/concepts/haggler_concept.png` (made above), `art/concepts/medvodka_sprites.png`
-- **Downloads:** [medvodka_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/medvodka_sprites.png)
+- **Attach:** `art/concepts/haggler_concept.png` (made above), `art/concepts/medvodka_sprites.png`, `art/concepts/followers/medvodka_turnaround.png`
+- **Downloads:** [medvodka_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/medvodka_sprites.png) · [medvodka_turnaround.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/followers/medvodka_turnaround.png)
 
 ```
 Redraw the creature in the first
-attached image as a pair of Pokemon
-Black/White 2 battle sprites side by
-side in ONE image, in exactly the
-pixel size, outline weight and shading
-of the second attached image. Crisp
-hand-placed pixel clusters, flat
+attached image as pixel-art game
+sprites in ONE image, two rows, flat
+white background, no text, no shadow.
+Crisp hand-placed pixel clusters, flat
 colour areas with clean 2-3 step
 shading, no dithering, no noise, no
-blur.
-LEFT: the front sprite, 3/4 view
-facing left, perched on one foot, one
-wing out offering a trade, a bottle
-cap in its beak.
-RIGHT: the back sprite, the SAME
+blur. At most 15 colours shared by
+everything.
+TOP ROW: a pair of Pokemon Black/White
+2 battle sprites in exactly the pixel
+size, outline weight and shading of
+the second attached image. LEFT: the
+front sprite, 3/4 view facing left,
+perched on one foot, one wing out
+offering a trade, a bottle cap in its
+beak. RIGHT: the back sprite, the SAME
 creature in the SAME pose with the
 camera moved behind it, as Black/White
 2 shows your own Pokemon: we see its
 back, the satchel strap and the long
-tail, the shiny thing hidden behind
-its back now visible, and it faces up
-and to the right.
+tail, and it faces up and to the
+right.
+BOTTOM ROW: 8 small overworld follower
+sprites in exactly the style and pixel
+size of the third attached image
+(chibi walkers about 32 pixels tall,
+thick dark outline), the creature
+standing, left to right: front, front-
+left, left, back-left, back, back-
+right, right, front-right, every frame
+the same size.
 Keep its design exactly as in the
 first image: a black-and-white magpie
 with a blue-green sheen on its wings
 and tail, a brass monocle, a tiny
 leather satchel of shiny junk, a
-bottle cap in its beak.
-A small creature, at most 15 colours
-shared by both, clear white gap
-between the two, flat white
-background, no text, no shadow.
-```
-
-### M3. Haggler walking sheet
-- **Save as:** `art/concepts/followers/haggler_turnaround.png`  ·  **Shape:** landscape
-- **Attach:** `art/concepts/followers/medvodka_turnaround.png`, `art/concepts/haggler_sprites.png` (made above)
-- **Downloads:** [medvodka_turnaround.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/followers/medvodka_turnaround.png)
-
-```
-Pixel-art overworld follower sprites
-for a creature-collecting RPG, in
-exactly the style and pixel size of
-the FIRST attached sheet: small chibi
-walkers about 32 pixels tall, thick
-dark outline, flat colours with 2-step
-shading, crisp hand-placed pixels, no
-dithering, no blur. ONE row of 8 views
-of Haggler standing, left to right:
-front, front-left, left, back-left,
-back, back-right, right, front-right:
-a black-and-white magpie with a blue-
-green sheen, a brass monocle, a little
-satchel and a bottle cap in its beak
-(the LEFT sprite of attached image 2).
-Keep the design exactly as in the
-battle sprite, simplified to this
-small size, every frame the same size.
-Clear white gaps between frames, flat
-white background, no text, no shadows.
+bottle cap in its beak. Clear white
+gaps between all sprites.
 ```
 
 ### 25. Rocket, ferry master (Easter egg trainer)
@@ -1632,71 +1611,51 @@ Keep it original, not any existing
 Pokemon.
 ```
 
-### R7. Quillord sprites (front + back)
+### R7. Quillord sprites + walking sheet (one image)
 - **Save as:** `art/concepts/quillord_sprites.png`  ·  **Shape:** landscape
-- **Attach:** `art/concepts/quillord_concept.png` (made above), `art/concepts/medvodka_sprites.png`
-- **Downloads:** [medvodka_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/medvodka_sprites.png)
+- **Attach:** `art/concepts/quillord_concept.png` (made above), `art/concepts/medvodka_sprites.png`, `art/concepts/followers/medvodka_turnaround.png`
+- **Downloads:** [medvodka_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/medvodka_sprites.png) · [medvodka_turnaround.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/followers/medvodka_turnaround.png)
 
 ```
 Redraw the creature in the first
-attached image as a pair of Pokemon
-Black/White 2 battle sprites side by
-side in ONE image, in exactly the
-pixel size, outline weight and shading
-of the second attached image. Crisp
-hand-placed pixel clusters, flat
+attached image as pixel-art game
+sprites in ONE image, two rows, flat
+white background, no text, no shadow.
+Crisp hand-placed pixel clusters, flat
 colour areas with clean 2-3 step
 shading, no dithering, no noise, no
-blur.
-LEFT: the front sprite, 3/4 view
-facing left, mid dance move, both
-blasters pointed forward.
-RIGHT: the back sprite, the SAME
-creature in the SAME pose with the
-camera moved behind it, as Black/White
-2 shows your own Pokemon: we see the
-swept-back quills and the long coat
-and it faces up and to the right,
-blasters out to the sides.
+blur. At most 15 colours shared by
+everything.
+TOP ROW: a pair of Pokemon Black/White
+2 battle sprites in exactly the pixel
+size, outline weight and shading of
+the second attached image. LEFT: the
+front sprite, 3/4 view facing left,
+mid dance move, both blasters pointed
+forward. RIGHT: the back sprite, the
+SAME creature in the SAME pose with
+the camera moved behind it, as
+Black/White 2 shows your own Pokemon:
+we see the swept-back quills and the
+long coat, blasters out to the sides,
+and it faces up and to the right.
+BOTTOM ROW: 8 small overworld follower
+sprites in exactly the style and pixel
+size of the third attached image
+(chibi walkers about 32 pixels tall,
+thick dark outline), the creature
+standing, left to right: front, front-
+left, left, back-left, back, back-
+right, right, front-right, every frame
+the same size.
 Keep its design exactly as in the
 first image: a tiny round porcupine,
 swept-back quills, a chrome helmet-
 mask with red eyes, a long red-brown
 leather coat, jet boots, orange
 cassette headphones, two chunky
-blasters.
-A small creature, at most 15 colours
-shared by both, clear white gap
-between the two, flat white
-background, no text, no shadow.
-```
-
-### R8. Quillord walking sheet
-- **Save as:** `art/concepts/followers/quillord_turnaround.png`  ·  **Shape:** landscape
-- **Attach:** `art/concepts/followers/medvodka_turnaround.png`, `art/concepts/quillord_sprites.png` (made above)
-- **Downloads:** [medvodka_turnaround.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/followers/medvodka_turnaround.png)
-
-```
-Pixel-art overworld follower sprites
-for a creature-collecting RPG, in
-exactly the style and pixel size of
-the FIRST attached sheet: small chibi
-walkers about 32 pixels tall, thick
-dark outline, flat colours with 2-step
-shading, crisp hand-placed pixels, no
-dithering, no blur. ONE row of 8 views
-of Quillord standing, left to right:
-front, front-left, left, back-left,
-back, back-right, right, front-right:
-a tiny porcupine in a chrome mask with
-red eyes, a long red-brown coat,
-headphones and two blasters (the LEFT
-sprite of attached image 2). Keep the
-design exactly as in the battle
-sprite, simplified to this small size,
-every frame the same size. Clear white
-gaps between frames, flat white
-background, no text, no shadows.
+blasters. Clear white gaps between all
+sprites.
 ```
 
 ### J1. Barnacaptain concept (the Hollow Rest jetty)
@@ -1732,69 +1691,50 @@ Keep it original, not any existing
 Pokemon.
 ```
 
-### J2. Barnacaptain sprites (front + back)
+### J2. Barnacaptain sprites + walking sheet (one image)
 - **Save as:** `art/concepts/barnacaptain_sprites.png`  ·  **Shape:** landscape
-- **Attach:** `art/concepts/barnacaptain_concept.png` (made above), `art/concepts/medvodka_sprites.png`
-- **Downloads:** [medvodka_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/medvodka_sprites.png)
+- **Attach:** `art/concepts/barnacaptain_concept.png` (made above), `art/concepts/medvodka_sprites.png`, `art/concepts/followers/medvodka_turnaround.png`
+- **Downloads:** [medvodka_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/medvodka_sprites.png) · [medvodka_turnaround.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/followers/medvodka_turnaround.png)
 
 ```
 Redraw the creature in the first
-attached image as a pair of Pokemon
-Black/White 2 battle sprites side by
-side in ONE image, in exactly the
-pixel size, outline weight and shading
-of the second attached image. Crisp
-hand-placed pixel clusters, flat
+attached image as pixel-art game
+sprites in ONE image, two rows, flat
+white background, no text, no shadow.
+Crisp hand-placed pixel clusters, flat
 colour areas with clean 2-3 step
 shading, no dithering, no noise, no
-blur.
-LEFT: the front sprite, 3/4 view
-facing left, clinging to the piece of
-hull, pointing forward.
-RIGHT: the back sprite, the SAME
-creature in the SAME pose with the
-camera moved behind it, as Black/White
-2 shows your own Pokemon: we see its
-lumpy barnacle back and the limpet cap
-and it faces up and to the right.
+blur. At most 15 colours shared by
+everything.
+TOP ROW: a pair of Pokemon Black/White
+2 battle sprites in exactly the pixel
+size, outline weight and shading of
+the second attached image. LEFT: the
+front sprite, 3/4 view facing left,
+clinging to the piece of hull,
+pointing forward. RIGHT: the back
+sprite, the SAME creature in the SAME
+pose with the camera moved behind it,
+as Black/White 2 shows your own
+Pokemon: we see its lumpy barnacle
+back and the limpet cap, and it faces
+up and to the right.
+BOTTOM ROW: 8 small overworld follower
+sprites in exactly the style and pixel
+size of the third attached image
+(chibi walkers about 32 pixels tall,
+thick dark outline), the creature
+standing, left to right: front, front-
+left, left, back-left, back, back-
+right, right, front-right, every frame
+the same size.
 Keep its design exactly as in the
 first image: a stout barnacle cluster
 shaped like a little sea captain, a
 kelp beard, a limpet-shell cap, small
 stern eyes, mussels and a starfish on
-its side.
-A small creature, at most 15 colours
-shared by both, clear white gap
-between the two, flat white
-background, no text, no shadow.
-```
-
-### J3. Barnacaptain walking sheet
-- **Save as:** `art/concepts/followers/barnacaptain_turnaround.png`  ·  **Shape:** landscape
-- **Attach:** `art/concepts/followers/medvodka_turnaround.png`, `art/concepts/barnacaptain_sprites.png` (made above)
-- **Downloads:** [medvodka_turnaround.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/followers/medvodka_turnaround.png)
-
-```
-Pixel-art overworld follower sprites
-for a creature-collecting RPG, in
-exactly the style and pixel size of
-the FIRST attached sheet: small chibi
-walkers about 32 pixels tall, thick
-dark outline, flat colours with 2-step
-shading, crisp hand-placed pixels, no
-dithering, no blur. ONE row of 8 views
-of Barnacaptain standing, left to
-right: front, front-left, left, back-
-left, back, back-right, right, front-
-right: a stout barnacle cluster shaped
-like a little sea captain with a kelp
-beard and a limpet-shell cap (the LEFT
-sprite of attached image 2). Keep the
-design exactly as in the battle
-sprite, simplified to this small size,
-every frame the same size. Clear white
-gaps between frames, flat white
-background, no text, no shadows.
+its side. Clear white gaps between all
+sprites.
 ```
 
 ### 26. Big Sal, the Galley cook
@@ -1870,71 +1810,52 @@ Keep it original, not any existing
 Pokemon.
 ```
 
-### C2. Griddlebug sprites (front + back)
+### C2. Griddlebug sprites + walking sheet (one image)
 - **Save as:** `art/concepts/griddlebug_sprites.png`  ·  **Shape:** landscape
-- **Attach:** `art/concepts/griddlebug_concept.png` (made above), `art/concepts/medvodka_sprites.png`
-- **Downloads:** [medvodka_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/medvodka_sprites.png)
+- **Attach:** `art/concepts/griddlebug_concept.png` (made above), `art/concepts/medvodka_sprites.png`, `art/concepts/followers/medvodka_turnaround.png`
+- **Downloads:** [medvodka_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/medvodka_sprites.png) · [medvodka_turnaround.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/followers/medvodka_turnaround.png)
 
 ```
 Redraw the creature in the first
-attached image as a pair of Pokemon
-Black/White 2 battle sprites side by
-side in ONE image, in exactly the
-pixel size, outline weight and shading
-of the second attached image. Crisp
-hand-placed pixel clusters, flat
+attached image as pixel-art game
+sprites in ONE image, two rows, flat
+white background, no text, no shadow.
+Crisp hand-placed pixel clusters, flat
 colour areas with clean 2-3 step
 shading, no dithering, no noise, no
-blur.
-LEFT: the front sprite, 3/4 view
-facing left, rearing up, the spatula
-horn scooping upward mid-flip.
-RIGHT: the back sprite, the SAME
-creature in the SAME pose with the
-camera moved behind it, as Black/White
-2 shows your own Pokemon: we see the
-griddle shell with its grill ridges
-and steam from behind and it faces up
-and to the right.
+blur. At most 15 colours shared by
+everything.
+TOP ROW: a pair of Pokemon Black/White
+2 battle sprites in exactly the pixel
+size, outline weight and shading of
+the second attached image. LEFT: the
+front sprite, 3/4 view facing left,
+rearing up, the spatula horn scooping
+upward mid-flip. RIGHT: the back
+sprite, the SAME creature in the SAME
+pose with the camera moved behind it,
+as Black/White 2 shows your own
+Pokemon: we see the griddle shell with
+its grill ridges and steam from
+behind, and it faces up and to the
+right.
+BOTTOM ROW: 8 small overworld follower
+sprites in exactly the style and pixel
+size of the third attached image
+(chibi walkers about 32 pixels tall,
+thick dark outline), the creature
+standing, left to right: front, front-
+left, left, back-left, back, back-
+right, right, front-right, every frame
+the same size.
 Keep its design exactly as in the
 first image: a chunky beetle with a
 black cast-iron griddle shell glowing
 orange underneath, steam and grease, a
 flat steel spatula horn, a red
-underside, six stubby legs. Leave out
-the flying patty.
-A small creature, at most 15 colours
-shared by both, clear white gap
-between the two, flat white
-background, no text, no shadow.
-```
-
-### C3. Griddlebug walking sheet
-- **Save as:** `art/concepts/followers/griddlebug_turnaround.png`  ·  **Shape:** landscape
-- **Attach:** `art/concepts/followers/medvodka_turnaround.png`, `art/concepts/griddlebug_sprites.png` (made above)
-- **Downloads:** [medvodka_turnaround.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/followers/medvodka_turnaround.png)
-
-```
-Pixel-art overworld follower sprites
-for a creature-collecting RPG, in
-exactly the style and pixel size of
-the FIRST attached sheet: small chibi
-walkers about 32 pixels tall, thick
-dark outline, flat colours with 2-step
-shading, crisp hand-placed pixels, no
-dithering, no blur. ONE row of 8 views
-of Griddlebug standing, left to right:
-front, front-left, left, back-left,
-back, back-right, right, front-right:
-a chunky beetle with a black cast-iron
-griddle shell glowing orange
-underneath and a spatula horn (the
-LEFT sprite of attached image 2). Keep
-the design exactly as in the battle
-sprite, simplified to this small size,
-every frame the same size. Clear white
-gaps between frames, flat white
-background, no text, no shadows.
+underside, six stubby legs (leave out
+the flying patty). Clear white gaps
+between all sprites.
 ```
 
 ### 27. Trainer: Wayfarer courier
