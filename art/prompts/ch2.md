@@ -2078,7 +2078,7 @@ Pokemon.
 ### C0c. Typhantom sprites + walking sheet (one image)
 - **Save as:** `art/concepts/typhantom_sprites.png`  ·  **Shape:** landscape
 - **Attach:** `art/concepts/typhantom_concept.png` (made above), `art/concepts/chronarch_sprites.png`
-- **Downloads:** [chronarch_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/chronarch_sprites.png)
+- **Downloads:** [typhantom_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/typhantom_concept.png) · [chronarch_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/chronarch_sprites.png)
 
 ```
 Redraw the creature in the first
@@ -2122,6 +2122,138 @@ arms trailing into notification
 banners, a faded festival wristband,
 pale blue and white glow. Clear white
 gaps between all sprites.
+```
+
+### L1. LeBron, the Keeper (post-game boss sheet)
+- **Save as:** `art/concepts/trainers/lebron_boss.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/trainers/elder.png`, `art/concepts/trainers/doom.png`
+- **Downloads:** [elder.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/trainers/elder.png) · [doom.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/trainers/doom.png)
+
+```
+Character sheet for a creature-
+collecting RPG in exactly the art
+style of the FIRST attached sheet and
+the layout of the SECOND: on the left
+a full-body anime illustration; top
+right a head close-up; middle right a
+big pixel-art trainer battle sprite in
+Pokemon Black/White 2 style, front
+only, full body, 3/4 view facing left,
+in a battle pose; bottom right two
+small pixel-art overworld sprites,
+standing still, in exactly the size
+and pixel style of the small sprites
+on the second sheet: one 3/4 front
+view facing down-left, one 3/4 back
+view facing up-left. Flat white
+background, no text, no logos.
+The person is the SAME man as on the
+first sheet: the Keeper of the
+sanctuary, a basketball superstar
+pulled into this world years ago. Very
+tall and broad-shouldered, mid-
+fifties, dark skin, a full grey-
+flecked beard, a white sweatband
+headband, a moss-green hooded keeper's
+shawl over a faded rust-red robe open
+over an old faded jersey with a big
+number 23 (no team name, no logos),
+long shorts, high-top sneakers wrapped
+in old cloth, a carved wooden staff
+with a root wound round the top, a
+ring of old stone keys on his belt. A
+weathered basketball held in one big
+hand. Full-body pose: spinning the
+basketball on one finger, staff
+leaning on his shoulder, a calm
+knowing smirk. Battle pose: crouched
+low in a defensive stance, one arm
+out, eyes locked on the viewer, dead
+serious. Colourway: moss green, rust
+red, gold.
+```
+
+### L2. Witnyx concept (LeBron's ace)
+- **Save as:** `art/concepts/witnyx_concept.png`  ·  **Shape:** square
+- **Attach:** `art/concepts/chronarch_concept.png`
+- **Downloads:** [chronarch_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/chronarch_concept.png)
+
+```
+Official artwork of an original
+creature for a creature-collecting
+RPG, in the same clean anime style as
+the attached image (crisp linework,
+cel shading, soft highlights). Full
+body, flat white background, no text,
+no logos.
+Witnyx: a colossal ancient sphinx made
+of polished black obsidian stone, with
+the powerful body of a lion and great
+stone wings cracked with veins of
+glowing gold light. Its huge mane is
+set with dozens of glowing golden
+eyes, all open and watching. A
+floating golden crown-halo hovers just
+above its head, slightly out of reach.
+Its face is calm, regal and cold, its
+own eyes glowing a vivid sanctuary
+blue. One stone foreleg wears a faded
+white sweatband. Ancient, majestic,
+menacing, a final guardian.
+Pose: 3/4 view facing left, crouched
+low and ready to pounce, wings half
+spread, every eye in its mane locked
+on the viewer.
+Keep it original, not any existing
+Pokemon.
+```
+
+### L3. Witnyx sprites + walking sheet (one image)
+- **Save as:** `art/concepts/witnyx_sprites.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/witnyx_concept.png` (made above), `art/concepts/chronarch_sprites.png`
+- **Downloads:** [chronarch_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/chronarch_sprites.png)
+
+```
+Redraw the creature in the first
+attached image as pixel-art game
+sprites in ONE image, two rows, in
+exactly the layout, pixel size,
+outline weight and shading of the
+second attached image (a big final
+boss creature). Flat white background,
+no text, no shadow. Crisp hand-placed
+pixel clusters, flat colour areas with
+clean 2-3 step shading, no dithering,
+no noise, no blur. At most 15 colours
+shared by everything.
+TOP ROW: a pair of big Pokemon
+Black/White 2 battle sprites. LEFT:
+the front sprite, 3/4 view facing
+left, crouched to pounce, wings half
+spread, the mane of golden eyes
+glaring. RIGHT: the back sprite, the
+SAME creature in the SAME pose with
+the camera moved behind it, as
+Black/White 2 shows your own Pokemon:
+we see its stone back, the gold-
+cracked wings and the floating crown-
+halo, and it faces up and to the
+right.
+BOTTOM ROW: 8 overworld follower
+sprites in the same chibi style with
+thick dark outlines, the creature
+standing, left to right: front, front-
+left, left, back-left, back, back-
+right, right, front-right, every frame
+the same size.
+Keep its design exactly as in the
+first image: a black obsidian lion-
+bodied sphinx, gold-cracked stone
+wings, a mane full of glowing golden
+eyes, a floating golden crown-halo,
+glowing blue eyes, a white sweatband
+on one foreleg. Clear white gaps
+between all sprites.
 ```
 
 ## People
