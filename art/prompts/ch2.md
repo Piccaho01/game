@@ -1400,7 +1400,7 @@ Pokemon.
 ### F3. Monsta sprites + walking sheet (one image)
 - **Save as:** `art/concepts/monsta_sprites.png`  ·  **Shape:** landscape
 - **Attach:** `art/concepts/line_monsta.png` (made above), `art/concepts/notorechaun_sprites.png`
-- **Downloads:** [notorechaun_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/notorechaun_sprites.png)
+- **Downloads:** [line_monsta.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/line_monsta.png) · [notorechaun_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/notorechaun_sprites.png)
 
 ```
 Redraw the LEFT creature in the first
@@ -1444,6 +1444,7 @@ all sprites.
 ### F4. Monstrobass sprites + walking sheet (one image)
 - **Save as:** `art/concepts/monstrobass_sprites.png`  ·  **Shape:** landscape
 - **Attach:** `art/concepts/line_monsta.png` (made above), `art/concepts/monsta_sprites.png` (made above)
+- **Downloads:** [line_monsta.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/line_monsta.png) · [monsta_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/monsta_sprites.png)
 
 ```
 Redraw the RIGHT creature in the first
@@ -1489,6 +1490,141 @@ a subwoofer belly, two brass horn
 cannons on its shoulders, toxic-green
 LED eyes, jagged teeth, a cracked tiny
 headset. Clear white gaps between all
+sprites.
+```
+
+### D1. Garnesh, General #6
+- **Save as:** `art/concepts/trainers/garnesh.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/trainers/cuffem.png`
+- **Downloads:** [cuffem.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/trainers/cuffem.png)
+
+```
+Character sheet for a creature-
+collecting RPG in exactly the same
+style and layout as the attached
+sheet: on the left a full-body anime
+illustration; top right a head close-
+up; middle right a big pixel-art
+trainer battle sprite in Pokemon
+Black/White 2 style, front only, full
+body, 3/4 view facing left, in a
+battle pose; bottom right two small
+pixel-art overworld sprites, standing
+still, in exactly the size and pixel
+style of the small sprites on the
+attached sheet: one 3/4 front view
+facing down-left, one 3/4 back view
+facing up-left. Flat white background,
+no text, no logos.
+The person is Garnesh, a food delivery
+driver from India who got pulled into
+a snowy fantasy world mid-delivery and
+is still trying to deliver the order:
+a man in his thirties, warm brown
+skin, a thick black moustache, tired
+but hopeful eyes, a polite strained
+smile. A green-and-white delivery
+jacket from a made-up app (no logo, no
+writing), a scooter helmet still on
+with the visor up, a wool scarf,
+gloves, snow boots, a phone mount
+strapped to his wrist showing a map,
+and a giant square insulated delivery
+backpack on his back, frosted over
+with icicles. Full-body pose: holding
+up three fingers and pointing at the
+bag with the other hand. Battle pose:
+holding his phone out toward the
+viewer showing a rating screen with
+five blank stars, pleading. Colourway:
+green, white, frost blue.
+```
+
+### D2. Etiger concept (Garnesh's ace)
+- **Save as:** `art/concepts/etiger_concept.png`  ·  **Shape:** square
+- **Attach:** `art/concepts/line_monsta.png`
+- **Downloads:** [line_monsta.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/line_monsta.png)
+
+```
+Official artwork of an original
+creature for a creature-collecting
+RPG, in the same clean anime style as
+the attached image (crisp linework,
+cel shading, soft highlights). Full
+body, flat white background, no text,
+no logos.
+Etiger: a huge, powerful, intimidating
+snow tiger courier, standing upright,
+twice a person's height: thick white-
+and-frost-blue fur with dark stripes,
+glowing ice-blue eyes, frost on its
+breath, big claws. It wears a neat
+saffron-orange turban-style headwrap
+with a small gold pin, a green-and-
+white delivery jacket (no logo), and a
+giant steel insulated delivery box
+strapped to its back like a fridge,
+venting cold mist. Scooter wheels are
+fixed to its heels so it skates over
+snow, and one forearm wears a phone
+mount like a gauntlet showing a map.
+Determined, proud, never late in
+spirit.
+Pose: 3/4 view facing left, charging
+forward through a blizzard on its heel
+wheels, roaring, one clawed hand
+reaching out, snow spraying behind it.
+Keep it original, not any existing
+Pokemon.
+```
+
+### D3. Etiger sprites + walking sheet (one image)
+- **Save as:** `art/concepts/etiger_sprites.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/etiger_concept.png` (made above), `art/concepts/monstrobass_sprites.png`
+- **Downloads:** [monstrobass_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/monstrobass_sprites.png)
+
+```
+Redraw the creature in the first
+attached image as pixel-art game
+sprites in ONE image, two rows, in
+exactly the layout, pixel size,
+outline weight and shading of the
+second attached image (a big fully
+evolved boss creature). Flat white
+background, no text, no shadow. Crisp
+hand-placed pixel clusters, flat
+colour areas with clean 2-3 step
+shading, no dithering, no noise, no
+blur. At most 15 colours shared by
+everything.
+TOP ROW: a pair of big Pokemon
+Black/White 2 battle sprites. LEFT:
+the front sprite, 3/4 view facing
+left, charging forward roaring, one
+clawed hand reaching out. RIGHT: the
+back sprite, the SAME creature in the
+SAME pose with the camera moved behind
+it, as Black/White 2 shows your own
+Pokemon: we see the steel delivery box
+on its back, the headwrap and the
+striped tail, and it faces up and to
+the right.
+BOTTOM ROW: 8 overworld follower
+sprites in the same chibi style with
+thick dark outlines, the creature
+standing, left to right: front, front-
+left, left, back-left, back, back-
+right, right, front-right, every frame
+the same size.
+Keep its design exactly as in the
+first image: a huge upright white-and-
+frost-blue striped snow tiger, glowing
+ice-blue eyes, a saffron turban-style
+headwrap with a gold pin, a green-and-
+white delivery jacket, a steel
+delivery box on its back venting cold,
+wheels on its heels, a phone-mount
+gauntlet. Clear white gaps between all
 sprites.
 ```
 
