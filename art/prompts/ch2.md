@@ -1858,7 +1858,7 @@ Pokemon.
 ### Z3. Chronarch sprites + walking sheet (one image)
 - **Save as:** `art/concepts/chronarch_sprites.png`  ·  **Shape:** landscape
 - **Attach:** `art/concepts/chronarch_concept.png` (made above), `art/concepts/thrillghoul_sprites.png`
-- **Downloads:** [thrillghoul_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/thrillghoul_sprites.png)
+- **Downloads:** [chronarch_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/chronarch_concept.png) · [thrillghoul_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/thrillghoul_sprites.png)
 
 ```
 Redraw the creature in the first
@@ -1943,7 +1943,7 @@ Pokemon.
 ### Z5. Vicariant sprites + walking sheet (one image)
 - **Save as:** `art/concepts/vicariant_sprites.png`  ·  **Shape:** landscape
 - **Attach:** `art/concepts/vicariant_concept.png` (made above), `art/concepts/thrillghoul_sprites.png`
-- **Downloads:** [thrillghoul_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/thrillghoul_sprites.png)
+- **Downloads:** [vicariant_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/vicariant_concept.png) · [thrillghoul_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/thrillghoul_sprites.png)
 
 ```
 Redraw the creature in the first
@@ -1984,6 +1984,143 @@ robot drones, a black screen face with
 a green mask, a short tattered green
 cape, a drone shield. Leave out the
 single drone at its feet. Clear white
+gaps between all sprites.
+```
+
+### C0a. Director Connor, final boss sheet
+- **Save as:** `art/concepts/trainers/connor_boss.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/trainers/connor.png`, `art/concepts/trainers/doom.png`
+- **Downloads:** [connor.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/trainers/connor.png) · [doom.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/trainers/doom.png)
+
+```
+Character sheet for a creature-
+collecting RPG in exactly the art
+style of the FIRST attached sheet and
+the layout of the SECOND: on the left
+a full-body anime illustration; top
+right a head close-up; middle right a
+big pixel-art trainer battle sprite in
+Pokemon Black/White 2 style, front
+only, full body, 3/4 view facing left,
+in a battle pose; bottom right two
+small pixel-art overworld sprites,
+standing still, in exactly the size
+and pixel style of the small sprites
+on the second sheet: one 3/4 front
+view facing down-left, one 3/4 back
+view facing up-left. Flat white
+background, no text, no logos.
+The person is the SAME young man as on
+the first sheet (same face,
+strawberry-blonde hair in a middle
+part with curtain bangs, green eyes,
+very tall and lanky), now in full
+final-boss Director gear for the one
+time he actually showed up on time:
+the slate-grey Director's greatcoat
+still two sizes too big but buttoned
+properly, gold buttons and epaulettes,
+the gold crest of four slashed tally
+marks, a red hoodie underneath, slim
+black trousers, red sneakers, a
+DIRECTOR lanyard badge, a faded
+festival wristband, his phone in one
+hand. A big awkward grin that is
+trying very hard to look menacing and
+not quite managing. Full-body pose:
+standing tall, arms spread wide like
+"I actually came", coat flaring.
+Battle pose: pointing at the viewer
+with his phone, grinning, slightly
+awkward. Lovable, never scary.
+Colourway: slate grey, gold, red.
+```
+
+### C0b. Typhantom concept (Connor's ace)
+- **Save as:** `art/concepts/typhantom_concept.png`  ·  **Shape:** square
+- **Attach:** `art/concepts/chronarch_concept.png`
+- **Downloads:** [chronarch_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/chronarch_concept.png)
+
+```
+Official artwork of an original
+creature for a creature-collecting
+RPG, in the same clean anime style as
+the attached image (crisp linework,
+cel shading, soft highlights). Full
+body, flat white background, no text,
+no logos, no readable words anywhere.
+Typhantom: a huge towering faceless
+phantom, the ghost of a message that
+never gets sent. A deep hood frames a
+glowing rounded chat bubble with three
+pulsing dots inside it: that is its
+entire face. Its long, see-through
+ghostly body is made of a streaming
+scroll of glowing chat bubbles stacked
+like scales, filled only with blurred
+lines, never letters. Its long wispy
+arms trail off into rectangular
+notification banners, and a faded
+festival wristband hangs loose on one
+wrist. Soft phone-screen glow in pale
+blue and white against darker blue-
+grey ghost cloth. Eerie, lonely and
+menacing, a final boss.
+Pose: 3/4 view facing left, looming
+forward over the viewer, both long
+arms reaching out, the three dots on
+its face glowing bright as if about to
+send.
+Keep it original, not any existing
+Pokemon.
+```
+
+### C0c. Typhantom sprites + walking sheet (one image)
+- **Save as:** `art/concepts/typhantom_sprites.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/typhantom_concept.png` (made above), `art/concepts/chronarch_sprites.png`
+- **Downloads:** [chronarch_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/chronarch_sprites.png)
+
+```
+Redraw the creature in the first
+attached image as pixel-art game
+sprites in ONE image, two rows, in
+exactly the layout, pixel size,
+outline weight and shading of the
+second attached image (a big final
+boss creature). Flat white background,
+no text, no shadow, no readable words.
+Crisp hand-placed pixel clusters, flat
+colour areas with clean 2-3 step
+shading, no dithering, no noise, no
+blur. At most 15 colours shared by
+everything.
+TOP ROW: a pair of big Pokemon
+Black/White 2 battle sprites. LEFT:
+the front sprite, 3/4 view facing
+left, looming forward, long arms
+reaching out, the three dots glowing.
+RIGHT: the back sprite, the SAME
+creature in the SAME pose with the
+camera moved behind it, as Black/White
+2 shows your own Pokemon: we see the
+back of the hood and the long trailing
+ghost body of chat bubbles, and it
+faces up and to the right.
+BOTTOM ROW: 8 overworld follower
+sprites in the same chibi style with
+thick dark outlines, the creature
+floating, left to right: front, front-
+left, left, back-left, back, back-
+right, right, front-right, every frame
+the same size.
+Keep its design exactly as in the
+first image: a towering faceless
+hooded phantom whose face is a glowing
+chat bubble with three dots, a see-
+through body of glowing chat bubbles,
+arms trailing into notification
+banners, a faded festival wristband,
+pale blue and white glow. Clear white
 gaps between all sprites.
 ```
 
