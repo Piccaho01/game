@@ -828,29 +828,32 @@ no text, no logos.
 The person is the SAME man as on the
 first sheet (same face, the same
 shaggy dark-brown mullet with flicks,
-dark brown eyes, the thin gold chain),
-now Deputy of the Tally: he wears the
-officer's uniform from the second
-sheet but two sizes too neat: a
-perfectly pressed slate-grey jacket
-buttoned to the top, gold buttons,
-gold epaulettes, a gold star badge and
-a gold crest of four slashed tally
-marks, a red armband, a peaked cap set
-at a slightly influencer angle,
-creased slim black trousers, polished
-black boots. A tiny ring light clipped
-to one epaulette, his phone on a
-selfie stick holstered on his belt, a
-clipboard in the other hand. Very
-punctual, very pleased with himself.
-Full-body pose: checking a wristwatch
-while holding the phone up for a
-selfie. Battle pose: one arm out
-snapping a selfie toward the viewer, a
-peace sign, a big grin. Colourway:
-slate grey, gold, red, with his coral-
-pink shirt collar peeking out.
+freshly styled, dark brown eyes, the
+thin gold chain), now Deputy of the
+Tally, but he hated the uniform from
+the second sheet so he had it tailored
+into streetwear: the slate-grey
+uniform jacket cut cropped and boxy,
+sleeves pushed up, worn open over a
+plain white tee, the gold crest of
+four slashed tally marks pinned on
+like a designer patch, the red armband
+worn as an accessory, wide-leg black
+trousers, chunky clean white sneakers,
+silver rings, one small earring,
+sunglasses pushed up on his head, a
+tiny ring light clipped to one
+shoulder, his phone always in hand.
+Cocky, out of pocket, a flirt, very
+pleased with himself.
+Full-body pose: the TikTok meme face:
+tongue sticking out, eyes wide, a
+peace sign, phone held up for a
+selfie. Battle pose: the same tongue-
+out face toward the viewer, phone up
+in one hand snapping a selfie, peace
+sign with the other. Colourway: slate
+grey, white, gold, red.
 ```
 
 ### 22. Chris Hansen, General of Licensing (General #2)
