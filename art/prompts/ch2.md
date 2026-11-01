@@ -984,6 +984,195 @@ Clear white gaps between frames, flat
 white background, no text, no shadows.
 ```
 
+## Generals 3-8 (designed with the owner; for their own chapters, kept here so the art comes in one place)
+
+### X1. Micheal Xu, General #3 (calm + off the yams)
+- **Save as:** `art/concepts/trainers/xu.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/trainers/parker_deputy.png`, plus your photo of M Xu for his face if you want it (the photo stays out of the repo)
+- **Downloads:** [parker_deputy.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/trainers/parker_deputy.png)
+
+```
+Character sheet for a creature-
+collecting RPG in exactly the same art
+style as the attached sheet, flat
+white background, no text, no logos.
+The SAME young man shown twice, side
+by side.
+LEFT HALF, CALM: a full-body anime
+illustration and, below or beside it,
+a big pixel-art trainer battle sprite
+in Pokemon Black/White 2 style (front,
+full body, 3/4 view facing left), plus
+two small pixel-art overworld sprites
+standing still in exactly the size and
+pixel style of the small sprites on
+the attached sheet (3/4 front facing
+down-left, 3/4 back facing up-left).
+He is Micheal Xu, a young Vietnamese
+guy with great streetwear drip: a boxy
+oversized tee under an open patterned
+short-sleeve shirt, baggy cargo pants,
+chunky sneakers, layered silver
+chains, a small crossbody bag, a
+bucket hat, a clean textured haircut,
+small sunglasses pushed down his nose.
+The chillest guy alive: half-closed
+eyes, a lazy smile, hands in his
+pockets.
+RIGHT HALF, OFF THE YAMS: a full-body
+anime illustration and a big pixel-art
+battle sprite of the SAME guy in the
+SAME clothes after eating a glowing
+magic forest mushroom: bucket hat
+gone, hair sticking up, eyes huge and
+wild with spiral glints, twitching, a
+manic grin, sweating, crouched and
+bouncing like he's about to leap,
+little glowing spores and sparkles
+swirling around him, shirt half off
+one shoulder, one sneaker untied.
+Funny and chaotic, not scary.
+Colourway: cream, olive, black,
+silver, with glowing mushroom-teal for
+the yams side.
+```
+
+### X2. Smokkuri concept (Xu's Patchling, normal + off the yams)
+- **Save as:** `art/concepts/smokkuri_concept.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/medvodka_concept.png`
+- **Downloads:** [medvodka_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/medvodka_concept.png)
+
+```
+Official artwork of an original
+creature for a creature-collecting
+RPG, in the same clean anime style as
+the attached image (crisp linework,
+cel shading, soft highlights). The
+SAME creature in two forms side by
+side, full body, flat white
+background, no text, no logos.
+LEFT, Smokkuri: a chubby white ceramic
+sake flask creature (a tokkuri) with a
+short neck, blue brushstroke wave
+patterns, a cork stopper, stubby
+little arms and legs, rosy tipsy
+cheeks, sleepy half-closed eyes, a
+tiny sake cup worn upside down like a
+hat, warm sake sloshing out of its
+neck. A cigarette dangles from its lip
+with red-and-white bands near the
+filter (no logo), blowing a smoke
+ring. Chill, sipping, a bit drunk.
+Pose: 3/4 view facing left, leaning
+back, one arm raised as if toasting.
+RIGHT, Smokkuri off the yams (its
+powered-up form): the SAME flask,
+bigger and wilder: the cork blown off,
+scalding sake and steam blasting out
+of its neck like a geyser, the ceramic
+cracked with glowing teal light
+shining through the cracks, glowing
+teal mushrooms sprouting from its
+shoulders, bulked-up arms, eyes wide
+with spiral glints, the face bright
+red, a whole fistful of lit cigarettes
+clenched in its grin trailing thick
+smoke, the sake-cup hat cracked.
+Chaotic, hyper, funny. Pose: 3/4 view
+facing left, lunging forward swinging
+a fist.
+Keep it original, not any existing
+Pokemon.
+```
+
+### X3. Smokkuri sprites + walking sheet (one image)
+- **Save as:** `art/concepts/smokkuri_sprites.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/smokkuri_concept.png` (made above), `art/concepts/medvodka_sprites.png`, `art/concepts/followers/medvodka_turnaround.png`
+- **Downloads:** [medvodka_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/medvodka_sprites.png) · [medvodka_turnaround.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/followers/medvodka_turnaround.png)
+
+```
+Redraw the LEFT creature in the first
+attached image (Smokkuri, the normal
+form) as pixel-art game sprites in ONE
+image, two rows, flat white
+background, no text, no shadow. Crisp
+hand-placed pixel clusters, flat
+colour areas with clean 2-3 step
+shading, no dithering, no noise, no
+blur. At most 15 colours shared by
+everything.
+TOP ROW: a pair of Pokemon Black/White
+2 battle sprites in exactly the pixel
+size, outline weight and shading of
+the second attached image. LEFT: the
+front sprite, 3/4 view facing left,
+leaning back, toasting, cigarette
+smoking. RIGHT: the back sprite, the
+SAME creature in the SAME pose with
+the camera moved behind it, as
+Black/White 2 shows your own Pokemon:
+we see the back of the flask with its
+blue brushstrokes and the cup hat, and
+it faces up and to the right.
+BOTTOM ROW: 8 small overworld follower
+sprites in exactly the style and pixel
+size of the third attached image
+(chibi walkers about 32 pixels tall,
+thick dark outline), the creature
+standing, left to right: front, front-
+left, left, back-left, back, back-
+right, right, front-right, every frame
+the same size.
+Keep its design exactly as in the
+first image: a chubby white ceramic
+sake flask with blue brushstrokes, a
+cork, stubby limbs, rosy cheeks,
+sleepy eyes, a sake-cup hat, a
+cigarette with red-and-white bands.
+Clear white gaps between all sprites.
+```
+
+### X4. Smokkuri off the yams sprites (battle only)
+- **Save as:** `art/concepts/smokkuri_yams_sprites.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/smokkuri_concept.png` (made above), `art/concepts/smokkuri_sprites.png` (made above)
+
+```
+Redraw the RIGHT creature in the first
+attached image (Smokkuri off the yams,
+the powered-up form) as a pair of
+Pokemon Black/White 2 battle sprites
+side by side in ONE image, in exactly
+the pixel size, outline weight and
+shading of the second attached image
+(its normal form), but bigger. Crisp
+hand-placed pixel clusters, flat
+colour areas with clean 2-3 step
+shading, no dithering, no noise, no
+blur.
+LEFT: the front sprite, 3/4 view
+facing left, lunging forward swinging
+a fist.
+RIGHT: the back sprite, the SAME
+creature in the SAME pose with the
+camera moved behind it, as Black/White
+2 shows your own Pokemon: we see the
+cracked back glowing teal, the steam
+geyser and the mushrooms, and it faces
+up and to the right.
+Keep its design exactly as in the
+first image: the white ceramic sake
+flask cracked with glowing teal light,
+the cork blown off, sake and steam
+blasting out, glowing teal mushrooms
+on its shoulders, bulked-up arms, wild
+spiral eyes, a bright red face, a
+fistful of lit cigarettes in its grin,
+a cracked cup hat.
+At most 15 colours shared by both,
+clear white gap between the two, flat
+white background, no text, no shadow.
+```
+
 ## People
 Townsfolk get the usual sheet (they stand still: two standing frames, no walk sheet). Trainers get the same sheet with a big battle sprite in the middle (cut out for battles).
 
