@@ -1654,21 +1654,24 @@ no text, no logos.
 The person is the King of Pop as a
 General of a night-time market town:
 slim, graceful, long black curly hair,
-a soft confident smile. A red leather
-jacket covered in zips and V-shaped
-panels, black trousers cut short above
-the ankle, bright white socks, shiny
-black loafers, a black fedora, ONE
-sparkly white sequinned glove, a small
-gold pin of four slashed tally marks
-worn on the jacket like a medal. Full-
-body pose: up on his toes mid-spin,
-one hand holding the fedora brim, the
-gloved hand out. Battle pose: one leg
-kicked out to the side, the gloved
-hand pointing up to the sky, mid "hee-
-hee". Colourway: red, black, white,
-gold.
+a soft confident smile. An all-white
+outfit: a sharp white double-breasted
+suit jacket, a pale blue shirt, a
+white tie, a white armband, a white
+fedora with a black band, white
+trousers cut short above the ankle,
+white socks, white-and-black spat
+shoes, ONE sparkly white sequinned
+glove, a small gold pin of four
+slashed tally marks on the lapel like
+a medal. Full-body pose: the famous
+impossible forward lean, body straight
+and tilted far forward from the
+ankles, one hand on the fedora brim.
+Battle pose: one leg kicked out to the
+side, the gloved hand pointing up to
+the sky, mid "hee-hee". Colourway:
+white, pale blue, black, gold.
 ```
 
 ### N2. Thrillghoul concept (MJ's ace)
