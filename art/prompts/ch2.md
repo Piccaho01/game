@@ -2737,7 +2737,7 @@ any existing Pokemon.
 ### R-K3. Dropbear sprites + walking sheet (one image)
 - **Save as:** `art/concepts/dropbear_sprites.png`  ·  **Shape:** landscape
 - **Attach:** `art/concepts/dropbear_concept.png` (made above), `art/concepts/medvodka_sprites.png`
-- **Downloads:** [medvodka_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/medvodka_sprites.png)
+- **Downloads:** [dropbear_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/dropbear_concept.png) · [medvodka_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/medvodka_sprites.png)
 
 ```
 Redraw the creature in the first
@@ -2817,7 +2817,7 @@ Pokemon.
 ### R-K5. Dondalith sprites + walking sheet (one image)
 - **Save as:** `art/concepts/dondalith_sprites.png`  ·  **Shape:** landscape
 - **Attach:** `art/concepts/dondalith_concept.png` (made above), `art/concepts/typhantom_sprites.png`
-- **Downloads:** [typhantom_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/typhantom_sprites.png)
+- **Downloads:** [dondalith_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/dondalith_concept.png) · [typhantom_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/typhantom_sprites.png)
 
 ```
 Redraw the creature in the first
@@ -2859,6 +2859,198 @@ silhouettes, an open front-door mouth,
 a burning roof and chimney, black,
 white and fire-orange. Clear white
 gaps between all sprites.
+```
+
+### R-T1. Travis Scott, La Flame (Easter egg trainer, Emberwick)
+- **Save as:** `art/concepts/trainers/travis.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/trainers/kanye.png`
+- **Downloads:** [kanye.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/trainers/kanye.png)
+
+```
+Character sheet for a creature-
+collecting RPG in exactly the same
+style and layout as the attached
+sheet: on the left a full-body anime
+illustration; top right a head close-
+up; middle right a big pixel-art
+trainer battle sprite in Pokemon
+Black/White 2 style, front only, full
+body, 3/4 view facing left, in a
+battle pose; bottom right two small
+pixel-art overworld sprites, standing
+still, in exactly the size and pixel
+style of the small sprites on the
+attached sheet: one 3/4 front view
+facing down-left, one 3/4 back view
+facing up-left. Flat white background,
+no text.
+The person is Travis Scott in his
+Astroworld era, performing at a
+volcano: long braids, a gold grill, a
+thin moustache, a Cactus Jack chain,
+cargo pants, brown-and-white low
+sneakers. In the full-body
+illustration he is SHIRTLESS,
+recreating the famous meme: holding a
+microphone high up in the air with one
+arm, head thrown back, screaming at
+the top of his lungs, a huge wall of
+fire roaring behind him. In the
+overworld sprites he wears a cactus-
+print shirt. Battle pose: shirtless,
+mic raised high, screaming, flames
+behind him. Colourway: brown, gold,
+fire orange.
+```
+
+### R-T2. Rodeo Strings concept (Travis's small one)
+- **Save as:** `art/concepts/rodeostrings_concept.png`  ·  **Shape:** square
+- **Attach:** `art/concepts/dropbear_concept.png`
+- **Downloads:** [dropbear_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/dropbear_concept.png)
+
+```
+Official artwork of an original
+creature for a creature-collecting
+RPG, in the same clean anime style as
+the attached image (crisp linework,
+cel shading, soft highlights). Full
+body, flat white background, no text.
+Rodeo Strings: a tall, thin, shadowy
+puppeteer creature made of dark desert
+cactus, with long spiny fingers
+holding a wooden marionette crossbar,
+a wide brim hat, and two small glowing
+orange eyes. Hanging from its strings
+below is a wooden marionette carved to
+look like Travis Scott in his early
+"Days Before Rodeo" era: braids, a
+dark hoodie, a moody face, little
+jointed wooden limbs. The puppeteer
+makes the marionette dance and fight.
+Eerie, moody, a bit sad.
+Pose: 3/4 view facing left, the
+puppeteer looming and leaning forward,
+pulling the strings so the marionette
+lunges at the viewer.
+Keep it original, not any existing
+Pokemon.
+```
+
+### R-T3. Rodeo Strings sprites + walking sheet (one image)
+- **Save as:** `art/concepts/rodeostrings_sprites.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/rodeostrings_concept.png` (made above), `art/concepts/dropbear_sprites.png`
+- **Downloads:** [dropbear_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/dropbear_sprites.png)
+
+```
+Redraw the creature in the first
+attached image as pixel-art game
+sprites in ONE image, two rows, in
+exactly the pixel style, outline
+weight and shading of the second
+attached image, but a little bigger
+and taller. Flat white background, no
+text, no shadow. Crisp hand-placed
+pixel clusters, flat colour areas with
+clean 2-3 step shading, no dithering,
+no noise, no blur. At most 15 colours
+shared by everything.
+TOP ROW: a pair of Pokemon Black/White
+2 battle sprites. LEFT: the front
+sprite, 3/4 view facing left, the
+cactus puppeteer pulling the strings,
+the marionette lunging forward. RIGHT:
+the back sprite, the SAME creature in
+the SAME pose with the camera moved
+behind it, as Black/White 2 shows your
+own Pokemon: we see the puppeteer's
+spiny back and hat and the marionette
+from behind, and it faces up and to
+the right.
+BOTTOM ROW: 8 small overworld follower
+sprites (chibi, thick dark outline),
+the puppeteer with the marionette
+dangling, left to right: front, front-
+left, left, back-left, back, back-
+right, right, front-right, every frame
+the same size.
+Keep its design exactly as in the
+first image. Clear white gaps between
+all sprites.
+```
+
+### R-T4. Astrohead concept (Travis's ace)
+- **Save as:** `art/concepts/astrohead_concept.png`  ·  **Shape:** square
+- **Attach:** `art/concepts/dondalith_concept.png`
+- **Downloads:** [dondalith_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/dondalith_concept.png)
+
+```
+Official artwork of an original
+creature for a creature-collecting
+RPG, in the same clean anime style as
+the attached image (crisp linework,
+cel shading, soft highlights). Full
+body, flat white background, no text.
+Astrohead: a gigantic golden head with
+braids, like a huge inflatable
+amusement-park head, standing on thick
+lava-rock legs. A rollercoaster track
+twists around its head and down its
+body with tiny carts on it, molten
+lava pours out of its open screaming
+mouth, fireworks and flames burst
+around it, and its eyes glow like
+theme park lights. Loud, chaotic, a
+whole rave in one creature, menacing
+and huge, a final boss.
+Pose: 3/4 view facing left, stomping
+forward, mouth wide open screaming
+lava toward the viewer.
+Keep it original, not any existing
+Pokemon.
+```
+
+### R-T5. Astrohead sprites + walking sheet (one image)
+- **Save as:** `art/concepts/astrohead_sprites.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/astrohead_concept.png` (made above), `art/concepts/dondalith_sprites.png`
+- **Downloads:** [dondalith_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/dondalith_sprites.png)
+
+```
+Redraw the creature in the first
+attached image as pixel-art game
+sprites in ONE image, two rows, in
+exactly the layout, pixel size,
+outline weight and shading of the
+second attached image (a big boss
+creature). Flat white background, no
+text, no shadow. Crisp hand-placed
+pixel clusters, flat colour areas with
+clean 2-3 step shading, no dithering,
+no noise, no blur. At most 15 colours
+shared by everything.
+TOP ROW: a pair of big Pokemon
+Black/White 2 battle sprites. LEFT:
+the front sprite, 3/4 view facing
+left, stomping forward, screaming
+lava. RIGHT: the back sprite, the SAME
+creature in the SAME pose with the
+camera moved behind it, as Black/White
+2 shows your own Pokemon: we see the
+back of the golden head, the braids
+and the rollercoaster track, and it
+faces up and to the right.
+BOTTOM ROW: 8 overworld follower
+sprites in the same chibi style with
+thick dark outlines, the creature
+standing, left to right: front, front-
+left, left, back-left, back, back-
+right, right, front-right, every frame
+the same size.
+Keep its design exactly as in the
+first image: a giant golden braided
+head on lava-rock legs, a
+rollercoaster track around it, lava
+from its mouth, glowing eyes. Clear
+white gaps between all sprites.
 ```
 
 ## People

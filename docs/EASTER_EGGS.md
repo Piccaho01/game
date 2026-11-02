@@ -91,7 +91,18 @@ Characters from the group's favourite media turn up around Verrow. **Rules (owne
 8. **Juice WRLD**: they all loved him; Nolan is the ultimate fan (knows every song, unreleased too).
 9. **Young Thug**: YSL's "slime reaper"; the boss over Ø Way.
 10. **Frank Ocean**.
-11. **Travis Scott** (Emberwick's cactus garden).
+11. **Travis Scott** (Emberwick; designed 2026-11-02): Astroworld era, runs the Cactus Jack garden on
+    the crater's edge, a rollercoaster stage round the volcano. Battle pose: the meme, shirtless, mic up,
+    screaming, fire behind him. Lines: "IT'S LIT!" "Straight up." / ad-libs as battle sounds / "Sicko
+    mode." / losing: "...Rage." (jumps into the lava; he's fine) / Haydon: "nah that's cap." "It's lit
+    though." / Dani: "Why everything is on fire?" The crowd raises both teams' Speed each turn; a beat
+    switch halfway swaps his moves.
+    - **Rodeo Strings** (Dark/Plant): a shadowy cactus puppeteer working a Days Before Rodeo Travis
+      marionette (owner's call). Signature **Ad-Lib** (random effect).
+    - **Astrohead** (Fire/Rock, huge ace): a giant golden braided head on lava legs, rollercoaster track
+      around it, lava from its mouth. Ability **Beat Switch** (at half HP becomes Fire/Dark with new
+      moves). Signature **Sicko Mode** (Fire special, hits twice). Bestiary: "Opened an amusement park
+      inside its own head. Ticket prices: everything." 
 12. **Kanye West** (Cloud Station; designed 2026-11-02): Yeezus era: crystal-jewelled full-face mask,
     leather shirt and joggers, Jesus piece, a mountaintop stage above the clouds. Once per battle he
     interrupts and steals your turn. Lines: "I am a god. Hurry up with my damn turn." / "Yo, I'mma let you
