@@ -93,7 +93,19 @@ Characters from the group's favourite media turn up around Verrow. **Rules (owne
 10. **Frank Ocean**.
 11. **Travis Scott** (Emberwick's cactus garden).
 12. **Kanye West** (Cloud Station).
-13. **Drake** (Hush; Toronto is next door to Burlington).
+13. **Drake** (Hush; designed 2026-11-02): Iceman era: white fur coat over black, ice-blue durag,
+    iced-out owl chain, frozen grill; king of the sixth peak on an ice throne; the only one who talks in
+    Hush. Lines: "They thought I was finished. I was just... freezing." / "This whole town's quiet for me,
+    you know that? Out of respect." / Haydon: "nah that's cap." "I've heard worse from better." / losing:
+    "...Cold. That's cold." His team gets colder each turn (Ice moves stack). Patchlings:
+    - **Nocturix** (Ice/Dark, big ace): an iceman snowy owl, crystal feathers, a diamond-ice skyline
+      crown, iced chain, puffer-coat cape. Ability **King of the Six** (Ice moves lower Speed).
+      Signature **Cold Shoulder** (Ice special, stronger the more the foe's stats dropped).
+    - **Raptower** (Dark/Rock, big; owner's call, the Toronto raptor): an upright red-and-purple raptor
+      with a polearm shaped like the city's tower (pod guard, antenna spearhead). Ability **Home
+      Court** (stronger in its home region, Hush). Signature **Six Spire** (Rock physical, high crit,
+      always goes first on the turn after a KO). Bestiary: "Has never lost a game at home. Has never
+      played an away game." 
 Cut: Nettspend, OsamaSon.
 Juice WRLD (owner's call): a real trainer fight that is a tribute throughout, plus a Nolan-only Easter egg
 (an interaction, item or Patchling when Nolan leads).

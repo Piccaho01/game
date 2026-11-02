@@ -2332,7 +2332,7 @@ Pokemon.
 ### P3. Fourthwall sprites + walking sheet (one image)
 - **Save as:** `art/concepts/fourthwall_sprites.png`  ·  **Shape:** landscape
 - **Attach:** `art/concepts/fourthwall_concept.png` (made above), `art/concepts/witnyx_sprites.png`
-- **Downloads:** [witnyx_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/witnyx_sprites.png)
+- **Downloads:** [fourthwall_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/fourthwall_concept.png) · [witnyx_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/witnyx_sprites.png)
 
 ```
 Redraw the creature in the first
@@ -2414,7 +2414,7 @@ Pokemon.
 ### P5. Wirewolf sprites + walking sheet (one image)
 - **Save as:** `art/concepts/wirewolf_sprites.png`  ·  **Shape:** landscape
 - **Attach:** `art/concepts/wirewolf_concept.png` (made above), `art/concepts/witnyx_sprites.png`
-- **Downloads:** [witnyx_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/witnyx_sprites.png)
+- **Downloads:** [wirewolf_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/wirewolf_concept.png) · [witnyx_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/witnyx_sprites.png)
 
 ```
 Redraw the creature in the first
@@ -2457,6 +2457,211 @@ lines, bulky shoulder armour, a huge
 futuristic rifle, a glowing belt
 device. Clear white gaps between all
 sprites.
+```
+
+### R-D1. Drake, Iceman era (Easter egg trainer, Hush)
+- **Save as:** `art/concepts/trainers/drake.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/trainers/lebron_boss.png`
+- **Downloads:** [lebron_boss.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/trainers/lebron_boss.png)
+
+```
+Character sheet for a creature-
+collecting RPG in exactly the same
+style and layout as the attached
+sheet: on the left a full-body anime
+illustration; top right a head close-
+up; middle right a big pixel-art
+trainer battle sprite in Pokemon
+Black/White 2 style, front only, full
+body, 3/4 view facing left, in a
+battle pose; bottom right two small
+pixel-art overworld sprites, standing
+still, in exactly the size and pixel
+style of the small sprites on the
+attached sheet: one 3/4 front view
+facing down-left, one 3/4 back view
+facing up-left. Flat white background,
+no text, no logos.
+The person is a famous Toronto rapper
+in his cold "Iceman" era, the self-
+declared king of a frozen mountain
+town: a neat full beard with frost in
+it, cold unbothered eyes, a smug half-
+smile, an ice-blue durag, a long white
+fur coat over an all-black outfit, a
+heavy iced-out diamond chain with an
+owl pendant, a frozen diamond grill,
+frosty breath, black boots. Full-body
+pose: leaning back on a throne of ice
+with one leg crossed, ignoring a
+ringing phone in his hand. Battle
+pose: standing tall, one hand raised
+palm-up as frost and snow swirl from
+it, unbothered. Colourway: white,
+black, ice blue, diamond silver.
+```
+
+### R-D2. Nocturix concept (Drake's ace)
+- **Save as:** `art/concepts/nocturix_concept.png`  ·  **Shape:** square
+- **Attach:** `art/concepts/witnyx_concept.png`
+- **Downloads:** [witnyx_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/witnyx_concept.png)
+
+```
+Official artwork of an original
+creature for a creature-collecting
+RPG, in the same clean anime style as
+the attached image (crisp linework,
+cel shading, soft highlights). Full
+body, flat white background, no text,
+no logos.
+Nocturix: a huge, regal snowy owl lord
+made of frost and ice: white feathers
+that turn into clear crystal ice at
+the tips, glowing pale-blue eyes, a
+crown of diamond ice shaped like a
+city skyline, a heavy iced-out chain
+around its neck, an oversized black
+puffer coat draped over its shoulders
+like a cape, snow and frost trailing
+from its great wings. Cold, smug,
+untouchable, a king.
+Pose: 3/4 view facing left, perched
+tall on a pillar of ice, wings half
+open, one taloned foot raised, looking
+down at the viewer.
+Keep it original, not any existing
+Pokemon.
+```
+
+### R-D3. Nocturix sprites + walking sheet (one image)
+- **Save as:** `art/concepts/nocturix_sprites.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/nocturix_concept.png` (made above), `art/concepts/witnyx_sprites.png`
+- **Downloads:** [witnyx_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/witnyx_sprites.png)
+
+```
+Redraw the creature in the first
+attached image as pixel-art game
+sprites in ONE image, two rows, in
+exactly the layout, pixel size,
+outline weight and shading of the
+second attached image (a big boss
+creature). Flat white background, no
+text, no shadow. Crisp hand-placed
+pixel clusters, flat colour areas with
+clean 2-3 step shading, no dithering,
+no noise, no blur. At most 15 colours
+shared by everything. Leave out the
+ice pillar.
+TOP ROW: a pair of big Pokemon
+Black/White 2 battle sprites. LEFT:
+the front sprite, 3/4 view facing
+left, standing tall, wings half open,
+looking down at the viewer. RIGHT: the
+back sprite, the SAME creature in the
+SAME pose with the camera moved behind
+it, as Black/White 2 shows your own
+Pokemon: we see its icy back feathers,
+the puffer-coat cape and the skyline
+crown, and it faces up and to the
+right.
+BOTTOM ROW: 8 overworld follower
+sprites in the same chibi style with
+thick dark outlines, the creature
+standing, left to right: front, front-
+left, left, back-left, back, back-
+right, right, front-right, every frame
+the same size.
+Keep its design exactly as in the
+first image: a regal snowy owl with
+crystal-ice feather tips, glowing
+pale-blue eyes, a diamond-ice skyline
+crown, an iced-out chain, a black
+puffer coat cape. Clear white gaps
+between all sprites.
+```
+
+### R-D4. Raptower concept (Drake's second)
+- **Save as:** `art/concepts/raptower_concept.png`  ·  **Shape:** square
+- **Attach:** `art/concepts/wirewolf_concept.png`
+- **Downloads:** [wirewolf_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/wirewolf_concept.png)
+
+```
+Official artwork of an original
+creature for a creature-collecting
+RPG, in the same clean anime style as
+the attached image (crisp linework,
+cel shading, soft highlights). Full
+body, flat white background, no text,
+no logos.
+Raptower: a fierce, athletic raptor
+dinosaur standing on its hind legs,
+scaled in deep red with purple and
+silver stripes, a sickle claw on each
+foot, sharp eyes, a feathered crest.
+It wears a black hoodie with the
+sleeves torn off and a silver chain.
+It wields a long polearm shaped like a
+famous city tower: a tall slender
+concrete shaft, a round observation
+pod partway up as the guard, and a
+sharp antenna spire at the top as the
+spearhead, with small lights glowing
+on it. Proud hometown energy, fast and
+dangerous.
+Pose: 3/4 view facing left, lunging
+forward on one leg, the tower spear
+thrust toward the viewer, tail
+straight out behind for balance.
+Keep it original, not any existing
+Pokemon.
+```
+
+### R-D5. Raptower sprites + walking sheet (one image)
+- **Save as:** `art/concepts/raptower_sprites.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/raptower_concept.png` (made above), `art/concepts/wirewolf_sprites.png`
+- **Downloads:** [wirewolf_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/wirewolf_sprites.png)
+
+```
+Redraw the creature in the first
+attached image as pixel-art game
+sprites in ONE image, two rows, in
+exactly the layout, pixel size,
+outline weight and shading of the
+second attached image. Flat white
+background, no text, no shadow. Crisp
+hand-placed pixel clusters, flat
+colour areas with clean 2-3 step
+shading, no dithering, no noise, no
+blur. At most 15 colours shared by
+everything.
+TOP ROW: a pair of big Pokemon
+Black/White 2 battle sprites. LEFT:
+the front sprite, 3/4 view facing
+left, lunging forward, the tower spear
+thrust toward the viewer. RIGHT: the
+back sprite, the SAME creature in the
+SAME pose with the camera moved behind
+it, as Black/White 2 shows your own
+Pokemon: we see its striped back, the
+sleeveless hoodie, the tail and the
+tower spear, and it faces up and to
+the right.
+BOTTOM ROW: 8 overworld follower
+sprites in the same chibi style with
+thick dark outlines, the creature
+standing, left to right: front, front-
+left, left, back-left, back, back-
+right, right, front-right, every frame
+the same size.
+Keep its design exactly as in the
+first image: an upright red raptor
+with purple and silver stripes, sickle
+claws, a feathered crest, a sleeveless
+black hoodie, a silver chain, a
+polearm shaped like a tall city tower
+with a round pod and an antenna
+spearhead. Clear white gaps between
+all sprites.
 ```
 
 ## People
