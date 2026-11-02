@@ -2939,7 +2939,7 @@ Pokemon.
 ### R-T3. Rodeo Strings sprites + walking sheet (one image)
 - **Save as:** `art/concepts/rodeostrings_sprites.png`  ·  **Shape:** landscape
 - **Attach:** `art/concepts/rodeostrings_concept.png` (made above), `art/concepts/dropbear_sprites.png`
-- **Downloads:** [dropbear_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/dropbear_sprites.png)
+- **Downloads:** [rodeostrings_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/rodeostrings_concept.png) · [dropbear_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/dropbear_sprites.png)
 
 ```
 Redraw the creature in the first
@@ -3020,7 +3020,7 @@ Pokemon.
 ### R-T5. Astrohead sprites + walking sheet (one image)
 - **Save as:** `art/concepts/astrohead_sprites.png`  ·  **Shape:** landscape
 - **Attach:** `art/concepts/astrohead_concept.png` (made above), `art/concepts/dondalith_sprites.png`
-- **Downloads:** [dondalith_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/dondalith_sprites.png)
+- **Downloads:** [astrohead_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/astrohead_concept.png) · [dondalith_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/dondalith_sprites.png)
 
 ```
 Redraw the creature in the first
@@ -3063,6 +3063,278 @@ golden hands and feet, little red
 rollercoaster tracks looped round it
 like chains. Clear white gaps between
 all sprites.
+```
+
+### R-J1. Juice WRLD (Easter egg trainer, the Wishing Well)
+- **Save as:** `art/concepts/trainers/juice.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/trainers/travis.png`
+- **Downloads:** [travis.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/trainers/travis.png)
+
+```
+Character sheet for a creature-
+collecting RPG in exactly the same
+style and layout as the attached
+sheet: on the left a full-body anime
+illustration; top right a head close-
+up; middle right a big pixel-art
+trainer battle sprite in Pokemon
+Black/White 2 style, front only, full
+body, 3/4 view facing left, in a
+battle pose; bottom right two small
+pixel-art overworld sprites, standing
+still, in exactly the size and pixel
+style of the small sprites on the
+attached sheet: one 3/4 front view
+facing down-left, one 3/4 back view
+facing up-left. Flat white background,
+no text.
+The person is Juice WRLD, drawn with
+love as a tribute: shoulder-length
+dreads, a warm easy smile, a gold 999
+chain, a black hoodie with a small
+broken-heart symbol, baggy jeans,
+sneakers, a small notebook and pen in
+one hand. Calm, kind, a little dreamy.
+Full-body pose: sitting on the stone
+rim of an old wishing well, writing in
+the notebook, one foot up. Battle
+pose: standing relaxed, one hand
+raised mid-freestyle, a soft confident
+grin. Colourway: black, purple, gold.
+```
+
+### R-J2a. Wreckoning concept
+- **Save as:** `art/concepts/wreckoning_concept.png`  ·  **Shape:** square
+- **Attach:** `art/concepts/astrohead_concept.png`
+- **Downloads:** [astrohead_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/astrohead_concept.png)
+
+```
+Official artwork of an original
+creature for a creature-collecting
+RPG, in the same clean anime style as
+the attached image (crisp linework,
+cel shading, soft highlights). Full
+body, flat white background, no text.
+Wreckoning: a hulking, sentient
+demolition-derby car, like a boss from
+a 90s car-combat game: its chassis
+welded from rusty scrap metal and
+mismatched panels, the front grill a
+twisted grinning maw of metal teeth,
+two glowing "999" decals where the
+headlights should be that flare like
+eyes, a steering wheel embedded in its
+chest like a ribcage, spiked bumpers,
+big battered tyres, exhaust pipes
+puffing dark smoky heart shapes.
+Dangerous, chaotic, a little
+heartbroken.
+Pose: 3/4 view facing left, revving
+forward on two wheels mid-crash,
+sparks flying, the grill-mouth
+grinning at the viewer.
+Keep it original, not any existing
+Pokemon.
+```
+
+### R-J2b. Wreckoning sprites + walking sheet (one image)
+- **Save as:** `art/concepts/wreckoning_sprites.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/wreckoning_concept.png` (made above), `art/concepts/astrohead_sprites.png`
+- **Downloads:** [astrohead_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/astrohead_sprites.png)
+
+```
+Redraw the creature in the first
+attached image as pixel-art game
+sprites in ONE image, two rows, in
+exactly the layout, pixel size,
+outline weight and shading of the
+second attached image (a big boss
+creature). Flat white background, no
+text, no shadow. Crisp hand-placed
+pixel clusters, flat colour areas with
+clean 2-3 step shading, no dithering,
+no noise, no blur. At most 15 colours
+shared by everything.
+TOP ROW: a pair of Pokemon Black/White
+2 battle sprites. LEFT: the front
+sprite, 3/4 view facing left, revving
+forward on two wheels, the grill-mouth
+grinning. RIGHT: the back sprite, the
+SAME creature in the SAME pose with
+the camera moved behind it, as
+Black/White 2 shows your own Pokemon:
+we see its back bumper, the exhaust
+pipes puffing smoky hearts and its
+rear tyres, and it faces up and to the
+right.
+BOTTOM ROW: 8 overworld follower
+sprites in the same chibi style with
+thick dark outlines, the creature
+standing, left to right: front, front-
+left, left, back-left, back, back-
+right, right, front-right, every frame
+the same size.
+Keep its design exactly as in the
+first image: a scrap-metal demolition-
+derby car with a grinning grill-mouth,
+two glowing 999 headlight eyes, a
+steering-wheel ribcage, spiked
+bumpers, exhaust pipes puffing smoky
+hearts. Clear white gaps between all
+sprites.
+```
+
+### R-J3a. Neverdyne concept
+- **Save as:** `art/concepts/neverdyne_concept.png`  ·  **Shape:** square
+- **Attach:** `art/concepts/astrohead_concept.png`
+- **Downloads:** [astrohead_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/astrohead_concept.png)
+
+```
+Official artwork of an original
+creature for a creature-collecting
+RPG, in the same clean anime style as
+the attached image (crisp linework,
+cel shading, soft highlights). Full
+body, flat white background, no text.
+Neverdyne: a gentle, glowing butterfly
+spirit, a tribute: large wings of
+translucent stained-glass flower
+petals in pinks, purples and golds
+like a field of flowers, a soft purple
+aura, its small body a glowing 999
+sigil, two delicate antennae tipped
+with tiny Roman numerals XII and VIII,
+petals and light drifting off it.
+Peaceful, beautiful, eternal, quietly
+powerful.
+Pose: 3/4 view facing left, rising
+upward with wings spread wide in a
+soft beam of purple light.
+Keep it original, not any existing
+Pokemon.
+```
+
+### R-J3b. Neverdyne sprites + walking sheet (one image)
+- **Save as:** `art/concepts/neverdyne_sprites.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/neverdyne_concept.png` (made above), `art/concepts/astrohead_sprites.png`
+- **Downloads:** [astrohead_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/astrohead_sprites.png)
+
+```
+Redraw the creature in the first
+attached image as pixel-art game
+sprites in ONE image, two rows, in
+exactly the layout, pixel size,
+outline weight and shading of the
+second attached image . Flat white
+background, no text, no shadow. Crisp
+hand-placed pixel clusters, flat
+colour areas with clean 2-3 step
+shading, no dithering, no noise, no
+blur. At most 15 colours shared by
+everything.
+TOP ROW: a pair of Pokemon Black/White
+2 battle sprites. LEFT: the front
+sprite, 3/4 view facing left, rising
+with wings spread wide. RIGHT: the
+back sprite, the SAME creature in the
+SAME pose with the camera moved behind
+it, as Black/White 2 shows your own
+Pokemon: we see the backs of the
+stained-glass petal wings and its
+glowing body, and it faces up and to
+the right.
+BOTTOM ROW: 8 overworld follower
+sprites in the same chibi style with
+thick dark outlines, the creature
+standing, left to right: front, front-
+left, left, back-left, back, back-
+right, right, front-right, every frame
+the same size.
+Keep its design exactly as in the
+first image: a butterfly spirit with
+translucent stained-glass flower-petal
+wings, a purple aura, a glowing 999
+sigil body, antennae tipped with XII
+and VIII. Clear white gaps between all
+sprites.
+```
+
+### R-J4a. Astrolean concept
+- **Save as:** `art/concepts/astrolean_concept.png`  ·  **Shape:** square
+- **Attach:** `art/concepts/astrohead_concept.png`
+- **Downloads:** [astrohead_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/astrohead_concept.png)
+
+```
+Official artwork of an original
+creature for a creature-collecting
+RPG, in the same clean anime style as
+the attached image (crisp linework,
+cel shading, soft highlights). Full
+body, flat white background, no text.
+Astrolean: a dreamy humanoid astronaut
+creature in a watercolour style: a
+translucent bubble helmet with no face
+inside, just a swirling purple double-
+cup nebula, a puffy spacesuit patched
+in styrofoam-cup white and purple
+gradients, small colourful pills
+orbiting it like tiny moons, a glowing
+retro time-machine-car style jetpack
+on its back leaving a trail of purple
+stardust, half-lidded dreamy glowing
+eyes in the nebula. Floaty, numb,
+technicolour.
+Pose: 3/4 view facing left, floating
+weightlessly upside-down-ish, one arm
+reaching toward the viewer, stardust
+trailing behind.
+Keep it original, not any existing
+Pokemon.
+```
+
+### R-J4b. Astrolean sprites + walking sheet (one image)
+- **Save as:** `art/concepts/astrolean_sprites.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/astrolean_concept.png` (made above), `art/concepts/astrohead_sprites.png`
+- **Downloads:** [astrohead_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/astrohead_sprites.png)
+
+```
+Redraw the creature in the first
+attached image as pixel-art game
+sprites in ONE image, two rows, in
+exactly the layout, pixel size,
+outline weight and shading of the
+second attached image . Flat white
+background, no text, no shadow. Crisp
+hand-placed pixel clusters, flat
+colour areas with clean 2-3 step
+shading, no dithering, no noise, no
+blur. At most 15 colours shared by
+everything.
+TOP ROW: a pair of Pokemon Black/White
+2 battle sprites. LEFT: the front
+sprite, 3/4 view facing left,
+floating, one arm reaching out,
+stardust trailing. RIGHT: the back
+sprite, the SAME creature in the SAME
+pose with the camera moved behind it,
+as Black/White 2 shows your own
+Pokemon: we see the jetpack, the
+patched suit and the orbiting pills,
+and it faces up and to the right.
+BOTTOM ROW: 8 overworld follower
+sprites in the same chibi style with
+thick dark outlines, the creature
+standing, left to right: front, front-
+left, left, back-left, back, back-
+right, right, front-right, every frame
+the same size.
+Keep its design exactly as in the
+first image: a watercolour astronaut
+with a bubble helmet full of a purple
+nebula, a white-and-purple patched
+suit, orbiting pills, a glowing
+jetpack with a stardust trail. Clear
+white gaps between all sprites.
 ```
 
 ## People

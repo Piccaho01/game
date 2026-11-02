@@ -133,8 +133,22 @@ Characters from the group's favourite media turn up around Verrow. **Rules (owne
       always goes first on the turn after a KO). Bestiary: "Has never lost a game at home. Has never
       played an away game." 
 Cut: Nettspend, OsamaSon.
-Juice WRLD (owner's call): a real trainer fight that is a tribute throughout, plus a Nolan-only Easter egg
-(an interaction, item or Patchling when Nolan leads).
+Juice WRLD (owner's call, designed 2026-11-02): a real trainer fight that is a tribute throughout, at
+**the Wishing Well** (a quiet well on a hill under a permanent sunset; he writes in a notebook on its rim).
+Lines: "You came all the way up here? ...Bet. Let's run it." / losing: "That was cold. All good though.
+Keep pushing. 999." **Nolan-only:** with Nolan leading, Juice clocks him ("You're the one who knows the
+unreleased stuff, huh?"), Nolan finishes a lyric, and gets the **999 Notebook** (key item: rematch any
+time with Nolan leading; opens a quiet sanctuary room where his music plays). Patchlings (owner's
+designs, adapted to our types):
+- **Wreckoning** (Dark/Metal, big ace; Death Race for Love): a sentient demolition-derby car, grill maw,
+  999 headlight eyes, steering-wheel ribcage, exhaust puffing smoky hearts. Ability **Derby Rules**
+  (below half HP: +1 Attack, +1 Speed). Signature **Torque** (Metal physical, huge, -1 own Speed).
+- **Neverdyne** (Relic/Wind; Legends Never Die): a stained-glass flower-petal butterfly spirit, purple
+  aura, 999 sigil body, XII and VIII antennae. Ability **Metamorphosis** (first faint: survives at 1 HP,
+  Sp. Atk sharply up). Signature **Righteous** (Relic: heals half the damage dealt, cures its status).
+- **Astrolean** (Dark/Wind; WRLD on Drugs): a watercolour astronaut, double-cup nebula in the helmet,
+  orbiting pills, time-machine jetpack. Ability **WRLD on Drugs** (status moves raise its Sp. Atk
+  instead). Signature **Astronauts** (Wind special, always confuses).
 
 ## Scope note
 About 20 characters × 2-3 Patchlings is 40-60 new Patchlings (each a whole line with art). They
