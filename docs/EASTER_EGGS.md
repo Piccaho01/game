@@ -100,7 +100,7 @@ Characters from the group's favourite media turn up around Verrow. **Rules (owne
     "nah that's cap." "Name one genius that ain't crazy." / Dani: "Who is the man in the diamond mask?"
     "...Yeezus." / losing: "I'm not mad. I'm just disappointed. In the universe." / the group: "bro beat
     him and he's still talking."
-    - **Dropbear** (Wind/Dark, small): the Dropout bear in a varsity jacket, backpack, tilted grad cap.
+    - **Dropbear** (Wind/Dark, small): looks exactly like the Graduation-cover Dropout Bear (owner's call).
       Signature **Late Registration** (always last, double power).
     - **Dondalith** (Dark/Fire, huge ace, Donda era): a faceless figure in an all-black mask and
       garments, arms spread, a spotlight halo, standing on a burning house. Ability **Listening Party**

@@ -2717,20 +2717,21 @@ RPG, in the same clean anime style as
 the attached image (crisp linework,
 cel shading, soft highlights). Full
 body, flat white background, no text.
-Dropbear: a small, cute brown teddy-
-bear creature with stitched seams and
-button eyes, a cocky little smirk,
-wearing an oversized varsity jacket
-with the sleeves rolled, a small
-backpack, and a graduation cap tilted
-sideways on its head. Confident, a bit
-of a show-off.
+Dropbear: drawn to look exactly like
+the Dropout Bear mascot from the cover
+of Kanye West's album Graduation, in
+Takashi Murakami's bright, flat,
+colourful cartoon style: a round brown
+teddy bear with a big round head,
+round ears, a light tan muzzle and
+simple cute eyes, wearing that bear's
+outfit from the Graduation artwork, as
+a small battle creature.
 Pose: 3/4 view facing left, standing
-with one paw on its hip and the other
-pointing up at the sky like it's
-already a legend.
-Keep it original, not any existing
-Pokemon.
+with one paw raised in a cheerful
+wave, like it just graduated.
+Keep it as the Graduation bear, not
+any existing Pokemon.
 ```
 
 ### R-K3. Dropbear sprites + walking sheet (one image)
@@ -2753,15 +2754,14 @@ blur. At most 15 colours shared by
 everything.
 TOP ROW: a pair of Pokemon Black/White
 2 battle sprites. LEFT: the front
-sprite, 3/4 view facing left, paw on
-hip, pointing at the sky. RIGHT: the
+sprite, 3/4 view facing left, one paw
+raised in a cheerful wave. RIGHT: the
 back sprite, the SAME creature in the
 SAME pose with the camera moved behind
 it, as Black/White 2 shows your own
-Pokemon: we see the back of the
-varsity jacket, the backpack and the
-tilted cap, and it faces up and to the
-right.
+Pokemon: we see its round back, ears
+and outfit from behind, and it faces
+up and to the right.
 BOTTOM ROW: 8 small overworld follower
 sprites (chibi walkers about 32 pixels
 tall, thick dark outline), the
@@ -2770,11 +2770,11 @@ front, front-left, left, back-left,
 back, back-right, right, front-right,
 every frame the same size.
 Keep its design exactly as in the
-first image: a small stitched brown
-teddy bear, button eyes, a smirk, an
-oversized varsity jacket, a backpack,
-a tilted graduation cap. Clear white
-gaps between all sprites.
+first image: the Graduation-cover
+Dropout Bear, round brown teddy bear,
+big round head and ears, tan muzzle,
+its outfit from the artwork. Clear
+white gaps between all sprites.
 ```
 
 ### R-K4. Dondalith concept (Kanye's ace)
