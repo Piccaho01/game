@@ -2990,28 +2990,29 @@ RPG, in the same clean anime style as
 the attached image (crisp linework,
 cel shading, soft highlights). Full
 body, flat white background, no text.
-Astrohead: a big, powerful, four-
-legged volcanic beast built like a
-hulking ram crossed with a bison,
-clearly a creature with a face, eyes
-and a body, about twice a person's
-height. Its body is black lava rock
-cracked with glowing orange magma
-veins. A thick mane of long dark
-braids hangs from its head and neck,
-it has glowing gold eyes, a wide
-roaring mouth with a gold grill on its
-teeth, and two big curling golden
-horns with a small red rollercoaster
-track looping round them. Its back is
-a ridge of little carnival lights and
-flame vents, and fire trails from its
-braids. Loud, wild, hype, menacing, a
-rager.
-Pose: 3/4 view facing left, rearing up
-on its back legs mid-roar, front
-hooves raised, flames bursting from
-its mane.
+Astrohead: a Pokemon-style creature
+whose body is a big shiny golden
+inflatable head, like a giant theme-
+park balloon head, with long dark
+braids, glowing gold eyes, a cocky
+grin with a gold grill, and a diamond
+earring. It has no neck or torso: two
+big floating golden hands and two
+floating golden feet hover beside it,
+like a rayman-style creature,
+gesturing with swag. Small red
+rollercoaster tracks loop around the
+head and limbs like chunky chains and
+jewellery, with tiny carts riding
+them. A few sparks and fireworks pop
+around it. Full of personality, cocky,
+hype, fun but tough, clearly a
+creature and not a building.
+Pose: 3/4 view facing left, head
+tilted back with a confident grin, one
+floating hand throwing up a sign, the
+other pointing at the viewer, floating
+feet in a wide stance.
 Keep it original, not any existing
 Pokemon.
 ```
@@ -3037,14 +3038,15 @@ shared by everything.
 TOP ROW: a pair of big Pokemon
 Black/White 2 battle sprites. LEFT:
 the front sprite, 3/4 view facing
-left, rearing up mid-roar, hooves
-raised, mane on fire. RIGHT: the back
-sprite, the SAME creature in the SAME
-pose with the camera moved behind it,
-as Black/White 2 shows your own
-Pokemon: we see its lava-rock back
-with the carnival lights, the braided
-mane and the horns, and it faces up
+left, grinning, one floating hand
+throwing a sign, the other pointing.
+RIGHT: the back sprite, the SAME
+creature in the SAME pose with the
+camera moved behind it, as Black/White
+2 shows your own Pokemon: we see the
+back of the golden head, the braids,
+the floating hands and feet and the
+rollercoaster chains, and it faces up
 and to the right.
 BOTTOM ROW: 8 overworld follower
 sprites in the same chibi style with
@@ -3054,13 +3056,13 @@ left, left, back-left, back, back-
 right, right, front-right, every frame
 the same size.
 Keep its design exactly as in the
-first image: a four-legged lava-rock
-ram-bison beast with magma veins, a
-braided mane, gold eyes, a gold grill,
-curling gold horns with a little
-rollercoaster track, carnival lights
-along its back. Clear white gaps
-between all sprites.
+first image: a shiny golden inflatable
+head with braids, gold eyes, a gold
+grill and a diamond earring, floating
+golden hands and feet, little red
+rollercoaster tracks looped round it
+like chains. Clear white gaps between
+all sprites.
 ```
 
 ## People
