@@ -99,8 +99,9 @@ Characters from the group's favourite media turn up around Verrow. **Rules (owne
     switch halfway swaps his moves.
     - **Rodeo Strings** (Dark/Plant): a shadowy cactus puppeteer working a Days Before Rodeo Travis
       marionette (owner's call). Signature **Ad-Lib** (random effect).
-    - **Astrohead** (Fire/Rock, huge ace): a giant golden braided head on lava legs, rollercoaster track
-      around it, lava from its mouth. Ability **Beat Switch** (at half HP becomes Fire/Dark with new
+    - **Astrohead** (Fire/Rock, huge ace): a four-legged lava-rock ram-bison with a braided mane, gold
+      grill, gold horns looped by a little rollercoaster, carnival lights on its back (redone: the head was
+      too conceptual). Ability **Beat Switch** (at half HP becomes Fire/Dark with new
       moves). Signature **Sicko Mode** (Fire special, hits twice). Bestiary: "Opened an amusement park
       inside its own head. Ticket prices: everything." 
 12. **Kanye West** (Cloud Station; designed 2026-11-02): Yeezus era: crystal-jewelled full-face mask,
