@@ -2789,22 +2789,27 @@ RPG, in the same clean anime style as
 the attached image (crisp linework,
 cel shading, soft highlights). Full
 body, flat white background, no text.
-Dondalith: a towering, faceless
-humanoid figure, twice a person's
-height, completely clad in black: a
-smooth all-black full-face mask with
-no features, long flowing black
-garments and a hood, long arms spread
-wide. A single bright stadium
-spotlight beam shines straight down on
-it from above like a halo. It stands
-on top of a small burning white house,
-flames curling around its feet.
-Silent, solemn, monumental, eerie.
-Pose: 3/4 view facing left, standing
-tall on the burning house, arms spread
-wide, head tilted slightly up into the
-light.
+Dondalith: a huge living house
+creature: a plain white two-storey
+family home with a grey shingled roof
+and a small front porch, standing up
+on four thick legs made of cracked
+concrete foundation and twisted black
+pipes. Its two upstairs windows are
+its eyes, glowing hot white with a
+faint black-masked silhouette standing
+in each; its front door hangs open as
+a dark mouth with porch-step teeth.
+Flames burst out of the roof and
+chimney and smoke pours into the sky.
+All black and white with fire-orange,
+stark and solemn like a stadium
+listening event at night. Huge, eerie,
+monumental, a final boss.
+Pose: 3/4 view facing left, rearing up
+on its back legs, the burning roof
+roaring, the door-mouth open wide
+toward the viewer.
 Keep it original, not any existing
 Pokemon.
 ```
@@ -2826,19 +2831,18 @@ text, no shadow. Crisp hand-placed
 pixel clusters, flat colour areas with
 clean 2-3 step shading, no dithering,
 no noise, no blur. At most 15 colours
-shared by everything. Keep the burning
-house small at its feet; leave out the
-spotlight beam.
+shared by everything.
 TOP ROW: a pair of big Pokemon
 Black/White 2 battle sprites. LEFT:
 the front sprite, 3/4 view facing
-left, standing tall, arms spread wide,
-faceless black mask tilted up. RIGHT:
-the back sprite, the SAME creature in
-the SAME pose with the camera moved
-behind it, as Black/White 2 shows your
-own Pokemon: we see the long black
-hood and garments from behind, and it
+left, rearing up, the roof on fire,
+the door-mouth open toward the viewer.
+RIGHT: the back sprite, the SAME
+creature in the SAME pose with the
+camera moved behind it, as Black/White
+2 shows your own Pokemon: we see the
+back wall of the house, the burning
+roof and its concrete legs, and it
 faces up and to the right.
 BOTTOM ROW: 8 overworld follower
 sprites in the same chibi style with
@@ -2846,13 +2850,15 @@ thick dark outlines, the creature
 standing, left to right: front, front-
 left, left, back-left, back, back-
 right, right, front-right, every frame
-the same size (no house in these).
+the same size.
 Keep its design exactly as in the
-first image: a towering faceless
-figure in an all-black full-face mask,
-a long black hood and garments, long
-arms. Clear white gaps between all
-sprites.
+first image: a living white two-storey
+house on concrete-and-pipe legs,
+glowing window eyes with masked
+silhouettes, an open front-door mouth,
+a burning roof and chimney, black,
+white and fire-orange. Clear white
+gaps between all sprites.
 ```
 
 ## People

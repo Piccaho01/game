@@ -102,8 +102,9 @@ Characters from the group's favourite media turn up around Verrow. **Rules (owne
     him and he's still talking."
     - **Dropbear** (Wind/Dark, small): looks exactly like the Graduation-cover Dropout Bear (owner's call).
       Signature **Late Registration** (always last, double power).
-    - **Dondalith** (Dark/Fire, huge ace, Donda era): a faceless figure in an all-black mask and
-      garments, arms spread, a spotlight halo, standing on a burning house. Ability **Listening Party**
+    - **Dondalith** (Dark/Fire, huge ace, Donda era): the house itself (owner's call): a living white
+      two-storey home on concrete-and-pipe legs, window eyes with masked silhouettes, a door mouth, the roof
+      on fire. Ability **Listening Party**
       (on entry nobody can use status moves for 2 turns). Signature **Donda** (Dark special, stronger
       for each fainted teammate). Bestiary: "Appears alone in an empty stadium. Never speaks. Sold out
       every seat anyway." 
