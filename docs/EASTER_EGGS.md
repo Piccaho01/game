@@ -92,7 +92,21 @@ Characters from the group's favourite media turn up around Verrow. **Rules (owne
 9. **Young Thug**: YSL's "slime reaper"; the boss over Ø Way.
 10. **Frank Ocean**.
 11. **Travis Scott** (Emberwick's cactus garden).
-12. **Kanye West** (Cloud Station).
+12. **Kanye West** (Cloud Station; designed 2026-11-02): Yeezus era: crystal-jewelled full-face mask,
+    leather shirt and joggers, Jesus piece, a mountaintop stage above the clouds. Once per battle he
+    interrupts and steals your turn. Lines: "I am a god. Hurry up with my damn turn." / "Yo, I'mma let you
+    finish, but..." / "George Bush doesn't care about black people." / "Yuno Miles better than that bitch
+    [bleep] Drake." (bleeped with a censor sound and black bar unless the owner wants it raw) / Haydon:
+    "nah that's cap." "Name one genius that ain't crazy." / Dani: "Who is the man in the diamond mask?"
+    "...Yeezus." / losing: "I'm not mad. I'm just disappointed. In the universe." / the group: "bro beat
+    him and he's still talking."
+    - **Dropbear** (Wind/Dark, small): the Dropout bear in a varsity jacket, backpack, tilted grad cap.
+      Signature **Late Registration** (always last, double power).
+    - **Dondalith** (Dark/Fire, huge ace, Donda era): a faceless figure in an all-black mask and
+      garments, arms spread, a spotlight halo, standing on a burning house. Ability **Listening Party**
+      (on entry nobody can use status moves for 2 turns). Signature **Donda** (Dark special, stronger
+      for each fainted teammate). Bestiary: "Appears alone in an empty stadium. Never speaks. Sold out
+      every seat anyway." 
 13. **Drake** (Hush; designed 2026-11-02): Iceman era: white fur coat over black, ice-blue durag,
     iced-out owl chain, frozen grill; king of the sixth peak on an ice throne; the only one who talks in
     Hush. Lines: "They thought I was finished. I was just... freezing." / "This whole town's quiet for me,

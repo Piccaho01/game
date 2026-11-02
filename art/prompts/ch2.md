@@ -2536,7 +2536,7 @@ Pokemon.
 ### R-D3. Nocturix sprites + walking sheet (one image)
 - **Save as:** `art/concepts/nocturix_sprites.png`  ·  **Shape:** landscape
 - **Attach:** `art/concepts/nocturix_concept.png` (made above), `art/concepts/witnyx_sprites.png`
-- **Downloads:** [witnyx_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/witnyx_sprites.png)
+- **Downloads:** [nocturix_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/nocturix_concept.png) · [witnyx_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/witnyx_sprites.png)
 
 ```
 Redraw the creature in the first
@@ -2619,7 +2619,7 @@ Pokemon.
 ### R-D5. Raptower sprites + walking sheet (one image)
 - **Save as:** `art/concepts/raptower_sprites.png`  ·  **Shape:** landscape
 - **Attach:** `art/concepts/raptower_concept.png` (made above), `art/concepts/wirewolf_sprites.png`
-- **Downloads:** [wirewolf_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/wirewolf_sprites.png)
+- **Downloads:** [raptower_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/raptower_concept.png) · [wirewolf_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/wirewolf_sprites.png)
 
 ```
 Redraw the creature in the first
@@ -2662,6 +2662,197 @@ polearm shaped like a tall city tower
 with a round pod and an antenna
 spearhead. Clear white gaps between
 all sprites.
+```
+
+### R-K1. Kanye, Yeezus era (Easter egg trainer, Cloud Station)
+- **Save as:** `art/concepts/trainers/kanye.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/trainers/drake.png`
+- **Downloads:** [drake.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/trainers/drake.png)
+
+```
+Character sheet for a creature-
+collecting RPG in exactly the same
+style and layout as the attached
+sheet: on the left a full-body anime
+illustration; top right a head close-
+up; middle right a big pixel-art
+trainer battle sprite in Pokemon
+Black/White 2 style, front only, full
+body, 3/4 view facing left, in a
+battle pose; bottom right two small
+pixel-art overworld sprites, standing
+still, in exactly the size and pixel
+style of the small sprites on the
+attached sheet: one 3/4 front view
+facing down-left, one 3/4 back view
+facing up-left. Flat white background,
+no text.
+The person is a famous rapper in his
+"Yeezus" era, a self-declared god
+performing on a mountaintop stage
+above the clouds: a full-face mask
+covered in sparkling crystals and
+jewels hiding his whole face, a long
+black leather shirt, black leather
+joggers, a large gold Jesus-piece
+chain, chunky grey sneakers. Arrogant,
+theatrical, magnetic. Full-body pose:
+arms spread wide like a preacher, head
+tilted up to the sky. Battle pose: one
+hand held up to the viewer like "wait,
+let me finish", the other holding a
+microphone. Colourway: black, crystal
+white, gold.
+```
+
+### R-K2. Dropbear concept (Kanye's small one)
+- **Save as:** `art/concepts/dropbear_concept.png`  ·  **Shape:** square
+- **Attach:** `art/concepts/raptower_concept.png`
+- **Downloads:** [raptower_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/raptower_concept.png)
+
+```
+Official artwork of an original
+creature for a creature-collecting
+RPG, in the same clean anime style as
+the attached image (crisp linework,
+cel shading, soft highlights). Full
+body, flat white background, no text.
+Dropbear: a small, cute brown teddy-
+bear creature with stitched seams and
+button eyes, a cocky little smirk,
+wearing an oversized varsity jacket
+with the sleeves rolled, a small
+backpack, and a graduation cap tilted
+sideways on its head. Confident, a bit
+of a show-off.
+Pose: 3/4 view facing left, standing
+with one paw on its hip and the other
+pointing up at the sky like it's
+already a legend.
+Keep it original, not any existing
+Pokemon.
+```
+
+### R-K3. Dropbear sprites + walking sheet (one image)
+- **Save as:** `art/concepts/dropbear_sprites.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/dropbear_concept.png` (made above), `art/concepts/medvodka_sprites.png`
+- **Downloads:** [medvodka_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/medvodka_sprites.png)
+
+```
+Redraw the creature in the first
+attached image as pixel-art game
+sprites in ONE image, two rows, in
+exactly the pixel size, outline weight
+and shading of the second attached
+image (a small creature). Flat white
+background, no text, no shadow. Crisp
+hand-placed pixel clusters, flat
+colour areas with clean 2-3 step
+shading, no dithering, no noise, no
+blur. At most 15 colours shared by
+everything.
+TOP ROW: a pair of Pokemon Black/White
+2 battle sprites. LEFT: the front
+sprite, 3/4 view facing left, paw on
+hip, pointing at the sky. RIGHT: the
+back sprite, the SAME creature in the
+SAME pose with the camera moved behind
+it, as Black/White 2 shows your own
+Pokemon: we see the back of the
+varsity jacket, the backpack and the
+tilted cap, and it faces up and to the
+right.
+BOTTOM ROW: 8 small overworld follower
+sprites (chibi walkers about 32 pixels
+tall, thick dark outline), the
+creature standing, left to right:
+front, front-left, left, back-left,
+back, back-right, right, front-right,
+every frame the same size.
+Keep its design exactly as in the
+first image: a small stitched brown
+teddy bear, button eyes, a smirk, an
+oversized varsity jacket, a backpack,
+a tilted graduation cap. Clear white
+gaps between all sprites.
+```
+
+### R-K4. Dondalith concept (Kanye's ace)
+- **Save as:** `art/concepts/dondalith_concept.png`  ·  **Shape:** square
+- **Attach:** `art/concepts/typhantom_concept.png`
+- **Downloads:** [typhantom_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/typhantom_concept.png)
+
+```
+Official artwork of an original
+creature for a creature-collecting
+RPG, in the same clean anime style as
+the attached image (crisp linework,
+cel shading, soft highlights). Full
+body, flat white background, no text.
+Dondalith: a towering, faceless
+humanoid figure, twice a person's
+height, completely clad in black: a
+smooth all-black full-face mask with
+no features, long flowing black
+garments and a hood, long arms spread
+wide. A single bright stadium
+spotlight beam shines straight down on
+it from above like a halo. It stands
+on top of a small burning white house,
+flames curling around its feet.
+Silent, solemn, monumental, eerie.
+Pose: 3/4 view facing left, standing
+tall on the burning house, arms spread
+wide, head tilted slightly up into the
+light.
+Keep it original, not any existing
+Pokemon.
+```
+
+### R-K5. Dondalith sprites + walking sheet (one image)
+- **Save as:** `art/concepts/dondalith_sprites.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/dondalith_concept.png` (made above), `art/concepts/typhantom_sprites.png`
+- **Downloads:** [typhantom_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/typhantom_sprites.png)
+
+```
+Redraw the creature in the first
+attached image as pixel-art game
+sprites in ONE image, two rows, in
+exactly the layout, pixel size,
+outline weight and shading of the
+second attached image (a big boss
+creature). Flat white background, no
+text, no shadow. Crisp hand-placed
+pixel clusters, flat colour areas with
+clean 2-3 step shading, no dithering,
+no noise, no blur. At most 15 colours
+shared by everything. Keep the burning
+house small at its feet; leave out the
+spotlight beam.
+TOP ROW: a pair of big Pokemon
+Black/White 2 battle sprites. LEFT:
+the front sprite, 3/4 view facing
+left, standing tall, arms spread wide,
+faceless black mask tilted up. RIGHT:
+the back sprite, the SAME creature in
+the SAME pose with the camera moved
+behind it, as Black/White 2 shows your
+own Pokemon: we see the long black
+hood and garments from behind, and it
+faces up and to the right.
+BOTTOM ROW: 8 overworld follower
+sprites in the same chibi style with
+thick dark outlines, the creature
+standing, left to right: front, front-
+left, left, back-left, back, back-
+right, right, front-right, every frame
+the same size (no house in these).
+Keep its design exactly as in the
+first image: a towering faceless
+figure in an all-black full-face mask,
+a long black hood and garments, long
+arms. Clear white gaps between all
+sprites.
 ```
 
 ## People
