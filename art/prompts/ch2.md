@@ -3467,8 +3467,8 @@ floating door with a brass knocker.
 Clear white gaps between all sprites.
 ```
 
-### R-S3a. Heartz concept
-- **Save as:** `art/concepts/heartz_concept.png`  ·  **Shape:** square
+### R-S3a. Summa concept
+- **Save as:** `art/concepts/summa_concept.png`  ·  **Shape:** square
 - **Attach:** `art/concepts/wreckoning_concept.png`
 - **Downloads:** [wreckoning_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/wreckoning_concept.png)
 
@@ -3479,29 +3479,31 @@ RPG, in the same clean anime style as
 the attached image (crisp linework,
 cel shading, soft highlights). Full
 body, flat white background, no text.
-Heartz: a glossy pink heart creature
-that has been broken clean in two down
-the middle, holding itself together
-with its own two little arms, hugging
-both halves tight; the crack between
-them glows bright pink, with a few
-stitches and safety pins across it,
-small sparks of pink light leaking
-out. Big glossy sad-but-determined
-eyes on one half, a small brave smile
-across the crack, tiny feet, an iced
-chain around its middle like a belt.
-Heartbroken but still standing.
-Pose: 3/4 view facing left, hugging
-its two halves together, chin up,
-bravely stepping forward.
+Summa: a massive, round, bear-like
+creature built heavy and lazy, with
+the soft pearlescent sheen of a
+shimmery production: cream-white fur
+with a metallic iridescence that
+catches rainbow light. Embedded in its
+round belly is a perfect porcelain-
+white circle with a golden plus sign
+inside it, softly glowing, the plus
+slightly turned like a dial. Its thick
+arms are draped in loose, sheer high-
+fashion fabric that trails on the
+ground. Its face is small, serene and
+utterly unbothered, half-closed eyes,
+"too up" to care.
+Pose: 3/4 view facing left, sitting
+heavily, one draped arm resting on its
+belly, looking calmly at the viewer.
 Keep it original, not any existing
 Pokemon.
 ```
 
-### R-S3b. Heartz sprites + walking sheet (one image)
-- **Save as:** `art/concepts/heartz_sprites.png`  ·  **Shape:** landscape
-- **Attach:** `art/concepts/heartz_concept.png` (made above), `art/concepts/neverdyne_sprites.png`
+### R-S3b. Summa sprites + walking sheet (one image)
+- **Save as:** `art/concepts/summa_sprites.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/summa_concept.png` (made above), `art/concepts/neverdyne_sprites.png`
 - **Downloads:** [neverdyne_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/neverdyne_sprites.png)
 
 ```
@@ -3510,25 +3512,25 @@ attached image as pixel-art game
 sprites in ONE image, two rows, in
 exactly the layout, pixel size,
 outline weight and shading of the
-second attached image. Flat white
-background, no text, no shadow. Crisp
-hand-placed pixel clusters, flat
-colour areas with clean 2-3 step
-shading, no dithering, no noise, no
-blur. At most 15 colours shared by
-everything.
+second attached image, but big and
+heavy. Flat white background, no text,
+no shadow. Crisp hand-placed pixel
+clusters, flat colour areas with clean
+2-3 step shading, no dithering, no
+noise, no blur. At most 15 colours
+shared by everything.
 TOP ROW: a pair of Pokemon Black/White
 2 battle sprites. LEFT: the front
-sprite, 3/4 view facing left, hugging
-its halves together, stepping forward.
-RIGHT: the back sprite, the SAME
-creature in the SAME pose with the
-camera moved behind it, as Black/White
-2 shows your own Pokemon: we see the
-back of the cracked heart, the
-stitches and its little arms wrapped
-round itself, and it faces up and to
-the right.
+sprite, 3/4 view facing left, sitting
+heavily, one draped arm resting on its
+belly, calm. RIGHT: the back sprite,
+the SAME creature in the SAME pose
+with the camera moved behind it, as
+Black/White 2 shows your own Pokemon:
+we see its round iridescent back and
+the sheer fabric trailing from its
+arms, and it faces up and to the
+right.
 BOTTOM ROW: 8 overworld follower
 sprites in the same chibi style with
 thick dark outlines, the creature
@@ -3537,11 +3539,11 @@ left, left, back-left, back, back-
 right, right, front-right, every frame
 the same size.
 Keep its design exactly as in the
-first image: a glossy pink heart split
-in two, holding itself together with
-its own arms, a glowing pink crack
-with stitches and safety pins, big
-brave eyes, an iced chain belt. Clear
+first image: a huge round iridescent
+cream-white bear, a porcelain circle
+with a golden plus on its belly, sheer
+fabric draped from its thick arms, a
+small serene unbothered face. Clear
 white gaps between all sprites.
 ```
 

@@ -95,8 +95,10 @@ Characters from the group's favourite media turn up around Verrow. **Rules (owne
    at half HP. Patchlings:
    - **Knockturn** (Dark, small; Knock Knock): a Beetlejuice-style striped-suit ghoul with wild pink
      hair and a floating door. Signature **Knock Knock** (first, flinch).
-   - **Heartz** (Spark/Wind, mid; Pink Heartz): a broken pink heart holding its two halves together with
-     its own arms. Signature **Hell Yeah** (hits twice).
+   - **Summa** (Rock/Spark, big; GO+, owner's design): a huge round iridescent cream-white bear with a
+     porcelain circle and golden plus on its belly (the plus turns like a dial), sheer fabric draped from
+     its arms, a serene "too up" face. Ability **Too Up** (its stats can't be lowered). Signature **4SUM+**
+     (raises a random stat each turn it rests; the plus ticks round).
    - **Manix** (Dark/Spark, big ace; MANIA): a tall suited figure with a cracked grandfather-clock head
      and pink locs. Ability **Mania** (below half HP every move hits twice with recoil). Signature **Lose
      Our Minds** (confuses both, hits hard). Bestiary: "Never on time. Always worth the wait." 
