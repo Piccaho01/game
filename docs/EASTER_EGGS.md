@@ -143,8 +143,9 @@ designs, adapted to our types):
 - **Wreckoning** (Dark/Metal, big ace; Death Race for Love): a sentient demolition-derby car, grill maw,
   999 headlight eyes, steering-wheel ribcage, exhaust puffing smoky hearts. Ability **Derby Rules**
   (below half HP: +1 Attack, +1 Speed). Signature **Torque** (Metal physical, huge, -1 own Speed).
-- **Neverdyne** (Relic/Wind; Legends Never Die): a stained-glass flower-petal butterfly spirit, purple
-  aura, 999 sigil body, XII and VIII antennae. Ability **Metamorphosis** (first faint: survives at 1 HP,
+- **Neverdyne** (Relic/Wind; Legends Never Die): redesigned (owner's pick): a tall angelic warrior of purple
+  sky and starlight, halo for eyes, stained-glass butterfly wings over smoke wings, broken chains, a
+  microphone-sceptre, flowers bloom where it lands. No 999 motif. Ability **Metamorphosis** (first faint: survives at 1 HP,
   Sp. Atk sharply up). Signature **Righteous** (Relic: heals half the damage dealt, cures its status).
 - **Astrolean** (Dark/Wind; WRLD on Drugs): a watercolour astronaut, double-cup nebula in the helmet,
   orbiting pills, time-machine jetpack. Ability **WRLD on Drugs** (status moves raise its Sp. Atk

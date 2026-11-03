@@ -3196,20 +3196,25 @@ RPG, in the same clean anime style as
 the attached image (crisp linework,
 cel shading, soft highlights). Full
 body, flat white background, no text.
-Neverdyne: a gentle, glowing butterfly
-spirit, a tribute: large wings of
-translucent stained-glass flower
-petals in pinks, purples and golds
-like a field of flowers, a soft purple
-aura, its small body a glowing 999
-sigil, two delicate antennae tipped
-with tiny Roman numerals XII and VIII,
-petals and light drifting off it.
-Peaceful, beautiful, eternal, quietly
-powerful.
-Pose: 3/4 view facing left, rising
-upward with wings spread wide in a
-soft beam of purple light.
+Neverdyne: a tall, lean angelic
+warrior made of purple dusk sky and
+starlight, with no clear face, only a
+calm glowing white halo where its eyes
+would be. Four huge wings: the upper
+two are butterfly wings of translucent
+stained-glass flower petals in pinks,
+purples and golds, the lower two are
+ghostly wings of soft smoke. Broken
+chains hang from both wrists as if it
+tore free. Wherever it lands, a field
+of flowers blooms. It holds a silver
+microphone like a sceptre. Powerful,
+calm, heartbroken but unbreakable, a
+final boss.
+Pose: 3/4 view facing left, hovering
+above a field of flowers, all four
+wings spread wide, one fist raised
+high, the microphone-sceptre held low.
 Keep it original, not any existing
 Pokemon.
 ```
@@ -3225,24 +3230,25 @@ attached image as pixel-art game
 sprites in ONE image, two rows, in
 exactly the layout, pixel size,
 outline weight and shading of the
-second attached image . Flat white
-background, no text, no shadow. Crisp
-hand-placed pixel clusters, flat
-colour areas with clean 2-3 step
-shading, no dithering, no noise, no
-blur. At most 15 colours shared by
-everything.
+second attached image (a big boss
+creature). Flat white background, no
+text, no shadow. Crisp hand-placed
+pixel clusters, flat colour areas with
+clean 2-3 step shading, no dithering,
+no noise, no blur. At most 15 colours
+shared by everything.
 TOP ROW: a pair of Pokemon Black/White
 2 battle sprites. LEFT: the front
-sprite, 3/4 view facing left, rising
-with wings spread wide. RIGHT: the
-back sprite, the SAME creature in the
-SAME pose with the camera moved behind
-it, as Black/White 2 shows your own
-Pokemon: we see the backs of the
-stained-glass petal wings and its
-glowing body, and it faces up and to
-the right.
+sprite, 3/4 view facing left,
+hovering, four wings spread, one fist
+raised, the microphone-sceptre held
+low. RIGHT: the back sprite, the SAME
+creature in the SAME pose with the
+camera moved behind it, as Black/White
+2 shows your own Pokemon: we see the
+backs of the four wings, the broken
+chains and its starlit body, and it
+faces up and to the right.
 BOTTOM ROW: 8 overworld follower
 sprites in the same chibi style with
 thick dark outlines, the creature
@@ -3251,12 +3257,14 @@ left, left, back-left, back, back-
 right, right, front-right, every frame
 the same size.
 Keep its design exactly as in the
-first image: a butterfly spirit with
-translucent stained-glass flower-petal
-wings, a purple aura, a glowing 999
-sigil body, antennae tipped with XII
-and VIII. Clear white gaps between all
-sprites.
+first image: a tall angelic warrior of
+purple sky and starlight, a glowing
+halo for eyes, two stained-glass petal
+butterfly wings above two smoke wings,
+broken chains on its wrists, a silver
+microphone-sceptre. Leave out the
+flower field. Clear white gaps between
+all sprites.
 ```
 
 ### R-J4a. Astrolean concept
@@ -3303,7 +3311,7 @@ attached image as pixel-art game
 sprites in ONE image, two rows, in
 exactly the layout, pixel size,
 outline weight and shading of the
-second attached image . Flat white
+second attached image. Flat white
 background, no text, no shadow. Crisp
 hand-placed pixel clusters, flat
 colour areas with clean 2-3 step
