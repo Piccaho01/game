@@ -86,7 +86,20 @@ Characters from the group's favourite media turn up around Verrow. **Rules (owne
 3. **Yeat**: loves Furnaxol's final evolution; gets his own custom Patchling.
 4. **Lil Uzi Vert**: Eternal Atake era (the forehead diamond).
 5. **Che, "the bass god"**.
-6. **SoFaygo**: Callum, Nolan and Haydon's all-time favourite; they saw him at the start of 2026.
+6. **SoFaygo** (designed 2026-11-03): Callum, Nolan and Haydon's all-time favourite; they saw him at
+   the start of 2026. Baby Jack era look (pink locs, black zip-detailed suit, white shirt, iced chain).
+   Cactus Jack sends you to his dark old-money mansion on Emberwick's rim after Travis. Lines: (knock
+   knock) "...Who's that? Oh, y'all. Come in." / "Let's lose our minds." / the three: "WE SAW YOU AT THE
+   START OF THE YEAR." "Oh word? Love y'all for real." / Dani: "Who is he?" "DANI." / losing: "That's
+   crazy. Y'all off the map." Fan bonus (+1 all stats) when Callum, Nolan or Haydon leads; a MANIA phase
+   at half HP. Patchlings:
+   - **Knockturn** (Dark, small; Knock Knock): a Beetlejuice-style striped-suit ghoul with wild pink
+     hair and a floating door. Signature **Knock Knock** (first, flinch).
+   - **Heartz** (Spark/Wind, mid; Pink Heartz): a broken pink heart holding its two halves together with
+     its own arms. Signature **Hell Yeah** (hits twice).
+   - **Manix** (Dark/Spark, big ace; MANIA): a tall suited figure with a cracked grandfather-clock head
+     and pink locs. Ability **Mania** (below half HP every move hits twice with recoil). Signature **Lose
+     Our Minds** (confuses both, hits hard). Bestiary: "Never on time. Always worth the wait." 
 7. **slayr**: the burger rapper; at his show a chubby guy let Callum try Chinese cigarettes ("they were fire").
 8. **Juice WRLD**: they all loved him; Nolan is the ultimate fan (knows every song, unreleased too).
 9. **Young Thug**: YSL's "slime reaper"; the boss over Ø Way.

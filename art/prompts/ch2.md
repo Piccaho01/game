@@ -3140,7 +3140,7 @@ Pokemon.
 ### R-J2b. Wreckoning sprites + walking sheet (one image)
 - **Save as:** `art/concepts/wreckoning_sprites.png`  ·  **Shape:** landscape
 - **Attach:** `art/concepts/wreckoning_concept.png` (made above), `art/concepts/astrohead_sprites.png`
-- **Downloads:** [astrohead_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/astrohead_sprites.png)
+- **Downloads:** [wreckoning_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/wreckoning_concept.png) · [astrohead_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/astrohead_sprites.png)
 
 ```
 Redraw the creature in the first
@@ -3222,7 +3222,7 @@ Pokemon.
 ### R-J3b. Neverdyne sprites + walking sheet (one image)
 - **Save as:** `art/concepts/neverdyne_sprites.png`  ·  **Shape:** landscape
 - **Attach:** `art/concepts/neverdyne_concept.png` (made above), `art/concepts/astrohead_sprites.png`
-- **Downloads:** [astrohead_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/astrohead_sprites.png)
+- **Downloads:** [neverdyne_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/neverdyne_concept.png) · [astrohead_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/astrohead_sprites.png)
 
 ```
 Redraw the creature in the first
@@ -3303,7 +3303,7 @@ Pokemon.
 ### R-J4b. Astrolean sprites + walking sheet (one image)
 - **Save as:** `art/concepts/astrolean_sprites.png`  ·  **Shape:** landscape
 - **Attach:** `art/concepts/astrolean_concept.png` (made above), `art/concepts/astrohead_sprites.png`
-- **Downloads:** [astrohead_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/astrohead_sprites.png)
+- **Downloads:** [astrolean_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/astrolean_concept.png) · [astrohead_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/astrohead_sprites.png)
 
 ```
 Redraw the creature in the first
@@ -3343,6 +3343,288 @@ nebula, a white-and-purple patched
 suit, orbiting pills, a glowing
 jetpack with a stardust trail. Clear
 white gaps between all sprites.
+```
+
+### R-S1. SoFaygo (Easter egg trainer, Emberwick)
+- **Save as:** `art/concepts/trainers/sofaygo.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/trainers/juice.png`, plus your photo of SoFaygo in the black suit (it stays out of the repo)
+- **Downloads:** [juice.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/trainers/juice.png)
+
+```
+Character sheet for a creature-
+collecting RPG in exactly the same
+style and layout as the first attached
+sheet: on the left a full-body anime
+illustration; top right a head close-
+up; middle right a big pixel-art
+trainer battle sprite in Pokemon
+Black/White 2 style, front only, full
+body, 3/4 view facing left, in a
+battle pose; bottom right two small
+pixel-art overworld sprites, standing
+still, in exactly the size and pixel
+style of the small sprites on the
+first sheet: one 3/4 front view facing
+down-left, one 3/4 back view facing
+up-left. Flat white background, no
+text.
+The person is SoFaygo, the young
+rapper in the second attached photo,
+in his "Baby Jack" era: shoulder-
+length pink dreadlocks, a smooth young
+face, a cool unbothered side-glance, a
+sleek tailored black suit jacket with
+vertical zip details down the front, a
+crisp white shirt buttoned to the top,
+an iced-out diamond chain, slim black
+trousers, black boots. Effortlessly
+cool, a little mysterious. Full-body
+pose: standing relaxed by an old
+grandfather clock, hands in pockets,
+glancing sideways. Battle pose: one
+hand up to his chest, head tilted
+back, mid-melody, pink light behind
+him. Colourway: black, white, pink,
+diamond silver.
+```
+
+### R-S2a. Knockturn concept
+- **Save as:** `art/concepts/knockturn_concept.png`  ·  **Shape:** square
+- **Attach:** `art/concepts/wreckoning_concept.png`
+- **Downloads:** [wreckoning_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/wreckoning_concept.png)
+
+```
+Official artwork of an original
+creature for a creature-collecting
+RPG, in the same clean anime style as
+the attached image (crisp linework,
+cel shading, soft highlights). Full
+body, flat white background, no text.
+Knockturn: a gleeful, gangly little
+ghoul creature in the style of a
+chaotic afterlife trickster: grey-
+green ghostly skin, wild messy pink
+hair sticking up, dark-ringed
+mischievous eyes, a huge cheeky grin,
+wearing a black-and-white vertical
+striped suit a bit too big for it, its
+long bony knuckles always raised as if
+about to knock. A small spectral front
+door floats behind it, half open, a
+brass knocker on it. Cheeky, spooky,
+funny.
+Pose: 3/4 view facing left, leaning
+out from behind the floating door, one
+bony hand knocking on the air toward
+the viewer, grinning.
+Keep it original, not any existing
+Pokemon.
+```
+
+### R-S2b. Knockturn sprites + walking sheet (one image)
+- **Save as:** `art/concepts/knockturn_sprites.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/knockturn_concept.png` (made above), `art/concepts/neverdyne_sprites.png`
+- **Downloads:** [neverdyne_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/neverdyne_sprites.png)
+
+```
+Redraw the creature in the first
+attached image as pixel-art game
+sprites in ONE image, two rows, in
+exactly the layout, pixel size,
+outline weight and shading of the
+second attached image. Flat white
+background, no text, no shadow. Crisp
+hand-placed pixel clusters, flat
+colour areas with clean 2-3 step
+shading, no dithering, no noise, no
+blur. At most 15 colours shared by
+everything.
+TOP ROW: a pair of Pokemon Black/White
+2 battle sprites. LEFT: the front
+sprite, 3/4 view facing left, leaning
+forward, bony hand knocking toward the
+viewer, grinning. RIGHT: the back
+sprite, the SAME creature in the SAME
+pose with the camera moved behind it,
+as Black/White 2 shows your own
+Pokemon: we see its striped suit from
+behind, the wild pink hair and the
+floating door, and it faces up and to
+the right.
+BOTTOM ROW: 8 overworld follower
+sprites in the same chibi style with
+thick dark outlines, the creature
+standing, left to right: front, front-
+left, left, back-left, back, back-
+right, right, front-right, every frame
+the same size.
+Keep its design exactly as in the
+first image: a gangly grey-green ghoul
+with wild pink hair, dark-ringed eyes,
+a big grin, a black-and-white striped
+suit, bony knocking hands, a small
+floating door with a brass knocker.
+Clear white gaps between all sprites.
+```
+
+### R-S3a. Heartz concept
+- **Save as:** `art/concepts/heartz_concept.png`  ·  **Shape:** square
+- **Attach:** `art/concepts/wreckoning_concept.png`
+- **Downloads:** [wreckoning_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/wreckoning_concept.png)
+
+```
+Official artwork of an original
+creature for a creature-collecting
+RPG, in the same clean anime style as
+the attached image (crisp linework,
+cel shading, soft highlights). Full
+body, flat white background, no text.
+Heartz: a glossy pink heart creature
+that has been broken clean in two down
+the middle, holding itself together
+with its own two little arms, hugging
+both halves tight; the crack between
+them glows bright pink, with a few
+stitches and safety pins across it,
+small sparks of pink light leaking
+out. Big glossy sad-but-determined
+eyes on one half, a small brave smile
+across the crack, tiny feet, an iced
+chain around its middle like a belt.
+Heartbroken but still standing.
+Pose: 3/4 view facing left, hugging
+its two halves together, chin up,
+bravely stepping forward.
+Keep it original, not any existing
+Pokemon.
+```
+
+### R-S3b. Heartz sprites + walking sheet (one image)
+- **Save as:** `art/concepts/heartz_sprites.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/heartz_concept.png` (made above), `art/concepts/neverdyne_sprites.png`
+- **Downloads:** [neverdyne_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/neverdyne_sprites.png)
+
+```
+Redraw the creature in the first
+attached image as pixel-art game
+sprites in ONE image, two rows, in
+exactly the layout, pixel size,
+outline weight and shading of the
+second attached image. Flat white
+background, no text, no shadow. Crisp
+hand-placed pixel clusters, flat
+colour areas with clean 2-3 step
+shading, no dithering, no noise, no
+blur. At most 15 colours shared by
+everything.
+TOP ROW: a pair of Pokemon Black/White
+2 battle sprites. LEFT: the front
+sprite, 3/4 view facing left, hugging
+its halves together, stepping forward.
+RIGHT: the back sprite, the SAME
+creature in the SAME pose with the
+camera moved behind it, as Black/White
+2 shows your own Pokemon: we see the
+back of the cracked heart, the
+stitches and its little arms wrapped
+round itself, and it faces up and to
+the right.
+BOTTOM ROW: 8 overworld follower
+sprites in the same chibi style with
+thick dark outlines, the creature
+standing, left to right: front, front-
+left, left, back-left, back, back-
+right, right, front-right, every frame
+the same size.
+Keep its design exactly as in the
+first image: a glossy pink heart split
+in two, holding itself together with
+its own arms, a glowing pink crack
+with stitches and safety pins, big
+brave eyes, an iced chain belt. Clear
+white gaps between all sprites.
+```
+
+### R-S4a. Manix concept
+- **Save as:** `art/concepts/manix_concept.png`  ·  **Shape:** square
+- **Attach:** `art/concepts/wreckoning_concept.png`
+- **Downloads:** [wreckoning_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/wreckoning_concept.png)
+
+```
+Official artwork of an original
+creature for a creature-collecting
+RPG, in the same clean anime style as
+the attached image (crisp linework,
+cel shading, soft highlights). Full
+body, flat white background, no text.
+Manix: a towering, elegant, unsettling
+creature in a sleek black tailored
+suit with vertical zip details and a
+crisp white collar, very tall and
+slender. Its head is a cracked antique
+grandfather-clock face, the hands
+spinning wildly, glowing pink light
+leaking out of the cracks, and long
+pink dreadlocks spilling down from the
+top of the clock. An iced-out chain
+hangs round its neck, a brass pendulum
+swings in its chest behind a glass
+panel. Pink strobe light flickers
+around it. Stylish, manic, menacing, a
+final boss.
+Pose: 3/4 view facing left, leaning
+forward with long arms spread, the
+clock hands spinning, pink light
+flaring from the cracks.
+Keep it original, not any existing
+Pokemon.
+```
+
+### R-S4b. Manix sprites + walking sheet (one image)
+- **Save as:** `art/concepts/manix_sprites.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/manix_concept.png` (made above), `art/concepts/neverdyne_sprites.png`
+- **Downloads:** [neverdyne_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/neverdyne_sprites.png)
+
+```
+Redraw the creature in the first
+attached image as pixel-art game
+sprites in ONE image, two rows, in
+exactly the layout, pixel size,
+outline weight and shading of the
+second attached image (a big boss
+creature). Flat white background, no
+text, no shadow. Crisp hand-placed
+pixel clusters, flat colour areas with
+clean 2-3 step shading, no dithering,
+no noise, no blur. At most 15 colours
+shared by everything.
+TOP ROW: a pair of Pokemon Black/White
+2 battle sprites. LEFT: the front
+sprite, 3/4 view facing left, leaning
+forward, long arms spread, the clock
+hands spinning. RIGHT: the back
+sprite, the SAME creature in the SAME
+pose with the camera moved behind it,
+as Black/White 2 shows your own
+Pokemon: we see the back of the suit,
+the clock head and the pink locs, and
+it faces up and to the right.
+BOTTOM ROW: 8 overworld follower
+sprites in the same chibi style with
+thick dark outlines, the creature
+standing, left to right: front, front-
+left, left, back-left, back, back-
+right, right, front-right, every frame
+the same size.
+Keep its design exactly as in the
+first image: a tall slender figure in
+a black zip-detailed suit and white
+collar, a cracked grandfather-clock
+face for a head with spinning hands,
+pink light from the cracks, long pink
+dreadlocks, an iced chain, a pendulum
+in its chest. Clear white gaps between
+all sprites.
 ```
 
 ## People
