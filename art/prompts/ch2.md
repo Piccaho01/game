@@ -3630,7 +3630,7 @@ Pokemon.
 ### R-Y2b. Halfblood sprites + walking sheet (one image)
 - **Save as:** `art/concepts/halfblood_sprites.png`  ·  **Shape:** landscape
 - **Attach:** `art/concepts/halfblood_concept.png` (made above), `art/concepts/neverdyne_sprites.png`
-- **Downloads:** [neverdyne_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/neverdyne_sprites.png)
+- **Downloads:** [halfblood_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/halfblood_concept.png) · [neverdyne_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/neverdyne_sprites.png)
 
 ```
 Redraw the creature in the first
@@ -3711,7 +3711,7 @@ Pokemon.
 ### R-Y3b. Bloodlux sprites + walking sheet (one image)
 - **Save as:** `art/concepts/bloodlux_sprites.png`  ·  **Shape:** landscape
 - **Attach:** `art/concepts/bloodlux_concept.png` (made above), `art/concepts/neverdyne_sprites.png`
-- **Downloads:** [neverdyne_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/neverdyne_sprites.png)
+- **Downloads:** [bloodlux_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/bloodlux_concept.png) · [neverdyne_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/neverdyne_sprites.png)
 
 ```
 Redraw the creature in the first
@@ -3789,7 +3789,7 @@ Pokemon.
 ### R-Y4b. Burgr sprites + walking sheet (one image)
 - **Save as:** `art/concepts/burgr_sprites.png`  ·  **Shape:** landscape
 - **Attach:** `art/concepts/burgr_concept.png` (made above), `art/concepts/dropbear_sprites.png`
-- **Downloads:** [dropbear_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/dropbear_sprites.png)
+- **Downloads:** [burgr_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/burgr_concept.png) · [dropbear_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/dropbear_sprites.png)
 
 ```
 Redraw the creature in the first
@@ -3827,6 +3827,270 @@ cap, dripping cheese, lettuce frill,
 baggy grey jeans, chunky sneakers, a
 star buckle, a grumpy pout. Clear
 white gaps between all sprites.
+```
+
+### R-C1. Che, the Bass God (Easter egg trainer, Nightmarket tunnels)
+- **Save as:** `art/concepts/trainers/che.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/trainers/slayr.png`
+- **Downloads:** [slayr.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/trainers/slayr.png)
+
+```
+Character sheet for a creature-
+collecting RPG in exactly the same
+style and layout as the attached
+sheet: on the left a full-body anime
+illustration; top right a head close-
+up; middle right a big pixel-art
+trainer battle sprite in Pokemon
+Black/White 2 style, front only, full
+body, 3/4 view facing left, in a
+battle pose; bottom right two small
+pixel-art overworld sprites, standing
+still, in exactly the size and pixel
+style of the small sprites on the
+attached sheet: one 3/4 front view
+facing down-left, one 3/4 back view
+facing up-left. Flat white background,
+no text.
+The person is Che, the "Bass God", a
+young Atlanta rage rapper with a
+metallic gothic style: dark eye make-
+up, tattoos on his hands and neck,
+long black draped avant-garde layers,
+a fitted black leather shirt, purple
+trousers, knee-high black platform
+boots, chunky silver metal jewellery.
+A fuzzy white bunny mask with long
+ears is pushed up on top of his head.
+Full-body pose: standing tall and
+lanky in front of a towering stack of
+speakers, one fist raised, head
+tilted. Battle pose: the bunny mask
+pulled down over his face, leaning
+into the mic, screaming, bass waves
+rippling. Colourway: black, purple,
+silver, white.
+```
+
+### R-C2a. Sayzbun concept
+- **Save as:** `art/concepts/sayzbun_concept.png`  ·  **Shape:** square
+- **Attach:** `art/concepts/burgr_concept.png`
+- **Downloads:** [burgr_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/burgr_concept.png)
+
+```
+Official artwork of an original
+creature for a creature-collecting
+RPG, in the same clean anime style as
+the attached image (crisp linework,
+cel shading, soft highlights). Full
+body, flat white background, no text.
+Sayzbun: a small, creepy-cute party
+creature from a melodic rager era: a
+little dark figure in a fuzzy white
+bunny mask with long floppy ears and
+blank button eyes, a stitched smile,
+wearing an oversized black hoodie,
+tiny platform boots, a glowstick
+bracelet, purple party lights around
+it. Mischievous, eerie, playful.
+Pose: 3/4 view facing left, mid-dance,
+one hand waving a glowstick, the bunny
+mask tilted, ears flopping.
+Keep it original, not any existing
+Pokemon.
+```
+
+### R-C2b. Sayzbun sprites + walking sheet (one image)
+- **Save as:** `art/concepts/sayzbun_sprites.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/sayzbun_concept.png` (made above), `art/concepts/burgr_sprites.png`
+- **Downloads:** [burgr_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/burgr_sprites.png)
+
+```
+Redraw the creature in the first
+attached image as pixel-art game
+sprites in ONE image, two rows, in
+exactly the layout, pixel size,
+outline weight and shading of the
+second attached image (a small
+creature). Flat white background, no
+text, no shadow. Crisp hand-placed
+pixel clusters, flat colour areas with
+clean 2-3 step shading, no dithering,
+no noise, no blur. At most 15 colours
+shared by everything.
+TOP ROW: a pair of Pokemon Black/White
+2 battle sprites. LEFT: the front
+sprite, 3/4 view facing left, mid-
+dance, waving a glowstick, the mask
+tilted. RIGHT: the back sprite, the
+SAME creature in the SAME pose with
+the camera moved behind it, as
+Black/White 2 shows your own Pokemon:
+we see the back of the hoodie, the
+long bunny ears and the boots, and it
+faces up and to the right.
+BOTTOM ROW: 8 overworld follower
+sprites in the same chibi style with
+thick dark outlines, the creature
+standing, left to right: front, front-
+left, left, back-left, back, back-
+right, right, front-right, every frame
+the same size.
+Keep its design exactly as in the
+first image: a small dark figure in a
+fuzzy white bunny mask with long ears
+and button eyes, a stitched smile, an
+oversized black hoodie, tiny platform
+boots, a glowstick. Clear white gaps
+between all sprites.
+```
+
+### R-C3a. Subwoof concept
+- **Save as:** `art/concepts/subwoof_concept.png`  ·  **Shape:** square
+- **Attach:** `art/concepts/burgr_concept.png`
+- **Downloads:** [burgr_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/burgr_concept.png)
+
+```
+Official artwork of an original
+creature for a creature-collecting
+RPG, in the same clean anime style as
+the attached image (crisp linework,
+cel shading, soft highlights). Full
+body, flat white background, no text.
+Subwoof: a gothic little wolf pup
+whose chest is a round black subwoofer
+speaker cone that pulses, black fur
+fringed like draped fabric, silver
+studs on its collar and paws, dark
+eyeliner markings around glowing
+purple eyes, small silver rings in its
+ears. Tough, loud, cute.
+Pose: 3/4 view facing left, howling
+with its chest speaker blasting a bass
+ring.
+Keep it original, not any existing
+Pokemon.
+```
+
+### R-C3b. Subwoof sprites + walking sheet (one image)
+- **Save as:** `art/concepts/subwoof_sprites.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/subwoof_concept.png` (made above), `art/concepts/burgr_sprites.png`
+- **Downloads:** [burgr_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/burgr_sprites.png)
+
+```
+Redraw the creature in the first
+attached image as pixel-art game
+sprites in ONE image, two rows, in
+exactly the layout, pixel size,
+outline weight and shading of the
+second attached image (a small
+creature). Flat white background, no
+text, no shadow. Crisp hand-placed
+pixel clusters, flat colour areas with
+clean 2-3 step shading, no dithering,
+no noise, no blur. At most 15 colours
+shared by everything.
+TOP ROW: a pair of Pokemon Black/White
+2 battle sprites. LEFT: the front
+sprite, 3/4 view facing left, howling,
+its chest speaker blasting. RIGHT: the
+back sprite, the SAME creature in the
+SAME pose with the camera moved behind
+it, as Black/White 2 shows your own
+Pokemon: we see its fringed black
+back, studded collar and tail, and it
+faces up and to the right.
+BOTTOM ROW: 8 overworld follower
+sprites in the same chibi style with
+thick dark outlines, the creature
+standing, left to right: front, front-
+left, left, back-left, back, back-
+right, right, front-right, every frame
+the same size.
+Keep its design exactly as in the
+first image: a gothic wolf pup with a
+subwoofer chest, fringed black fur,
+silver studs, eyeliner markings,
+purple eyes, ear rings. Clear white
+gaps between all sprites.
+```
+
+### R-C4a. Bassreaper concept
+- **Save as:** `art/concepts/bassreaper_concept.png`  ·  **Shape:** square
+- **Attach:** `art/concepts/dondalith_concept.png`
+- **Downloads:** [dondalith_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/dondalith_concept.png)
+
+```
+Official artwork of an original
+creature for a creature-collecting
+RPG, in the same clean anime style as
+the attached image (crisp linework,
+cel shading, soft highlights). Full
+body, flat white background, no text.
+Bassreaper: a towering gothic reaper
+made of chrome and black leather, long
+draped avant-garde robes and a deep
+hood, knee-high black platform boots,
+a chrome mask for a face with empty
+black eye holes, a ribcage made of
+stacked speaker cones that thump with
+bass, silver chains, and a huge scythe
+whose handle is the neck of a bass
+guitar with tuning pegs and a curved
+steel blade at the end. Metallic,
+gothic, terrifying, a final boss.
+Pose: 3/4 view facing left, swinging
+the bass-guitar scythe overhead,
+speaker ribcage blasting, robes
+billowing.
+Keep it original, not any existing
+Pokemon.
+```
+
+### R-C4b. Bassreaper sprites + walking sheet (one image)
+- **Save as:** `art/concepts/bassreaper_sprites.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/bassreaper_concept.png` (made above), `art/concepts/dondalith_sprites.png`
+- **Downloads:** [dondalith_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/dondalith_sprites.png)
+
+```
+Redraw the creature in the first
+attached image as pixel-art game
+sprites in ONE image, two rows, in
+exactly the layout, pixel size,
+outline weight and shading of the
+second attached image (a big boss
+creature). Flat white background, no
+text, no shadow. Crisp hand-placed
+pixel clusters, flat colour areas with
+clean 2-3 step shading, no dithering,
+no noise, no blur. At most 15 colours
+shared by everything.
+TOP ROW: a pair of Pokemon Black/White
+2 battle sprites. LEFT: the front
+sprite, 3/4 view facing left, swinging
+the bass scythe overhead, speakers
+blasting. RIGHT: the back sprite, the
+SAME creature in the SAME pose with
+the camera moved behind it, as
+Black/White 2 shows your own Pokemon:
+we see its long hood, draped robes,
+platform boots and the scythe, and it
+faces up and to the right.
+BOTTOM ROW: 8 overworld follower
+sprites in the same chibi style with
+thick dark outlines, the creature
+standing, left to right: front, front-
+left, left, back-left, back, back-
+right, right, front-right, every frame
+the same size.
+Keep its design exactly as in the
+first image: a towering chrome-and-
+leather gothic reaper, draped robes
+and hood, platform boots, a chrome
+mask with black eye holes, a speaker-
+cone ribcage, chains, a bass-guitar
+scythe. Clear white gaps between all
+sprites.
 ```
 
 ## People

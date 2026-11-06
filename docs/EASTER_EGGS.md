@@ -85,7 +85,19 @@ Characters from the group's favourite media turn up around Verrow. **Rules (owne
 2. **Opium vamp gang**: Playboi Carti, Destroy Lonely, Ken Carson (Nightmarket).
 3. **Yeat**: loves Furnaxol's final evolution; gets his own custom Patchling.
 4. **Lil Uzi Vert**: Eternal Atake era (the forehead diamond).
-5. **Che, "the bass god"**.
+5. **Che, "the Bass God"** (designed 2026-11-06): Atlanta rage rapper/producer (aliases BASS GOD, BASS
+   KILLER; closed captions, Sayso Says, Rest In Bass 2025, Encore). Metallic gothic Rick Owens look,
+   eye make-up, tattoos, purple trousers, leather shirt, knee-high platform boots, the Sayso Says bunny
+   mask on his head. Nightmarket's subway tunnels, a gothic bass rave. Lines: "Y'all hear that? ...That's
+   the bass. Rest in peace." / Dani: "Why my teeth are shaking?" / losing: "...Rest in bass." Beat switch
+   every 3 turns (moves swap); at half HP the screen goes red, his eyes black: BASS KILLER.
+   - **Sayzbun** (Dark, small; Sayso Says): a creepy-cute bunny-mask party creature. Signature **Sayso**
+     (copies the foe's last move).
+   - **Subwoof** (Dark/Spark, small): gothic wolf pup with a subwoofer chest. Signature **808** (-Defense).
+   - **Bassreaper** (Dark/Metal, big ace; Rest In Bass): chrome-and-leather reaper, speaker ribcage,
+     bass-guitar scythe. Ability **Rest In Bass** (after a KO the next foe takes bass damage on entry).
+     Signature **Bass Drop** (ignores defense boosts). Bestiary: "The bass was so loud the dead got up to
+     leave."
 6. **SoFaygo** (designed 2026-11-03): Callum, Nolan and Haydon's all-time favourite; they saw him at
    the start of 2026. Baby Jack era look (pink locs, black zip-detailed suit, white shirt, iced chain).
    Cactus Jack sends you to his dark old-money mansion on Emberwick's rim after Travis. Lines: (knock
