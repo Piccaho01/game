@@ -83,7 +83,20 @@ Characters from the group's favourite media turn up around Verrow. **Rules (owne
 1. **Ø Way**: tezzus with rexv2 diamond, sk8star and pz, their gang (a 4-trainer group fight); owned
    by Young Thug.
 2. **Opium vamp gang**: Playboi Carti, Destroy Lonely, Ken Carson (Nightmarket).
-3. **Yeat**: loves Furnaxol's final evolution; gets his own custom Patchling.
+3. **Yeat** (designed 2026-11-06): the CEO of 2093 (Up 2 Më, AftërLyfe, 2093, Lyfestyle, Dangerous
+   Summer). Off-stage look (slicked hair, rimless shades, moustache, chains, black silk shirt); stage look
+   for battle (white balaclava, all white, scarf, fire). The Draft Archive's 2093 wing, a neon boardroom.
+   With a Vitric on Callum's team: "...is that a glass axolotl? Twizzy. I need that." Lines, in his slang
+   (twizzy, tonka = his Urus, luh geeky): bell rings, "Yeah... it's tonka." / "I just turned into a tonka."
+   / "I'm the CEO of 2093, I don't do meetings." / "Sorry 'bout that." (after every hit he lands) / "Luh
+   geeky." (when he crits) / Haydon: "nah that's cap." "Not cap. Twizzy." / Dani: "Why he say it like
+   that?" Callum: "Nobody knows, Dani." / losing: "...Dangerous summer, huh." A bell every few turns
+   (next move first); at half HP, 2093 mode (team becomes Metal).
+   - **Bellwether** (Metal/Spark, small; Up 2 Më): brass bell creature in shades and chains. **Ring**.
+   - **Tonkruck** (Rock/Fire, big; Lyfestyle): luxury-SUV monster truck beast. **Tonka**.
+   - **CEO-2093** (Metal/Dark, big ace; 2093): cyborg executive. Ability **Hostile Takeover**. Signature
+     **Twizzy** (glitch beam of the foe's weakness). Bestiary: "Bought the future. Charges rent on the
+     present." 
 4. **Lil Uzi Vert**: Eternal Atake era (the forehead diamond).
 5. **Che, "the Bass God"** (designed 2026-11-06): Atlanta rage rapper/producer (aliases BASS GOD, BASS
    KILLER; closed captions, Sayso Says, Rest In Bass 2025, Encore). Metallic gothic Rick Owens look,

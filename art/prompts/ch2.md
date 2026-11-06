@@ -3903,7 +3903,7 @@ Pokemon.
 ### R-C2b. Sayzbun sprites + walking sheet (one image)
 - **Save as:** `art/concepts/sayzbun_sprites.png`  ·  **Shape:** landscape
 - **Attach:** `art/concepts/sayzbun_concept.png` (made above), `art/concepts/burgr_sprites.png`
-- **Downloads:** [burgr_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/burgr_sprites.png)
+- **Downloads:** [sayzbun_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/sayzbun_concept.png) · [burgr_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/burgr_sprites.png)
 
 ```
 Redraw the creature in the first
@@ -3975,7 +3975,7 @@ Pokemon.
 ### R-C3b. Subwoof sprites + walking sheet (one image)
 - **Save as:** `art/concepts/subwoof_sprites.png`  ·  **Shape:** landscape
 - **Attach:** `art/concepts/subwoof_concept.png` (made above), `art/concepts/burgr_sprites.png`
-- **Downloads:** [burgr_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/burgr_sprites.png)
+- **Downloads:** [subwoof_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/subwoof_concept.png) · [burgr_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/burgr_sprites.png)
 
 ```
 Redraw the creature in the first
@@ -4050,7 +4050,7 @@ Pokemon.
 ### R-C4b. Bassreaper sprites + walking sheet (one image)
 - **Save as:** `art/concepts/bassreaper_sprites.png`  ·  **Shape:** landscape
 - **Attach:** `art/concepts/bassreaper_concept.png` (made above), `art/concepts/dondalith_sprites.png`
-- **Downloads:** [dondalith_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/dondalith_sprites.png)
+- **Downloads:** [bassreaper_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/bassreaper_concept.png) · [dondalith_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/dondalith_sprites.png)
 
 ```
 Redraw the creature in the first
@@ -4091,6 +4091,272 @@ mask with black eye holes, a speaker-
 cone ribcage, chains, a bass-guitar
 scythe. Clear white gaps between all
 sprites.
+```
+
+### R-Q1. Yeat (Easter egg trainer, the Archive's 2093 wing)
+- **Save as:** `art/concepts/trainers/yeat.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/trainers/che.png`, plus your two photos of Yeat (they stay out of the repo)
+- **Downloads:** [che.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/trainers/che.png)
+
+```
+Character sheet for a creature-
+collecting RPG in exactly the same
+style and layout as the first attached
+sheet: on the left a full-body anime
+illustration; top right a head close-
+up; middle right a big pixel-art
+trainer battle sprite in Pokemon
+Black/White 2 style, front only, full
+body, 3/4 view facing left, in a
+battle pose; bottom right two small
+pixel-art overworld sprites, standing
+still, in exactly the size and pixel
+style of the small sprites on the
+first sheet: one 3/4 front view facing
+down-left, one 3/4 back view facing
+up-left. Flat white background, no
+text.
+The person is Yeat, the rapper in the
+attached photos. Off-stage look for
+the full-body illustration, head
+close-up and overworld sprites:
+slicked-back messy dark hair, thin
+rimless dark sunglasses, a thin
+moustache and goatee, neck tattoos,
+layered heavy silver chains, a black
+silk shirt open at the chest. Stage
+look for the battle sprite: a white
+balaclava pulled up over his face, an
+all-white oversized tee and long white
+shorts, a white scarf flying, a
+bandana round his neck, white
+sneakers, a microphone, flames behind
+him. Full-body pose: standing still,
+deadpan, staring through his
+sunglasses. Battle pose: the stage
+look, leaping mid-air, mic in hand,
+scarf flying, fire behind. Colourway:
+black, white, silver.
+```
+
+### R-Q2a. Bellwether concept
+- **Save as:** `art/concepts/bellwether_concept.png`  ·  **Shape:** square
+- **Attach:** `art/concepts/sayzbun_concept.png`
+- **Downloads:** [sayzbun_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/sayzbun_concept.png)
+
+```
+Official artwork of an original
+creature for a creature-collecting
+RPG, in the same clean anime style as
+the attached image (crisp linework,
+cel shading, soft highlights). Full
+body, flat white background, no text.
+Bellwether: a small chunky brass bell
+creature, the bell is its body, with a
+swinging clapper tongue sticking out
+of its mouth, two little stubby legs,
+tiny arms, thin rimless dark
+sunglasses, a puffy black jacket and
+layered silver chains, sound rings
+coming off it every time it moves.
+Cocky and loud.
+Pose: 3/4 view facing left, mid-hop,
+ringing itself with a big clang,
+chains bouncing.
+Keep it original, not any existing
+Pokemon.
+```
+
+### R-Q2b. Bellwether sprites + walking sheet (one image)
+- **Save as:** `art/concepts/bellwether_sprites.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/bellwether_concept.png` (made above), `art/concepts/sayzbun_sprites.png`
+- **Downloads:** [sayzbun_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/sayzbun_sprites.png)
+
+```
+Redraw the creature in the first
+attached image as pixel-art game
+sprites in ONE image, two rows, in
+exactly the layout, pixel size,
+outline weight and shading of the
+second attached image (a small
+creature). Flat white background, no
+text, no shadow. Crisp hand-placed
+pixel clusters, flat colour areas with
+clean 2-3 step shading, no dithering,
+no noise, no blur. At most 15 colours
+shared by everything.
+TOP ROW: a pair of Pokemon Black/White
+2 battle sprites. LEFT: the front
+sprite, 3/4 view facing left, mid-hop,
+clanging, chains bouncing. RIGHT: the
+back sprite, the SAME creature in the
+SAME pose with the camera moved behind
+it, as Black/White 2 shows your own
+Pokemon: we see the back of the brass
+bell, the puffer and chains, and it
+faces up and to the right.
+BOTTOM ROW: 8 overworld follower
+sprites in the same chibi style with
+thick dark outlines, the creature
+standing, left to right: front, front-
+left, left, back-left, back, back-
+right, right, front-right, every frame
+the same size.
+Keep its design exactly as in the
+first image: a small brass bell
+creature with a clapper tongue, little
+legs and arms, rimless dark
+sunglasses, a black puffer and silver
+chains. Clear white gaps between all
+sprites.
+```
+
+### R-Q3a. Tonkruck concept
+- **Save as:** `art/concepts/tonkruck_concept.png`  ·  **Shape:** square
+- **Attach:** `art/concepts/bassreaper_concept.png`
+- **Downloads:** [bassreaper_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/bassreaper_concept.png)
+
+```
+Official artwork of an original
+creature for a creature-collecting
+RPG, in the same clean anime style as
+the attached image (crisp linework,
+cel shading, soft highlights). Full
+body, flat white background, no text.
+Tonkruck: a hulking living monster-
+truck creature built like a luxury SUV
+turned beast: a black glossy body,
+grill-teeth mouth, headlight eyes
+behind thin rimless sunglasses, giant
+knobbly tyres with flames trailing off
+them, silver chains slung over its
+hood, a little bell hanging from its
+mirror. A wild horse silhouette and a
+burning house glow behind it. Loud,
+rich, reckless.
+Pose: 3/4 view facing left, rearing up
+on its back tyres, flames shooting
+from the wheels.
+Keep it original, not any existing
+Pokemon.
+```
+
+### R-Q3b. Tonkruck sprites + walking sheet (one image)
+- **Save as:** `art/concepts/tonkruck_sprites.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/tonkruck_concept.png` (made above), `art/concepts/bassreaper_sprites.png`
+- **Downloads:** [bassreaper_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/bassreaper_sprites.png)
+
+```
+Redraw the creature in the first
+attached image as pixel-art game
+sprites in ONE image, two rows, in
+exactly the layout, pixel size,
+outline weight and shading of the
+second attached image (a big
+creature). Flat white background, no
+text, no shadow. Crisp hand-placed
+pixel clusters, flat colour areas with
+clean 2-3 step shading, no dithering,
+no noise, no blur. At most 15 colours
+shared by everything.
+TOP ROW: a pair of Pokemon Black/White
+2 battle sprites. LEFT: the front
+sprite, 3/4 view facing left, rearing
+up on its back tyres, flames from the
+wheels. RIGHT: the back sprite, the
+SAME creature in the SAME pose with
+the camera moved behind it, as
+Black/White 2 shows your own Pokemon:
+we see its back bumper, exhaust and
+chains, and it faces up and to the
+right.
+BOTTOM ROW: 8 overworld follower
+sprites in the same chibi style with
+thick dark outlines, the creature
+standing, left to right: front, front-
+left, left, back-left, back, back-
+right, right, front-right, every frame
+the same size.
+Keep its design exactly as in the
+first image: a black luxury-SUV
+monster truck creature with a grill
+mouth, headlight eyes and rimless
+sunglasses, flaming giant tyres,
+silver chains, a little bell. Clear
+white gaps between all sprites.
+```
+
+### R-Q4a. CEO-2093 concept
+- **Save as:** `art/concepts/ceo2093_concept.png`  ·  **Shape:** square
+- **Attach:** `art/concepts/bassreaper_concept.png`
+- **Downloads:** [bassreaper_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/bassreaper_concept.png)
+
+```
+Official artwork of an original
+creature for a creature-collecting
+RPG, in the same clean anime style as
+the attached image (crisp linework,
+cel shading, soft highlights). Full
+body, flat white background, no text.
+CEO-2093: a towering cyborg executive
+from a dystopian 2093: a smooth chrome
+face mask, a sharp black suit cut with
+glowing neon circuit lines, a bell-
+shaped chrome crest on its head,
+mechanical clawed hands, cables
+trailing from its back like a cape,
+holographic stock charts and glitching
+screens swirling around it. Cold,
+rich, untouchable, a final boss.
+Pose: 3/4 view facing left, one hand
+raised summoning holographic charts,
+the other adjusting its tie.
+Keep it original, not any existing
+Pokemon.
+```
+
+### R-Q4b. CEO-2093 sprites + walking sheet (one image)
+- **Save as:** `art/concepts/ceo2093_sprites.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/ceo2093_concept.png` (made above), `art/concepts/bassreaper_sprites.png`
+- **Downloads:** [bassreaper_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/bassreaper_sprites.png)
+
+```
+Redraw the creature in the first
+attached image as pixel-art game
+sprites in ONE image, two rows, in
+exactly the layout, pixel size,
+outline weight and shading of the
+second attached image (a big boss
+creature). Flat white background, no
+text, no shadow. Crisp hand-placed
+pixel clusters, flat colour areas with
+clean 2-3 step shading, no dithering,
+no noise, no blur. At most 15 colours
+shared by everything.
+TOP ROW: a pair of Pokemon Black/White
+2 battle sprites. LEFT: the front
+sprite, 3/4 view facing left, one hand
+raised summoning holograms. RIGHT: the
+back sprite, the SAME creature in the
+SAME pose with the camera moved behind
+it, as Black/White 2 shows your own
+Pokemon: we see its cable cape, suit
+back and bell crest, and it faces up
+and to the right.
+BOTTOM ROW: 8 overworld follower
+sprites in the same chibi style with
+thick dark outlines, the creature
+standing, left to right: front, front-
+left, left, back-left, back, back-
+right, right, front-right, every frame
+the same size.
+Keep its design exactly as in the
+first image: a towering chrome-masked
+cyborg executive in a black suit with
+neon circuit lines, a bell-shaped
+crest, claw hands, a cable cape,
+holographic charts. Clear white gaps
+between all sprites.
 ```
 
 ## People
