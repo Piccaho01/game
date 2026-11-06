@@ -99,9 +99,7 @@ Characters from the group's favourite media turn up around Verrow. **Rules (owne
      porcelain circle and golden plus on its belly (the plus turns like a dial), sheer fabric draped from
      its arms, a serene "too up" face. Ability **Too Up** (its stats can't be lowered). Signature **4SUM+**
      (raises a random stat each turn it rests; the plus ticks round).
-   - **Manix** (Dark/Spark, big ace; MANIA): a tall suited figure with a cracked grandfather-clock head
-     and pink locs. Ability **Mania** (below half HP every move hits twice with recoil). Signature **Lose
-     Our Minds** (confuses both, hits hard). Bestiary: "Never on time. Always worth the wait." 
+   - Manix: scrapped (owner's call). Summa (GO+) is his ace.
 7. **slayr**: the burger rapper; at his show a chubby guy let Callum try Chinese cigarettes ("they were fire").
 8. **Juice WRLD**: they all loved him; Nolan is the ultimate fan (knows every song, unreleased too).
 9. **Young Thug**: YSL's "slime reaper"; the boss over Ø Way.

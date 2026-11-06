@@ -3424,7 +3424,7 @@ Pokemon.
 ### R-S2b. Knockturn sprites + walking sheet (one image)
 - **Save as:** `art/concepts/knockturn_sprites.png`  ·  **Shape:** landscape
 - **Attach:** `art/concepts/knockturn_concept.png` (made above), `art/concepts/neverdyne_sprites.png`
-- **Downloads:** [neverdyne_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/neverdyne_sprites.png)
+- **Downloads:** [knockturn_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/knockturn_concept.png) · [neverdyne_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/neverdyne_sprites.png)
 
 ```
 Redraw the creature in the first
@@ -3504,7 +3504,7 @@ Pokemon.
 ### R-S3b. Summa sprites + walking sheet (one image)
 - **Save as:** `art/concepts/summa_sprites.png`  ·  **Shape:** landscape
 - **Attach:** `art/concepts/summa_concept.png` (made above), `art/concepts/neverdyne_sprites.png`
-- **Downloads:** [neverdyne_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/neverdyne_sprites.png)
+- **Downloads:** [summa_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/summa_concept.png) · [neverdyne_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/neverdyne_sprites.png)
 
 ```
 Redraw the creature in the first
@@ -3545,88 +3545,6 @@ with a golden plus on its belly, sheer
 fabric draped from its thick arms, a
 small serene unbothered face. Clear
 white gaps between all sprites.
-```
-
-### R-S4a. Manix concept
-- **Save as:** `art/concepts/manix_concept.png`  ·  **Shape:** square
-- **Attach:** `art/concepts/wreckoning_concept.png`
-- **Downloads:** [wreckoning_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/wreckoning_concept.png)
-
-```
-Official artwork of an original
-creature for a creature-collecting
-RPG, in the same clean anime style as
-the attached image (crisp linework,
-cel shading, soft highlights). Full
-body, flat white background, no text.
-Manix: a towering, elegant, unsettling
-creature in a sleek black tailored
-suit with vertical zip details and a
-crisp white collar, very tall and
-slender. Its head is a cracked antique
-grandfather-clock face, the hands
-spinning wildly, glowing pink light
-leaking out of the cracks, and long
-pink dreadlocks spilling down from the
-top of the clock. An iced-out chain
-hangs round its neck, a brass pendulum
-swings in its chest behind a glass
-panel. Pink strobe light flickers
-around it. Stylish, manic, menacing, a
-final boss.
-Pose: 3/4 view facing left, leaning
-forward with long arms spread, the
-clock hands spinning, pink light
-flaring from the cracks.
-Keep it original, not any existing
-Pokemon.
-```
-
-### R-S4b. Manix sprites + walking sheet (one image)
-- **Save as:** `art/concepts/manix_sprites.png`  ·  **Shape:** landscape
-- **Attach:** `art/concepts/manix_concept.png` (made above), `art/concepts/neverdyne_sprites.png`
-- **Downloads:** [neverdyne_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/neverdyne_sprites.png)
-
-```
-Redraw the creature in the first
-attached image as pixel-art game
-sprites in ONE image, two rows, in
-exactly the layout, pixel size,
-outline weight and shading of the
-second attached image (a big boss
-creature). Flat white background, no
-text, no shadow. Crisp hand-placed
-pixel clusters, flat colour areas with
-clean 2-3 step shading, no dithering,
-no noise, no blur. At most 15 colours
-shared by everything.
-TOP ROW: a pair of Pokemon Black/White
-2 battle sprites. LEFT: the front
-sprite, 3/4 view facing left, leaning
-forward, long arms spread, the clock
-hands spinning. RIGHT: the back
-sprite, the SAME creature in the SAME
-pose with the camera moved behind it,
-as Black/White 2 shows your own
-Pokemon: we see the back of the suit,
-the clock head and the pink locs, and
-it faces up and to the right.
-BOTTOM ROW: 8 overworld follower
-sprites in the same chibi style with
-thick dark outlines, the creature
-standing, left to right: front, front-
-left, left, back-left, back, back-
-right, right, front-right, every frame
-the same size.
-Keep its design exactly as in the
-first image: a tall slender figure in
-a black zip-detailed suit and white
-collar, a cracked grandfather-clock
-face for a head with spinning hands,
-pink light from the cracks, long pink
-dreadlocks, an iced chain, a pendulum
-in its chest. Clear white gaps between
-all sprites.
 ```
 
 ## People
