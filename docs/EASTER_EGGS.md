@@ -100,7 +100,18 @@ Characters from the group's favourite media turn up around Verrow. **Rules (owne
      its arms, a serene "too up" face. Ability **Too Up** (its stats can't be lowered). Signature **4SUM+**
      (raises a random stat each turn it rests; the plus ticks round).
    - Manix: scrapped (owner's call). Summa (GO+) is his ace.
-7. **slayr**: the burger rapper; at his show a chubby guy let Callum try Chinese cigarettes ("they were fire").
+7. **slayr** (designed 2026-11-06): Philly rage/digicore rapper (ex Slayer77, also a streamer; Half Blood,
+   BloodLuxe, Avant Nova). Look from the owner's photo: red trucker cap, black anime tee over grey long
+   sleeve, star buckle, huge washed grey jeans, chunky sneakers. Dead Drive-In, his set on the screen like a
+   stream; boss title cards per Patchling. The group still calls him "the burger" (he hates it). Lines:
+   "Y'all came to the Drive-In for the Half Blood? Say less." / Haydon: "bro got a negative aura." "And you
+   came anyway." / losing: "GG. Run it back on stream." **Cameo:** the chubby guy at the concession stand
+   gives Callum Chinese cigarettes ("they were fire") and says: "man them motherfuckas in there were
+   crazyyyyy" / "it was sooo scaryyyy".
+   - **Halfblood** (Relic/Dark, big ace): the praying armoured avatar from the Half Blood cover, hair split
+     red and violet, blood-drop crown, eyed sun and sleepy moon, unicorn and pink dragon spirits. Ability
+     **Half Blood** (below half HP: big Attack boost).
+   - **Bloodlux** (Dark/Fire): the BloodLuxe cover's eye orb over a ring of swords, dragon and horse mist.
 8. **Juice WRLD**: they all loved him; Nolan is the ultimate fan (knows every song, unreleased too).
 9. **Young Thug**: YSL's "slime reaper"; the boss over Ø Way.
 10. **Frank Ocean**.

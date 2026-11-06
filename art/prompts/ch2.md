@@ -3547,6 +3547,213 @@ small serene unbothered face. Clear
 white gaps between all sprites.
 ```
 
+### R-Y1. slayr (Easter egg trainer, Dead Drive-In)
+- **Save as:** `art/concepts/trainers/slayr.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/trainers/juice.png`, plus your photo of slayr (it stays out of the repo)
+- **Downloads:** [juice.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/trainers/juice.png)
+
+```
+Character sheet for a creature-
+collecting RPG in exactly the same
+style and layout as the first attached
+sheet: on the left a full-body anime
+illustration; top right a head close-
+up; middle right a big pixel-art
+trainer battle sprite in Pokemon
+Black/White 2 style, front only, full
+body, 3/4 view facing left, in a
+battle pose; bottom right two small
+pixel-art overworld sprites, standing
+still, in exactly the size and pixel
+style of the small sprites on the
+first sheet: one 3/4 front view facing
+down-left, one 3/4 back view facing
+up-left. Flat white background, no
+text.
+The person is slayr, the young
+underground rapper in the second
+attached photo: a teenager with a
+solid build, short hair, a calm
+unbothered face, a red trucker cap, a
+black anime graphic tee layered over a
+grey long-sleeve shirt, a black belt
+with a star buckle, extremely baggy
+washed grey distressed jeans with a
+small red patch, chunky grey-and-white
+sneakers. Full-body pose: standing
+with one hand in his pocket, looking
+off to the side, cool and quiet.
+Battle pose: mic held low, other arm
+thrown out, mid-rage, energy
+crackling. Colourway: red, black,
+washed grey.
+```
+
+### R-Y2a. Halfblood concept
+- **Save as:** `art/concepts/halfblood_concept.png`  ·  **Shape:** square
+- **Attach:** `art/concepts/neverdyne_concept.png`, `art/prompts/ref/slayr_halfblood_cover.png`
+- **Downloads:** [neverdyne_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/neverdyne_concept.png) · [slayr_halfblood_cover.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/prompts/ref/slayr_halfblood_cover.png)
+
+```
+Official artwork of an original
+creature for a creature-collecting
+RPG, in the same clean anime style as
+the first attached image (crisp
+linework, cel shading, soft
+highlights). Full body, flat white
+background, no text.
+Halfblood: a creature based on the
+praying avatar from the second
+attached album cover: a tall, slender
+armoured knight-saint in shining
+silver plate armour, hands pressed
+together in prayer, eyes closed,
+serene. Its long hair is split down
+the middle, one half blood red and one
+half violet, and on its head sits a
+crown of small red blood-drop bulbs.
+Behind it float a burning orange sun
+with one eye and a pale blue crescent
+moon with a sleepy face. A small white
+unicorn and a small pink serpent-
+dragon circle around it like spirits.
+Holy, eerie, dangerous, a final boss.
+Pose: 3/4 view facing left, floating
+slightly above the grass, hands in
+prayer, the sun and moon behind its
+shoulders, the unicorn and dragon
+spirits circling.
+Keep it original, not any existing
+Pokemon.
+```
+
+### R-Y2b. Halfblood sprites + walking sheet (one image)
+- **Save as:** `art/concepts/halfblood_sprites.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/halfblood_concept.png` (made above), `art/concepts/neverdyne_sprites.png`
+- **Downloads:** [neverdyne_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/neverdyne_sprites.png)
+
+```
+Redraw the creature in the first
+attached image as pixel-art game
+sprites in ONE image, two rows, in
+exactly the layout, pixel size,
+outline weight and shading of the
+second attached image (a big boss
+creature). Flat white background, no
+text, no shadow. Crisp hand-placed
+pixel clusters, flat colour areas with
+clean 2-3 step shading, no dithering,
+no noise, no blur. At most 15 colours
+shared by everything.
+TOP ROW: a pair of Pokemon Black/White
+2 battle sprites. LEFT: the front
+sprite, 3/4 view facing left, floating
+in prayer, the sun and moon behind it.
+RIGHT: the back sprite, the SAME
+creature in the SAME pose with the
+camera moved behind it, as Black/White
+2 shows your own Pokemon: we see its
+split red and violet hair, the silver
+armour back and the circling spirits,
+and it faces up and to the right.
+BOTTOM ROW: 8 overworld follower
+sprites in the same chibi style with
+thick dark outlines, the creature
+standing, left to right: front, front-
+left, left, back-left, back, back-
+right, right, front-right, every frame
+the same size.
+Keep its design exactly as in the
+first image: a slender silver-armoured
+knight-saint praying, eyes closed,
+hair split red and violet, a crown of
+red blood-drop bulbs, a one-eyed sun
+and a sleepy crescent moon behind it,
+a little white unicorn and pink
+serpent-dragon circling. Clear white
+gaps between all sprites.
+```
+
+### R-Y3a. Bloodlux concept
+- **Save as:** `art/concepts/bloodlux_concept.png`  ·  **Shape:** square
+- **Attach:** `art/concepts/neverdyne_concept.png`, `art/prompts/ref/slayr_bloodluxe_cover.webp`
+- **Downloads:** [neverdyne_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/neverdyne_concept.png)
+
+```
+Official artwork of an original
+creature for a creature-collecting
+RPG, in the same clean anime style as
+the first attached image (crisp
+linework, cel shading, soft
+highlights). Full body, flat white
+background, no text.
+Bloodlux: a creature based on the
+second attached album cover: a
+floating glowing orb with a single
+huge red-rimmed eye, swirling red and
+blue energy around it like a storm, a
+thin thread of blood dripping from it
+down to a cluster of five silver
+swords stuck point-down in the ground
+beneath it, a ring of small flames
+around the swords. A pink dragon head
+and a pale horse head made of swirling
+mist curl out from either side of the
+orb. Watchful, strange, intense.
+Pose: 3/4 view facing left, hovering
+above its ring of swords, the eye
+glaring at the viewer, the dragon and
+horse mist curling out.
+Keep it original, not any existing
+Pokemon.
+```
+
+### R-Y3b. Bloodlux sprites + walking sheet (one image)
+- **Save as:** `art/concepts/bloodlux_sprites.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/bloodlux_concept.png` (made above), `art/concepts/neverdyne_sprites.png`
+- **Downloads:** [neverdyne_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/neverdyne_sprites.png)
+
+```
+Redraw the creature in the first
+attached image as pixel-art game
+sprites in ONE image, two rows, in
+exactly the layout, pixel size,
+outline weight and shading of the
+second attached image but a little
+smaller. Flat white background, no
+text, no shadow. Crisp hand-placed
+pixel clusters, flat colour areas with
+clean 2-3 step shading, no dithering,
+no noise, no blur. At most 15 colours
+shared by everything.
+TOP ROW: a pair of Pokemon Black/White
+2 battle sprites. LEFT: the front
+sprite, 3/4 view facing left, hovering
+above its swords, the eye glaring.
+RIGHT: the back sprite, the SAME
+creature in the SAME pose with the
+camera moved behind it, as Black/White
+2 shows your own Pokemon: we see the
+back of the orb, the swirling energy
+and the swords below, and it faces up
+and to the right.
+BOTTOM ROW: 8 overworld follower
+sprites in the same chibi style with
+thick dark outlines, the creature
+standing, left to right: front, front-
+left, left, back-left, back, back-
+right, right, front-right, every frame
+the same size.
+Keep its design exactly as in the
+first image: a floating orb with one
+huge red-rimmed eye, swirling red and
+blue energy, a blood thread down to
+five swords stuck in the ground in a
+ring of flames, a pink dragon head and
+a pale horse head of mist. Clear white
+gaps between all sprites.
+```
+
 ## People
 Townsfolk get the usual sheet (they stand still: two standing frames, no walk sheet). Trainers get the same sheet with a big battle sprite in the middle (cut out for battles).
 
