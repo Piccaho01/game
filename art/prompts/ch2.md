@@ -4495,9 +4495,9 @@ basketball. Clear white gaps between
 all sprites.
 ```
 
-### R-U3a. Plutoid concept
-- **Save as:** `art/concepts/plutoid_concept.png`  ·  **Shape:** square
-- **Attach:** `art/concepts/sayzbun_concept.png`
+### R-U3a. Keyhold concept
+- **Save as:** `art/concepts/keyhold_concept.png`  ·  **Shape:** square
+- **Attach:** `art/concepts/sayzbun_concept.png`, `art/prompts/ref/uzi_ea_keyhole.jpg`, `art/prompts/ref/uzi_ea_cover.jpg`
 - **Downloads:** [sayzbun_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/sayzbun_concept.png)
 
 ```
@@ -4508,30 +4508,38 @@ the first attached image (crisp
 linework, cel shading, soft
 highlights). Full body, flat white
 background, no text.
-Plutoid (Eternal Atake era): a slim
-grey-pink alien creature with three
-faces on a head that rotates like a
-dial: one feral and fanged (Baby
-Pluto) glowing purple, one calm and
-serene surrounded by bright orange
-crystals (Renji), one cocky and
-grinning (Uzi). A big glowing pink
-diamond is set in the middle of its
-forehead. A small silver flying saucer
-hovers above its head shining a pale
-tractor beam down on it, and a tiny
-frozen purple dwarf planet orbits it
-like a pet.
-Pose: 3/4 view facing left, floating
-in the tractor beam, arms out, the
-feral face turned forward.
+Keyhold (Eternal Atake era), based on
+the second and third attached images:
+a living keyhole-shaped portal
+creature. Its body is a tall black
+keyhole shape (a round top on a tall
+triangle) with a glowing rim of cyan,
+magenta and gold, and inside the
+keyhole is a window into deep purple
+starry space with a green-and-blue
+planet curving below. A single big
+glowing star twinkles in the round top
+like an eye. Around the keyhole stand
+three small hooded figures in long
+dark robes with their backs turned,
+gazing in, like faithful followers
+waiting to be taken. A small silver
+flying saucer hovers above it. Eerie,
+cosmic, quiet, mysterious, clearly a
+creature with a face (the star eye),
+not a sign.
+Pose: 3/4 view facing left, the
+keyhole body hovering slightly tilted,
+the star-eye glinting, the three robed
+figures circling slowly around its
+base.
 Keep it original, not any existing
 Pokemon.
 ```
 
-### R-U3b. Plutoid sprites + walking sheet (one image)
-- **Save as:** `art/concepts/plutoid_sprites.png`  ·  **Shape:** landscape
-- **Attach:** `art/concepts/plutoid_concept.png` (made above), `art/concepts/sayzbun_sprites.png`
+### R-U3b. Keyhold sprites + walking sheet (one image)
+- **Save as:** `art/concepts/keyhold_sprites.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/keyhold_concept.png` (made above), `art/concepts/sayzbun_sprites.png`
 - **Downloads:** [sayzbun_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/sayzbun_sprites.png)
 
 ```
@@ -4549,14 +4557,16 @@ no noise, no blur. At most 15 colours
 shared by everything.
 TOP ROW: a pair of Pokemon Black/White
 2 battle sprites. LEFT: the front
-sprite, 3/4 view facing left, floating
-in the tractor beam, arms out. RIGHT:
-the back sprite, the SAME creature in
-the SAME pose with the camera moved
-behind it, as Black/White 2 shows your
-own Pokemon: we see the back of its
-rotating head and the saucer above,
-and it faces up and to the right.
+sprite, 3/4 view facing left, hovering
+tilted, the star-eye glinting, the
+three robed figures around its base.
+RIGHT: the back sprite, the SAME
+creature in the SAME pose with the
+camera moved behind it, as Black/White
+2 shows your own Pokemon: we see the
+black back of the keyhole, its glowing
+rim and the robed figures, and it
+faces up and to the right.
 BOTTOM ROW: 8 overworld follower
 sprites in the same chibi style with
 thick dark outlines, the creature
@@ -4565,13 +4575,13 @@ left, left, back-left, back, back-
 right, right, front-right, every frame
 the same size.
 Keep its design exactly as in the
-first image: a slim grey-pink alien
-with a three-faced rotating head
-(feral purple, calm with orange
-crystals, grinning), a glowing pink
-forehead diamond, a small UFO above it
-shining a beam, a tiny purple planet
-orbiting. Clear white gaps between all
+first image: a hovering black keyhole-
+shaped creature with a cyan, magenta
+and gold glowing rim, starry space and
+a planet inside, a big star for an eye
+in its round top, three small hooded
+robed figures around it, a small UFO
+above. Clear white gaps between all
 sprites.
 ```
 

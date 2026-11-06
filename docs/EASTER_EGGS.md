@@ -108,8 +108,9 @@ Characters from the group's favourite media turn up around Verrow. **Rules (owne
    - **Luvrage** (Dark/Fire, LIR2; from the cover, owner's call): a flat-cartoon creature with a swoop of
      purple hair, one huge white eye, a tiny pink-haired spirit asleep on its head, a psychedelic swirl
      aura, a little basketball. **XO Tour** (stronger the lower its HP).
-   - **Plutoid** (Relic/Dark, Eternal Atake): three-faced alien (Baby Pluto / Renji / Uzi), forehead
-     diamond, UFO beam, tiny Pluto. **Abduction** (foe lifted, can't act, then dropped).
+   - **Keyhold** (Relic/Dark, Eternal Atake; from the keyhole logo and the cover's three robed figures,
+     owner's call): a living keyhole portal with a star eye, space inside, three hooded followers around
+     it, a UFO above. **Abduction** (foe lifted, can't act, then dropped).
    - **Pinkrage** (Fire/Metal, big ace, Pink Tape): punk beast in the flag-jacket colours, guitar axe.
      Ability **Endless Fashion** (alternates attack/defence stance). **Pink Tape** (hits all, may
      confuse).
