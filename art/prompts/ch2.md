@@ -4450,7 +4450,7 @@ Pokemon.
 ### R-U2b. Luvrage sprites + walking sheet (one image)
 - **Save as:** `art/concepts/luvrage_sprites.png`  ·  **Shape:** landscape
 - **Attach:** `art/concepts/luvrage_concept.png` (made above), `art/concepts/sayzbun_sprites.png`
-- **Downloads:** [sayzbun_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/sayzbun_sprites.png)
+- **Downloads:** [luvrage_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/luvrage_concept.png) · [sayzbun_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/sayzbun_sprites.png)
 
 ```
 Redraw the creature in the first
@@ -4540,7 +4540,7 @@ Pokemon.
 ### R-U3b. Keyhold sprites + walking sheet (one image)
 - **Save as:** `art/concepts/keyhold_sprites.png`  ·  **Shape:** landscape
 - **Attach:** `art/concepts/keyhold_concept.png` (made above), `art/concepts/sayzbun_sprites.png`
-- **Downloads:** [sayzbun_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/sayzbun_sprites.png)
+- **Downloads:** [keyhold_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/keyhold_concept.png) · [sayzbun_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/sayzbun_sprites.png)
 
 ```
 Redraw the creature in the first
@@ -4623,7 +4623,7 @@ Pokemon.
 ### R-U4b. Pinkrage sprites + walking sheet (one image)
 - **Save as:** `art/concepts/pinkrage_sprites.png`  ·  **Shape:** landscape
 - **Attach:** `art/concepts/pinkrage_concept.png` (made above), `art/concepts/bassreaper_sprites.png`
-- **Downloads:** [bassreaper_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/bassreaper_sprites.png)
+- **Downloads:** [pinkrage_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/pinkrage_concept.png) · [bassreaper_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/bassreaper_sprites.png)
 
 ```
 Redraw the creature in the first
@@ -4665,6 +4665,608 @@ white stars, a silver chain, a ruffled
 white fur collar, a jagged pink
 guitar. Clear white gaps between all
 sprites.
+```
+
+### R-O1. Tezzus (Ø Way)
+- **Save as:** `art/concepts/trainers/tezzus.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/trainers/uzi.png`, `art/prompts/ref/tezzus.jpg`
+- **Downloads:** [uzi.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/trainers/uzi.png)
+
+```
+Character sheet for a creature-
+collecting RPG in exactly the same
+style and layout as the first attached
+sheet: on the left a full-body anime
+illustration; top right a head close-
+up; middle right a big pixel-art
+trainer battle sprite in Pokemon
+Black/White 2 style, front only, full
+body, 3/4 view facing left, in a
+battle pose; bottom right two small
+pixel-art overworld sprites, standing
+still, in exactly the size and pixel
+style of the small sprites on the
+first sheet: one 3/4 front view facing
+down-left, one 3/4 back view facing
+up-left. Flat white background, no
+text.
+The person is Tezzus, the young
+Atlanta rapper on the LEFT of the
+second attached photo (shirtless, long
+locs): long dark locs, a cocky wide
+grin, tattoos across his chest and
+stomach, an open black jacket worn on
+bare skin, a pink star-shaped iced
+pendant on a thin chain, a studded
+black belt, black trousers. Wild,
+magnetic, preacher-like rage energy.
+Full-body pose: holding the pink star
+pendant up toward the viewer,
+grinning. Battle pose: arms spread
+wide like a sermon, head back,
+screaming, red light behind him.
+Colourway: black, pink, silver, red.
+```
+
+### R-O2. Diamond* (Ø Way)
+- **Save as:** `art/concepts/trainers/diamond.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/trainers/uzi.png`, `art/prompts/ref/diamond.webp`
+- **Downloads:** [uzi.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/trainers/uzi.png)
+
+```
+Character sheet for a creature-
+collecting RPG in exactly the same
+style and layout as the first attached
+sheet: on the left a full-body anime
+illustration; top right a head close-
+up; middle right a big pixel-art
+trainer battle sprite in Pokemon
+Black/White 2 style, front only, full
+body, 3/4 view facing left, in a
+battle pose; bottom right two small
+pixel-art overworld sprites, standing
+still, in exactly the size and pixel
+style of the small sprites on the
+first sheet: one 3/4 front view facing
+down-left, one 3/4 back view facing
+up-left. Flat white background, no
+text.
+The person is Diamond*, the young
+rapper in the second attached photo:
+long thick locs, a calm heavy-lidded
+stare, small crystal face gems on the
+forehead and cheeks, a sharp black
+suit with a white shirt and black tie,
+a lit cigarette held in long fingers.
+Cool, cosmic, a little eerie. Full-
+body pose: leaning on a wall,
+cigarette raised by his face. Battle
+pose: one hand raised palm-out toward
+the viewer, pink stars and sparkles
+bursting around him. Colourway: black,
+white, crystal, hot pink.
+```
+
+### R-O3. Sk8star (Ø Way)
+- **Save as:** `art/concepts/trainers/sk8star.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/trainers/uzi.png`, `art/prompts/ref/sk8star.webp`
+- **Downloads:** [uzi.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/trainers/uzi.png)
+
+```
+Character sheet for a creature-
+collecting RPG in exactly the same
+style and layout as the first attached
+sheet: on the left a full-body anime
+illustration; top right a head close-
+up; middle right a big pixel-art
+trainer battle sprite in Pokemon
+Black/White 2 style, front only, full
+body, 3/4 view facing left, in a
+battle pose; bottom right two small
+pixel-art overworld sprites, standing
+still, in exactly the size and pixel
+style of the small sprites on the
+first sheet: one 3/4 front view facing
+down-left, one 3/4 back view facing
+up-left. Flat white background, no
+text.
+The person is Sk8star, the young
+rapper in the second attached photo:
+long black locs, a cool unbothered
+stare, tattooed hands, a black leather
+jacket over a grey tee with a beaded
+chain, a heavy gold chain with a big
+pendant, light-wash jeans worn over
+black trousers, a leopard-print bag
+hanging from his belt. Full-body pose:
+standing slouched, hands at his belt.
+Battle pose: leaning back, one hand at
+his mouth bending his voice into
+glowing waveforms. Colourway: black,
+grey, gold, leopard.
+```
+
+### R-O4. Pz' (Ø Way)
+- **Save as:** `art/concepts/trainers/pz.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/trainers/uzi.png`, `art/prompts/ref/pz.jpg`
+- **Downloads:** [uzi.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/trainers/uzi.png)
+
+```
+Character sheet for a creature-
+collecting RPG in exactly the same
+style and layout as the first attached
+sheet: on the left a full-body anime
+illustration; top right a head close-
+up; middle right a big pixel-art
+trainer battle sprite in Pokemon
+Black/White 2 style, front only, full
+body, 3/4 view facing left, in a
+battle pose; bottom right two small
+pixel-art overworld sprites, standing
+still, in exactly the size and pixel
+style of the small sprites on the
+first sheet: one 3/4 front view facing
+down-left, one 3/4 back view facing
+up-left. Flat white background, no
+text.
+The person is Pz', the model-turned-
+rapper in the second attached photo:
+very tall and slim with a model's
+build, long braids under a camo
+bandana, a sharp yellow jacket with
+bold black graphic stripes, washed
+jeans, tan work boots. Full-body pose:
+walking toward the viewer like a
+runway, one hand on the jacket. Battle
+pose: frozen mid-pose under a camera
+flash, phone held up for a mirror
+selfie. Colourway: yellow, black,
+camo, denim.
+```
+
+### R-O5. Young Thug, the Slime Reaper
+- **Save as:** `art/concepts/trainers/thug.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/trainers/uzi.png`, `art/prompts/ref/thug.jpg`
+- **Downloads:** [uzi.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/trainers/uzi.png)
+
+```
+Character sheet for a creature-
+collecting RPG in exactly the same
+style and layout as the first attached
+sheet: on the left a full-body anime
+illustration; top right a head close-
+up; middle right a big pixel-art
+trainer battle sprite in Pokemon
+Black/White 2 style, front only, full
+body, 3/4 view facing left, in a
+battle pose; bottom right two small
+pixel-art overworld sprites, standing
+still, in exactly the size and pixel
+style of the small sprites on the
+first sheet: one 3/4 front view facing
+down-left, one 3/4 back view facing
+up-left. Flat white background, no
+text.
+The person is Young Thug in the second
+attached photo: blonde-tipped locs,
+square yellow-tinted sunglasses, a
+thin goatee, a black double-breasted
+suit over a white collar and black
+turtleneck, gold chain bracelets, a
+small slime-green YSL-style snake pin.
+Flamboyant, untouchable, quietly
+menacing. Full-body pose: standing
+relaxed, one hand raised, glancing
+sideways. Battle pose: arms open,
+green slime rising and dripping around
+him. Colourway: black, white, yellow,
+slime green, gold.
+```
+
+### R-O6a. Resurrø concept
+- **Save as:** `art/concepts/resurro_concept.png`  ·  **Shape:** square
+- **Attach:** `art/concepts/bassreaper_concept.png`, `art/prompts/ref/tezzus_resurrection_cover.jpg`
+- **Downloads:** [bassreaper_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/bassreaper_concept.png)
+
+```
+Official artwork of an original
+creature for a creature-collecting
+RPG, in the same clean anime style as
+the first attached image (crisp
+linework, cel shading, soft
+highlights). Full body, flat white
+background, no text.
+Resurrø (Tezzus, from the second
+attached cover "The Resurrection"): a
+gaunt prophet-like spirit creature
+drawn in that harsh black-and-white
+ink style with blood-red accents: long
+dark hair, a crown of red thorns,
+hollow glowing white eyes, a calm
+haunting face, two huge pale hands
+held up beside its face, each palm
+marked with a glowing red slashed-zero
+"Ø" sigil. Its robe is covered in
+scrawled graffiti-like ink lettering,
+and red splatters fly off it. Eerie,
+holy, intense, rage energy.
+Pose: 3/4 view facing left, floating,
+both marked palms raised beside its
+face, hollow eyes staring at the
+viewer.
+Keep it original, not any existing
+Pokemon.
+```
+
+### R-O6b. Resurrø sprites + walking sheet (one image)
+- **Save as:** `art/concepts/resurro_sprites.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/resurro_concept.png` (made above), `art/concepts/bassreaper_sprites.png`
+- **Downloads:** [bassreaper_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/bassreaper_sprites.png)
+
+```
+Redraw the creature in the first
+attached image as pixel-art game
+sprites in ONE image, two rows, in
+exactly the layout, pixel size,
+outline weight and shading of the
+second attached image (a big
+creature). Flat white background, no
+text, no shadow. Crisp hand-placed
+pixel clusters, flat colour areas with
+clean 2-3 step shading, no dithering,
+no noise, no blur. At most 15 colours
+shared by everything.
+TOP ROW: a pair of Pokemon Black/White
+2 battle sprites. LEFT: the front
+sprite, 3/4 view facing left,
+floating, both marked palms raised.
+RIGHT: the back sprite, the SAME
+creature in the SAME pose with the
+camera moved behind it, as Black/White
+2 shows your own Pokemon: we see its
+long hair, the thorn crown and its
+ink-scrawled robe, and it faces up and
+to the right.
+BOTTOM ROW: 8 overworld follower
+sprites in the same chibi style with
+thick dark outlines, the creature
+standing, left to right: front, front-
+left, left, back-left, back, back-
+right, right, front-right, every frame
+the same size.
+Keep its design exactly as in the
+first image: a gaunt ink-style prophet
+spirit with long dark hair, a red
+thorn crown, hollow white eyes, huge
+pale hands with red Ø sigils on the
+palms, an ink-scrawled robe, red
+splatters. Clear white gaps between
+all sprites.
+```
+
+### R-O7a. Scuticon concept
+- **Save as:** `art/concepts/scuticon_concept.png`  ·  **Shape:** square
+- **Attach:** `art/concepts/bassreaper_concept.png`, `art/prompts/ref/diamond_uyscuti_cover.jpg`
+- **Downloads:** [bassreaper_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/bassreaper_concept.png)
+
+```
+Official artwork of an original
+creature for a creature-collecting
+RPG, in the same clean anime style as
+the first attached image (crisp
+linework, cel shading, soft
+highlights). Full body, flat white
+background, no text.
+Scuticon (Diamond*, from the second
+attached cover "UY Scuti Bøyz"): a
+creature whose body is a living
+maximalist collage: a large pale-blue
+sculpted face as its head, with long
+thin white spikes radiating out from
+around its eyes like a star, small
+studs on its forehead and lips, one
+pale hand raised palm-out with a
+triangle mark; its body is a swirling
+patchwork of cut-out stickers, hot-
+pink stars, a tiger, a single giant
+lashed eye, lotus flowers, a little
+gold sports car and cartoon faces, all
+held together with barbed wire.
+Glittering, chaotic, cosmic, hypnotic.
+Pose: 3/4 view facing left, the spiked
+face staring at the viewer, one hand
+raised palm-out, collage pieces
+swirling around it.
+Keep it original, not any existing
+Pokemon.
+```
+
+### R-O7b. Scuticon sprites + walking sheet (one image)
+- **Save as:** `art/concepts/scuticon_sprites.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/scuticon_concept.png` (made above), `art/concepts/bassreaper_sprites.png`
+- **Downloads:** [bassreaper_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/bassreaper_sprites.png)
+
+```
+Redraw the creature in the first
+attached image as pixel-art game
+sprites in ONE image, two rows, in
+exactly the layout, pixel size,
+outline weight and shading of the
+second attached image (a big
+creature). Flat white background, no
+text, no shadow. Crisp hand-placed
+pixel clusters, flat colour areas with
+clean 2-3 step shading, no dithering,
+no noise, no blur. At most 15 colours
+shared by everything.
+TOP ROW: a pair of Pokemon Black/White
+2 battle sprites. LEFT: the front
+sprite, 3/4 view facing left, staring,
+one hand raised, collage pieces
+swirling. RIGHT: the back sprite, the
+SAME creature in the SAME pose with
+the camera moved behind it, as
+Black/White 2 shows your own Pokemon:
+we see the back of its collage body,
+the radiating spikes and barbed wire,
+and it faces up and to the right.
+BOTTOM ROW: 8 overworld follower
+sprites in the same chibi style with
+thick dark outlines, the creature
+standing, left to right: front, front-
+left, left, back-left, back, back-
+right, right, front-right, every frame
+the same size.
+Keep its design exactly as in the
+first image: a pale-blue sculpted face
+with white spikes radiating from its
+eyes, studs, one raised palm, a body
+of swirling collage stickers (pink
+stars, a tiger, a giant eye, flowers,
+a gold car) held with barbed wire.
+Clear white gaps between all sprites.
+```
+
+### R-O8a. Chairman concept
+- **Save as:** `art/concepts/chairman_concept.png`  ·  **Shape:** square
+- **Attach:** `art/concepts/bassreaper_concept.png`, `art/prompts/ref/sk8star_cover.jpg`
+- **Downloads:** [bassreaper_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/bassreaper_concept.png)
+
+```
+Official artwork of an original
+creature for a creature-collecting
+RPG, in the same clean anime style as
+the first attached image (crisp
+linework, cel shading, soft
+highlights). Full body, flat white
+background, no text.
+Chairman (Sk8star, from the second
+attached album cover): a creature that
+is the cover's scene brought to life:
+an ornate antique black wheelchair
+with velvet seat and brass fittings is
+its body, and slouched in it is a
+lanky shadowy dreadlocked imp in jeans
+and boots, smoking, a thin curl of
+smoke rising. Standing right behind
+and fused to the chair's handles is a
+tall, bald, stern valet-spirit in a
+long black military coat with red
+panels, one hand on the imp's
+shoulder. A tiny white owl in a gilded
+birdcage hangs off the chair, and a
+battered leather suitcase is strapped
+to the back. Gothic, old-money, dark,
+stylish, menacing.
+Pose: 3/4 view facing left, the
+wheelchair rolling forward, the imp
+exhaling smoke at the viewer, the
+valet looming behind.
+Keep it original, not any existing
+Pokemon.
+```
+
+### R-O8b. Chairman sprites + walking sheet (one image)
+- **Save as:** `art/concepts/chairman_sprites.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/chairman_concept.png` (made above), `art/concepts/bassreaper_sprites.png`
+- **Downloads:** [bassreaper_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/bassreaper_sprites.png)
+
+```
+Redraw the creature in the first
+attached image as pixel-art game
+sprites in ONE image, two rows, in
+exactly the layout, pixel size,
+outline weight and shading of the
+second attached image (a big
+creature). Flat white background, no
+text, no shadow. Crisp hand-placed
+pixel clusters, flat colour areas with
+clean 2-3 step shading, no dithering,
+no noise, no blur. At most 15 colours
+shared by everything.
+TOP ROW: a pair of Pokemon Black/White
+2 battle sprites. LEFT: the front
+sprite, 3/4 view facing left, rolling
+forward, the imp exhaling smoke, the
+valet looming behind. RIGHT: the back
+sprite, the SAME creature in the SAME
+pose with the camera moved behind it,
+as Black/White 2 shows your own
+Pokemon: we see the back of the
+wheelchair with the suitcase, the
+valet in his red-paneled coat and the
+birdcage, and it faces up and to the
+right.
+BOTTOM ROW: 8 overworld follower
+sprites in the same chibi style with
+thick dark outlines, the creature
+standing, left to right: front, front-
+left, left, back-left, back, back-
+right, right, front-right, every frame
+the same size.
+Keep its design exactly as in the
+first image: an ornate black velvet
+antique wheelchair, a lanky
+dreadlocked smoking imp slouched in
+it, a tall bald valet in a black-and-
+red military coat behind it, a caged
+white owl, a leather suitcase. Clear
+white gaps between all sprites.
+```
+
+### R-O9a. Runwhey concept
+- **Save as:** `art/concepts/runwhey_concept.png`  ·  **Shape:** square
+- **Attach:** `art/concepts/sayzbun_concept.png`, `art/prompts/ref/pz.jpg`
+- **Downloads:** [sayzbun_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/sayzbun_concept.png)
+
+```
+Official artwork of an original
+creature for a creature-collecting
+RPG, in the same clean anime style as
+the first attached image (crisp
+linework, cel shading, soft
+highlights). Full body, flat white
+background, no text.
+Runwhey (Pz'): a very tall, slender,
+elegant gazelle creature with a
+fashion model's posture, long braided
+horns tied with a camo bandana,
+wearing a sharp cropped yellow jacket
+with bold black graphic stripes like
+the second attached photo, long legs
+ending in tan boot-like hooves. Each
+step lights up a little runway of
+light under it, and camera flashes pop
+around it. Cool, aloof, striking.
+Pose: 3/4 view facing left, mid-strut
+on its runway, chin up, one hoof
+forward.
+Keep it original, not any existing
+Pokemon.
+```
+
+### R-O9b. Runwhey sprites + walking sheet (one image)
+- **Save as:** `art/concepts/runwhey_sprites.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/runwhey_concept.png` (made above), `art/concepts/sayzbun_sprites.png`
+- **Downloads:** [sayzbun_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/sayzbun_sprites.png)
+
+```
+Redraw the creature in the first
+attached image as pixel-art game
+sprites in ONE image, two rows, in
+exactly the layout, pixel size,
+outline weight and shading of the
+second attached image (a mid-size
+creature). Flat white background, no
+text, no shadow. Crisp hand-placed
+pixel clusters, flat colour areas with
+clean 2-3 step shading, no dithering,
+no noise, no blur. At most 15 colours
+shared by everything.
+TOP ROW: a pair of Pokemon Black/White
+2 battle sprites. LEFT: the front
+sprite, 3/4 view facing left, mid-
+strut, chin up. RIGHT: the back
+sprite, the SAME creature in the SAME
+pose with the camera moved behind it,
+as Black/White 2 shows your own
+Pokemon: we see its braided horns, the
+bandana and the striped yellow jacket
+from behind, and it faces up and to
+the right.
+BOTTOM ROW: 8 overworld follower
+sprites in the same chibi style with
+thick dark outlines, the creature
+standing, left to right: front, front-
+left, left, back-left, back, back-
+right, right, front-right, every frame
+the same size.
+Keep its design exactly as in the
+first image: a tall slender model-
+gazelle with long braided horns and a
+camo bandana, a cropped yellow jacket
+with black graphic stripes, tan boot
+hooves, a runway of light. Clear white
+gaps between all sprites.
+```
+
+### R-O10a. Slimereaper concept
+- **Save as:** `art/concepts/slimereaper_concept.png`  ·  **Shape:** square
+- **Attach:** `art/concepts/bassreaper_concept.png`, `art/prompts/ref/thug_cover.png`
+- **Downloads:** [bassreaper_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/bassreaper_concept.png) · [thug_cover.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/prompts/ref/thug_cover.png)
+
+```
+Official artwork of an original
+creature for a creature-collecting
+RPG, in the same clean anime style as
+the first attached image (crisp
+linework, cel shading, soft
+highlights). Full body, flat white
+background, no text.
+Slimereaper (Young Thug, from the
+second attached cover): a towering
+reaper made of glossy dripping slime-
+green ooze, with long dark locs, a
+cloth blindfold tied over its eyes
+with green slime tears running down
+from under it, a nose ring, faint
+tattoo marks across its face and neck
+showing through the slime, a long
+flowing elegant gown made of slime,
+and a scythe whose blade is a curved
+sheet of slime. Toxic, beautiful,
+untouchable, a final boss.
+Pose: 3/4 view facing left, head
+tilted up, arms spread, slime dripping
+from the gown, the slime scythe held
+low.
+Keep it original, not any existing
+Pokemon.
+```
+
+### R-O10b. Slimereaper sprites + walking sheet (one image)
+- **Save as:** `art/concepts/slimereaper_sprites.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/slimereaper_concept.png` (made above), `art/concepts/bassreaper_sprites.png`
+- **Downloads:** [bassreaper_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/bassreaper_sprites.png)
+
+```
+Redraw the creature in the first
+attached image as pixel-art game
+sprites in ONE image, two rows, in
+exactly the layout, pixel size,
+outline weight and shading of the
+second attached image (a big boss
+creature). Flat white background, no
+text, no shadow. Crisp hand-placed
+pixel clusters, flat colour areas with
+clean 2-3 step shading, no dithering,
+no noise, no blur. At most 15 colours
+shared by everything.
+TOP ROW: a pair of Pokemon Black/White
+2 battle sprites. LEFT: the front
+sprite, 3/4 view facing left, head
+tilted up, arms spread, scythe low.
+RIGHT: the back sprite, the SAME
+creature in the SAME pose with the
+camera moved behind it, as Black/White
+2 shows your own Pokemon: we see its
+long locs, the blindfold knot and the
+dripping slime gown, and it faces up
+and to the right.
+BOTTOM ROW: 8 overworld follower
+sprites in the same chibi style with
+thick dark outlines, the creature
+standing, left to right: front, front-
+left, left, back-left, back, back-
+right, right, front-right, every frame
+the same size.
+Keep its design exactly as in the
+first image: a towering glossy slime-
+green reaper, long dark locs, a cloth
+blindfold with green slime tears, a
+nose ring, faint face tattoos, a
+flowing slime gown, a slime scythe.
+Clear white gaps between all sprites.
 ```
 
 ## People

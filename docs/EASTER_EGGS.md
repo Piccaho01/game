@@ -80,8 +80,17 @@ Characters from the group's favourite media turn up around Verrow. **Rules (owne
 - **Drake, the 6 God** (Hush; Toronto is next door to Burlington): an owl line (Wind/Dark).
 
 ## Rappers (owner's list, 2026-11-01; designed one at a time)
-1. **Ø Way**: tezzus with rexv2 diamond, sk8star and pz, their gang (a 4-trainer group fight); owned
-   by Young Thug.
+1. **Ø Way** (designed 2026-11-06): Atlanta rage collective founded 2024 by Tezzus and Diamond*, brought
+   into YSL by Young Thug; members Tezzus, Diamond*, Sk8star, Pz' (Rexv2 dropped). Nightmarket rooftop
+   under UY Scuti. Double battle: Tezzus + Diamond* (UY Scuti Bøyz), then Sk8star + Pz'. Lines: Sk8star
+   is all ad-libs; Tezzus: "Y'all on Ø Way turf now."; Pz' poses: "Hold on. Lighting." / "Hedi's bussin'."
+   / "No turning back... except this time."; losing: "...Slime gon' handle this." Looks from the owner's
+   photos (art/prompts/ref). Patchlings from their covers:
+   - **Resurrø** (Relic/Dark; Tezzus, The Resurrection): ink prophet spirit, thorn crown, Ø palms.
+   - **Scuticon** (Relic/Spark; Diamond*, UY Scuti Bøyz): spiked pale-blue face, living collage body.
+   - **Chairman** (Dark/Metal; Sk8star's cover): the wheelchair scene, a smoking imp and a valet in a red
+     military coat, a caged owl.
+   - **Runwhey** (Wind/Dark; Pz'): model gazelle with braided horns, yellow graphic jacket. **Catwalk**.
 2. **Opium vamp gang**: Playboi Carti, Destroy Lonely, Ken Carson (Nightmarket).
 3. **Yeat** (designed 2026-11-06): the CEO of 2093 (Up 2 Më, AftërLyfe, 2093, Lyfestyle, Dangerous
    Summer). Off-stage look (slicked hair, rimless shades, moustache, chains, black silk shirt); stage look
@@ -157,7 +166,13 @@ Characters from the group's favourite media turn up around Verrow. **Rules (owne
      baggy jeans). slayr denies it's his. Signature **Extra Cheese** (a sticky hit that lowers Speed).
      Bestiary: "Is not a burger. Will not stop being called one." 
 8. **Juice WRLD**: they all loved him; Nolan is the ultimate fan (knows every song, unreleased too).
-9. **Young Thug**: YSL's "slime reaper"; the boss over Ø Way.
+9. **Young Thug** (designed 2026-11-06): the Slime Reaper, boss over Ø Way. Blonde-tipped locs,
+   yellow square shades, black double-breasted suit, turtleneck. Speaks slime language (half-scrambled;
+   Callum's Scan translates). "Y'all touched my slimes? ...Slatt." / Dani: "He is wearing a dress?"
+   Haydon: "And he's still harder than you." / losing: "...Slime season over. For now."
+   - **Slimereaper** (Dark/Water, big ace; Slime Season 3 cover): blindfolded slime reaper with locs,
+     slime tears, a slime gown and scythe. Ability **Slime Language** (its moves change type at random).
+     Signature **Slatt** (slime wave, badly poisons).
 10. **Frank Ocean**.
 11. **Travis Scott** (Emberwick; designed 2026-11-02): Astroworld era, runs the Cactus Jack garden on
     the crater's edge, a rollercoaster stage round the volcano. Battle pose: the meme, shirtless, mic up,
