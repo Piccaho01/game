@@ -93,7 +93,9 @@ Characters from the group's favourite media turn up around Verrow. **Rules (owne
    that?" Callum: "Nobody knows, Dani." / losing: "...Dangerous summer, huh." A bell every few turns
    (next move first); at half HP, 2093 mode (team becomes Metal).
    - **Bellwether** (Metal/Spark, small; Up 2 Më): brass bell creature in shades and chains. **Ring**.
-   - **Tonkruck** (Rock/Fire, big; Lyfestyle): luxury-SUV monster truck beast. **Tonka**.
+   - **Tonkabull** (Metal/Rock, big; Lyfestyle): a sleek charging bull shaped like a luxury super-SUV
+     (his 'tonka'), matte black and gold, chrome-wheel hooves, a gold bell. **Tonka** (charging hit).
+     Redone: the monster truck read too close to Wreckoning.
    - **CEO-2093** (Metal/Dark, big ace; 2093): cyborg executive. Ability **Hostile Takeover**. Signature
      **Twizzy** (glitch beam of the foe's weakness). Bestiary: "Bought the future. Charges rent on the
      present." 

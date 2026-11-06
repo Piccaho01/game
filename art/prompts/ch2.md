@@ -4211,8 +4211,8 @@ chains. Clear white gaps between all
 sprites.
 ```
 
-### R-Q3a. Tonkruck concept
-- **Save as:** `art/concepts/tonkruck_concept.png`  ·  **Shape:** square
+### R-Q3a. Tonkabull concept
+- **Save as:** `art/concepts/tonkabull_concept.png`  ·  **Shape:** square
 - **Attach:** `art/concepts/bassreaper_concept.png`
 - **Downloads:** [bassreaper_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/bassreaper_concept.png)
 
@@ -4223,27 +4223,32 @@ RPG, in the same clean anime style as
 the attached image (crisp linework,
 cel shading, soft highlights). Full
 body, flat white background, no text.
-Tonkruck: a hulking living monster-
-truck creature built like a luxury SUV
-turned beast: a black glossy body,
-grill-teeth mouth, headlight eyes
-behind thin rimless sunglasses, giant
-knobbly tyres with flames trailing off
-them, silver chains slung over its
-hood, a little bell hanging from its
-mirror. A wild horse silhouette and a
-burning house glow behind it. Loud,
-rich, reckless.
-Pose: 3/4 view facing left, rearing up
-on its back tyres, flames shooting
-from the wheels.
+Tonkabull: a sleek, powerful charging
+bull whose body is shaped like a
+brand-new luxury super-SUV: smooth
+glossy matte-black and gold body
+panels with sharp angular lines like a
+sports car, two thin slit headlights
+for glowing white eyes behind rimless
+dark sunglasses, polished gold horns,
+low-profile chrome alloy wheels set
+into its legs like hooves, a gold bell
+on a thin chain round its neck, a
+clean spotless finish. Expensive,
+smooth, arrogant and fast, not scrappy
+and not battered: no spikes, no teeth,
+no rust, no fire.
+Pose: 3/4 view facing left, mid-
+charge, head lowered with horns
+forward, wheels spinning, a streak of
+speed lines behind it.
 Keep it original, not any existing
 Pokemon.
 ```
 
-### R-Q3b. Tonkruck sprites + walking sheet (one image)
-- **Save as:** `art/concepts/tonkruck_sprites.png`  ·  **Shape:** landscape
-- **Attach:** `art/concepts/tonkruck_concept.png` (made above), `art/concepts/bassreaper_sprites.png`
+### R-Q3b. Tonkabull sprites + walking sheet (one image)
+- **Save as:** `art/concepts/tonkabull_sprites.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/tonkabull_concept.png` (made above), `art/concepts/bassreaper_sprites.png`
 - **Downloads:** [bassreaper_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/bassreaper_sprites.png)
 
 ```
@@ -4261,14 +4266,14 @@ no noise, no blur. At most 15 colours
 shared by everything.
 TOP ROW: a pair of Pokemon Black/White
 2 battle sprites. LEFT: the front
-sprite, 3/4 view facing left, rearing
-up on its back tyres, flames from the
-wheels. RIGHT: the back sprite, the
-SAME creature in the SAME pose with
-the camera moved behind it, as
-Black/White 2 shows your own Pokemon:
-we see its back bumper, exhaust and
-chains, and it faces up and to the
+sprite, 3/4 view facing left, mid-
+charge, head down, horns forward.
+RIGHT: the back sprite, the SAME
+creature in the SAME pose with the
+camera moved behind it, as Black/White
+2 shows your own Pokemon: we see its
+sleek angular back, tail lights and
+wheels, and it faces up and to the
 right.
 BOTTOM ROW: 8 overworld follower
 sprites in the same chibi style with
@@ -4278,11 +4283,12 @@ left, left, back-left, back, back-
 right, right, front-right, every frame
 the same size.
 Keep its design exactly as in the
-first image: a black luxury-SUV
-monster truck creature with a grill
-mouth, headlight eyes and rimless
-sunglasses, flaming giant tyres,
-silver chains, a little bell. Clear
+first image: a sleek matte-black-and-
+gold bull shaped like a luxury super-
+SUV, slit headlight eyes behind
+rimless shades, gold horns, chrome
+wheel hooves, a gold bell on a chain,
+spotless, no fire or spikes. Clear
 white gaps between all sprites.
 ```
 
