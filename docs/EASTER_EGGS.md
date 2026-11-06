@@ -105,8 +105,9 @@ Characters from the group's favourite media turn up around Verrow. **Rules (owne
    "I got a diamond in my forehead, what you got?" / Dani: "Why he so small but he jump so high?" /
    losing: "...All my friends are dead." (beat) "Nah I'm playin'. GG." Each Patchling switches the stage
    to its era. One Patchling per era:
-   - **Xotour** (Dark/Fire, LIR2): heartbroken alien imp in a hoodie wrapped in Off-White-style yellow
-     caution tape, cracked heart, on a crumbling ledge. **XO Tour** (stronger the lower its HP).
+   - **Luvrage** (Dark/Fire, LIR2; from the cover, owner's call): a flat-cartoon creature with a swoop of
+     purple hair, one huge white eye, a tiny pink-haired spirit asleep on its head, a psychedelic swirl
+     aura, a little basketball. **XO Tour** (stronger the lower its HP).
    - **Plutoid** (Relic/Dark, Eternal Atake): three-faced alien (Baby Pluto / Renji / Uzi), forehead
      diamond, UFO beam, tiny Pluto. **Abduction** (foe lifted, can't act, then dropped).
    - **Pinkrage** (Fire/Metal, big ace, Pink Tape): punk beast in the flag-jacket colours, guitar axe.

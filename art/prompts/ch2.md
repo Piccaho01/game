@@ -4407,9 +4407,9 @@ out, screaming, pink lights.
 Colourway: pink, white, black, silver.
 ```
 
-### R-U2a. Xotour concept
-- **Save as:** `art/concepts/xotour_concept.png`  ·  **Shape:** square
-- **Attach:** `art/concepts/sayzbun_concept.png`
+### R-U2a. Luvrage concept
+- **Save as:** `art/concepts/luvrage_concept.png`  ·  **Shape:** square
+- **Attach:** `art/concepts/sayzbun_concept.png`, `art/prompts/ref/uzi_lir2_cover.jpg`
 - **Downloads:** [sayzbun_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/sayzbun_concept.png)
 
 ```
@@ -4420,29 +4420,36 @@ the first attached image (crisp
 linework, cel shading, soft
 highlights). Full body, flat white
 background, no text.
-Xotour (Luv Is Rage 2 / "XO Tour
-Llif3" era): a small heartbroken alien
-imp with smooth pale green-grey alien
-skin, big glossy black alien eyes with
-dark purple tear streaks, short twisty
-dreads, wearing an oversized black
-hoodie wrapped in bright yellow
-industrial caution tape, a cracked red
-heart hanging on a chain, little black
-boots. It stands at the edge of a tiny
-crumbling ledge. Sad, edgy, dramatic,
-cute.
-Pose: 3/4 view facing left, leaning
-over the edge of its little ledge, one
-arm reaching out, the caution tape
-fluttering.
+Luvrage (Luv Is Rage 2 era), based on
+the cartoon on the second attached
+album cover: a small round-headed
+cartoon creature drawn in that flat
+2000s cartoon style, warm brown skin,
+a big swoop of spiky bright purple
+hair falling over one side of its
+face, one huge round white eye with a
+small black pupil looking up, a tiny
+round nose, a plain white tee. Lying
+asleep on top of its purple hair is a
+tiny pink-haired companion spirit in a
+pink top, denim shorts and roller
+skates. A psychedelic swirl of melting
+purple, teal, pink and orange colour
+flows around it like an aura, and a
+little orange basketball floats by its
+shoulder. Dreamy, lovesick,
+cartoonish, cute.
+Pose: 3/4 view facing left, gazing up
+dreamily, the swirl aura behind it,
+the little pink-haired spirit asleep
+on its hair.
 Keep it original, not any existing
 Pokemon.
 ```
 
-### R-U2b. Xotour sprites + walking sheet (one image)
-- **Save as:** `art/concepts/xotour_sprites.png`  ·  **Shape:** landscape
-- **Attach:** `art/concepts/xotour_concept.png` (made above), `art/concepts/sayzbun_sprites.png`
+### R-U2b. Luvrage sprites + walking sheet (one image)
+- **Save as:** `art/concepts/luvrage_sprites.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/luvrage_concept.png` (made above), `art/concepts/sayzbun_sprites.png`
 - **Downloads:** [sayzbun_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/sayzbun_sprites.png)
 
 ```
@@ -4460,15 +4467,16 @@ no noise, no blur. At most 15 colours
 shared by everything.
 TOP ROW: a pair of Pokemon Black/White
 2 battle sprites. LEFT: the front
-sprite, 3/4 view facing left, leaning
-over the edge, one arm reaching out.
-RIGHT: the back sprite, the SAME
-creature in the SAME pose with the
-camera moved behind it, as Black/White
-2 shows your own Pokemon: we see its
-hoodie wrapped in yellow tape and the
-dreads from behind, and it faces up
-and to the right.
+sprite, 3/4 view facing left, gazing
+up dreamily, the pink-haired spirit
+asleep on its hair. RIGHT: the back
+sprite, the SAME creature in the SAME
+pose with the camera moved behind it,
+as Black/White 2 shows your own
+Pokemon: we see the back of its round
+head, the purple hair and the sleeping
+spirit, and it faces up and to the
+right.
 BOTTOM ROW: 8 overworld follower
 sprites in the same chibi style with
 thick dark outlines, the creature
@@ -4477,12 +4485,14 @@ left, left, back-left, back, back-
 right, right, front-right, every frame
 the same size.
 Keep its design exactly as in the
-first image: a small pale green-grey
-alien imp with big black eyes and
-purple tear streaks, short dreads, a
-black hoodie wrapped in yellow caution
-tape, a cracked red heart on a chain.
-Clear white gaps between all sprites.
+first image: a small flat-cartoon
+creature with brown skin, a big swoop
+of spiky bright purple hair over one
+eye, one huge round white eye, a white
+tee, a tiny pink-haired spirit asleep
+on its hair, a swirl aura and a little
+basketball. Clear white gaps between
+all sprites.
 ```
 
 ### R-U3a. Plutoid concept
