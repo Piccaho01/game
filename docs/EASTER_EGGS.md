@@ -99,7 +99,19 @@ Characters from the group's favourite media turn up around Verrow. **Rules (owne
    - **CEO-2093** (Metal/Dark, big ace; 2093): cyborg executive. Ability **Hostile Takeover**. Signature
      **Twizzy** (glitch beam of the foe's weakness). Bestiary: "Bought the future. Charges rent on the
      present." 
-4. **Lil Uzi Vert**: Eternal Atake era (the forehead diamond).
+4. **Lil Uzi Vert** (designed 2026-11-06): Pink Tape look (spiked hair, forehead diamond, pink/white
+   flag jacket with black star shoulders, ruffled white shirt). Cloud Station rock stage, pink flag, a
+   UFO docked overhead. Lines: "Push me to the edge... nah, I'm the edge." / Haydon: "nah that's cap."
+   "I got a diamond in my forehead, what you got?" / Dani: "Why he so small but he jump so high?" /
+   losing: "...All my friends are dead." (beat) "Nah I'm playin'. GG." Each Patchling switches the stage
+   to its era. One Patchling per era:
+   - **Xotour** (Dark/Fire, LIR2): heartbroken alien imp in a hoodie wrapped in Off-White-style yellow
+     caution tape, cracked heart, on a crumbling ledge. **XO Tour** (stronger the lower its HP).
+   - **Plutoid** (Relic/Dark, Eternal Atake): three-faced alien (Baby Pluto / Renji / Uzi), forehead
+     diamond, UFO beam, tiny Pluto. **Abduction** (foe lifted, can't act, then dropped).
+   - **Pinkrage** (Fire/Metal, big ace, Pink Tape): punk beast in the flag-jacket colours, guitar axe.
+     Ability **Endless Fashion** (alternates attack/defence stance). **Pink Tape** (hits all, may
+     confuse).
 5. **Che, "the Bass God"** (designed 2026-11-06): Atlanta rage rapper/producer (aliases BASS GOD, BASS
    KILLER; closed captions, Sayso Says, Rest In Bass 2025, Encore). Metallic gothic Rick Owens look,
    eye make-up, tattoos, purple trousers, leather shirt, knee-high platform boots, the Sayso Says bunny

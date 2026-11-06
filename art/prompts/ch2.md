@@ -4170,7 +4170,7 @@ Pokemon.
 ### R-Q2b. Bellwether sprites + walking sheet (one image)
 - **Save as:** `art/concepts/bellwether_sprites.png`  ·  **Shape:** landscape
 - **Attach:** `art/concepts/bellwether_concept.png` (made above), `art/concepts/sayzbun_sprites.png`
-- **Downloads:** [sayzbun_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/sayzbun_sprites.png)
+- **Downloads:** [bellwether_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/bellwether_concept.png) · [sayzbun_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/sayzbun_sprites.png)
 
 ```
 Redraw the creature in the first
@@ -4249,7 +4249,7 @@ Pokemon.
 ### R-Q3b. Tonkabull sprites + walking sheet (one image)
 - **Save as:** `art/concepts/tonkabull_sprites.png`  ·  **Shape:** landscape
 - **Attach:** `art/concepts/tonkabull_concept.png` (made above), `art/concepts/bassreaper_sprites.png`
-- **Downloads:** [bassreaper_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/bassreaper_sprites.png)
+- **Downloads:** [tonkabull_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/tonkabull_concept.png) · [bassreaper_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/bassreaper_sprites.png)
 
 ```
 Redraw the creature in the first
@@ -4324,7 +4324,7 @@ Pokemon.
 ### R-Q4b. CEO-2093 sprites + walking sheet (one image)
 - **Save as:** `art/concepts/ceo2093_sprites.png`  ·  **Shape:** landscape
 - **Attach:** `art/concepts/ceo2093_concept.png` (made above), `art/concepts/bassreaper_sprites.png`
-- **Downloads:** [bassreaper_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/bassreaper_sprites.png)
+- **Downloads:** [ceo2093_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/ceo2093_concept.png) · [bassreaper_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/bassreaper_sprites.png)
 
 ```
 Redraw the creature in the first
@@ -4363,6 +4363,288 @@ neon circuit lines, a bell-shaped
 crest, claw hands, a cable cape,
 holographic charts. Clear white gaps
 between all sprites.
+```
+
+### R-U1. Lil Uzi Vert, Pink Tape era (Easter egg trainer, Cloud Station)
+- **Save as:** `art/concepts/trainers/uzi.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/trainers/yeat.png`, `art/prompts/ref/uzi_pinktape.jpg`
+- **Downloads:** [yeat.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/trainers/yeat.png)
+
+```
+Character sheet for a creature-
+collecting RPG in exactly the same
+style and layout as the first attached
+sheet: on the left a full-body anime
+illustration; top right a head close-
+up; middle right a big pixel-art
+trainer battle sprite in Pokemon
+Black/White 2 style, front only, full
+body, 3/4 view facing left, in a
+battle pose; bottom right two small
+pixel-art overworld sprites, standing
+still, in exactly the size and pixel
+style of the small sprites on the
+first sheet: one 3/4 front view facing
+down-left, one 3/4 back view facing
+up-left. Flat white background, no
+text.
+The person is Lil Uzi Vert in his Pink
+Tape era, exactly as in the second
+attached photo: wild black hair spiked
+straight out in every direction, a
+pink diamond in the middle of his
+forehead, face tattoos and piercings,
+a small wiry build, a jacket styled
+like a pink-and-white striped flag
+with black shoulders covered in white
+stars, a white ruffled shirt, a long
+silver chain with an iced pendant,
+white trousers. Full-body pose: head
+bowed, arms loose at his sides, too
+cool. Battle pose: jumping high off
+the stage, an electric guitar swung
+out, screaming, pink lights.
+Colourway: pink, white, black, silver.
+```
+
+### R-U2a. Xotour concept
+- **Save as:** `art/concepts/xotour_concept.png`  ·  **Shape:** square
+- **Attach:** `art/concepts/sayzbun_concept.png`
+- **Downloads:** [sayzbun_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/sayzbun_concept.png)
+
+```
+Official artwork of an original
+creature for a creature-collecting
+RPG, in the same clean anime style as
+the first attached image (crisp
+linework, cel shading, soft
+highlights). Full body, flat white
+background, no text.
+Xotour (Luv Is Rage 2 / "XO Tour
+Llif3" era): a small heartbroken alien
+imp with smooth pale green-grey alien
+skin, big glossy black alien eyes with
+dark purple tear streaks, short twisty
+dreads, wearing an oversized black
+hoodie wrapped in bright yellow
+industrial caution tape, a cracked red
+heart hanging on a chain, little black
+boots. It stands at the edge of a tiny
+crumbling ledge. Sad, edgy, dramatic,
+cute.
+Pose: 3/4 view facing left, leaning
+over the edge of its little ledge, one
+arm reaching out, the caution tape
+fluttering.
+Keep it original, not any existing
+Pokemon.
+```
+
+### R-U2b. Xotour sprites + walking sheet (one image)
+- **Save as:** `art/concepts/xotour_sprites.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/xotour_concept.png` (made above), `art/concepts/sayzbun_sprites.png`
+- **Downloads:** [sayzbun_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/sayzbun_sprites.png)
+
+```
+Redraw the creature in the first
+attached image as pixel-art game
+sprites in ONE image, two rows, in
+exactly the layout, pixel size,
+outline weight and shading of the
+second attached image (a small
+creature). Flat white background, no
+text, no shadow. Crisp hand-placed
+pixel clusters, flat colour areas with
+clean 2-3 step shading, no dithering,
+no noise, no blur. At most 15 colours
+shared by everything.
+TOP ROW: a pair of Pokemon Black/White
+2 battle sprites. LEFT: the front
+sprite, 3/4 view facing left, leaning
+over the edge, one arm reaching out.
+RIGHT: the back sprite, the SAME
+creature in the SAME pose with the
+camera moved behind it, as Black/White
+2 shows your own Pokemon: we see its
+hoodie wrapped in yellow tape and the
+dreads from behind, and it faces up
+and to the right.
+BOTTOM ROW: 8 overworld follower
+sprites in the same chibi style with
+thick dark outlines, the creature
+standing, left to right: front, front-
+left, left, back-left, back, back-
+right, right, front-right, every frame
+the same size.
+Keep its design exactly as in the
+first image: a small pale green-grey
+alien imp with big black eyes and
+purple tear streaks, short dreads, a
+black hoodie wrapped in yellow caution
+tape, a cracked red heart on a chain.
+Clear white gaps between all sprites.
+```
+
+### R-U3a. Plutoid concept
+- **Save as:** `art/concepts/plutoid_concept.png`  ·  **Shape:** square
+- **Attach:** `art/concepts/sayzbun_concept.png`
+- **Downloads:** [sayzbun_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/sayzbun_concept.png)
+
+```
+Official artwork of an original
+creature for a creature-collecting
+RPG, in the same clean anime style as
+the first attached image (crisp
+linework, cel shading, soft
+highlights). Full body, flat white
+background, no text.
+Plutoid (Eternal Atake era): a slim
+grey-pink alien creature with three
+faces on a head that rotates like a
+dial: one feral and fanged (Baby
+Pluto) glowing purple, one calm and
+serene surrounded by bright orange
+crystals (Renji), one cocky and
+grinning (Uzi). A big glowing pink
+diamond is set in the middle of its
+forehead. A small silver flying saucer
+hovers above its head shining a pale
+tractor beam down on it, and a tiny
+frozen purple dwarf planet orbits it
+like a pet.
+Pose: 3/4 view facing left, floating
+in the tractor beam, arms out, the
+feral face turned forward.
+Keep it original, not any existing
+Pokemon.
+```
+
+### R-U3b. Plutoid sprites + walking sheet (one image)
+- **Save as:** `art/concepts/plutoid_sprites.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/plutoid_concept.png` (made above), `art/concepts/sayzbun_sprites.png`
+- **Downloads:** [sayzbun_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/sayzbun_sprites.png)
+
+```
+Redraw the creature in the first
+attached image as pixel-art game
+sprites in ONE image, two rows, in
+exactly the layout, pixel size,
+outline weight and shading of the
+second attached image (a mid-size
+creature). Flat white background, no
+text, no shadow. Crisp hand-placed
+pixel clusters, flat colour areas with
+clean 2-3 step shading, no dithering,
+no noise, no blur. At most 15 colours
+shared by everything.
+TOP ROW: a pair of Pokemon Black/White
+2 battle sprites. LEFT: the front
+sprite, 3/4 view facing left, floating
+in the tractor beam, arms out. RIGHT:
+the back sprite, the SAME creature in
+the SAME pose with the camera moved
+behind it, as Black/White 2 shows your
+own Pokemon: we see the back of its
+rotating head and the saucer above,
+and it faces up and to the right.
+BOTTOM ROW: 8 overworld follower
+sprites in the same chibi style with
+thick dark outlines, the creature
+standing, left to right: front, front-
+left, left, back-left, back, back-
+right, right, front-right, every frame
+the same size.
+Keep its design exactly as in the
+first image: a slim grey-pink alien
+with a three-faced rotating head
+(feral purple, calm with orange
+crystals, grinning), a glowing pink
+forehead diamond, a small UFO above it
+shining a beam, a tiny purple planet
+orbiting. Clear white gaps between all
+sprites.
+```
+
+### R-U4a. Pinkrage concept
+- **Save as:** `art/concepts/pinkrage_concept.png`  ·  **Shape:** square
+- **Attach:** `art/concepts/bassreaper_concept.png`, `art/prompts/ref/uzi_pinktape.jpg`
+- **Downloads:** [bassreaper_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/bassreaper_concept.png)
+
+```
+Official artwork of an original
+creature for a creature-collecting
+RPG, in the same clean anime style as
+the first attached image (crisp
+linework, cel shading, soft
+highlights). Full body, flat white
+background, no text.
+Pinkrage (Pink Tape era): a hulking
+punk-rock beast based on the second
+attached photo: black spiky hair-like
+quills shooting straight out of its
+head in every direction, a pink
+diamond embedded in its forehead, a
+striped hide in hot pink and white
+like a flag, black shoulder plates
+covered in white star markings, a long
+silver chain with an iced pendant, a
+ruffled white collar of fur. It swings
+a jagged pink electric guitar like an
+axe, and pink flame and sound blast
+off it. Loud, wild, rock-star menace,
+a final boss.
+Pose: 3/4 view facing left, mid-leap,
+swinging the guitar overhead, quills
+flaring.
+Keep it original, not any existing
+Pokemon.
+```
+
+### R-U4b. Pinkrage sprites + walking sheet (one image)
+- **Save as:** `art/concepts/pinkrage_sprites.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/pinkrage_concept.png` (made above), `art/concepts/bassreaper_sprites.png`
+- **Downloads:** [bassreaper_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/bassreaper_sprites.png)
+
+```
+Redraw the creature in the first
+attached image as pixel-art game
+sprites in ONE image, two rows, in
+exactly the layout, pixel size,
+outline weight and shading of the
+second attached image (a big boss
+creature). Flat white background, no
+text, no shadow. Crisp hand-placed
+pixel clusters, flat colour areas with
+clean 2-3 step shading, no dithering,
+no noise, no blur. At most 15 colours
+shared by everything.
+TOP ROW: a pair of Pokemon Black/White
+2 battle sprites. LEFT: the front
+sprite, 3/4 view facing left, mid-
+leap, swinging the guitar overhead.
+RIGHT: the back sprite, the SAME
+creature in the SAME pose with the
+camera moved behind it, as Black/White
+2 shows your own Pokemon: we see its
+star-covered shoulders, striped back
+and spiky quills, and it faces up and
+to the right.
+BOTTOM ROW: 8 overworld follower
+sprites in the same chibi style with
+thick dark outlines, the creature
+standing, left to right: front, front-
+left, left, back-left, back, back-
+right, right, front-right, every frame
+the same size.
+Keep its design exactly as in the
+first image: a hulking punk-rock beast
+with black spiky quills, a pink
+forehead diamond, a pink-and-white
+striped hide, black shoulders with
+white stars, a silver chain, a ruffled
+white fur collar, a jagged pink
+guitar. Clear white gaps between all
+sprites.
 ```
 
 ## People
