@@ -3754,6 +3754,81 @@ a pale horse head of mist. Clear white
 gaps between all sprites.
 ```
 
+### R-Y4a. Burgr concept (slayr's joke one)
+- **Save as:** `art/concepts/burgr_concept.png`  ·  **Shape:** square
+- **Attach:** `art/concepts/dropbear_concept.png`
+- **Downloads:** [dropbear_concept.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/dropbear_concept.png)
+
+```
+Official artwork of an original
+creature for a creature-collecting
+RPG, in the same clean anime style as
+the attached image (crisp linework,
+cel shading, soft highlights). Full
+body, flat white background, no text.
+Burgr: a small, scruffy, slightly
+chubby cheeseburger creature: a
+squished sesame bun top worn like a
+red trucker cap tilted on its head, a
+thick patty body with melted cheese
+dripping down like a messy shirt, a
+lettuce frill skirt, tiny stubby arms
+and legs in oversized baggy washed-
+grey jeans, chunky little sneakers, a
+small star belt buckle. A grumpy,
+offended little face like it's sick of
+being called a burger. Funny, a bit
+pathetic, lovable.
+Pose: 3/4 view facing left, arms
+crossed, pouting, a drip of cheese
+falling off it.
+Keep it original, not any existing
+Pokemon.
+```
+
+### R-Y4b. Burgr sprites + walking sheet (one image)
+- **Save as:** `art/concepts/burgr_sprites.png`  ·  **Shape:** landscape
+- **Attach:** `art/concepts/burgr_concept.png` (made above), `art/concepts/dropbear_sprites.png`
+- **Downloads:** [dropbear_sprites.png](https://github.com/Piccaho01/game/raw/claude/ch2-kettleport/art/concepts/dropbear_sprites.png)
+
+```
+Redraw the creature in the first
+attached image as pixel-art game
+sprites in ONE image, two rows, in
+exactly the layout, pixel size,
+outline weight and shading of the
+second attached image (a small
+creature). Flat white background, no
+text, no shadow. Crisp hand-placed
+pixel clusters, flat colour areas with
+clean 2-3 step shading, no dithering,
+no noise, no blur. At most 15 colours
+shared by everything.
+TOP ROW: a pair of Pokemon Black/White
+2 battle sprites. LEFT: the front
+sprite, 3/4 view facing left, arms
+crossed, pouting. RIGHT: the back
+sprite, the SAME creature in the SAME
+pose with the camera moved behind it,
+as Black/White 2 shows your own
+Pokemon: we see the back of the bun
+cap, the patty and the baggy jeans,
+and it faces up and to the right.
+BOTTOM ROW: 8 small overworld follower
+sprites (chibi, thick dark outline),
+the creature standing, left to right:
+front, front-left, left, back-left,
+back, back-right, right, front-right,
+every frame the same size.
+Keep its design exactly as in the
+first image: a small scruffy
+cheeseburger with a tilted bun trucker
+cap, dripping cheese, lettuce frill,
+baggy grey jeans, chunky sneakers, a
+star buckle, a grumpy pout. Clear
+white gaps between all sprites.
+```
+
 ## People
 Townsfolk get the usual sheet (they stand still: two standing frames, no walk sheet). Trainers get the same sheet with a big battle sprite in the middle (cut out for battles).
 

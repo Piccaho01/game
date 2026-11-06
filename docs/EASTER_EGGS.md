@@ -112,6 +112,9 @@ Characters from the group's favourite media turn up around Verrow. **Rules (owne
      red and violet, blood-drop crown, eyed sun and sleepy moon, unicorn and pink dragon spirits. Ability
      **Half Blood** (below half HP: big Attack boost).
    - **Bloodlux** (Dark/Fire): the BloodLuxe cover's eye orb over a ring of swords, dragon and horse mist.
+   - **Burgr** (Fire, small, the joke): a grumpy little cheeseburger dressed like slayr (bun trucker cap,
+     baggy jeans). slayr denies it's his. Signature **Extra Cheese** (a sticky hit that lowers Speed).
+     Bestiary: "Is not a burger. Will not stop being called one." 
 8. **Juice WRLD**: they all loved him; Nolan is the ultimate fan (knows every song, unreleased too).
 9. **Young Thug**: YSL's "slime reaper"; the boss over Ø Way.
 10. **Frank Ocean**.
